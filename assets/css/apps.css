@@ -1,0 +1,54 @@
+
+/* Primary Color #1b64b3
+Primary Hover Color #11549b */
+
+.btn-primary, .wizard > .actions a {
+  color: #fff;
+  background-color: #1b64b3;
+  border-color: #1b64b3;
+}
+
+
+.btn-primary:hover, .wizard > .actions a:hover {
+  color: #fff;
+  background-color: #11549b;
+  border-color: #11549b;
+}
+
+
+.navbar .navbar-menu-wrapper .navbar-nav .nav-item.dropdown .count-indicator .count {
+  background: #1b64b3;
+}
+
+.text-primary, .list-wrapper .completed .remove {
+  color: #1b64b3 !important;
+}
+
+.sidebar .nav:not(.sub-menu) > .nav-item:hover > .nav-link, .sidebar .nav:not(.sub-menu) > .nav-item:hover[aria-expanded="true"] {
+  background: #1b64b3;
+}
+
+.sidebar .nav.sub-menu {background: #1b64b3;}
+
+.sidebar .nav:not(.sub-menu) > .nav-item > .nav-link[aria-expanded="true"] {
+  background: #1b64b3;}
+
+.sidebar .nav .nav-item .nav-link i.menu-icon {color: #fff;}
+
+.table th, .jsgrid .jsgrid-table th, .table td, .jsgrid .jsgrid-table td {padding: 1.125rem 10px;}
+.society_th_1{width: 100%; max-width: 70px;}
+.society_th_2{width: 100%; max-width: 250px;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -68,14 +68,14 @@
               <table class="table table-striped"  id=""  style="width:100%">
                 <thead>
                   <tr>
-                    <th>SL No</th>
-                    <th>Society Name</th>
-                    <th>Range</th>
-                    <th>Zone Code</th>
-                    <th>District Code</th>
-                    <th>Registration Number</th>
-                    <th>Tier Code</th>
-                    <th>Society Type</th>
+                    <th class="society_th_1">SL No</th>
+                    <th class="society_th_2">Society Name</th>
+                    <th class="society_th_3">Range</th>
+                    <th class="society_th_4">Zone Code</th>
+                    <th class="society_th_5">District Code</th>
+                    <th class="society_th_6">Registration Number</th>
+                    <th class="society_th_7">Tier Code</th>
+                    <th class="society_th_8">Society Type</th>
                   </tr>
                 </thead>
                 <tbody id="item-list">
@@ -89,7 +89,11 @@
                           <td><%= dt.soc_type_name %></td>
                           <td><%= dt.soc_type_name %></td>
                           <td><%= dt.soc_type_name %></td>
-                          <td><a href="/society/edit?id=<%= dt.id %>"><%= dt.cop_soc_name %></a></td>
+                          <td>
+                            <!-- <a href="/society/edit?id=<%= dt.id %>"> -->
+                              <%= dt.cop_soc_name %>
+                            <!-- </a> -->
+                          </td>
                           <td><%= dt.reg_no %></td>
                       </tr>
                   <% }) %>
@@ -121,32 +125,32 @@
               </ul>
           </nav> -->
 
-          <nav aria-label="Page navigation">
-            <ul class="pagination" id="pagination">
-                <!-- Previous Button -->
-                <li class="page-item <%= page === 1 ? 'disabled' : '' %>">
-                    <a class="page-link" href="#" data-page="<%= page - 1 %>" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                
-                <!-- Page Numbers -->
-                <% for (let p = 1; p <= totalPages; p++) { %>
-                    <li class="page-item <%= p == page ? 'active' : '' %>">
-                        <a class="page-link" href="#" data-page="<%= p %>"><%= p %></a>
-                    </li>
-                <% } %>
-                
-                <!-- Next Button -->
-                <li class="page-item <%= page === totalPages ? 'disabled' : '' %>">
-                    <a class="page-link" href="#" data-page="<%= page + 1 %>" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
+          
         
             </div>
+
+            <!-- <nav aria-label="Page navigation">
+              <ul class="pagination" id="pagination">
+                  <li class="page-item <%= page === 1 ? 'disabled' : '' %>">
+                      <a class="page-link" href="#" data-page="<%= page - 1 %>" aria-label="Previous">
+                          <span aria-hidden="true">&laquo;</span>
+                      </a>
+                  </li>
+                  
+                  <% for (let p = 1; p <= totalPages; p++) { %>
+                      <li class="page-item <%= p == page ? 'active' : '' %>">
+                          <a class="page-link" href="#" data-page="<%= p %>"><%= p %></a>
+                      </li>
+                  <% } %>
+                  
+                  <li class="page-item <%= page === totalPages ? 'disabled' : '' %>">
+                      <a class="page-link" href="#" data-page="<%= page + 1 %>" aria-label="Next">
+                          <span aria-hidden="true">&raquo;</span>
+                      </a>
+                  </li>
+              </ul>
+          </nav> -->
+          
           </div>
         </div>
       </div>
