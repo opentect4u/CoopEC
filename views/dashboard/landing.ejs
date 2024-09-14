@@ -1,20 +1,30 @@
 <div class="row">
     <div class="col-md-12 grid-margin">
+      <form class="forms-sample" action="/dash/dashboard" method="post" >
         <div class="row">
           <div class="col-md-4">
             <div class="form-group">
               <label for="exampleInputName1">Department</label>
-                 <select class="form-control" id="vill_id" name="vill_id" required>
-                  <option value="0">Select </option>
-                
+              <select class="form-control" id="cntr_auth_type" name="cntr_auth_type" required>
+                <option value="0">Select Department</option>
+                <% if(regauthtypelist.length > 0){
+                  var i = 1
+                  regauthtypelist.forEach(dt => { %>
+                  <option value="<%= dt.controlling_authority_type_id %>" ><%= dt.controlling_authority_type_name %></option>
+                    <% }) } %>
               </select>
             </div>
           </div>
           <div class="col-md-4">
             <div class="form-group">
               <label for="exampleInputName1">Range Code</label>
-                 <select class="form-control" id="vill_id" name="vill_id" required>
+                 <select class="form-control" id="range_code" name="range_code" required>
                   <option value="0">Select </option>
+                  <% if(ranzelist.length > 0){
+                    var i = 1
+                    ranzelist.forEach(dt => { %>
+                    <option value="<%= dt.range_id %>" ><%= dt.range_name %></option>
+                      <% }) } %>
               </select>
             </div>
           </div>
@@ -22,24 +32,36 @@
           <div class="col-md-4">
             <div class="form-group">
               <label for="exampleInputName1">URBAN/RURAL</label>
-                 <select class="form-control" id="vill_id" name="vill_id" required>
+                 <select class="form-control" id="urban_rural_flag" name="urban_rural_flag" >
                   <option value="0">Select </option>
+                  <option value="U">URBAN</option>
+                  <option value="R">RURAL</option>
               </select>
             </div>
           </div>
           <div class="col-md-4">
             <div class="form-group">
               <label for="exampleInputName1">Block</label>
-                 <select class="form-control" id="vill_id" name="vill_id" required>
-                  <option value="0">Select </option>
+              <select class="form-control select2" id="block_id" name="block_id" >
+                <option value="0">Select Block </option>
+                <% if(blocklist.length > 0){
+                  var i = 1
+                  blocklist.forEach(dt => { %>
+                  <option value="<%= dt.block_id %>" ><%= dt.block_name %></option>
+                    <% }) } %>
               </select>
             </div>
           </div>
           <div class="col-md-4">
             <div class="form-group">
               <label for="exampleInputName1">Category of Urban Local Body</label>
-                 <select class="form-control" id="vill_id" name="vill_id" required>
-                  <option value="0">Select </option>
+              <select class="form-control" id="ulb_catg" name="ulb_catg" >
+                <option value="0">Select Urban Local Body </option>
+                <% if(ulbcatglist.length > 0){
+                  var i = 1
+                  ulbcatglist.forEach(dt => { %>
+                  <option value="<%= dt.ulb_catg_id %>" ><%= dt.ulb_catg_name %></option>
+                    <% }) } %>
               </select>
             </div>
           </div>
@@ -55,8 +77,8 @@
               <button class="btn btn-primary">Submit</button>
             </div>
           </div>
-           
         </div>
+      </form>
     </div>
 </div>
 <div class="row">
