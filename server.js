@@ -1,6 +1,7 @@
 const express = require("express"),
+session = require("express-session"),
     app = express(),
-    session = require("express-session"),
+    
     expressLayouts = require("express-ejs-layouts"),
     path = require("path"),
     port = process.env.PORT || 3000;
@@ -36,6 +37,7 @@ app.use(
 
 app.use((req, res, next) => {
   res.locals.user = req.session.user;
+  //res.locals.range_id = req.session.user.range_id || null;
   res.locals.path = req.path;
   res.locals.message = req.session.message;
   delete req.session.message;

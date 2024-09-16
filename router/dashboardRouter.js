@@ -25,16 +25,29 @@ DashboardRouter.get('/dashboard', async(req, res) => {
         const total = countResult.msg[0].total;
         const totalPages = Math.ceil(total / 25);
         const regauttypehres = await db_Select('*', 'md_controlling_authority_type', null, null);
-        const ranzeres = await db_Select('*', 'md_range', `range_id='${range_id}'`, null);
-        const results = await db_Select('*', 'md_range', null, null);
-        const distcode = ranzeres.msg[0].dist_id > 0 ? ranzeres.msg[0].dist_id : 0;
-        const blockres = await db_Select('*', 'md_block',  `dist_id='${distcode}'`, null);
+        const zoneres = await db_Select('*', 'md_zone', null, null);
+        const ranzeres = await db_Select('*', 'md_range', null, null);
+        let blockres = { suc: 0, msg: [] };
+        if(range_id > 0){
+          const results = await db_Select('*', 'md_range', `range_id = '${range_id}'`, null);
+          const distcode = results.msg[0].dist_id > 0 ? ranzeres.msg[0].dist_id : 0;
+          const blockres = await db_Select('*', 'md_block',  `dist_id='${distcode}'`, null);
+        
+        }else{
+          const blockres = await db_Select('*', 'md_block',  'dist_id=0', null);
+        }
+        
         const ulbcatgres = await db_Select('*', 'md_ulb_catg', null, null);
+        const soctierres = await db_Select('*', 'md_soc_tier', null, null);
+        const soctietype = await db_Select('*', 'md_society_type', null, null);
+        const distres = await db_Select('*', 'md_district', null, null);
         // Prepare data for rendering
         const res_dt = {
           data: result.suc > 0 ? result.msg : '',page: 1,totalPages:totalPages,
           regauthtypelist: regauttypehres.suc > 0 ? regauttypehres.msg : '',ranzelist: ranzeres.suc > 0 ? ranzeres.msg : '',
-          blocklist:blockres.suc > 0 ? blockres.msg : '',ulbcatglist: ulbcatgres.suc > 0 ? ulbcatgres.msg : ''
+          blocklist:blockres.suc > 0 ? blockres.msg : '',ulbcatglist: ulbcatgres.suc > 0 ? ulbcatgres.msg : '',
+          soctierlist:soctierres.suc > 0 ? soctierres.msg : '', soctietypelist:soctietype.suc > 0 ? soctietype.msg : '',
+          zonereslist:zoneres.suc > 0 ? zoneres.msg : '',distlist:distres.suc > 0 ? distres.msg : ''
         };
         // Render the view with data
         res.render('dashboard/landing', res_dt);
@@ -48,8 +61,13 @@ DashboardRouter.get('/dashboard', async(req, res) => {
 DashboardRouter.post('/dashboard', async(req, res) => {
   try {
       // Extract range_id from session
-     
+    
       const range_id = req.session.user.range_id;
+      if(range_id == 0){
+        const  user_type =  1;
+      }else{
+        const  user_type =  2;
+      }
       var formdata = req.body;
       const select = "a.id,a.cop_soc_name,a.reg_no,b.soc_type_name";
       const table_name = "md_society a,md_society_type b";
@@ -59,16 +77,36 @@ DashboardRouter.post('/dashboard', async(req, res) => {
       var con3 = formdata.urban_rural_flag > 0 ? `AND urban_rural_flag=${formdata.urban_rural_flag}` : '';
       var con4 = formdata.block_id > 0 ? `AND block_id=${formdata.block_id}` : '';
       var con5 = formdata.ulb_catg > 0 ? `AND ulb_catg=${formdata.ulb_catg}` : '';
-     
+      var con6 = formdata.soc_tier > 0 ? `AND soc_tier=${formdata.soc_tier} ` : '';
+      var con7 = formdata.soc_type > 0 ? `AND soc_type=${formdata.soc_type}` : '';
       if (formdata.socname && formdata.socname.trim() !== '') {
-        var con6 = `AND cop_soc_name LIKE '%${formdata.socname}%' `;
+        var con8 = `AND cop_soc_name LIKE '%${formdata.socname}%' `;
       }else{
-        var con6 = '';
+        var con8 = '';
       }
-   //   var con2 = formdata > 0 ? `OR cntr_auth_type=${formdata.cntr_auth_type}` : '';
-      var maincon = con1+con2+con3+con4+con5+con6;
-       
-      const whr = `a.soc_type=b.soc_type_id AND a.range_code='${range_id}' ${maincon} LIMIT 25`;
+    //   if (formdata && formdata.zone_code) {
+    //     var con9 = `AND zone_code=${formdata.zone_code}`;
+    // } else {
+    //     var con9 = '';
+    // }
+   
+    var con9 = '';
+     // Example checking and converting object properties
+            if (formdata && formdata.dist_code) {
+           
+              var con10 = formdata.dist_code > 0 ? `AND dist_code='${formdata.dist_code}' ` : '';
+             
+            } else {
+              var con10 = '';
+            }
+
+      var maincon = con1+con2+con3+con4+con5+con6+con7+con8+con9+con10;
+      if(range_id > 0 ){
+        var whr = `a.soc_type=b.soc_type_id AND a.range_code='${range_id}' ${maincon} LIMIT 25`;
+      }else{
+        var whr = `a.soc_type=b.soc_type_id ${maincon} LIMIT 25`;
+      }
+      
       const order = null;
   
       // Execute database query
@@ -81,14 +119,24 @@ DashboardRouter.post('/dashboard', async(req, res) => {
       const regauttypehres = await db_Select('*', 'md_controlling_authority_type', null, null);
       const ranzeres = await db_Select('*', 'md_range', `range_id='${range_id}'`, null);
       const results = await db_Select('*', 'md_range', null, null);
+      let blockres = { suc: 0, msg: [] };
+      if(range_id > 0){
       const distcode = ranzeres.msg[0].dist_id > 0 ? ranzeres.msg[0].dist_id : 0;
       const blockres = await db_Select('*', 'md_block',  `dist_id='${distcode}'`, null);
+      }else{
+        const blockres = await db_Select('*', 'md_block',  null, null);
+      }
       const ulbcatgres = await db_Select('*', 'md_ulb_catg', null, null);
+      const zoneres = await db_Select('*', 'md_zone', null, null);
+      const distres = await db_Select('*', 'md_district', null, null);
+      const soctierres = await db_Select('*', 'md_soc_tier', null, null);
+      const soctietype = await db_Select('*', 'md_society_type', null, null);
       // Prepare data for rendering
       const res_dt = {
         data: result.suc > 0 ? result.msg : '',page: 1,totalPages:totalPages,
         regauthtypelist: regauttypehres.suc > 0 ? regauttypehres.msg : '',ranzelist: ranzeres.suc > 0 ? ranzeres.msg : '',
-        blocklist:blockres.suc > 0 ? blockres.msg : '',ulbcatglist: ulbcatgres.suc > 0 ? ulbcatgres.msg : ''
+        blocklist:blockres.suc > 0 ? blockres.msg : '',zonereslist:zoneres.suc > 0 ? zoneres.msg : '',ulbcatglist: ulbcatgres.suc > 0 ? ulbcatgres.msg : '',
+        distlist:distres.suc > 0 ? distres.msg : '',soctierlist:soctierres.suc > 0 ? soctierres.msg : '', soctietypelist:soctietype.suc > 0 ? soctietype.msg : ''
       };
       // Render the view with data
       res.render('dashboard/landing', res_dt);

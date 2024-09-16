@@ -148,7 +148,25 @@ SocietyRouter.get('/wardlist',async(req,res)=>{
         });
     }
 })
-
+SocietyRouter.get('/blocklist',async(req,res)=>{
+  try {
+    // Extract query parameter 'claims'
+    const dist_code = req.query.dist_code;
+    // In a real application, you might query a database or perform other operations
+    const datahres = await db_Select('block_id,block_name', 'md_block',  `dist_id='${dist_code}'`, null);
+    const responseData = {
+      datahlist: datahres.suc > 0 ? datahres.msg : '', // Echoing the received claims
+    };
+    // Send response back to the client
+    res.json(responseData);
+    } catch (err) {
+        console.error('Error handling /regauth request:', err);
+        res.status(500).json({
+            success: false,
+            message: 'Internal server error'
+        });
+    }
+}) 
 SocietyRouter.get('/gplist',async(req,res)=>{
   try {
     // Extract query parameter 'claims'
