@@ -48,7 +48,7 @@ DashboardRouter.get('/dashboard', async(req, res) => {
           blocklist:blockres.suc > 0 ? blockres.msg : '',ulbcatglist: ulbcatgres.suc > 0 ? ulbcatgres.msg : '',
           soctierlist:soctierres.suc > 0 ? soctierres.msg : '', soctietypelist:soctietype.suc > 0 ? soctietype.msg : '',
           zonereslist:zoneres.suc > 0 ? zoneres.msg : '',distlist:distres.suc > 0 ? distres.msg : '',
-          soc_type_id:0,cntr_auth_type:0,
+          cntr_auth_type:0,zone_code:0,dist_code:0,soc_tier:0,soc_type_id:0
         };
         // Render the view with data
         res.render('dashboard/landing', res_dt);
@@ -80,13 +80,14 @@ DashboardRouter.post('/dashboard', async(req, res) => {
       var con5 = formdata.ulb_catg > 0 ? `AND ulb_catg=${formdata.ulb_catg} ` : '';
       var con6 = formdata.soc_tier > 0 ? `AND soc_tier=${formdata.soc_tier} ` : '';
       var con7 = formdata.soc_type_id > 0 ? `AND soc_type=${formdata.soc_type_id} ` : '';
+      
       if (formdata.socname && formdata.socname.trim() !== '') {
         var con8 = `AND cop_soc_name LIKE '%${formdata.socname}%' `;
       }else{
         var con8 = '';
       }
    
-    var con9 = '';
+    var con9 = formdata.zone_code > 0 ? `AND zone_code=${formdata.zone_code} ` : '';
      // Example checking and converting object properties
             if (formdata && formdata.dist_code) {
            
@@ -95,7 +96,7 @@ DashboardRouter.post('/dashboard', async(req, res) => {
             } else {
               var con10 = '';
             }
-
+     
       var maincon = con1+con2+con3+con4+con5+con6+con7+con8+con9+con10;
       if(range_id > 0 ){
         var whr = `a.soc_type=b.soc_type_id AND a.range_code='${range_id}' ${maincon} LIMIT 25`;
@@ -109,6 +110,7 @@ DashboardRouter.post('/dashboard', async(req, res) => {
       const result = await db_Select(select, table_name, whr, order);
       const select2 = "COUNT(*) as total";
       const countResult = await db_Select(select2, table_name, whr, order);
+    
     
       const total = countResult.msg[0].total;
       const totalPages = Math.ceil(total / 25);
@@ -133,7 +135,11 @@ DashboardRouter.post('/dashboard', async(req, res) => {
         regauthtypelist: regauttypehres.suc > 0 ? regauttypehres.msg : '',ranzelist: ranzeres.suc > 0 ? ranzeres.msg : '',
         blocklist:blockres.suc > 0 ? blockres.msg : '',zonereslist:zoneres.suc > 0 ? zoneres.msg : '',ulbcatglist: ulbcatgres.suc > 0 ? ulbcatgres.msg : '',
         distlist:distres.suc > 0 ? distres.msg : '',soctierlist:soctierres.suc > 0 ? soctierres.msg : '', soctietypelist:soctietype.suc > 0 ? soctietype.msg : '',
-        soc_type_id:formdata.soc_type_id > 0 ? formdata.soc_type_id :0
+        cntr_auth_type:formdata.cntr_auth_type > 0 ? formdata.cntr_auth_type :0,
+        zone_code:formdata.zone_code > 0 ? formdata.zone_code :0,
+        dist_code:formdata.dist_code > 0 ? formdata.dist_code :0,
+        soc_type_id:formdata.soc_type_id > 0 ? formdata.soc_type_id :0,
+        soc_tier:formdata.soc_tier > 0 ? formdata.soc_tier :0,
       };
       // Render the view with data
       res.render('dashboard/landing', res_dt);
@@ -150,9 +156,22 @@ DashboardRouter.get('/socLimitList',async(req, res) => {
   const page = parseInt(req.query.page) || 1;
   const limit = 25;
   const offset = (page - 1) * limit;
+  
+  var con1 = req.query.cntr_auth_type > 0 ? `AND cntr_auth_type=${req.query.cntr_auth_type} ` : '';
+  var con2 = req.query.zone_code > 0 ? `AND zone_code=${eq.query.zone_code} ` : '';
+  var con3 = req.query.dist_code > 0 ? `AND dist_code=${req.query.dist_code} ` : '';
+  var con6 = req.query.soc_tier > 0 ? `AND soc_tier=${req.query.soc_tier} ` : '';
+
+  // var con2 = formdata.range_code > 0 ? `AND range_code=${formdata.range_code} ` : '';
+  // var con3 = formdata.urban_rural_flag > 0 ? `AND urban_rural_flag=${formdata.urban_rural_flag} ` : '';
+  // var con4 = formdata.block_id > 0 ? `AND block_id=${formdata.block_id} ` : '';
+  // var con5 = formdata.ulb_catg > 0 ? `AND ulb_catg=${formdata.ulb_catg} ` : '';
+  // var con6 = formdata.soc_tier > 0 ? `AND soc_tier=${formdata.soc_tier} ` : '';
+ 
+
   var con7 = req.query.soc_type_id > 0 ? `AND soc_type=${req.query.soc_type_id}` : '';
  
-  var maincon =con7;
+  var maincon =con1+con2+con3+con6+con7;
      const sql = 'SELECT * FROM items LIMIT ? OFFSET ?';
       const range_id = req.session.user.range_id;
       const select = "a.id,a.cop_soc_name,a.reg_no,b.soc_type_name";
@@ -166,7 +185,11 @@ DashboardRouter.get('/socLimitList',async(req, res) => {
       const order = null;
      
       const select2 = "COUNT(*) as total";
-      const countResult = await db_Select(select2, table_name,` a.soc_type=b.soc_type_id AND a.range_code='${range_id}'`, order);
+      if(range_id > 0){
+        var countResult = await db_Select(select2, table_name,` a.soc_type=b.soc_type_id AND a.range_code='${range_id}' ${maincon}`, order);
+      }else{
+        var countResult = await db_Select(select2, table_name,` a.soc_type=b.soc_type_id ${maincon}`, order);
+      }
     
         const total = countResult.msg[0].total;
        const totalPages = Math.ceil(total / limit);
