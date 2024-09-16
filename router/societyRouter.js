@@ -16,7 +16,7 @@ SocietyRouter.get('/edit', async(req, res) => {
         const range_id = req.session.user.range_id;
         const select = "*";
         const table_name = "md_society";
-        const whr = `range_code='${range_id}' AND id='${soc_id}' `;
+        const whr = `id='${soc_id}' `;
         const order = null;
         // Execute database query
         const result = await db_Select(select, table_name, whr, order);

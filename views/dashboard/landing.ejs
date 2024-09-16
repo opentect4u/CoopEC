@@ -113,7 +113,7 @@
                 <% if(soctietypelist.length > 0){
                   var i = 1
                   soctietypelist.forEach(dt => { %>
-                  <option value="<%= dt.soc_type_id %>" ><%= dt.soc_type_name %></option>
+                  <option value="<%= dt.soc_type_id %>" <%= soc_type_id == dt.soc_type_id ? 'selected' : '' %> ><%= dt.soc_type_name %></option>
                     <% }) } %>
               </select>
             </div>
@@ -231,10 +231,12 @@
              $('#item-list').html('');
                // const page = $(this).val();
                 const page = $(this).data('page');
+                var soc_type_id = $('#soc_type_id').val();
+
                 $.ajax({
                     url: '/dash/socLimitList',
                     type: 'GET',
-                    data: { page },
+                    data: { page,soc_type_id },
                     success: function(response) {
                         const data = response.data;
                         const totalPages = response.totalPages;

@@ -47,7 +47,8 @@ DashboardRouter.get('/dashboard', async(req, res) => {
           regauthtypelist: regauttypehres.suc > 0 ? regauttypehres.msg : '',ranzelist: ranzeres.suc > 0 ? ranzeres.msg : '',
           blocklist:blockres.suc > 0 ? blockres.msg : '',ulbcatglist: ulbcatgres.suc > 0 ? ulbcatgres.msg : '',
           soctierlist:soctierres.suc > 0 ? soctierres.msg : '', soctietypelist:soctietype.suc > 0 ? soctietype.msg : '',
-          zonereslist:zoneres.suc > 0 ? zoneres.msg : '',distlist:distres.suc > 0 ? distres.msg : ''
+          zonereslist:zoneres.suc > 0 ? zoneres.msg : '',distlist:distres.suc > 0 ? distres.msg : '',
+          soc_type_id:0,cntr_auth_type:0,
         };
         // Render the view with data
         res.render('dashboard/landing', res_dt);
@@ -72,23 +73,18 @@ DashboardRouter.post('/dashboard', async(req, res) => {
       const select = "a.id,a.cop_soc_name,a.reg_no,b.soc_type_name";
       const table_name = "md_society a,md_society_type b";
       console.log(formdata);
-      var con1 = formdata.cntr_auth_type > 0 ? `AND cntr_auth_type=${formdata.cntr_auth_type}` : '';
-      var con2 = formdata.range_code > 0 ? `AND range_code=${formdata.range_code}` : '';
-      var con3 = formdata.urban_rural_flag > 0 ? `AND urban_rural_flag=${formdata.urban_rural_flag}` : '';
-      var con4 = formdata.block_id > 0 ? `AND block_id=${formdata.block_id}` : '';
-      var con5 = formdata.ulb_catg > 0 ? `AND ulb_catg=${formdata.ulb_catg}` : '';
+      var con1 = formdata.cntr_auth_type > 0 ? `AND cntr_auth_type=${formdata.cntr_auth_type} ` : '';
+      var con2 = formdata.range_code > 0 ? `AND range_code=${formdata.range_code} ` : '';
+      var con3 = formdata.urban_rural_flag > 0 ? `AND urban_rural_flag=${formdata.urban_rural_flag} ` : '';
+      var con4 = formdata.block_id > 0 ? `AND block_id=${formdata.block_id} ` : '';
+      var con5 = formdata.ulb_catg > 0 ? `AND ulb_catg=${formdata.ulb_catg} ` : '';
       var con6 = formdata.soc_tier > 0 ? `AND soc_tier=${formdata.soc_tier} ` : '';
-      var con7 = formdata.soc_type > 0 ? `AND soc_type=${formdata.soc_type}` : '';
+      var con7 = formdata.soc_type_id > 0 ? `AND soc_type=${formdata.soc_type_id} ` : '';
       if (formdata.socname && formdata.socname.trim() !== '') {
         var con8 = `AND cop_soc_name LIKE '%${formdata.socname}%' `;
       }else{
         var con8 = '';
       }
-    //   if (formdata && formdata.zone_code) {
-    //     var con9 = `AND zone_code=${formdata.zone_code}`;
-    // } else {
-    //     var con9 = '';
-    // }
    
     var con9 = '';
      // Example checking and converting object properties
@@ -136,7 +132,8 @@ DashboardRouter.post('/dashboard', async(req, res) => {
         data: result.suc > 0 ? result.msg : '',page: 1,totalPages:totalPages,
         regauthtypelist: regauttypehres.suc > 0 ? regauttypehres.msg : '',ranzelist: ranzeres.suc > 0 ? ranzeres.msg : '',
         blocklist:blockres.suc > 0 ? blockres.msg : '',zonereslist:zoneres.suc > 0 ? zoneres.msg : '',ulbcatglist: ulbcatgres.suc > 0 ? ulbcatgres.msg : '',
-        distlist:distres.suc > 0 ? distres.msg : '',soctierlist:soctierres.suc > 0 ? soctierres.msg : '', soctietypelist:soctietype.suc > 0 ? soctietype.msg : ''
+        distlist:distres.suc > 0 ? distres.msg : '',soctierlist:soctierres.suc > 0 ? soctierres.msg : '', soctietypelist:soctietype.suc > 0 ? soctietype.msg : '',
+        soc_type_id:formdata.soc_type_id > 0 ? formdata.soc_type_id :0
       };
       // Render the view with data
       res.render('dashboard/landing', res_dt);
@@ -153,12 +150,19 @@ DashboardRouter.get('/socLimitList',async(req, res) => {
   const page = parseInt(req.query.page) || 1;
   const limit = 25;
   const offset = (page - 1) * limit;
-
+  var con7 = req.query.soc_type_id > 0 ? `AND soc_type=${req.query.soc_type_id}` : '';
+ 
+  var maincon =con7;
      const sql = 'SELECT * FROM items LIMIT ? OFFSET ?';
       const range_id = req.session.user.range_id;
       const select = "a.id,a.cop_soc_name,a.reg_no,b.soc_type_name";
       const table_name = "md_society a,md_society_type b";
-      const whr = `a.soc_type=b.soc_type_id AND a.range_code='${range_id}' LIMIT ${offset} , ${limit}`;
+      if(range_id > 0){
+        var whr = `a.soc_type=b.soc_type_id AND a.range_code='${range_id}' ${maincon} LIMIT ${offset} , ${limit}`;
+      }else{
+        var whr = `a.soc_type=b.soc_type_id  ${maincon} LIMIT ${offset} , ${limit}`;
+      }
+      
       const order = null;
      
       const select2 = "COUNT(*) as total";
