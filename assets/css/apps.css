@@ -94,3 +94,5 @@ nav.pagination_cus{margin-top: 20px !important;}
 .pagination_cus ul{float: right;}
 .btn, .fc button, .ajax-upload-dragdrop .ajax-file-upload, .swal2-modal .swal2-buttonswrapper .swal2-styled, .swal2-modal .swal2-buttonswrapper .swal2-styled.swal2-confirm, .swal2-modal .swal2-buttonswrapper .swal2-styled.swal2-cancel, .wizard > .actions a {
   border-radius: 8px;}
+
+  .navbar .navbar-brand-wrapper .brand-logo-mini img {width:auto;}
