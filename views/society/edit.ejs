@@ -2,7 +2,7 @@
   <div class="col-12 grid-margin stretch-card">
     <div class="card">
       <div class="card-body">
-        <h4 class="card-title">Edit form</h4>
+        <h4 class="card-title card_title_cus">Edit form</h4>
         <form class="forms-sample" action="/society/socedit" method="post">
           <input type="hidden" name="id" value="<%= soc.id %>">
             <div class="row">
@@ -124,11 +124,24 @@
                   </select>
                 </div>
               </div>
-              <div class="col-md-3"><b>Please Select Maping</b></div>
-              <div class="col-md-2"><input type="radio" id="U" name="urban_rural_flag" value="U"  <%= soc.urban_rural_flag == 'U' ? 'checked' : '' %> ><label><b>Urban Maping</b></label></div>
-              <div class="col-md-2"><input type="radio" id="R" name="urban_rural_flag" value="R" <%= soc.urban_rural_flag == 'R' ? 'checked' : '' %> ><label><b>Rural Maping</b></label></div>
-              <div class="col-md-5" >
+              <div class="col-md-6 subtitle_Form_cus">
+                <h3>Please Select Maping
+
+                <div class="radioBtn_right">
+
+                  <div class="radioBtn_Cus"><input type="radio" id="U" name="urban_rural_flag" value="U"  <%= soc.urban_rural_flag == 'U' ? 'checked' : '' %> ><label><b>Urban Maping</b></label></div>
+              <div class="radioBtn_Cus"><input type="radio" id="R" name="urban_rural_flag" value="R" <%= soc.urban_rural_flag == 'R' ? 'checked' : '' %> ><label><b>Rural Maping</b></label></div>
+                </div>
+
+                </h3>
               </div>
+              <div class="col-md-6" ></div>
+              
+              <!-- <div class="col-md-3" >
+              </div>
+              <div class="col-md-3 radioBtn_Cus"><input type="radio" id="U" name="urban_rural_flag" value="U"  <%= soc.urban_rural_flag == 'U' ? 'checked' : '' %> ><label><b>Urban Maping</b></label></div>
+              <div class="col-md-3 radioBtn_Cus"><input type="radio" id="R" name="urban_rural_flag" value="R" <%= soc.urban_rural_flag == 'R' ? 'checked' : '' %> ><label><b>Rural Maping</b></label></div>
+               -->
               <div class="col-md-6 urlby" >
                 <div class="form-group">
                   <label for="exampleInputName1">Category of Urban Local Body</label>
