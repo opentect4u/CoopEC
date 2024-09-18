@@ -240,11 +240,11 @@
              $('#item-list').html('');
                // const page = $(this).val();
                 const page = $(this).data('page');
-                var soc_type_id = $('#soc_type_id').val();
+           
                 var cntr_auth_type = $('#cntr_auth_type').val();
-                var zone_code = $('#zone_code').val();
                 var dist_code = $('#dist_code').val();
-                var soc_tier = $('#soc_tier').val();
+                var zone_code = $('#zone_code').val();
+                var range_code = $('#range_code').val();
                 var urban_rural_flags = $('#urban_rural_flag').val();
                 var ulb_catg,block_id;
                 if(urban_rural_flags == 'U'){
@@ -254,11 +254,13 @@
                   ulb_catg = 0;
                   block_id = $('#block_id').val();
                 }
+                var soc_tier = $('#soc_tier').val();
+                var soc_type_id = $('#soc_type_id').val();
 
                 $.ajax({
                     url: '/dash/socLimitList',
                     type: 'GET',
-                    data: { page,cntr_auth_type,zone_code,dist_code,soc_type_id,soc_tier,urban_rural_flags,ulb_catg,block_id },
+                    data: { page,cntr_auth_type,dist_code,zone_code,range_code,urban_rural_flags,ulb_catg,block_id,soc_type_id,soc_tier },
                     success: function(response) {
                         const data = response.data;
                         const totalPages = response.totalPages;

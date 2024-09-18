@@ -192,8 +192,10 @@ DashboardRouter.get('/socLimitList',async(req, res) => {
   const offset = (page - 1) * limit;
   
   var con1 = req.query.cntr_auth_type > 0 ? `AND cntr_auth_type=${req.query.cntr_auth_type} ` : '';
-  var con2 = req.query.zone_code > 0 ? `AND zone_code=${eq.query.zone_code} ` : '';
-  var con3 = req.query.dist_code > 0 ? `AND dist_code=${req.query.dist_code} ` : '';
+  var dist_code = req.query.dist_code > 0 ? `AND dist_code=${req.query.dist_code} ` : '';
+  var zone_code = req.query.zone_code > 0 ? `AND zone_code=${req.query.zone_code} ` : '';
+  var range_code = req.query.range_code > 0 ? `AND zone_code=${req.query.range_code} ` : '';
+ 
   var con6 = req.query.soc_tier > 0 ? `AND soc_tier=${req.query.soc_tier} ` : '';
 
   // var con2 = formdata.range_code > 0 ? `AND range_code=${formdata.range_code} ` : '';
@@ -205,7 +207,7 @@ DashboardRouter.get('/socLimitList',async(req, res) => {
 
   var con7 = req.query.soc_type_id > 0 ? `AND soc_type=${req.query.soc_type_id}` : '';
  
-  var maincon =con1+con2+con3+con4+con6+con7;
+  var maincon =con1+dist_code+zone_code+range_code+con4+con6+con7;
      const sql = 'SELECT * FROM items LIMIT ? OFFSET ?';
       const range_id = req.session.user.range_id;
       const select = "a.id,a.cop_soc_name,a.reg_no,b.soc_type_name";
