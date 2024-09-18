@@ -166,10 +166,11 @@ DashboardRouter.post('/dashboard', async(req, res) => {
         distlist:distres.suc > 0 ? distres.msg : '',soctierlist:soctierres.suc > 0 ? soctierres.msg : '', soctietypelist:soctietype.suc > 0 ? soctietype.msg : '',
         cntr_auth_type:formdata.cntr_auth_type > 0 ? formdata.cntr_auth_type :0,
         zone_code:formdata.zone_code > 0 ? formdata.zone_code :0,
+        range_code:formdata.range_code > 0 ? formdata.range_code :0,
         dist_code:formdata.dist_code > 0 ? formdata.dist_code :0,
         soc_type_id:formdata.soc_type_id > 0 ? formdata.soc_type_id :0,
         soc_tier:formdata.soc_tier > 0 ? formdata.soc_tier :0,
-        range_code:formdata.range_code > 0 ? formdata.range_code :0,urban_rural_flag,
+        urban_rural_flag,
         ulb_catg:formdata.ulb_catg > 0 ? formdata.ulb_catg :0,
         block_id:formdata.block_id > 0 ? formdata.block_id :0,
       };

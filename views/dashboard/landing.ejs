@@ -389,15 +389,15 @@
         }
     });
   }
-  populatezone('<%= dist_code %>');
-  populateranze('<%= dist_code %>');
+  populatezone('<%= dist_code %>','<%= zone_code %>');
+  populateranze('<%= dist_code %>','<%= range_code %>');
   $('#dist_code').change(function() {
         var selectedValue = $(this).val();
         populateblock(selectedValue);
-        populatezone(selectedValue);
-        populateranze(selectedValue);
+        populatezone(selectedValue,0);
+        populateranze(selectedValue,0);
     });
-    function populatezone(dist_code) {
+    function populatezone(dist_code,zone_id) {
       $.ajax({
         url: '/society/zonelist',
         method: 'GET',
@@ -415,7 +415,7 @@
             $select.append('<option value="0">Select Zone</option>');
             // Append new options from the response data
             datahlists.forEach(function(item) {
-                $select.append(`<option value="${item.zone_id}"  >${item.zone_name}</option>`);
+                $select.append(`<option value="${item.zone_id}" ${(item.zone_id == zone_id) ? 'selected' : ''} >${item.zone_name}</option>`);
             });
         },
         error: function(err) {
@@ -425,7 +425,7 @@
         }
     });
     }
-    function populateranze(dist_code) {
+    function populateranze(dist_code,range_id) {
       $.ajax({
         url: '/society/rangelist',
         method: 'GET',
@@ -443,7 +443,7 @@
             $select.append('<option value="0">Select Range</option>');
             // Append new options from the response data
             datahlists.forEach(function(item) {
-                $select.append(`<option value="${item.range_id}">${item.range_name}</option>`);
+                $select.append(`<option value="${item.range_id}" ${(item.range_id == range_id) ? 'selected' : ''} >${item.range_name}</option>`);
             });
         },
         error: function(err) {
