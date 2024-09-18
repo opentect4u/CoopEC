@@ -18,7 +18,7 @@
           <% if(user.range_id== 0) { %>
           <div class="col-md-3">
               <div class="form-group">
-                <label for="exampleInputName1">District Code</label>
+                <label for="exampleInputName1">District </label>
                    <select class="form-control" id="dist_code" name="dist_code" >
                     <option value="0">Select </option>
                     <% if(distlist.length > 0){
@@ -31,7 +31,7 @@
           </div>
           <div class="col-md-3">
             <div class="form-group">
-              <label for="exampleInputName1">Zone Code</label>
+              <label for="exampleInputName1">Zone </label>
                  <select class="form-control" id="zone_code" name="zone_code">
                   <option value="0">Select </option>
                   <!-- <% if(zonereslist.length > 0){
@@ -45,7 +45,7 @@
           
           <div class="col-md-3">
             <div class="form-group">
-              <label for="exampleInputName1">Range Code</label>
+              <label for="exampleInputName1">Range </label>
                  <select class="form-control" id="range_code" name="range_code" >
                   <option value="0">Select </option>
                   <!-- <% if(ranzelist.length > 0){
@@ -95,7 +95,7 @@
           </div>
           <div class="col-md-3">
             <div class="form-group">
-              <label for="exampleInputName1">Tier Code</label>
+              <label for="exampleInputName1">Tier </label>
               <select class="form-control" id="soc_tier" name="soc_tier" >
                 <option value="0">Select Tier </option>
                 <% if(soctierlist.length > 0){
@@ -108,7 +108,7 @@
           </div>
           <div class="col-md-3">
             <div class="form-group">
-              <label for="exampleInputName1">Type Code</label>
+              <label for="exampleInputName1">Type </label>
               <select class="form-control select2" id="soc_type_id" name="soc_type_id" >
                 <option value="0">Select Type </option>
                 <% if(soctietypelist.length > 0){
@@ -270,7 +270,7 @@
                         const totalPages = response.totalPages;
                         const currentPage = page;
                      const itemsPerPage =25; // Number of items per page
-
+                  
 // Calculate the starting index for the current page
                         let startIndex = (currentPage - 1) * itemsPerPage + 1;
                         let rows = '';
@@ -286,11 +286,11 @@
                                             : `<span style="background-color: red;">${dt.functional_status}</span>`}
                                     </td>
                                     <td>${dt.dist_name}</td>
-                                    <td>${dt.soc_type_name}</td>
-                                    <td>${dt.soc_type_name}</td> <!-- Check if these need to be different -->
-                                    <td>${dt.soc_type_name}</td> <!-- Same here -->
-                                    <td>${dt.reg_no}</td>
-                                    <td>${dt.reg_no}</td> <!-- Check if this is necessary -->
+                                    <td>${dt.zone_name}</td>
+                                    <td>${dt.range_name}</td> 
+                                    <td>${dt.reg_no}</td> 
+                                    <td>${dt.soc_tier_name}</td>
+                                    <td>${dt.soc_type_name}</td> 
                                     <td>
                                         <a href="/society/edit?id=${dt.id}">Edit</a>
                                     </td>
