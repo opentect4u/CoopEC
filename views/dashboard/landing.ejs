@@ -154,12 +154,13 @@
                   <tr>
                     <th class="society_th_1">SL No</th>
                     <th class="society_th_2">Society Name</th>
+                    <th class="society_th_5">District</th>
+                    <th class="society_th_4">Zone</th>
                     <th class="society_th_3">Range</th>
-                    <th class="society_th_4">Zone Code</th>
-                    <th class="society_th_5">District Code</th>
                     <th class="society_th_6">Registration Number</th>
-                    <th class="society_th_7">Tier Code</th>
+                    <th class="society_th_7">Tier </th>
                     <th class="society_th_8">Society Type</th>
+                    <th class="society_th_9">Option</th>
                   </tr>
                 </thead>
                 <tbody id="item-list">
@@ -168,19 +169,22 @@
                   data.forEach(dt => { %>
                       <tr>
                           <td><%= i++ %></td>
-                          <td><a href="/society/edit?id=<%= dt.id %>" class="link_fnc"><%= dt.cop_soc_name %></a>
-                          <span class="green">Functional</span>
+                          <td><%= dt.cop_soc_name %></br>
+                          <% if (dt.functional_status == 'Functional'){ %>
+                              <span class="green">Functional</span>
+                          <% } else { %>
+                              <span style="background-color: red;"><%= dt.functional_status %></span>
+                          <% } %>
                           </td>
-                          <td><%= dt.soc_type_name %></td>
-                          <td><%= dt.soc_type_name %></td>
-                          <td><%= dt.soc_type_name %></td>
+                          <td><%= dt.dist_name %></td>
+                          <td><%= dt.zone_name %></td>
+                          <td><%= dt.range_name %></td>
+                          <td><%= dt.reg_no %></td>
+                          <td><%= dt.soc_tier_name %></td>
                           <td><%= dt.soc_type_name %></td>
                           <td>
-                            <!-- <a href="/society/edit?id=<%= dt.id %>"> -->
-                              <%= dt.cop_soc_name %>
-                            <!-- </a> -->
+                            <a href="/society/edit?id=<%= dt.id %>">Edit</a>
                           </td>
-                          <td><%= dt.reg_no %></td>
                       </tr>
                   <% }) %>
                 </tbody>
@@ -274,15 +278,22 @@
 
                         data.forEach(dt => {
                             rows += `
-                                <tr>
-                                    <td>${startIndex++}</td>
-                                    <td><a href="/society/edit?id=${dt.id}">${dt.cop_soc_name}</a></td>
+                                 <tr>
+                                    <td>${i++}</td>
+                                    <td>${dt.cop_soc_name}</br>
+                                        ${dt.functional_status === 'Functional' 
+                                            ? '<span class="green">Functional</span>' 
+                                            : `<span class="red">${dt.functional_status}</span>`}
+                                    </td>
+                                    <td>${dt.dist_name}</td>
                                     <td>${dt.soc_type_name}</td>
-                                    <td>${dt.soc_type_name}</td>
-                                    <td>${dt.soc_type_name}</td>
-                                    <td>${dt.soc_type_name}</td>
-                                    <td><a href="/society/edit?id=${dt.id}">${dt.cop_soc_name}</a></td>
+                                    <td>${dt.soc_type_name}</td> <!-- Check if these need to be different -->
+                                    <td>${dt.soc_type_name}</td> <!-- Same here -->
                                     <td>${dt.reg_no}</td>
+                                    <td>${dt.reg_no}</td> <!-- Check if this is necessary -->
+                                    <td>
+                                        <a href="/society/edit?id=${dt.id}">Edit</a>
+                                    </td>
                                 </tr>`;
                         });
 

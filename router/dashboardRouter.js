@@ -12,16 +12,21 @@ DashboardRouter.get('/dashboard', async(req, res) => {
     try {
         // Extract range_id from session
         const range_id = req.session.user.range_id;
-        const select = "a.id,a.cop_soc_name,a.reg_no,b.soc_type_name";
-        const table_name = "md_society a,md_society_type b";
-        const whr = `a.soc_type=b.soc_type_id AND a.range_code='${range_id}' LIMIT 25`;
+        const select = "a.id,a.cop_soc_name,a.reg_no,a.functional_status,b.soc_type_name,c.dist_name,d.zone_name,e.range_name,f.soc_tier_name";
+        if(range_id > 0){ 
+        var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.range_code = "${range_id}" LIMIT 25`;
+         }else{
+          var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id LIMIT 25`;
+         }
+       
+      var table_name = ``;
+        whr = '';
         const order = null;
     
         // Execute database query
         const result = await db_Select(select, table_name, whr, order);
         const select2 = "COUNT(*) as total";
-        const countResult = await db_Select(select2, table_name, whr, order);
-      
+        const countResult = await db_Select(select2, 'md_society', whr, order);
         const total = countResult.msg[0].total;
         const totalPages = Math.ceil(total / 25);
         const regauttypehres = await db_Select('*', 'md_controlling_authority_type', null, null);
@@ -36,7 +41,6 @@ DashboardRouter.get('/dashboard', async(req, res) => {
         }else{
            blockres = await db_Select('*', 'md_block',  'dist_id=0', null);
         }
-        
         const ulbcatgres = await db_Select('*', 'md_ulb_catg', null, null);
         const soctierres = await db_Select('*', 'md_soc_tier', null, null);
         const soctietype = await db_Select('*', 'md_society_type', null, null);
@@ -63,7 +67,6 @@ DashboardRouter.get('/dashboard', async(req, res) => {
 DashboardRouter.post('/dashboard', async(req, res) => {
   try {
       // Extract range_id from session
-    
       const range_id = req.session.user.range_id;
       if(range_id == 0){
         const  user_type =  1;
@@ -71,57 +74,59 @@ DashboardRouter.post('/dashboard', async(req, res) => {
         const  user_type =  2;
       }
       var formdata = req.body;
-      const select = "a.id,a.cop_soc_name,a.reg_no,b.soc_type_name";
-      const table_name = "md_society a,md_society_type b";
+      const select = "a.id,a.cop_soc_name,a.reg_no,a.functional_status,b.soc_type_name,c.dist_name,d.zone_name,e.range_name,f.soc_tier_name";
+      var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id`;
+       
       
-      var con1 = formdata.cntr_auth_type > 0 ? `AND cntr_auth_type=${formdata.cntr_auth_type} ` : '';
-      var con2 = formdata.range_code > 0 ? `AND range_code=${formdata.range_code} ` : '';
+      var con1 = formdata.cntr_auth_type > 0 ? `AND a.cntr_auth_type=${formdata.cntr_auth_type} ` : '';
+      var con2 = formdata.range_code > 0 ? `AND a.range_code=${formdata.range_code} ` : '';
     
       var con3;
       if(formdata.urban_rural_flag == 'U'){
-        con3 = `AND urban_rural_flag='U' `
+        con3 = `AND a.urban_rural_flag='U' `
       }else if(formdata.urban_rural_flag == 'R'){
-        con3 = `AND urban_rural_flag='R' `
+        con3 = `AND a.urban_rural_flag='R' `
       }else{
           con3 = ''
       }
       
       if(formdata.urban_rural_flag == 'R'){
-        var con4 = formdata.block_id > 0 ? `AND block_id=${formdata.block_id} ` : '';
+        var con4 = formdata.block_id > 0 ? `AND a.block_id=${formdata.block_id} ` : '';
       }else{
         var con4 = '';
       }
 
       if(formdata.urban_rural_flag == 'U'){
-        var con5 = formdata.ulb_catg > 0 ? `AND ulb_catg='${formdata.ulb_catg}' ` : '';
+        var con5 = formdata.ulb_catg > 0 ? `AND a.ulb_catg='${formdata.ulb_catg}' ` : '';
       }else{
         var con5 = '';
       }
       
-      var con6 = formdata.soc_tier > 0 ? `AND soc_tier=${formdata.soc_tier} ` : '';
-      var con7 = formdata.soc_type_id > 0 ? `AND soc_type=${formdata.soc_type_id} ` : '';
+      var con6 = formdata.soc_tier > 0 ? `AND a.soc_tier=${formdata.soc_tier} ` : '';
+      var con7 = formdata.soc_type_id > 0 ? `AND a.soc_type=${formdata.soc_type_id} ` : '';
       
       if (formdata.socname && formdata.socname.trim() !== '') {
-        var con8 = `AND cop_soc_name LIKE '%${formdata.socname}%' `;
+        var con8 = `AND a.cop_soc_name LIKE '%${formdata.socname}%' `;
       }else{
         var con8 = '';
       }
    
-      var con9 = formdata.zone_code > 0 ? `AND zone_code=${formdata.zone_code} ` : '';
+      var con9 = formdata.zone_code > 0 ? `AND a.zone_code=${formdata.zone_code} ` : '';
       if (formdata && formdata.dist_code) {
-        var con10 = formdata.dist_code > 0 ? `AND dist_code='${formdata.dist_code}' ` : '';
+        var con10 = formdata.dist_code > 0 ? `AND a.dist_code='${formdata.dist_code}' ` : '';
       } else {
         var con10 = '';
       }
      
       var maincon = con1+con2+con3+con4+con5+con6+con7+con8+con9+con10;
       if(range_id > 0 ){
-        var whr = `a.soc_type=b.soc_type_id AND a.range_code='${range_id}' ${maincon} LIMIT 25`;
+        var whr = `a.range_code='${range_id}' ${maincon} LIMIT 25`;
       }else{
-        var whr = `a.soc_type=b.soc_type_id ${maincon} LIMIT 25`;
+        var whr = `1 ${maincon} LIMIT 25`;
       }
       const order = null;
-  
+       console.log(whr);
+       console.log('chack');
       // Execute database query
       const result = await db_Select(select, table_name, whr, order);
       const select2 = "COUNT(*) as total";
@@ -201,21 +206,17 @@ DashboardRouter.get('/socLimitList',async(req, res) => {
   // var con2 = formdata.range_code > 0 ? `AND range_code=${formdata.range_code} ` : '';
    var con4 = req.query.urban_rural_flag > 0 ? `AND urban_rural_flag=${req.query.urban_rural_flag} ` : '';
   // var con4 = formdata.block_id > 0 ? `AND block_id=${formdata.block_id} ` : '';
-  // var con5 = formdata.ulb_catg > 0 ? `AND ulb_catg=${formdata.ulb_catg} ` : '';
-  // var con6 = formdata.soc_tier > 0 ? `AND soc_tier=${formdata.soc_tier} ` : '';
- 
-
   var con7 = req.query.soc_type_id > 0 ? `AND soc_type=${req.query.soc_type_id}` : '';
  
   var maincon =con1+dist_code+zone_code+range_code+con4+con6+con7;
      const sql = 'SELECT * FROM items LIMIT ? OFFSET ?';
       const range_id = req.session.user.range_id;
-      const select = "a.id,a.cop_soc_name,a.reg_no,b.soc_type_name";
-      const table_name = "md_society a,md_society_type b";
+      const select = "a.id,a.cop_soc_name,a.reg_no,a.functional_status,b.soc_type_name,c.dist_name";
+      const table_name = "md_society a,md_society_type b,md_district c";
       if(range_id > 0){
-        var whr = `a.soc_type=b.soc_type_id AND a.range_code='${range_id}' ${maincon} LIMIT ${offset} , ${limit}`;
+        var whr = `a.soc_type=b.soc_type_id AND a.dist_code=c.dist_code AND a.range_code='${range_id}' ${maincon} LIMIT ${offset} , ${limit}`;
       }else{
-        var whr = `a.soc_type=b.soc_type_id  ${maincon} LIMIT ${offset} , ${limit}`;
+        var whr = `a.soc_type=b.soc_type_id AND a.dist_code=c.dist_code  ${maincon} LIMIT ${offset} , ${limit}`;
       }
       
       const order = null;

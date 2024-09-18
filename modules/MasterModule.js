@@ -19,6 +19,7 @@ const db_Select = (select, table_name, whr, order) => {
   });
 };
 
+
 const db_Insert = (table_name, fields, values, whr, flag) => {
   var sql = "",
     msg = "",
@@ -78,4 +79,4 @@ const db_Check = async (fields, table_name, whr) => {
   });
 };
 
-module.exports = { db_Select, db_Insert, db_Delete, db_Check };
+module.exports = { db_Select, db_Insert, db_Delete, db_Check};
