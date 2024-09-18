@@ -279,11 +279,11 @@
                         data.forEach(dt => {
                             rows += `
                                  <tr>
-                                    <td>${i++}</td>
+                                    <td>${startIndex++}</td>
                                     <td>${dt.cop_soc_name}</br>
                                         ${dt.functional_status === 'Functional' 
                                             ? '<span class="green">Functional</span>' 
-                                            : `<span class="red">${dt.functional_status}</span>`}
+                                            : `<span style="background-color: red;">${dt.functional_status}</span>`}
                                     </td>
                                     <td>${dt.dist_name}</td>
                                     <td>${dt.soc_type_name}</td>
@@ -307,7 +307,7 @@
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>`;
-// Calculate start and end page numbers
+
                 let startPage = Math.max(1, page - 4);
                 let endPage = Math.min(totalPages, page + 5);
         
@@ -320,11 +320,7 @@
                 if (endPage - startPage < 9) {
                     endPage = Math.min(totalPages, startPage + 9);
                 }
-                // for (let p = 1; p <= totalPages; p++) {
-                //     pagination += `<li class="page-item ${p === page ? 'active' : ''}">
-                //         <a class="page-link" href="#" data-page="${p}">${p}</a>
-                //     </li>`;
-                // }
+               
                   for (let p = startPage; p <= endPage; p++) {
                     pagination += `<li class="page-item ${p === page ? 'active' : ''}">
                         <a class="page-link" href="#" data-page="${p}">${p}</a>

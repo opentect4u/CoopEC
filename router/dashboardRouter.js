@@ -18,8 +18,6 @@ DashboardRouter.get('/dashboard', async(req, res) => {
          }else{
           var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id LIMIT 25`;
          }
-       
-      var table_name = ``;
         whr = '';
         const order = null;
     
@@ -196,36 +194,31 @@ DashboardRouter.get('/socLimitList',async(req, res) => {
   const limit = 25;
   const offset = (page - 1) * limit;
   
-  var con1 = req.query.cntr_auth_type > 0 ? `AND cntr_auth_type=${req.query.cntr_auth_type} ` : '';
-  var dist_code = req.query.dist_code > 0 ? `AND dist_code=${req.query.dist_code} ` : '';
-  var zone_code = req.query.zone_code > 0 ? `AND zone_code=${req.query.zone_code} ` : '';
-  var range_code = req.query.range_code > 0 ? `AND zone_code=${req.query.range_code} ` : '';
- 
-  var con6 = req.query.soc_tier > 0 ? `AND soc_tier=${req.query.soc_tier} ` : '';
-
-  // var con2 = formdata.range_code > 0 ? `AND range_code=${formdata.range_code} ` : '';
-   var con4 = req.query.urban_rural_flag > 0 ? `AND urban_rural_flag=${req.query.urban_rural_flag} ` : '';
-  // var con4 = formdata.block_id > 0 ? `AND block_id=${formdata.block_id} ` : '';
-  var con7 = req.query.soc_type_id > 0 ? `AND soc_type=${req.query.soc_type_id}` : '';
- 
+  var con1 = req.query.cntr_auth_type > 0 ? `AND a.cntr_auth_type=${req.query.cntr_auth_type} ` : '';
+  var dist_code = req.query.dist_code > 0 ? `AND a.dist_code=${req.query.dist_code} ` : '';
+  var zone_code = req.query.zone_code > 0 ? `AND a.zone_code=${req.query.zone_code} ` : '';
+  var range_code = req.query.range_code > 0 ? `AND a.range_code=${req.query.range_code} ` : '';
+  var con6 = req.query.soc_tier > 0 ? `AND a.soc_tier=${req.query.soc_tier} ` : '';
+  var con4 = req.query.urban_rural_flag > 0 ? `AND a.urban_rural_flag=${req.query.urban_rural_flag} ` : '';
+  var con7 = req.query.soc_type_id > 0 ? `AND a.soc_type=${req.query.soc_type_id}` : '';
   var maincon =con1+dist_code+zone_code+range_code+con4+con6+con7;
-     const sql = 'SELECT * FROM items LIMIT ? OFFSET ?';
+     
       const range_id = req.session.user.range_id;
-      const select = "a.id,a.cop_soc_name,a.reg_no,a.functional_status,b.soc_type_name,c.dist_name";
-      const table_name = "md_society a,md_society_type b,md_district c";
+      const select = "a.id,a.cop_soc_name,a.reg_no,a.functional_status,b.soc_type_name,c.dist_name,d.zone_name,e.range_name,f.soc_tier_name";
+      var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id`;
       if(range_id > 0){
-        var whr = `a.soc_type=b.soc_type_id AND a.dist_code=c.dist_code AND a.range_code='${range_id}' ${maincon} LIMIT ${offset} , ${limit}`;
+        var whr = `1 AND a.range_code='${range_id}' ${maincon} LIMIT ${offset} , ${limit}`;
       }else{
-        var whr = `a.soc_type=b.soc_type_id AND a.dist_code=c.dist_code  ${maincon} LIMIT ${offset} , ${limit}`;
+        var whr = `1 ${maincon} LIMIT ${offset} , ${limit}`;
       }
       
       const order = null;
      
       const select2 = "COUNT(*) as total";
       if(range_id > 0){
-        var countResult = await db_Select(select2, table_name,` a.soc_type=b.soc_type_id AND a.range_code='${range_id}' ${maincon}`, order);
+        var countResult = await db_Select(select2, table_name,`a.range_code='${range_id}' ${maincon}`, order);
       }else{
-        var countResult = await db_Select(select2, table_name,` a.soc_type=b.soc_type_id ${maincon}`, order);
+        var countResult = await db_Select(select2, table_name,`1 ${maincon}`, order);
       }
     
         const total = countResult.msg[0].total;
