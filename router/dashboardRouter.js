@@ -27,14 +27,14 @@ DashboardRouter.get('/dashboard', async(req, res) => {
         const regauttypehres = await db_Select('*', 'md_controlling_authority_type', null, null);
         const zoneres = await db_Select('*', 'md_zone', null, null);
         const ranzeres = await db_Select('*', 'md_range', null, null);
-        let blockres = { suc: 0, msg: [] };
+        var blockres ;
         if(range_id > 0){
           const results = await db_Select('*', 'md_range', `range_id = '${range_id}'`, null);
           const distcode = results.msg[0].dist_id > 0 ? ranzeres.msg[0].dist_id : 0;
-          const blockres = await db_Select('*', 'md_block',  `dist_id='${distcode}'`, null);
+           blockres = await db_Select('*', 'md_block',  `dist_id='${distcode}'`, null);
         
         }else{
-          const blockres = await db_Select('*', 'md_block',  'dist_id=0', null);
+           blockres = await db_Select('*', 'md_block',  'dist_id=0', null);
         }
         
         const ulbcatgres = await db_Select('*', 'md_ulb_catg', null, null);
@@ -48,7 +48,8 @@ DashboardRouter.get('/dashboard', async(req, res) => {
           blocklist:blockres.suc > 0 ? blockres.msg : '',ulbcatglist: ulbcatgres.suc > 0 ? ulbcatgres.msg : '',
           soctierlist:soctierres.suc > 0 ? soctierres.msg : '', soctietypelist:soctietype.suc > 0 ? soctietype.msg : '',
           zonereslist:zoneres.suc > 0 ? zoneres.msg : '',distlist:distres.suc > 0 ? distres.msg : '',
-          cntr_auth_type:0,zone_code:0,dist_code:0,soc_tier:0,soc_type_id:0
+          cntr_auth_type:0,zone_code:0,dist_code:0,soc_tier:0,soc_type_id:0,range_code:0,urban_rural_flag:0,
+          ulb_catg:0,block_id:0
         };
         // Render the view with data
         res.render('dashboard/landing', res_dt);
@@ -72,12 +73,31 @@ DashboardRouter.post('/dashboard', async(req, res) => {
       var formdata = req.body;
       const select = "a.id,a.cop_soc_name,a.reg_no,b.soc_type_name";
       const table_name = "md_society a,md_society_type b";
-      console.log(formdata);
+      
       var con1 = formdata.cntr_auth_type > 0 ? `AND cntr_auth_type=${formdata.cntr_auth_type} ` : '';
       var con2 = formdata.range_code > 0 ? `AND range_code=${formdata.range_code} ` : '';
-      var con3 = formdata.urban_rural_flag > 0 ? `AND urban_rural_flag=${formdata.urban_rural_flag} ` : '';
-      var con4 = formdata.block_id > 0 ? `AND block_id=${formdata.block_id} ` : '';
-      var con5 = formdata.ulb_catg > 0 ? `AND ulb_catg=${formdata.ulb_catg} ` : '';
+    
+      var con3;
+      if(formdata.urban_rural_flag == 'U'){
+        con3 = `AND urban_rural_flag='U' `
+      }else if(formdata.urban_rural_flag == 'R'){
+        con3 = `AND urban_rural_flag='R' `
+      }else{
+          con3 = ''
+      }
+      
+      if(formdata.urban_rural_flag == 'R'){
+        var con4 = formdata.block_id > 0 ? `AND block_id=${formdata.block_id} ` : '';
+      }else{
+        var con4 = '';
+      }
+
+      if(formdata.urban_rural_flag == 'U'){
+        var con5 = formdata.ulb_catg > 0 ? `AND ulb_catg='${formdata.ulb_catg}' ` : '';
+      }else{
+        var con5 = '';
+      }
+      
       var con6 = formdata.soc_tier > 0 ? `AND soc_tier=${formdata.soc_tier} ` : '';
       var con7 = formdata.soc_type_id > 0 ? `AND soc_type=${formdata.soc_type_id} ` : '';
       
@@ -87,15 +107,12 @@ DashboardRouter.post('/dashboard', async(req, res) => {
         var con8 = '';
       }
    
-    var con9 = formdata.zone_code > 0 ? `AND zone_code=${formdata.zone_code} ` : '';
-     // Example checking and converting object properties
-            if (formdata && formdata.dist_code) {
-           
-              var con10 = formdata.dist_code > 0 ? `AND dist_code='${formdata.dist_code}' ` : '';
-             
-            } else {
-              var con10 = '';
-            }
+      var con9 = formdata.zone_code > 0 ? `AND zone_code=${formdata.zone_code} ` : '';
+      if (formdata && formdata.dist_code) {
+        var con10 = formdata.dist_code > 0 ? `AND dist_code='${formdata.dist_code}' ` : '';
+      } else {
+        var con10 = '';
+      }
      
       var maincon = con1+con2+con3+con4+con5+con6+con7+con8+con9+con10;
       if(range_id > 0 ){
@@ -103,7 +120,6 @@ DashboardRouter.post('/dashboard', async(req, res) => {
       }else{
         var whr = `a.soc_type=b.soc_type_id ${maincon} LIMIT 25`;
       }
-      
       const order = null;
   
       // Execute database query
@@ -115,20 +131,33 @@ DashboardRouter.post('/dashboard', async(req, res) => {
       const total = countResult.msg[0].total;
       const totalPages = Math.ceil(total / 25);
       const regauttypehres = await db_Select('*', 'md_controlling_authority_type', null, null);
-      const ranzeres = await db_Select('*', 'md_range', `range_id='${range_id}'`, null);
+      if(range_id > 0){
+      var ranzeres = await db_Select('*', 'md_range', `range_id='${range_id}'`, null);
+      }else{
+        var ranzeres = await db_Select('*','md_range', null, null);
+      }
       const results = await db_Select('*', 'md_range', null, null);
-      let blockres = { suc: 0, msg: [] };
+      var blockres ;
       if(range_id > 0){
       const distcode = ranzeres.msg[0].dist_id > 0 ? ranzeres.msg[0].dist_id : 0;
-      const blockres = await db_Select('*', 'md_block',  `dist_id='${distcode}'`, null);
+       blockres = await db_Select('*', 'md_block',  `dist_id='${distcode}'`, null);
       }else{
-        const blockres = await db_Select('*', 'md_block',  null, null);
+         blockres = await db_Select('*', 'md_block',  null, null);
       }
       const ulbcatgres = await db_Select('*', 'md_ulb_catg', null, null);
       const zoneres = await db_Select('*', 'md_zone', null, null);
       const distres = await db_Select('*', 'md_district', null, null);
       const soctierres = await db_Select('*', 'md_soc_tier', null, null);
       const soctietype = await db_Select('*', 'md_society_type', null, null);
+      var urban_rural_flag; // Declare the variable first
+
+        if (formdata.urban_rural_flag === 'U') {
+          urban_rural_flag = 'U';
+        } else if (formdata.urban_rural_flag === 'R') {
+          urban_rural_flag = 'R';
+        }else{
+          urban_rural_flag = 0;
+        }
       // Prepare data for rendering
       const res_dt = {
         data: result.suc > 0 ? result.msg : '',page: 1,totalPages:totalPages,
@@ -140,7 +169,11 @@ DashboardRouter.post('/dashboard', async(req, res) => {
         dist_code:formdata.dist_code > 0 ? formdata.dist_code :0,
         soc_type_id:formdata.soc_type_id > 0 ? formdata.soc_type_id :0,
         soc_tier:formdata.soc_tier > 0 ? formdata.soc_tier :0,
+        range_code:formdata.range_code > 0 ? formdata.range_code :0,urban_rural_flag,
+        ulb_catg:formdata.ulb_catg > 0 ? formdata.ulb_catg :0,
+        block_id:formdata.block_id > 0 ? formdata.block_id :0,
       };
+ 
       // Render the view with data
       res.render('dashboard/landing', res_dt);
     } catch (error) {
@@ -163,7 +196,7 @@ DashboardRouter.get('/socLimitList',async(req, res) => {
   var con6 = req.query.soc_tier > 0 ? `AND soc_tier=${req.query.soc_tier} ` : '';
 
   // var con2 = formdata.range_code > 0 ? `AND range_code=${formdata.range_code} ` : '';
-  // var con3 = formdata.urban_rural_flag > 0 ? `AND urban_rural_flag=${formdata.urban_rural_flag} ` : '';
+   var con4 = req.query.urban_rural_flag > 0 ? `AND urban_rural_flag=${req.query.urban_rural_flag} ` : '';
   // var con4 = formdata.block_id > 0 ? `AND block_id=${formdata.block_id} ` : '';
   // var con5 = formdata.ulb_catg > 0 ? `AND ulb_catg=${formdata.ulb_catg} ` : '';
   // var con6 = formdata.soc_tier > 0 ? `AND soc_tier=${formdata.soc_tier} ` : '';
@@ -171,7 +204,7 @@ DashboardRouter.get('/socLimitList',async(req, res) => {
 
   var con7 = req.query.soc_type_id > 0 ? `AND soc_type=${req.query.soc_type_id}` : '';
  
-  var maincon =con1+con2+con3+con6+con7;
+  var maincon =con1+con2+con3+con4+con6+con7;
      const sql = 'SELECT * FROM items LIMIT ? OFFSET ?';
       const range_id = req.session.user.range_id;
       const select = "a.id,a.cop_soc_name,a.reg_no,b.soc_type_name";

@@ -19,7 +19,7 @@
           <div class="col-md-3">
             <div class="form-group">
               <label for="exampleInputName1">Zone Code</label>
-                 <select class="form-control" id="zone_code" name="zone_code" >
+                 <select class="form-control" id="zone_code" name="zone_code">
                   <option value="0">Select </option>
                   <% if(zonereslist.length > 0){
                     var i = 1
@@ -50,7 +50,7 @@
                   <% if(ranzelist.length > 0){
                     var i = 1
                     ranzelist.forEach(dt => { %>
-                    <option value="<%= dt.range_id %>" ><%= dt.range_name %></option>
+                    <option value="<%= dt.range_id %>" <%= range_code == dt.range_id ? 'selected' : '' %> ><%= dt.range_name %></option>
                       <% }) } %>
               </select>
             </div>
@@ -61,8 +61,8 @@
               <label for="exampleInputName1">URBAN/RURAL</label>
                  <select class="form-control" id="urban_rural_flag" name="urban_rural_flag" >
                   <option value="0">Select </option>
-                  <option value="U">URBAN</option>
-                  <option value="R">RURAL</option>
+                  <option value="U" <%= urban_rural_flag == 'U' ? 'selected' : '' %> >URBAN</option>
+                  <option value="R" <%= urban_rural_flag == 'R' ? 'selected' : '' %>>RURAL</option>
               </select>
             </div>
           </div>
@@ -74,7 +74,7 @@
                 <% if(blocklist.length > 0){
                   var i = 1
                   blocklist.forEach(dt => { %>
-                  <option value="<%= dt.block_id %>" ><%= dt.block_name %></option>
+                  <option value="<%= dt.block_id %>" <%= block_id == dt.block_id ? 'selected' : '' %>><%= dt.block_name %></option>
                     <% }) } %>
               </select>
             </div>
@@ -87,7 +87,7 @@
                 <% if(ulbcatglist.length > 0){
                   var i = 1
                   ulbcatglist.forEach(dt => { %>
-                  <option value="<%= dt.ulb_catg_id %>" ><%= dt.ulb_catg_name %></option>
+                  <option value="<%= dt.ulb_catg_id %>" <%= ulb_catg == dt.ulb_catg_id ? 'selected' : '' %>><%= dt.ulb_catg_name %></option>
                     <% }) } %>
               </select>
             </div>
@@ -244,11 +244,20 @@
                 var zone_code = $('#zone_code').val();
                 var dist_code = $('#dist_code').val();
                 var soc_tier = $('#soc_tier').val();
+                var urban_rural_flags = $('#urban_rural_flag').val();
+                var ulb_catg,block_id;
+                if(urban_rural_flags == 'U'){
+                 ulb_catg = $('#ulb_catg').val();
+                 block_id = 0;
+                }else if(urban_rural_flags == 'R'){
+                  ulb_catg = 0;
+                  block_id = $('#block_id').val();
+                }
 
                 $.ajax({
                     url: '/dash/socLimitList',
                     type: 'GET',
-                    data: { page,cntr_auth_type,zone_code,dist_code,soc_type_id,soc_tier },
+                    data: { page,cntr_auth_type,zone_code,dist_code,soc_type_id,soc_tier,urban_rural_flags,ulb_catg,block_id },
                     success: function(response) {
                         const data = response.data;
                         const totalPages = response.totalPages;
@@ -328,8 +337,19 @@
                 });
             });
         });
-        $('#urban_sec').hide();
-        $('#rural_sec').hide();
+        var urban_rural_flag_dt = '<%= urban_rural_flag %>'
+       console.log(urban_rural_flag_dt);
+        if(urban_rural_flag_dt == "U"){
+          $('#rural_sec').hide();
+          $('#urban_sec').show();
+        }else if(urban_rural_flag_dt == "R"){
+          $('#urban_sec').hide();
+          $('#rural_sec').show();
+        }else{
+          $('#urban_sec').hide();
+          $('#rural_sec').hide();
+        }
+        
         $('#urban_rural_flag').change(function() {
           if ($(this).val() == 'U') {
             $('#urban_sec').show();
