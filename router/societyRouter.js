@@ -207,6 +207,44 @@ SocietyRouter.get('/villlist',async(req,res)=>{
         });
     }
 })
+  SocietyRouter.get('/zonelist',async(req,res)=>{
+    try {
+      // Extract query parameter 'claims'
+      const dist_code = req.query.dist_code;
+      const datahres = await db_Select('a.zone_id,b.zone_name','md_range a,md_zone b',`a.zone_id= b.zone_id AND a.dist_id='${dist_code}'`, null);
+      const responseData = {
+        datahlist: datahres.suc > 0 ? datahres.msg : '', // Echoing the received claims
+      };
+      // Send response back to the client
+      res.json(responseData);
+      } catch (err) {
+          console.error('Error handling /regauth request:', err);
+          res.status(500).json({
+              success: false,
+              message: 'Internal server error'
+          });
+      }
+  })
+  SocietyRouter.get('/rangelist',async(req,res)=>{
+    try {
+      // Extract query parameter 'claims'
+      const dist_code = req.query.dist_code;
+      const datahres = await db_Select('range_id,range_name','md_range',`dist_id='${dist_code}'`, null);
+      const responseData = {
+        datahlist: datahres.suc > 0 ? datahres.msg : '', // Echoing the received claims
+      };
+      // Send response back to the client
+      res.json(responseData);
+      } catch (err) {
+          console.error('Error handling /regauth request:', err);
+          res.status(500).json({
+              success: false,
+              message: 'Internal server error'
+          });
+      }
+  })
+
+  
 
 
 

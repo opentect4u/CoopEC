@@ -17,41 +17,42 @@
           </div>
           <% if(user.range_id== 0) { %>
           <div class="col-md-3">
+              <div class="form-group">
+                <label for="exampleInputName1">District Code</label>
+                   <select class="form-control" id="dist_code" name="dist_code" >
+                    <option value="0">Select </option>
+                    <% if(distlist.length > 0){
+                      var i = 1
+                      distlist.forEach(dt => { %>
+                      <option value="<%= dt.dist_code %>" <%= dist_code == dt.dist_code ? 'selected' : '' %>><%= dt.dist_name %></option>
+                        <% }) } %>
+                </select>
+              </div>
+          </div>
+          <div class="col-md-3">
             <div class="form-group">
               <label for="exampleInputName1">Zone Code</label>
                  <select class="form-control" id="zone_code" name="zone_code">
                   <option value="0">Select </option>
-                  <% if(zonereslist.length > 0){
+                  <!-- <% if(zonereslist.length > 0){
                     var i = 1
                     zonereslist.forEach(dt => { %>
                     <option value="<%= dt.zone_id %>" <%= zone_code == dt.zone_id ? 'selected' : '' %>><%= dt.zone_name %></option>
-                      <% }) } %>
+                      <% }) } %> -->
               </select>
             </div>
           </div>
-          <div class="col-md-3">
-            <div class="form-group">
-              <label for="exampleInputName1">District Code</label>
-                 <select class="form-control" id="dist_code" name="dist_code" >
-                  <option value="0">Select </option>
-                  <% if(distlist.length > 0){
-                    var i = 1
-                    distlist.forEach(dt => { %>
-                    <option value="<%= dt.dist_code %>" <%= dist_code == dt.dist_code ? 'selected' : '' %>><%= dt.dist_name %></option>
-                      <% }) } %>
-              </select>
-            </div>
-          </div>
+          
           <div class="col-md-3">
             <div class="form-group">
               <label for="exampleInputName1">Range Code</label>
                  <select class="form-control" id="range_code" name="range_code" >
                   <option value="0">Select </option>
-                  <% if(ranzelist.length > 0){
+                  <!-- <% if(ranzelist.length > 0){
                     var i = 1
                     ranzelist.forEach(dt => { %>
                     <option value="<%= dt.range_id %>" <%= range_code == dt.range_id ? 'selected' : '' %> ><%= dt.range_name %></option>
-                      <% }) } %>
+                      <% }) } %> -->
               </select>
             </div>
           </div>
@@ -360,7 +361,7 @@
               
           }
       });
-    function populateblock(dist_code) {
+  function populateblock(dist_code) {
     $.ajax({
         url: '/society/blocklist',
         method: 'GET',
@@ -388,10 +389,70 @@
         }
     });
   }
+  populatezone('<%= dist_code %>');
+  populateranze('<%= dist_code %>');
   $('#dist_code').change(function() {
         var selectedValue = $(this).val();
         populateblock(selectedValue);
+        populatezone(selectedValue);
+        populateranze(selectedValue);
     });
+    function populatezone(dist_code) {
+      $.ajax({
+        url: '/society/zonelist',
+        method: 'GET',
+        data: { dist_code: dist_code },
+        beforeSend: function() {
+            // Show a loading indicator if needed
+           // $('#block_id').html('<option value="0">Loading...</option>');
+        },
+        success: function(response) {
+            var datahlists = response.datahlist;
+            var $select = $('#zone_code');
+            // Clear existing options
+            $select.empty();
+            // Add a default "Select" option
+            $select.append('<option value="0">Select Zone</option>');
+            // Append new options from the response data
+            datahlists.forEach(function(item) {
+                $select.append(`<option value="${item.zone_id}"  >${item.zone_name}</option>`);
+            });
+        },
+        error: function(err) {
+            // Handle any errors
+            $('#zone_code').html('<option value="0">Error fetching data. Please try again.</option>');
+            console.error('AJAX Error:', err); // Log error for debugging
+        }
+    });
+    }
+    function populateranze(dist_code) {
+      $.ajax({
+        url: '/society/rangelist',
+        method: 'GET',
+        data: { dist_code: dist_code },
+        beforeSend: function() {
+            // Show a loading indicator if needed
+           // $('#block_id').html('<option value="0">Loading...</option>');
+        },
+        success: function(response) {
+            var datahlists = response.datahlist;
+            var $select = $('#range_code');
+            // Clear existing options
+            $select.empty();
+            // Add a default "Select" option
+            $select.append('<option value="0">Select Range</option>');
+            // Append new options from the response data
+            datahlists.forEach(function(item) {
+                $select.append(`<option value="${item.range_id}">${item.range_name}</option>`);
+            });
+        },
+        error: function(err) {
+            // Handle any errors
+            $('#range_code').html('<option value="0">Error fetching data. Please try again.</option>');
+            console.error('AJAX Error:', err); // Log error for debugging
+        }
+    });
+    }
 </script>
 <style>
   #pagination a {
