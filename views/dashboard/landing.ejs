@@ -142,8 +142,10 @@
           <div class="card-body">
             <h4 class="card-title card_title_cus">Society List   
               <div class="table_title_icon"> 
-              <i class="fa fa-file-pdf-o pdf_cus" aria-hidden="true"></i> 
-              <i class="fa fa-file-excel-o excel_cus" aria-hidden="true"></i>
+                <img src="/images/pdf.jpg" alt="pdf" class="pdf_cus" />
+                <img src="/images/excel.jpg" alt="excel" class="excel_cus" />
+              <!-- <i class="fa fa-file-pdf-o pdf_cus" aria-hidden="true"></i> 
+              <i class="fa fa-file-excel-o excel_cus" aria-hidden="true"></i> -->
             </div>
             
             </h4>
@@ -183,7 +185,7 @@
                           <td><%= dt.soc_tier_name %></td>
                           <td><%= dt.soc_type_name %></td>
                           <td>
-                            <a href="/society/edit?id=<%= dt.id %>">Edit</a>
+                            <a href="/society/edit?id=<%= dt.id %>" class="edit_dashboard">Edit</a>
                           </td>
                       </tr>
                   <% }) %>
