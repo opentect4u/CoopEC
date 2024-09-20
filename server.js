@@ -1,10 +1,11 @@
 const express = require("express"),
 session = require("express-session"),
-    app = express(),
-    
-    expressLayouts = require("express-ejs-layouts"),
-    path = require("path"),
-    port = process.env.PORT || 3000;
+  app = express(),
+  expressLayouts = require("express-ejs-layouts"),
+  path = require("path"),
+	https = require('https'),
+  fs = require('fs'),
+  port = process.env.PORT || 3013;
 
 // parse requests of content-type - application/json
 app.use(express.json());
@@ -22,6 +23,12 @@ app.set("layout", "templates/layout");
 
 // SET ASSETS AS A STATIC PATH //
 app.use(express.static(path.join(__dirname, "assets/")));
+
+// SET SSL CERT //
+const options = {
+  key: fs.readFileSync(path.join(__dirname, 'cecbk_certificate/private-key.txt')),
+  cert: fs.readFileSync(path.join(__dirname, 'cecbk_certificate/cecbkopentech4u.crt')),
+};
 
 // Set up the session middleware
 app.use(
@@ -53,15 +60,15 @@ app.use("/dash",DashboardRouter)
 app.use("/society",SocietyRouter)
 //app.use(DashboardRouter)
 
-// app.get("/",async (req, res) => {
+app.get("/",async (req, res) => {
 // //   var user = req.session.user;
 // //   if (!user) {
-// //     res.redirect("/login");
+    res.redirect("/login");
 // //   } else {
 //     res.redirect("/login");
 // //   }
 // // res.send('Welcome')
-// });
+});
 app.get("/dashboard", async (req, res) => {
   
     var res_dt = {
@@ -92,8 +99,13 @@ app.get('*', function(req, res){
   res.redirect('404')
 })
 
-
-app.listen(port, (err) => {
-    if (err) throw new Error(err);
-    else console.log(`App is running at http://localhost:${port}`);
+const server = https.createServer(options, app)
+server.listen(port, (err) => {
+  if (err) throw new Error(err);
+  else console.log(`App is running at https://localhost:${port}`);
 });
+
+// app.listen(port, (err) => {
+//     if (err) throw new Error(err);
+//     else console.log(`App is running at http://localhost:${port}`);
+// });
