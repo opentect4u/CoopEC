@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/static/css/main.adec1e1e.css",
+    "main.js": "/static/js/main.2afd1198.js",
+    "static/js/453.89576efa.chunk.js": "/static/js/453.89576efa.chunk.js",
+    "static/media/fontawesome-webfont.svg?v=4.7.0": "/static/media/fontawesome-webfont.c1e38fd9e0e74ba58f7a.svg",
+    "static/media/gallery_ben.png": "/static/media/gallery_ben.5c24764993ea1916d9d2.png",
+    "static/media/fontawesome-webfont.eot": "/static/media/fontawesome-webfont.8b43027f47b20503057d.eot",
+    "static/media/fontawesome-webfont.ttf?v=4.7.0": "/static/media/fontawesome-webfont.1e59d2330b4c6deb84b3.ttf",
+    "static/media/map_real.png": "/static/media/map_real.fe6041f0246def9bf8b8.png",
+    "static/media/fontawesome-webfont.woff?v=4.7.0": "/static/media/fontawesome-webfont.f691f37e57f04c152e23.woff",
+    "static/media/fontawesome-webfont.woff2?v=4.7.0": "/static/media/fontawesome-webfont.20fd1704ea223900efa9.woff2",
+    "static/media/banner_main.png": "/static/media/banner_main.5aa0c0edb0fb93f6fcee.png",
+    "static/media/about.png": "/static/media/about.ca9eac0b080fbdb391cb.png",
+    "static/media/logo.png": "/static/media/logo.ab7dc9ebbbb1df9a5bc8.png",
+    "static/media/logo.svg": "/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "/index.html",
+    "main.adec1e1e.css.map": "/static/css/main.adec1e1e.css.map",
+    "main.2afd1198.js.map": "/static/js/main.2afd1198.js.map",
+    "453.89576efa.chunk.js.map": "/static/js/453.89576efa.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.adec1e1e.css",
+    "static/js/main.2afd1198.js"
+  ]
+}
