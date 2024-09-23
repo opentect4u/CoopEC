@@ -195,6 +195,10 @@
             </div>
 
           <nav aria-label="Page navigation" class="pagination_cus">
+            <ul  style="float: left;" id="pagination_count">
+              Showing 1 to <%= i-1 %> of, <%= total %> entries
+
+            </ul>
             <ul class="pagination" id="pagination">
                 <li class="page-item <%= page === 1 ? 'disabled' : '' %>">
                     <a class="page-link" href="#" data-page="<%= page - 1 %>" aria-label="Previous">
@@ -275,6 +279,7 @@
                   
 // Calculate the starting index for the current page
                         let startIndex = (currentPage - 1) * itemsPerPage + 1;
+                        let startIndexofrcnt = (currentPage - 1) * itemsPerPage + 1;
                         let rows = '';
                         let i = $('#item-list tr').length + 1; // Start from the next index
 
@@ -300,6 +305,9 @@
                      
                         // Update pagination
                 let pagination = '';
+                let paginationcntsec = '';
+
+                paginationcntsec +=`Showing ${startIndexofrcnt} to ${startIndex-1} of, ${response.total} entries`;
                 
                 pagination += `<li class="page-item ${page === 1 ? 'disabled' : ''}">
                     <a class="page-link" href="#" data-page="${page - 1}" aria-label="Previous">
@@ -334,6 +342,8 @@
                 </li>`;
 
                 $('#pagination').html(pagination);
+                $('#pagination_count').html(paginationcntsec);
+                
 
                         // If no more items, hide the button
                         // if (data.length < 10) {

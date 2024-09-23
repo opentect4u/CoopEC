@@ -180,7 +180,7 @@ DashboardRouter.post('/dashboard', async(req, res) => {
         soc_tier:formdata.soc_tier > 0 ? formdata.soc_tier :0,
         urban_rural_flag,
         ulb_catg:formdata.ulb_catg > 0 ? formdata.ulb_catg :0,
-        block_id:formdata.block_id > 0 ? formdata.block_id :0,
+        block_id:formdata.block_id > 0 ? formdata.block_id :0,total:total
       };
  
       // Render the view with data
@@ -230,7 +230,7 @@ DashboardRouter.get('/socLimitList',async(req, res) => {
        const totalPages = Math.ceil(total / limit);
       // Execute database query
      const result = await db_Select(select, table_name, whr, order);
-     res.json({ data: result.suc > 0 ? result.msg : '', page,totalPages:totalPages });
+     res.json({ data: result.suc > 0 ? result.msg : '', page,totalPages:totalPages,total:total });
 
 });
 
