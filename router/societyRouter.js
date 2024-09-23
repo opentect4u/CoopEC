@@ -267,6 +267,27 @@ SocietyRouter.get('/villlist',async(req,res)=>{
           });
       }
   })
+  SocietyRouter.get('/getsuggestions',async(req,res)=>{
+    try {
+      // Extract query parameter 'claims'
+      const sugname = req.query.name;
+      const datahres = await db_Select('cop_soc_name','md_society',`cop_soc_name LIKE '%${sugname}%'`, null);
+      const responseData = {
+        datahlist: datahres.suc > 0 ? datahres.msg : '', // Echoing the received claims
+      };
+      // Send response back to the client
+      res.json(responseData);
+      } catch (err) {
+          console.error('Error handling /regauth request:', err);
+          res.status(500).json({
+              success: false,
+              message: 'Internal server error'
+          });
+      }
+  })
+
+  
+
 
   
 

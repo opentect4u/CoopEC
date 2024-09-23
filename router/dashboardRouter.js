@@ -40,9 +40,9 @@ DashboardRouter.get('/dashboard', async(req, res) => {
           const results = await db_Select('*', 'md_range', `range_id = '${range_id}'`, null);
           const distcode = results.msg[0].dist_id > 0 ? ranzeres.msg[0].dist_id : 0;
            blockres = await db_Select('*', 'md_block',  `dist_id='${distcode}'`, null);
-        
+           console.log('Test');
         }else{
-           blockres = await db_Select('*', 'md_block',  'dist_id=0', null);
+           blockres = await db_Select('*', 'md_block',  null, null);
         }
         const ulbcatgres = await db_Select('*', 'md_ulb_catg', null, null);
         const soctierres = await db_Select('*', 'md_soc_tier', null, null);
@@ -56,7 +56,7 @@ DashboardRouter.get('/dashboard', async(req, res) => {
           soctierlist:soctierres.suc > 0 ? soctierres.msg : '', soctietypelist:soctietype.suc > 0 ? soctietype.msg : '',
           zonereslist:zoneres.suc > 0 ? zoneres.msg : '',distlist:distres.suc > 0 ? distres.msg : '',
           cntr_auth_type:0,zone_code:0,dist_code:0,soc_tier:0,soc_type_id:0,range_code:0,urban_rural_flag:0,
-          ulb_catg:0,block_id:0,total:total
+          ulb_catg:0,block_id:0,total:total,socname:''
         };
         // Render the view with data
         res.render('dashboard/landing', res_dt);
@@ -109,7 +109,7 @@ DashboardRouter.post('/dashboard', async(req, res) => {
       var con7 = formdata.soc_type_id > 0 ? `AND a.soc_type=${formdata.soc_type_id} ` : '';
       
       if (formdata.socname && formdata.socname.trim() !== '') {
-        var con8 = `AND a.cop_soc_name LIKE '%${formdata.socname}%' `;
+        var con8 = `AND a.cop_soc_name LIKE '%${formdata.socname.trim()}%' `;
       }else{
         var con8 = '';
       }
@@ -128,14 +128,12 @@ DashboardRouter.post('/dashboard', async(req, res) => {
         var whr = `1 ${maincon} LIMIT 25`;
       }
       const order = null;
-       console.log(whr);
-       console.log('chack');
+    //   console.log(whr);
+    //   console.log('chack');
       // Execute database query
       const result = await db_Select(select, table_name, whr, order);
       const select2 = "COUNT(*) as total";
       const countResult = await db_Select(select2, table_name, whr, order);
-    
-    
       const total = countResult.msg[0].total;
       const totalPages = Math.ceil(total / 25);
       const regauttypehres = await db_Select('*', 'md_controlling_authority_type', null, null);
@@ -180,7 +178,7 @@ DashboardRouter.post('/dashboard', async(req, res) => {
         soc_tier:formdata.soc_tier > 0 ? formdata.soc_tier :0,
         urban_rural_flag,
         ulb_catg:formdata.ulb_catg > 0 ? formdata.ulb_catg :0,
-        block_id:formdata.block_id > 0 ? formdata.block_id :0,total:total
+        block_id:formdata.block_id > 0 ? formdata.block_id :0,total:total,socname:formdata.socname.trim()
       };
  
       // Render the view with data

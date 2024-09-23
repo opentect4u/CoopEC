@@ -1,3 +1,11 @@
+<style>
+  #suggestions {
+      position: absolute;
+      z-index: 1000; /* Ensure it appears above other elements */
+    
+  }
+</style>
+
 <div class="row">
     <div class="col-md-12 grid-margin">
       <form class="forms-sample" action="/dash/dashboard" method="post" >
@@ -120,15 +128,16 @@
             </div>
           </div>
           
-          <div class="col-md-3">
+          <div class="col-md-9">
             <div class="form-group">
               <label for="exampleInputName1">Name</label>
-                <input type="text" name="socname" class="form-control">
+                <input type="text" name="socname" class="form-control" value="<%= socname %>" id="socname">
+                <ul id="suggestions" class="list-group" style="display: none;"></ul>
+                <div id="loader" style="display: none; position: absolute; top: 100%; left: 0;">Loading...</div>
             </div>
           </div>
           <div class="col-md-12">
             <div class="form-group">
-              
               <button class="btn btn-primary">Search</button>
               <a href="/dash/dashboard" class="btn btn-danger">Reset</a>
             </div>
@@ -143,8 +152,8 @@
           <div class="card-body">
             <h4 class="card-title card_title_cus">List Co-operative Societies in <%= range_name %> (<%= total %>)
               <div class="table_title_icon"> 
-                <img src="/images/pdf.jpg" alt="pdf" class="pdf_cus" />
-                <img src="/images/excel.jpg" alt="excel" class="excel_cus" />
+                <!-- <img src="/images/pdf.jpg" alt="pdf" class="pdf_cus" />
+                <img src="/images/excel.jpg" alt="excel" class="excel_cus" /> -->
               <!-- <i class="fa fa-file-pdf-o pdf_cus" aria-hidden="true"></i> 
               <i class="fa fa-file-excel-o excel_cus" aria-hidden="true"></i> -->
             </div>
@@ -488,4 +497,42 @@
       text-decoration: underline;
   }
 </style>
+<script>
+ $(document).ready(function() {
+    $('#socname').on('input', function() {
+        let query = $(this).val();
+        if (query.length > 3) {
+            $('#loader').show(); // Show loader
+
+            $.ajax({
+                url: '/society/getsuggestions', // Your server endpoint
+                method: 'GET',
+                data: { name: query },
+                success: function(data) {
+                    var datahlist = data.datahlist;
+                    $('#suggestions').empty().show();
+                    datahlist.forEach(function(item) {
+                        $('#suggestions').append(`<li class="list-group-item">${item.cop_soc_name}</li>`);
+                    });
+                },
+                error: function() {
+                    console.error('Error fetching suggestions.');
+                },
+                complete: function() {
+                    $('#loader').hide(); // Hide loader after the request is complete
+                }
+            });
+        } else {
+            $('#suggestions').hide();
+            $('#loader').hide(); // Hide loader if query is too short
+        }
+    });
+
+    $(document).on('click', '.list-group-item', function() {
+        $('#socname').val($(this).text());
+        $('#suggestions').hide();
+    });
+});
+
+</script>
 
