@@ -271,7 +271,13 @@ SocietyRouter.get('/villlist',async(req,res)=>{
     try {
       // Extract query parameter 'claims'
       const sugname = req.query.name;
-      const datahres = await db_Select('cop_soc_name','md_society',`cop_soc_name LIKE '%${sugname}%'`, null);
+      const range_id = req.session.user.range_id;
+      if(range_id > 0){
+        var datahres = await db_Select('cop_soc_name','md_society',`range_code='${range_id}' AND cop_soc_name LIKE '%${sugname}%'`, null);
+      }else{
+        var datahres = await db_Select('cop_soc_name','md_society',`cop_soc_name LIKE '%${sugname}%'`, null);
+      }
+      
       const responseData = {
         datahlist: datahres.suc > 0 ? datahres.msg : '', // Echoing the received claims
       };
