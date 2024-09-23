@@ -15,7 +15,15 @@ LoginRouter.post('/logincheck', async(req, res) => {
         var res_dt = await db_Select(select, table_name, whr, order);
         if (res_dt.suc > 0) {
           if (res_dt.msg.length > 0) {
+              if(res_dt.msg[0].range_id > 0){
+                var range_dtl = await db_Select('range_name', 'md_range', `range_id='${res_dt.msg[0].range_id}'`, order);
+                req.session.range_name = range_dtl.msg[0].range_name;
+              }else{
+                req.session.range_name = 'ALL';
+              }
+
             if (await bcrypt.compare(data.password, res_dt.msg[0].password)) {
+                
                 req.session.user = res_dt.msg[0];
             
               res.redirect("/dashboard");

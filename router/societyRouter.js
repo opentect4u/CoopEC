@@ -39,7 +39,7 @@ SocietyRouter.get('/edit', async(req, res) => {
         const blockres = await db_Select('*', 'md_block',  `dist_id='${distcode}'`, null);
         const gpres = await db_Select('*', 'md_gp',  `dist_id='${distcode}'`, null);
         const villres = await db_Select('*', 'md_village',  `dist_id='${distcode}'`, null);
-        
+        const boardmembdtsl = await db_Select('*', 'td_board_member',  `soc_id='${soc_id}'`, null);
         
     
         // Prepare data for rendering
@@ -52,7 +52,8 @@ SocietyRouter.get('/edit', async(req, res) => {
           ulblist: ulbres.suc > 0 ? ulbres.msg : '',managementlist: managementres.suc > 0 ? managementres.msg : '',
           officertypelist: officertyperes.suc > 0 ? officertyperes.msg : '',caseflaglist: caseflagres.suc > 0 ? caseflagres.msg : '',
           wardlist:wardres.suc > 0 ? wardres.msg : '',blocklist:blockres.suc > 0 ? blockres.msg : '',
-          gplist:gpres.suc > 0 ? gpres.msg : '',villlist:villres.suc > 0 ? villres.msg : ''
+          gplist:gpres.suc > 0 ? gpres.msg : '',villlist:villres.suc > 0 ? villres.msg : '',
+          boardmembdlist: boardmembdtsl.suc > 0 ? boardmembdtsl.msg : '',
         };
         // Render the view with data
         res.render('society/edit', res_dt);
@@ -66,6 +67,7 @@ SocietyRouter.get('/edit', async(req, res) => {
 SocietyRouter.post('/socedit', async(req, res) => {
   try {
       // Extract range_id from session
+      var user_id = req.session.user.user_id;
       var data = req.body;
       var table_name = "md_society";
     var values = null;
@@ -79,8 +81,30 @@ SocietyRouter.post('/socedit', async(req, res) => {
     contact_number = '${data.contact_number}',email = '${data.email}',case_id='${data.case_id}' `;
     var whr = `id = '${data.id}'` ;
     var flag = 1;
-      
-     var save_data = await db_Insert(table_name, fields, values, whr, flag);
+    var save_data = await db_Insert(table_name, fields, values, whr, flag);
+  
+   
+    const board_memb_id = data['board_memb_id[]'];
+    const board_memb_name = data['board_memb_name[]'];
+    const board_memb_desig = data['board_memb_desig[]'];
+
+    for (let i = 0; i < board_memb_name.length; i++) {
+      // Only process if board_memb_name is not empty
+      if (board_memb_name[i].length > 0) {
+          // Construct the values string for insertion
+          const values = `('${data.id}', '${board_memb_name[i]}', '${board_memb_desig[i]}', '${user_id}', '${moment().format("YYYY-MM-DD HH:mm:ss")}')`;
+  
+          if (board_memb_id[i] > 0) {
+              // Update existing record
+              const fields = `board_memb_name = '${board_memb_name[i]}', board_memb_desig = '${board_memb_desig[i]}', modified_by = '${user_id}', modified_at = '${moment().format("YYYY-MM-DD HH:mm:ss")}'`;
+              await db_Insert('td_board_member', fields, null, `board_memb_id = ${board_memb_id[i]}`, true);
+          } else {
+              // Insert new record
+              const fields = '(`soc_id`, `board_memb_name`, `board_memb_desig`, `created_by`, `created_dt`)';
+              await db_Insert('td_board_member', fields, values, null, false);
+          }
+      }
+  }
      console.log(data);
       res.redirect("/dash/dashboard");
     } catch (error) {

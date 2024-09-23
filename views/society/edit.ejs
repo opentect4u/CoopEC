@@ -316,6 +316,49 @@
                   </select>
                 </div>
               </div>
+              
+            
+           
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                <b>Board Member Detail</b>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                <table style="width:100%">
+                   <thead>
+                      <tr><td> Name</td><td>Designation</td><td></td></tr>
+                   </thead>
+                   <tbody id="board_dtl">
+                    <tr>
+                      <input type="hidden" name="board_memb_id[]" value="0" >
+                        <td style="padding: 10px;"><input type="hidden" name="board_memb_name[]" value="" class="form-control"></td>
+                        <td style="padding: 10px;"><input type="hidden" name="board_memb_desig[]" value="" class="form-control"></td>
+                    </tr>
+                    <% if(boardmembdlist.length > 0){ 
+                      boardmembdlist.forEach(dt => {
+                      %>
+                      
+                    <tr>
+                      <input type="hidden" name="board_memb_id[]" value="<%= dt.board_memb_id %>" >
+                        <td style="padding: 10px;"><input type="text" name="board_memb_name[]" value="<%= dt.board_memb_name %>" class="form-control"></td>
+                        <td style="padding: 10px;"><input type="text" name="board_memb_desig[]" value="<%= dt.board_memb_desig %>" class="form-control"></td>
+                        <td style="padding: 10px;"></td>
+                    </tr>
+                    <% }) } %>
+                    <tr>
+                      <input type="hidden" name="board_memb_id[]" value="0" >
+                        <td style="padding: 10px;"><input type="text" name="board_memb_name[]" class="form-control"></td>
+                        <td style="padding: 10px;"><input type="text" name="board_memb_desig[]" class="form-control"></td>
+                        <td style="padding: 10px;"><span class="btn btn-primary" onclick="addRow()">Add</span></td>
+                    </tr>
+                </tbody>
+                  </table>
+                </div>
+              </div>
             </div>
           <button type="submit" class="btn btn-primary mr-2">Submit</button>
           <button class="btn btn-light">Cancel</button>
@@ -553,6 +596,24 @@
       // Optionally, trigger change event on page load to set initial visibility
      // $('input[name="urban_rural_flag"]:checked').change();
   });
+
+  function addRow() {
+    const tableBody = document.getElementById('board_dtl');
+    const newRow = document.createElement('tr');
+
+    newRow.innerHTML = `
+        <td style="padding: 10px;"><input type="text" name="board_memb_name[]" class="form-control"></td>
+        <td style="padding: 10px;"><input type="text" name="board_memb_desig[]" class="form-control"></td>
+        <td style="padding: 10px;"><button class="btn btn-danger" onclick="removeRow(this)">Remove</button></td>
+    `;
+
+    tableBody.appendChild(newRow);
+}
+
+function removeRow(button) {
+    const row = button.parentElement.parentElement;
+    row.remove();
+}
 </script>
 
 

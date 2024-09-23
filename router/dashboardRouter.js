@@ -20,11 +20,16 @@ DashboardRouter.get('/dashboard', async(req, res) => {
          }
         whr = '';
         const order = null;
-    
+        if(range_id > 0){
+            whr1 = `range_code='${range_id}'`;
+        }else{
+          whr1 ='';
+        }
+       
         // Execute database query
         const result = await db_Select(select, table_name, whr, order);
         const select2 = "COUNT(*) as total";
-        const countResult = await db_Select(select2, 'md_society', whr, order);
+        const countResult = await db_Select(select2, 'md_society', whr1, order);
         const total = countResult.msg[0].total;
         const totalPages = Math.ceil(total / 25);
         var regauttypehres = await db_Select('*', 'md_controlling_authority_type', null, null);
@@ -51,7 +56,7 @@ DashboardRouter.get('/dashboard', async(req, res) => {
           soctierlist:soctierres.suc > 0 ? soctierres.msg : '', soctietypelist:soctietype.suc > 0 ? soctietype.msg : '',
           zonereslist:zoneres.suc > 0 ? zoneres.msg : '',distlist:distres.suc > 0 ? distres.msg : '',
           cntr_auth_type:0,zone_code:0,dist_code:0,soc_tier:0,soc_type_id:0,range_code:0,urban_rural_flag:0,
-          ulb_catg:0,block_id:0
+          ulb_catg:0,block_id:0,total:total
         };
         // Render the view with data
         res.render('dashboard/landing', res_dt);

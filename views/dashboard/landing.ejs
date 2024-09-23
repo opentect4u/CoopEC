@@ -140,7 +140,7 @@
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
           <div class="card-body">
-            <h4 class="card-title card_title_cus">Society List   
+            <h4 class="card-title card_title_cus">List Co-operative Societies in <%= range_name %> (<%= total %>)
               <div class="table_title_icon"> 
                 <img src="/images/pdf.jpg" alt="pdf" class="pdf_cus" />
                 <img src="/images/excel.jpg" alt="excel" class="excel_cus" />
@@ -156,11 +156,11 @@
                   <tr>
                     <th class="society_th_1">SL No</th>
                     <th class="society_th_2">Society Name</th>
-                    <th class="society_th_5">District</th>
-                    <th class="society_th_4">Zone</th>
+                    <!-- <th class="society_th_5">District</th>
+                    <th class="society_th_4">Zone</th> -->
                     <th class="society_th_3">Range</th>
                     <th class="society_th_6">Registration Number</th>
-                    <th class="society_th_7">Tier </th>
+                    <!-- <th class="society_th_7">Tier </th> -->
                     <th class="society_th_8">Society Type</th>
                     <th class="society_th_9">Option</th>
                   </tr>
@@ -178,11 +178,11 @@
                               <span style="background-color: red;"><%= dt.functional_status %></span>
                           <% } %>
                           </td>
-                          <td><%= dt.dist_name %></td>
-                          <td><%= dt.zone_name %></td>
+                          <!-- <td><%= dt.dist_name %></td>
+                          <td><%= dt.zone_name %></td> -->
                           <td><%= dt.range_name %></td>
                           <td><%= dt.reg_no %></td>
-                          <td><%= dt.soc_tier_name %></td>
+                          <!-- <td><%= dt.soc_tier_name %></td> -->
                           <td><%= dt.soc_type_name %></td>
                           <td>
                             <a href="/society/edit?id=<%= dt.id %>" class="edit_dashboard">Edit</a>
@@ -287,14 +287,11 @@
                                             ? '<span class="green">Functional</span>' 
                                             : `<span style="background-color: red;">${dt.functional_status}</span>`}
                                     </td>
-                                    <td>${dt.dist_name}</td>
-                                    <td>${dt.zone_name}</td>
                                     <td>${dt.range_name}</td> 
                                     <td>${dt.reg_no}</td> 
-                                    <td>${dt.soc_tier_name}</td>
                                     <td>${dt.soc_type_name}</td> 
                                     <td>
-                                        <a href="/society/edit?id=${dt.id}">Edit</a>
+                                        <a href="/society/edit?id=${dt.id}" class="edit_dashboard">Edit</a>
                                     </td>
                                 </tr>`;
                         });
