@@ -38,11 +38,10 @@ DashboardRouter.get('/dashboard', async(req, res) => {
         var blockres ;
         if(range_id > 0){
           const results = await db_Select('*', 'md_range', `range_id = '${range_id}'`, null);
-          const distcode = results.msg[0].dist_id > 0 ? ranzeres.msg[0].dist_id : 0;
+          const distcode = results.msg[0].dist_id > 0 ? results.msg[0].dist_id : 0;
            blockres = await db_Select('*', 'md_block',  `dist_id='${distcode}'`, null);
-           console.log('Test');
         }else{
-           blockres = await db_Select('*', 'md_block',  null, null);
+           blockres = await db_Select('*', 'md_block',  `dist_id='0'`, null);
         }
         const ulbcatgres = await db_Select('*', 'md_ulb_catg', null, null);
         const soctierres = await db_Select('*', 'md_soc_tier', null, null);
