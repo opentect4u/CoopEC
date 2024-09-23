@@ -27,7 +27,7 @@ DashboardRouter.get('/dashboard', async(req, res) => {
         const countResult = await db_Select(select2, 'md_society', whr, order);
         const total = countResult.msg[0].total;
         const totalPages = Math.ceil(total / 25);
-        const regauttypehres = await db_Select('*', 'md_controlling_authority_type', null, null);
+        var regauttypehres = await db_Select('*', 'md_controlling_authority_type', null, null);
         const zoneres = await db_Select('*', 'md_zone', null, null);
         const ranzeres = await db_Select('*', 'md_range', null, null);
         var blockres ;
