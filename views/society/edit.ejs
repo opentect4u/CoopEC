@@ -223,7 +223,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="exampleInputName1">Pin Code</label>
-                  <input type="number" class="form-control" name="pin_no" value="<%= soc.pin_no %>">
+                  <input type="number" class="form-control" name="pin_no" value="<%= soc.pin_no %>" required>
                 </div>
               </div>
               <div class="col-md-6">
@@ -232,7 +232,7 @@
               <div class="col-md-12">
                 <div class="form-group">
                   <label for="exampleInputName1">Address</label>
-                  <textarea name="address" class="form-control"><%= soc.address %></textarea>
+                  <textarea name="address" class="form-control" required><%= soc.address %></textarea>
                 </div>
               </div>
               <div class="col-md-6">
@@ -264,19 +264,19 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="exampleInputName1">Audit Completed upto</label>
-                  <input type="date" class="form-control"  name="audit_upto" value="<%= moment(soc.audit_upto).format('yyyy-MM-DD')  %>">
+                  <input type="date" class="form-control"  name="audit_upto" value="<%= moment(soc.audit_upto).format('yyyy-MM-DD')  %>" required>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="exampleInputName1">Last election of BoD held on </label>
-                  <input type="date" class="form-control"  name="last_elec_date" value="<%= moment(soc.last_elec_date).format('yyyy-MM-DD')  %>">
+                  <input type="date" class="form-control"  name="last_elec_date" id="last_elec_date" value="<%= moment(soc.last_elec_date).format('yyyy-MM-DD')  %>" required>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="exampleInputName1">Election Due Date </label>
-                  <input type="date" class="form-control"  name="elec_due_date" value="<%= moment(soc.elec_due_date).format('yyyy-MM-DD')  %>">
+                  <input type="date" class="form-control"  name="elec_due_date" id="elec_due_date" value="<%= moment(soc.elec_due_date).format('yyyy-MM-DD')  %>" required>
                 </div>
               </div>
               <div class="col-md-6">
@@ -660,6 +660,17 @@ function removeRow(button) {
     const row = button.parentElement.parentElement;
     row.remove();
 }
+$(document).ready(function() {
+    $('#last_elec_date').change(function() {
+        var selectedValue = new Date($(this).val());
+        selectedValue.setFullYear(selectedValue.getFullYear() + 5);
+        
+        // Format the date to YYYY-MM-DD
+        var dueDate = selectedValue.toISOString().split('T')[0];
+        
+        $('#elec_due_date').val(dueDate);
+    });
+});
 </script>
 
 
