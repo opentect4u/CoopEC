@@ -117,6 +117,10 @@ a.edit_dashboard{color: #fff;
   padding: 4px 7px;
   border-radius: 3px;}
 
+ .form-group label {
+    font-weight: 900;
+ }
+
 
 
 
