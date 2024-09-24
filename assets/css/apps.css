@@ -127,6 +127,10 @@ a.edit_dashboard{color: #fff;
  .urlby label{width: 100%;}
  .urlby .select2-container{width: 100% !important;}
 
-
+ .red{
+  color:#ff0000;
+  font-size: 16px;
+  font-weight: 700;
+ }
 
 
