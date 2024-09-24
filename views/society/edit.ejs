@@ -184,7 +184,7 @@
               <div class="col-md-6 rulby" >
                 <div class="form-group">
                   <label for="exampleInputName1">Block </label>
-                  <select class="form-control select2" id="block_id" name="block_id" >
+                  <select class="form-control select2" id="block_id" name="block_id">
                     <option value="0">Select Block </option>
                     <% if(blocklist.length > 0){
                       var i = 1
@@ -532,10 +532,20 @@
     var vill_id = '<%= soc.vill_id %>'; // Server-side value embedded in the script
     populategp(block_id,gp_id);
     // Handle change event for dynamic updates
-    $('#block_id').change(function() {
+    // $('#block_id').change(function() {
+    //     alert('Test Alert');
+    //     var selectedValue = $(this).val();
+    //     populategp(selectedValue,0);
+    // });
+    $(document).ready(function() {
+    $('#block_id').select2(); // Initialize Select2
+    
+    $('#block_id').on('select2:select', function(e) {
         var selectedValue = $(this).val();
-        populategp(selectedValue,0);
+        populategp(selectedValue, 0);
     });
+   });
+
     ///    ****************     Change Data for Ward Local Body   ************    ///
     function populatevillage(gp_id,block_id,vill_id) {
     $.ajax({
