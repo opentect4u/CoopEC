@@ -316,6 +316,16 @@
                   </select>
                 </div>
               </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputName1">Functional Status</label>
+                  <select class="form-control" id="functional_status" name="functional_status" required>
+                    <option value="">Select Status </option>
+                      <option value="Functional" <%= soc.functional_status == "Functional" ? 'selected' : '' %> >Functional</option>
+                      <option value="Non-Functional / Dormant" <%= soc.functional_status == "Non-Functional / Dormant" ? 'selected' : '' %> >Non-Functional / Dormant</option>
+                  </select>
+                </div>
+              </div>
               
             
            

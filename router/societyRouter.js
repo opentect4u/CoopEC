@@ -78,7 +78,7 @@ SocietyRouter.post('/socedit', async(req, res) => {
     block_id = '${data.block_id}',gp_id = '${data.gp_id}',vill_id = '${data.vill_id}',address='${data.address}',audit_upto='${data.audit_upto}',
     mgmt_status = '${data.mgmt_status}',officer_type = '${data.officer_type}',last_elec_date = '${data.last_elec_date}',
     elec_due_date = '${data.elec_due_date}',contact_name='${data.contact_name}',contact_designation='${data.contact_designation}',
-    contact_number = '${data.contact_number}',email = '${data.email}',case_id='${data.case_id}' `;
+    contact_number = '${data.contact_number}',email = '${data.email}',case_id='${data.case_id}',functional_status='${data.functional_status}' `;
     var whr = `id = '${data.id}'` ;
     var flag = 1;
     var save_data = await db_Insert(table_name, fields, values, whr, flag);
@@ -291,12 +291,5 @@ SocietyRouter.get('/villlist',async(req,res)=>{
           });
       }
   })
-
-  
-
-
-  
-
-
 
 module.exports = {SocietyRouter}
