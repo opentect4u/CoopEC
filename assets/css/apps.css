@@ -121,7 +121,11 @@ a.edit_dashboard{color: #fff;
     font-weight: 900;
  }
 
+ .rulby label{width: 100%;}
+ .rulby .select2-container{width: 100% !important;}
 
+ .urlby label{width: 100%;}
+ .urlby .select2-container{width: 100% !important;}
 
 
 

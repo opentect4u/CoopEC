@@ -57,7 +57,7 @@
                 <div class="form-group">
                   <label for="exampleInputName1">Registration & Controlling Authority</label>
                   <select class="form-control" id="cntr_auth_type" name="cntr_auth_type" required>
-                    <option value=""  >Select Registration & Controlling Authority</option>
+                    <option value="" >Select Registration & Controlling Authority</option>
                     <% if(regauthtypelist.length > 0){
                       var i = 1
                       regauthtypelist.forEach(dt => { %>
@@ -545,7 +545,7 @@
     //     populategp(selectedValue,0);
     // });
     $(document).ready(function() {
-    $('#block_id').select2(); // Initialize Select2
+    //$('#block_id').select2(); // Initialize Select2
     
     $('#block_id').on('select2:select', function(e) {
         var selectedValue = $(this).val();
@@ -630,6 +630,8 @@
             $('.urlby').show();
             $('.rulby').hide();
           } else if ($(this).val() == 'R') {
+          //  $('#block_id').addClass('form-control');
+         //    $('#block_id').select2(); 
              $('#block_id').attr('required',true);
              $('#gp_id').attr('required',true);
              $('#ulb_catg').attr('required',false);
