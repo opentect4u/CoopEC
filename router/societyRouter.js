@@ -71,11 +71,13 @@ SocietyRouter.post('/socedit', async(req, res) => {
       var data = req.body;
       var table_name = "md_society";
     var values = null;
+    var block_id = data.block_id || 0 ;
+    var gp_id  = data.gp_id || 0 ;
     var fields = `cop_soc_name = '${data.cop_soc_name}',reg_no = '${data.reg_no}',reg_date = '${data.reg_date}',soc_tier = '${data.soc_tier}',
     soc_type = '${data.soc_type}',cntr_auth_type='${data.cntr_auth_type}',cntr_auth='${data.cntr_auth}',
     ulb_catg = '${data.ulb_catg}',ulb_id = '${data.ulb_id}',ward_no = '${data.ward_no}',pin_no = '${data.pin_no}',range_code = '${data.range_code}',
     urban_rural_flag ='${data.urban_rural_flag}',
-    block_id = '${data.block_id}',gp_id = '${data.gp_id}',vill_id = '${data.vill_id}',address='${data.address}',audit_upto='${data.audit_upto}',
+    block_id = '${block_id}',gp_id = '${gp_id}',vill_id = '${data.vill_id}',address='${data.address}',audit_upto='${data.audit_upto}',
     mgmt_status = '${data.mgmt_status}',officer_type = '${data.officer_type}',last_elec_date = '${data.last_elec_date}',
     elec_due_date = '${data.elec_due_date}',contact_name='${data.contact_name}',contact_designation='${data.contact_designation}',
     contact_number = '${data.contact_number}',email = '${data.email}',case_id='${data.case_id}',functional_status='${data.functional_status}' `;
