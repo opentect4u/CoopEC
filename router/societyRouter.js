@@ -137,8 +137,9 @@ SocietyRouter.get('/ulblist',async(req,res)=>{
   try {
     // Extract query parameter 'claims'
     const ulb_catg = req.query.ulb_catg;
+    const dist_code = req.query.dist_code;
     // In a real application, you might query a database or perform other operations
-    const datahres = await db_Select('ulb_id,ulb_name', 'md_ulb',  `ulb_catg_id='${ulb_catg}'`, null);
+    const datahres = await db_Select('ulb_id,ulb_name', 'md_ulb',  `ulb_catg_id='${ulb_catg}' AND dist_code='${dist_code}'`, null);
     const responseData = {
       datahlist: datahres.suc > 0 ? datahres.msg : '', // Echoing the received claims
     };

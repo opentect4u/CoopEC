@@ -9,7 +9,7 @@
               <div class="col-md-12">
                 <div class="form-group">
                   <label for="exampleInputName1">Society Name</label>
-                  <input type="text" class="form-control"  name="cop_soc_name" value="<%= soc.cop_soc_name %>">
+                  <input type="text" class="form-control"  name="cop_soc_name" value="<%= soc.cop_soc_name %>" required>
                 </div>
               </div>
             </div>
@@ -17,13 +17,13 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="exampleInputName1">Registration Number</label>
-                  <input type="text" class="form-control"  name="reg_no" value="<%= soc.reg_no %>">
+                  <input type="text" class="form-control"  name="reg_no" value="<%= soc.reg_no %>" required>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="exampleInputName1">Date of Registration</label>
-                  <input type="date" class="form-control"  name="reg_date" value="<%= moment(soc.reg_date).format('yyyy-MM-DD')  %>">
+                  <input type="date" class="form-control"  name="reg_date" value="<%= moment(soc.reg_date).format('yyyy-MM-DD')  %>" required>
                 </div>
               </div>
             </div>
@@ -44,7 +44,7 @@
                 <div class="form-group">
                   <label for="exampleInputName1">Tier of the Society</label>
                   <select class="form-control" id="soc_tier" name="soc_tier" required>
-                    <option value="0"  >Select Tier</option>
+                    <option value=""  >Select Tier</option>
                     <% if(soctierlist.length > 0){
                       var i = 1
                       soctierlist.forEach(dt => { %>
@@ -57,7 +57,7 @@
                 <div class="form-group">
                   <label for="exampleInputName1">Registration & Controlling Authority</label>
                   <select class="form-control" id="cntr_auth_type" name="cntr_auth_type" required>
-                    <option value="0"  >Select Registration & Controlling Authority</option>
+                    <option value=""  >Select Registration & Controlling Authority</option>
                     <% if(regauthtypelist.length > 0){
                       var i = 1
                       regauthtypelist.forEach(dt => { %>
@@ -115,7 +115,7 @@
                 <div class="form-group">
                   <label for="exampleInputName1">Range</label>
                   <select class="form-control" id="range_code" name="range_code" required>
-                    <option value="0">Select Range </option>
+                    <option value="">Select Range </option>
                     <% if(ranzelist.length > 0){
                       var i = 1
                       ranzelist.forEach(dt => { %>
@@ -130,7 +130,7 @@
                 <div class="radioBtn_right">
 
                   <div class="radioBtn_Cus"><input type="radio" id="U" name="urban_rural_flag" value="U"  <%= soc.urban_rural_flag == 'U' ? 'checked' : '' %> ><label><b>Urban Maping</b></label></div>
-              <div class="radioBtn_Cus"><input type="radio" id="R" name="urban_rural_flag" value="R" <%= soc.urban_rural_flag == 'R' ? 'checked' : '' %> ><label><b>Rural Maping</b></label></div>
+                 <div class="radioBtn_Cus"><input type="radio" id="R" name="urban_rural_flag" value="R" <%= soc.urban_rural_flag == 'R' ? 'checked' : '' %> ><label><b>Rural Maping</b></label></div>
                 </div>
 
                 </h3>
@@ -146,7 +146,7 @@
                 <div class="form-group">
                   <label for="exampleInputName1">Category of Urban Local Body</label>
                   <select class="form-control" id="ulb_catg" name="ulb_catg" >
-                    <option value="0">Select Urban Local Body </option>
+                    <option value="">Select Urban Local Body </option>
                     <% if(ulbcatglist.length > 0){
                       var i = 1
                       ulbcatglist.forEach(dt => { %>
@@ -159,7 +159,7 @@
                 <div class="form-group">
                   <label for="exampleInputName1">Urban Local Body</label>
                   <select class="form-control select2" id="ulb_id" name="ulb_id" >
-                    <option value="0">Select Range </option>
+                    <option value="">Select Range </option>
                     <% if(ulblist.length > 0){
                       var i = 1
                       ulblist.forEach(dt => { %>
@@ -185,7 +185,7 @@
                 <div class="form-group">
                   <label for="exampleInputName1">Block </label>
                   <select class="form-control select2" id="block_id" name="block_id">
-                    <option value="0">Select Block </option>
+                    <option value="">Select Block </option>
                     <% if(blocklist.length > 0){
                       var i = 1
                       blocklist.forEach(dt => { %>
@@ -198,7 +198,7 @@
                 <div class="form-group">
                   <label for="exampleInputName1">Gram Panchayat</label>
                   <select class="form-control select2" id="gp_id" name="gp_id" >
-                    <option value="0">Select Panchayat </option>
+                    <option value="">Select Panchayat </option>
                     <% if(gplist.length > 0){
                       var i = 1
                       gplist.forEach(dt => { %>
@@ -323,11 +323,10 @@
                     <option value="">Select Status </option>
                       <option value="Functional" <%= soc.functional_status == "Functional" ? 'selected' : '' %> >Functional</option>
                       <option value="Non-Functional / Dormant" <%= soc.functional_status == "Non-Functional / Dormant" ? 'selected' : '' %> >Non-Functional / Dormant</option>
+                      <option value="Under Liquidation" <%= soc.functional_status == "Under Liquidation" ? 'selected' : '' %> >Under Liquidation</option>
                   </select>
                 </div>
               </div>
-              
-            
            
             </div>
             <div class="row">
@@ -419,11 +418,11 @@
         populateros(selectedValue,0);
     });
    ///    ****************     Change Data for Urban Local Body   ************    ///
-    function populateulb(ulb_catg,ulb_id) {
+    function populateulb(ulb_catg,ulb_id,dist_code) {
     $.ajax({
         url: '/society/ulblist',
         method: 'GET',
-        data: { ulb_catg: ulb_catg },
+        data: { ulb_catg: ulb_catg,dist_code:dist_code },
         beforeSend: function() {
             // Show a loading indicator if needed
             $('#ulb_id').html('<option value="0">Loading...</option>');
@@ -451,12 +450,14 @@
     var ulb_catg = '<%= soc.ulb_catg %>';
     var ulb_id = '<%= soc.ulb_id %>';
     var ward_id = '<%= soc.ward_no %>'; // Server-side value embedded in the script
-    populateulb(ulb_catg,ulb_id);
+    var dist_code = '<%= soc.dist_code %>';
+    populateulb(ulb_catg,ulb_id,dist_code);
     // Handle change event for dynamic updates
     $(document).ready(function() {
       $('#ulb_catg').change(function() {
           var selectedValue = $(this).val();
-          populateulb(selectedValue,0);
+          var dist_code = $('#dist_code').val();
+          populateulb(selectedValue,0,dist_code);
       });
     })
     ///    ****************     Change Data for Ward Local Body   ************    ///
@@ -602,7 +603,15 @@
     var urban_rural_flag = '<%= soc.urban_rural_flag %>'
    if(urban_rural_flag == 'U'){
     $('.rulby').hide();
+    $('#ulb_catg').attr('required',true);
+    $('#ulb_id').attr('required',true);
+    $('#block_id').attr('required',false);
+    $('#gp_id').attr('required',false);
    }else if(urban_rural_flag == 'R'){
+    $('#block_id').attr('required',true);
+    $('#gp_id').attr('required',true);
+    $('#ulb_catg').attr('required',false);
+    $('#ulb_id').attr('required',false);
     $('.urlby').hide();
    }else{
     $('.urlby').hide();
@@ -613,9 +622,17 @@
       // Show or hide sections based on radio button selection
       $('input[name="urban_rural_flag"]').change(function() {
           if ($(this).val() == 'U') {
+             $('#ulb_catg').attr('required',true);
+             $('#ulb_id').attr('required',true);
+             $('#block_id').attr('required',false);
+             $('#gp_id').attr('required',false);
             $('.urlby').show();
             $('.rulby').hide();
           } else if ($(this).val() == 'R') {
+             $('#block_id').attr('required',true);
+             $('#gp_id').attr('required',true);
+             $('#ulb_catg').attr('required',false);
+             $('#ulb_id').attr('required',false);
               $('.rulby').show();
               $('.urlby').hide();
               
