@@ -453,10 +453,12 @@
     var ward_id = '<%= soc.ward_no %>'; // Server-side value embedded in the script
     populateulb(ulb_catg,ulb_id);
     // Handle change event for dynamic updates
-    $('#ulb_catg').change(function() {
-        var selectedValue = $(this).val();
-        populateulb(selectedValue,0);
-    });
+    $(document).ready(function() {
+      $('#ulb_catg').change(function() {
+          var selectedValue = $(this).val();
+          populateulb(selectedValue,0);
+      });
+    })
     ///    ****************     Change Data for Ward Local Body   ************    ///
     function populateward(ulb_id,ulb_catg,ward_id) {
     $.ajax({
@@ -490,11 +492,14 @@
   
     populateward(ulb_id,ulb_catg,ward_id);
     // Handle change event for dynamic updates
-    $('#ulb_id').change(function() {
-        var selectedValue = $(this).val();
-        var ulb_catg = $('#ulb_catg').val();
-        populateward(selectedValue,ulb_catg,0);
-    });
+    $(document).ready(function() {
+      $('#ulb_id').select2(); 
+      $('#ulb_id').change(function() {
+          var selectedValue = $(this).val();
+          var ulb_catg = $('#ulb_catg').val();
+          populateward(selectedValue,ulb_catg,0);
+      });
+    })
 
 
     ////    *************     Pupulate GP , Village     *********** //
@@ -581,7 +586,7 @@
     // Handle change event for dynamic updates
   
     $(document).ready(function() {
-      $('#block_id').select2(); // Initialize Select2
+      $('#gp_id').select2(); // Initialize Select2
       $('#gp_id').change(function() {
         var selectedValue = $(this).val();
         var block_id = $('#block_id').val();
