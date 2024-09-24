@@ -434,7 +434,7 @@
             // Clear existing options
             $select.empty();
             // Add a default "Select" option
-            $select.append('<option value="0">Select Returning Officer of Society</option>');
+            $select.append('<option value="0">Select Urban Local Body</option>');
             // Append new options from the response data
             datahlists.forEach(function(item) {
                 $select.append(`<option value="${item.ulb_id}" ${(item.ulb_id == ulb_id) ? 'selected' : ''} >${item.ulb_name}</option>`);
