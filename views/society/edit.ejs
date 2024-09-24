@@ -579,11 +579,15 @@
   
     populatevillage(gp_id,block_id,vill_id);
     // Handle change event for dynamic updates
-    $('#gp_id').change(function() {
+  
+    $(document).ready(function() {
+      $('#block_id').select2(); // Initialize Select2
+      $('#gp_id').change(function() {
         var selectedValue = $(this).val();
         var block_id = $('#block_id').val();
         populatevillage(selectedValue,block_id,0);
     });
+    })
  
   </script>
 
