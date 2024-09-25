@@ -1,3 +1,13 @@
+<!-- <style>
+  input {
+      width: 30px; /* Set width for each input */
+      text-align: center; /* Center the text */
+      margin: 5px; /* Space between inputs */
+  }
+  input:invalid {
+      border-color: red;
+  }
+</style> -->
 <div class="row">
   <div class="col-12 grid-margin stretch-card">
     <div class="card">
@@ -263,7 +273,25 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="exampleInputName1">Audit Completed upto <span class="red">*</span> </label>
-                  <input type="date" class="form-control"  name="audit_upto" value="<%= moment(soc.audit_upto).format('yyyy-MM-DD')  %>" required>
+                  <!-- <input type="date" class="form-control"  name="audit_upto" value="<%= moment(soc.audit_upto).format('yyyy-MM-DD')  %>" required> -->
+                  <!-- <input type="text" maxlength="1" pattern="[0-9]" required>
+                  <input type="text" maxlength="1" pattern="[0-9]" required>
+                  <input type="text" maxlength="1" pattern="[0-9]" required>
+                  <input type="text" maxlength="1" pattern="[0-9]" required>
+                  <input type="text" maxlength="1" pattern="[0-9]" required>
+                  <input type="text" maxlength="1" pattern="[0-9]" required>
+                  <input type="text" maxlength="1" pattern="[0-9]" required> -->
+                  <!-- <input type="text" class="form-control" name="audit_upto" value="" placeholder="YYYY-YY" id="designationInput" maxlength="7" required> -->
+                  <input 
+    type="text" 
+    class="form-control" 
+    name="audit_upto" 
+    placeholder="YYYY-YY" 
+    id="designationInput" 
+    maxlength="7" value="<%= soc.audit_upto %>"
+    required 
+    pattern="^\d{4}-\d{2}$" 
+    title="Format: YYYY-YY (e.g., 2023-24)">
                 </div>
               </div>
               <div class="col-md-6">
@@ -274,8 +302,14 @@
               </div>
               <div class="col-md-6">
                 <div class="form-group">
+                  <label for="exampleInputName1">Tenure Ends On <span class="red">*</span> </label>
+                  <input type="date" class="form-control"  name="tenure_ends_on" id="tenure_ends_on" value="<%= moment(soc.tenure_ends_on).format('yyyy-MM-DD')  %>" required>
+                </div>
+              </div>
+              <div class="col-md-6" style="display: none;">
+                <div class="form-group">
                   <label for="exampleInputName1">Election Due Date <span class="red">*</span> </label>
-                  <input type="date" class="form-control"  name="elec_due_date" id="elec_due_date" value="<%= moment(soc.elec_due_date).format('yyyy-MM-DD')  %>" required>
+                  <input type="date" class="form-control"  name="elec_due_date" id="elec_due_date" value="<%= moment(soc.elec_due_date).format('yyyy-MM-DD')  %>" >
                 </div>
               </div>
               <div class="col-md-6">
@@ -305,7 +339,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="exampleInputName1">Any Case Involved regarding election matter ( At CEC/HHC/HSC etc.)
-                    (Yes/No)</label>
+                    </label>
                   <select class="form-control" id="case_id" name="case_id" required>
                     <option value="0">Select Case </option>
                     <% if(caseflaglist.length > 0){
@@ -314,6 +348,12 @@
                       <option value="<%= dt.case_id %>" <%= soc.case_id == dt.case_id ? 'selected' : '' %> ><%= dt.case_flag_name %></option>
                         <% }) } %>
                   </select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputName1">Case Number</label>
+                    <input type="text" class="form-control"  name="case_num" value="<%= soc.case_num %>">
                 </div>
               </div>
               <div class="col-md-6">
@@ -327,7 +367,6 @@
                   </select>
                 </div>
               </div>
-           
             </div>
             <div class="row">
               <div class="col-md-12">
@@ -669,10 +708,28 @@ $(document).ready(function() {
         
         // Format the date to YYYY-MM-DD
         var dueDate = selectedValue.toISOString().split('T')[0];
-        
+        var oneLessDay = new Date(selectedValue);
+        oneLessDay.setDate(oneLessDay.getDate() - 1);
+        // Format the oneLessDay to YYYY-MM-DD
+        var formattedOneLessDay = oneLessDay.toISOString().split('T')[0];
+        $('#tenure_ends_on').val(formattedOneLessDay);
         $('#elec_due_date').val(dueDate);
     });
 });
+$(document).ready(function() {
+  $('#designationInput').change(function() {
+    const value = $(this).val();
+    const regex = /^\d{4}-\d{2}$/;
+
+    if (!regex.test(value) && value !== '') {
+        alert('Please enter a valid format: YYYY-YY (e.g., 2023-24)');
+        
+    } else {
+     
+    }
+})
+})
+
 </script>
 
 
