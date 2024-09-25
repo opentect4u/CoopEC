@@ -127,7 +127,17 @@
               </select>
             </div>
           </div>
-          
+          <div class="col-md-3">
+            <div class="form-group">
+              <label for="exampleInputName1">Functional Status</label>
+               <select class="form-control" id="functional_status" name="functional_status" required>
+                  <option value="">Select Status </option>
+                  <option value="Functional" <%= functional_status == "Functional" ? 'selected' : '' %> >Functional</option>
+                  <option value="Non-Functional / Dormant" <%= functional_status == "Non-Functional / Dormant" ? 'selected' : '' %> >Non-Functional / Dormant</option>
+                  <option value="Under Liquidation" <%= functional_status == "Under Liquidation" ? 'selected' : '' %> >Under Liquidation</option>
+               </select>
+            </div>
+          </div>
           <div class="col-md-6">
             <div class="form-group">
               <label for="exampleInputName1">Name</label>
@@ -207,7 +217,6 @@
           <nav aria-label="Page navigation" class="pagination_cus">
             <ul  style="float: left;" id="pagination_count">
               Showing 1 to <%= i-1 %> of, <%= total %> entries
-
             </ul>
             <ul class="pagination" id="pagination">
                 <li class="page-item <%= page === 1 ? 'disabled' : '' %>">
@@ -276,11 +285,12 @@
                 }
                 var soc_tier = $('#soc_tier').val();
                 var soc_type_id = $('#soc_type_id').val();
+                var functional_status = $('#functional_status').val();
 
                 $.ajax({
                     url: '/dash/socLimitList',
                     type: 'GET',
-                    data: { page,cntr_auth_type,dist_code,zone_code,range_code,urban_rural_flags,ulb_catg,block_id,soc_type_id,soc_tier },
+                    data: { page,cntr_auth_type,dist_code,zone_code,range_code,urban_rural_flags,ulb_catg,block_id,soc_type_id,soc_tier,functional_status },
                     success: function(response) {
                         const data = response.data;
                         const totalPages = response.totalPages;

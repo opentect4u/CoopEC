@@ -55,7 +55,7 @@ DashboardRouter.get('/dashboard', async(req, res) => {
           soctierlist:soctierres.suc > 0 ? soctierres.msg : '', soctietypelist:soctietype.suc > 0 ? soctietype.msg : '',
           zonereslist:zoneres.suc > 0 ? zoneres.msg : '',distlist:distres.suc > 0 ? distres.msg : '',
           cntr_auth_type:0,zone_code:0,dist_code:0,soc_tier:0,soc_type_id:0,range_code:0,urban_rural_flag:0,
-          ulb_catg:0,block_id:0,total:total,socname:''
+          ulb_catg:0,block_id:0,total:total,socname:'',functional_status:''
         };
         // Render the view with data
         res.render('dashboard/landing', res_dt);
@@ -119,8 +119,10 @@ DashboardRouter.post('/dashboard', async(req, res) => {
       } else {
         var con10 = '';
       }
+      var con11 = formdata.functional_status !='' ? `AND a.functional_status='${formdata.functional_status}' ` : '';
+      
      
-      var maincon = con1+con2+con3+con4+con5+con6+con7+con8+con9+con10;
+      var maincon = con1+con2+con3+con4+con5+con6+con7+con8+con9+con10+con11;
       if(range_id > 0 ){
         var whr = `a.range_code='${range_id}' ${maincon} LIMIT 25`;
       }else{
@@ -175,7 +177,7 @@ DashboardRouter.post('/dashboard', async(req, res) => {
         dist_code:formdata.dist_code > 0 ? formdata.dist_code :0,
         soc_type_id:formdata.soc_type_id > 0 ? formdata.soc_type_id :0,
         soc_tier:formdata.soc_tier > 0 ? formdata.soc_tier :0,
-        urban_rural_flag,
+        urban_rural_flag,functional_status: formdata.functional_status !='' ? formdata.functional_status : '',
         ulb_catg:formdata.ulb_catg > 0 ? formdata.ulb_catg :0,
         block_id:formdata.block_id > 0 ? formdata.block_id :0,total:total,socname:formdata.socname.trim()
       };
@@ -203,8 +205,10 @@ DashboardRouter.get('/socLimitList',async(req, res) => {
   var con6 = req.query.soc_tier > 0 ? `AND a.soc_tier=${req.query.soc_tier} ` : '';
   var con4 = req.query.urban_rural_flag > 0 ? `AND a.urban_rural_flag=${req.query.urban_rural_flag} ` : '';
   var con7 = req.query.soc_type_id > 0 ? `AND a.soc_type=${req.query.soc_type_id}` : '';
-  var maincon =con1+dist_code+zone_code+range_code+con4+con6+con7;
-     
+
+  var functional_status = req.query.functional_status != '' ? `AND a.functional_status='${req.query.functional_status}'` : '';
+  var maincon =con1+dist_code+zone_code+range_code+con4+con6+con7 +functional_status;
+     console.log(maincon);
       const range_id = req.session.user.range_id;
       const select = "a.id,a.cop_soc_name,a.reg_no,a.functional_status,b.soc_type_name,c.dist_name,d.zone_name,e.range_name,f.soc_tier_name";
       var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id`;
