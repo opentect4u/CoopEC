@@ -91,20 +91,21 @@ SocietyRouter.post('/socedit', async(req, res) => {
     const board_memb_id = data['board_memb_id[]'];
     const board_memb_name = data['board_memb_name[]'];
     const board_memb_desig = data['board_memb_desig[]'];
+    const bm_contact_no = data['bm_contact_no[]'];
 
     for (let i = 0; i < board_memb_name.length; i++) {
       // Only process if board_memb_name is not empty
       if (board_memb_name[i].length > 0) {
           // Construct the values string for insertion
-          const values = `('${data.id}', '${board_memb_name[i]}', '${board_memb_desig[i]}', '${user_id}', '${moment().format("YYYY-MM-DD HH:mm:ss")}')`;
+          const values = `('${data.id}', '${board_memb_name[i]}', '${board_memb_desig[i]}','${bm_contact_no[i]}','${user_id}', '${moment().format("YYYY-MM-DD HH:mm:ss")}')`;
   
           if (board_memb_id[i] > 0) {
               // Update existing record
-              const fields = `board_memb_name = '${board_memb_name[i]}', board_memb_desig = '${board_memb_desig[i]}', modified_by = '${user_id}', modified_at = '${moment().format("YYYY-MM-DD HH:mm:ss")}'`;
+              const fields = `board_memb_name = '${board_memb_name[i]}', board_memb_desig = '${board_memb_desig[i]}',bm_contact_no = '${bm_contact_no[i]}', modified_by = '${user_id}', modified_at = '${moment().format("YYYY-MM-DD HH:mm:ss")}'`;
               await db_Insert('td_board_member', fields, null, `board_memb_id = ${board_memb_id[i]}`, true);
           } else {
               // Insert new record
-              const fields = '(`soc_id`, `board_memb_name`, `board_memb_desig`, `created_by`, `created_dt`)';
+              const fields = '(`soc_id`, `board_memb_name`, `board_memb_desig`,`bm_contact_no`, `created_by`, `created_dt`)';
               await db_Insert('td_board_member', fields, values, null, false);
           }
       }
