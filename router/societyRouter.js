@@ -28,7 +28,7 @@ SocietyRouter.get('/edit', async(req, res) => {
         const distres = await db_Select('*', 'md_district', null, null);
         const distcode = result.msg[0].dist_code > 0 ? result.msg[0].dist_code : 0;
         const zone_id = result.msg[0].zone_code > 0 ? result.msg[0].zone_code : 0;
-        const ranzeres = await db_Select('*', 'md_range', `dist_id='${distcode}' AND zone_id ='${zone_id}'`, null);
+        const ranzeres = await db_Select('*', 'md_range', `dist_id='${distcode}'`, null);
            console.log(ranzeres);
         const ulbcatgres = await db_Select('*', 'md_ulb_catg', null, null);
         const ulbres = await db_Select('*', 'md_ulb', null, null);
@@ -76,7 +76,7 @@ SocietyRouter.post('/socedit', async(req, res) => {
     var ulb_catg = data.ulb_catg || 0 ;
     var ulb_id  = data.ulb_id || 0 ;
     var fields = `cop_soc_name = '${data.cop_soc_name}',reg_no = '${data.reg_no}',reg_date = '${data.reg_date}',soc_tier = '${data.soc_tier}',
-    soc_type = '${data.soc_type}',cntr_auth_type='${data.cntr_auth_type}',cntr_auth='${data.cntr_auth}',
+    soc_type = '${data.soc_type}',cntr_auth_type='${data.cntr_auth_type}',cntr_auth='${data.cntr_auth}',dist_code='${data.dist_code}',
     ulb_catg = '${ulb_catg}',ulb_id = '${ulb_id}',ward_no = '${data.ward_no}',pin_no = '${data.pin_no}',range_code = '${data.range_code}',
     urban_rural_flag ='${data.urban_rural_flag}',
     block_id = '${block_id}',gp_id = '${gp_id}',vill_id = '${data.vill_id}',address='${data.address}',audit_upto='${data.audit_upto}',
@@ -111,6 +111,118 @@ SocietyRouter.post('/socedit', async(req, res) => {
       }
   }
      console.log(data);
+      res.redirect("/dash/dashboard");
+    } catch (error) {
+      // Log the error and send an appropriate response
+      console.error('Error during dashboard rendering:', error);
+      //res.status(500).send('An error occurred while loading the dashboard.');
+      res.render('dashboard/edit', res_dt);
+    }
+})
+SocietyRouter.get('/socadd', async(req, res) => {
+  try {
+      // Extract range_id from session
+      const soc_id = req.query.id;
+      const range_id = req.session.user.range_id;
+      const select = "*";
+      const table_name = "md_society";
+      const whr = `id='${soc_id}' `;
+      const order = null;
+   //   var where_dist_con = `b.dist_id = a.dist_code AND b.range_id = '${range_id}'`;
+      // Execute database query
+     // const result = await db_Select(select, table_name, whr, order);
+      const typelist = await db_Select('*', 'md_society_type', null, null);
+      const soctierres = await db_Select('*', 'md_soc_tier', null, null);
+      const regauttypehres = await db_Select('*', 'md_controlling_authority_type', null, null);
+      const regauthres = await db_Select('*', 'md_controlling_authority', null, null);
+      const zoneres = await db_Select('*', 'md_zone', null, null);
+      const distres = await db_Select('*', 'md_district', null, null);
+      const ranzeres = await db_Select('*', 'md_range', `range_id='${range_id}'`, null);
+      const distcode = ranzeres.msg[0].dist_id > 0 ? ranzeres.msg[0].dist_id : 0;
+      const zone_id = ranzeres.msg[0].zone_id > 0 ? ranzeres.msg[0].zone_id : 0;
+     
+      const ulbcatgres = await db_Select('*', 'md_ulb_catg', null, null);
+      const ulbres = await db_Select('*', 'md_ulb', null, null);
+      const managementres = await db_Select('*', 'md_management_status', null, null);
+      const officertyperes = await db_Select('*', 'md_officer_type', null, null);
+      const caseflagres = await db_Select('*', 'md_case_flag', null, null);
+      const wardres = await db_Select('*', 'md_ward', null, null);
+      const blockres = await db_Select('*', 'md_block',  `dist_id='${distcode}'`, null);
+      const gpres = await db_Select('*', 'md_gp',  `dist_id='${distcode}'`, null);
+      const villres = await db_Select('*', 'md_village',  `dist_id='${distcode}'`, null);
+      const boardmembdtsl = await db_Select('*', 'td_board_member',  `soc_id='${soc_id}'`, null);
+      
+  
+      // Prepare data for rendering
+      const res_dt = {
+        soctypelist: typelist.suc > 0 ? typelist.msg : '',soc:'',
+        soctierlist: soctierres.suc > 0 ? soctierres.msg : '',regauthtypelist: regauttypehres.suc > 0 ? regauttypehres.msg : '',
+        regauthlist: regauthres.suc > 0 ? regauthres.msg : '',moment: moment,
+        zonelist: zoneres.suc > 0 ? zoneres.msg : '',districtlist: distres.suc > 0 ? distres.msg : '',
+        ranzelist: ranzeres.suc > 0 ? ranzeres.msg : '',ulbcatglist: ulbcatgres.suc > 0 ? ulbcatgres.msg : '',
+        ulblist: ulbres.suc > 0 ? ulbres.msg : '',managementlist: managementres.suc > 0 ? managementres.msg : '',
+        officertypelist: officertyperes.suc > 0 ? officertyperes.msg : '',caseflaglist: caseflagres.suc > 0 ? caseflagres.msg : '',
+        wardlist:wardres.suc > 0 ? wardres.msg : '',blocklist:blockres.suc > 0 ? blockres.msg : '',
+        gplist:gpres.suc > 0 ? gpres.msg : '',villlist:villres.suc > 0 ? villres.msg : '',
+        boardmembdlist: boardmembdtsl.suc > 0 ? boardmembdtsl.msg : '',
+      };
+      // Render the view with data
+      res.render('society/add', res_dt);
+    } catch (error) {
+      // Log the error and send an appropriate response
+      console.error('Error during dashboard rendering:', error);
+      //res.status(500).send('An error occurred while loading the dashboard.');
+     // res.render('dashboard/edit', res_dt);
+    }
+})
+SocietyRouter.post('/socadddata', async(req, res) => {
+  try {
+      // Extract range_id from session
+      var user_id = req.session.user.user_id;
+      var datetime = moment().format('YYYY-MM-DD HH:mm:ss');
+      var data = req.body;
+      var table_name = "md_society";
+    var values = null;
+    var block_id = data.block_id || 0 ;
+    var gp_id  = data.gp_id || 0 ;
+    var ulb_catg = data.ulb_catg || 0 ;
+    var ulb_id  = data.ulb_id || 0 ;
+    var fields = `(cop_soc_name,reg_no,reg_date,soc_tier,soc_type,cntr_auth_type,cntr_auth,ulb_catg,ulb_id,ward_no,pin_no,zone_code,dist_code,range_code,urban_rural_flag,block_id,gp_id,vill_id,address,audit_upto,mgmt_status,officer_type,last_elec_date,tenure_ends_on,elec_due_date,contact_name,contact_designation,contact_number,email,case_id,case_num,functional_status)`;
+  
+    var values = `('${data.cop_soc_name}','${data.reg_no}','${data.reg_date}','${data.soc_tier}','${data.soc_type}','${data.cntr_auth_type}','${data.cntr_auth}','${ulb_catg}','${ulb_id}','${data.ward_no}','${data.pin_no}','${data.zone_code}','${data.dist_code}','${data.range_code}','${data.urban_rural_flag}','${block_id}','${gp_id}','${data.vill_id}','${data.address}','${data.audit_upto}','${data.mgmt_status}','${data.officer_type}','${data.last_elec_date}','${data.tenure_ends_on}','${data.elec_due_date}','${data.contact_name}','${data.contact_designation}','${data.contact_number}','${data.email}','${data.case_id}','${data.case_num}','${data.functional_status}')`;
+    var whr = null;
+    var save_data = await db_Insert(table_name, fields, values, whr, 0);
+  
+    var soc_id = save_data.lastId.insertId;
+
+    //   Save Data for Election Audit  
+   var fields1 = `(soc_id,mgmt_status,officer_type,audit_upto,last_elec_date,tenure_ends_on,elec_due_date,contact_name,created_by,created_dt)`;
+   var values1 =`('${soc_id}','${data.mgmt_status}','${data.officer_type}','${data.audit_upto}','${data.last_elec_date}','${data.tenure_ends_on}','${data.elec_due_date}','${data.contact_name}','${data.user_id}','${datetime}')`;
+    var election_res = await db_Insert('td_election_details', fields1, values1, null, 0);
+
+    const board_memb_id = data['board_memb_id[]'];
+    const board_memb_name = data['board_memb_name[]'];
+    const board_memb_desig = data['board_memb_desig[]'];
+    const bm_contact_no = data['bm_contact_no[]'];
+
+    for (let i = 0; i < board_memb_name.length; i++) {
+      // Only process if board_memb_name is not empty
+      if (board_memb_name[i].length > 0) {
+          // Construct the values string for insertion
+          const values = `('${soc_id}', '${board_memb_name[i]}', '${board_memb_desig[i]}','${bm_contact_no[i]}','${user_id}', '${moment().format("YYYY-MM-DD HH:mm:ss")}')`;
+  
+          if (board_memb_id[i] > 0) {
+              // Update existing record
+              const fields = `board_memb_name = '${board_memb_name[i]}', board_memb_desig = '${board_memb_desig[i]}',bm_contact_no = '${bm_contact_no[i]}', modified_by = '${user_id}', modified_at = '${moment().format("YYYY-MM-DD HH:mm:ss")}'`;
+              await db_Insert('td_board_member', fields, null, `board_memb_id = ${board_memb_id[i]}`, true);
+          } else {
+              // Insert new record
+              const fields = '(`soc_id`, `board_memb_name`, `board_memb_desig`,`bm_contact_no`, `created_by`, `created_dt`)';
+              await db_Insert('td_board_member', fields, values, null, false);
+          }
+      }
+  }
+     console.log(save_data.lastId.insertId);
       res.redirect("/dash/dashboard");
     } catch (error) {
       // Log the error and send an appropriate response
