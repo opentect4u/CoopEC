@@ -273,7 +273,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="exampleInputName1">Number Of Member <span class="red">*</span> </label>
-                  <input type="number" class="form-control"  name="num_of_memb" id="num_of_memb" value="<%= dt.num_of_memb  %>" >
+                  <input type="number" class="form-control"  name="num_of_memb" id="num_of_memb" value="<%= soc.num_of_memb  %>" >
                 </div>
               </div>
               <div class="col-md-6">
@@ -359,7 +359,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="exampleInputName1">Case Number</label>
-                    <input type="text" class="form-control"  name="case_num" value="<%= soc.case_num %>">
+                    <input type="text" class="form-control"  name="case_num" value="<%= soc.case_num %>" id="case_num">
                 </div>
               </div>
               <div class="col-md-6">
@@ -725,7 +725,23 @@ $(document).ready(function() {
         $('#tenure_ends_on').val(formattedOneLessDay);
         $('#elec_due_date').val(dueDate);
     });
+ 
+    changecasest('<%= soc.case_id %>');
+    $('#case_id').change(function() {
+        var selectedValue = $(this).val();
+        changecasest(selectedValue);
+    });
 });
+function changecasest(casetype){
+      
+      if(casetype == 2)
+        {
+          $('#case_num').val('');
+          $('#case_num').attr('readonly', true);
+        }else{
+          $('#case_num').attr('readonly', false);
+        }
+    }
 $(document).ready(function() {
   $('#designationInput').change(function() {
     const value = $(this).val();

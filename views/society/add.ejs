@@ -257,7 +257,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="exampleInputName1">Number Of Member <span class="red">*</span> </label>
-                  <input type="number" class="form-control"  name="num_of_memb" id="num_of_memb" value="<%= dt.num_of_memb  %>" >
+                  <input type="number" class="form-control"  name="num_of_memb" id="num_of_memb" value="" >
                 </div>
               </div>
               <div class="col-md-6">
@@ -343,7 +343,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="exampleInputName1">Case Number</label>
-                    <input type="text" class="form-control"  name="case_num" value="<%= soc.case_num %>">
+                    <input type="text" class="form-control"  name="case_num" value="" id="case_num">
                 </div>
               </div>
               <div class="col-md-6">
@@ -708,6 +708,20 @@ $(document).ready(function() {
         var formattedOneLessDay = oneLessDay.toISOString().split('T')[0];
         $('#tenure_ends_on').val(formattedOneLessDay);
         $('#elec_due_date').val(dueDate);
+    });
+      //  Code for Reflecting Case Number
+    function changecasest(casetype){
+      if(casetype == 2)
+        {
+          $('#case_num').val('');
+          $('#case_num').attr('readonly', true);
+        }else{
+          $('#case_num').attr('readonly', false);
+        }
+    }
+    $('#case_id').change(function() {
+        var selectedValue = $(this).val();
+        changecasest(selectedValue);
     });
 });
 $(document).ready(function() {

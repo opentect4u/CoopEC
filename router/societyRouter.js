@@ -79,7 +79,7 @@ SocietyRouter.post('/socedit', async(req, res) => {
     soc_type = '${data.soc_type}',cntr_auth_type='${data.cntr_auth_type}',cntr_auth='${data.cntr_auth}',dist_code='${data.dist_code}',
     ulb_catg = '${ulb_catg}',ulb_id = '${ulb_id}',ward_no = '${data.ward_no}',pin_no = '${data.pin_no}',range_code = '${data.range_code}',
     urban_rural_flag ='${data.urban_rural_flag}',
-    block_id = '${block_id}',gp_id = '${gp_id}',vill_id = '${data.vill_id}',address='${data.address}',audit_upto='${data.audit_upto}',
+    block_id = '${block_id}',gp_id = '${gp_id}',vill_id = '${data.vill_id}',address='${data.address}',num_of_memb='${data.num_of_memb}',audit_upto='${data.audit_upto}',
     mgmt_status = '${data.mgmt_status}',officer_type = '${data.officer_type}',last_elec_date = '${data.last_elec_date}',
     tenure_ends_on = '${data.tenure_ends_on}',elec_due_date = '${data.elec_due_date}',contact_name='${data.contact_name}',contact_designation='${data.contact_designation}',
     contact_number = '${data.contact_number}',email = '${data.email}',case_id='${data.case_id}',case_num='${data.case_num}',functional_status='${data.functional_status}' `;
@@ -187,9 +187,9 @@ SocietyRouter.post('/socadddata', async(req, res) => {
     var gp_id  = data.gp_id || 0 ;
     var ulb_catg = data.ulb_catg || 0 ;
     var ulb_id  = data.ulb_id || 0 ;
-    var fields = `(cop_soc_name,reg_no,reg_date,soc_tier,soc_type,cntr_auth_type,cntr_auth,ulb_catg,ulb_id,ward_no,pin_no,zone_code,dist_code,range_code,urban_rural_flag,block_id,gp_id,vill_id,address,audit_upto,mgmt_status,officer_type,last_elec_date,tenure_ends_on,elec_due_date,contact_name,contact_designation,contact_number,email,case_id,case_num,functional_status)`;
+    var fields = `(cop_soc_name,reg_no,reg_date,soc_tier,soc_type,cntr_auth_type,cntr_auth,ulb_catg,ulb_id,ward_no,pin_no,zone_code,dist_code,range_code,urban_rural_flag,block_id,gp_id,vill_id,address,num_of_memb,audit_upto,mgmt_status,officer_type,last_elec_date,tenure_ends_on,elec_due_date,contact_name,contact_designation,contact_number,email,case_id,case_num,functional_status)`;
   
-    var values = `('${data.cop_soc_name}','${data.reg_no}','${data.reg_date}','${data.soc_tier}','${data.soc_type}','${data.cntr_auth_type}','${data.cntr_auth}','${ulb_catg}','${ulb_id}','${data.ward_no}','${data.pin_no}','${data.zone_code}','${data.dist_code}','${data.range_code}','${data.urban_rural_flag}','${block_id}','${gp_id}','${data.vill_id}','${data.address}','${data.audit_upto}','${data.mgmt_status}','${data.officer_type}','${data.last_elec_date}','${data.tenure_ends_on}','${data.elec_due_date}','${data.contact_name}','${data.contact_designation}','${data.contact_number}','${data.email}','${data.case_id}','${data.case_num}','${data.functional_status}')`;
+    var values = `('${data.cop_soc_name}','${data.reg_no}','${data.reg_date}','${data.soc_tier}','${data.soc_type}','${data.cntr_auth_type}','${data.cntr_auth}','${ulb_catg}','${ulb_id}','${data.ward_no}','${data.pin_no}','${data.zone_code}','${data.dist_code}','${data.range_code}','${data.urban_rural_flag}','${block_id}','${gp_id}','${data.vill_id}','${data.address}','${data.num_of_memb}','${data.audit_upto}','${data.mgmt_status}','${data.officer_type}','${data.last_elec_date}','${data.tenure_ends_on}','${data.elec_due_date}','${data.contact_name}','${data.contact_designation}','${data.contact_number}','${data.email}','${data.case_id}','${data.case_num}','${data.functional_status}')`;
     var whr = null;
     var save_data = await db_Insert(table_name, fields, values, whr, 0);
   
