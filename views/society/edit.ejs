@@ -274,6 +274,7 @@
                 <div class="form-group">
                   <label for="exampleInputName1">Number Of Member <span class="red">*</span> </label>
                   <input type="number" class="form-control"  name="num_of_memb" id="num_of_memb" value="<%= soc.num_of_memb  %>" >
+                  <label id="election_type_name"> </label>
                 </div>
               </div>
               <div class="col-md-6">
@@ -753,7 +754,17 @@ $(document).ready(function() {
     } else {
      
     }
-})
+  })
+  $('#num_of_memb').change(function() {
+    const num = $(this).val();
+        if(num >= 1000){
+          $('#election_type_name').html('<span class="blue">Delegates Election</span>');
+        }else{
+          $('#election_type_name').html('<span class="blue">Direct Election</span>');
+        }
+
+    
+  })
 })
 
 </script>

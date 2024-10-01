@@ -171,16 +171,10 @@
             
             </h4>
             <div class="table-responsive pt-3 custome_table_res">
-              <label> <input type="radio" class="functional_status" name="functional_status" value="Functional"  checked> Functional</label>
-          
-            <label>
-              <input type="radio" class="functional_status" name="functional_status" value="Non-Functional / Dormant">
-              Non-Functional / Dormant
-            </label>
-            <label>
-              <input type="radio" class="functional_status" name="functional_status" value="Under Liquidation">
-              Under Liquidation
-            </label>
+            <label> <input type="radio" class="functional_status" name="functional_status" value=""  <%= functional_status == '0' ? 'checked' : '' %>> All </label>
+            <label> <input type="radio" class="functional_status" name="functional_status" value="Functional"  <%= functional_status == '1' ? 'checked' : '' %> > Functional </label>
+            <label> <input type="radio" class="functional_status" name="functional_status" value="Non-Functional / Dormant"> Non-Functional / Dormant </label>
+            <label> <input type="radio" class="functional_status" name="functional_status" value="Under Liquidation"> Under Liquidation </label>
             <br>
               <table class="table_cus table-striped" style="width:100%">
               <!-- <table class="table table-striped"  id=""  style="width:100%"> -->

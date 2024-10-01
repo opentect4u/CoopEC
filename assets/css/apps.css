@@ -132,5 +132,15 @@ a.edit_dashboard{color: #fff;
   font-size: 16px;
   font-weight: 700;
  }
+ .blue {
+  background: #24357e;
+  font-size: 12px;
+  font-weight: 500;
+  color: #fff;
+  padding: 0px 6px;
+  margin-top: 4px;
+  display: inline-block;
+}
+ 
 
 

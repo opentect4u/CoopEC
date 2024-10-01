@@ -55,7 +55,7 @@ DashboardRouter.get('/dashboard', async(req, res) => {
           soctierlist:soctierres.suc > 0 ? soctierres.msg : '', soctietypelist:soctietype.suc > 0 ? soctietype.msg : '',
           zonereslist:zoneres.suc > 0 ? zoneres.msg : '',distlist:distres.suc > 0 ? distres.msg : '',
           cntr_auth_type:0,zone_code:0,dist_code:0,soc_tier:0,soc_type_id:0,range_code:0,urban_rural_flag:0,
-          ulb_catg:0,block_id:0,total:total,socname:'',functional_status:''
+          ulb_catg:0,block_id:0,total:total,socname:'',functional_status:'1'
         };
         // Render the view with data
         res.render('dashboard/landing', res_dt);
@@ -108,7 +108,7 @@ DashboardRouter.post('/dashboard', async(req, res) => {
       var con7 = formdata.soc_type_id > 0 ? `AND a.soc_type=${formdata.soc_type_id} ` : '';
       
       if (formdata.socname && formdata.socname.trim() !== '') {
-        var con8 = `AND a.cop_soc_name LIKE '%${formdata.socname.trim()}%' `;
+        var con8 = `AND a.cop_soc_name LIKE '%${formdata.socname.split("'").join("\\'")}%' `;
       }else{
         var con8 = '';
       }
@@ -123,9 +123,9 @@ DashboardRouter.post('/dashboard', async(req, res) => {
      
       var maincon = con1+con2+con3+con4+con5+con6+con7+con8+con9+con10;
       if(range_id > 0 ){
-        var whr = `a.functional_status='Functional' AND a.range_code='${range_id}' ${maincon} LIMIT 25`;
+        var whr = ` a.range_code='${range_id}' ${maincon} LIMIT 25`;
       }else{
-        var whr = `functional_status='Functional' AND ${maincon} LIMIT 25`;
+        var whr = ` ${maincon} LIMIT 25`;
       }
       const order = null;
     //   console.log(whr);
@@ -176,7 +176,7 @@ DashboardRouter.post('/dashboard', async(req, res) => {
         dist_code:formdata.dist_code > 0 ? formdata.dist_code :0,
         soc_type_id:formdata.soc_type_id > 0 ? formdata.soc_type_id :0,
         soc_tier:formdata.soc_tier > 0 ? formdata.soc_tier :0,
-        urban_rural_flag,functional_status: formdata.functional_status !='' ? formdata.functional_status : '',
+        urban_rural_flag,functional_status:'0',
         ulb_catg:formdata.ulb_catg > 0 ? formdata.ulb_catg :0,
         block_id:formdata.block_id > 0 ? formdata.block_id :0,total:total,socname:formdata.socname.trim()
       };
