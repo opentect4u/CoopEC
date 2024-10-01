@@ -48,6 +48,7 @@
                       <option value="<%= dt.soc_type_id %>" <%= soc.soc_type == dt.soc_type_id ? 'selected' : '' %> ><%= dt.soc_type_name %></option>
                         <% }) } %>
                   </select>
+                  <span class="red" id="soc_type_erro">Please Select valid Society Type</span> 
                 </div>
               </div>
               <div class="col-md-6">
@@ -418,8 +419,8 @@
                 </div>
               </div>
             </div>
-          <button type="submit" class="btn btn-primary mr-2">Submit</button>
-          <button class="btn btn-light">Cancel</button>
+          <button type="submit" id="submit" class="btn btn-primary mr-2" <%= soc.soc_type == "31" ? 'disabled' : '' %> >Submit</button>
+          <!-- <button class="btn btn-light">Cancel</button> -->
         </form>
       </div>
     </div>
@@ -762,8 +763,17 @@ $(document).ready(function() {
         }else{
           $('#election_type_name').html('<span class="blue">Direct Election</span>');
         }
-
-    
+  })
+  $('#soc_type').change(function() {
+    const num = $(this).val();
+        if(num != 31){
+          $('#submit').attr('disabled', false);
+          $('#soc_type_erro').hide();
+          
+        }else{
+          $('#submit').attr('disabled', true);
+          $('#soc_type_erro').show();
+        }
   })
 })
 
