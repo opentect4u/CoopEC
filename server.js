@@ -25,10 +25,10 @@ app.set("layout", "templates/layout");
 app.use(express.static(path.join(__dirname, "assets/")));
 
 // SET SSL CERT //
-const options = {
+/*const options = {
   key: fs.readFileSync(path.join(__dirname, 'cecbk_certificate/private-key.txt')),
   cert: fs.readFileSync(path.join(__dirname, 'cecbk_certificate/cecbkopentech4u.crt')),
-};
+};*/
 
 // Set up the session middleware
 app.use(
@@ -100,8 +100,8 @@ app.get('*', function(req, res){
   res.redirect('404')
 })
 
-const server = https.createServer(options, app)
-server.listen(port, (err) => {
+/*const server = https.createServer(options, app)*/
+app.listen(port, (err) => {
   if (err) throw new Error(err);
   else console.log(`App is running at https://localhost:${port}`);
 });
