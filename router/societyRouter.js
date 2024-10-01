@@ -392,9 +392,9 @@ SocietyRouter.get('/villlist',async(req,res)=>{
       const sugname = req.query.name;
       const range_id = req.session.user.range_id;
       if(range_id > 0){
-        var datahres = await db_Select('cop_soc_name','md_society',`range_code='${range_id}' AND cop_soc_name LIKE '%${sugname}%'`, null);
+        var datahres = await db_Select('cop_soc_name','md_society',`range_code='${range_id}' AND cop_soc_name LIKE '%${sugname.split("'").join("\\'")}%'`, null);
       }else{
-        var datahres = await db_Select('cop_soc_name','md_society',`cop_soc_name LIKE '%${sugname}%'`, null);
+        var datahres = await db_Select('cop_soc_name','md_society',`cop_soc_name LIKE '%${sugname.split("'").join("\\'")}%'`, null);
       }
       
       const responseData = {

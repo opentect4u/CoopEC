@@ -764,9 +764,9 @@ $(document).ready(function() {
           $('#election_type_name').html('<span class="blue">Direct Election</span>');
         }
   })
-  $('#soc_type').change(function() {
-    const num = $(this).val();
-        if(num != 31){
+  get_type_error('<%= soc.soc_type %>');
+  function get_type_error(num){
+    if(num != 31){
           $('#submit').attr('disabled', false);
           $('#soc_type_erro').hide();
           
@@ -774,6 +774,10 @@ $(document).ready(function() {
           $('#submit').attr('disabled', true);
           $('#soc_type_erro').show();
         }
+  }
+  $('#soc_type').change(function() {
+    const num = $(this).val();
+    get_type_error(num);
   })
 })
 
