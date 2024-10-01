@@ -38,6 +38,7 @@
                       <option value="<%= dt.soc_type_id %>"  ><%= dt.soc_type_name %></option>
                         <% }) } %>
                   </select>
+                  <span class="red" id="soc_type_erro" style="display: none;">Please Select valid Society Type</span> 
                 </div>
               </div>
               <div class="col-md-6">
@@ -258,6 +259,7 @@
                 <div class="form-group">
                   <label for="exampleInputName1">Number Of Member <span class="red">*</span> </label>
                   <input type="number" class="form-control"  name="num_of_memb" id="num_of_memb" value="" >
+                  <label id="election_type_name"> </label>
                 </div>
               </div>
               <div class="col-md-6">
@@ -401,8 +403,8 @@
                 </div>
               </div>
             </div>
-          <button type="submit" class="btn btn-primary mr-2">Submit</button>
-          <button class="btn btn-light">Cancel</button>
+          <button type="submit" class="btn btn-primary mr-2" id="submit">Submit</button>
+         
         </form>
       </div>
     </div>
@@ -736,6 +738,30 @@ $(document).ready(function() {
      
     }
 })
+
+  function get_type_error(num){
+    if(num != 31){
+          $('#submit').attr('disabled', false);
+          $('#soc_type_erro').hide();
+          
+        }else{
+          $('#submit').attr('disabled', true);
+          $('#soc_type_erro').show();
+        }
+  }
+  $('#soc_type').change(function() {
+    const num = $(this).val();
+    get_type_error(num);
+  })
+  ///   Code for Number for election Type
+  $('#num_of_memb').change(function() {
+    const num = $(this).val();
+        if(num >= 1000){
+          $('#election_type_name').html('<span class="blue">Delegates Election</span>');
+        }else{
+          $('#election_type_name').html('<span class="blue">Direct Election</span>');
+        }
+  })
 })
 
 </script>
