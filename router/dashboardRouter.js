@@ -125,7 +125,7 @@ DashboardRouter.post('/dashboard', async(req, res) => {
       if(range_id > 0 ){
         var whr = ` a.range_code='${range_id}' ${maincon} LIMIT 25`;
       }else{
-        var whr = ` ${maincon} LIMIT 25`;
+        var whr = `1 ${maincon} LIMIT 25`;
       }
       const order = null;
     //   console.log(whr);

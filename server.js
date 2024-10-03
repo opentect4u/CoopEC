@@ -103,7 +103,7 @@ app.get('*', function(req, res){
 /*const server = https.createServer(options, app)*/
 app.listen(port, (err) => {
   if (err) throw new Error(err);
-  else console.log(`App is running at https://localhost:${port}`);
+  else console.log(`App is running at http://localhost:${port}`);
 });
 
 // app.listen(port, (err) => {

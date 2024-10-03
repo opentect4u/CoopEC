@@ -411,4 +411,25 @@ SocietyRouter.get('/villlist',async(req,res)=>{
       }
   })
 
+  SocietyRouter.get('/distlist',async(req,res)=>{
+    try {
+      // Extract query parameter 'claims'
+      const zone_code = req.query.zone_code;
+      const datahres = await db_Select('DISTINCT b.*','md_range a,md_district b',`a.dist_id = b.dist_code AND a.zone_id='${zone_code}'`, null);
+      const responseData = {
+        datahlist: datahres.suc > 0 ? datahres.msg : '', // Echoing the received claims
+      };
+      // Send response back to the client
+      res.json(responseData);
+      } catch (err) {
+          console.error('Error handling /regauth request:', err);
+          res.status(500).json({
+              success: false,
+              message: 'Internal server error'
+          });
+      }
+  })
+
+  
+
 module.exports = {SocietyRouter}

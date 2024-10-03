@@ -24,31 +24,31 @@
             </div>
           </div>
           <% if(user.range_id== 0) { %>
-          <div class="col-md-3">
+            <div class="col-md-3">
               <div class="form-group">
-                <label for="exampleInputName1">District </label>
-                   <select class="form-control" id="dist_code" name="dist_code" >
+                <label for="exampleInputName1">Zone </label>
+                   <select class="form-control" id="zone_code" name="zone_code">
                     <option value="0">Select </option>
-                    <% if(distlist.length > 0){
+                    <% if(zonereslist.length > 0){
                       var i = 1
-                      distlist.forEach(dt => { %>
-                      <option value="<%= dt.dist_code %>" <%= dist_code == dt.dist_code ? 'selected' : '' %>><%= dt.dist_name %></option>
+                      zonereslist.forEach(dt => { %>
+                      <option value="<%= dt.zone_id %>" <%= zone_code == dt.zone_id ? 'selected' : '' %>><%= dt.zone_name %></option>
                         <% }) } %>
                 </select>
               </div>
           </div>
           <div class="col-md-3">
-            <div class="form-group">
-              <label for="exampleInputName1">Zone </label>
-                 <select class="form-control" id="zone_code" name="zone_code">
-                  <option value="0">Select </option>
-                  <!-- <% if(zonereslist.length > 0){
-                    var i = 1
-                    zonereslist.forEach(dt => { %>
-                    <option value="<%= dt.zone_id %>" <%= zone_code == dt.zone_id ? 'selected' : '' %>><%= dt.zone_name %></option>
-                      <% }) } %> -->
-              </select>
-            </div>
+              <div class="form-group">
+                <label for="exampleInputName1">District </label>
+                   <select class="form-control" id="dist_code" name="dist_code" >
+                    <option value="0">Select </option>
+                    <!-- <% if(distlist.length > 0){
+                      var i = 1
+                      distlist.forEach(dt => { %>
+                      <option value="<%= dt.dist_code %>" <%= dist_code == dt.dist_code ? 'selected' : '' %>><%= dt.dist_name %></option>
+                        <% }) } %> -->
+                </select>
+              </div>
           </div>
           
           <div class="col-md-3">
@@ -542,13 +542,18 @@
         }
     });
   }
-  populatezone('<%= dist_code %>','<%= zone_code %>');
+ // populatezone('<%= dist_code %>','<%= zone_code %>');
   populateranze('<%= dist_code %>','<%= range_code %>');
   $('#dist_code').change(function() {
         var selectedValue = $(this).val();
         populateblock(selectedValue);
-        populatezone(selectedValue,0);
+     //   populatezone(selectedValue,0);
         populateranze(selectedValue,0);
+    });
+    populatedist('<%= zone_code %>','<%= dist_code %>')
+    $('#zone_code').change(function() {
+        var zone_code = $(this).val();
+        populatedist(zone_code,0);
     });
     function populatezone(dist_code,zone_id) {
       $.ajax({
@@ -578,6 +583,7 @@
         }
     });
     }
+
     function populateranze(dist_code,range_id) {
       $.ajax({
         url: '/society/rangelist',
@@ -604,7 +610,35 @@
             $('#range_code').html('<option value="0">Error fetching data. Please try again.</option>');
             console.error('AJAX Error:', err); // Log error for debugging
         }
-    });
+       });
+    }
+    function populatedist(zone_code,dist_code) {
+      $.ajax({
+        url: '/society/distlist',
+        method: 'GET',
+        data: { zone_code: zone_code },
+        beforeSend: function() {
+            // Show a loading indicator if needed
+           // $('#block_id').html('<option value="0">Loading...</option>');
+        },
+        success: function(response) {
+            var datahlists = response.datahlist;
+            var $select = $('#dist_code');
+            // Clear existing options
+            $select.empty();
+            // Add a default "Select" option
+            $select.append('<option value="0">Select Dist</option>');
+            // Append new options from the response data
+            datahlists.forEach(function(item) {
+                $select.append(`<option value="${item.dist_code}" ${(item.dist_code == dist_code) ? 'selected' : ''} >${item.dist_name}</option>`);
+            });
+        },
+        error: function(err) {
+            // Handle any errors
+            $('#dist_code').html('<option value="0">Error fetching data. Please try again.</option>');
+            console.error('AJAX Error:', err); // Log error for debugging
+        }
+       });
     }
 </script>
 <style>
