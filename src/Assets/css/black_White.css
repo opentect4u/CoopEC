@@ -1,0 +1,60 @@
+
+
+/*Black and White CSS Start*/
+
+.black_White .topBar {background: #000;}
+.black_White .login ul li a{background: #000;}
+.black_White .logoArea{-webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */ filter: grayscale(100%);}
+
+.black_White ul li a{color: #fff;}
+.black_White ul li a:hover{color: #fff;}
+.black_White .leftNav ul li i {color: #fff;}
+.black_White .topNavmain{background: #000;}
+.black_White ul.subMenu li {background: #000;}
+.black_White ul.subMenu li a{color: #fff; border-bottom: #fff solid 1px;}
+.black_White ul.subMenu li a:hover{color: #fff; background: #333;}
+.black_White .bannerSliderMain{filter: grayscale(1) invert(1);}
+.black_White .bannerSliderMain .left_search_sec{filter:grayscale(100%) invert(100%);}
+.black_White .bannerSliderMain .slider_sec_sub h2{color: #000;}
+.black_White .anouncement {background: #d3d3d3;}
+.black_White .anouncement .scroll_sec{color: #000;}
+
+.black_White .bar_green, .black_White .bar_blue{background: #333; color: #fff;}
+.black_White .bar_yellow {background: #000; color: #fff;}
+.black_White .map_left_sec .btn_sec a{background: #000;}
+
+.black_White .right_map{filter: grayscale(1) invert(1); background: #000;}
+.black_White .welcomeSecLeft h1 span{color: #000;}
+.black_White .welcomeSecRight h2 a {background: #000;}
+.black_White .welcomeSecLeft a{background: #000;}
+
+.black_White .welcomeSecLeft img{-webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */ filter: grayscale(100%);}
+
+.black_White .welcomeSecRight img{-webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */ filter: grayscale(100%);}
+
+.black_White .branch_sec .nav-tabs > li.active > a, 
+.black_White .branch_sec .nav-tabs > li.active > a:focus, 
+.black_White .branch_sec .nav-tabs > li.active > a:hover {color: #fff; background-color: #000;}
+
+.black_White .branch_sec .nav-tabs > li > a {color: #000;}
+.black_White .branch_sec .nav-tabs > li > a:hover {background: #000; color: #fff;}
+
+.black_White .scroll_sec_ben a {color: #fff; background: #000;}
+
+.black_White .box_a, .black_White .box_b, .black_White .box_c {background: #eeeeea;}
+.black_White .box_a h2, .black_White .box_b h2, .black_White .box_c h2,
+.black_White .box_a p, .black_White .box_b p, .black_White .box_c p,
+.black_White .box_a a, .black_White .box_b a, .black_White .box_c a{color: #000;}
+.black_White .footerBlue{background: #000;}
+.black_White .faqs-section .accordion .accordion-item .accordion-button::before{background: #000;}
+.black_White .faqs-section .accordion .accordion-item .accordion-button.collapsed::after{-webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */ filter: grayscale(100%);}
+
+.black_White .left_sec h1 span{color: #000;}
+.black_White .left_sec h1::after {background: #000;}
+.black_White .right_sec .quickLink h2, .black_White .right_sec .scroll_sec_ben h2 {color: #000; border-bottom: #000 solid 2px;}
+.black_White .right_sec .search_box h2::after {background: #fff;}
+.black_White .right_sec .search_box h2 {border-bottom: #fff solid 1px;}
+.black_White .right_sec .search_box label input[type="submit"] {color: #000; background: #fff;}
+
+
+/*Black and White CSS End*/
