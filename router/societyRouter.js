@@ -436,16 +436,16 @@ SocietyRouter.get('/modifiedlist', async(req, res) => {
         const range_id = req.session.user.range_id;
         const select = "a.id,a.cop_soc_name,a.reg_no,a.functional_status,b.soc_type_name,c.dist_name,d.zone_name,e.range_name,f.soc_tier_name";
         if(range_id > 0){ 
-        var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' AND a.range_code = "${range_id}" LIMIT 25`;
+        var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' AND a.range_code = "${range_id}" AND approve_status ='E' LIMIT 25`;
          }else{
-          var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' LIMIT 25`;
+          var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' AND approve_status ='E' LIMIT 25`;
          }
         whr = '';
         const order = null;
         if(range_id > 0){
-            whr1 = `functional_status='Functional' AND range_code='${range_id}'`;
+            whr1 = `functional_status='Functional' AND range_code='${range_id}' AND approve_status ='E'`;
         }else{
-          whr1 =`functional_status='Functional' `;
+          whr1 =`functional_status='Functional' AND approve_status ='E' `;
         }
        
         // Execute database query
@@ -454,38 +454,20 @@ SocietyRouter.get('/modifiedlist', async(req, res) => {
         const countResult = await db_Select(select2, 'md_society', whr1, order);
         const total = countResult.msg[0].total;
         const totalPages = Math.ceil(total / 25);
-        var regauttypehres = await db_Select('*', 'md_controlling_authority_type', null, null);
-        const zoneres = await db_Select('*', 'md_zone', null, null);
-        const ranzeres = await db_Select('*', 'md_range', null, null);
-        var blockres ;
-        if(range_id > 0){
-          const results = await db_Select('*', 'md_range', `range_id = '${range_id}'`, null);
-          const distcode = results.msg[0].dist_id > 0 ? results.msg[0].dist_id : 0;
-           blockres = await db_Select('*', 'md_block',  `dist_id='${distcode}'`, null);
-        }else{
-           blockres = await db_Select('*', 'md_block',  `dist_id='0'`, null);
-        }
-        const ulbcatgres = await db_Select('*', 'md_ulb_catg', null, null);
-        const soctierres = await db_Select('*', 'md_soc_tier', null, null);
-        const soctietype = await db_Select('*', 'md_society_type', null, null);
-        const distres = await db_Select('*', 'md_district', null, null);
+      
         // Prepare data for rendering
         const res_dt = {
           data: result.suc > 0 ? result.msg : '',page: 1,totalPages:totalPages,
-          regauthtypelist: regauttypehres.suc > 0 ? regauttypehres.msg : '',ranzelist: ranzeres.suc > 0 ? ranzeres.msg : '',
-          blocklist:blockres.suc > 0 ? blockres.msg : '',ulbcatglist: ulbcatgres.suc > 0 ? ulbcatgres.msg : '',
-          soctierlist:soctierres.suc > 0 ? soctierres.msg : '', soctietypelist:soctietype.suc > 0 ? soctietype.msg : '',
-          zonereslist:zoneres.suc > 0 ? zoneres.msg : '',distlist:distres.suc > 0 ? distres.msg : '',
           cntr_auth_type:0,zone_code:0,dist_code:0,soc_tier:0,soc_type_id:0,range_code:0,urban_rural_flag:0,
           ulb_catg:0,block_id:0,total:total,socname:'',functional_status:'1'
         };
         // Render the view with data
-        res.render('dashboard/landing', res_dt);
+        res.render('society/modified_list', res_dt);
       } catch (error) {
         // Log the error and send an appropriate response
         console.error('Error during dashboard rendering:', error);
         //res.status(500).send('An error occurred while loading the dashboard.');
-        res.render('dashboard/landing', res_dt);
+        res.render('society/modified_list', res_dt);
       }
 })
 
