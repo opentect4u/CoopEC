@@ -127,18 +127,17 @@
               </select>
             </div>
           </div>
-         
-          <div class="col-md-3">
+          <!-- <div class="col-md-3">
             <div class="form-group">
-              <label for="exampleInputName1">Society Data Status </label>
-              <select class="form-control" id="soc_data_status" name="soc_data_status" >
-                <option value="">Select Type </option>
-                  <option value="A" <%= soc_data_status == 'A' ? 'selected' : '' %>>APPROVED </option>
-                  <option value="U" <%= soc_data_status == 'U' ? 'selected' : '' %> >UNAPPROVED</option>
-                  <option value="E" <%= soc_data_status == 'E' ? 'selected' : '' %>>EDITED</option>
-              </select>
+              <label for="exampleInputName1">Functional Status</label>
+               <select class="form-control" id="functional_status" name="functional_status" >
+                  <option value="">Select Status </option>
+                  <option value="Functional" <%= functional_status == "Functional" ? 'selected' : '' %> >Functional</option>
+                  <option value="Non-Functional / Dormant" <%= functional_status == "Non-Functional / Dormant" ? 'selected' : '' %> >Non-Functional / Dormant</option>
+                  <option value="Under Liquidation" <%= functional_status == "Under Liquidation" ? 'selected' : '' %> >Under Liquidation</option>
+               </select>
             </div>
-          </div>
+          </div> -->
           <div class="col-md-6">
             <div class="form-group">
               <label for="exampleInputName1">Name</label>
@@ -404,6 +403,7 @@
                   block_id = $('#block_id').val();
                 }
                 var soc_tier = $('#soc_tier').val();
+                var soc_data_status = $('#soc_data_status').val();
                 var soc_type_id = $('#soc_type_id').val();
                 //var functional_status = $('#functional_status').val();
                 var functional_status = $('input[name="functional_status"]:checked').val();
@@ -411,7 +411,7 @@
                 $.ajax({
                     url: '/dash/socLimitList',
                     type: 'GET',
-                    data: { page,cntr_auth_type,dist_code,zone_code,range_code,urban_rural_flags,ulb_catg,block_id,soc_type_id,soc_tier,functional_status },
+                    data: { page,cntr_auth_type,dist_code,zone_code,range_code,urban_rural_flags,ulb_catg,block_id,soc_type_id,soc_tier,functional_status,soc_data_status},
                     success: function(response) {
                         const data = response.data;
                         const totalPages = response.totalPages;

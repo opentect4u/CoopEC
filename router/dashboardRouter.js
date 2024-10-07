@@ -55,7 +55,7 @@ DashboardRouter.get('/dashboard', async(req, res) => {
           soctierlist:soctierres.suc > 0 ? soctierres.msg : '', soctietypelist:soctietype.suc > 0 ? soctietype.msg : '',
           zonereslist:zoneres.suc > 0 ? zoneres.msg : '',distlist:distres.suc > 0 ? distres.msg : '',
           cntr_auth_type:0,zone_code:0,dist_code:0,soc_tier:0,soc_type_id:0,range_code:0,urban_rural_flag:0,
-          ulb_catg:0,block_id:0,total:total,socname:'',functional_status:'1'
+          ulb_catg:0,block_id:0,total:total,socname:'',functional_status:'1',soc_data_status:''
         };
         // Render the view with data
         res.render('dashboard/landing', res_dt);
@@ -119,9 +119,18 @@ DashboardRouter.post('/dashboard', async(req, res) => {
       } else {
         var con10 = '';
       }
+      let soc_data_status = '';
+
+      if(range_id == 0){
+        if (formdata.soc_data_status == 'A' || formdata.soc_data_status == 'U' || formdata.soc_data_status == 'E') {
+          soc_data_status = `AND a.approve_status='${formdata.soc_data_status}'`;
+        }
+      }
+      
+      
      // var con11 = formdata.functional_status !='' ? `AND a.functional_status='${formdata.functional_status}' ` : '';
      
-      var maincon = con1+con2+con3+con4+con5+con6+con7+con8+con9+con10;
+      var maincon = con1+con2+con3+con4+con5+con6+con7+con8+con9+con10+soc_data_status;
       if(range_id > 0 ){
         var whr = ` a.range_code='${range_id}' ${maincon} LIMIT 25`;
       }else{
@@ -177,7 +186,7 @@ DashboardRouter.post('/dashboard', async(req, res) => {
         soc_type_id:formdata.soc_type_id > 0 ? formdata.soc_type_id :0,
         soc_tier:formdata.soc_tier > 0 ? formdata.soc_tier :0,
         urban_rural_flag,functional_status:'0',
-        ulb_catg:formdata.ulb_catg > 0 ? formdata.ulb_catg :0,
+        ulb_catg:formdata.ulb_catg > 0 ? formdata.ulb_catg :0,soc_data_status,
         block_id:formdata.block_id > 0 ? formdata.block_id :0,total:total,socname:formdata.socname.trim()
       };
  
@@ -204,9 +213,10 @@ DashboardRouter.get('/socLimitList',async(req, res) => {
   var con6 = req.query.soc_tier > 0 ? `AND a.soc_tier=${req.query.soc_tier} ` : '';
   var con4 = req.query.urban_rural_flag > 0 ? `AND a.urban_rural_flag=${req.query.urban_rural_flag} ` : '';
   var con7 = req.query.soc_type_id > 0 ? `AND a.soc_type=${req.query.soc_type_id}` : '';
+  var soc_data_status =  req.query.soc_data_status > 0 ? `AND a.approve_status=${req.query.soc_data_status} ` : '';
 
   var functional_status = req.query.functional_status != '' ? ` AND a.functional_status='${req.query.functional_status}'` : '';
-  var maincon =con1+dist_code+zone_code+range_code+con4+con6+con7 +functional_status;
+  var maincon =con1+dist_code+zone_code+range_code+con4+con6+con7 +functional_status+soc_data_status;
      console.log(maincon);
       const range_id = req.session.user.range_id;
       const select = "a.id,a.cop_soc_name,a.reg_no,a.functional_status,b.soc_type_name,c.dist_name,d.zone_name,e.range_name,f.soc_tier_name";
