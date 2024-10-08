@@ -75,9 +75,9 @@ var moment = require('moment');
     try {
        
         var formdata = req.body;
-        const select = "a.id,a.cop_soc_name,a.reg_no,a.functional_status,b.soc_type_name,c.dist_name,d.zone_name,e.range_name,f.soc_tier_name";
+        const select = "a.id,a.cop_soc_name,a.last_elec_date,a.tenure_ends_on,a.contact_name,a.contact_designation,a.contact_number,a.email,a.reg_no,a.functional_status,b.soc_type_name,c.dist_name,d.zone_name,e.range_name,f.soc_tier_name";
         var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id`;
-     
+        var dist = formdata.dist_id > 0 ? `AND a.dist_code=${formdata.dist_id} ` : '';
         var range = formdata.range_code > 0 ? `AND a.range_code=${formdata.range_code} ` : '';
         var soc_type = formdata.soc_type_id > 0 ? `AND a.soc_type=${formdata.soc_type_id} ` : '';
         if (formdata.socname && formdata.socname.trim() !== '') {
@@ -87,7 +87,7 @@ var moment = require('moment');
         }
         //soc_data_status = `AND a.approve_status='A' `;
        
-        var maincon = range+soc_type+socname;
+        var maincon = dist+range+soc_type+socname;
         var whr = `1 ${maincon}`;
         
         const order = null;
