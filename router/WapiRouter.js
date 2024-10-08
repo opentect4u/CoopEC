@@ -115,27 +115,27 @@ WapiRouter.post("/change_pass", async (req, res) => {
 
 
 
-async function getCoordinatesFromAddress(address) {
-  return new Promise(async(resolve,reject)=>{
-    try {
-      const response = await axios.get(
-          `${config.gapiurl_for_address}${encodeURIComponent(address)}&key=${config.gapikey}`
-      );
-      const { results } = response.data;
-      if (results.length > 0) {
-          const { lat, lng } = results[0].geometry.location;
-          resolve ({ lat: lat, lng: lng });
-      } else {
-          console.log('No results found for the given address.');
-          reject({ lat: 0, lng: 0 }) ;
-      }
-  } catch (error) {
-      console.error('Error fetching coordinates:', error.message);
-      reject({ lat: 0, lng: 0 }) ;
-  }
-  })
+// async function getCoordinatesFromAddress(address) {
+//   return new Promise(async(resolve,reject)=>{
+//     try {
+//       const response = await axios.get(
+//           `${config.gapiurl_for_address}${encodeURIComponent(address)}&key=${config.gapikey}`
+//       );
+//       const { results } = response.data;
+//       if (results.length > 0) {
+//           const { lat, lng } = results[0].geometry.location;
+//           resolve ({ lat: lat, lng: lng });
+//       } else {
+//           console.log('No results found for the given address.');
+//           reject({ lat: 0, lng: 0 }) ;
+//       }
+//   } catch (error) {
+//       console.error('Error fetching coordinates:', error.message);
+//       reject({ lat: 0, lng: 0 }) ;
+//   }
+//   })
   
-}
+// }
   //   ***********  10/04/2024 -- Code Start for Saving Employee Attendence Detail      *******    //
   WapiRouter.post("/atten_save", async (req, res) => {
     var data = req.body;

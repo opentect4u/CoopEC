@@ -5,6 +5,7 @@ session = require("express-session"),
   path = require("path"),
 	https = require('https'),
   fs = require('fs'),
+  cors = require('cors'),
   port = process.env.PORT || 3013;
 
 // parse requests of content-type - application/json
@@ -12,6 +13,7 @@ app.use(express.json());
 
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: false }));
+app.use(cors());
 
 // SET VIEW ENGINE AND PATH //
 app.set("view engine", "ejs");
@@ -60,7 +62,7 @@ const { WapiRouter } = require("./router/WapiRouter");
 app.use("/login",LoginRouter)
 app.use("/dash",DashboardRouter)
 app.use("/society",SocietyRouter)
-app.use("/Wapi",WapiRouter)
+app.use("/wapi",WapiRouter)
 //app.use(DashboardRouter)
 
 app.get("/",async (req, res) => {
