@@ -106,7 +106,7 @@ var moment = require('moment');
               res.send({ suc: 1, status: "Data found", msg: res_dt.msg })
           
           } else {
-            result = { suc: 0,status: 'Data no found', msg: res_dt,data:req.body };
+            result = { suc: 0,status: 'Data no found', msg: '' };
             res.send(result)
           }
         } else {
