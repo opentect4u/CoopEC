@@ -29,7 +29,7 @@ var moment = require('moment');
   //   ****    Get Range list using District id   ***  //
   WapiRouter.post('/rangelist', async(req, res) => {
     var data = req.body;
-    var select = "*",
+    var select = "range_id,range_name",
     table_name = "md_range",
     where = `dist_id='${data.dist_id}' `,
     order = null;
@@ -71,71 +71,56 @@ var moment = require('moment');
       }
   });
 
-// WapiRouter.post("/mobile_login", async (req, res) => {
-//   var data = req.body,
-//     result;
-//   console.log(data);
-//   var select = "user_name,user_id,user_type,user_id,user_status,password",
-//     table_name = "md_user",
-//     whr = `user_id='${data.user_id}' AND user_type='U'`,
-//     order = null;
-//   var res_dt = await db_Select(select, table_name, whr, order);
-//   if (res_dt.suc > 0) {
-//     if (res_dt.msg.length > 0) {
-//       if (await bcrypt.compare(data.password, res_dt.msg[0].password)) {
-//         res.send({ suc: 1, status: "Data found", msg: res_dt.msg[0] })
-//       } else {
-//         result = {
-//           suc: 0,
-//           msg: "Please check your userid or password",
-//           dt: res_dt
-//         };
-//         res.send(result)
-//       }
-//     } else {
-//       result = { suc: 0, msg: "No data found", dt: res_dt };
-//       res.send(result)
-//     }
-//   } else {
-//     result = { suc: 0, msg: res_dt.msg, dt: res_dt };
-//     res.send(result);
-//   }
-// });
-WapiRouter.post("/change_pass", async (req, res) => {
-  var dttime= moment().format("YYYY-MM-DD HH:mm:ss");
-  var data = req.body,
-    result;
-  var select = "*",
-    table_name = "md_user",
-    whr = `user_id='${data.user_id}' AND user_type='U'`,values = null,
-    order = null;
-  var res_dt = await db_Select(select, table_name, whr, order);
-  if (res_dt.suc > 0) {
-    if (res_dt.msg.length > 0) {
-      if (await bcrypt.compare(data.oldpass, res_dt.msg[0].password)) {
-         var pass = bcrypt.hashSync(data.password, 10);
-         var fields = `password ='${pass}',modified_by ='${data.user_id}',modified_dt='${dttime}' `;
-         var resin = await db_Insert('md_user', fields,values, whr, 1);
-
-        res.send({ suc: 1, status: "Data found", msg: resin.msg })
-      } else {
-        result = {
-          suc: 0,
-          msg: "Please Give correct old password",
-          dt: res_dt
-        };
-        res.send(result)
+  WapiRouter.post('/societysearch', async(req, res) => {
+    try {
+       
+        var formdata = req.body;
+        const select = "a.id,a.cop_soc_name,a.reg_no,a.functional_status,b.soc_type_name,c.dist_name,d.zone_name,e.range_name,f.soc_tier_name";
+        var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id`;
+     
+        var range = formdata.range_code > 0 ? `AND a.range_code=${formdata.range_code} ` : '';
+        var soc_type = formdata.soc_type_id > 0 ? `AND a.soc_type=${formdata.soc_type_id} ` : '';
+        if (formdata.socname && formdata.socname.trim() !== '') {
+          var socname = `AND a.cop_soc_name LIKE '%${formdata.socname.split("'").join("\\'")}%' `;
+        }else{
+          var socname = '';
+        }
+        //soc_data_status = `AND a.approve_status='A' `;
+       
+        var maincon = range+soc_type+socname;
+        var whr = `1 ${maincon}`;
+        
+        const order = null;
+        const res_dt = await db_Select(select, table_name, whr, order);
+        const select2 = "COUNT(*) as total";
+        const countResult = await db_Select(select2, table_name, whr, order);
+        const total = countResult.msg[0].total;
+        const totalPages = Math.ceil(total / 25);
+        
+        // Prepare data for rendering
+        // const res_dt = {
+        //   data: result.suc > 0 ? result.msg : '',page: 1,totalPages:totalPages,
+        // };
+        if (res_dt.suc > 0) {
+          if (res_dt.msg.length > 0) {
+              res.send({ suc: 1, status: "Data found", msg: res_dt.msg })
+          
+          } else {
+            result = { suc: 0,status: 'Data no found', msg: res_dt,data:req.body };
+            res.send(result)
+          }
+        } else {
+          result = { suc: 0,status: 'Fail', msg: req.body };
+          res.send(result);
+        }
+      } catch (error) {
+        // Log the error and send an appropriate response
+        console.error('Error during dashboard rendering:', error);
+        //res.status(500).send('An error occurred while loading the dashboard.');
+        result = { suc: 0,status: 'Fail', msg: req.body };
+        res.send(result);
       }
-    } else {
-      result = { suc: 0, msg: "No data found", dt: res_dt };
-      res.send(result)
-    }
-  } else {
-    result = { suc: 0, msg: res_dt.msg, dt: res_dt };
-    res.send(result);
-  }
-});
-
+  })
 
 
 // async function getCoordinatesFromAddress(address) {
@@ -160,34 +145,8 @@ WapiRouter.post("/change_pass", async (req, res) => {
   
 // }
   //   ***********  10/04/2024 -- Code Start for Saving Employee Attendence Detail      *******    //
-  WapiRouter.post("/atten_save", async (req, res) => {
-    var data = req.body;
-    var date_time = dateFormat(new Date(), "yyyy-mm-dd ");
-    var st_point = 0;
-    var visit_dtl_id = 0;
-    var fields = data.id > 0 ? `out_time ='${data.out_time}',out_dt ='${date_time}', out_location ='${data.in_location}', out_lat = '${data.in_lat}', out_long = '${data.in_long}'` : '(atten_dt,emp_code,emp_name,in_time,out_time,in_location,in_lat,in_long)';
-    var  values = `('${date_time}','${data.emp_code}','${data.emp_name}','${data.in_time}',${null},'${data.in_location}','${data.in_lat}','${data.in_long}')`;
 
-    var fields1 = '(`emp_code`,`tour_dt`,`sl_no`,visit_dtl_id,`lat_pos`,`long_pos`,`type`,`distance`)';
-    var value1  = `('${data.emp_code}','${date_time}','${st_point}','${visit_dtl_id}','${data.in_lat}',${data.in_long},'L','0')`;
-  
-    var where = data.id > 0 ? `sl_no = '${data.id}'` : null,
-    flag = data.id > 0 ? 1 : 0;
-   var res_dt = await db_Insert('td_attendance', fields,values,where,flag);
-   if(data.id < 1){
-    var tourin = await db_Insert('td_tour_details', fields1,value1,null,0);
-   }
-    console.log(res_dt);
-    if(res_dt.suc > 0){
-       
-        res.send({ suc: 1, status: "Data found", msg: res_dt.msg })
-    }else{
-       
-        res.send({ suc: 0, status: "Data Not found", msg: res_dt.msg })
-    }
-   
-  });
-  //   ***********   Code End for Saving Employee Attendence Detail      *******    //
+
 
 //   ***********  10/04/2024 -- Code Start for Saving Employee Attendence Detail      *******    //
 WapiRouter.post("/client_save", async (req, res) => {
