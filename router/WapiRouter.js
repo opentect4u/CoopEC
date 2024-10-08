@@ -48,36 +48,59 @@ var moment = require('moment');
         res.send(result);
       }
   });
-WapiRouter.post("/mobile_login", async (req, res) => {
-  var data = req.body,
-    result;
-  console.log(data);
-  var select = "user_name,user_id,user_type,user_id,user_status,password",
-    table_name = "md_user",
-    whr = `user_id='${data.user_id}' AND user_type='U'`,
+
+  //   ****    Get Soc Type list using   ***  //
+  WapiRouter.post('/sotypelist', async(req, res) => {
+    var select = "*",
+    table_name = "md_society_type",
+    where = null,
     order = null;
-  var res_dt = await db_Select(select, table_name, whr, order);
-  if (res_dt.suc > 0) {
-    if (res_dt.msg.length > 0) {
-      if (await bcrypt.compare(data.password, res_dt.msg[0].password)) {
-        res.send({ suc: 1, status: "Data found", msg: res_dt.msg[0] })
+    var res_dt = await db_Select(select, table_name, where, order);
+
+      if (res_dt.suc > 0) {
+        if (res_dt.msg.length > 0) {
+            res.send({ suc: 1, status: "Data found", msg: res_dt.msg })
+        
+        } else {
+          result = { suc: 0,status: 'Data no found', msg: res_dt,data:req.body };
+          res.send(result)
+        }
       } else {
-        result = {
-          suc: 0,
-          msg: "Please check your userid or password",
-          dt: res_dt
-        };
-        res.send(result)
+        result = { suc: 0,status: 'Fail', msg: req.body };
+        res.send(result);
       }
-    } else {
-      result = { suc: 0, msg: "No data found", dt: res_dt };
-      res.send(result)
-    }
-  } else {
-    result = { suc: 0, msg: res_dt.msg, dt: res_dt };
-    res.send(result);
-  }
-});
+  });
+
+// WapiRouter.post("/mobile_login", async (req, res) => {
+//   var data = req.body,
+//     result;
+//   console.log(data);
+//   var select = "user_name,user_id,user_type,user_id,user_status,password",
+//     table_name = "md_user",
+//     whr = `user_id='${data.user_id}' AND user_type='U'`,
+//     order = null;
+//   var res_dt = await db_Select(select, table_name, whr, order);
+//   if (res_dt.suc > 0) {
+//     if (res_dt.msg.length > 0) {
+//       if (await bcrypt.compare(data.password, res_dt.msg[0].password)) {
+//         res.send({ suc: 1, status: "Data found", msg: res_dt.msg[0] })
+//       } else {
+//         result = {
+//           suc: 0,
+//           msg: "Please check your userid or password",
+//           dt: res_dt
+//         };
+//         res.send(result)
+//       }
+//     } else {
+//       result = { suc: 0, msg: "No data found", dt: res_dt };
+//       res.send(result)
+//     }
+//   } else {
+//     result = { suc: 0, msg: res_dt.msg, dt: res_dt };
+//     res.send(result);
+//   }
+// });
 WapiRouter.post("/change_pass", async (req, res) => {
   var dttime= moment().format("YYYY-MM-DD HH:mm:ss");
   var data = req.body,
