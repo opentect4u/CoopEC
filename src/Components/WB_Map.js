@@ -500,7 +500,7 @@ function WB_Map(
   }}
 >
   <button onClick={() => handleClickClose()} className='pophoverClose'><i class="fa fa-times-circle" aria-hidden="true"></i> </button>
-  <h4>{getDistricContent?.districtName} / {popup.y} / {popup.x}</h4>
+  <h4>{getDistricContent?.districtName}</h4>
   {/* <p>{getDistricContent?.description}  / {popup.area}</p> */}
   <p>{limitWords(getDistricContent?.description, mapPopHover_Wordcount)}</p>
   <a href={getDistricContent?.redirectLink}> View</a>

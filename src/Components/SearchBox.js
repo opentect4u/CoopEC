@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as Yup from 'yup';
 import { useFormik } from "formik";
 import { useParams, useNavigate } from "react-router";
+import axios from "axios";
 
 const initialValues = {
   select_district: '',
@@ -12,53 +13,129 @@ const initialValues = {
 
 const validationSchema = Yup.object({
   select_district: Yup.string().required('Required'),
-  select_range: Yup.string().required('Required'),
-  select_type: Yup.string().required('Required'),
-  society_Name: Yup.string().required('Required'),
+  select_range: Yup.string(),
+  select_type: Yup.string(),
+  society_Name: Yup.string(),
 });
 
 
 
 function SearchBox() {
 
-  const navigation = useNavigate();
+  const [getDistrictList, setDistrictList] = useState([]);
+  const [getRangeList, setRangeList] = useState([]);
+  const [getSocietyType, setSocietyType] = useState([]);
+
+  const districtList = async()=>{
+
+    await axios.post('https://admincecwb.opentech4u.co.in/wapi/distlist',
+      // {},
+      // {
+      //     headers: {
+      //         Authorization: loginData.token,
+      //     },
+      // }
+      ).then(res => {
+
+      if(res.status == '200'){
+      if(res.data.suc > 0){
+        setDistrictList(res?.data?.msg)
+      }
+
+      }
+
+        
+      })  
+   }
+
+   const rangeList = async(districValue)=>{
+
+    console.log(districValue, 'kkkkkkkkkkkkkkkk');
+    
+    await axios.post('https://admincecwb.opentech4u.co.in/wapi/rangelist',
+      {
+        auth_key:"xxxxx",
+        dist_id: districValue
+      }
+      // ,
+      // {
+      //     headers: {
+      //         Authorization: loginData.token,
+      //     },
+      // }
+      ).then(res => {
+
+      if(res.status == '200'){
+      if(res.data.suc > 0){
+        setRangeList(res?.data?.msg)
+      }
+
+      }
+
+        
+      })  
+   }
+
+   const societyType = async()=>{
+
+    await axios.post('https://admincecwb.opentech4u.co.in/wapi/sotypelist',
+      // {},
+      // {
+      //     headers: {
+      //         Authorization: loginData.token,
+      //     },
+      // }
+      ).then(res => {
+
+      if(res.status == '200'){
+      if(res.data.suc > 0){
+        setSocietyType(res?.data?.msg)
+        console.log(res?.data?.msg, 'kkkkkkkkkk');
+        
+      }
+
+      }
+
+        
+      })  
+   }
+
+
+
+
+const navigation = useNavigate();
 
 const onSubmit = (values) => {
+  console.log(values, 'values');
   
-  // var data = JSON.stringify(values, null, 2);
-  // alert(values.select_district);  // Alerting the submitted form data
-
-  // const params = new URLSearchParams(values).toString();
-
-  // console.log(values, 'Form submitted');
-  // navigation("/search", values);
-  // navigation('/search',values);
-
-
-  // navigation(`/search?${params}`);
-
-  // navigation(`/search?${params}`, { state: values });
   navigation('/search', { state: values });
 };
 
+useEffect(()=>{
+  districtList();
+  societyType();
+  
+},[])
 
-  const select_districtOptions = [
-    { key: 'Select District', value: '' },
-    { key: 'District 1', value: 'District 1' },
-    { key: 'District 2', value: 'District 2' },
-  ];
 
-  const select_rangeOptions = [
-    { key: 'Select Range', value: '' },
-    { key: 'Range 1', value: 'Range 1' },
-    { key: 'Range 2', value: 'Range 2' },
-  ];
 
-  const select_typeOptions = [
-    { key: 'Select Type', value: '' },
-    { key: 'Type 1', value: 'Type 1' },
-    { key: 'Type 2', value: 'Type 2' },
-  ];
+  // const select_districtOptions = [
+  //   { key: 'Select District', value: '' },
+  //   { key: 'District 1', value: 'morbi' },
+  //   { key: 'District 2', value: 'District 2' },
+  // ];
+
+  // const select_rangeOptions = [
+  //   { range_name: 'Select Range', range_id: '' },
+  //   { range_name: 'Range 1', range_id: 'Range 1' },
+  //   { range_name: 'Range 2', range_id: 'Range 2' },
+  // ];
+
+  // const select_typeOptions = [
+  //   { range_name: 'Select Type', range_id: '1' },
+  //   { range_name: 'Type 1', range_id: '2' },
+  //   { range_name: 'Type 2', range_id: '3' },
+  // ];
 
   const formik = useFormik({
     initialValues,
@@ -67,6 +144,12 @@ const onSubmit = (values) => {
     enableReinitialize: true,
     validateOnMount: true,
   });
+
+  useEffect(()=>{
+
+  rangeList(formik.values.select_district);
+    
+  }, [formik.values.select_district])
 
   return (
     <div className="search_box">
@@ -83,12 +166,14 @@ const onSubmit = (values) => {
             onBlur={formik.handleBlur}
             value={formik.values.select_district}
           >
-            {select_districtOptions.map((option) => (
-              <option key={option.key} value={option.value}>
-                {option.key}
+            <option value='0'>Select District</option>
+            {getDistrictList?.map((option) => ( 
+              <option key={option.dist_name} value={option.dist_code}>
+                {option.dist_name} {option.dist_code}
               </option>
             ))}
           </select>
+
           {formik.errors.select_district && formik.touched.select_district && (
             <div className="required">{formik.errors.select_district}</div>
           )}
@@ -96,19 +181,35 @@ const onSubmit = (values) => {
 
         {/* Select Range */}
         <label>
+
           <select
-            id="select_range"
-            name="select_range"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.select_range}
+          id="select_range"
+          name="select_range"
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          value={formik.values.select_range}
           >
-            {select_rangeOptions.map((option) => (
-              <option key={option.key} value={option.value}>
-                {option.key}
-              </option>
-            ))}
+
+          {getRangeList.length < 1 ? (
+              <option value='0'>No ranges available</option>
+            ) : (
+              <>
+              <option value='0'>Select Range</option>
+                {getRangeList.map((option) => (
+                  <option key={option.range_name} value={option.range_id}>
+                    {option.range_name} {option.range_id}
+                  </option>
+                ))}
+              </>
+            )}
+
+          {/* {select_rangeOptions.map((option) => (
+          <option key={option.key} value={option.value}>
+          {option.key}
+          </option>
+          ))} */}
           </select>
+          
           {formik.errors.select_range && formik.touched.select_range && (
             <div className="required">{formik.errors.select_range}</div>
           )}
@@ -123,9 +224,10 @@ const onSubmit = (values) => {
             onBlur={formik.handleBlur}
             value={formik.values.select_type}
           >
-            {select_typeOptions.map((option) => (
-              <option key={option.key} value={option.value}>
-                {option.key}
+            <option value='0'>Select Society Type</option>
+            {getSocietyType.map((option) => (
+              <option key={option.soc_type_name} value={option.soc_type_id}>
+                {option.soc_type_name}
               </option>
             ))}
           </select>
@@ -140,7 +242,7 @@ const onSubmit = (values) => {
             id="society_Name"
             name="society_Name"
             type="text"
-			placeholder="Society Name"
+			      placeholder="Society Name"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.society_Name}
@@ -151,7 +253,8 @@ const onSubmit = (values) => {
         </label>
 
         {/* Submit Button */}
-		<label><button type="submit">Search</button></label>
+		<label className="searchSec"><button type="submit">Search</button></label>
+
         
       </form>
     </div>

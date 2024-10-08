@@ -956,14 +956,53 @@ button {
   color: #333;}
 
 
+.search_Card{border: #cecaca solid 1px;
+  border-radius: 10px;
+  box-shadow: 0 0 5px 3px #d7d7d7;
+  padding: 15px;
+  margin-bottom: 20px;}
+.search_Card h3{font-size: 16px; font-weight: 700; color: #17b0fd;}
+.search_Card p{font-size: 14px; padding: 0; margin: 0;}
 
 
+.searchPageTop .search_box{padding: 0;
+padding-top: 14px;
+padding-bottom: 14px;
+background: #fff;
+border: solid 1px #c8c8c8;
+margin-bottom: 20px;
+display: inline-block;
+box-shadow: 0 0 8px 5px #dddbdb;
+border-radius: 6px;}
+.searchPageTop .search_box h2 {
+  font-size: 16px;
+  color: #000;
+  font-weight: 600;
+  padding-bottom: 5px;
+  border-bottom: #17b0fd solid 1px;
+  position: relative;
+  margin: 0 15px 18px 15px;
+}
 
+.searchPageTop .search_box form{display: flex;
+  align-items: center;
+}
 
+.searchPageTop .search_box label{width: 18%;
+  float: left;
+  margin: 0 1%;}
+.searchPageTop .search_box label.searchSec button[type="submit"]{font-size: 16px;
+  color: #fff;
+  background: #17b0fd;
+  border: none;
+  padding: 8px 12px;
+  font-weight: 500;
+  border-radius: 5px;}
 
-
-
-
+.searchPageTop label select, .searchPageTop .search_box label input[type="text"]{background-color: #fff;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  height: 40px;}
   
 
 
