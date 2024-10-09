@@ -21,7 +21,7 @@ import GalleryPage from './Screens/GalleryPage/GalleryPage';
 import ContactUs from './Screens/ContactUs/ContactUs';
 import TestPage from './Screens/TestPage/TestPage';
 import MapboxExample from './Screens/MapExample/MapboxExample';
-import SearchPage from './Components/SearchPage';
+import SearchPage from './Screens/SearchPage/SearchPage';
 
 
 
@@ -68,7 +68,6 @@ const router = createBrowserRouter([
         element:<ContactUs/>
       },
       {
-        // path:"search/:obj",
         path:"search",
         element:<SearchPage/>
       },

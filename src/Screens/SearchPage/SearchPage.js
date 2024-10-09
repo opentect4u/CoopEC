@@ -2,85 +2,18 @@
 import React, { useState, useRef, useEffect } from 'react'
 import axios from 'axios';
 import { useLocation, useParams } from "react-router-dom";
-import RightSidebarGlobal from './RightSidebarGlobal';
-import FooterCus from './FooterCus';
-import SearchBox from './SearchBox';
+// import RightSidebarGlobal from './RightSidebarGlobal';
+// import FooterCus from './FooterCus';
+import FooterCus from '../../Components/FooterCus';
+// import SearchBox from './Components/SearchBox';
 
 
 // import React, { useRef, useState } from 'react';
 import { SearchOutlined } from '@ant-design/icons';
 import { Button, Input, Space, Table } from 'antd';
 import Highlighter from 'react-highlight-words';
-const data = [
-  {
-    id: '1',
-    cop_soc_name: 'John Brown hhhhhh',
-    last_elec_date: null,
-    tenure_ends_on: null,
-    contact_name: "SIPRA MAJUMDER",
-    contact_designation: null,
-    contact_number: "9073568976",
-    email: "anupamatilottama@gmail.com",
-    reg_no: "9/24 pGS.",
-    functional_status: "Functional",
-    soc_type_name: "Housing Co-operative Society",
-    dist_name: "HOWRAH",
-    zone_name: "Central Zone",
-    range_name: "Howrah Range",
-    soc_tier_name: null
-  },
-  {
-    id: '2',
-    cop_soc_name: 'John Brown',
-    last_elec_date: null,
-    tenure_ends_on: null,
-    contact_name: "SIPRA MAJUMDER",
-    contact_designation: null,
-    contact_number: "9073568976",
-    email: "anupamatilottama@gmail.com",
-    reg_no: "9/24 pGS.",
-    functional_status: "Functional",
-    soc_type_name: "Housing Co-operative Society",
-    dist_name: "HOWRAH",
-    zone_name: "Central Zone",
-    range_name: "Howrah Range",
-    soc_tier_name: null
-  },
-  {
-    id: '3',
-    cop_soc_name: 'John rrrr hhhhhh',
-    last_elec_date: null,
-    tenure_ends_on: null,
-    contact_name: "SIPRA MAJUMDER",
-    contact_designation: null,
-    contact_number: "9073568976",
-    email: "anupamatilottama@gmail.com",
-    reg_no: "9/24 pGS.",
-    functional_status: "Functional",
-    soc_type_name: "Housing Co-operative Society",
-    dist_name: "HOWRAH",
-    zone_name: "Central Zone",
-    range_name: "Howrah Range",
-    soc_tier_name: null
-  },
-  {
-    id: '4',
-    cop_soc_name: 'John hhhhhh',
-    last_elec_date: null,
-    tenure_ends_on: null,
-    contact_name: "SIPRA MAJUMDER",
-    contact_designation: null,
-    contact_number: "9073568976",
-    email: "anupamatilottama@gmail.com",
-    reg_no: "9/24 pGS.",
-    functional_status: "Functional",
-    soc_type_name: "Housing Co-operative Society",
-    dist_name: "HOWRAH",
-    zone_name: "Central Zone",
-    range_name: "Howrah Range",
-    soc_tier_name: null
-  },
-];
+import SearchBox from '../../Components/SearchBox';
+
 
 
 
@@ -198,103 +131,103 @@ const [searchText, setSearchText] = useState('');
   });
   const columns = [
     {
-      title: 'cop soc name',
+      title: 'Society Name',
       dataIndex: 'cop_soc_name',
       key: 'cop_soc_name',
-      width: '30%',
+      // width: '30%',
       ...getColumnSearchProps('cop_soc_name'),
     },
     {
-      title: 'last elec date',
+      title: 'Last Election Date',
       dataIndex: 'last_elec_date',
       key: 'last_elec_date',
-      width: '20%',
+      // width: '20%',
       ...getColumnSearchProps('last_elec_date'),
     },
     {
-      title: 'tenure ends on',
+      title: 'Tenure Ends On',
       dataIndex: 'tenure_ends_on',
       key: 'tenure_ends_on',
-      width: '20%',
+      // width: '20%',
       ...getColumnSearchProps('tenure_ends_on'),
     },
     {
-      title: 'contact name',
+      title: 'Key Person Name',
       dataIndex: 'contact_name',
       key: 'contact_name',
-      width: '20%',
+      // width: '20%',
       ...getColumnSearchProps('contact_name'),
     },
     {
-      title: 'contact designation',
+      title: 'Key Person Designation',
       dataIndex: 'contact_designation',
       key: 'contact_designation',
-      width: '20%',
+      // width: '20%',
       ...getColumnSearchProps('contact_designation'),
     },
     {
-      title: 'contact number',
+      title: 'Key Person Contact Number',
       dataIndex: 'contact_number',
       key: 'contact_number',
-      width: '20%',
+      // width: '20%',
       ...getColumnSearchProps('contact_number'),
     },
     {
       title: 'Email',
       dataIndex: 'email',
       key: 'email',
-      width: '20%',
+      // width: '20%',
       ...getColumnSearchProps('email'),
     },
+    // {
+    //   title: 'reg no',
+    //   dataIndex: 'reg_no',
+    //   key: 'reg_no',
+    //   width: '20%',
+    //   ...getColumnSearchProps('reg_no'),
+    // },
     {
-      title: 'reg no',
-      dataIndex: 'reg_no',
-      key: 'reg_no',
-      width: '20%',
-      ...getColumnSearchProps('reg_no'),
-    },
-    {
-      title: 'functional status',
+      title: 'Functional Status',
       dataIndex: 'functional_status',
       key: 'functional_status',
-      width: '20%',
+      // width: '20%',
       ...getColumnSearchProps('functional_status'),
     },
-    {
-      title: 'soc type name',
-      dataIndex: 'soc_type_name',
-      key: 'soc_type_name',
-      width: '20%',
-      ...getColumnSearchProps('soc_type_name'),
-    },
-    {
-      title: 'dist name',
-      dataIndex: 'dist_name',
-      key: 'dist_name',
-      width: '20%',
-      ...getColumnSearchProps('dist_name'),
-    },
-    {
-      title: 'zone name',
-      dataIndex: 'zone_name',
-      key: 'zone_name',
-      width: '20%',
-      ...getColumnSearchProps('zone_name'),
-    },
-    {
-      title: 'range name',
-      dataIndex: 'range_name',
-      key: 'range_name',
-      width: '20%',
-      ...getColumnSearchProps('range_name'),
-    },
-    {
-      title: 'soc tier name',
-      dataIndex: 'soc_tier_name',
-      key: 'soc_tier_name',
-      width: '20%',
-      ...getColumnSearchProps('soc_tier_name'),
-    }
+    // {
+    //   title: 'soc type name',
+    //   dataIndex: 'soc_type_name',
+    //   key: 'soc_type_name',
+    //   width: '20%',
+    //   ...getColumnSearchProps('soc_type_name'),
+    // },
+    // {
+    //   title: 'dist name',
+    //   dataIndex: 'dist_name',
+    //   key: 'dist_name',
+    //   width: '20%',
+    //   ...getColumnSearchProps('dist_name'),
+    // },
+    // {
+    //   title: 'zone name',
+    //   dataIndex: 'zone_name',
+    //   key: 'zone_name',
+    //   width: '20%',
+    //   ...getColumnSearchProps('zone_name'),
+    // },
+    // {
+    //   title: 'range name',
+    //   dataIndex: 'range_name',
+    //   key: 'range_name',
+    //   width: '20%',
+    //   ...getColumnSearchProps('range_name'),
+    // },
+    // {
+    //   title: 'soc tier name',
+    //   dataIndex: 'soc_tier_name',
+    //   key: 'soc_tier_name',
+    //   width: '20%',
+    //   ...getColumnSearchProps('soc_tier_name'),
+    // }
     // {
     //   title: 'Address',
     //   dataIndex: 'address',
@@ -368,9 +301,9 @@ const searchData = location.state || {};
     <div className="wrapper">
     <div className="inner_page_Sec">
     <div className='col-sm-12 searchPageTop'>
-    <SearchBox/>
+    <SearchBox district_def = {searchData.select_district}  />
     </div>
-    <div className="col-sm-12 left_sec">
+    <div className="col-sm-12 left_sec search_data_table">
 
     <h1>Search</h1>
 
@@ -378,29 +311,14 @@ const searchData = location.state || {};
         x: 'max-content',
       }} />
 
-    {/* {getPageData.map(item =>
-    item === 0 ? (
-    <div>No Item</div>
-    ) : (
-    <div className='search_Card'>
-    <h3>{item.contact_name}</h3>
-    <p>{item?.cop_soc_name}</p>
-    </div>
-    )
-    )} */}
 
-    {/* District: {searchData.select_district} <br/>
+
+    District: {searchData.select_district} <br/>
     Range: {searchData.select_range}<br/>
     Type: {searchData.select_type}<br/>
-    Society Name: {searchData.society_Name} */}
+    Society Name: {searchData.society_Name}
 
     </div>
-
-    {/* <div class="col-sm-4 float-left">
-    <div class="right_sec">
-    <SearchBox/>
-    </div>
-    </div> */}
 
     </div>
     </div>

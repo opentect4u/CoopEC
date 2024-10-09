@@ -862,25 +862,25 @@ width: 100%; padding:0;}
 
 .maplabels1{font-family: Tahoma; font-size: 11px; display: inline;}
 
-#Alipur:hover, #Jalpaiguri:hover, #Bankura:hover, #Birbhum:hover, #Bardhaman:hover, #DakshinDinajpur:hover, 
-#Darjeeling:hover, #Malda:hover, #Murshidabad:hover, #Hooghly:hover, #Haora:hover, #Alipurduar:hover{fill: #e99fa9; cursor: pointer;}
-#PurbaM:hover{fill: #d586de; cursor: pointer;}
-#UttarDinajpur:hover{fill: #c6c444; cursor: pointer;}
-#Purulia:hover, #Nadia:hover, #CoochBehar:hover{fill: #5eb8e1; cursor: pointer;}
-#PaschimM:hover, #Kolkata:hover, #N24Parganas:hover{fill: #6bb918; cursor: pointer;}
-#S24Parganas{cursor: pointer;}
+#Alipur:hover, #JALPAIGURI:hover, #BANKURA:hover, #BIRBHUM:hover, #Bardhaman:hover, #DAKSHINDINAJPUR:hover, 
+#DARJEELING:hover, #MALDAH:hover, #MURSHIDABAD:hover, #HOOGHLY:hover, #Haora:hover, #ALIPURDUAR:hover{fill: #e99fa9; cursor: pointer;}
+#PURBAMEDINIPUR:hover{fill: #d586de; cursor: pointer;}
+#UTTARDINAJPUR:hover{fill: #c6c444; cursor: pointer;}
+#PURULIA:hover, #NADIA:hover, #COOCHBEHAR:hover{fill: #5eb8e1; cursor: pointer;}
+#PASCHIMMEDINIPUR:hover, #KOLKATA:hover, #NORTH24PARAGANAS:hover{fill: #6bb918; cursor: pointer;}
+#SOUTH24PARAGANAS{cursor: pointer;}
 
 
 
-#Darjeeling, #CoochBehar, #Murshidabad, #Bankura, #Howrah{fill:#ffffd0;stroke:#666666;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1}
-#Kalimpong, #UttarDinajpur, #Birbhum, #Nadia, #Kolkata, #PaschimM {fill:#ffd0d0;stroke:#666666;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1}
-#Alipurduar, #Malda, #Purulia, #PurbaBardhaman, #N24Parganas, #PurbaM path {fill:#edcbf9;stroke:#666666;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1}
-#DakshinDinajpur, #Jalpaiguri, #PaschimBardhaman, #Hooghly, #Jhargram, #S24Parganas path {fill:#d7ffd0;stroke:#666666;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1}
+#DARJEELING, #COOCHBEHAR, #MURSHIDABAD, #BANKURA, #HOWRAH{fill:#ffffd0;stroke:#666666;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1}
+#KALIMPONG, #UTTARDINAJPUR, #BIRBHUM, #NADIA, #KOLKATA, #PASCHIMMEDINIPUR {fill:#ffd0d0;stroke:#666666;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1}
+#ALIPURDUAR, #MALDAH, #PURULIA, #PURBABARDHAMAN, #NORTH24PARAGANAS, #PURBAMEDINIPUR path {fill:#edcbf9;stroke:#666666;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1}
+#DAKSHINDINAJPUR, #JALPAIGURI, #PASCHIMBARDHAMAN, #HOOGHLY, #JHARGRAM, #SOUTH24PARAGANAS path {fill:#d7ffd0;stroke:#666666;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1}
 
-#Darjeeling:hover, #CoochBehar:hover, #Murshidabad:hover, #Bankura:hover, #Howrah:hover{fill: #d9d976 !important; cursor: pointer;}
-#Kalimpong:hover, #UttarDinajpur:hover, #Birbhum:hover, #Nadia:hover, #Kolkata:hover, #PaschimM:hover {fill: #eb9b9b !important; cursor: pointer;}
-#Alipurduar:hover, #Malda:hover, #Purulia:hover, #PurbaBardhaman:hover, #N24Parganas:hover, #PurbaM:hover path {fill: #d495ea !important; cursor: pointer;}
-#DakshinDinajpur:hover, #Jalpaiguri:hover, #PaschimBardhaman:hover, #Hooghly:hover, #Jhargram:hover, #S24Parganas:hover path {fill: #9ed695 !important; cursor: pointer;}
+#DARJEELING:hover, #COOCHBEHAR:hover, #MURSHIDABAD:hover, #BANKURA:hover, #HOWRAH:hover{fill: #d9d976 !important; cursor: pointer;}
+#KALIMPONG:hover, #UTTARDINAJPUR:hover, #BIRBHUM:hover, #NADIA:hover, #KOLKATA:hover, #PASCHIMMEDINIPUR:hover {fill: #eb9b9b !important; cursor: pointer;}
+#ALIPURDUAR:hover, #MALDAH:hover, #PURULIA:hover, #PURBABARDHAMAN:hover, #NORTH24PARAGANAS:hover, #PURBAMEDINIPUR:hover path {fill: #d495ea !important; cursor: pointer;}
+#DAKSHINDINAJPUR:hover, #JALPAIGURI:hover, #PASCHIMBARDHAMAN:hover, #HOOGHLY:hover, #JHARGRAM:hover, #SOUTH24PARAGANAS:hover path {fill: #9ed695 !important; cursor: pointer;}
 
 
 .error {
@@ -1004,5 +1004,23 @@ border-radius: 6px;}
   border-radius: 4px;
   height: 40px;}
   
+
+.search_data_table table thead.ant-table-thead tr th.ant-table-cell{background: #e1e3e4; color: #000; border-bottom: #c4c2c2 solid 1px;}
+.search_data_table table thead.ant-table-thead tr th.ant-table-cell .ant-dropdown-trigger{color: #000;}
+
+.search_data_table table tbody.ant-table-tbody tr td{border-bottom:#cecece solid 1px; padding: 12px 16px;}
+.search_data_table table tbody.ant-table-tbody tr:nth-child(even){background: #E6E6E6;}
+.search_data_table table tbody.ant-table-tbody tr:nth-child(odd){background: #fff;}
+
+
+
+
+
+
+
+
+
+
+
 
 

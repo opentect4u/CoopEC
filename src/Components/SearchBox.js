@@ -4,7 +4,10 @@ import { useFormik } from "formik";
 import { useParams, useNavigate } from "react-router";
 import axios from "axios";
 
+let district_def_value, range_def_value, type_def_value, soci_Name_def_value;
+
 const initialValues = {
+  // select_district: formik.values.select_district ? formik.values.select_district : '',
   select_district: '',
   select_range: '',
   select_type: '',
@@ -13,14 +16,13 @@ const initialValues = {
 
 const validationSchema = Yup.object({
   select_district: Yup.string().required('Required'),
-  select_range: Yup.string(),
+  select_range: Yup.string().required('Required'),
   select_type: Yup.string(),
   society_Name: Yup.string(),
 });
 
 
-
-function SearchBox() {
+function SearchBox({district_def}) {
 
   const [getDistrictList, setDistrictList] = useState([]);
   const [getRangeList, setRangeList] = useState([]);
@@ -89,8 +91,8 @@ function SearchBox() {
 
       if(res.status == '200'){
       if(res.data.suc > 0){
-        setSocietyType(res?.data?.msg)
-        console.log(res?.data?.msg, 'kkkkkkkkkk');
+        setSocietyType(res?.data?.msg);
+        // console.log(res?.data?.msg, 'kkkkkkkkkk');
         
       }
 
@@ -106,36 +108,33 @@ function SearchBox() {
 const navigation = useNavigate();
 
 const onSubmit = (values) => {
-  console.log(values, 'values');
+  console.log(values, 'getRangeList');
+
+  console.log(formik.values.select_range, 'getRangeList');
+
+  district_def_value = formik.values.select_district; 
+  range_def_value = formik.values.select_range; 
+  type_def_value = formik.values.select_type;
+  soci_Name_def_value =formik.values.society_Name;
+  
   
   navigation('/search', { state: values });
 };
 
 useEffect(()=>{
+
+  district_def_value = formik.values.select_district; 
+  range_def_value = formik.values.select_range; 
+  type_def_value = formik.values.select_type;
+  soci_Name_def_value =formik.values.society_Name;
+
   districtList();
   societyType();
-  
+
 },[])
 
 
 
-  // const select_districtOptions = [
-  //   { key: 'Select District', value: '' },
-  //   { key: 'District 1', value: 'morbi' },
-  //   { key: 'District 2', value: 'District 2' },
-  // ];
-
-  // const select_rangeOptions = [
-  //   { range_name: 'Select Range', range_id: '' },
-  //   { range_name: 'Range 1', range_id: 'Range 1' },
-  //   { range_name: 'Range 2', range_id: 'Range 2' },
-  // ];
-
-  // const select_typeOptions = [
-  //   { range_name: 'Select Type', range_id: '1' },
-  //   { range_name: 'Type 1', range_id: '2' },
-  //   { range_name: 'Type 2', range_id: '3' },
-  // ];
 
   const formik = useFormik({
     initialValues,
@@ -164,9 +163,9 @@ useEffect(()=>{
             name="select_district"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            value={formik.values.select_district}
+            value={district_def ? district_def : formik.values.select_district}
           >
-            <option value='0'>Select District</option>
+            <option value='0'>Select District *</option>
             {getDistrictList?.map((option) => ( 
               <option key={option.dist_name} value={option.dist_code}>
                 {option.dist_name} {option.dist_code}
@@ -191,10 +190,10 @@ useEffect(()=>{
           >
 
           {getRangeList.length < 1 ? (
-              <option value='0'>No ranges available</option>
+              <option value='0'>No ranges available *</option>
             ) : (
               <>
-              <option value='0'>Select Range</option>
+              <option value='0'>Select Range *</option>
                 {getRangeList.map((option) => (
                   <option key={option.range_name} value={option.range_id}>
                     {option.range_name} {option.range_id}
