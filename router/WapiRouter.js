@@ -122,10 +122,9 @@ var moment = require('moment');
   })
 
   WapiRouter.post('/getsocgrouplist', async(req, res) => {
-    var data = req.body; 
-    var select = `SUM(CASE WHEN functional_status = 'Functional' THEN 1 ELSE 0 END) AS func_tot, SUM(CASE WHEN functional_status = 'Under Liquidation' THEN 1 ELSE 0 END) AS liquidation_tot, SUM(CASE WHEN functional_status = 'Non-Functional / Dormant' THEN 1 ELSE 0 END) AS nonfunction_tot`,
-    table_name = `md_society`,
-    where = `dist_code=${data.dist_id} `,
+    var select = `a.dist_code,b.dist_name,REPLACE(b.dist_name, ' ', '') AS id, SUM(CASE WHEN a.functional_status = 'Functional' THEN 1 ELSE 0 END) AS func_tot, SUM(CASE WHEN a.functional_status = 'Under Liquidation' THEN 1 ELSE 0 END) AS liquidation_tot, SUM(CASE WHEN a.functional_status = 'Non-Functional / Dormant' THEN 1 ELSE 0 END) AS nonfunction_tot`,
+    table_name = `md_society a,md_district b`,
+    where = `a.dist_code=b.dist_code group by a.dist_code,b.dist_name`,
     order = null;
     var res_dt = await db_Select(select, table_name, where, order);
 
