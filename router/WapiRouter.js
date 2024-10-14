@@ -150,10 +150,10 @@ var moment = require('moment');
     order = null;
     var res_dt = await db_Select(select, table_name, where, order);
     if(formdata.doc_type == 1){
-      var folder_name = 'uploads/notifications/';
+      var folder_name = 'wapi/docdownloadnoti/';
       var title ='Notifications & Orders';
     }else{
-      var folder_name = 'uploads/tenders/';
+      var folder_name = 'wapi/docdownloadtender/';
       var title ='Tenders';
     }
 
@@ -186,6 +186,22 @@ var moment = require('moment');
          }
      });
    });
+   WapiRouter.get('/docdownloadtender/:filename', async(req, res) => {
+    // var uploadDir = path.join(__dirname,'..','uploads/notifications/');
+    const UPLOAD_FOLDER = path.join(__dirname,'..', 'uploads/tenders/');
+     const filePath = path.join(UPLOAD_FOLDER, req.params.filename);
+     console.log(filePath);
+    // Check if the file exists
+    res.download(filePath, (err) => {
+        if (err) {
+            if (err.code === 'ENOENT') {
+                res.status(404).send('File not found');
+            } else {
+                res.status(500).send('Error downloading file');
+            }
+        }
+    });
+  });
 
 // async function getCoordinatesFromAddress(address) {
 //   return new Promise(async(resolve,reject)=>{
