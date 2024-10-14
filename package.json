@@ -10,6 +10,9 @@
     "antd": "^5.20.5",
     "axios": "^1.7.7",
     "formik": "^2.4.6",
+    "jspdf": "^2.5.2",
+    "jspdf-autotable": "^3.8.3",
+    "jspdf-react": "^1.0.11",
     "mapbox-gl": "^3.6.0",
     "primereact": "^10.8.2",
     "react": "^18.3.1",
@@ -17,6 +20,7 @@
     "react-highlight-words": "^0.20.0",
     "react-router-dom": "^6.26.1",
     "react-scripts": "5.0.1",
+    "react-to-print": "^3.0.1",
     "web-vitals": "^2.1.4",
     "yup": "^1.4.0"
   },

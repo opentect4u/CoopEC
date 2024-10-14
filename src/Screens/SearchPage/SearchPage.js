@@ -13,6 +13,7 @@ import { SearchOutlined } from '@ant-design/icons';
 import { Button, Input, Space, Table } from 'antd';
 import Highlighter from 'react-highlight-words';
 import SearchBox from '../../Components/SearchBox';
+import pdf from "../../Assets/images/pdf.png";
 
 
 
@@ -245,8 +246,11 @@ const searchData = location.state || {};
 
 // const searchDataLength = Object.keys(searchData);
 
+
  
  useEffect(()=>{
+
+  console.log(searchData, 'searchDatasearchDatasearchDatasearchData');
  
   if(searchData['select_district']!=undefined)
     
@@ -301,11 +305,11 @@ const searchData = location.state || {};
     <div className="wrapper">
     <div className="inner_page_Sec">
     <div className='col-sm-12 searchPageTop'>
-    <SearchBox district_def = {searchData.select_district}  />
+    <SearchBox district_def_Valu = {searchData.select_district} range_def_Valu = {searchData.select_range} type_def_Valu = {searchData.select_type} soci_Name_def_Valu = {searchData.society_Name} />
     </div>
     <div className="col-sm-12 left_sec search_data_table">
 
-    <h1>Search</h1>
+    <h1 className='search_page'>Search   <button className='pdfDownload'>Download PDF<i class="fa fa-file-pdf-o" aria-hidden="true"></i></button></h1>
 
     <Table columns={columns} dataSource={getPageData} scroll={{
         x: 'max-content',

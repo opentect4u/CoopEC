@@ -656,6 +656,28 @@ width: 100%; padding:0;}
   margin-bottom: 25px;
 }
 
+.left_sec h1.search_page {
+  font-size: 30px;
+  color: #000;
+  font-weight: 100;
+  padding-bottom: 10px;
+  border-bottom: #000 solid 1px;
+  position: relative;
+  margin-bottom: 25px; display: flex; align-items: center;
+}
+
+.left_sec h1 button.pdfDownload{margin: 0 0 0 auto;
+  font-size: 16px;
+  color: #fff;
+  font-weight: 700;
+  background: #f12b4f;
+  border: none;
+  padding: 6px 15px;
+  border-radius: 6px;}
+.left_sec h1 button.pdfDownload i{margin-left: 10px;}
+.left_sec h1 button.pdfDownload:focus{outline: none; border: none;}
+
+
 .left_sec h1 span{color: #17b0fd;}
 
 .left_sec h1::after {
@@ -943,7 +965,7 @@ button {
   margin: 0;
   background: #17b0fd;
   color: #fff !important;
-  text-transform: uppercase;}
+  text-transform: uppercase; cursor: pointer;}
 
 .mapHover .pophoverClose{position: absolute;
   right: 6px;
