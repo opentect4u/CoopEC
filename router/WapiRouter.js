@@ -1,6 +1,7 @@
 const express = require("express");
 const axios = require('axios');
 const os = require('os');
+const path = require("path");
 const {db_Select,db_Insert} = require('../modules/MasterModule');
 WapiRouter = express.Router();
 
@@ -169,7 +170,22 @@ var moment = require('moment');
         res.send(result);
       }
   });
-
+  WapiRouter.get('/docdownloadnoti/:filename', async(req, res) => {
+     // var uploadDir = path.join(__dirname,'..','uploads/notifications/');
+     const UPLOAD_FOLDER = path.join(__dirname,'..', 'uploads/notifications/');
+      const filePath = path.join(UPLOAD_FOLDER, req.params.filename);
+      console.log(filePath);
+     // Check if the file exists
+     res.download(filePath, (err) => {
+         if (err) {
+             if (err.code === 'ENOENT') {
+                 res.status(404).send('File not found');
+             } else {
+                 res.status(500).send('Error downloading file');
+             }
+         }
+     });
+   });
 
 // async function getCoordinatesFromAddress(address) {
 //   return new Promise(async(resolve,reject)=>{
