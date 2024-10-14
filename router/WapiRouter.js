@@ -152,7 +152,7 @@ var moment = require('moment');
       var folder_name = 'uploads/notifications/';
       var title ='Notifications & Orders';
     }else{
-      var folder_name = 'uploads/tender/';
+      var folder_name = 'uploads/tenders/';
       var title ='Tenders';
     }
 

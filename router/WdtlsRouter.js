@@ -146,7 +146,7 @@ const storage = multer.diskStorage({
     if(typeId == 1){
       var uploadDir = path.join(__dirname,'..','uploads/notifications/');
     }else{
-      var uploadDir = path.join(__dirname,'..','uploads/tender/');
+      var uploadDir = path.join(__dirname,'..','uploads/tenders/');
     }
     
     // Create the directory if it doesn't exist
