@@ -250,7 +250,6 @@ const searchData = location.state || {};
  
  useEffect(()=>{
 
-  console.log(searchData, 'searchDatasearchDatasearchDatasearchData');
  
   if(searchData['select_district']!=undefined)
     
@@ -275,7 +274,6 @@ const searchData = location.state || {};
         
         if(res.data.suc > 0){
             setPageData(res?.data?.msg)
-            console.log(res.data.msg, 'uuuuuuuuuuuuuuuuuuuuuu', getPageData);
 
             // pageDataCheck = res.data.status;
         } else {

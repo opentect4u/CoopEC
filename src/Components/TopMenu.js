@@ -34,13 +34,13 @@ const items = [
   },
   {
     label: 'Important Announcement',
-    key: 'SubMenu_3',
+    key: '/importantannouncement',
     // icon: <SettingOutlined />,
-    children: [
-    { label: 'Important Announcement', key: '/importantannouncement' },  
-    { label: 'Option 1', key: 'setting_3:1' },
-    { label: 'Option 1', key: 'setting_3:2' }
-    ],
+    // children: [
+    // { label: 'Important Announcement', key: '/importantannouncement' },  
+    // { label: 'Option 1', key: 'setting_3:1' },
+    // { label: 'Option 1', key: 'setting_3:2' }
+    // ],
   },
   {
     label: 'Notifications & Orders',
@@ -88,10 +88,10 @@ const items = [
     // { label: 'Option 1', key: 'setting_8:2' }
     // ],
   },
-  {
-    label: 'Test',
-    key: '/test',
-  },
+  // {
+  //   label: 'Test',
+  //   key: '/test',
+  // },
   // {
   //   label: 'Map',
   //   key: '/map',

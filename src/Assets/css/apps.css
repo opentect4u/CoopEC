@@ -678,6 +678,21 @@ width: 100%; padding:0;}
 .left_sec h1 button.pdfDownload:focus{outline: none; border: none;}
 
 
+a.docDownload{margin: 0 0 0 auto;
+  font-size: 15px;
+  color: #fff;
+  font-weight: 700;
+  background: #2ba8f1;
+  border: none;
+  padding: 6px 15px;
+  border-radius: 30px;}
+  a.docDownload:hover{color: #fff; background: #2289c5;}
+a.docDownload i{margin-right: 5px;}
+a.docDownload:focus{outline: none; border: none;}
+
+
+
+
 .left_sec h1 span{color: #17b0fd;}
 
 .left_sec h1::after {
