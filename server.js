@@ -58,11 +58,13 @@ const { DashboardRouter } = require("./router/dashboardRouter");
 const { LoginRouter } = require("./router/loginRouter");
 const { SocietyRouter } = require("./router/societyRouter");
 const { WapiRouter } = require("./router/WapiRouter");
+const { WdtlsRouter } = require("./router/WdtlsRouter");
 
 app.use("/login",LoginRouter)
 app.use("/dash",DashboardRouter)
 app.use("/society",SocietyRouter)
 app.use("/wapi",WapiRouter)
+app.use("/wdtls",WdtlsRouter)
 //app.use(DashboardRouter)
 
 app.get("/",async (req, res) => {
