@@ -141,6 +141,34 @@ var moment = require('moment');
         res.send(result);
       }
   });
+  WapiRouter.post('/getdoclist', async(req, res) => {
+    var formdata = req.body;
+    var select = `doc_type,doc_title,document`,
+    table_name = `td_document_upload`,
+    where = `doc_type='${formdata.doc_type}'`,
+    order = null;
+    var res_dt = await db_Select(select, table_name, where, order);
+    if(formdata.doc_type == 1){
+      var folder_name = 'uploads/notifications/';
+      var title ='Notifications & Orders';
+    }else{
+      var folder_name = 'uploads/tender/';
+      var title ='Tenders';
+    }
+
+      if (res_dt.suc > 0) {
+        if (res_dt.msg.length > 0) {
+            res.send({ suc: 1, status: "Data found",title, msg: res_dt.msg,folder_name })
+        
+        } else {
+          result = { suc: 0,status: 'Data no found',title, msg: '',data:req.body };
+          res.send(result)
+        }
+      } else {
+        result = { suc: 0,status: 'Fail',title, msg: req.body };
+        res.send(result);
+      }
+  });
 
 
 // async function getCoordinatesFromAddress(address) {
@@ -168,28 +196,6 @@ var moment = require('moment');
 
 
 
-//   ***********  10/04/2024 -- Code Start for Saving Employee Attendence Detail      *******    //
-WapiRouter.post("/client_save", async (req, res) => {
-    var data = req.body;
-    var date_time = dateFormat(new Date(), "yyyy-mm-dd");
-    var ph_number = data.mobile > 0 ? data.mobile : 0;
-    const coordinates =  await getCoordinatesFromAddress(data.client_addr);
-    var fields = '(client_name,mobile,email,client_addr,lat_pos,log_pos,create_status,created_by,created_at)';
-    var values = `('${data.client_name}','${ph_number}','${data.email}','${data.client_addr}',${coordinates.lat},'${coordinates.lng}','M','${data.emp_code}','${data.created_at}')`;
-  
-    var where = data.id > 0 ? `sl_no = '${data.id}'` : null,
-    flag = data.id > 0 ? 1 : 0;
-   var res_dt = await db_Insert('md_client', fields,values,where,flag);
-    console.log(res_dt);
-    if(res_dt.suc > 0){
-       
-        res.send({ suc: 1, status: "Data found", msg: res_dt.msg })
-    }else{
-       
-        res.send({ suc: 0, status: "Data Not found", msg: res_dt.msg })
-    }
-   
-  });
 //   ***********   Code End for Saving Employee Attendence Detail      *******    //
 
 //   ***********  10/04/2024 -- Code Start for Saving Employee Visit Detail      *******    //
@@ -219,182 +225,7 @@ WapiRouter.post("/visit_mgmt_save", async (req, res) => {
   }
  
 });
-WapiRouter.post("/visit_sch_mgmt_save", async (req, res) => {
-  var data = req.body;
- 
-  var fields = `visit_dt = '${data.visit_dt}',distance = '${data.distance}',in_time = '${data.in_time}',out_time = '${data.out_time}',in_out_flag = 'I',location = '${data.location}',lat_pos = '${data.lat_pos}',long_pos = '${data.long_pos}',position_name = '${data.location}'`;
-  var where =`sl_no = '${data.id}'`;
-  var values = '';
-  var res_dt = await db_Insert('td_visit_mgmt', fields,values,where,1);
-  
-  if(res_dt.suc > 0){
-    var fields1 = '(`emp_code`,`tour_dt`,`sl_no`,`visit_dtl_id`,`lat_pos`,`long_pos`,`type`,`distance`)';
-    var value1  = `('${data.emp_code}','${data.visit_dt}','${data.tourslno}','${data.id}','${data.lat_pos}','${data.long_pos}','T','${data.tourdistance}')`;
-    //if(data.id < 1){
-      var tourin = await db_Insert('td_tour_details', fields1,value1,null,0);
-    // }
-      res.send({ suc: 1, status: "Data found", msg: res_dt.msg })
-  }else{
-     
-      res.send({ suc: 0, status: "Data Not found", msg: res_dt.msg })
-  }
- 
-});
-WapiRouter.post("/add_schedule", async (req, res) => {
-  var data = req.body;
-  var date_time = dateFormat(new Date(), "yyyy-mm-dd");
-  var fields = '(sch_dt,visit_type,emp_code,client_code,org_name,distance,in_out_flag,created_by,created_dt)';
-  var values = `('${data.sch_dt}','1','${data.emp_code}','${data.client_code}','${data.org_name}','${data.distance}','S','${data.emp_code}','${date_time}')`;
-  var where = data.id > 0 ? `sl_no = '${data.id}'` : null;
-  
- var res_dt = await db_Insert('td_visit_mgmt', fields,values,where,0);
-  
-  if(res_dt.suc > 0){
-     
-      res.send({ suc: 1, status: "Data found", msg: res_dt.msg })
-  }else{
-     
-      res.send({ suc: 0, status: "Data Not found", msg: res_dt.msg })
-  }
- 
-});
-    WapiRouter.post("/visit_mgmt_dtlsby", async (req, res) => {
-      var data = req.body,
-        result;
-        var date_time = dateFormat(new Date(), "yyyy-mm-dd");
-      var select = "sl_no,DATE_ADD(visit_dt, INTERVAL 1 DAY) AS visit_dt,emp_code,client_code,org_name,client_addr,dist_id,contact_person,phone_no,email_id,distance,in_time,out_time,in_out_flag,location,lat_pos,long_pos,position_name,remarks",
-        table_name = "td_visit_mgmt",
-        whr = `emp_code='${data.emp_code}' AND (visit_dt = '${date_time}' OR sch_dt = '${date_time}')`,
-        order = null;
-      var res_dt = await db_Select(select, table_name, whr, order);
-        if (res_dt.suc > 0) {
-          if (res_dt.msg.length > 0) {
-              res.send({ suc: 1, status: "Data found", msg: res_dt.msg })
-          
-          } else {
-            result = { suc: 0,status: 'Data no found', msg: req.body };
-            res.send(result)
-          }
-        } else {
-          result = { suc: 0,status: 'Fail', msg: req.body };
-          res.send(result);
-        }
-    });
 
-    WapiRouter.post("/visit_mgmt_dtls", async (req, res) => {
-    
-      var data = req.body,
-        result;
-      var select = "a.*,b.client_addr",
-        table_name = "td_visit_mgmt a,md_client b",
-        whr = `a.client_code = b.client_id AND a.sl_no='${data.id}' `,
-        order = null;
-      var res_dt = await db_Select(select, table_name, whr, order);
-       
-        if (res_dt.suc > 0) {
-          if (res_dt.msg.length > 0) {
-              
-              res.send({ suc: 1, status: "Data found", msg: res_dt.msg })
-          
-          } else {
-            result = { suc: 0,status: 'Data no found', msg: res_dt,data:req.body };
-            res.send(result)
-          }
-        } else {
-          result = { suc: 0,status: 'Fail', msg: req.body };
-          res.send(result);
-        }
-    });
-    WapiRouter.post("/get_last_lat_long", async (req, res) => {
-      
-      var data = req.body,result;
-      var date_time = dateFormat(new Date(), "yyyy-mm-dd");
-      order = null;
-       var select1 = "*", table_name1 = "td_tour_details";
-       var whr1 = `emp_code='${data.emp_code}' and tour_dt ='${date_time}' order by sl_no desc limit 1`;
-       var res_dt = await db_Select(select1, table_name1, whr1, order);
-      
-        if (res_dt.suc > 0) {
-          if (res_dt.msg.length > 0) {
-              res.send({ suc: 1, status: "Data found", msg: res_dt.msg })
-          } else {
-            result = { suc: 0,status: 'Data no found', msg: res_dt,data:req.body };
-            res.send(result)
-          }
-        } else {
-          result = { suc: 0,status: 'Fail', msg: req.body };
-          res.send(result);
-        }
-    });
-//   ***********   Code End for Saving Employee Visit Detail      *******    //
-
-
-  WapiRouter.post('/client_details', async(req, res) => {
-      var select = "*",
-      table_name = "md_client",
-      where = null,
-      order = `order by client_name ASC`;
-      var res_dt = await db_Select(select, table_name, where, order);
-    
-        if (res_dt.suc > 0) {
-          if (res_dt.msg.length > 0) {
-              res.send({ suc: 1, status: "Data found", msg: res_dt.msg })
-          
-          } else {
-            result = { suc: 0,status: 'Data no found', msg: res_dt,data:req.body };
-            res.send(result)
-          }
-        } else {
-          result = { suc: 0,status: 'Fail', msg: req.body };
-          res.send(result);
-        }
-    });
-    
-    
-
-    WapiRouter.post('/getclidetail', async(req, res) => {
-      var data = req.body;
-      var select = "*",
-      table_name = "md_client",
-      where =  `client_id = '${data.client_id}'` ,
-      order = null;
-      var res_dt = await db_Select(select, table_name, where, order);
-    
-        if (res_dt.suc > 0) {
-          if (res_dt.msg.length > 0) {
-              res.send({ suc: 1, status: "Data found", msg: res_dt.msg })
-          
-          } else {
-            result = { suc: 0,status: 'Data no found', msg: res_dt,data:req.body };
-            res.send(result)
-          }
-        } else {
-          result = { suc: 0,status: 'Fail', msg: req.body };
-          res.send(result);
-        }
-    });
-
-    WapiRouter.post('/get_schedule', async(req, res) => {
-      var data = req.body;
-      var select = "*",
-      table_name = "td_visit_mgmt",
-      where =  `emp_code = '${data.emp_code}' AND visit_type ='1' `,
-      order = null;
-      var res_dt = await db_Select(select, table_name, where, order);
-    
-        if (res_dt.suc > 0) {
-          if (res_dt.msg.length > 0) {
-              res.send({ suc: 1, status: "Data found", msg: res_dt.msg })
-          
-          } else {
-            result = { suc: 0,status: 'Data no found', msg: res_dt,data:req.body };
-            res.send(result)
-          }
-        } else {
-          result = { suc: 0,status: 'Fail', msg: req.body };
-          res.send(result);
-        }
-    });
 
   //   ************     CODE FOR LEAVE MODULE      ***********    //
   WapiRouter.post("/get_emp_leave_balance", async (req, res) => {
