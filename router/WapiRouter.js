@@ -152,9 +152,12 @@ var moment = require('moment');
     if(formdata.doc_type == 1){
       var folder_name = 'wapi/docdownloadnoti/';
       var title ='Notifications & Orders';
-    }else{
+    }else if(formdata.doc_type == 2){
       var folder_name = 'wapi/docdownloadtender/';
       var title ='Tenders';
+    }else if(formdata.doc_type == 3){
+      var folder_name = 'wapi/docdownloadannoun/';
+      var title ='Important Announcement';
     }
 
       if (res_dt.suc > 0) {
@@ -202,300 +205,22 @@ var moment = require('moment');
         }
     });
   });
-
-// async function getCoordinatesFromAddress(address) {
-//   return new Promise(async(resolve,reject)=>{
-//     try {
-//       const response = await axios.get(
-//           `${config.gapiurl_for_address}${encodeURIComponent(address)}&key=${config.gapikey}`
-//       );
-//       const { results } = response.data;
-//       if (results.length > 0) {
-//           const { lat, lng } = results[0].geometry.location;
-//           resolve ({ lat: lat, lng: lng });
-//       } else {
-//           console.log('No results found for the given address.');
-//           reject({ lat: 0, lng: 0 }) ;
-//       }
-//   } catch (error) {
-//       console.error('Error fetching coordinates:', error.message);
-//       reject({ lat: 0, lng: 0 }) ;
-//   }
-//   })
-  
-// }
-  //   ***********  10/04/2024 -- Code Start for Saving Employee Attendence Detail      *******    //
-
-  WapiRouter.post('/leaveApply', async(req, res) => {
-    var data = req.body;
-    var date_time = dateFormat(new Date(), "yyyy-mm-dd");
-    var select = `ifnull(MAX(trans_cd),0)+1 AS trans_cd`;
-    var whares = `emp_no ='${data.emp_no}' AND from_dt = '${data.stdt}'`;
-    
-     var whr = null;
-    var ress_dt = await db_Select(select, 'td_leave_dtls', whr, null);
-    var max_sl = ress_dt.msg[0].trans_cd;
-    if(data.leaveid == 1 ){
-      var leave_type = 'C';
-    }else{
-      var leave_type = 'S';
-    }
-    var fields = '(trans_dt,trans_cd,trans_type,emp_no,leave_type,leave_mode,from_dt,to_dt,no_of_days,remarks)';
-    var values = `('${date_time}','${max_sl}','T','${data.emp_no}','${leave_type}','F','${data.stdt}','${data.enddt}','${data.noofdays}','${data.remarks}')`;
-     var where =  null;
-    var chech_dt = await db_Select('*', 'td_leave_dtls', whares, null);
-    if(chech_dt.msg.length == 0){
-    var res_dt = await db_Insert('td_leave_dtls', fields,values,where,0);
-    }
-   
-     let currentDate = new Date(data.stdt);
-     const endDate = new Date(data.enddt);
-     if(chech_dt.msg.length == 0){
-     while (currentDate <= endDate) {
-      var date_ = dateFormat(currentDate, "yyyy-mm-dd");
-        var fields = '(`atten_dt`,`emp_code`,`emp_name`,`in_time`,`out_time`,`in_location`,`in_lat`,`in_long`,`type`,`leave_id`,`created_by`,`created_dt`)';
-        var values  = `('${date_}','${data.emp_no}','N.A.','00:00:00','00:00:00','N.A.','00','00','LA','${max_sl}','${data.emp_no}','${date_}')`;
-        var empdata = await db_Insert("td_attendance",fields,values, null, 0);
-        currentDate.setDate(currentDate.getDate() + 1);
-     }
-        if(ress_dt.suc > 0){
-          res.send({ suc: 1, status: "Data found", msg: res_dt.msg})
-      }else{
-          res.send({ suc: 0, status: "Data Not found", msg: res_dt.msg })
-      }
-    }else{
-      res.send({ suc: 0, status: "Leave All Ready Applied", msg: [] })
-    }
-    
-  });
-
-  WapiRouter.post('/leave_application', async(req, res) => {
-    var data = req.body;
-    const threeMonthsAgo = moment().subtract(3, 'months').format('YYYY-MM-DD');
-    var select = "*",
-    table_name = "td_leave_dtls",
-    where = `emp_no='${data.emp_code}' AND trans_type = 'T' AND trans_dt > '${threeMonthsAgo}' `,
-    order = 'order by trans_dt DESC';
-    var res_dt = await db_Select(select, table_name, where, order);
-  
-      if (res_dt.suc > 0) {
-        if (res_dt.msg.length > 0) {
-            res.send({ suc: 1, status: "Data found", msg: res_dt.msg })
-        
-        } else {
-          result = { suc: 0,status: 'Data no found', msg: res_dt,data:req.body };
-          res.send(result)
+  WapiRouter.get('/docdownloadannoun/:filename', async(req, res) => {
+    // var uploadDir = path.join(__dirname,'..','uploads/notifications/');
+    const UPLOAD_FOLDER = path.join(__dirname,'..', 'uploads/announcement/');
+     const filePath = path.join(UPLOAD_FOLDER, req.params.filename);
+     console.log(filePath);
+    // Check if the file exists
+    res.download(filePath, (err) => {
+        if (err) {
+            if (err.code === 'ENOENT') {
+                res.status(404).send('File not found');
+            } else {
+                res.status(500).send('Error downloading file');
+            }
         }
-      } else {
-        result = { suc: 0,status: 'Fail', msg: req.body };
-        res.send(result);
-      }
+    });
   });
-
-  
-  //   ************     CODE FOR LEAVE MODULE      ***********    // 
-  
- 
-  WapiRouter.post('/salary_dtls_emp', async(req, res) => {
-    var data = req.body;
-    var select = "*",
-    table_name = "td_salary",
-    where = `emp_code='${data.emp_code}' AND year='${data.year}' AND month_id='${data.month_id}' `,
-    order = null;
-    var res_dt = await db_Select(select, table_name, where, order);
-  
-      if (res_dt.suc > 0) {
-        if (res_dt.msg.length > 0) {
-            res.send({ suc: 1, status: "Data found", msg: res_dt.msg })
-        
-        } else {
-          result = { suc: 0,status: 'Data no found', msg: res_dt,data:req.body };
-          res.send(result)
-        }
-      } else {
-        result = { suc: 0,status: 'Fail', msg: req.body };
-        res.send(result);
-      }
-  });
-
-  WapiRouter.post('/claimdetailforedit', async(req, res) => {
-    var data = req.body;
-    var select = "*",
-    table_name = "td_claim_detail",
-    where = `emp_code='${data.emp_code}' AND id='${data.id}' `,
-    order = null;
-    var res_dt = await db_Select(select, table_name, where, order);
-  
-      if (res_dt.suc > 0) {
-        if (res_dt.msg.length > 0) {
-            res.send({ suc: 1, status: "Data found", msg: res_dt.msg })
-        
-        } else {
-          result = { suc: 0,status: 'Data no found', msg: res_dt,data:req.body };
-          res.send(result)
-        }
-      } else {
-        result = { suc: 0,status: 'Fail', msg: req.body };
-        res.send(result);
-      }
-  });
-
-  WapiRouter.post('/dailyexpanceentry', async(req, res) => {
-    var data = req.body;
-    var dttime= moment().format("YYYY-MM-DD HH:mm:ss");
-      //  Generate Claim 
-    var date = dateFormat(new Date(), "yyyy-mm-dd");
-      var daterange = `'${date}' BETWEEN from_dt AND to_date`;
-      var list = await db_Select('*','md_fin_year', daterange, null);
-      var fin_yr  = list.msg[0].id;
-      var fin_name  = list.msg[0].finname;
-      var whereforbulk = `fin_year_id= '${fin_yr}' `;
-      var bulktrans = await db_Select('IFNULL(MAX(trans_id),0)+1 as trans_id','td_claim_detail',whereforbulk, null);
-      var trans_id  = bulktrans.msg[0].trans_id;
-      var claim_no = data.emp_code+'/'+fin_name+'/'+trans_id;
-     if(data.id > 0){
-      var fields = `claim_dt ='${data.stdt}', description ='${data.description}', claim_type = '${data.claim_type}', fair_type = '${data.fair_type}',mode ='${data.mode}',place ='${data.place}',amount = '${data.amount}',updated_by= '${data.emp_code}',updated_dt='${dttime}'`;
-      var values = '';
-      var where = `id =${data.id}`;
-      var res_dt = await db_Insert("td_claim_detail",fields,values, where, 1);
-     }else{
-      var fields = '(claim_dt,emp_code,`claim_no`,`trans_id`,description,claim_type,fair_type,mode,place,amount,purpose,`fin_year_id`,created_by,created_dt)';
-      var values = `('${data.stdt}','${data.emp_code}','${claim_no}','${trans_id}','${data.description}','${data.claim_type}','${data.fair_type}','${data.mode}','${data.place}','${data.amount}','N.A.','${fin_yr}','${data.emp_code}','${dttime}')`;
-       var where =  null;
-        var res_dt = await db_Insert('td_claim_detail', fields,values,where,0);
-     }
-
-      if (res_dt.suc > 0) {
-        if (res_dt.msg.length > 0) {
-            res.send({ suc: 1, status: "Data found", msg: res_dt.msg })
-        
-        } else {
-          result = { suc: 0,status: 'Data no found', msg: res_dt,data:req.body };
-          res.send(result)
-        }
-      } else {
-        result = { suc: 0,status: 'Fail', msg: req.body };
-        res.send(result);
-      }
-  });
-  WapiRouter.post('/claimtypelist', async(req, res) => {
-    var select = "*",
-    table_name = "md_claim_type",
-    where = null,
-    order = null;
-    var res_dt = await db_Select(select, table_name, where, order);
-      if (res_dt.suc > 0) {
-        if (res_dt.msg.length > 0) {
-            res.send({ suc: 1, status: "Data found", msg: res_dt.msg })
-        } else {
-          result = { suc: 0,status: 'Data no found', msg: res_dt,data:req.body };
-          res.send(result)
-        }
-      } else {
-        result = { suc: 0,status: 'Fail', msg: req.body };
-        res.send(result);
-      }
-  });
-  WapiRouter.post('/amttypelist', async(req, res) => {
-    var select = "*",
-    table_name = "md_amt_type",
-    where = null,
-    order = null;
-    var res_dt = await db_Select(select, table_name, where, order);
-      if (res_dt.suc > 0) {
-        if (res_dt.msg.length > 0) {
-            res.send({ suc: 1, status: "Data found", msg: res_dt.msg })
-        } else {
-          result = { suc: 0,status: 'Data no found', msg: res_dt,data:req.body };
-          res.send(result)
-        }
-      } else {
-        result = { suc: 0,status: 'Fail', msg: req.body };
-        res.send(result);
-      }
-  });
-  WapiRouter.post('/claimdtllist', async(req, res) => {
-    var data = req.body;
-    var select = "*",
-    table_name = "td_claim_detail",
-    where = `emp_code='${data.emp_code}' AND status = '0' `,
-    order = `order by claim_dt DESC`;
-    var res_dt = await db_Select(select, table_name, where, order);
-  
-      if (res_dt.suc > 0) {
-        if (res_dt.msg.length > 0) {
-            res.send({ suc: 1, status: "Data found", msg: res_dt.msg })
-        
-        } else {
-          result = { suc: 0,status: 'Data no found', msg: res_dt,data:req.body };
-          res.send(result)
-        }
-      } else {
-        result = { suc: 0,status: 'Fail', msg: req.body };
-        res.send(result);
-      }
-  });
-  WapiRouter.post('/unapprovedclaimdelete', async(req, res) => {
-    var data = req.body;
-    var where = `id = '${data.id}' AND emp_code='${data.emp_code}' AND status = '0' `;
-    var res_dt = await db_Delete("td_claim_detail", where);
-  
-      if(res_dt.suc > 0) {
-        if (res_dt.msg.length > 0) {
-            res.send({ suc: 1, status: "Data found", msg: res_dt.msg })
-        } else {
-          result = { suc: 0,status: 'Data no found', msg: res_dt,data:req.body };
-          res.send(result)
-        }
-      }else{
-        result = { suc: 0,status: 'Fail', msg: res_dt.msg };
-        res.send(result);
-      }
-  });
-  WapiRouter.post('/attenlist', async(req, res) => {
-    var data = req.body;
-    var select = "atten_dt,emp_code,emp_name,in_time,out_time,out_dt",
-    table_name = "td_attendance",
-    where = `emp_code='${data.emp_code}' AND atten_dt >= '${data.stdt}' AND atten_dt <='${data.enddt}' `,
-    order = `order by atten_dt DESC`;
-    var res_dt = await db_Select(select, table_name, where, order);
-  
-      if (res_dt.suc > 0) {
-        if (res_dt.msg.length > 0) {
-            res.send({ suc: 1, status: "Data found", msg: res_dt.msg })
-        
-        } else {
-          result = { suc: 0,status: 'Data no found', msg: res_dt,data:req.body };
-          res.send(result)
-        }
-      } else {
-        result = { suc: 0,status: 'Fail', msg: req.body };
-        res.send(result);
-      }
-  });
-  WapiRouter.post('/meetinglist', async(req, res) => {
-    var data = req.body;
-    var select = "a.visit_dt,a.emp_code,a.in_time,a.out_time,b.client_name",
-    table_name = "td_visit_mgmt a,md_client b",
-    where = `a.client_code = b.client_id AND a.emp_code='${data.emp_code}' AND visit_dt >= '${data.stdt}' AND visit_dt <='${data.enddt}' `,
-    order = `order by visit_dt DESC`;
-    var res_dt = await db_Select(select, table_name, where, order);
-  
-      if (res_dt.suc > 0) {
-        if (res_dt.msg.length > 0) {
-            res.send({ suc: 1, status: "Data found", msg: res_dt.msg })
-        
-        } else {
-          result = { suc: 0,status: 'Data no found', msg: res_dt,data:req.body };
-          res.send(result)
-        }
-      } else {
-        result = { suc: 0,status: 'Fail', msg: req.body };
-        res.send(result);
-      }
-  });
-
-  
 
 
 module.exports = { WapiRouter };

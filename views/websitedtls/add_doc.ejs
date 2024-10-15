@@ -17,12 +17,19 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="exampleInputName1">Type <span class="red">*</span></label>
-                  
-                    <select class="form-control"  name="doc_type" value="" required>
+                  <select class="form-control" id="doc_type" name="doc_type" required>
+                    <option value="0">Select Tier </option>
+                    <% if(doctypelist.length > 0){
+                      var i = 1
+                      doctypelist.forEach(dt => { %>
+                      <option value="<%= dt.doc_type_id %>" ><%= dt.doc_type %></option>
+                        <% }) } %>
+                  </select>
+                    <!-- <select class="form-control"  name="doc_type" value="" required>
                       <option value="">Select</option>
                       <option value="1">Notification</option>
                       <option value="2">Tender</option>
-                    </select>
+                    </select> -->
                 </div>
               </div>
               <div class="col-md-6">
