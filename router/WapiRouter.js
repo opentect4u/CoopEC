@@ -77,7 +77,7 @@ var moment = require('moment');
        
         var formdata = req.body;
         const select = "a.id,a.cop_soc_name,a.last_elec_date,a.tenure_ends_on,a.contact_name,a.contact_designation,a.contact_number,a.email,a.reg_no,a.functional_status,b.soc_type_name,c.dist_name,d.zone_name,e.range_name,f.soc_tier_name";
-        var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id`;
+        var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id AND a.functional_status = 'Functional' `;
         var dist = formdata.dist_id > 0 ? `AND a.dist_code=${formdata.dist_id} ` : '';
         var range = formdata.range_code > 0 ? `AND a.range_code=${formdata.range_code} ` : '';
         var soc_type = formdata.soc_type_id > 0 ? `AND a.soc_type=${formdata.soc_type_id} ` : '';
@@ -235,7 +235,6 @@ var moment = require('moment');
     LEFT JOIN md_gp gp ON a.gp_id = gp.gp_id
     LEFT JOIN md_village vill ON a.vill_id = vill.vill_id
     LEFT JOIN md_management_status mms ON a.mgmt_status = mms.manage_status_id
-    
     LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE id = '${formdata.soc_id}' `,
     where = null,
     order = null;
