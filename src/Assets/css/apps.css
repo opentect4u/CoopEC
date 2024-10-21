@@ -707,6 +707,14 @@ button.viewDetails{margin: 0 0 0 auto;
   button.viewDetails i{margin-right: 0;}
 button.viewDetails:focus{outline: none; border: none;}
 
+.searchDetails .col-md-12 label.title{font-weight: bold;}
+.searchDetails .col-md-12 label{width: 100%;}
+
+.searchDetails .col-md-6 label.title{font-weight: bold;}
+.searchDetails .col-md-6 label{width: 100%;}
+
+.address_td{display: block;}
+
 
 .left_sec h1 span{color: #17b0fd;}
 

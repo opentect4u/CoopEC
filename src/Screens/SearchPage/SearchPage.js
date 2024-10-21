@@ -14,6 +14,7 @@ import { Button, Input, Space, Table } from 'antd';
 import Highlighter from 'react-highlight-words';
 import SearchBox from '../../Components/SearchBox';
 import pdf from "../../Assets/images/pdf.png";
+import Loader from '../../Components/Loader';
 
 
 
@@ -25,6 +26,7 @@ const location = useLocation();
 const [getPageData, setPageData] = useState([]);
 const [getDistrictList, setDistrictList] = useState([]);
 const [getRangeList, setRangeList] = useState([]);
+const [loading, setLoading] = useState(true);
 // const [getPageDataNotFound, setPageDataNotFound] = useState('');
 
 const [searchText, setSearchText] = useState('');
@@ -152,7 +154,7 @@ const [searchText, setSearchText] = useState('');
       // render: (text, record) => `${record.cop_soc_name}  ${'<span>'+record.functional_status+'</span>'}`,
       render: (text, record) => (
         <>
-          {record.cop_soc_name} <span className={record.functional_status == 'Functional' ? 'green_Fnc' : 'red_Fnc'}>{record.functional_status}</span>
+          <span className="address_td">{record.cop_soc_name}</span> <span className={record.functional_status == 'Functional' ? 'green_Fnc' : 'red_Fnc'}>{record.functional_status}</span>
         </>
       ),
     },
@@ -366,7 +368,7 @@ const districtList = async()=>{
         
         if(res.data.suc > 0){
             setPageData(res?.data?.msg)
-
+            setLoading(false);
             // pageDataCheck = res.data.status;
         } else {
           setPageData([0])
@@ -411,8 +413,11 @@ const districtList = async()=>{
         x: 'max-content',
       }} /> */}
 
-<Table columns={columns} dataSource={getPageData} />
-
+  {loading ? (
+  <Loader align = {'center'} gap = {'middle'} size = {'large'} /> // Show Loader while data is loading
+  ) : (
+  <Table columns={columns} dataSource={getPageData} />
+  )}
 
 
     District: {searchData.select_district} <br/>
