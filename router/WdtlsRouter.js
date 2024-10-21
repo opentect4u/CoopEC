@@ -75,6 +75,7 @@ const upload = multer({ storage: storage });
 
 // File upload route
 WdtlsRouter.post('/uploaddoc', upload.single('document'), async (req, res) => {
+  var user = req.session.user;
   if (!req.file) {
     return res.status(400).send('No file uploaded.');
   }
@@ -87,7 +88,49 @@ WdtlsRouter.post('/uploaddoc', upload.single('document'), async (req, res) => {
   var values = `('${data.doc_type}','${data.doc_title.split("'").join("\\'")}','${newFile.filename}','uploads/notifications/')`;
   var whr = null;
   var save_data = await db_Insert(table_name, fields, values, whr, 0);
-  res.redirect("/wdtls/adddoc");
+  if(user.user_type == 'S'){
+    res.redirect("/wdtls/adddoc");
+  }else{
+    res.redirect("/wdtls/announcelist");
+  }
+  
 });
+
+WdtlsRouter.get('/announcelist', async(req, res) => {
+  try {
+      // Extract range_id from session
+      var whr = `doc_type = 3 `;
+      const doclist = await db_Select('*', 'td_document_upload', whr, null);
+      // Prepare data for rendering
+      const res_dt = {
+        data:doclist.suc > 0 ? doclist.msg : '', 
+      };
+      res.render('websitedtls/document_list',res_dt);
+    } catch (error) {
+      // Log the error and send an appropriate response
+      console.error('Error during dashboard rendering:', error);
+      //res.status(500).send('An error occurred while loading the dashboard.');
+      res.render('websitedtls/document_list');
+    }
+})
+WdtlsRouter.get('/addannouncement', async(req, res) => {
+  try {
+      // Extract range_id from session
+      const soc_id = req.query.id;
+      const range_id = req.session.user.range_id;
+      var whr = `upload_auth = 'A' `;
+      const doctyperes = await db_Select('*', 'md_document', whr, null);
+      // Prepare data for rendering
+      var res_dt = {
+        doctypelist:doctyperes.suc > 0 ? doctyperes.msg : '',
+      };
+      // Render the view with data
+      res.render('websitedtls/add_doc',res_dt);
+    } catch (error) {
+      // Log the error and send an appropriate response
+      console.error('Error during dashboard rendering:', error);
+      
+    }
+})
 
 module.exports = {WdtlsRouter}

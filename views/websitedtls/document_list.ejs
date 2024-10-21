@@ -11,7 +11,7 @@
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
           <div class="card-body">
-            <h4 class="card-title card_title_cus">List Co-operative Societies in  (<span id="filtot"></span>) 
+            <h4 class="card-title card_title_cus"><a href="/wdtls/addannouncement" class="btn btn-primary">Upload</a> 
               
               <div class="table_title_icon"> 
                 <!-- <img src="/images/pdf.jpg" alt="pdf" class="pdf_cus" />
@@ -28,7 +28,7 @@
                 <thead>
                   <tr>
                     <th class="society_th_1">SL No</th>
-                    <th class="society_th_2">Document Type</th>
+                    <!-- <th class="society_th_2">Document Type</th> -->
                     <th class="society_th_6">Document Title</th>
                     <th class="society_th_8">Document</th>
                     <th class="society_th_9">Option</th>
@@ -39,7 +39,7 @@
                   data.forEach(dt => { %>
                       <tr>
                           <td><%= i++ %></td>
-                          <td><%= dt.doc_type %></td>
+                          <!-- <td><%= dt.doc_type %></td> -->
                           <td><%= dt.doc_title %></td>
                           <td><%= dt.document %></td>
                           <td></td>
