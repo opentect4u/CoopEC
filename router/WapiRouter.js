@@ -223,9 +223,16 @@ var moment = require('moment');
   });
   WapiRouter.post('/getsocdetail', async(req, res) => {
     var formdata = req.body;
-    var select = "*",
-    table_name = "md_society",
-    where = `id = ${formdata.soc_id}`,
+    var select = "a.cop_soc_name,a.reg_no,a.reg_date,b.soc_type_name,f.soc_tier_name,h.controlling_authority_type_name as reg_cont_auth,g.controlling_authority_name as returning_officer,st.state_name,c.dist_name,d.zone_name,e.range_name,a.urban_rural_flag,ulcat.ulb_catg_name,ulb.ulb_name",
+    table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code 
+    LEFT JOIN md_controlling_authority_type h ON a.cntr_auth_type = h.controlling_authority_type_id 
+    LEFT JOIN md_controlling_authority g ON a.cntr_auth = g.controlling_authority_id 
+    LEFT JOIN md_state st ON a.state_code = st.state_id
+    LEFT JOIN md_ulb_catg ulcat ON a.ulb_catg = ulcat.ulb_catg_id
+    LEFT JOIN md_ulb ulb ON a.ulb_id = ulb.ulb_catg_id
+    
+    LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE id = '${formdata.soc_id}' `,
+    where = null,
     order = null;
     var res_dt = await db_Select(select, table_name, where, order);
 

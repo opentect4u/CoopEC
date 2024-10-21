@@ -26,6 +26,7 @@ app.set("layout", "templates/layout");
 // SET ASSETS AS A STATIC PATH //
 app.use(express.static(path.join(__dirname, "assets/")));
 
+
 // SET SSL CERT //
 /*const options = {
   key: fs.readFileSync(path.join(__dirname, 'cecbk_certificate/private-key.txt')),

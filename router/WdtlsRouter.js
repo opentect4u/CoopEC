@@ -59,8 +59,6 @@ const storage = multer.diskStorage({
     }else{
       var uploadDir = path.join(__dirname,'..','uploads/announcement/');
     }
-    
-    
     // Create the directory if it doesn't exist
     
 
@@ -132,5 +130,91 @@ WdtlsRouter.get('/addannouncement', async(req, res) => {
       
     }
 })
+
+
+
+WdtlsRouter.get('/gallerylist', async(req, res) => {
+  try {
+      // Extract range_id from session
+      var whr = `doc_type = 3 `;
+      const doclist = await db_Select('*', 'td_gallery', null, null);
+      // Prepare data for rendering
+      const res_dt = {
+        data:doclist.suc > 0 ? doclist.msg : '', 
+      };
+      res.render('websitedtls/gallery/list',res_dt);
+    } catch (error) {
+      // Log the error and send an appropriate response
+      console.error('Error during dashboard rendering:', error);
+      //res.status(500).send('An error occurred while loading the dashboard.');
+      res.render('websitedtls/gallerylist');
+    }
+})
+WdtlsRouter.get('/addgallery', async(req, res) => {
+  try {
+      res.render('websitedtls/gallery/add');
+    } catch (error) {
+      // Log the error and send an appropriate response
+      console.error('Error during dashboard rendering:', error);
+    }
+})
+// Set storage engine
+
+
+
+// Set storage engine
+const storage_gallery = multer.diskStorage({
+  destination: './assets/gallery/',
+  filename: (req, file, cb) => {
+    cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+  }
+});
+
+// Initialize multer
+const upload_gall = multer({
+  storage: storage_gallery,
+  limits: { fileSize: 1000000 }, // Limit file size to 1MB
+  fileFilter: (req, file, cb) => {
+    const filetypes = /jpeg|jpg|png|gif/;
+    const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+    const mimetype = filetypes.test(file.mimetype);
+
+    if (mimetype && extname) {
+      return cb(null, true);
+    } else {
+      cb('Error: Images Only!');
+    }
+  }
+}).single('gall_img'); // 'gall_img' is the name of the input field in the form
+
+// File upload route
+WdtlsRouter.post('/uploadgall', upload_gall, async (req, res) => {
+  try {
+    var user = req.session.user;
+    if (!req.file) {
+      return res.status(400).send('No file uploaded.');
+    }
+    
+    const newFile = {
+      filename: req.file.filename,
+    };
+    var data = req.body;
+    var table_name = "td_gallery";
+    var fields = `(title, gal_img)`;
+    var values = `('${data.title.split("'").join("\\'")}','${newFile.filename}')`;
+    
+    var save_data = await db_Insert(table_name, fields, values, null, 0);
+    
+    if (!save_data) {
+      return res.status(500).send('Database error: Unable to save the data.');
+    }
+    
+    res.redirect("/wdtls/gallerylist");
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
 
 module.exports = {WdtlsRouter}
