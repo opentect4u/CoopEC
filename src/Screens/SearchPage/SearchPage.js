@@ -1,7 +1,7 @@
 
 import React, { useState, useRef, useEffect } from 'react'
 import axios from 'axios';
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useParams, useNavigate } from "react-router-dom";
 // import RightSidebarGlobal from './RightSidebarGlobal';
 // import FooterCus from './FooterCus';
 import FooterCus from '../../Components/FooterCus';
@@ -18,10 +18,13 @@ import pdf from "../../Assets/images/pdf.png";
 
 
 
+
 function SearchPage() {
 
 const location = useLocation();
 const [getPageData, setPageData] = useState([]);
+const [getDistrictList, setDistrictList] = useState([]);
+const [getRangeList, setRangeList] = useState([]);
 // const [getPageDataNotFound, setPageDataNotFound] = useState('');
 
 const [searchText, setSearchText] = useState('');
@@ -130,56 +133,84 @@ const [searchText, setSearchText] = useState('');
         text
       ),
   });
+
   const columns = [
+    {
+    title: 'Sl.No.',
+    dataIndex: 'index',
+    key: 'index',
+    width: '3%',
+    render: (text, record, index) => index + 1, // Serial number starts from 1
+    },
     {
       title: 'Society Name',
       dataIndex: 'cop_soc_name',
       key: 'cop_soc_name',
-      // width: '30%',
-      ...getColumnSearchProps('cop_soc_name'),
+      width: '22%',
+      // ...getColumnSearchProps('cop_soc_name'),
+      // render: (text, record) => `${record.cop_soc_name}  ${'<span>'+record.functional_status+'</span>'}`,
+      // render: (text, record) => `${record.cop_soc_name}  ${'<span>'+record.functional_status+'</span>'}`,
+      render: (text, record) => (
+        <>
+          {record.cop_soc_name} <span className={record.functional_status == 'Functional' ? 'green_Fnc' : 'red_Fnc'}>{record.functional_status}</span>
+        </>
+      ),
     },
     {
       title: 'Last Election Date',
       dataIndex: 'last_elec_date',
       key: 'last_elec_date',
-      // width: '20%',
+      width: '15%',
       ...getColumnSearchProps('last_elec_date'),
     },
     {
       title: 'Tenure Ends On',
       dataIndex: 'tenure_ends_on',
       key: 'tenure_ends_on',
-      // width: '20%',
+      width: '15%',
       ...getColumnSearchProps('tenure_ends_on'),
     },
     {
-      title: 'Key Person Name',
+      title: 'Key Person Name & Designation',
       dataIndex: 'contact_name',
       key: 'contact_name',
-      // width: '20%',
-      ...getColumnSearchProps('contact_name'),
+      width: '15%',
+      // ...getColumnSearchProps('contact_name'),
+      // render: (text, record) => `${record.contact_name} (${record.contact_designation ? null : 'Not Mention'})` , // Concatenating Name and Designation
+
+      render: (text, record) => (
+        <>
+          {record.contact_name} {record.contact_designation == null ? '' : '('+record.contact_designation+')'}
+        </>
+      ),
     },
+    // {
+    //   title: 'Key Person Designation',
+    //   dataIndex: 'contact_designation',
+    //   key: 'contact_designation',
+    //   // width: '20%',
+    //   ...getColumnSearchProps('contact_designation'),
+    // },
     {
-      title: 'Key Person Designation',
-      dataIndex: 'contact_designation',
-      key: 'contact_designation',
-      // width: '20%',
-      ...getColumnSearchProps('contact_designation'),
-    },
-    {
-      title: 'Key Person Contact Number',
+      title: 'Contact Number & Email',
       dataIndex: 'contact_number',
       key: 'contact_number',
-      // width: '20%',
-      ...getColumnSearchProps('contact_number'),
+      width: '20%',
+      render: (text, record) => `${record.contact_number} / ${record.email}`,
+      // ...getColumnSearchProps('contact_number'),
     },
     {
-      title: 'Email',
-      dataIndex: 'email',
-      key: 'email',
-      // width: '20%',
-      ...getColumnSearchProps('email'),
-    },
+      title: 'View Details',
+      dataIndex: 'id',
+      key: 'id',
+      width: '10%',
+     //  ...getColumnSearchProps('document'),
+     render: (id) => <button className='viewDetails' onClick={()=>{
+      gotoDetails(id)
+      // navigation('/searchdetails');
+     }}>
+       <i class="fa fa-eye" aria-hidden="true"></i> Details</button>,
+    }
     // {
     //   title: 'reg no',
     //   dataIndex: 'reg_no',
@@ -187,13 +218,13 @@ const [searchText, setSearchText] = useState('');
     //   width: '20%',
     //   ...getColumnSearchProps('reg_no'),
     // },
-    {
-      title: 'Functional Status',
-      dataIndex: 'functional_status',
-      key: 'functional_status',
-      // width: '20%',
-      ...getColumnSearchProps('functional_status'),
-    },
+    // {
+    //   title: 'Functional Status',
+    //   dataIndex: 'functional_status',
+    //   key: 'functional_status',
+    //   // width: '20%',
+    //   ...getColumnSearchProps('functional_status'),
+    // },
     // {
     //   title: 'soc type name',
     //   dataIndex: 'soc_type_name',
@@ -239,6 +270,13 @@ const [searchText, setSearchText] = useState('');
     // },
   ];
 
+  const navigation = useNavigate();
+
+  const gotoDetails = (id)=>{
+    // alert(id)
+    navigation('/searchdetails', { state: id});
+  }
+
 
 // var pageDataCheck;
 
@@ -246,12 +284,66 @@ const searchData = location.state || {};
 
 // const searchDataLength = Object.keys(searchData);
 
+const districtList = async()=>{
+
+  await axios.post('https://admincecwb.opentech4u.co.in/wapi/distlist',
+    // {},
+    // {
+    //     headers: {
+    //         Authorization: loginData.token,
+    //     },
+    // }
+    ).then(res => {
+
+    if(res.status == '200'){
+    if(res.data.suc > 0){
+      setDistrictList(res?.data?.msg)
+    }
+
+    }
+
+      
+    })  
+ }
+
+ const rangeList = async(districValue)=>{
+
+  // console.log(districValue, 'kkkkkkkkkkkkkkkk');
+  
+  await axios.post('https://admincecwb.opentech4u.co.in/wapi/rangelist',
+    {
+      auth_key:"xxxxx",
+      dist_id: districValue
+    }
+    // ,
+    // {
+    //     headers: {
+    //         Authorization: loginData.token,
+    //     },
+    // }
+    ).then(res => {
+
+    if(res.status == '200'){
+    if(res.data.suc > 0){
+      setRangeList(res?.data?.msg[0].range_name)
+      console.log(getRangeList, 'getRangeList', res?.data?.msg[0].range_name);
+    }
+
+    }
+
+      
+    })  
+ }
 
  
  useEffect(()=>{
+  districtList();
 
  
   if(searchData['select_district']!=undefined)
+
+    console.log(searchData, 'searchData');
+    
     
   axios.post('https://admincecwb.opentech4u.co.in/wapi/societysearch',
     {
@@ -296,6 +388,12 @@ const searchData = location.state || {};
   return content;
   }
 
+  useEffect(()=>{
+
+    rangeList(searchData.select_district);
+      
+    }, [searchData.select_district])
+
 
   return (
     <>
@@ -303,15 +401,17 @@ const searchData = location.state || {};
     <div className="wrapper">
     <div className="inner_page_Sec">
     <div className='col-sm-12 searchPageTop'>
-    <SearchBox district_def_Valu = {searchData.select_district} range_def_Valu = {searchData.select_range} type_def_Valu = {searchData.select_type} soci_Name_def_Valu = {searchData.society_Name} />
+    <SearchBox district_def_Valu = {searchData.select_district}  range_def_Valu = {searchData.select_range} type_def_Valu = {searchData.select_type} soci_Name_def_Valu = {searchData.society_Name} />
     </div>
     <div className="col-sm-12 left_sec search_data_table">
 
-    <h1 className='search_page'>Search   <button className='pdfDownload'>Download PDF<i class="fa fa-file-pdf-o" aria-hidden="true"></i></button></h1>
+    <h1 className='search_page'>Search List of Cooperative Societies in {getRangeList}  <button className='pdfDownload'>Download PDF<i class="fa fa-file-pdf-o" aria-hidden="true"></i></button></h1>
 
-    <Table columns={columns} dataSource={getPageData} scroll={{
+    {/* <Table columns={columns} dataSource={getPageData} scroll={{
         x: 'max-content',
-      }} />
+      }} /> */}
+
+<Table columns={columns} dataSource={getPageData} />
 
 
 

@@ -22,6 +22,7 @@ import ContactUs from './Screens/ContactUs/ContactUs';
 import TestPage from './Screens/TestPage/TestPage';
 import MapboxExample from './Screens/MapExample/MapboxExample';
 import SearchPage from './Screens/SearchPage/SearchPage';
+import SearchPageDetails from './Screens/SearchPageDetails/SearchPageDetails';
 
 
 
@@ -78,6 +79,10 @@ const router = createBrowserRouter([
       {
         path:"map",
         element:<MapboxExample/>
+      },
+      {
+        path:"searchdetails",
+        element:<SearchPageDetails/>
       }
 
     ]
