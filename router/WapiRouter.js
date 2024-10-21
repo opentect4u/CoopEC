@@ -223,7 +223,7 @@ var moment = require('moment');
   });
   WapiRouter.post('/getsocdetail', async(req, res) => {
     var formdata = req.body;
-    var select = "a.cop_soc_name,a.reg_no,a.reg_date,b.soc_type_name,f.soc_tier_name,h.controlling_authority_type_name as reg_cont_auth,g.controlling_authority_name as returning_officer,st.state_name,c.dist_name,d.zone_name,e.range_name,a.urban_rural_flag,ulcat.ulb_catg_name,ulb.ulb_name,wa.ward_name",
+    var select = "a.cop_soc_name,a.reg_no,a.reg_date,b.soc_type_name,f.soc_tier_name,h.controlling_authority_type_name as reg_cont_auth,g.controlling_authority_name as returning_officer,st.state_name,c.dist_name,d.zone_name,e.range_name,a.urban_rural_flag,ulcat.ulb_catg_name,ulb.ulb_name,wa.ward_name,mb.block_name,gp.gp_name,vill.vill_name,a.pin_no",
     table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code 
     LEFT JOIN md_controlling_authority_type h ON a.cntr_auth_type = h.controlling_authority_type_id 
     LEFT JOIN md_controlling_authority g ON a.cntr_auth = g.controlling_authority_id 
@@ -231,6 +231,9 @@ var moment = require('moment');
     LEFT JOIN md_ulb_catg ulcat ON a.ulb_catg = ulcat.ulb_catg_id
     LEFT JOIN md_ulb ulb ON a.ulb_id = ulb.ulb_catg_id
     LEFT JOIN md_ward wa ON a.ward_no = wa.ward_id
+    LEFT JOIN md_block mb ON a.block_id = mb.block_id
+    LEFT JOIN md_gp gp ON a.gp_id = gp.gp_id
+    LEFT JOIN md_village vill ON a.vill_id = vill.vill_id
     LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE id = '${formdata.soc_id}' `,
     where = null,
     order = null;
