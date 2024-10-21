@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.89557736.css",
-    "main.js": "/static/js/main.80aa2cd4.js",
+    "main.css": "/static/css/main.072e80c7.css",
+    "main.js": "/static/js/main.8f359e61.js",
     "static/js/453.89576efa.chunk.js": "/static/js/453.89576efa.chunk.js",
     "static/media/fontawesome-webfont.svg?v=4.7.0": "/static/media/fontawesome-webfont.c1e38fd9e0e74ba58f7a.svg",
     "static/media/gallery_ben.png": "/static/media/gallery_ben.5c24764993ea1916d9d2.png",
@@ -15,12 +15,12 @@
     "static/media/logo.png": "/static/media/logo.ab7dc9ebbbb1df9a5bc8.png",
     "static/media/logo.svg": "/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
     "index.html": "/index.html",
-    "main.89557736.css.map": "/static/css/main.89557736.css.map",
-    "main.80aa2cd4.js.map": "/static/js/main.80aa2cd4.js.map",
+    "main.072e80c7.css.map": "/static/css/main.072e80c7.css.map",
+    "main.8f359e61.js.map": "/static/js/main.8f359e61.js.map",
     "453.89576efa.chunk.js.map": "/static/js/453.89576efa.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.89557736.css",
-    "static/js/main.80aa2cd4.js"
+    "static/css/main.072e80c7.css",
+    "static/js/main.8f359e61.js"
   ]
 }
