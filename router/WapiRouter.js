@@ -223,7 +223,7 @@ var moment = require('moment');
   });
   WapiRouter.post('/getsocdetail', async(req, res) => {
     var formdata = req.body;
-    var select = "a.cop_soc_name,a.reg_no,a.reg_date,b.soc_type_name,f.soc_tier_name,h.controlling_authority_type_name as reg_cont_auth,g.controlling_authority_name as returning_officer,st.state_name,c.dist_name,d.zone_name,e.range_name,a.urban_rural_flag,ulcat.ulb_catg_name,ulb.ulb_name,wa.ward_name,mb.block_name,gp.gp_name,vill.vill_name,a.pin_no,a.address,mms.manage_status_name",
+    var select = "a.cop_soc_name,a.reg_no,a.reg_date,b.soc_type_name,f.soc_tier_name,h.controlling_authority_type_name as reg_cont_auth,g.controlling_authority_name as returning_officer,st.state_name,c.dist_name,d.zone_name,e.range_name,a.urban_rural_flag,ulcat.ulb_catg_name,ulb.ulb_name,wa.ward_name,mb.block_name,gp.gp_name,vill.vill_name,a.pin_no,a.address,mms.manage_status_name,mot.officer_type_name,a.num_of_memb,a.audit_upto,a.last_elec_date,a.tenure_ends_on,a.contact_name as key_person,a.contact_number,a.case_id,a.case_num",
     table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code 
     LEFT JOIN md_controlling_authority_type h ON a.cntr_auth_type = h.controlling_authority_type_id 
     LEFT JOIN md_controlling_authority g ON a.cntr_auth = g.controlling_authority_id 
@@ -235,14 +235,17 @@ var moment = require('moment');
     LEFT JOIN md_gp gp ON a.gp_id = gp.gp_id
     LEFT JOIN md_village vill ON a.vill_id = vill.vill_id
     LEFT JOIN md_management_status mms ON a.mgmt_status = mms.manage_status_id
+    LEFT JOIN md_officer_type mot ON a.officer_type = mot.officer_type_id
     LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE id = '${formdata.soc_id}' `,
     where = null,
     order = null;
     var res_dt = await db_Select(select, table_name, where, order);
+    var where1 = `soc_id = '${formdata.soc_id}'`;
+    var bord_member_detail = await db_Select('board_memb_name,board_memb_desig,bm_contact_no', `td_board_member`, where1, order);
 
       if (res_dt.suc > 0) {
         if (res_dt.msg.length > 0) {
-            res.send({ suc: 1, status: "Data found", msg: res_dt.msg })
+            res.send({ suc: 1, status: "Data found", msg: res_dt.msg,board_member:bord_member_detail.msg })
         
         } else {
           result = { suc: 0,status: 'Data no found', msg: res_dt,data:req.body };
