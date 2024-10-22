@@ -15,6 +15,7 @@ import Highlighter from 'react-highlight-words';
 import SearchBox from '../../Components/SearchBox';
 import pdf from "../../Assets/images/pdf.png";
 import Loader from '../../Components/Loader';
+import excel from "../../Assets/images/excel.png";
 
 
 
@@ -30,8 +31,11 @@ const [loading, setLoading] = useState(true);
 // const [getPageDataNotFound, setPageDataNotFound] = useState('');
 
 const [searchText, setSearchText] = useState('');
-  const [searchedColumn, setSearchedColumn] = useState('');
-  const searchInput = useRef(null);
+const [searchedColumn, setSearchedColumn] = useState('');
+const searchInput = useRef(null);
+const [getFormattedDate, setFormattedDate] = useState([]);
+
+
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
     setSearchText(selectedKeys[0]);
@@ -136,6 +140,9 @@ const [searchText, setSearchText] = useState('');
       ),
   });
 
+
+  
+
   const columns = [
     {
     title: 'Sl.No.',
@@ -145,35 +152,43 @@ const [searchText, setSearchText] = useState('');
     render: (text, record, index) => index + 1, // Serial number starts from 1
     },
     {
-      title: 'Society Name',
-      dataIndex: 'cop_soc_name',
-      key: 'cop_soc_name',
-      width: '22%',
-      // ...getColumnSearchProps('cop_soc_name'),
-      // render: (text, record) => `${record.cop_soc_name}  ${'<span>'+record.functional_status+'</span>'}`,
-      // render: (text, record) => `${record.cop_soc_name}  ${'<span>'+record.functional_status+'</span>'}`,
-      render: (text, record) => (
-        <>
-          <span className="address_td">{record.cop_soc_name}</span> <span className={record.functional_status == 'Functional' ? 'green_Fnc' : 'red_Fnc'}>{record.functional_status}</span>
-        </>
-      ),
+    title: 'Society Name',
+    dataIndex: 'cop_soc_name',
+    key: 'cop_soc_name',
+    width: '22%',
+    ...getColumnSearchProps('cop_soc_name'), // Add search functionality here
+    sorter: (a, b) => a.cop_soc_name.length - b.cop_soc_name.length,
+    sortDirections: ['descend', 'ascend'],
+    render: (text, record) => (
+    <>
+    <span className="address_td">{record.cop_soc_name}</span>{' '}
+    <span className={record.functional_status === 'Functional' ? 'green_Fnc' : 'red_Fnc'}>
+    {record.functional_status}
+    </span>
+    </>
+    ),
     },
     {
       title: 'Last Election Date',
       dataIndex: 'last_elec_date',
       key: 'last_elec_date',
       width: '15%',
-      ...getColumnSearchProps('last_elec_date'),
+      // ...getColumnSearchProps('last_elec_date'),
+      // render: (text, record) => `${record.last_elec_date}`,
+      render: (date) => date ? new Date(date).toLocaleDateString('en-GB') : '--',
+      
     },
     {
       title: 'Tenure Ends On',
       dataIndex: 'tenure_ends_on',
       key: 'tenure_ends_on',
       width: '15%',
-      ...getColumnSearchProps('tenure_ends_on'),
+      // ...getColumnSearchProps('tenure_ends_on'),
+      // render: (text, record) => `${record.tenure_ends_on}`,
+      render: (date) => date ? new Date(date).toLocaleDateString('en-GB') : '--',
     },
     {
-      title: 'Key Person Name & Designation',
+      title: 'Name & Designation',
       dataIndex: 'contact_name',
       key: 'contact_name',
       width: '15%',
@@ -198,8 +213,12 @@ const [searchText, setSearchText] = useState('');
       dataIndex: 'contact_number',
       key: 'contact_number',
       width: '20%',
-      render: (text, record) => `${record.contact_number} / ${record.email}`,
       // ...getColumnSearchProps('contact_number'),
+      render: (text, record) => (
+        <>
+          <span className="contact_Num_td">{record.contact_number}</span> <span className="email_ID_td">{record.email.length < 1 ? '' : record.email}</span>
+        </>
+      ),
     },
     {
       title: 'View Details',
@@ -214,60 +233,11 @@ const [searchText, setSearchText] = useState('');
        <i class="fa fa-eye" aria-hidden="true"></i> Details</button>,
     }
     // {
-    //   title: 'reg no',
-    //   dataIndex: 'reg_no',
-    //   key: 'reg_no',
-    //   width: '20%',
-    //   ...getColumnSearchProps('reg_no'),
-    // },
-    // {
-    //   title: 'Functional Status',
-    //   dataIndex: 'functional_status',
-    //   key: 'functional_status',
-    //   // width: '20%',
-    //   ...getColumnSearchProps('functional_status'),
-    // },
-    // {
-    //   title: 'soc type name',
-    //   dataIndex: 'soc_type_name',
-    //   key: 'soc_type_name',
-    //   width: '20%',
-    //   ...getColumnSearchProps('soc_type_name'),
-    // },
-    // {
-    //   title: 'dist name',
-    //   dataIndex: 'dist_name',
-    //   key: 'dist_name',
-    //   width: '20%',
-    //   ...getColumnSearchProps('dist_name'),
-    // },
-    // {
-    //   title: 'zone name',
-    //   dataIndex: 'zone_name',
-    //   key: 'zone_name',
-    //   width: '20%',
-    //   ...getColumnSearchProps('zone_name'),
-    // },
-    // {
-    //   title: 'range name',
-    //   dataIndex: 'range_name',
-    //   key: 'range_name',
-    //   width: '20%',
-    //   ...getColumnSearchProps('range_name'),
-    // },
-    // {
-    //   title: 'soc tier name',
-    //   dataIndex: 'soc_tier_name',
-    //   key: 'soc_tier_name',
-    //   width: '20%',
-    //   ...getColumnSearchProps('soc_tier_name'),
-    // }
-    // {
     //   title: 'Address',
-    //   dataIndex: 'address',
-    //   key: 'address',
-    //   ...getColumnSearchProps('address'),
-    //   sorter: (a, b) => a.address.length - b.address.length,
+    //   dataIndex: 'cop_soc_name',
+    //   key: 'cop_soc_name',
+    //   ...getColumnSearchProps('cop_soc_name'),
+    //   sorter: (a, b) => a.cop_soc_name.length - b.cop_soc_name.length,
     //   sortDirections: ['descend', 'ascend'],
     // },
   ];
@@ -368,6 +338,8 @@ const districtList = async()=>{
         
         if(res.data.suc > 0){
             setPageData(res?.data?.msg)
+            console.log(res.data.msg, 'jjjjjjjjj');
+            
             setLoading(false);
             // pageDataCheck = res.data.status;
         } else {
@@ -407,7 +379,11 @@ const districtList = async()=>{
     </div>
     <div className="col-sm-12 left_sec search_data_table">
 
-    <h1 className='search_page'>Search List of Cooperative Societies in {getRangeList}  <button className='pdfDownload'>Download PDF<i class="fa fa-file-pdf-o" aria-hidden="true"></i></button></h1>
+    <h1 className='search_page'>List of Cooperative Societies in {getRangeList}  
+      {/* <button className='pdfDownload'>Download PDF<i class="fa fa-file-pdf-o" aria-hidden="true"></i></button> */}
+
+      <a className='excelDownload'><img src={`${excel}`} alt="" /></a>
+    </h1>
 
     {/* <Table columns={columns} dataSource={getPageData} scroll={{
         x: 'max-content',
@@ -420,10 +396,10 @@ const districtList = async()=>{
   )}
 
 
-    District: {searchData.select_district} <br/>
+    {/* District: {searchData.select_district} <br/>
     Range: {searchData.select_range}<br/>
     Type: {searchData.select_type}<br/>
-    Society Name: {searchData.society_Name}
+    Society Name: {searchData.society_Name} */}
 
     </div>
 

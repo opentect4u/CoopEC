@@ -14,7 +14,6 @@ const [loading, setLoading] = useState(true);
 const location = useLocation();
 const searchID = location.state || {};
 
-const isoDate = "2000-11-15T18:30:00.000Z";
 
 // Convert the ISO date string to a JavaScript Date object
 const date = new Date(getFormattedDate);
@@ -26,14 +25,7 @@ const formattedTime = date.toLocaleTimeString();  // e.g., "7:30:00 PM" or based
 
 useEffect(()=>{
 
-// console.log(searchID, 'searchDatasearchDatasearchData');
 
-const isoDate = getPageData.reg_date;
-  
-  // Convert the ISO date string to a JavaScript Date object
-const date = new Date(isoDate);
-const formattedDate = date.toLocaleDateString();
-const formattedTime = date.toLocaleTimeString();
 
 if(searchID)
 
@@ -80,7 +72,7 @@ if(searchID)
 <div className="wrapper">
     <div className="inner_page_Sec">
     <div className="col-sm-8 float-left left_sec searchPageTop">
-      <h1>Search Details Of <strong>{getPageData.cop_soc_name}</strong> </h1>
+      <h1>Search Details Of {getPageData.cop_soc_name}</h1>
 
       
       {loading ? (
@@ -107,7 +99,7 @@ if(searchID)
     <div className="col-md-6">
     <div className="form-group">
         <label className='title'>Date of Registration:   </label>
-        <label>{formattedDate} / {formattedTime}</label>
+        <label>{formattedDate}</label>
     </div>
     </div>
 </div>
