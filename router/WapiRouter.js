@@ -223,7 +223,7 @@ var moment = require('moment');
   });
   WapiRouter.post('/getsocdetail', async(req, res) => {
     var formdata = req.body;
-    var select = "a.cop_soc_name,a.reg_no,a.reg_date,b.soc_type_name,f.soc_tier_name,h.controlling_authority_type_name as reg_cont_auth,g.controlling_authority_name as returning_officer,st.state_name,c.dist_name,d.zone_name,e.range_name,a.urban_rural_flag,ulcat.ulb_catg_name,ulb.ulb_name,wa.ward_name,mb.block_name,gp.gp_name,vill.vill_name,a.pin_no,a.address,mms.manage_status_name,mot.officer_type_name,a.num_of_memb,a.audit_upto,a.last_elec_date,a.tenure_ends_on,a.contact_name as key_person,a.contact_number,a.case_id,a.case_num",
+    var select = "a.cop_soc_name,a.reg_no,a.reg_date,b.soc_type_name,f.soc_tier_name,h.controlling_authority_type_name as reg_cont_auth,g.controlling_authority_name as returning_officer,st.state_name,c.dist_name,d.zone_name,e.range_name,a.urban_rural_flag,ulcat.ulb_catg_name,ulb.ulb_name,wa.ward_name,mb.block_name,gp.gp_name,vill.vill_name,a.pin_no,a.address,mms.manage_status_name,mot.officer_type_name,a.num_of_memb,a.audit_upto,a.last_elec_date,a.tenure_ends_on,a.contact_name as key_person,a.contact_designation as key_person_desig,a.contact_number,a.email,a.case_id,a.case_num,a.functional_status",
     table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code 
     LEFT JOIN md_controlling_authority_type h ON a.cntr_auth_type = h.controlling_authority_type_id 
     LEFT JOIN md_controlling_authority g ON a.cntr_auth = g.controlling_authority_id 
