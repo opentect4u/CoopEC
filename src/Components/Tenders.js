@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import { ADDRESSES } from '../routes/addresses'
 import { useEffect } from 'react'
+import { BASE_URL } from "../routes/config";
 
 function Tenders(
     {
@@ -11,38 +12,42 @@ function Tenders(
 
   const [getTenderData, setTenderData] = useState([]);
 
-   const fetchdata = async ()=>{
+  const fetchdata = ()=>{
 
-    // await axios.get(ADDRESSES.GST_LIST).then(res => {
-    // await axios.get('https://jsonplaceholder.typicode.com/todos/').then(res => {
-    //     console.log(res.data, 'hhhhhhhhhhhhh');   
-    // }).catch(err => {
-    //     console.log(err);
-    // });
-
-
-    return new Promise((resolve, reject) => {
-        // axios.get(ADDRESSES.GST_LIST).then(res => {
-        axios.get('https://jsonplaceholder.typicode.com/posts/1/comments',
-                // {},
-                // {
-                //     headers: {
-                //         Authorization: loginData.token,
-                //     },
-                // }
-        ).then(res => {
-            // console.log(res.data, 'hhhhhhhhhhhhh'); 
-            setTenderData(res.data)
-            resolve(res.data);
-            
-        }).catch(err => {
-            console.log(err);
-            reject(err);
-        });
-    });
-
-
+    axios.post(`${BASE_URL}/wapi/getdoclist`,
+   {
+     auth_key:"xxxxx",
+     doc_type: 3
    }
+   // ,
+   // {
+   //     headers: {
+   //         Authorization: loginData.token,
+   //     },
+   // }
+   ).then(res => {
+
+    if(res.status == '200'){
+       
+       if(res.data.suc > 0){
+        setTenderData(res?.data?.msg);
+          //  setPageTitle(res.data.title);
+          //  setFolderLocation(res?.data?.folder_name)
+           // setFolderLocation()
+           console.log(res , 'uuuuuuuuuuuuuuuuuuuuuu', res?.data?.msg);
+  
+           // pageDataCheck = res.data.status;
+       } else {
+        //  setPageData([0])
+         setTenderData([0])
+         // pageDataCheck = res.data.status;
+       }
+  
+       }
+  
+   }) 
+  
+  }
 
    function limitWords(content, wordLimit) {
     const words = content?.split(' ');
@@ -65,9 +70,10 @@ function Tenders(
     <>
     {getTenderData?.map(item=>
     <p>
-    {wordCount}
-    {limitWords(item?.body, wordCount)}
-    <span><i className="fa fa-clock-o" aria-hidden="true"></i> {item.email} </span> </p>
+    {/* {wordCount} */}
+    {limitWords(item?.doc_title, wordCount)}
+    {/* <span><i className="fa fa-clock-o" aria-hidden="true"></i> {item.email} </span> */}
+    </p>
     )}
     </>
   )

@@ -170,8 +170,8 @@ useEffect(()=>{
             name="select_district"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            // value={district_def_Valu ? district_def_Valu : formik.values.select_district}
-            value={district_def_Valu && formik.values.select_district === '' ? district_def_Valu : formik.values.select_district}
+            value={formik.values.select_district}
+            // value={district_def_Valu && formik.values.select_district === '' ? district_def_Valu : formik.values.select_district}
           >
             <option value='0'>Select District *</option>
             {getDistrictList?.map((option) => ( 
@@ -194,8 +194,8 @@ useEffect(()=>{
           name="select_range"
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
-          // value= {formik.values.select_range}
-          value={range_def_Valu && formik.values.select_range === '' ? range_def_Valu : formik.values.select_range}
+          value= {formik.values.select_range}
+          // value={range_def_Valu && formik.values.select_range === '' ? range_def_Valu : formik.values.select_range}
           >
 
           {getRangeList.length < 1 ? (
@@ -230,8 +230,8 @@ useEffect(()=>{
             name="select_type"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            // value= {formik.values.select_type}
-            value={type_def_Valu && formik.values.select_type === '' ? type_def_Valu : formik.values.select_type}
+            value= {formik.values.select_type}
+            // value={type_def_Valu && formik.values.select_type === '' ? type_def_Valu : formik.values.select_type}
           >
             <option value='0'>Select Society Type</option>
             {getSocietyType.map((option) => (
@@ -254,8 +254,8 @@ useEffect(()=>{
 			      placeholder="Society Name"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            // value= {formik.values.society_Name}
-            value={soci_Name_def_Valu && formik.values.society_Name === '' ? soci_Name_def_Valu : formik.values.society_Name}
+            value= {formik.values.society_Name}
+            // value={soci_Name_def_Valu && formik.values.society_Name === '' ? soci_Name_def_Valu : formik.values.society_Name}
           />
           {formik.errors.society_Name && formik.touched.society_Name && (
             <div className="required">{formik.errors.society_Name}</div>

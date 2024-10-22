@@ -17,8 +17,11 @@ import pdf from "../../Assets/images/pdf.png";
 import Loader from '../../Components/Loader';
 import excel from "../../Assets/images/excel.png";
 
+import jsPDF from 'jspdf'
+import autoTable from 'jspdf-autotable'
 
-
+import * as XLSX from 'xlsx';
+import { saveAs } from 'file-saver';
 
 
 function SearchPage() {
@@ -140,7 +143,9 @@ const [getFormattedDate, setFormattedDate] = useState([]);
       ),
   });
 
-
+  const filteredData = getPageData.filter(record => 
+    record.cop_soc_name
+  );
   
 
   const columns = [
@@ -161,9 +166,9 @@ const [getFormattedDate, setFormattedDate] = useState([]);
     sortDirections: ['descend', 'ascend'],
     render: (text, record) => (
     <>
-    <span className="address_td">{record.cop_soc_name}</span>{' '}
+    <span className="address_td">{record.cop_soc_name == null ? "--" : record.cop_soc_name} </span>{' '}
     <span className={record.functional_status === 'Functional' ? 'green_Fnc' : 'red_Fnc'}>
-    {record.functional_status}
+    {record.functional_status == null ? "--" : record.functional_status}
     </span>
     </>
     ),
@@ -197,17 +202,10 @@ const [getFormattedDate, setFormattedDate] = useState([]);
 
       render: (text, record) => (
         <>
-          {record.contact_name} {record.contact_designation == null ? '' : '('+record.contact_designation+')'}
+          {record.contact_name == null ? "--" : record.contact_name} {record.contact_designation == null ? '' : '('+record.contact_designation+')'}
         </>
       ),
     },
-    // {
-    //   title: 'Key Person Designation',
-    //   dataIndex: 'contact_designation',
-    //   key: 'contact_designation',
-    //   // width: '20%',
-    //   ...getColumnSearchProps('contact_designation'),
-    // },
     {
       title: 'Contact Number & Email',
       dataIndex: 'contact_number',
@@ -216,7 +214,8 @@ const [getFormattedDate, setFormattedDate] = useState([]);
       // ...getColumnSearchProps('contact_number'),
       render: (text, record) => (
         <>
-          <span className="contact_Num_td">{record.contact_number}</span> <span className="email_ID_td">{record.email.length < 1 ? '' : record.email}</span>
+          <span className="contact_Num_td">{record.contact_number == null ? "--" : record.contact_number}</span>  <span className="email_ID_td">{record.email}</span>
+          {/* <span className="email_ID_td">{record.email.length < 1 ? '' : record.email}</span> */}
         </>
       ),
     },
@@ -307,6 +306,10 @@ const districtList = async()=>{
     })  
  }
 
+ const handleDownload = ()=>{
+
+ }
+
  
  useEffect(()=>{
   districtList();
@@ -339,7 +342,7 @@ const districtList = async()=>{
         if(res.data.suc > 0){
             setPageData(res?.data?.msg)
             console.log(res.data.msg, 'jjjjjjjjj');
-            
+
             setLoading(false);
             // pageDataCheck = res.data.status;
         } else {
@@ -368,6 +371,39 @@ const districtList = async()=>{
       
     }, [searchData.select_district])
 
+  // const exportPdfHandler = ()=>{
+
+  //   const doc = new jsPDF();
+  //   doc.autoTable({html:'#dataTable_search'})
+  //   doc.save('dataTest.pdf')
+  //   // alert('sss')
+  // }
+
+  const excelData = getPageData.map((item) => ({
+    'Society Name': item.cop_soc_name + item.functional_status,              // Change 'name' to 'Full Name'
+    'Last Election Date': item.last_elec_date,             // Change 'age' to 'Age (Years)'
+    // 'Residential Address': item.address, // Change 'address' to 'Residential Address'
+  }));
+
+  const exportPdfHandler = () => {
+    // Create a new workbook and worksheet
+    const workbook = XLSX.utils.book_new();
+    const worksheet = XLSX.utils.json_to_sheet(excelData);
+
+    // Append the worksheet to the workbook
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
+
+    // Generate a binary string representing the Excel file
+    const excelBuffer = XLSX.write(workbook, {
+      bookType: 'xlsx',
+      type: 'array',
+    });
+
+    // Use file-saver to trigger a download
+    const blob = new Blob([excelBuffer], { type: 'application/octet-stream' });
+    saveAs(blob, 'table_data.xlsx');
+  };
+
 
   return (
     <>
@@ -379,27 +415,26 @@ const districtList = async()=>{
     </div>
     <div className="col-sm-12 left_sec search_data_table">
 
-    <h1 className='search_page'>List of Cooperative Societies in {getRangeList}  
+    <h1 className='search_page'>List of Cooperative Societies in {getRangeList} &nbsp; <strong> ({getPageData.length})</strong>
       {/* <button className='pdfDownload'>Download PDF<i class="fa fa-file-pdf-o" aria-hidden="true"></i></button> */}
 
-      <a className='excelDownload'><img src={`${excel}`} alt="" /></a>
+      <a onClick={handleDownload} className='excelDownload'><img src={`${excel}`} alt="" /></a>
     </h1>
 
-    {/* <Table columns={columns} dataSource={getPageData} scroll={{
-        x: 'max-content',
-      }} /> */}
 
-  {loading ? (
+  {/* {loading ? (
   <Loader align = {'center'} gap = {'middle'} size = {'large'} /> // Show Loader while data is loading
-  ) : (
-  <Table columns={columns} dataSource={getPageData} />
-  )}
+  ) : ( */}
+  <button className='export_btn' onClick={exportPdfHandler}>Download PDF</button>
+  <Table columns={columns} loading={{ spinning: loading, tip: 'Loading data, please wait...' }} dataSource={filteredData} id='dataTable_search' />
+  {/* <Table columns={columns} dataSource={getPageData} /> */}
+  {/* )} */}
 
 
-    {/* District: {searchData.select_district} <br/>
+    District: {searchData.select_district} <br/>
     Range: {searchData.select_range}<br/>
     Type: {searchData.select_type}<br/>
-    Society Name: {searchData.society_Name} */}
+    Society Name: {searchData.society_Name}
 
     </div>
 
