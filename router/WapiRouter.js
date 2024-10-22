@@ -148,12 +148,14 @@ var moment = require('moment');
    
     var range_List = await db_Select('range_id,range_name', 'md_range', `dist_id = '${formdata.dist_id}' `, null);
     var data = {};
+   
     if(range_List.msg.length > 1){
     
       var range1 = range_List.msg[0].range_id;
       var range1_name = range_List.msg[0].range_name;
       var range2 = range_List.msg[1].range_id;
       var range2_name = range_List.msg[1].range_name;
+     // console.log(range1_name,range2_name);
       
         var select = `a.range_code,a.soc_type,b.soc_type_name,count(a.cop_soc_name)tot_soc_type,REPLACE(c.dist_name, ' ', '')dist_name`,
         table_name1 = `md_society a,md_society_type b,md_district c
