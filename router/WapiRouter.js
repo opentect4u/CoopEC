@@ -142,6 +142,29 @@ var moment = require('moment');
         res.send(result);
       }
   });
+  WapiRouter.post('/getsoctypegrouplist', async(req, res) => {
+    var formdata = req.body;
+    var select = `a.range_code,a.soc_type,b.soc_type_name,count(a.cop_soc_name)tot_soc_type,REPLACE(c.dist_name, ' ', '')dist_name`,
+    table_name = `md_society a,md_society_type b,md_district c
+WHERE a.soc_type = b.soc_type_id
+and a.dist_code = '${formdata.dist_id}' AND a.dist_code = c.dist_code group by a.range_code,a.soc_type`,
+    where = null,
+    order = null;
+    var res_dt = await db_Select(select, table_name, where, order);
+
+      if (res_dt.suc > 0) {
+        if (res_dt.msg.length > 0) {
+            res.send({ suc: 1, status: "Data found", msg: res_dt.msg })
+        
+        } else {
+          result = { suc: 0,status: 'Data no found', msg: res_dt,data:req.body };
+          res.send(result)
+        }
+      } else {
+        result = { suc: 0,status: 'Fail', msg: req.body };
+        res.send(result);
+      }
+  });
   WapiRouter.post('/getdoclist', async(req, res) => {
     var formdata = req.body;
     var select = `doc_type,doc_title,document`,
