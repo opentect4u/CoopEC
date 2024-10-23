@@ -27,9 +27,7 @@ function FooterCus() {
     <h2>Get in Touch</h2>
     <ul class="address">
     <li class="addresList">
-Southend Conclave, 3rd Floor,
-1582 Rajdanga Main Road,
-Kolkata - 700 107.</li>
+    1, Kiran Shankar Ray Rd, B.B.D. Bagh, Kolkata, West Bengal 700001</li>
     <li class="emailList"><a href="mailto:info@benfed.org">info@demo.com</a></li>
     <li class="phonList"> +91 33 4444 6666/77</li>
     </ul>
