@@ -397,7 +397,7 @@ var moment = require('moment');
   });
 
   WapiRouter.post('/faqlist', async(req, res) => {
-    var select = "question,answer",
+    var select = "id as faq_id,question,answer",
     table_name = "td_faq",
     where = null,
     order = null;
