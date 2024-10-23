@@ -49,7 +49,7 @@ const [getFolderLocation, setFolderLocation] = useState('');
               setPageTitle(res.data.title);
               setFolderLocation(res?.data?.folder_name)
               // setFolderLocation()
-              // console.log(res , 'uuuuuuuuuuuuuuuuuuuuuu', res?.data?.msg);
+              console.log(res , 'uuuuuuuuuuuuuuuuuuuuuu', res?.data?.msg);
   
               // pageDataCheck = res.data.status;
           } else {

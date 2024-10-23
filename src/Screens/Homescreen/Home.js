@@ -19,12 +19,12 @@ function Home() {
 
 	const stats = [
 		{
-			title: 'Ongoing 2024',
+			title: 'Ongoing',
 			count: '30',
 			class_cus: 'bar_green'
 		},
 		{
-			title: 'Completed Elections 2024',
+			title: 'Completed Elections',
 			count: '20',
 			class_cus: 'bar_yellow'
 		},
@@ -125,12 +125,14 @@ function Home() {
 
 				<TabContentHome />
 
+				{/* <div className='wrapper'>
+				<div className='col-sm-6 float-left'> */}
 				<div className="faqSec">
 
 					<div className="section-header text-center">
 
 						<h2 className="title">FAQs</h2>
-						<p className="style-two-des pp">Discover answers to all your questions and enhance your understanding to make smarter decisions on saving, investing, and spending. Explore all queries here for valuable insights!</p>
+						{/* <p className="style-two-des pp">Discover answers to all your questions and enhance your understanding to make smarter decisions on saving, investing, and spending. Explore all queries here for valuable insights!</p> */}
 					</div>
 
 					<div className="faqs-section">
@@ -147,6 +149,8 @@ function Home() {
 					</div>
 
 				</div>
+				{/* </div>
+				</div> */}
 
 
 				<div className="three_box">

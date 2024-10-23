@@ -5,6 +5,7 @@ import { useEffect } from 'react'
 import  { CollapseProps } from 'antd';
 // import { Collapse } from 'antd';
 import { Collapse, Space } from 'antd';
+import { BASE_URL } from '../routes/config';
 
 function FaqPage(
     {iconPosition}
@@ -51,26 +52,55 @@ const items = [
 
     const fetchdata = async ()=>{
 
-    return new Promise((resolve, reject) => {
-        // axios.get(ADDRESSES.GST_LIST).then(res => {
-        axios.get('https://jsonplaceholder.typicode.com/posts/1/comments',
-                // {},
-                // {
-                //     headers: {
-                //         Authorization: loginData.token,
-                //     },
-                // }
-        ).then(res => {
-            console.log(res.data, 'hhhhhhhhhhhhh'); 
-            setFaqData(res.data)
-            resolve(res.data);
-            // forLoopPushData();
+    // return new Promise((resolve, reject) => {
+    //     // axios.get(ADDRESSES.GST_LIST).then(res => {
+    //     axios.get('https://jsonplaceholder.typicode.com/posts/1/comments',
+    //             // {},
+    //             // {
+    //             //     headers: {
+    //             //         Authorization: loginData.token,
+    //             //     },
+    //             // }
+    //     ).then(res => {
+    //         console.log(res.data, 'hhhhhhhhhhhhh'); 
+    //         setFaqData(res.data)
+    //         resolve(res.data);
+    //         // forLoopPushData();
             
-        }).catch(err => {
-            console.log(err);
-            reject(err);
-        });
-    });
+    //     }).catch(err => {
+    //         console.log(err);
+    //         reject(err);
+    //     });
+    // });
+
+    axios.post(`${BASE_URL}/wapi/faqlist`,
+      {
+        auth_key:"xxxxx",
+      }
+      // ,
+      // {
+      //     headers: {
+      //         Authorization: loginData.token,
+      //     },
+      // }
+      ).then(res => {
+  
+        if(res.status == '200'){
+          // console.log('rrrrrr', res?.data?.msg);
+          if(res.data.suc > 0){
+            setFaqData(res?.data?.msg);
+              // setFolderLocation()
+              console.log('rrrrrr', res?.data?.msg);
+  
+              // pageDataCheck = res.data.status;
+          } else {
+            setFaqData([])
+            // pageDataCheck = res.data.status;
+          }
+    
+          }
+  
+      }) 
 
    }
 
@@ -85,15 +115,14 @@ const items = [
 
     {/* <Collapse className='faqCustom' bordered={false} accordion items={items} expandIconPosition={iconPosition} /> */}
     {/* {items_2 && <Collapse className='faqCustom' bordered={false} accordion items={items_2} expandIconPosition={iconPosition} />} */}
-
     {getFaqData.map(item=>
     <Collapse className='faqCustom' accordion expandIconPosition={iconPosition} 
     //   collapsible="header"
       items={[
         {
-          key: item.postId,
-          label: item.name,
-          children: item.body,
+          key: item.faq_id,
+          label: item.question,
+          children: item.answer,
         },
       ]}
     />

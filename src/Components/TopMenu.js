@@ -19,21 +19,21 @@ const items = [
   },
   {
     label: 'About Us',
-    key: 'SubMenu_1',
+    key: '/about',
     
     // icon: <SettingOutlined />,
-    children: [
-    { label: 'About Us', key: '/about'},
-    { label: 'Option 1', key: 'setting_1:1'},
-    { label: 'Option 2', key: 'setting_1:2' }
-    ],
+    // children: [
+    // { label: 'About Us', key: '/about'},
+    // { label: 'Option 1', key: 'setting_1:1'},
+    // { label: 'Option 2', key: 'setting_1:2' }
+    // ],
   },
   {
     label: 'Act & Rules ',
     key: '/actRules',
   },
   {
-    label: 'Important Announcement',
+    label: 'Announcement',
     key: '/importantannouncement',
     // icon: <SettingOutlined />,
     // children: [
@@ -62,13 +62,13 @@ const items = [
   },
   {
     label: 'Downloads  ',
-    key: 'SubMenu_6',
+    key: '/downloads',
     // icon: <SettingOutlined />,
-    children: [
-    { label: 'Downloads', key: 'downloads' },  
-    { label: 'Option 1', key: 'setting_6:1' },
-    { label: 'Option 1', key: 'setting_6:2' }
-    ],
+    // children: [
+    // { label: 'Downloads', key: 'downloads' },  
+    // { label: 'Option 1', key: 'setting_6:1' },
+    // { label: 'Option 1', key: 'setting_6:2' }
+    // ],
   },
   {
     label: 'Gallery',

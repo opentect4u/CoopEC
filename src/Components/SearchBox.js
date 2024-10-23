@@ -3,6 +3,7 @@ import * as Yup from 'yup';
 import { useFormik } from "formik";
 import { useParams, useNavigate } from "react-router";
 import axios from "axios";
+import { BASE_URL } from "../routes/config";
 
 // let district_def_value, range_def_value, type_def_value, soci_Name_def_value;
 
@@ -48,7 +49,7 @@ function SearchBox({district_def_Valu, range_def_Valu, type_def_Valu, soci_Name_
 
   const districtList = async()=>{
 
-    await axios.post('https://admincecwb.opentech4u.co.in/wapi/distlist',
+    await axios.post(`${BASE_URL}/wapi/distlist`,
       // {},
       // {
       //     headers: {
@@ -72,7 +73,7 @@ function SearchBox({district_def_Valu, range_def_Valu, type_def_Valu, soci_Name_
 
     // console.log(districValue, 'kkkkkkkkkkkkkkkk');
     
-    await axios.post('https://admincecwb.opentech4u.co.in/wapi/rangelist',
+    await axios.post(`${BASE_URL}/wapi/rangelist`,
       {
         auth_key:"xxxxx",
         dist_id: districValue
@@ -99,7 +100,7 @@ function SearchBox({district_def_Valu, range_def_Valu, type_def_Valu, soci_Name_
 
    const societyType = async()=>{
 
-    await axios.post('https://admincecwb.opentech4u.co.in/wapi/sotypelist',
+    await axios.post(`${BASE_URL}/wapi/sotypelist`,
       // {},
       // {
       //     headers: {

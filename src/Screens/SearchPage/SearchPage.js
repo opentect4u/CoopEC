@@ -1,7 +1,7 @@
 
 import React, { useState, useRef, useEffect } from 'react'
 import axios from 'axios';
-import { useLocation, useParams, useNavigate } from "react-router-dom";
+import { useLocation, useParams, useNavigate, Link } from "react-router-dom";
 // import RightSidebarGlobal from './RightSidebarGlobal';
 // import FooterCus from './FooterCus';
 import FooterCus from '../../Components/FooterCus';
@@ -22,6 +22,7 @@ import autoTable from 'jspdf-autotable'
 
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
+import { BASE_URL } from '../../routes/config';
 
 
 function SearchPage() {
@@ -174,10 +175,24 @@ const [getFormattedDate, setFormattedDate] = useState([]);
     ),
     },
     {
+      title: 'Society Type',
+      dataIndex: 'soc_type_name',
+      key: 'soc_type_name',
+      width: '15%',
+      // ...getColumnSearchProps('contact_name'),
+      // render: (text, record) => `${record.contact_name} (${record.contact_designation ? null : 'Not Mention'})` , // Concatenating Name and Designation
+
+      render: (text, record) => (
+        <>
+          {record.soc_type_name == null ? "--" : record.soc_type_name}
+        </>
+      ),
+    },
+    {
       title: 'Last Election Date',
       dataIndex: 'last_elec_date',
       key: 'last_elec_date',
-      width: '15%',
+      width: '13%',
       // ...getColumnSearchProps('last_elec_date'),
       // render: (text, record) => `${record.last_elec_date}`,
       render: (date) => date ? new Date(date).toLocaleDateString('en-GB') : '--',
@@ -187,38 +202,39 @@ const [getFormattedDate, setFormattedDate] = useState([]);
       title: 'Tenure Ends On',
       dataIndex: 'tenure_ends_on',
       key: 'tenure_ends_on',
-      width: '15%',
+      width: '13%',
       // ...getColumnSearchProps('tenure_ends_on'),
       // render: (text, record) => `${record.tenure_ends_on}`,
       render: (date) => date ? new Date(date).toLocaleDateString('en-GB') : '--',
     },
     {
-      title: 'Name & Designation',
+      title: 'Key Person Details',
       dataIndex: 'contact_name',
       key: 'contact_name',
-      width: '15%',
+      width: '19%',
       // ...getColumnSearchProps('contact_name'),
       // render: (text, record) => `${record.contact_name} (${record.contact_designation ? null : 'Not Mention'})` , // Concatenating Name and Designation
 
       render: (text, record) => (
         <>
           {record.contact_name == null ? "--" : record.contact_name} {record.contact_designation == null ? '' : '('+record.contact_designation+')'}
-        </>
-      ),
-    },
-    {
-      title: 'Contact Number & Email',
-      dataIndex: 'contact_number',
-      key: 'contact_number',
-      width: '20%',
-      // ...getColumnSearchProps('contact_number'),
-      render: (text, record) => (
-        <>
           <span className="contact_Num_td">{record.contact_number == null ? "--" : record.contact_number}</span>  <span className="email_ID_td">{record.email}</span>
-          {/* <span className="email_ID_td">{record.email.length < 1 ? '' : record.email}</span> */}
         </>
       ),
     },
+    // {
+    //   title: 'Contact Number & Email',
+    //   dataIndex: 'contact_number',
+    //   key: 'contact_number',
+    //   width: '20%',
+    //   // ...getColumnSearchProps('contact_number'),
+    //   render: (text, record) => (
+    //     <>
+    //       <span className="contact_Num_td">{record.contact_number == null ? "--" : record.contact_number}</span>  <span className="email_ID_td">{record.email}</span>
+    //       {/* <span className="email_ID_td">{record.email.length < 1 ? '' : record.email}</span> */}
+    //     </>
+    //   ),
+    // },
     {
       title: 'View Details',
       dataIndex: 'id',
@@ -257,7 +273,7 @@ const searchData = location.state || {};
 
 const districtList = async()=>{
 
-  await axios.post('https://admincecwb.opentech4u.co.in/wapi/distlist',
+  await axios.post(`${BASE_URL}/wapi/distlist`,
     // {},
     // {
     //     headers: {
@@ -281,7 +297,7 @@ const districtList = async()=>{
 
   // console.log(districValue, 'kkkkkkkkkkkkkkkk');
   
-  await axios.post('https://admincecwb.opentech4u.co.in/wapi/rangelist',
+  await axios.post(`${BASE_URL}/wapi/rangelist`,
     {
       auth_key:"xxxxx",
       dist_id: districValue
@@ -306,9 +322,7 @@ const districtList = async()=>{
     })  
  }
 
- const handleDownload = ()=>{
 
- }
 
  
  useEffect(()=>{
@@ -320,7 +334,7 @@ const districtList = async()=>{
     console.log(searchData, 'searchData');
     
     
-  axios.post('https://admincecwb.opentech4u.co.in/wapi/societysearch',
+  axios.post(`${BASE_URL}/wapi/societysearch`,
     {
       auth_key:"xxxxx",
       dist_id: searchData.select_district,
@@ -337,16 +351,17 @@ const districtList = async()=>{
     ).then(res => {
 
       if(res.status == '200'){
-        console.log(res, 'ffffffff', res.data.suc);
+        console.log(res, 'ffffffff', res?.data?.msg.length);
         
         if(res.data.suc > 0){
             setPageData(res?.data?.msg)
-            console.log(res.data.msg, 'jjjjjjjjj');
+            console.log(res?.data?.msg, 'jjjjjjjjj');
 
             setLoading(false);
             // pageDataCheck = res.data.status;
         } else {
-          setPageData([0])
+          setPageData([])
+          setLoading(false);
           // pageDataCheck = res.data.status;
         }
   
@@ -380,12 +395,20 @@ const districtList = async()=>{
   // }
 
   const excelData = getPageData.map((item) => ({
-    'Society Name': item.cop_soc_name + item.functional_status,              // Change 'name' to 'Full Name'
-    'Last Election Date': item.last_elec_date,             // Change 'age' to 'Age (Years)'
+    'Society Name': item.cop_soc_name, 
+    'Society Type': item.soc_type_name,  
+    'Functional Status': item.functional_status,
+    'Last Election Date': item.last_elec_date ? new Date(item.last_elec_date).toLocaleDateString('en-GB') : '--', // Format as DD/MM/YYYY : '--',,
+    'Tenure Ends On': item.tenure_ends_on  ? new Date(item.tenure_ends_on).toLocaleDateString('en-GB') : '--',
+    'Key Persone Name': item.contact_name,
+    'Key Persone Designation': item.contact_designation,
+    'Contact Number': item.contact_number,
+    'Email': item.email,
     // 'Residential Address': item.address, // Change 'address' to 'Residential Address'
   }));
 
   const exportPdfHandler = () => {
+    
     // Create a new workbook and worksheet
     const workbook = XLSX.utils.book_new();
     const worksheet = XLSX.utils.json_to_sheet(excelData);
@@ -401,8 +424,12 @@ const districtList = async()=>{
 
     // Use file-saver to trigger a download
     const blob = new Blob([excelBuffer], { type: 'application/octet-stream' });
-    saveAs(blob, 'table_data.xlsx');
+
+    
+    saveAs(blob, 'Cooperative_Societies_search_Data.xlsx');
   };
+
+  
 
 
   return (
@@ -416,25 +443,19 @@ const districtList = async()=>{
     <div className="col-sm-12 left_sec search_data_table">
 
     <h1 className='search_page'>List of Cooperative Societies in {getRangeList} &nbsp; <strong> ({getPageData.length})</strong>
-      {/* <button className='pdfDownload'>Download PDF<i class="fa fa-file-pdf-o" aria-hidden="true"></i></button> */}
-
-      <a onClick={handleDownload} className='excelDownload'><img src={`${excel}`} alt="" /></a>
+      <button onClick={exportPdfHandler} className='excelDownload'><img src={`${excel}`} alt="" /></button>
     </h1>
 
 
-  {/* {loading ? (
-  <Loader align = {'center'} gap = {'middle'} size = {'large'} /> // Show Loader while data is loading
-  ) : ( */}
-  <button className='export_btn' onClick={exportPdfHandler}>Download PDF</button>
   <Table columns={columns} loading={{ spinning: loading, tip: 'Loading data, please wait...' }} dataSource={filteredData} id='dataTable_search' />
-  {/* <Table columns={columns} dataSource={getPageData} /> */}
-  {/* )} */}
+
+  {/* <Table columns={columns} loading={loading ? { spinning: true, tip: 'Loading data, please wait...' } : false} dataSource={filteredData} id='dataTable_search' /> */}
 
 
-    District: {searchData.select_district} <br/>
+    {/* District: {searchData.select_district} <br/>
     Range: {searchData.select_range}<br/>
     Type: {searchData.select_type}<br/>
-    Society Name: {searchData.society_Name}
+    Society Name: {searchData.society_Name} */}
 
     </div>
 

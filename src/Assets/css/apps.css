@@ -717,7 +717,9 @@ width: 100%; padding:0;}
 .left_sec h1 button.pdfDownload:focus{outline: none; border: none;}
 
 .left_sec h1 a.excelDownload{margin: 0 0 0 auto;}
-
+.left_sec h1 button.excelDownload{margin: 0 0 0 auto;
+  padding: 0;
+  border: none; background:none;}
 
 a.docDownload{margin: 0 0 0 auto;
   font-size: 15px;
@@ -1023,17 +1025,75 @@ button {
   margin-left: 57px;
 }
 
-.range_group{display: flex; font-size: 14px;}
-.range_1{padding: 5px 0;}
-.range_1 label{width: 100%; margin-bottom: 4px;}
+.range_group{font-size: 14px;}
+.range_1{padding: 5px 0; width: 100%;}
+.range_1 .range_row{width: 100%; margin-bottom: 3px;
+  padding-bottom: 5px; border-bottom: #ccc solid 1px; display: flex; align-items: center;}
+.range_1 .range_row:last-child{border-bottom: none;}
+.range_1 .range_row label.range_full{width: 100%; font-size: 12px; margin: 0;}
+.range_1 .range_row label.range_small{width: 30%; font-size: 12px; margin: 0; line-height: 14px;}
+.range_1 .range_row label.range_half{width: 70%; font-size: 12px; margin: 0; display: flex;}
+.range_1 .range_row label.range_half span{display: flex; width: 100%;}
+.range_1 .range_row label.range_half span .counter_soc{margin-left: 5px; font-weight: 700;}
 
-.range_2{padding: 5px 0;}
-.range_2 label{width: 100%; margin-bottom: 4px;}
+.barChartMap{background: #008000;
+  height: 15px;
+  width: 100%;
+  display: inline-block; border-radius: 0 4px 4px 0;}
 
-.mapHover{border-radius: 5px;
+/* .range_2{padding: 5px 0;}
+.range_2 .range_row{width: 100%; margin-bottom: 4px;} */
+
+.range_2{padding: 5px 0; width: 100%;}
+.range_2 .range_row{width: 100%; margin-bottom: 3px;
+  padding-bottom: 5px; border-bottom: #ccc solid 1px; display: flex; align-items: center;}
+.range_2 .range_row:last-child{border-bottom: none;}
+.range_2 .range_row label.range_full{width: 100%; font-size: 12px; margin: 0;}
+.range_2 .range_row label.range_small{width: 30%; font-size: 12px; margin: 0; line-height: 14px;}
+.range_2 .range_row label.range_half{width: 70%; font-size: 12px; margin: 0; display: flex;}
+.range_2 .range_row label.range_half span{display: flex; width: 100%;}
+.range_2 .range_row label.range_half span .counter_soc{margin-left: 5px; font-weight: 700;}
+
+.range_group .ant-tabs-nav-list .ant-tabs-tab .ant-tabs-tab-btn{color: #828991;}
+.range_group .ant-tabs-nav-list .ant-tabs-tab-active .ant-tabs-tab-btn{color: #1b64b3;}
+
+
+/* .mapHover{border-radius: 5px;
   border: #ccc solid 1px !important;
   box-shadow: 0 0 3px 4px #e1dfdf;
-  padding: 7px !important; text-align: left;}
+  padding: 7px !important; text-align: left;} */
+
+.mapHover{border-radius: 12px;
+  border: none !important;
+  box-shadow: 0 0 8px 2px rgba(0,0,0,.5);
+  padding: 7px !important;
+  text-align: left;}
+
+  @keyframes lightboxOpen {
+    0% {
+      opacity: 0;
+      transform: scale(0.7) translate(-50%, -50%);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1) translate(-50%, -50%);
+    }
+  }
+  
+  .overlay {
+    animation: fadeInOverlay 0.5s ease-out;
+  }
+  
+  @keyframes fadeInOverlay {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  
+  
 .mapHover h4{font-size: 14px;
   font-weight: 700;
   padding: 0;
@@ -1045,11 +1105,13 @@ button {
     color: #444444;}
 
 .mapHover a{font-size: 12px;
-  padding: 2px 7px;
-  margin: 0;
+  padding: 4px 7px;
+  margin: 8px 0 0 0;
   background: #17b0fd;
   color: #fff !important;
-  text-transform: uppercase; cursor: pointer;}
+  text-transform: uppercase;
+  cursor: pointer;
+  display: inline-block;}
 
 .mapHover .pophoverClose{position: absolute;
   right: 6px;

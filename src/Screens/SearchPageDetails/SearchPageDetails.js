@@ -6,6 +6,13 @@ import { Flex, Spin } from 'antd';
 import Loader from '../../Components/Loader';
 import excel from "../../Assets/images/excel.png";
 
+import jsPDF from 'jspdf'
+import autoTable from 'jspdf-autotable'
+
+import * as XLSX from 'xlsx';
+import { saveAs } from 'file-saver';
+import { BASE_URL } from '../../routes/config';
+
 function SearchPageDetails() {
 
 const [getPageData, setPageData] = useState([]);
@@ -15,13 +22,6 @@ const [loading, setLoading] = useState(true);
 const location = useLocation();
 const searchID = location.state || {};
 
-
-// Convert the ISO date string to a JavaScript Date object
-// const date = new Date(getFormattedDate);
-
-// // Format the date and time
-// const formattedDate = date.toLocaleDateString();  // e.g., "11/15/2000" or based on locale
-// const formattedTime = date.toLocaleTimeString();  // e.g., "7:30:00 PM" or based on locale
 
 const dataFunc = (date_Value)=>{
 console.log(date_Value, 'date_Valuedate_Valuedate_Value');
@@ -33,9 +33,7 @@ return date.toLocaleDateString();
 
 }
 
-const handleDownload = ()=>{
-  
-}
+
 
 
 useEffect(()=>{
@@ -46,7 +44,7 @@ if(searchID)
     // console.log(searchID, 'searchData');
     
     
-  axios.post('https://admincecwb.opentech4u.co.in/wapi/getsocdetail',
+  axios.post(`${BASE_URL}/wapi/getsocdetail`,
     {
       auth_key:"xxxxx",
       soc_id: searchID
@@ -66,6 +64,8 @@ if(searchID)
 
             setPageData(res?.data?.msg[0])
             // setFormattedDate(getPageData.reg_date)
+            console.log(res?.data?.msg[0], 'kkkkkkkkk');
+            
             setLoading(false)
 
         } else {
@@ -80,13 +80,84 @@ if(searchID)
 
 }, [searchID])
 
+
+const exportToExcel = () => {
+    const data = [
+        { 'Label': 'Society Name', 'Value': getPageData.cop_soc_name || '--' },
+        { 'Label': 'Registration Number', 'Value': getPageData.reg_no || '--' },
+        { 'Label': 'Date of Registration', 'Value': getPageData.reg_date ? dataFunc(getPageData.reg_date) : '--' },
+        { 'Label': 'Type of Society', 'Value': getPageData.soc_type_name || '--' },
+        { 'Label': 'Tier of Society', 'Value': getPageData.soc_tier_name || '--' },
+        { 'Label': 'Registration & Controlling Authority', 'Value': getPageData.reg_cont_auth || '--' },
+        { 'Label': 'Returning Officer of Society', 'Value': getPageData.returning_officer || '--' },
+        { 'Label': 'State', 'Value': getPageData.state_name || '--' },
+        { 'Label': 'District', 'Value': getPageData.dist_name || '--' },
+        { 'Label': 'Zone', 'Value': getPageData.zone_name || '--' },
+        { 'Label': 'Range', 'Value': getPageData.range_name || '--' },
+        { 'Label': 'Mapping', 'Value': getPageData.urban_rural_flag == "U" ? 'Urban Mapping' : 'Rural Mapping' },
+
+
+        // { 'Label': 'Block', 'Value': getPageData.block_name || '--' },
+        // { 'Label': 'Gram Panchayat', 'Value': getPageData.gp_name || '--' },
+        // { 'Label': 'Village', 'Value': getPageData.vill_name || '--' },
+        // { 'Label': 'Pin Code', 'Value': getPageData.pin_no || '--' },
+
+        // { 'Label': 'Category of Urban Local Body', 'Value': getPageData.ulb_catg_name || '--' },
+        // { 'Label': 'Urban Local Body', 'Value': getPageData.ulb_name || '--' },
+        // { 'Label': 'Locality or Ward', 'Value': getPageData.ward_name || '--' },
+
+        // Conditionally show Urban or Rural fields
+        ...(getPageData.urban_rural_flag === "R" ? [
+            { 'Label': 'Block', 'Value': getPageData.block_name || '--' },
+            { 'Label': 'Gram Panchayat', 'Value': getPageData.gp_name || '--' },
+            { 'Label': 'Village', 'Value': getPageData.vill_name || '--' },
+            { 'Label': 'Pin Code', 'Value': getPageData.pin_no == null ? "--" : getPageData.pin_no}
+        ] : [
+            { 'Label': 'Category of Urban Local Body', 'Value': getPageData.ulb_catg_name || '--' },
+            { 'Label': 'Urban Local Body', 'Value': getPageData.ulb_name || '--' },
+            { 'Label': 'Locality or Ward', 'Value': getPageData.ward_name || '--' },
+            { 'Label': 'Pin Code', 'Value': getPageData.pin_no || '--' }
+        ]),
+
+
+        { 'Label': 'Address', 'Value': getPageData.address || '--' },
+        { 'Label': 'Management Status', 'Value': getPageData.manage_status_name || '--' },
+        { 'Label': 'Type of Special Officer', 'Value': getPageData.officer_type_name || '--' },
+        { 'Label': 'Number Of Members', 'Value': getPageData.num_of_memb || '--' },
+        { 'Label': 'Audit Completed upto', 'Value': getPageData.audit_upto || '--' },
+        { 'Label': 'Last Election of BOD held on', 'Value': getPageData.last_elec_date ? dataFunc(getPageData.last_elec_date) : '--' },
+        { 'Label': 'Tenure Ends On', 'Value': getPageData.tenure_ends_on ? dataFunc(getPageData.tenure_ends_on) : '--' },
+        { 'Label': 'Name of Key Person', 'Value': getPageData.key_person || '--' },
+        { 'Label': 'Designation of Key Person', 'Value': getPageData.key_person_desig || '--' },
+        { 'Label': 'Contact Number', 'Value': getPageData.contact_number || '--' },
+        { 'Label': 'Email', 'Value': getPageData.email || '--' },
+        { 'Label': 'Case Involved', 'Value': getPageData.case_id == 1 ? 'Yes' : 'No' },
+        { 'Label': 'Case Number', 'Value': getPageData.case_num || '--' },
+        { 'Label': 'Status', 'Value': getPageData.functional_status || '--' }
+    ];
+
+    // Create a new workbook
+    const workbook = XLSX.utils.book_new();
+
+    // Convert the data to a worksheet
+    const worksheet = XLSX.utils.json_to_sheet(data);
+
+    // Append the worksheet to the workbook
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Society Details Data');
+
+    // Generate Excel file and trigger download
+    const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+    const blob = new Blob([excelBuffer], { type: 'application/octet-stream' });
+    saveAs(blob, 'Society_Details_Data.xlsx');
+};
+
   return (
     <>
 
 <div className="wrapper">
     <div className="inner_page_Sec">
     <div className="col-sm-8 float-left left_sec searchPageTop">
-      <h1>Details Of {getPageData.cop_soc_name} <a onClick={handleDownload} className='excelDownload'><img src={`${excel}`} alt="" /></a></h1>
+      <h1>Details Of {getPageData.cop_soc_name} <button onClick={exportToExcel} className='excelDownload'><img src={`${excel}`} alt="" /></button></h1>
 
       
       {loading ? (
@@ -349,7 +420,7 @@ if(searchID)
     <div className="col-md-6">
     <div className="form-group">
         <label className='title'>Any Case Involved regarding election matter (At CEC/HHC/HSC etc.)  </label>
-        <label>{getPageData.case_id == 1 ? "Yes" : ''} {getPageData.case_id == 2 ? "No" : ''}</label>
+        <label>{getPageData.case_id == 1 ? "Yes" : ''} {getPageData.case_id == 2 ? "No" : ''} {getPageData.case_id == 0 ? "No" : ''}</label>
     </div>
     </div>
     <div className="col-md-6">
