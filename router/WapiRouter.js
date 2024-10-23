@@ -148,7 +148,7 @@ var moment = require('moment');
    
     var range_List = await db_Select('range_id,range_name', 'md_range', `dist_id = '${formdata.dist_id}' `, null);
     var data = {};
-    var order = `soc_type_id ASC`;
+    var order = `order by soc_type_id ASC`;
    
     if(range_List.msg.length > 1){
     
@@ -165,12 +165,19 @@ var moment = require('moment');
     WHERE a.soc_type = b.soc_type_id
     and a.dist_code = '${formdata.dist_id}' AND a.range_code = '${range2}' AND a.dist_code = c.dist_code group by a.range_code,a.soc_type`,
         where = null;
+        
         var res_dt1 = await db_Select(select, table_name1, where, order);
         var res_dt2 = await db_Select(select, table_name2, where, order);
-        var range1_tot = await db_Select(`count(*) as tot`, table_name1, where, null);
-        var range2_tot = await db_Select(`count(*) as tot`, table_name2, where, null);
-        var range1 = {'range_name':range1_name,'range_tot':range1_tot.msg,'range_data':res_dt1.msg};
-        var range2 = {'range_name':range2_name,'range_tot':range2_tot.msg,'range_data':res_dt2.msg};
+        table_name1_for_tot = `md_society a,md_society_type b,md_district c
+    WHERE a.soc_type = b.soc_type_id
+    and a.dist_code = '${formdata.dist_id}' AND a.range_code = '${range1}'  AND a.dist_code = c.dist_code`;
+    table_name2_for_tot = `md_society a,md_society_type b,md_district c
+    WHERE a.soc_type = b.soc_type_id
+    and a.dist_code = '${formdata.dist_id}' AND a.range_code = '${range2}' AND a.dist_code = c.dist_code`;
+        var range1_tot = await db_Select(`count(*) as tot`, table_name1_for_tot, where, null);
+        var range2_tot = await db_Select(`count(*) as tot`, table_name2_for_tot, where, null);
+        var range1 = {'range_name':range1_name,'range_tot':range1_tot.msg[0].tot,'range_data':res_dt1.msg};
+        var range2 = {'range_name':range2_name,'range_tot':range2_tot.msg[0].tot,'range_data':res_dt2.msg};
 
 
         data ={range1:range1,range2:range2};
@@ -184,11 +191,13 @@ var moment = require('moment');
     WHERE a.soc_type = b.soc_type_id
     and a.dist_code = '${formdata.dist_id}' AND a.range_code = '${range1}'  AND a.dist_code = c.dist_code group by a.range_code,a.soc_type`,
   
-        where = null,
-        order = null;
+        where = null;
         var res_dt1 = await db_Select(select, table_name1, where, order);
-        var range1_tot = await db_Select(`count(*) as tot`, table_name1, where, null);
-        var range1 = {'range_name':range1_name,'range_tot':range1_tot.msg,'range_data':res_dt1.msg};
+        table_name1_for_tot = `md_society a,md_society_type b,md_district c
+        WHERE a.soc_type = b.soc_type_id
+        and a.dist_code = '${formdata.dist_id}' AND a.range_code = '${range1}'  AND a.dist_code = c.dist_code`;
+        var range1_tot = await db_Select(`count(*) as tot`, table_name1_for_tot, where, null);
+        var range1 = {'range_name':range1_name,'range_tot':range1_tot.msg[0].tot,'range_data':res_dt1.msg};
         data ={range1:range1};
     }
       if (range_List.suc > 0) {
