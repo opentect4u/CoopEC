@@ -2,7 +2,7 @@ const WdtlsRouter = require('express').Router()
 const moment = require('moment');
 const multer = require('multer'); 
 const path = require("path");
-const {db_Select,db_Insert} = require('../modules/MasterModule');
+const {db_Select,db_Insert,db_Delete} = require('../modules/MasterModule');
 WdtlsRouter.use((req, res, next) => {
     var user = req.session.user;
     if (!user) {
@@ -301,6 +301,18 @@ WdtlsRouter.get('/addfaq', async(req, res) => {
     } catch (error) {
       // Log the error and send an appropriate response
       console.error('Error during dashboard rendering:', error);
+    }
+  })
+  WdtlsRouter.get('/delfaq', async(req, res) => {
+    try {
+        var data = req.body;
+        var id = req.query.id,where=`id = '${id}' `;
+        var res_dt = await db_Delete("td_faq", where);
+       res.redirect("/wdtls/faqlist");
+    } catch (error) {
+      // Log the error and send an appropriate response
+      console.error('Error during dashboard rendering:', error);
+      res.redirect("/wdtls/faqlist");
     }
   })
 module.exports = {WdtlsRouter}
