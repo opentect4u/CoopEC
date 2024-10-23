@@ -56,8 +56,10 @@ const storage = multer.diskStorage({
       var uploadDir = path.join(__dirname,'..','uploads/notifications/');
     }else if(typeId == 2){
       var uploadDir = path.join(__dirname,'..','uploads/tenders/');
-    }else{
+    }else if(typeId == 3){
       var uploadDir = path.join(__dirname,'..','uploads/announcement/');
+    }else{
+      var uploadDir = path.join(__dirname,'..','uploads/downloads/');
     }
     // Create the directory if it doesn't exist
     
@@ -74,6 +76,10 @@ const upload = multer({ storage: storage });
 // File upload route
 WdtlsRouter.post('/uploaddoc', upload.single('document'), async (req, res) => {
   var user = req.session.user;
+  var date_ob = moment();
+// Format it as YYYY-MM-DD HH:mm:ss
+   var formattedDate = date_ob.format('YYYY-MM-DD HH:mm:ss');
+   console.log(date_ob);
   if (!req.file) {
     return res.status(400).send('No file uploaded.');
   }
@@ -82,8 +88,8 @@ WdtlsRouter.post('/uploaddoc', upload.single('document'), async (req, res) => {
   };
   var data = req.body
   var table_name = "td_document_upload";
-  var fields = `(doc_type,doc_title,document,folder_name)`;
-  var values = `('${data.doc_type}','${data.doc_title.split("'").join("\\'")}','${newFile.filename}','uploads/notifications/')`;
+  var fields = `(doc_type,doc_title,document,folder_name,created_at,created_by)`;
+  var values = `('${data.doc_type}','${data.doc_title.split("'").join("\\'")}','${newFile.filename}','','${formattedDate}','${user.user_id}')`;
   var whr = null;
   var save_data = await db_Insert(table_name, fields, values, whr, 0);
   if(user.user_type == 'S'){

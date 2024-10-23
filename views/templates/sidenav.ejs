@@ -20,10 +20,10 @@
             </a>
         </li> -->
         <%  if(user.user_type == 'S'){  %>
-        <li class="nav-item">
+        <li class="nav-item active">
             <a class="nav-link" data-toggle="collapse" href="#error" aria-expanded="false" aria-controls="error">
                 <i class="icon-ban menu-icon"></i>
-                <span class="menu-title">Website</span>
+                <span class="menu-title">Document</span>
                 <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="error">
@@ -34,7 +34,7 @@
                 </ul>
             </div>
         </li>
-        <%  } %>
+        
         <li class="nav-item active">
             <a class="nav-link" href="/wdtls/announcelist">
                 <i class="icon-add menu-icon" >+</i>
@@ -47,6 +47,7 @@
                 <span class="menu-title">Gallery</span>
             </a>
         </li>
+        <%  } %>
         <!-- <li class="nav-item active">
             <a class="nav-link" href="/society/modifiedlist">
                 <i class="icon-add menu-icon" >+</i>
