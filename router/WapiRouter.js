@@ -414,6 +414,24 @@ var moment = require('moment');
         res.send(result);
       }
    });
+   WapiRouter.post('/qlinkslist', async(req, res) => {
+    var select = "id as qlinks_id,title,links",
+    table_name = "td_qick_links",
+    where = null,
+    order = null;
+    var res_dt = await db_Select(select, table_name, where, order);
+      if (res_dt.suc > 0) {
+        if (res_dt.msg.length > 0) {
+            res.send({ suc: 1, status: "Data found", msg: res_dt.msg })
+        } else {
+          result = { suc: 0,status: 'Data no found', msg: res_dt,data:req.body };
+          res.send(result)
+        }
+      } else {
+        result = { suc: 0,status: 'Fail', msg: req.body };
+        res.send(result);
+      }
+   });
 
 
 module.exports = { WapiRouter };
