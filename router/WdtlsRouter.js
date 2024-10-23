@@ -221,6 +221,86 @@ WdtlsRouter.post('/uploadgall', upload_gall, async (req, res) => {
     res.status(500).send('Internal Server Error');
   }
 });
+  //  ******  Code for Statistic  ******  //
+WdtlsRouter.get('/statistic', async(req, res) => {
+  try {
+    const doclist = await db_Select('*', 'td_statistic', null, null);
+    const res_dt = {datas:doclist.msg[0]}
+      res.render('websitedtls/statistic',res_dt);
+    } catch (error) {
+      // Log the error and send an appropriate response
+      console.error('Error during dashboard rendering:', error);
+    }
+})
+WdtlsRouter.post('/update_statistic', async(req, res) => {
+  try {
+      var data = req.body;
+      var user = req.session.user;
+      var date_ob = moment();
+    // Format it as YYYY-MM-DD HH:mm:ss
+       var formattedDate = date_ob.format('YYYY-MM-DD HH:mm:ss');
+       var values = '';
+       const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+      var table_name = "td_statistic";
+    var fields = `title1 = '${data.title1.split("'").join("\\'")}',num1 = '${data.num1}',title2 = '${data.title2}',num2 = '${data.num2}',
+                title3 = '${data.title3}',num3='${data.num3}',modified_by='${user.user_id}',modified_dt='${formattedDate}',
+                modified_ip = '${ip}' `;
+    var whr = `id = '${data.id}'` ;
+    var flag = 1;
+    var save_data = await db_Insert(table_name, fields, values, whr, flag);
+    res.redirect("/wdtls/statistic");
+  } catch (error) {
+    // Log the error and send an appropriate response
+    console.error('Error during dashboard rendering:', error);
+  }
+})
 
+WdtlsRouter.get('/faqlist', async(req, res) => {
+  try {
+      const faqllist = await db_Select('*', 'td_faq', null, null);
+      // Prepare data for rendering
+      const res_dt = {
+        data:faqllist.suc > 0 ? faqllist.msg : '',
+      };
+      res.render('websitedtls/faq/list',res_dt);
+    } catch (error) {
+      // Log the error and send an appropriate response
+      console.error('Error during dashboard rendering:', error);
+      //res.status(500).send('An error occurred while loading the dashboard.');
+      res.render('websitedtls/faqlist');
+    }
+})
+WdtlsRouter.get('/addfaq', async(req, res) => {
+  try {
+      res.render('websitedtls/faq/add');
+    } catch (error) {
+      // Log the error and send an appropriate response
+      console.error('Error during dashboard rendering:', error);
+    }
+})
 
+  WdtlsRouter.post('/savefaq', async(req, res) => {
+    try {
+        var data = req.body;
+        console.log(req.body)
+        var user = req.session.user;
+        var date_ob = moment();
+        var formattedDate = date_ob.format('YYYY-MM-DD HH:mm:ss');
+        const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+      //  var values = '(question,answer,created_at,created_by,created_ip)';
+      var values = `('${data.question}','${data.answer}','${formattedDate}','${user.user_id}','${ip}')`
+      
+        var table_name = "td_faq";
+      var fields = data.id > 0 ? `title1 = '${data.title1.split("'").join("\\'")}',num1 = '${data.num1}',title2 = '${data.title2}',num2 = '${data.num2}',
+                  title3 = '${data.title3}',num3='${data.num3}',modified_by='${user.user_id}',modified_dt='${formattedDate}',
+                  modified_ip = '${ip}' ` :`(question,answer,created_at,created_by,created_ip)`;
+      var whr = `id = '${data.id}'` ;
+      var flag = data.id > 0 ? 1 : 0;
+      var save_data = await db_Insert(table_name, fields, values, whr, flag);
+      res.redirect("/wdtls/faqlist");
+    } catch (error) {
+      // Log the error and send an appropriate response
+      console.error('Error during dashboard rendering:', error);
+    }
+  })
 module.exports = {WdtlsRouter}

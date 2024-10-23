@@ -229,6 +229,9 @@ var moment = require('moment');
     }else if(formdata.doc_type == 3){
       var folder_name = 'wapi/docdownloadannoun/';
       var title ='Important Announcement';
+    }else if(formdata.doc_type == 4){
+      var folder_name = 'wapi/docdownloads/';
+      var title ='Important Downloads';
     }
 
       if (res_dt.suc > 0) {
@@ -279,6 +282,22 @@ var moment = require('moment');
   WapiRouter.get('/docdownloadannoun/:filename', async(req, res) => {
     // var uploadDir = path.join(__dirname,'..','uploads/notifications/');
     const UPLOAD_FOLDER = path.join(__dirname,'..', 'uploads/announcement/');
+     const filePath = path.join(UPLOAD_FOLDER, req.params.filename);
+     console.log(filePath);
+    // Check if the file exists
+    res.download(filePath, (err) => {
+        if (err) {
+            if (err.code === 'ENOENT') {
+                res.status(404).send('File not found');
+            } else {
+                res.status(500).send('Error downloading file');
+            }
+        }
+    });
+  });
+  WapiRouter.get('/docdownloads/:filename', async(req, res) => {
+   
+    const UPLOAD_FOLDER = path.join(__dirname,'..', 'uploads/downloads/');
      const filePath = path.join(UPLOAD_FOLDER, req.params.filename);
      console.log(filePath);
     // Check if the file exists
