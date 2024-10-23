@@ -61,6 +61,15 @@ const items = [
     // ],
   },
   {
+    label: 'FAQ ',
+    key: '/faq',
+    // icon: <SettingOutlined />,
+    // children: [
+    // { label: 'Option 1', key: 'setting_5:1' },
+    // { label: 'Option 1', key: 'setting_5:2' }
+    // ],
+  },
+  {
     label: 'Downloads  ',
     key: '/downloads',
     // icon: <SettingOutlined />,

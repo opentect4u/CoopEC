@@ -23,6 +23,7 @@ import TestPage from './Screens/TestPage/TestPage';
 import MapboxExample from './Screens/MapExample/MapboxExample';
 import SearchPage from './Screens/SearchPage/SearchPage';
 import SearchPageDetails from './Screens/SearchPageDetails/SearchPageDetails';
+import Faq from './Screens/Faq/Faq';
 
 
 
@@ -83,6 +84,10 @@ const router = createBrowserRouter([
       {
         path:"searchdetails",
         element:<SearchPageDetails/>
+      },
+      {
+        path:"faq",
+        element:<Faq/>
       }
 
     ]

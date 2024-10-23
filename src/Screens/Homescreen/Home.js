@@ -11,6 +11,7 @@ import HomeThreeBox from '../../Components/HomeThreeBox';
 import scroll_top from "../../Assets/images/scroll_top.png";
 import FooterCus from '../../Components/FooterCus';
 import WB_Map from '../../Components/WB_Map';
+import { Link } from 'react-router-dom';
 // import Faq from '../../Components/Faq';
 
 function Home() {
@@ -123,7 +124,7 @@ function Home() {
 					</div>
 				</div>
 
-				<TabContentHome />
+				{/* <TabContentHome /> */}
 
 				{/* <div className='wrapper'>
 				<div className='col-sm-6 float-left'> */}
@@ -141,7 +142,7 @@ function Home() {
 								<div className="col-sm-10">
 									<FaqPage iconPosition={'end'} />
 
-									<div className="btn_sec"><a href="#">View All</a></div>
+									<div className="btn_sec"><Link to="/faq">View All</Link></div>
 
 								</div>
 							</div>
@@ -153,7 +154,7 @@ function Home() {
 				</div> */}
 
 
-				<div className="three_box">
+				{/* <div className="three_box">
 					<div className="wrapper_sm">
 
 
@@ -169,7 +170,7 @@ function Home() {
 						)}
 
 					</div>
-				</div>
+				</div> */}
 
 				<FooterCus />
 
