@@ -148,6 +148,7 @@ var moment = require('moment');
    
     var range_List = await db_Select('range_id,range_name', 'md_range', `dist_id = '${formdata.dist_id}' `, null);
     var data = {};
+    var order = `soc_type_id ASC`;
    
     if(range_List.msg.length > 1){
     
@@ -155,7 +156,6 @@ var moment = require('moment');
       var range1_name = range_List.msg[0].range_name;
       var range2 = range_List.msg[1].range_id;
       var range2_name = range_List.msg[1].range_name;
-     // console.log(range1_name,range2_name);
       
         var select = `a.range_code,a.soc_type,b.soc_type_name,count(a.cop_soc_name)tot_soc_type,REPLACE(c.dist_name, ' ', '')dist_name`,
         table_name1 = `md_society a,md_society_type b,md_district c
@@ -164,12 +164,15 @@ var moment = require('moment');
     table_name2 = `md_society a,md_society_type b,md_district c
     WHERE a.soc_type = b.soc_type_id
     and a.dist_code = '${formdata.dist_id}' AND a.range_code = '${range2}' AND a.dist_code = c.dist_code group by a.range_code,a.soc_type`,
-        where = null,
-        order = null;
+        where = null;
         var res_dt1 = await db_Select(select, table_name1, where, order);
         var res_dt2 = await db_Select(select, table_name2, where, order);
-        var range1 = {'range_name':range1_name,'range_data':res_dt1.msg};
-        var range2 = {'range_name':range2_name,'range_data':res_dt2.msg};
+        var range1_tot = await db_Select(`count(*) as tot`, table_name1, where, null);
+        var range2_tot = await db_Select(`count(*) as tot`, table_name2, where, null);
+        var range1 = {'range_name':range1_name,'range_tot':range1_tot.msg,'range_data':res_dt1.msg};
+        var range2 = {'range_name':range2_name,'range_tot':range2_tot.msg,'range_data':res_dt2.msg};
+
+
         data ={range1:range1,range2:range2};
         
     }else{
@@ -184,7 +187,8 @@ var moment = require('moment');
         where = null,
         order = null;
         var res_dt1 = await db_Select(select, table_name1, where, order);
-        var range1 = {'range_name':range1_name,'range_data':res_dt1.msg};
+        var range1_tot = await db_Select(`count(*) as tot`, table_name1, where, null);
+        var range1 = {'range_name':range1_name,'range_tot':range1_tot.msg,'range_data':res_dt1.msg};
         data ={range1:range1};
     }
       if (range_List.suc > 0) {
