@@ -254,31 +254,30 @@ WdtlsRouter.post('/update_statistic', async(req, res) => {
     console.error('Error during dashboard rendering:', error);
   }
 })
-
-WdtlsRouter.get('/faqlist', async(req, res) => {
-  try {
-      const faqllist = await db_Select('*', 'td_faq', null, null);
-      // Prepare data for rendering
-      const res_dt = {
-        data:faqllist.suc > 0 ? faqllist.msg : '',
-      };
-      res.render('websitedtls/faq/list',res_dt);
-    } catch (error) {
-      // Log the error and send an appropriate response
-      console.error('Error during dashboard rendering:', error);
-      //res.status(500).send('An error occurred while loading the dashboard.');
-      res.render('websitedtls/faqlist');
-    }
-})
-WdtlsRouter.get('/addfaq', async(req, res) => {
-  try {
-      res.render('websitedtls/faq/add');
-    } catch (error) {
-      // Log the error and send an appropriate response
-      console.error('Error during dashboard rendering:', error);
-    }
-})
-
+   ////     ********  Code start for FAQ      *******   /// 
+  WdtlsRouter.get('/faqlist', async(req, res) => {
+    try {
+        const faqllist = await db_Select('*', 'td_faq', null, null);
+        // Prepare data for rendering
+        const res_dt = {
+          data:faqllist.suc > 0 ? faqllist.msg : '',
+        };
+        res.render('websitedtls/faq/list',res_dt);
+      } catch (error) {
+        // Log the error and send an appropriate response
+        console.error('Error during dashboard rendering:', error);
+        //res.status(500).send('An error occurred while loading the dashboard.');
+        res.render('websitedtls/faqlist');
+      }
+  })
+  WdtlsRouter.get('/addfaq', async(req, res) => {
+    try {
+        res.render('websitedtls/faq/add');
+      } catch (error) {
+        // Log the error and send an appropriate response
+        console.error('Error during dashboard rendering:', error);
+      }
+  })
   WdtlsRouter.post('/savefaq', async(req, res) => {
     try {
         var data = req.body;
@@ -315,4 +314,67 @@ WdtlsRouter.get('/addfaq', async(req, res) => {
       res.redirect("/wdtls/faqlist");
     }
   })
+    ////     ********  Code End for FAQ      *******   /// 
+
+     ////     ********  Code start for Quiklinks      *******   /// 
+  WdtlsRouter.get('/qlinkslist', async(req, res) => {
+    try {
+        const faqllist = await db_Select('*', 'td_qick_links', null, null);
+        // Prepare data for rendering
+        const res_dt = {
+          data:faqllist.suc > 0 ? faqllist.msg : '',
+        };
+        res.render('websitedtls/quiklinks/list',res_dt);
+      } catch (error) {
+        // Log the error and send an appropriate response
+        console.error('Error during dashboard rendering:', error);
+        //res.status(500).send('An error occurred while loading the dashboard.');
+        res.render('websitedtls/qlinkslist');
+      }
+  })
+  WdtlsRouter.get('/addqlinks', async(req, res) => {
+    try {
+        res.render('websitedtls/quiklinks/add');
+      } catch (error) {
+        // Log the error and send an appropriate response
+        console.error('Error during dashboard rendering:', error);
+      }
+  })
+  WdtlsRouter.post('/saveqlinks', async(req, res) => {
+    try {
+        var data = req.body;
+        console.log(req.body)
+        var user = req.session.user;
+        var date_ob = moment();
+        var formattedDate = date_ob.format('YYYY-MM-DD HH:mm:ss');
+        const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+      //  var values = '(question,answer,created_at,created_by,created_ip)';
+      var values = `('${data.title}','${data.links}','${formattedDate}','${user.user_id}','${ip}')`
+      
+        var table_name = "td_qick_links";
+      var fields = data.id > 0 ? `title1 = '${data.title.split("'").join("\\'")}',num1 = '${data.num1}',title2 = '${data.title2}',num2 = '${data.num2}',
+                  title3 = '${data.title3}',num3='${data.num3}',modified_by='${user.user_id}',modified_dt='${formattedDate}',
+                  modified_ip = '${ip}' ` :`(title,links,created_at,created_by,created_ip)`;
+      var whr = `id = '${data.id}'` ;
+      var flag = data.id > 0 ? 1 : 0;
+      var save_data = await db_Insert(table_name, fields, values, whr, flag);
+      res.redirect("/wdtls/qlinkslist");
+    } catch (error) {
+      // Log the error and send an appropriate response
+      console.error('Error during dashboard rendering:', error);
+    }
+  })
+  WdtlsRouter.get('/delqlinks', async(req, res) => {
+    try {
+        var data = req.body;
+        var id = req.query.id,where=`id = '${id}' `;
+        var res_dt = await db_Delete("td_qick_links", where);
+       res.redirect("/wdtls/qlinkslist");
+    } catch (error) {
+      // Log the error and send an appropriate response
+      console.error('Error during dashboard rendering:', error);
+      res.redirect("/wdtls/qlinkslist");
+    }
+  })
+    ////     ********  Code End for Quiklinks      *******   /// 
 module.exports = {WdtlsRouter}
