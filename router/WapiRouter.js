@@ -159,10 +159,10 @@ var moment = require('moment');
         var select = `a.range_code,a.soc_type,b.soc_type_name,count(a.cop_soc_name)tot_soc_type,REPLACE(c.dist_name, ' ', '')dist_name`,
         table_name1 = `md_society a,md_society_type b,md_district c
     WHERE a.soc_type = b.soc_type_id
-    and a.dist_code = '${formdata.dist_id}' AND a.range_code = '${range1}'  AND a.dist_code = c.dist_code group by a.range_code,a.soc_type`,
+    and a.dist_code = '${formdata.dist_id}' AND a.range_code = '${range1}'  AND a.dist_code = c.dist_code AND a.functional_status = 'Functional' group by a.range_code,a.soc_type`,
     table_name2 = `md_society a,md_society_type b,md_district c
     WHERE a.soc_type = b.soc_type_id
-    and a.dist_code = '${formdata.dist_id}' AND a.range_code = '${range2}' AND a.dist_code = c.dist_code group by a.range_code,a.soc_type`,
+    and a.dist_code = '${formdata.dist_id}' AND a.range_code = '${range2}' AND a.dist_code = c.dist_code AND a.functional_status = 'Functional' group by a.range_code,a.soc_type`,
         where = null;
         
         var res_dt1 = await db_Select(select, table_name1, where, order);
@@ -188,7 +188,7 @@ var moment = require('moment');
         var select = `a.range_code,a.soc_type,b.soc_type_name,count(a.cop_soc_name)tot_soc_type,REPLACE(c.dist_name, ' ', '')dist_name`,
         table_name1 = `md_society a,md_society_type b,md_district c
     WHERE a.soc_type = b.soc_type_id
-    and a.dist_code = '${formdata.dist_id}' AND a.range_code = '${range1}'  AND a.dist_code = c.dist_code group by a.range_code,a.soc_type`,
+    and a.dist_code = '${formdata.dist_id}' AND a.range_code = '${range1}'  AND a.dist_code = c.dist_code AND a.functional_status = 'Functional' group by a.range_code,a.soc_type`,
   
         where = null;
         var res_dt1 = await db_Select(select, table_name1, where, order);
