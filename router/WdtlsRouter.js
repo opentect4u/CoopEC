@@ -221,6 +221,18 @@ WdtlsRouter.post('/uploadgall', upload_gall, async (req, res) => {
     res.status(500).send('Internal Server Error');
   }
 });
+WdtlsRouter.get('/delgallery', async(req, res) => {
+  try {
+      var data = req.body;
+      var id = req.query.id,where=`id = '${id}' `;
+      var res_dt = await db_Delete("td_gallery", where);
+     res.redirect("/wdtls/gallerylist");
+  } catch (error) {
+    // Log the error and send an appropriate response
+    console.error('Error during dashboard rendering:', error);
+    res.redirect("/wdtls/gallerylist");
+  }
+})
   //  ******  Code for Statistic  ******  //
 WdtlsRouter.get('/statistic', async(req, res) => {
   try {
