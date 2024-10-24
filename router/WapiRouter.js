@@ -405,13 +405,13 @@ var moment = require('moment');
     var res_dt = await db_Select(select, table_name, where, order);
       if (res_dt.suc > 0) {
         if (res_dt.msg.length > 0) {
-            res.send({ suc: 1, status: "Data found", msg: res_dt.msg,title })
+            res.send({ suc: 1, status: "Data found",title, msg: res_dt.msg })
         } else {
-          result = { suc: 0,status: 'Data no found', msg: res_dt,data:req.body,title };
+          result = { suc: 0,status: 'Data no found',title, msg: res_dt,data:req.body };
           res.send(result)
         }
       } else {
-        result = { suc: 0,status: 'Fail', msg: req.body,title };
+        result = { suc: 0,status: 'Fail',title, msg: req.body };
         res.send(result);
       }
    });
@@ -441,13 +441,13 @@ var moment = require('moment');
     var res_dt = await db_Select(select, table_name, where, order);
       if (res_dt.suc > 0) {
         if (res_dt.msg.length > 0) {
-            res.send({ suc: 1, status: "Data found", msg: res_dt.msg,folder:'gallery',title })
+            res.send({ suc: 1, status: "Data found",title, msg: res_dt.msg,folder:'gallery' })
         } else {
-          result = { suc: 0,status: 'Data no found', msg: res_dt,data:req.body,title };
+          result = { suc: 0,status: 'Data no found',title, msg: res_dt,data:req.body };
           res.send(result)
         }
       } else {
-        result = { suc: 0,status: 'Fail', msg: req.body,title };
+        result = { suc: 0,status: 'Fail',title, msg: req.body,title };
         res.send(result);
       }
    });
