@@ -74,7 +74,6 @@ var moment = require('moment');
 
   WapiRouter.post('/societysearch', async(req, res) => {
     try {
-       
         var formdata = req.body;
         const select = "a.id,a.cop_soc_name,a.last_elec_date,a.tenure_ends_on,a.contact_name,a.contact_designation,a.contact_number,a.email,a.reg_no,a.functional_status,b.soc_type_name,c.dist_name,d.zone_name,e.range_name,f.soc_tier_name";
         var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id `;
@@ -359,7 +358,6 @@ var moment = require('moment');
     }
     //soc_data_status = `AND a.approve_status='A' `;
    
-   
     var select = "a.cop_soc_name,a.reg_no,a.reg_date,b.soc_type_name,f.soc_tier_name,h.controlling_authority_type_name as reg_cont_auth,g.controlling_authority_name as returning_officer,st.state_name,c.dist_name,d.zone_name,e.range_name,a.urban_rural_flag,ulcat.ulb_catg_name,ulb.ulb_name,wa.ward_name,mb.block_name,gp.gp_name,vill.vill_name,a.pin_no,a.address,mms.manage_status_name,mot.officer_type_name,a.num_of_memb,a.audit_upto,a.last_elec_date,a.tenure_ends_on,a.contact_name as key_person,a.contact_designation as key_person_desig,a.contact_number,a.email,a.case_id,a.case_num,a.functional_status",
     table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code 
     LEFT JOIN md_controlling_authority_type h ON a.cntr_auth_type = h.controlling_authority_type_id 
@@ -472,6 +470,46 @@ var moment = require('moment');
         res.send(result);
       }
    });
+   WapiRouter.post('/societyelectionstatus', async(req, res) => {
+    try {
+        var formdata = req.body;
+        const select = "a.id,a.cop_soc_name,a.last_elec_date,a.tenure_ends_on,a.contact_name,a.contact_designation,a.contact_number,a.email,a.reg_no,a.functional_status,b.soc_type_name,c.dist_name,d.zone_name,e.range_name,f.soc_tier_name";
+        var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id `;
+        var election_status = formdata.election_status != '' ? `AND a.election_status='${formdata.election_status}' ` : `AND a.election_status='ONGOING'`;
+        //soc_data_status = `AND a.approve_status='A' `;
+        var maincon = election_status;
+        var whr = `a.functional_status = 'Functional' ${maincon}`;
+        
+        const order = null;
+        const res_dt = await db_Select(select, table_name, whr, order);
+        const select2 = "COUNT(*) as total";
+        const countResult = await db_Select(select2, table_name, whr, order);
+        const total = countResult.msg[0].total;
+        const totalPages = Math.ceil(total / 25);
+        
+        // Prepare data for rendering
+        // const res_dt = {
+        //   data: result.suc > 0 ? result.msg : '',page: 1,totalPages:totalPages,
+        // };
+        if (res_dt.suc > 0) {
+          if (res_dt.msg.length > 0) {
+              res.send({ suc: 1, status: "Data found", msg: res_dt.msg })
+          } else {
+            result = { suc: 0,status: 'Data no found', msg: '' };
+            res.send(result)
+          }
+        } else {
+          result = { suc: 0,status: 'Fail', msg: req.body };
+          res.send(result);
+        }
+      } catch (error) {
+        // Log the error and send an appropriate response
+        console.error('Error during dashboard rendering:', error);
+        //res.status(500).send('An error occurred while loading the dashboard.');
+        result = { suc: 0,status: 'Fail', msg: req.body };
+        res.send(result);
+      }
+   })
 
 
 module.exports = { WapiRouter };
