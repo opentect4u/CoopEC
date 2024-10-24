@@ -451,5 +451,26 @@ var moment = require('moment');
       }
    });
 
+   WapiRouter.post('/getsocelestatics', async(req, res) => {
+    var select = `SUM(CASE WHEN election_status = 'DUE' THEN 1 ELSE 0 END) AS due_tot, SUM(CASE WHEN election_status = 'ONGOING' THEN 1 ELSE 0 END) AS ongoing_tot, SUM(CASE WHEN election_status = 'DONE' THEN 1 ELSE 0 END) AS done_tot`,
+    table_name = `md_society`,
+    where = null,
+    order = null;
+    var res_dt = await db_Select(select, table_name, where, order);
+
+      if (res_dt.suc > 0) {
+        if (res_dt.msg.length > 0) {
+            res.send({ suc: 1, status: "Data found", msg: res_dt.msg })
+        
+        } else {
+          result = { suc: 0,status: 'Data no found', msg: res_dt,data:req.body };
+          res.send(result)
+        }
+      } else {
+        result = { suc: 0,status: 'Fail', msg: req.body };
+        res.send(result);
+      }
+   });
+
 
 module.exports = { WapiRouter };
