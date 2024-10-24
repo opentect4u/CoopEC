@@ -4,4 +4,11 @@
         <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2024  West Bengal Co-operative Election Commission</span>
     </div>
 </footer>
+<script>
+    function confirmDelete(event) {
+        if (!confirm("Are you sure you want to delete this item?")) {
+            event.preventDefault(); // Prevent the default action (e.g., form submission)
+        }
+    }
+</script>
 <!-- partial -->

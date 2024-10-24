@@ -38,7 +38,7 @@
                           <!-- <td><%= dt.doc_type %></td> -->
                           <td><%= dt.title %></td>
                           <td><%= dt.links %></td>
-                          <td><a href="/wdtls/delqlinks?id=<%= dt.id %>">Delete</a></td>
+                          <td><a href="/wdtls/delqlinks?id=<%= dt.id %>" class="btn btn-primary btn-sm" onclick="confirmDelete(event)">Delete</a></td>
                           
                       </tr>
                   <% }) %>
