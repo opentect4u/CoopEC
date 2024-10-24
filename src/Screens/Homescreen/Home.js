@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import BannerSlider from '../../Components/BannerSlider'
 import Anouncement from '../../Components/Anouncement'
 import StatisticBox from '../../Components/StatisticBox'
@@ -12,9 +12,18 @@ import scroll_top from "../../Assets/images/scroll_top.png";
 import FooterCus from '../../Components/FooterCus';
 import WB_Map from '../../Components/WB_Map';
 import { Link } from 'react-router-dom';
+import { BASE_URL } from '../../routes/config';
+import axios from 'axios';
+import Loader from '../../Components/Loader';
 // import Faq from '../../Components/Faq';
 
 function Home() {
+
+	const [getGalleryImage, setGalleryImage] = useState([]);
+    const [getGalleryFolder, setGalleryFolder] = useState('');
+    const [getStaticsData, setStaticsData] = useState('');
+    const [loading, setLoading] = useState(true);
+
 
 	const mapTxtWordCount= 5;
 
@@ -56,6 +65,81 @@ function Home() {
 			class_cus: 'box_c'
 		}
 	]
+
+	const fetchStaticsdata = ()=>{
+		axios.post(`${BASE_URL}/wapi/getsocelestatics`,
+	   {
+		 auth_key:"xxxxx",
+	   }
+	   // ,
+	   // {
+	   //     headers: {
+	   //         Authorization: loginData.token,
+	   //     },
+	   // }
+	   ).then(res => {
+   
+		 if(res.status == '200'){
+		   
+		   if(res.data.suc > 0){
+			setStaticsData(res?.data?.msg)
+			   // setFolderLocation()
+			   console.log(res , 'hhhhhhhh', res?.data?.msg);
+   
+			   // pageDataCheck = res.data.status;
+		   } else {
+			setGalleryImage([])
+			 // pageDataCheck = res.data.status;
+		   }
+	 
+		   }
+   
+	   }) 
+   
+	  }
+
+
+	const fetchGallerydata = ()=>{
+		axios.post(`${BASE_URL}/wapi/gallimglist`,
+	   {
+		 auth_key:"xxxxx",
+	   }
+	   // ,
+	   // {
+	   //     headers: {
+	   //         Authorization: loginData.token,
+	   //     },
+	   // }
+	   ).then(res => {
+   
+		 if(res.status == '200'){
+		   
+		   if(res.data.suc > 0){
+			setGalleryImage(res?.data?.msg);
+			setGalleryFolder(res?.data?.folder);
+			// setPageTitle(res?.data?.title);
+			setLoading(false);
+			   // setFolderLocation()
+			   console.log(res , 'gggggggg', res?.data?.msg);
+   
+			   // pageDataCheck = res.data.status;
+		   } else {
+			setGalleryImage([])
+			 // pageDataCheck = res.data.status;
+		   }
+	 
+		   }
+   
+	   }) 
+   
+	  }
+
+	  useEffect(()=>{
+		fetchGallerydata();
+		fetchStaticsdata();
+	   },[])
+
+
 	return (
 		<>
 			<BannerSlider />
@@ -73,14 +157,26 @@ function Home() {
 						<div className="map_sec">
 							<div className="col-sm-5 float-left map_left_sec">
 
-								<h2>Statistic</h2>
-								{stats.map(item =>
+								<h2>Statistics</h2>
+								{/* {getStaticsData.map(item =>
 									<StatisticBox
-										title={item.title}
-										count={item.count}
+										// title={item.title}
+										count={item.done_tot}
 										class_cus={item.class_cus}
 									/>
-								)}
+								)} */}
+
+
+
+								<div className={`bar_box bar_green bar_green`}>
+								Ongoing     <span>{getStaticsData[0]?.ongoing_tot}</span>
+								</div>
+								<div className={`bar_box bar_green bar_yellow`}>
+								Completed Elections     <span>{getStaticsData[0]?.done_tot}</span>
+								</div>
+								<div className={`bar_box bar_green bar_blue`}>
+								Due     <span>{getStaticsData[0]?.due_tot}</span>
+								</div>
 
 								<div className="btn_sec">
 									<a href="#">View All</a>
@@ -118,8 +214,24 @@ function Home() {
 						</div>
 						<div className="welcomeSecRight">
 
-							<h2><i className="fa fa-file-image-o" aria-hidden="true"></i> Gallery <a href="#">View All</a></h2>
-							<img src={`${gallery_ben}`} alt="" />
+							<h2><i className="fa fa-file-image-o" aria-hidden="true"></i> Gallery <Link to="/gallery">View All</Link></h2>
+
+							{loading ?(
+							<Loader align = {'center'} gap = {'middle'} size = {'large'} />
+							):(
+							<>
+							<div className='homeGallery'>
+							<ul>
+							{getGalleryImage.slice(0, 3).map(item =>
+							<li><img src={`${BASE_URL}/${getGalleryFolder}/${item.gal_img}`} alt="" /></li>
+							)}
+							</ul>
+							</div>
+							</>
+							)}
+
+							
+							
 						</div>
 					</div>
 				</div>
@@ -140,7 +252,7 @@ function Home() {
 						<div className="container">
 							<div className="row d-flex justify-content-center">
 								<div className="col-sm-10">
-									<FaqPage iconPosition={'end'} />
+									<FaqPage iconPosition={'end'} faqMax_item= {3} SlNO_need= {false}/>
 
 									<div className="btn_sec"><Link to="/faq">View All</Link></div>
 

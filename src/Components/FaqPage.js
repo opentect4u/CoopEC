@@ -6,72 +6,21 @@ import  { CollapseProps } from 'antd';
 // import { Collapse } from 'antd';
 import { Collapse, Space } from 'antd';
 import { BASE_URL } from '../routes/config';
+import Loader from './Loader';
 
 function FaqPage(
-    {iconPosition}
+    {iconPosition, faqMax_item, SlNO_need}
 ) {
-    const text = `
-  A dog is a type of domesticated animal.
-  Known for its loyalty and faithfulness,
-  it can be found as a welcome guest in many households across the world.
-`;
+ 
 
 const [getFaqData, setFaqData] = useState([]);
+const [loading, setLoading] = useState(true);
 
-const items = [
-  {
-    key: '1',
-    label: 'This is panel header 1',
-    children: <p>{text}</p>,
-  },
-  {
-    key: '2',
-    label: 'This is panel header 2',
-    children: <p>{text}</p>,
-  },
-  {
-    key: '3',
-    label: 'This is panel header 3',
-    children: <p>{text}</p>,
-  },
-];
 
-// const items_2 = [];
-// const forLoopPushData = ()=>{
-//   for (let i = 0; i < getFaqData.length; i++) {
-//     items_2.push({
-//     key: i,
-//     label: getFaqData[i].name,
-//     children: getFaqData[i].body,
-//     })
-//     console.log(getFaqData, i, 'llllllllllll');
-//   }
-//   console.log(items_2, 'rrrrrrrrrrrrrrrrrr');
-// }
+
 
 
     const fetchdata = async ()=>{
-
-    // return new Promise((resolve, reject) => {
-    //     // axios.get(ADDRESSES.GST_LIST).then(res => {
-    //     axios.get('https://jsonplaceholder.typicode.com/posts/1/comments',
-    //             // {},
-    //             // {
-    //             //     headers: {
-    //             //         Authorization: loginData.token,
-    //             //     },
-    //             // }
-    //     ).then(res => {
-    //         console.log(res.data, 'hhhhhhhhhhhhh'); 
-    //         setFaqData(res.data)
-    //         resolve(res.data);
-    //         // forLoopPushData();
-            
-    //     }).catch(err => {
-    //         console.log(err);
-    //         reject(err);
-    //     });
-    // });
 
     axios.post(`${BASE_URL}/wapi/faqlist`,
       {
@@ -89,6 +38,7 @@ const items = [
           // console.log('rrrrrr', res?.data?.msg);
           if(res.data.suc > 0){
             setFaqData(res?.data?.msg);
+            setLoading(false)
               // setFolderLocation()
               console.log('rrrrrr', res?.data?.msg);
   
@@ -104,29 +54,56 @@ const items = [
 
    }
 
-
-
    useEffect(()=>{
+    
     fetchdata();
    },[])
 
   return (
     <>
+    {loading ?(
+      <Loader align = {'center'} gap = {'middle'} size = {'large'} />
+    ):(
+      <>
 
-    {/* <Collapse className='faqCustom' bordered={false} accordion items={items} expandIconPosition={iconPosition} /> */}
-    {/* {items_2 && <Collapse className='faqCustom' bordered={false} accordion items={items_2} expandIconPosition={iconPosition} />} */}
-    {getFaqData.map(item=>
-    <Collapse className='faqCustom' accordion expandIconPosition={iconPosition} 
-    //   collapsible="header"
-      items={[
-        {
-          key: item.faq_id,
-          label: item.question,
-          children: item.answer,
-        },
-      ]}
-    />
+{/* {getFaqData.slice(0, faqMax_item).map(item => (
+  <Collapse
+    key={item.faq_id} // Adding a key prop to the Collapse component
+    className='faqCustom'
+    accordion
+    expandIconPosition={iconPosition}
+    items={[
+      {
+        key: item.faq_id,
+        label: item.question,
+        children: item.answer,
+      },
+    ]}
+  />
+))} */}
+
+{getFaqData.slice(0, faqMax_item).map((item, index) => (
+  <Collapse
+    key={item.faq_id} // Adding a key prop to the Collapse component
+    className='faqCustom'
+    accordion
+    expandIconPosition={iconPosition}
+    items={[
+      {
+        key: item.faq_id,
+        // label: `${index + 1}. ${item.question}`, // Adding serial number
+        label: SlNO_need ? `${index + 1}. ${item.question}` : item.question,
+        children: item.answer,
+        
+      },
+    ]}
+  />
+  
+))}
+
+      </>
     )}
+    
     
   {/* </Space> */}
     </>

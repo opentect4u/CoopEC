@@ -38,7 +38,7 @@ function WB_Map(
       if(res.status == '200'){
       if(res.data.suc > 0){
         setMapData(res?.data?.msg )
-        console.log(res?.data?.msg , 'res');
+        console.log(res?.data?.msg , 'ggggggggggggggg');
         
       }
 
@@ -64,12 +64,15 @@ const onSubmit = (values) => {
   // type_def_value = formik.values.select_type;
   // soci_Name_def_value =formik.values.society_Name;
 
+
  let mapViewData = {
   select_district: values,
   select_range: 0,
   select_type: 0,
   society_Name: 0
 }
+// alert(mapViewData.select_district)
+// console.log(mapViewData, 'searchData');
   
   
   navigation('/search', { state: mapViewData });
@@ -121,7 +124,7 @@ const onSubmit = (values) => {
     getMapData.find((district) => {
       if(district.id === idCus){
         setDistricContent(district)
-        console.log(district.dist_code, 'jjjjj', event, 'ggg', event.target.id);
+        console.log(district, 'jjjjj', event, 'ggg', event.target.id);
 
         getDistrictData(district.dist_code)
 
@@ -459,49 +462,6 @@ const onSubmit = (values) => {
 </g>
 </svg>
    
-{/* Popup old */}
-{/* {popup.visible && (
-
-  
-<div className='mapHover'
-  style={{
-    position: "absolute",
-    top: popup.y,
-    left: popup.x,
-    backgroundColor: "white",
-    padding: "10px",
-    border: "1px solid black",
-  }}
->
-  <button onClick={() => handleClickClose()} className='pophoverClose'><i class="fa fa-times-circle" aria-hidden="true"></i> </button>
-  <h4>{getDistricContent?.dist_name}</h4>
-
-  <div className="range_group">
-  <div className="range_1">
-    <label> <strong>Range Name:</strong> Range 1</label>
-    {getDistDataStore.map(item =>
-     <label> 
-     <strong>Societies Type Name:</strong> {item?.soc_type_name} | <strong>Total Societies Type:</strong> {item?.tot_soc_type}
-     </label> 
-     )} 
-
-    <a onClick={()=>{onSubmit(getDistricContent?.dist_code)}}> View </a>
-    </div> */}
-
-    {/* <div className="range_2">
-    <label> <strong>Range Name:</strong> Range 2</label>
-    <label> <strong>Societies Type Name:</strong> {getDistDataStore?.soc_type_name}</label>
-    <label> <strong>Total Societies Type:</strong> {getDistDataStore?.tot_soc_type}</label>
-    <a onClick={()=>{onSubmit(getDistricContent?.dist_code)}}> View </a>
-    </div> */}
-    
-  {/* </div> */}
-  {/* <p>{limitWords(getDistricContent?.description, mapPopHover_Wordcount)} / {popup.area}</p> */}
-  
-{/* </div>
-)} */}
-
-
 {popup.visible && (
   <div>
     {/* Overlay to cover the background */}
@@ -562,9 +522,7 @@ const onSubmit = (values) => {
             </>
           } key="1"> 
             <div className="range_1">
-              {/* <label className="rangeName">
-                {getDistDataStore?.range1?.range_name} <strong>({getDistDataStore?.range1?.range_tot})</strong>
-              </label> */}
+              
               {getDistDataStore?.range1?.range_data.map((item, index) => (
                 <div className="range_row" key={index}>
                   <label className="range_small">
@@ -590,7 +548,9 @@ const onSubmit = (values) => {
                 onClick={() => onSubmit(getDistricContent?.dist_code)} 
                 style={{ cursor: "pointer", color: "blue", textDecoration: "underline" }}
               >
-                View {getDistricContent.dist_code}
+                
+                View 
+                {/* {getDistDataStore.range1.range_code} */}
               </Link>
             </div>
           </TabPane>
@@ -629,7 +589,8 @@ const onSubmit = (values) => {
                 onClick={() => onSubmit(getDistricContent?.dist_code)} 
                 style={{ cursor: "pointer", color: "blue", textDecoration: "underline" }}
               >
-                View {getDistricContent.dist_code}
+                View 
+                {/* {getDistDataStore.range2.range_code} */}
               </Link>
             </div>
           </TabPane>

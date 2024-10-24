@@ -12,12 +12,14 @@ import SearchBox from '../../Components/SearchBox';
 import pdf from "../../Assets/images/pdf.png";
 import RightSidebarGlobal from '../../Components/RightSidebarGlobal';
 import { BASE_URL } from "../../routes/config";
+import Loader from '../../Components/Loader';
 
 function TendersPage() {
 
   const [getPageData, setPageData] = useState([]);
   const [getPageTitle, setPageTitle] = useState('');
   const [getFolderLocation, setFolderLocation] = useState('');
+  const [loading, setLoading] = useState(true);
 
   let pageDataStore = [];
 
@@ -28,30 +30,6 @@ function TendersPage() {
  
 
   const fetchdata = ()=>{
-    // return new Promise((resolve, reject) => {
-    // axios.get('https://jsonplaceholder.typicode.com/posts/1',
-    // // {},
-    // // {
-    // //     headers: {
-    // //         Authorization: loginData.token,
-    // //     },
-    // // }
-    // ).then(res => {
-
-    // if(res.status == '200'){
-    // pageDataStore = res.data
-    // setPageData(pageDataStore)
-    // resolve(res.data);
-    // console.log(pageDataStore.title, 'ddddddd' , res);
-    // }
-    // }).then(() =>{
-    // pageDataStore = []
-    // }).catch(err => {
-    // console.log(err);
-    // reject(err); 
-    // });
-    // });
-
     axios.post(`${BASE_URL}/wapi/getdoclist`,
     {
       auth_key:"xxxxx",
@@ -71,7 +49,8 @@ function TendersPage() {
         if(res.data.suc > 0){
           setPageData(res?.data?.msg);
           setPageTitle(res.data.title);
-          setFolderLocation(res?.data?.folder_name)
+          setFolderLocation(res?.data?.folder_name);
+          setLoading(false);
           console.log(res , 'uuuuuuuuuuuuuuuuuuuuuu', res?.data?.msg);
 
             // pageDataCheck = res.data.status;
@@ -220,10 +199,20 @@ function TendersPage() {
     <div class="wrapper">
     <div class="inner_page_Sec">
     <div class="col-sm-8 float-left left_sec searchPageTop">
+
+    {loading ?(
+      <Loader align = {'center'} gap = {'middle'} size = {'large'} />
+    ):(
+      <>
     <h1>{getPageTitle}</h1>
     <Table columns={columns} dataSource={getPageData} scroll={{
         x: 'max-content',
       }} />
+      </>
+    )}
+
+
+    
      </div>
      <div class="col-sm-4 float-left">
       <RightSidebarGlobal/>
@@ -233,6 +222,9 @@ function TendersPage() {
     </div>
 
       {/* <DefaultPage pageTitle={pageContentData.pageTitle} pageContent = {pageContentData.pageContent} /> */}
+
+      <FooterCus/>
+
     </>
   )
 }

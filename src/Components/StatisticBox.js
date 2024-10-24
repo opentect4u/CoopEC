@@ -12,7 +12,8 @@ const StatisticBox = ({
   }) => {
     return (
         <div className={`bar_box bar_green ${class_cus}`}>
-            {title} <span>{count}</span>
+            {/* {title}  */}
+            <span>{count}</span>
         </div>
     );
   };

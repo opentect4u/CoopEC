@@ -610,9 +610,16 @@ width: 100%; padding:0;}
 .footerLeft h2{border-bottom: solid 1px #fff; font-size:20px; padding-bottom:10px; margin-bottom:20px; color:#fff; font-weight:300;}
 
 .footerLeft ul{list-style-type:none; display:inline-block; padding: 0;}
-.footerLeft ul li{width:25%; padding-right:35px; float:left;}
+.footerLeft ul li{width:33%; padding-right:20px; float:left;}
 .footerLeft ul li a{color:#fff; font-size:15px; text-decoration:none; padding-bottom:10px; padding-top:10px; border-bottom:dashed #fff 1px; display:block;}
 .footerLeft ul li a:hover{color:#fff; text-decoration: underline;}
+
+.footerMidle h2{border-bottom: solid 1px #fff; font-size:20px; padding-bottom:10px; margin-bottom:20px; color:#fff; font-weight:300;}
+
+.footerMidle ul{list-style-type:none; display:inline-block; padding: 0;}
+.footerMidle ul li{width:100%; padding-right:35px; float:left;}
+.footerMidle ul li a{color:#fff; font-size:15px; text-decoration:none; padding-bottom:10px; padding-top:10px; border-bottom:dashed #fff 1px; display:block;}
+.footerMidle ul li a:hover{color:#fff; text-decoration: underline;}
 
 .footerRight h2{border-bottom: solid 1px #fff; font-size:20px; padding-bottom:10px; margin-bottom:20px; color:#fff; font-weight:300;}
 .footerRight ul.address{list-style-type:none; display:inline-block; margin-bottom:14px; padding-left: 0;}
@@ -693,6 +700,15 @@ width: 100%; padding:0;}
   position: relative;
   margin-bottom: 25px;
   display: flex;
+  text-transform: capitalize;
+}
+
+.left_sec h3 {
+  font-size: 16px;
+  color: #000;
+  font-weight: 500;
+  margin-bottom: 10px;
+  text-transform: capitalize;
 }
 
 .left_sec h1.search_page {
@@ -1191,6 +1207,9 @@ border-radius: 6px;}
   padding-right: 10px;}
 .search_data_table table thead.ant-table-thead tr th.ant-table-cell .ant-dropdown-trigger{color: #fff; font-size: 16px;}
 
+.search_data_table .ant-table-column-sorter-inner{color: #fff;}
+
+
 .search_data_table table tbody.ant-table-tbody tr td{border-bottom:#cecece solid 1px; padding: 12px 10px;}
 .search_data_table table tbody.ant-table-tbody tr:nth-child(even){background: #E6E6E6;}
 .search_data_table table tbody.ant-table-tbody tr:nth-child(odd){background: #fff;}
@@ -1221,6 +1240,75 @@ border-radius: 6px;}
   border-radius: 5px;
   box-shadow: 0 0 8px 5px #d9d9d9;}
 
+ .thumbnail_image_sec{padding: 0 5px;}
+  .thumbnail_image_sec .gal_thum{padding: 10px 7px;}
+
+  .thumbnail_image_sec .ant-image {
+    width: 150px; /* Width of thumbnail */
+    height: 150px; /* Height of thumbnail */
+    overflow: hidden; /* Ensures image is cropped if it exceeds the container */
+  }
+  
+  .thumbnail_image_sec .ant-image img.ant-image-img  {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Crops the image to fill the container while preserving aspect ratio */
+  }
+
+.faqPage .ant-collapse-item .ant-collapse-header {
+  padding: 10px;
+  font-size: 17px;
+  font-weight: 600;
+  align-items: center;
+}
+
+
+
+.searchPageTop .ant-table-filter-trigger {
+  color: #fff !important;
+  font-size: 15px;
+}
+
+.searchPageTop table thead.ant-table-thead tr th.ant-table-cell {
+  background: #2570C8 !important;
+  color: #fff;
+  border-bottom: #c4c2c2 solid 1px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.homeGallery{width: 100%;}
+
+.homeGallery ul{width: 100%;}
+.homeGallery ul li{float: left; padding:4px; list-style-type: none;}
+
+.homeGallery ul li:nth-child(1){width: 50%; height: 300px;}
+.homeGallery ul li:nth-child(1) img{width: 100%; height: 100%;
+  object-fit: cover; border: #17b0fd solid 3px;}
+
+.homeGallery ul li:nth-child(2){width: 50%; height: 150px;}
+.homeGallery ul li:nth-child(2) img{width: 100%; height: 100%;
+  object-fit: cover; border: #17b0fd solid 3px;}
+
+.homeGallery ul li:nth-child(3){width: 50%; height: 150px;}
+.homeGallery ul li:nth-child(3) img{width: 100%; height: 100%;
+  object-fit: cover; border: #17b0fd solid 3px;}
+
+.address_1{position: relative;
+  padding: 30px 22px;
+  background-color: #1b57b0; margin-bottom:80px;
+}
+
+.address_1 h2{color: #fff; font-size: 23px; margin: 0 0 12px 0; padding: 0;}
+.address_1 p{color: #fff; font-size: 15px; margin: 0;}
+
+.address_2{position: relative;
+  padding: 30px 22px;
+  background-color: #1b57b0;
+}
+.address_2{margin-bottom: 20px;}
+.address_2 h2{color: #fff; font-size: 23px; margin: 0 0 12px 0; padding: 0;}
+.address_2 p{color: #fff; font-size: 15px; margin: 0;}
 
 
 

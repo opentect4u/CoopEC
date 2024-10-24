@@ -268,10 +268,19 @@ const [getFormattedDate, setFormattedDate] = useState([]);
 // var pageDataCheck;
 
 const searchData = location.state || {};
+// const searchData_ = location.state_ || {};
 
 // const searchDataLength = Object.keys(searchData);
 
+// console.log(searchData_, 'searchData_');
+
+
+
+
+
 const districtList = async()=>{
+
+  
 
   await axios.post(`${BASE_URL}/wapi/distlist`,
     // {},
@@ -327,12 +336,13 @@ const districtList = async()=>{
  
  useEffect(()=>{
   districtList();
+  // console.log(searchData.select_district, 'ooooooooo');
+  
+  
+  
 
- 
   if(searchData['select_district']!=undefined)
 
-    console.log(searchData, 'searchData');
-    
     
   axios.post(`${BASE_URL}/wapi/societysearch`,
     {
@@ -351,7 +361,8 @@ const districtList = async()=>{
     ).then(res => {
 
       if(res.status == '200'){
-        console.log(res, 'ffffffff', res?.data?.msg.length);
+        // console.log(res, 'ffffffff', res?.data?.msg.length);
+        
         
         if(res.data.suc > 0){
             setPageData(res?.data?.msg)
@@ -381,7 +392,7 @@ const districtList = async()=>{
   }
 
   useEffect(()=>{
-
+    // console.log(searchData, 'searchDatarrrrrrrrrrrrrrr');
     rangeList(searchData.select_district);
       
     }, [searchData.select_district])
