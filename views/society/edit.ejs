@@ -375,6 +375,17 @@
                   </select>
                 </div>
               </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputName1">Election Status</label>
+                  <select class="form-control" id="election_status" name="election_status" required>
+                    <option value="">Select Status </option>
+                      <option value="DUE" <%= soc.election_status == "DUE" ? 'selected' : '' %> >DUE</option>
+                      <option value="ONGOING" <%= soc.election_status == "ONGOING" ? 'selected' : '' %> >ONGOING</option>
+                      <option value="DONE" <%= soc.election_status == "DONE" ? 'selected' : '' %> >DONE</option>
+                  </select>
+                </div>
+              </div>
             </div>
             <div class="row">
               <div class="col-md-12">

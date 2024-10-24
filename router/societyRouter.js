@@ -68,6 +68,10 @@ SocietyRouter.post('/socedit', async(req, res) => {
   try {
       // Extract range_id from session
       var user_id = req.session.user.user_id;
+      var date_ob = moment();
+    // Format it as YYYY-MM-DD HH:mm:ss
+      var formattedDate = date_ob.format('YYYY-MM-DD HH:mm:ss');
+      const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
       var data = req.body;
       var table_name = "md_society";
     var values = null;
@@ -83,7 +87,8 @@ SocietyRouter.post('/socedit', async(req, res) => {
     block_id = '${block_id}',gp_id = '${gp_id}',vill_id = '${data.vill_id}',address='${data.address.split("'").join("\\'")}',num_of_memb='${data.num_of_memb}',audit_upto='${data.audit_upto}',
     mgmt_status = '${data.mgmt_status}',officer_type = '${data.officer_type}',last_elec_date = '${data.last_elec_date}',
     tenure_ends_on = '${data.tenure_ends_on}',elec_due_date = '${data.elec_due_date}',contact_name='${data.contact_name}',contact_designation='${data.contact_designation}',
-    contact_number = '${data.contact_number}',email = '${data.email}',case_id='${data.case_id}',case_num='${data.case_num}',functional_status='${data.functional_status}',approve_status='E' `;
+    contact_number = '${data.contact_number}',email = '${data.email}',case_id='${data.case_id}',case_num='${data.case_num}',functional_status='${data.functional_status}',approve_status='E',election_status='${data.election_status}',modified_by='${user_id}',
+    modified_dt = '${formattedDate}',modified_ip='${ip}' `;
     var whr = `id = '${data.id}'` ;
     var flag = 1;
     var save_data = await db_Insert(table_name, fields, values, whr, flag);
