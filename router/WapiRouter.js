@@ -399,7 +399,7 @@ var moment = require('moment');
     table_name = "td_faq",
     
     where = null,
-    order = null;var title ='Faq';
+    order = null;var title ='FAQ';
     var res_dt = await db_Select(select, table_name, where, order);
       if (res_dt.suc > 0) {
         if (res_dt.msg.length > 0) {
