@@ -94,8 +94,8 @@ var moment = require('moment');
         const res_dt = await db_Select(select, table_name, whr, order);
         const select2 = "COUNT(*) as total";
         const countResult = await db_Select(select2, table_name, whr, order);
-        const total = countResult.msg[0].total;
-        const totalPages = Math.ceil(total / 25);
+        var total = countResult.msg[0].total;
+       // const totalPages = Math.ceil(total / 25);
         
         // Prepare data for rendering
         // const res_dt = {
@@ -103,7 +103,7 @@ var moment = require('moment');
         // };
         if (res_dt.suc > 0) {
           if (res_dt.msg.length > 0) {
-              res.send({ suc: 1, status: "Data found", msg: res_dt.msg })
+              res.send({ suc: 1, status: "Data found",total_soc:total,msg: res_dt.msg })
           } else {
             result = { suc: 0,status: 'Data no found', msg: '' };
             res.send(result)
