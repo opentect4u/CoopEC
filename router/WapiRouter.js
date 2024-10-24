@@ -175,8 +175,8 @@ var moment = require('moment');
     and a.dist_code = '${formdata.dist_id}' AND a.range_code = '${range2}' AND a.dist_code = c.dist_code`;
         var range1_tot = await db_Select(`count(*) as tot`, table_name1_for_tot, where, null);
         var range2_tot = await db_Select(`count(*) as tot`, table_name2_for_tot, where, null);
-        var range1 = {'range_name':range1_name,'range_tot':range1_tot.msg[0].tot,'range_data':res_dt1.msg};
-        var range2 = {'range_name':range2_name,'range_tot':range2_tot.msg[0].tot,'range_data':res_dt2.msg};
+        var range1 = {'range_name':range1_name,'range_code':range1,'range_tot':range1_tot.msg[0].tot,'range_data':res_dt1.msg};
+        var range2 = {'range_name':range2_name,'range_code':range2,'range_tot':range2_tot.msg[0].tot,'range_data':res_dt2.msg};
 
 
         data ={range1:range1,range2:range2};
@@ -196,7 +196,7 @@ var moment = require('moment');
         WHERE a.soc_type = b.soc_type_id
         and a.dist_code = '${formdata.dist_id}' AND a.range_code = '${range1}'  AND a.dist_code = c.dist_code`;
         var range1_tot = await db_Select(`count(*) as tot`, table_name1_for_tot, where, null);
-        var range1 = {'range_name':range1_name,'range_tot':range1_tot.msg[0].tot,'range_data':res_dt1.msg};
+        var range1 = {'range_name':range1_name,'range_code':range1,'range_tot':range1_tot.msg[0].tot,'range_data':res_dt1.msg};
         data ={range1:range1};
     }
       if (range_List.suc > 0) {
@@ -451,7 +451,7 @@ var moment = require('moment');
    });
 
    WapiRouter.post('/getsocelestatics', async(req, res) => {
-    var select = `SUM(CASE WHEN election_status = 'DUE' THEN 1 ELSE 0 END) AS due_tot, SUM(CASE WHEN election_status = 'ONGOING' THEN 1 ELSE 0 END) AS ongoing_tot, SUM(CASE WHEN election_status = 'DONE' THEN 1 ELSE 0 END) AS done_tot`,
+    var select = `SUM(CASE WHEN election_status = 'DUE' THEN 1 ELSE 0 END) AS due_tot,SUM(CASE WHEN election_status = 'ONGOING' THEN 1 ELSE 0 END) AS ongoing_tot, SUM(CASE WHEN election_status = 'DONE' THEN 1 ELSE 0 END) AS done_tot`,
     table_name = `md_society`,
     where = null,
     order = null;
