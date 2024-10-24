@@ -401,7 +401,7 @@ var moment = require('moment');
     table_name = "td_faq",
     
     where = null,
-    order = null;var title ='faq';
+    order = null;var title ='Faq';
     var res_dt = await db_Select(select, table_name, where, order);
       if (res_dt.suc > 0) {
         if (res_dt.msg.length > 0) {
@@ -437,7 +437,7 @@ var moment = require('moment');
     var select = "id as gallery_id,title,gal_img",
     table_name = "td_gallery",
     where = null,
-    order = null;var title ='gallery';
+    order = null;var title ='Gallery';
     var res_dt = await db_Select(select, table_name, where, order);
       if (res_dt.suc > 0) {
         if (res_dt.msg.length > 0) {
