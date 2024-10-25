@@ -97,6 +97,14 @@ const items = [
     // { label: 'Option 1', key: 'setting_8:2' }
     // ],
   },
+  {
+    label: 'Important Links',
+    key: '/importantLinks',
+  },
+  {
+    label: 'Statistics',
+    key: '/statistics',
+  },
   // {
   //   label: 'Test',
   //   key: '/test',

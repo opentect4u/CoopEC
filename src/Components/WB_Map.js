@@ -8,6 +8,7 @@ import { Tooltip } from 'antd';
 import { Link } from "react-router-dom";
 import { Tabs } from 'antd';
 import { BASE_URL } from "../routes/config";
+import Loader from "./Loader";
 
 
 function WB_Map(
@@ -17,6 +18,7 @@ function WB_Map(
   const [getMapData, setMapData] = useState([]);
   const [getDistDataStore, setDistDataStore] = useState([]);
   const { TabPane } = Tabs;
+  const [loading, setLoading] = useState(true);
 
   var idCus;
   
@@ -37,7 +39,8 @@ function WB_Map(
 
       if(res.status == '200'){
       if(res.data.suc > 0){
-        setMapData(res?.data?.msg )
+        setMapData(res?.data?.msg)
+        setLoading(false);
         console.log(res?.data?.msg , 'res');
         
       }
@@ -101,7 +104,8 @@ console.log(mapViewData,'mapdata')
       if(res.status == '200'){
       if(res.data.suc > 0){
         setDistDataStore(res?.data?.msg)
-        console.log('getRangeList', res?.data?.msg);
+        setLoading(false);
+        // console.log('getRangeList', res?.data?.msg);
       }
   
       }
@@ -177,8 +181,12 @@ console.log(mapViewData,'mapdata')
     <>
    <div className="ui segment" id="canvas2">
   <div id="map_chart1" style={{position: "relative"}} _echarts_instance_="ec_1727676169277">
-    <div className="svgMapMain">
-
+    <div className="svgMapMain" >
+    
+    {loading ?(
+      <Loader align = {'center'} gap = {'middle'} size = {'large'} />
+    ):(
+      <>
     <svg xmlns="http://www.w3.org/2000/svg" className="svgMap" version="1.1" baseProfile="full" width="100%" height="100%" viewBox="0 0 500 500">
 <g id="surface1">
 <path id="DARJEELING" onClick={(e) => handleClick("DARJEELING", e)} d="M 402.501416 33.223214 L 402.747875 41.222656 L 402.747875 46.473354 L 400.750708 48.966797 L 398.498584 54.472796 L 402.501416 56.472656 L 403.495751 62.472238 L 408.501416 65.969866 L 407.753541 67.969727 L 411 69.722796 L 415.495751 69.220703 L 416.753541 73.722517 L 419.498584 76.471261 L 423.501416 78.717913 L 424.249292 80.973075 L 422.252125 86.470564 L 426 88.223633 L 426.501416 92.972238 L 426.246459 96.716657 L 430.504249 98.716518 L 433.750708 103.218331 L 430.997167 107.473354 L 433.249292 111.966657 L 433.997167 116.723772 L 435.246459 122.723354 L 435.246459 128.969727 L 433.249292 135.216099 L 432 141.470982 L 431.252125 145.972796 L 428.252125 150.721401 L 427.249292 152.219169 L 427.002833 156.474191 L 424.249292 160.967494 L 422.753541 166.720285 L 424.997167 167.71596 L 428.498584 170.217913 L 431.753541 169.71582 L 433.997167 169.469029 L 433.997167 166.473493 L 436.997167 164.218331 L 441.246459 165.222517 L 444.747875 163.222656 L 443.252125 161.469587 L 445.750708 163.222656 L 445.997167 167.469169 L 440.498584 170.473214 L 436.997167 174.217634 L 436.997167 176.217494 L 439.495751 178.966239 L 444.246459 177.22168 L 445.002833 181.970285 L 447.501416 182.719169 L 450.246459 178.719448 L 450.747875 175.46861 L 451.997167 173.724051 L 454.504249 176.472796 L 459.246459 173.724051 L 460.002833 172.719866 L 463.997167 173.970843 L 466.997167 169.971122 L 467.498584 166.720285 L 467.753541 161.97168 C 467.753541 161.97168 468 164.967215 469.002833 161.469587 C 469.997167 157.971959 469.997167 157.971959 469.997167 157.971959 L 472.002833 153.470145 L 474.501416 151.972377 L 473.252125 147.470564 L 475.997167 145.470703 L 474.501416 142.466657 L 472.997167 138.220145 L 472.249292 136.969169 L 476.252125 132.969448 L 479.498584 134.220424 L 481.750708 133.47154 L 482.753541 130.969587 L 480 129.471819 L 477.246459 126.969866 L 477.747875 123.216936 L 479.498584 121.217076 L 479.252125 116.970564 L 478.504249 112.221959 L 479.753541 108.222238 L 482.252125 105.218192 L 484.002833 105.218192 L 487.249292 103.720424 L 489.747875 103.218331 L 490.997167 104.222517 L 487.997167 99.967494 L 485.753541 95.967773 L 486.246459 91.46596 L 481.997167 87.219448 L 480 84.717494 L 475.997167 82.972935 L 476.252125 77.466936 L 473.252125 76.21596 L 471.246459 74.973493 L 475.002833 71.969448 L 475.750708 70.47168 L 474.501416 68.71861 L 475.750708 67.467634 L 474.747875 63.467913 L 477 60.472377 L 478.750708 57.970424 L 475.249292 56.719448 L 472.002833 56.217355 L 469.495751 54.719587 L 465.747875 55.970564 L 463.495751 54.719587 L 460.249292 52.217634 L 457.997167 54.472796 L 457.249292 50.719866 L 454.997167 50.217773 L 451.750708 50.217773 L 449.753541 48.473214 L 447.747875 50.473075 L 442.504249 51.970843 L 439.495751 51.46875 L 439.249292 48.473214 L 434.753541 48.966797 L 431.252125 50.473075 L 428.753541 54.472796 L 425.252125 52.966518 L 418.504249 49.222098 L 415.997167 48.720006 L 415.750708 43.469308 L 413.753541 40.967355 L 413.498584 37.222935 L 412.504249 34.474191 L 409.249292 33.470006 L 404.498584 32.967913 Z M 402.501416 33.223214 " transform="matrix(0.459635,0,0,0.459016,0,0)"/>
@@ -462,6 +470,10 @@ console.log(mapViewData,'mapdata')
 <path d="M 254.328125 464.570312 C 254.328125 464.679688 254.351562 464.769531 254.398438 464.839844 C 254.445312 464.90625 254.507812 464.964844 254.585938 465.007812 C 254.667969 465.050781 254.757812 465.085938 254.863281 465.113281 C 254.96875 465.140625 255.078125 465.167969 255.191406 465.1875 C 255.34375 465.222656 255.488281 465.261719 255.625 465.300781 C 255.761719 465.339844 255.886719 465.402344 256.003906 465.480469 C 256.121094 465.5625 256.214844 465.671875 256.285156 465.8125 C 256.355469 465.949219 256.390625 466.128906 256.390625 466.347656 C 256.390625 466.550781 256.351562 466.726562 256.273438 466.882812 C 256.195312 467.039062 256.085938 467.167969 255.945312 467.273438 C 255.800781 467.375 255.632812 467.453125 255.433594 467.507812 C 255.234375 467.5625 255.015625 467.589844 254.777344 467.589844 C 254.632812 467.589844 254.5 467.582031 254.382812 467.566406 C 254.265625 467.550781 254.160156 467.53125 254.066406 467.507812 C 253.976562 467.484375 253.902344 467.460938 253.835938 467.4375 C 253.773438 467.410156 253.71875 467.386719 253.675781 467.363281 L 253.675781 466.820312 C 253.84375 466.886719 254.011719 466.941406 254.175781 466.980469 C 254.339844 467.019531 254.523438 467.039062 254.71875 467.039062 C 254.878906 467.039062 255.019531 467.023438 255.144531 466.996094 C 255.269531 466.96875 255.375 466.929688 255.464844 466.875 C 255.558594 466.820312 255.628906 466.75 255.675781 466.671875 C 255.726562 466.585938 255.75 466.492188 255.75 466.382812 C 255.75 466.269531 255.730469 466.179688 255.683594 466.105469 C 255.640625 466.03125 255.578125 465.972656 255.503906 465.925781 C 255.429688 465.878906 255.339844 465.839844 255.238281 465.808594 C 255.140625 465.777344 255.039062 465.75 254.929688 465.726562 C 254.789062 465.695312 254.640625 465.65625 254.496094 465.617188 C 254.347656 465.574219 254.214844 465.515625 254.097656 465.441406 C 253.976562 465.363281 253.878906 465.261719 253.804688 465.136719 C 253.730469 465.003906 253.695312 464.835938 253.695312 464.632812 C 253.695312 464.421875 253.730469 464.242188 253.808594 464.089844 C 253.882812 463.933594 253.984375 463.808594 254.113281 463.707031 C 254.242188 463.609375 254.390625 463.53125 254.5625 463.480469 C 254.730469 463.433594 254.910156 463.40625 255.101562 463.40625 C 255.324219 463.40625 255.527344 463.429688 255.714844 463.46875 C 255.902344 463.511719 256.074219 463.566406 256.230469 463.628906 L 256.230469 464.179688 C 256.0625 464.117188 255.890625 464.066406 255.71875 464.027344 C 255.546875 463.984375 255.371094 463.960938 255.191406 463.960938 C 255.035156 463.960938 254.90625 463.972656 254.796875 464.003906 C 254.6875 464.035156 254.597656 464.078125 254.527344 464.136719 C 254.457031 464.1875 254.40625 464.253906 254.371094 464.328125 C 254.34375 464.398438 254.328125 464.480469 254.328125 464.570312 Z M 254.328125 464.570312 "/>
 </g>
 </svg>
+      </>
+    )}
+
+    
    
 {/* Popup old */}
 {/* {popup.visible && (
@@ -556,92 +568,100 @@ console.log(mapViewData,'mapdata')
       <h4>{getDistricContent?.dist_name}</h4>
 
       {/* Range Group */}
-      <div className="range_group">
 
-      <Tabs defaultActiveKey="1" animated>
-        {getDistDataStore?.range1?.range_data.length > 0 && (
-          <TabPane tab={
-            <>{getDistDataStore?.range1?.range_name} 
-              <strong> ({getDistDataStore?.range1?.range_tot})</strong>
-            </>
-          } key="1"> 
-            <div className="range_1">
-              {/* <label className="rangeName">
-                {getDistDataStore?.range1?.range_name} <strong>({getDistDataStore?.range1?.range_tot})</strong>
-              </label> */}
-              {getDistDataStore?.range1?.range_data.map((item, index) => (
-                <div className="range_row" key={index}>
-                  <label className="range_small">
-                    <span className="societies_name">{item?.soc_type_name}</span>
-                  </label>
-                  <label className="range_half">
-                    <Tooltip 
-                      placement="left" 
-                      color={'#000'} 
-                      overlayStyle={{ fontSize: '11px', color: 'blue' }} 
-                      title={<span> {item?.soc_type_name} <br />Total Societies: {item?.tot_soc_type}</span>}
-                    >
-                      <span 
-                        className="barChartMap" 
-                        style={{ width: percantage_cal(item?.tot_soc_type), display: 'inline-block' }}
-                      ></span>
-                      <span className="counter_soc">{item?.tot_soc_type}</span>
-                    </Tooltip>
-                  </label>
-                </div>
-              ))}
-              <Link 
-                onClick={() => onSubmit(getDistricContent?.dist_code, getDistDataStore?.range1?.range_code)} 
-                style={{ cursor: "pointer", color: "blue", textDecoration: "underline" }}
-              >
-                View 
-                {/* {getDistricContent.dist_code} {getDistDataStore?.range1?.range_code} */}
-              </Link>
-            </div>
-          </TabPane>
-        )}
+      {loading ?(
+      <Loader align = {'center'} gap = {'middle'} size = {'small'} />
+    ):(
+      <>
+    <div className="range_group">
 
-        {getDistDataStore?.range2?.range_data.length > 0 && (
-          <TabPane tab={<>
-          {getDistDataStore?.range2?.range_name} <strong>({getDistDataStore?.range2?.range_tot})</strong>
-          </>} key="2">
-            <div className="range_2">
-              {/* <label>
-                {getDistDataStore?.range2?.range_name} <strong>({getDistDataStore?.range2?.range_tot})</strong>
-              </label> */}
-              {getDistDataStore?.range2?.range_data.map((item, index) => (
-                <div className="range_row" key={index}>
-                  <label className="range_small">
-                    <span className="societies_name">{item?.soc_type_name}</span>
-                  </label>
-                  <label className="range_half">
-                    <Tooltip 
-                      placement="left" 
-                      color={'#000'} 
-                      overlayStyle={{ fontSize: '11px', color: 'blue' }} 
-                      title={<span> {item?.soc_type_name} <br />Total Societies: {item?.tot_soc_type}</span>}
-                    >
-                      <span 
-                        className="barChartMap" 
-                        style={{ width: percantage_cal(item?.tot_soc_type), display: 'inline-block' }}
-                      ></span>
-                      <span className="counter_soc">{item?.tot_soc_type}</span>
-                    </Tooltip>
-                  </label>
-                </div>
-              ))}
-              <Link 
-                onClick={() => onSubmit(getDistricContent?.dist_code, getDistDataStore?.range2?.range_code)} 
-                style={{ cursor: "pointer", color: "blue", textDecoration: "underline" }}
+<Tabs defaultActiveKey="1" animated>
+  {getDistDataStore?.range1?.range_data.length > 0 && (
+    <TabPane tab={
+      <>{getDistDataStore?.range1?.range_name} 
+        <strong> ({getDistDataStore?.range1?.range_tot})</strong>
+      </>
+    } key="1"> 
+      <div className="range_1">
+        {/* <label className="rangeName">
+          {getDistDataStore?.range1?.range_name} <strong>({getDistDataStore?.range1?.range_tot})</strong>
+        </label> */}
+        {getDistDataStore?.range1?.range_data.map((item, index) => (
+          <div className="range_row" key={index}>
+            <label className="range_small">
+              <span className="societies_name">{item?.soc_type_name}</span>
+            </label>
+            <label className="range_half">
+              <Tooltip 
+                placement="left" 
+                color={'#000'} 
+                overlayStyle={{ fontSize: '11px', color: 'blue' }} 
+                title={<span> {item?.soc_type_name} <br />Total Societies: {item?.tot_soc_type}</span>}
               >
-                View 
-                {/* {getDistricContent.dist_code} {getDistDataStore?.range2?.range_code} */}
-              </Link>
-            </div>
-          </TabPane>
-        )}
-      </Tabs>
+                <span 
+                  className="barChartMap" 
+                  style={{ width: percantage_cal(item?.tot_soc_type), display: 'inline-block' }}
+                ></span>
+                <span className="counter_soc">{item?.tot_soc_type}</span>
+              </Tooltip>
+            </label>
+          </div>
+        ))}
+        <Link 
+          onClick={() => onSubmit(getDistricContent?.dist_code, getDistDataStore?.range1?.range_code)} 
+          style={{ cursor: "pointer", color: "blue", textDecoration: "underline" }}
+        >
+          View 
+          {/* {getDistricContent.dist_code} {getDistDataStore?.range1?.range_code} */}
+        </Link>
       </div>
+    </TabPane>
+  )}
+
+  {getDistDataStore?.range2?.range_data.length > 0 && (
+    <TabPane tab={<>
+    {getDistDataStore?.range2?.range_name} <strong>({getDistDataStore?.range2?.range_tot})</strong>
+    </>} key="2">
+      <div className="range_2">
+        {/* <label>
+          {getDistDataStore?.range2?.range_name} <strong>({getDistDataStore?.range2?.range_tot})</strong>
+        </label> */}
+        {getDistDataStore?.range2?.range_data.map((item, index) => (
+          <div className="range_row" key={index}>
+            <label className="range_small">
+              <span className="societies_name">{item?.soc_type_name}</span>
+            </label>
+            <label className="range_half">
+              <Tooltip 
+                placement="left" 
+                color={'#000'} 
+                overlayStyle={{ fontSize: '11px', color: 'blue' }} 
+                title={<span> {item?.soc_type_name} <br />Total Societies: {item?.tot_soc_type}</span>}
+              >
+                <span 
+                  className="barChartMap" 
+                  style={{ width: percantage_cal(item?.tot_soc_type), display: 'inline-block' }}
+                ></span>
+                <span className="counter_soc">{item?.tot_soc_type}</span>
+              </Tooltip>
+            </label>
+          </div>
+        ))}
+        <Link 
+          onClick={() => onSubmit(getDistricContent?.dist_code, getDistDataStore?.range2?.range_code)} 
+          style={{ cursor: "pointer", color: "blue", textDecoration: "underline" }}
+        >
+          View 
+          {/* {getDistricContent.dist_code} {getDistDataStore?.range2?.range_code} */}
+        </Link>
+      </div>
+    </TabPane>
+  )}
+</Tabs>
+</div>
+      </>
+    )}
+      
       </div>
 
     </div>

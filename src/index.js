@@ -24,6 +24,9 @@ import MapboxExample from './Screens/MapExample/MapboxExample';
 import SearchPage from './Screens/SearchPage/SearchPage';
 import SearchPageDetails from './Screens/SearchPageDetails/SearchPageDetails';
 import Faq from './Screens/Faq/Faq';
+import ImportantLinks from './Screens/ImportantLinks/ImportantLinks';
+import Statistics from './Screens/Statistics/Statistics';
+import StatisticsDetails from './Screens/StatisticsDetails/StatisticsDetails';
 
 
 
@@ -88,6 +91,18 @@ const router = createBrowserRouter([
       {
         path:"faq",
         element:<Faq/>
+      },
+      {
+        path:"importantLinks",
+        element:<ImportantLinks/>
+      },
+      {
+        path:"statistics",
+        element:<Statistics/>
+      },
+      {
+        path:"statistics-details",
+        element:<StatisticsDetails/>
       }
 
     ]

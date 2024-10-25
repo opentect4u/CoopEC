@@ -179,7 +179,7 @@ function Home() {
 								</div>
 
 								<div className="btn_sec">
-									<a href="#">View All</a>
+									<Link to="/statistics">View All</Link>
 								</div>
 
 							</div>
