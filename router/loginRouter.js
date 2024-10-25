@@ -10,7 +10,7 @@ LoginRouter.get('/login', (req, res) => {
 LoginRouter.post('/logincheck', async(req, res) => {
     var data = req.body,result ;
         var select = "*",table_name = "md_user",
-          whr = `user_id='${data.user_id}' `,
+          whr = `user_id='${data.user_id}' AND user_status='A'`,
           order = null;
         var res_dt = await db_Select(select, table_name, whr, order);
         if (res_dt.suc > 0) {
