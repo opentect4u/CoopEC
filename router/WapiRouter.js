@@ -475,7 +475,7 @@ var moment = require('moment');
         var formdata = req.body;
         const select = "a.id,a.cop_soc_name,a.last_elec_date,a.tenure_ends_on,a.contact_name,a.contact_designation,a.contact_number,a.email,a.reg_no,a.functional_status,b.soc_type_name,c.dist_name,d.zone_name,e.range_name,f.soc_tier_name";
         var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id `;
-        var election_status = formdata.election_status != '' ? `AND a.election_status='${formdata.election_status}' ` : `AND a.election_status='ONGOING'`;
+        var election_status = `AND a.election_status='${formdata.election_status}' `;
         //soc_data_status = `AND a.approve_status='A' `;
         var maincon = election_status;
         var whr = `a.functional_status = 'Functional' ${maincon}`;
