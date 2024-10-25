@@ -435,7 +435,7 @@ WdtlsRouter.post('/update_statistic', async(req, res) => {
             pass_string = `password = '${pass}',`;
           }
         }else{
-          var pass =  bcrypt.hashSync(1234, 10) ;
+          var pass =  bcrypt.hashSync('1234', 10) ;
         }
       var values = `('${data.user_id}','${data.user_name}','${data.user_email}','${data.designation}','${data.user_type}','${pass}','${data.user_status}','${data.range_id}','${formattedDate}','${user.user_id}','${ip}')`
       
