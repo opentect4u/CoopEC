@@ -421,10 +421,12 @@ WdtlsRouter.post('/update_statistic', async(req, res) => {
       }
   })
   WdtlsRouter.post('/saveuser', async(req, res) => {
+    var user = req.session.user;
+    console.log(user);
     try {
         var data = req.body;
         console.log(req.body)
-        var user = req.session.user;
+       
         var date_ob = moment();
         var formattedDate = date_ob.format('YYYY-MM-DD HH:mm:ss');
         const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
@@ -453,12 +455,14 @@ WdtlsRouter.post('/update_statistic', async(req, res) => {
     }
   })
   WdtlsRouter.get('/edituser', async(req, res) => {
+  
+    var id = req.query.id;
     try {
-      const user_id = req.query.user_id;
+      
       var ranze = await db_Select('*', 'md_range', null, null);
-      var user = await db_Select('*', 'md_user', `user_id='${user_id}'`, null);
+      var userres = await db_Select('*', 'md_user', `id='${id}'`, null);
         const res_dt = {
-          data:ranze.suc > 0 ? ranze.msg : '',user: user.suc > 0 ? user.msg[0] : ''
+          data:ranze.suc > 0 ? ranze.msg : '',usersd: userres.suc > 0 ? userres.msg[0] : ''
         };
         res.render('websitedtls/user/edit',res_dt);
       } catch (error) {
