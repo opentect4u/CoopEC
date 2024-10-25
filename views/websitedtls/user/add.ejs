@@ -1,0 +1,84 @@
+<div class="row">
+  <div class="col-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title card_title_cus">Add user</h4>
+        <form class="forms-sample" action="/wdtls/saveuser" method="post" >
+          <input type="hidden" class="form-control"  name="id" value="" required>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="exampleInputName1">User Name<span class="red">*</span></label>
+                <input type="text" class="form-control"  name="user_name" value="" required>
+              </div>
+            </div>
+          </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputName1">User Mobile<span class="red">*</span></label>
+                  <input type="number" class="form-control"  name="user_id" value="" required>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputName1">User Email<span class="red">*</span></label>
+                  <input type="text" class="form-control"  name="user_email" value="" required>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputName1">Designation<span class="red">*</span></label>
+                  <input type="text" class="form-control"  name="designation" value="" required>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputName1">User Type<span class="red">*</span></label>
+                  <select name="user_type" class="form-control" required> 
+                    <option value="">Please Select</option>
+                    <option value="A">Admin</option>
+                    <option value="M">Range Admin</option>
+                    <option value="U">User </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputName1">Range<span class="red">*</span></label>
+                  <select name="range_id" class="form-control" required> 
+                    <option value="">Please Select</option>
+                    <% 
+                    data.forEach(dt => { %>
+                    <option value="<%= dt.range_id %>"><%= dt.range_name %></option>
+                    <% }) %>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputName1">User Status<span class="red">*</span></label>
+                  <select name="user_status" class="form-control" required> 
+                    <option value="">Please Select</option>
+                    <option value="A">Active</option>
+                    <option value="I">Inactive</option>
+                    
+                  </select>
+                </div>
+              </div>
+            </div>
+            
+          <button type="submit" class="btn btn-primary mr-2" id="submit">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

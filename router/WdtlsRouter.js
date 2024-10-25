@@ -2,6 +2,7 @@ const WdtlsRouter = require('express').Router()
 const moment = require('moment');
 const multer = require('multer'); 
 const path = require("path");
+bcrypt = require("bcrypt");
 const {db_Select,db_Insert,db_Delete} = require('../modules/MasterModule');
 WdtlsRouter.use((req, res, next) => {
     var user = req.session.user;
@@ -389,4 +390,72 @@ WdtlsRouter.post('/update_statistic', async(req, res) => {
     }
   })
     ////     ********  Code End for Quiklinks      *******   /// 
+
+    ////     ********  Code start for User Management      *******   /// 
+  WdtlsRouter.get('/userlist', async(req, res) => {
+    try {
+           var table = `md_user a LEFT JOIN md_range b ON a.range_id = b.range_id `;
+        const faqllist = await db_Select('a.*,b.range_name', table, null, null);
+        // Prepare data for rendering
+        const res_dt = {
+          data:faqllist.suc > 0 ? faqllist.msg : '',
+        };
+        res.render('websitedtls/user/list',res_dt);
+      } catch (error) {
+        // Log the error and send an appropriate response
+        console.error('Error during dashboard rendering:', error);
+        //res.status(500).send('An error occurred while loading the dashboard.');
+        res.render('websitedtls/faqlist');
+      }
+  })
+  WdtlsRouter.get('/adduser', async(req, res) => {
+    try {
+      var ranze = await db_Select('*', 'md_range', null, null);
+        const res_dt = {
+          data:ranze.suc > 0 ? ranze.msg : '',
+        };
+        res.render('websitedtls/user/add',res_dt);
+      } catch (error) {
+        // Log the error and send an appropriate response
+        console.error('Error during dashboard rendering:', error);
+      }
+  })
+  WdtlsRouter.post('/saveuser', async(req, res) => {
+    try {
+        var data = req.body;
+        console.log(req.body)
+        var user = req.session.user;
+        var date_ob = moment();
+        var formattedDate = date_ob.format('YYYY-MM-DD HH:mm:ss');
+        const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+        var pass = bcrypt.hashSync("1234", 10);
+     
+      var values = `('${data.user_id}','${data.user_name}','${data.user_email}','${data.designation}','${data.user_type}','${pass}','${data.user_status}','${data.range_id}','${formattedDate}','${user.user_id}','${ip}')`
+      
+        var table_name = "md_user";
+      var fields = data.id > 0 ? `title1 = '${data.title1.split("'").join("\\'")}',num1 = '${data.num1}',title2 = '${data.title2}',num2 = '${data.num2}',
+                  title3 = '${data.title3}',num3='${data.num3}',modified_by='${user.user_id}',modified_dt='${formattedDate}',
+                  modified_ip = '${ip}' ` :`(user_id,user_name,user_email,designation,user_type,password,user_status,range_id,created_at,created_by,created_ip)`;
+      var whr = `id = '${data.id}'` ;
+      var flag = data.id > 0 ? 1 : 0;
+      var save_data = await db_Insert(table_name, fields, values, whr, flag);
+      res.redirect("/wdtls/userlist");
+    } catch (error) {
+      // Log the error and send an appropriate response
+      console.error('Error during dashboard rendering:', error);
+    }
+  })
+  WdtlsRouter.get('/deluser', async(req, res) => {
+    try {
+        var data = req.body;
+        var id = req.query.id,where=`id = '${id}' `;
+        var res_dt = await db_Delete("td_faq", where);
+       res.redirect("/wdtls/faqlist");
+    } catch (error) {
+      // Log the error and send an appropriate response
+      console.error('Error during dashboard rendering:', error);
+      res.redirect("/wdtls/faqlist");
+    }
+  })
+    ////     ********  Code End for User Management      *******   /// 
 module.exports = {WdtlsRouter}
