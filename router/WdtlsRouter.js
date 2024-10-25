@@ -428,13 +428,20 @@ WdtlsRouter.post('/update_statistic', async(req, res) => {
         var date_ob = moment();
         var formattedDate = date_ob.format('YYYY-MM-DD HH:mm:ss');
         const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
-        var pass = bcrypt.hashSync("1234", 10);
-     
+        var pass_string = '';
+        if(data.id > 0){
+          if(data.password.length > 0){
+            var pass = bcrypt.hashSync(data.password, 10)  ;
+            pass_string = `password = '${pass}',`;
+          }
+        }else{
+          var pass =  bcrypt.hashSync(1234, 10) ;
+        }
       var values = `('${data.user_id}','${data.user_name}','${data.user_email}','${data.designation}','${data.user_type}','${pass}','${data.user_status}','${data.range_id}','${formattedDate}','${user.user_id}','${ip}')`
       
         var table_name = "md_user";
-      var fields = data.id > 0 ? `title1 = '${data.title1.split("'").join("\\'")}',num1 = '${data.num1}',title2 = '${data.title2}',num2 = '${data.num2}',
-                  title3 = '${data.title3}',num3='${data.num3}',modified_by='${user.user_id}',modified_dt='${formattedDate}',
+      var fields = data.id > 0 ? `user_id = '${data.user_id}',user_name = '${data.user_name.split("'").join("\\'")}',user_email = '${data.user_email}',designation = '${data.designation}',user_type = '${data.user_type}',
+                   ${pass_string} user_status='${data.user_status}',range_id='${data.range_id}',modified_by='${user.user_id}',modified_at='${formattedDate}',
                   modified_ip = '${ip}' ` :`(user_id,user_name,user_email,designation,user_type,password,user_status,range_id,created_at,created_by,created_ip)`;
       var whr = `id = '${data.id}'` ;
       var flag = data.id > 0 ? 1 : 0;
@@ -444,6 +451,20 @@ WdtlsRouter.post('/update_statistic', async(req, res) => {
       // Log the error and send an appropriate response
       console.error('Error during dashboard rendering:', error);
     }
+  })
+  WdtlsRouter.get('/edituser', async(req, res) => {
+    try {
+      const user_id = req.query.user_id;
+      var ranze = await db_Select('*', 'md_range', null, null);
+      var user = await db_Select('*', 'md_user', `user_id='${user_id}'`, null);
+        const res_dt = {
+          data:ranze.suc > 0 ? ranze.msg : '',user: user.suc > 0 ? user.msg[0] : ''
+        };
+        res.render('websitedtls/user/edit',res_dt);
+      } catch (error) {
+        // Log the error and send an appropriate response
+        console.error('Error during dashboard rendering:', error);
+      }
   })
   WdtlsRouter.get('/deluser', async(req, res) => {
     try {
