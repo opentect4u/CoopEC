@@ -89,6 +89,10 @@ const items = [
     // ],
   },
   {
+    label: 'Important Links',
+    key: '/importantLinks',
+  },
+  {
     label: 'Contact Us',
     key: '/contact-us',
     // icon: <SettingOutlined />,
@@ -96,15 +100,7 @@ const items = [
     // { label: 'Option 1', key: 'setting_8:1' },
     // { label: 'Option 1', key: 'setting_8:2' }
     // ],
-  },
-  {
-    label: 'Important Links',
-    key: '/importantLinks',
-  },
-  {
-    label: 'Statistics',
-    key: '/statistics',
-  },
+  }
   // {
   //   label: 'Test',
   //   key: '/test',
