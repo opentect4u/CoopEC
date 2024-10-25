@@ -27,10 +27,10 @@ const validationSchema = Yup.object({
 
 
 
-
 function SearchBox({district_def_Valu, range_def_Valu, type_def_Valu, soci_Name_def_Valu}) {
   
   
+  console.log(district_def_Valu, range_def_Valu, type_def_Valu, soci_Name_def_Valu)
   // const resp={
   //   select_district: district_def_Valu,
   //   select_range: '',
@@ -46,6 +46,8 @@ function SearchBox({district_def_Valu, range_def_Valu, type_def_Valu, soci_Name_
   const [getDistrictList, setDistrictList] = useState([]);
   const [getRangeList, setRangeList] = useState([]);
   const [getSocietyType, setSocietyType] = useState([]);
+  const [formValues,setFormValues]  = useState(initialValues)
+
 
   const districtList = async()=>{
 
@@ -128,41 +130,39 @@ function SearchBox({district_def_Valu, range_def_Valu, type_def_Valu, soci_Name_
 const navigation = useNavigate();
 
 const onSubmit = (values) => {
-
-  
-  
   navigation('/search', { state: values});
 };
 
 useEffect(()=>{
-
-  // console.log(searchPlaceholder, 'searchPlaceholder');
   districtList();
   societyType();
-
 },[])
-
-
-
-
   const formik = useFormik({
-    initialValues,
+    initialValues:formValues,
     onSubmit,
     validationSchema,
     enableReinitialize: true,
     validateOnMount: true,
   });
-
+  
   useEffect(()=>{
 
   rangeList(formik.values.select_district);
     
   }, [formik.values.select_district])
-
+ useEffect(()=>{
+  setFormValues({
+    select_district: district_def_Valu,
+    select_range: range_def_Valu,
+    select_type: type_def_Valu,
+    society_Name: soci_Name_def_Valu,
+   })
+   console.log(formik.values,'values')
+ },[])
   return (
     <div className="search_box">
       <h2>Search</h2>
-
+     {/* {district_def_Valu} */}
       <form onSubmit={formik.handleSubmit}>
         {/* Select District */}
         <label>

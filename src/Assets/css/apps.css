@@ -1200,7 +1200,7 @@ border-radius: 6px;}
 .searchPageTop label select, .searchPageTop .search_box label input[type="text"]{background-color: #fff;
   border: 1px solid #ced4da;
   border-radius: 4px;
-  height: 40px;}
+  height: 40px; padding-top: 0; padding-bottom: 0;}
   
 
 .search_data_table table thead.ant-table-thead tr th.ant-table-cell{background: #2570C8 !important; color: #fff; border-bottom: #c4c2c2 solid 1px; padding-left: 10px;
@@ -1309,6 +1309,7 @@ border-radius: 6px;}
 .address_2{margin-bottom: 20px;}
 .address_2 h2{color: #fff; font-size: 23px; margin: 0 0 12px 0; padding: 0;}
 .address_2 p{color: #fff; font-size: 15px; margin: 0;}
+
 
 
 

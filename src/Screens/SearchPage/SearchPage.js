@@ -1,7 +1,7 @@
 
 import React, { useState, useRef, useEffect } from 'react'
 import axios from 'axios';
-import { useLocation, useParams, useNavigate, Link } from "react-router-dom";
+import { useLocation, useParams, useNavigate, Link, useSearchParams } from "react-router-dom";
 // import RightSidebarGlobal from './RightSidebarGlobal';
 // import FooterCus from './FooterCus';
 import FooterCus from '../../Components/FooterCus';
@@ -39,6 +39,9 @@ const [searchedColumn, setSearchedColumn] = useState('');
 const searchInput = useRef(null);
 const [getFormattedDate, setFormattedDate] = useState([]);
 
+const search = window.location.search;
+const params = new URLSearchParams(search);
+console.log(params)
 
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
@@ -267,20 +270,19 @@ const [getFormattedDate, setFormattedDate] = useState([]);
 
 // var pageDataCheck;
 
-const searchData = location.state || {};
-// const searchData_ = location.state_ || {};
+// const searchData = location.state || {select_district:params.select_district,select_range:params.select_range, soc_type_id: 0, socname: ''};
+console.log(location.state)
+const searchData = location.state? location.state:{select_district:params.get('select_district'),select_range:params.get('select_range'), soc_type_id: 0, socname: ''};
+
+console.log(searchData);
+
+
+// soc_type_id: searchData.select_type == '' ? 0 : searchData.select_type,
+//       socname: searchData.society_Name == '' ? '' : searchData.society_Name
 
 // const searchDataLength = Object.keys(searchData);
 
-// console.log(searchData_, 'searchData_');
-
-
-
-
-
 const districtList = async()=>{
-
-  
 
   await axios.post(`${BASE_URL}/wapi/distlist`,
     // {},
@@ -332,25 +334,15 @@ const districtList = async()=>{
  }
 
 
+ const searchDataFn = ()=>{
 
- 
- useEffect(()=>{
-  districtList();
-  // console.log(searchData.select_district, 'ooooooooo');
-  
-  
-  
-
-  if(searchData['select_district']!=undefined)
-
-    
   axios.post(`${BASE_URL}/wapi/societysearch`,
     {
       auth_key:"xxxxx",
       dist_id: searchData.select_district,
       range_code: searchData.select_range,
       soc_type_id: searchData.select_type == '' ? 0 : searchData.select_type,
-      socname: searchData.society_Name
+      socname: searchData.society_Name == '' ? '' : searchData.society_Name
     }
     // ,
     // {
@@ -361,8 +353,7 @@ const districtList = async()=>{
     ).then(res => {
 
       if(res.status == '200'){
-        // console.log(res, 'ffffffff', res?.data?.msg.length);
-        
+        console.log(res, 'ffffffff', res?.data?.msg.length);
         
         if(res.data.suc > 0){
             setPageData(res?.data?.msg)
@@ -378,10 +369,15 @@ const districtList = async()=>{
   
         }
 
-    })  
+    }) 
+
+ }
 
 
-  },[searchData])
+ useEffect(()=>{
+  districtList();
+  // [searchData]
+  },[])
 
  function limitWords(content, wordLimit) {
   const words = content?.split(' ');
@@ -392,10 +388,11 @@ const districtList = async()=>{
   }
 
   useEffect(()=>{
-    // console.log(searchData, 'searchDatarrrrrrrrrrrrrrr');
+
     rangeList(searchData.select_district);
+    searchDataFn();
       
-    }, [searchData.select_district])
+    }, [searchData.select_district, searchData.select_range, searchData.select_type, searchData.society_Name ])
 
   // const exportPdfHandler = ()=>{
 
