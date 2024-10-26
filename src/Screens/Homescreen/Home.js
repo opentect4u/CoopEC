@@ -21,29 +21,15 @@ function Home() {
 
 	const [getGalleryImage, setGalleryImage] = useState([]);
     const [getGalleryFolder, setGalleryFolder] = useState('');
-    const [getStaticsData, setStaticsData] = useState('');
     const [loading, setLoading] = useState(true);
+	const [loading_statis, setLoading_statis] = useState(true);
 
+	const [getOngoingData, setOngoingData] = useState('');
+	const [getCompletData, setCompletData] = useState('');
+	const [getDueData, setDueData] = useState('');
 
 	const mapTxtWordCount= 5;
 
-	const stats = [
-		{
-			title: 'Ongoing',
-			count: '30',
-			class_cus: 'bar_green'
-		},
-		{
-			title: 'Completed Elections',
-			count: '20',
-			class_cus: 'bar_yellow'
-		},
-		{
-			title: 'Due',
-			count: '200',
-			class_cus: 'bar_blue'
-		}
-	]
 
 	const bottomThreeBox = [
 		{
@@ -66,77 +52,157 @@ function Home() {
 		}
 	]
 
-	const fetchStaticsdata = ()=>{
-		axios.post(`${BASE_URL}/wapi/getsocelestatics`,
-	   {
-		 auth_key:"xxxxx",
-	   }
-	   // ,
-	   // {
-	   //     headers: {
-	   //         Authorization: loginData.token,
-	   //     },
-	   // }
-	   ).then(res => {
-   
-		 if(res.status == '200'){
-		   
-		   if(res.data.suc > 0){
-			setStaticsData(res?.data?.msg)
-			   // setFolderLocation()
-			   console.log(res , 'hhhhhhhh', res?.data?.msg);
-   
-			   // pageDataCheck = res.data.status;
-		   } else {
-			setGalleryImage([])
-			 // pageDataCheck = res.data.status;
-		   }
-	 
-		   }
-   
-	   }) 
-   
-	  }
-
-
 	const fetchGallerydata = ()=>{
-		axios.post(`${BASE_URL}/wapi/gallimglist`,
-	   {
-		 auth_key:"xxxxx",
-	   }
-	   // ,
-	   // {
-	   //     headers: {
-	   //         Authorization: loginData.token,
-	   //     },
-	   // }
-	   ).then(res => {
-   
-		 if(res.status == '200'){
-		   
-		   if(res.data.suc > 0){
-			setGalleryImage(res?.data?.msg);
-			setGalleryFolder(res?.data?.folder);
-			// setPageTitle(res?.data?.title);
-			setLoading(false);
-			   // setFolderLocation()
-			   console.log(res , 'gggggggg', res?.data?.msg);
-   
-			   // pageDataCheck = res.data.status;
-		   } else {
-			setGalleryImage([])
-			 // pageDataCheck = res.data.status;
-		   }
-	 
-		   }
-   
-	   }) 
-   
-	  }
+	axios.post(`${BASE_URL}/wapi/gallimglist`,
+	{
+		auth_key:"xxxxx",
+	}
+	// ,
+	// {
+	//     headers: {
+	//         Authorization: loginData.token,
+	//     },
+	// }
+	).then(res => {
 
-	  useEffect(()=>{
+		if(res.status == '200'){
+		
+		if(res.data.suc > 0){
+		setGalleryImage(res?.data?.msg);
+		setGalleryFolder(res?.data?.folder);
+		// setPageTitle(res?.data?.title);
+		setLoading(false);
+			// setFolderLocation()
+			console.log(res , 'gggggggg', res?.data?.msg);
+
+			// pageDataCheck = res.data.status;
+		} else {
+		setGalleryImage([])
+			// pageDataCheck = res.data.status;
+		}
+
+		}
+
+	}) 
+
+	}
+
+	const fetchStaticsdata_ongoing = (para)=>{
+
+	axios.post(`${BASE_URL}/wapi/societyelectionstatus`,
+		{
+		auth_key:"xxxxx",
+		election_status: para,
+		}
+		// ,
+		// {
+		//     headers: {
+		//         Authorization: loginData.token,
+		//     },
+		// }
+		).then(res => {
+
+		if(res.status == '200'){
+			console.log(res, 'ffffffff', res?.data?.msg.length);
+			
+			if(res.data.suc > 0){
+				setOngoingData(res?.data?.msg)
+				setLoading_statis(false)
+				console.log(res?.data?.msg, 'jjjjjjjjj');
+
+				// pageDataCheck = res.data.status;
+			} else {
+				setOngoingData([])
+				setLoading_statis(false);
+			// pageDataCheck = res.data.status;
+			}
+
+			}
+
+		}) 
+
+	}
+
+	const fetchStaticsdata_due = (para)=>{
+
+	axios.post(`${BASE_URL}/wapi/societyelectionstatus`,
+	{
+	auth_key:"xxxxx",
+	election_status: para,
+	}
+	// ,
+	// {
+	//     headers: {
+	//         Authorization: loginData.token,
+	//     },
+	// }
+	).then(res => {
+
+	if(res.status == '200'){
+		console.log(res, 'ffffffff', res?.data?.msg.length);
+		
+		if(res.data.suc > 0){
+			setDueData(res?.data?.msg)
+			console.log(res, 'jjjjjjjjj');
+
+			setLoading_statis(false);
+			// pageDataCheck = res.data.status;
+		} else {
+			setDueData([])
+			setLoading_statis(false);
+		// pageDataCheck = res.data.status;
+		}
+
+		}
+
+	}) 
+
+	}
+
+	const fetchStaticsdata_complete = (para)=>{
+
+		axios.post(`${BASE_URL}/wapi/societyelectionstatus`,
+		{
+		auth_key:"xxxxx",
+		election_status: para,
+		}
+		// ,
+		// {
+		//     headers: {
+		//         Authorization: loginData.token,
+		//     },
+		// }
+		).then(res => {
+	
+		if(res.status == '200'){
+			console.log(res, 'ffffffff', res?.data?.msg.length);
+			
+			if(res.data.suc > 0){
+				setCompletData(res?.data?.msg)
+				console.log(res?.data?.msg, 'jjjjjjjjj');
+	
+				setLoading_statis(false);
+				// pageDataCheck = res.data.status;
+			} else {
+				setCompletData([])
+				setLoading_statis(false);
+			// pageDataCheck = res.data.status;
+			}
+	
+			}
+	
+		}) 
+	
+		}
+
+
+		useEffect(()=>{
+
+		fetchStaticsdata_ongoing('ONGOING');
+		fetchStaticsdata_due('DUE');
+		fetchStaticsdata_complete('DONE');
+
 		fetchGallerydata();
-		fetchStaticsdata();
 	   },[])
 
 
@@ -169,13 +235,39 @@ function Home() {
 
 
 								<div className={`bar_box bar_green bar_green`}>
-								Ongoing     <span>{getStaticsData[0]?.ongoing_tot}</span>
+								Ongoing     <span>
+							{loading_statis ?(
+							<Loader align = {'center'} gap = {'middle'} size = {'small'} />
+							):(
+							<>
+							{getOngoingData?.length}
+							</>
+							)}
+								
+								</span>
 								</div>
 								<div className={`bar_box bar_green bar_yellow`}>
-								Completed Elections     <span>{getStaticsData[0]?.done_tot}</span>
+								Completed Elections     <span>
+								{loading_statis ?(
+								<Loader align = {'center'} gap = {'middle'} size = {'small'} />
+								):(
+								<>
+								{getCompletData?.length}
+								</>
+								)}
+									</span>
 								</div>
 								<div className={`bar_box bar_green bar_blue`}>
-								Due     <span>{getStaticsData[0]?.due_tot}</span>
+								Due     <span>
+								{loading_statis ?(
+								<Loader align = {'center'} gap = {'middle'} size = {'small'} />
+								):(
+								<>
+								{getDueData?.length}
+								</>
+								)}
+									{/* {getStaticsData[0]?.due_tot} */}
+									</span>
 								</div>
 
 								<div className="btn_sec">

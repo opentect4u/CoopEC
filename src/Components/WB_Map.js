@@ -19,6 +19,7 @@ function WB_Map(
   const [getDistDataStore, setDistDataStore] = useState([]);
   const { TabPane } = Tabs;
   const [loading, setLoading] = useState(true);
+  const [loading_Map, setLoading_Map] = useState(true);
 
   var idCus;
   
@@ -41,7 +42,7 @@ function WB_Map(
       if(res.data.suc > 0){
         setMapData(res?.data?.msg)
         setLoading(false);
-        console.log(res?.data?.msg , 'res');
+        console.log(res?.data?.msg , 'restttt');
         
       }
 
@@ -104,7 +105,7 @@ console.log(mapViewData,'mapdata')
       if(res.status == '200'){
       if(res.data.suc > 0){
         setDistDataStore(res?.data?.msg)
-        setLoading(false);
+        setLoading_Map(false);
         // console.log('getRangeList', res?.data?.msg);
       }
   
@@ -569,7 +570,7 @@ console.log(mapViewData,'mapdata')
 
       {/* Range Group */}
 
-      {loading ?(
+      {loading_Map ?(
       <Loader align = {'center'} gap = {'middle'} size = {'small'} />
     ):(
       <>
