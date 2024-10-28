@@ -1,0 +1,396 @@
+<div class="col-sm-12 float-left rightSideSec">
+		  
+  <div class="row">
+  <div class="stockPointSecTitle_cus">
+    <% if(user.range_id== 0) { %>
+            <div class="selectBox">
+              <select class="form-control" id="range_code" name="range_code" >
+                <option value="0">ALL </option>
+                <% if(ranzelist.length > 0){
+                  var i = 1
+                  ranzelist.forEach(dt => { %>
+                  <option value="<%= dt.range_id %>" <%= range_code == dt.range_id ? 'selected' : '' %> ><%= dt.range_name %></option>
+                    <% }) } %>
+              </select>
+            </div>
+       <%  } %>     
+        </div>
+  </div>
+  
+    <div class="row">
+  <div class="stockPointSecTitle_cus">
+            <h2>Number Of Societies  </h2>
+            <a href="/dash/dashboard" class="heading_link">View</a>
+        </div>
+      <div class="threeBoxNewmain">
+        <div class="col-sm-4 float-left">
+          <div class="threeBoxNewSmall">
+            <div class="threeBoxImg redCol"><img src="/images/icon_a.png" alt=""></div>
+            <div class="threeBoxTxt">
+              <h2>Total Societies</h2>
+              <p class="price">
+                <span class="lit" id="total_society"></span>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4 float-left">
+          <div class="threeBoxNewSmall">
+            <div class="threeBoxImg darkBlue"><img src="/images/icon_b.png" alt=""></div>
+            <div class="threeBoxTxt">
+              <h2>Functional</h2>
+              <p class="price"><span class="lit" id="total_functional"></span>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4 float-left">
+          <div class="threeBoxNewSmall">
+            <div class="threeBoxImg lightBlue"><img src="https://benfed.in/benfed_fertilizer/assets/images/boxIcon_b.png" alt=""></div>
+            <div class="threeBoxTxt">
+              <h2>Non Functional</h2>
+              <p class="price">
+                <span class="lit" id="total_nonfunctional"></span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+<div class="stockPointSecTitle_cus">
+            <h2>Statistics  </h2>
+  <a href="#" class="heading_link" id="election_link">View</a>
+            
+        </div>
+  
+      <div class="threeBoxNewmain">
+        <div class="col-sm-4 float-left">
+          <div class="threeBoxNewSmall">
+            <div class="threeBoxImg yellowCol"><img src="/images/icon_d.png" alt=""></div>
+            <div class="threeBoxTxt">
+              <h2>Ongoing Elections</h2>
+              <p class="price">
+        <span class="lit" id="total_ongoing"></span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-4 float-left">
+          <div class="threeBoxNewSmall">
+            <div class="threeBoxImg greenCol"><img src="/images/icon_f.png" alt="">
+            </div>
+            <div class="threeBoxTxt">
+              <h2>Completed Elections</h2>
+              <p class="price">
+                <span class="lit" id="total_completed"></span>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4 float-left">
+          <div class="threeBoxNewSmall">
+            <div class="threeBoxImg redCol"><img src="/images/icon_e.png" alt=""></div>
+            <div class="threeBoxTxt">
+              <h2>Due Elections</h2>
+              <p class="price">
+        <span class="lit" id="total_due"></span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="threeBoxNewmain">
+        <div class="col-sm-6 float-left">
+          <div class="threeBoxNewSmall">
+            <div class="threeBoxImg yellowCol"><img src="/images/icon_d.png" alt=""></div>
+            <div class="threeBoxTxt">
+              <h2>Number of Societies Within One Month Election</h2>
+              <p class="price">
+        <span class="lit" id="total_ongoing"><%= onemondue.onemnth%></span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 float-left">
+          <div class="threeBoxNewSmall">
+            <div class="threeBoxImg greenCol"><img src="/images/icon_f.png" alt="">
+            </div>
+            <div class="threeBoxTxt">
+              <h2>Number of Societies of Election Over Date</h2>
+              <p class="price">
+                <span class="lit" id="total_completed"><%= overelect.overele%></span>
+              </p>
+            </div>
+          </div>
+        </div>
+      
+      </div>
+      <!-- <div class="sectionNew" id="sectionNew"> -->
+      <div class="sectionNew" id="">
+        <div class="col-sm-6 float-left">
+    <div class="stockPointSecTitle_cus_half">
+            <h2>List Of Societies Within One Month Election</h2>
+      <a href="#" class="heading_link">Details</a>
+        </div>
+          <!-- <div class="bloxkSec">
+    <div class="bloxkSec_sub">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Sl</th>
+            <th scope="col">Society Name</th>
+            <th scope="col">Tenure Ends On</th>
+          </tr>
+        </thead>
+        <tbody>
+        
+        </tbody>
+      </table>
+    </div>
+  </div> -->
+        </div>
+
+        <div class="col-sm-6 float-left">
+    
+    <div class="stockPointSecTitle_cus_half">
+            <h2>List Of Societies Due Election  </h2>
+  <a href="#" class="heading_link">Details</a>
+        </div>
+          <!-- <div class="bloxkSec">
+            <div class="bloxkSec_sub">
+             
+            </div>
+          </div> -->
+        </div>
+    
+    
+  <div class="col-sm-12 class_chart">
+
+  <div class="stockPointSecTitle_cus_half">
+  <h2>Societies Type</h2>
+<!--			<a href="#" class="heading_link">Details</a>-->
+
+  </div>
+  </div>
+    
+   <div class="col-sm-6 float-left">
+
+    
+   
+      <div class="bloxkSec">
+				 
+        <div class="range_1">
+          <div class="bloxkSec_scroll">
+            <% if(soctyplist.length > 0){
+                var range = 5000 ;
+              var i = 1
+              soctyplist.forEach(dt => { %>
+          <div class="range_row">
+            <label class="range_small"><span class="societies_name"><%= dt.soc_type_name %></span></label>
+            <label class="range_half">
+              <span class="barChartMap" style="width: <%= ((dt.tot_soc_type / 5000) * 100).toFixed(2) %> %; display: inline-block;"></span><span class="counter_soc"><%= dt.tot_soc_type %></span>
+            </label>
+          </div>
+          <% } ) } %>
+          <!-- <div class="range_row">
+            <label class="range_small"><span class="societies_name">Women CCS</span></label>
+            <label class="range_half">
+              <span class="barChartMap" style="width: 2.5%; display: inline-block;"></span>
+                <span class="counter_soc">5</span>
+            </label>
+          </div>
+          
+          <div class="range_row">
+            <label class="range_small"><span class="societies_name">PACS</span></label>
+            <label class="range_half">
+              <span class="barChartMap" style="width: 49.5%; display: inline-block;"></span><span class="counter_soc">99</span>
+            </label>
+          </div>
+          <div class="range_row">
+            <label class="range_small"><span class="societies_name">Women CCS</span></label>
+            <label class="range_half">
+              <span class="barChartMap" style="width: 2.5%; display: inline-block;"></span>
+                <span class="counter_soc">5</span>
+            </label>
+          </div>
+          
+          <div class="range_row">
+            <label class="range_small"><span class="societies_name">PACS</span></label>
+            <label class="range_half">
+              <span class="barChartMap" style="width: 49.5%; display: inline-block;"></span><span class="counter_soc">99</span>
+            </label>
+          </div>
+          <div class="range_row">
+            <label class="range_small"><span class="societies_name">Women CCS</span></label>
+            <label class="range_half">
+              <span class="barChartMap" style="width: 2.5%; display: inline-block;"></span>
+                <span class="counter_soc">5</span>
+            </label>
+          </div>
+          
+          <div class="range_row">
+            <label class="range_small"><span class="societies_name">PACS</span></label>
+            <label class="range_half">
+              <span class="barChartMap" style="width: 49.5%; display: inline-block;"></span><span class="counter_soc">99</span>
+            </label>
+          </div>
+          <div class="range_row">
+            <label class="range_small"><span class="societies_name">Women CCS</span></label>
+            <label class="range_half">
+              <span class="barChartMap" style="width: 2.5%; display: inline-block;"></span>
+                <span class="counter_soc">5</span>
+            </label>
+          </div>
+          
+          <div class="range_row">
+            <label class="range_small"><span class="societies_name">PACS</span></label>
+            <label class="range_half">
+              <span class="barChartMap" style="width: 49.5%; display: inline-block;"></span><span class="counter_soc">99</span>
+            </label>
+          </div>
+          <div class="range_row">
+            <label class="range_small"><span class="societies_name">Women CCS</span></label>
+            <label class="range_half">
+              <span class="barChartMap" style="width: 2.5%; display: inline-block;"></span>
+                <span class="counter_soc">5</span>
+            </label>
+          </div>
+          
+          <div class="range_row">
+            <label class="range_small"><span class="societies_name">PACS</span></label>
+            <label class="range_half">
+              <span class="barChartMap" style="width: 49.5%; display: inline-block;"></span><span class="counter_soc">99</span>
+            </label>
+          </div>
+          <div class="range_row">
+            <label class="range_small"><span class="societies_name">Women CCS</span></label>
+            <label class="range_half">
+              <span class="barChartMap" style="width: 2.5%; display: inline-block;"></span>
+                <span class="counter_soc">5</span>
+            </label>
+          </div>
+          
+          <div class="range_row">
+            <label class="range_small"><span class="societies_name">PACS</span></label>
+            <label class="range_half">
+              <span class="barChartMap" style="width: 49.5%; display: inline-block;"></span><span class="counter_soc">99</span>
+            </label>
+          </div>
+          <div class="range_row">
+            <label class="range_small"><span class="societies_name">Women CCS</span></label>
+            <label class="range_half">
+              <span class="barChartMap" style="width: 2.5%; display: inline-block;"></span>
+                <span class="counter_soc">5</span>
+            </label>
+          </div>
+          
+          <div class="range_row">
+            <label class="range_small"><span class="societies_name">PACS</span></label>
+            <label class="range_half">
+              <span class="barChartMap" style="width: 49.5%; display: inline-block;"></span><span class="counter_soc">99</span>
+            </label>
+          </div>
+          <div class="range_row">
+            <label class="range_small"><span class="societies_name">Women CCS</span></label>
+            <label class="range_half">
+              <span class="barChartMap" style="width: 2.5%; display: inline-block;"></span>
+                <span class="counter_soc">5</span>
+            </label>
+          </div> -->
+          
+<!--					  <a style="cursor: pointer; color: blue; text-decoration: underline;" href="/">View</a>-->
+        
+        </div>
+        </div>
+<!--                <canvas id="barChart" ></canvas>-->
+            </div>
+      <!-- <canvas id="barChart" ></canvas> -->
+    
+        </div>
+    
+   <div class="col-sm-6 float-left">
+    
+          <div class="bloxkSec"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+            <canvas id="pieChart" width="423" height="211" style="display: block; width: 423px; height: 211px;" class="chartjs-render-monitor"></canvas>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+  <script>
+    societytot(0)
+    electionstatus(0)
+    $('#range_code').change(function() {
+        var range_code = $(this).val();
+        societytot(range_code);
+        electionstatus(range_code);
+      //  window.location.href = this.href; // Redirect to the new URL
+    });
+    function societytot(range_code) {
+      $.ajax({
+        url: '/dash/get_society_tot',
+        method: 'POST',
+        data: { range_code: range_code },
+        beforeSend: function() {
+            // Show a loading indicator if needed
+          // $('#block_id').html('<option value="0">Loading...</option>');
+        },
+        success: function(response) {
+           var soc = response.soctot;
+       $('#total_society').html(soc.func_tot+soc.liquidation_tot+soc.non_functional);
+           $('#total_functional').html(soc.func_tot ? soc.func_tot : 0);
+           $('#total_nonfunctional').html(soc.liquidation_tot+soc.non_functional);
+         
+        },
+        error: function(err) {
+            // Handle any errors
+            $('#dist_code').html('<option value="0">Error fetching data. Please try again.</option>');
+            console.error('AJAX Error:', err); // Log error for debugging
+        }
+      });
+    }
+    
+    function electionstatus(range_code) {
+      $.ajax({
+        url: '/dash/get_election_status',
+        method: 'POST',
+        data: { range_code: range_code },
+        beforeSend: function() {
+            // Show a loading indicator if needed
+          // $('#block_id').html('<option value="0">Loading...</option>');
+        },
+        success: function(response) {
+           var soc = response.soctot;
+           $('#total_ongoing').html(soc.ongoing_tot ? soc.ongoing_tot : 0);
+           $('#total_completed').html(soc.done_tot?soc.done_tot:0 );
+           $('#total_due').html(soc.due_tot?soc.due_tot:0);
+        },
+        error: function(err) {
+            // Handle any errors
+            $('#dist_code').html('<option value="0">Error fetching data. Please try again.</option>');
+            console.error('AJAX Error:', err); // Log error for debugging
+        }
+      });
+    }
+
+
+    document.getElementById('election_link').addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent the default anchor behavior
+        var range_code= $('#range_code').val();
+        this.href = '/dash/societyelection?range_code='+range_code; // Change the href attribute
+        window.location.href = this.href; // Redirect to the new URL
+    });
+    function calculatePercentage(totSocType) {
+    if (typeof totSocType !== 'number' || isNaN(totSocType)) {
+        return 0; // or handle as appropriate
+    }
+    return ((totSocType / 300) * 100).toFixed(2);
+}
+  </script>
+
+

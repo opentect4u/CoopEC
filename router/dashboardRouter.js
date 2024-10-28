@@ -244,4 +244,234 @@ DashboardRouter.get('/socLimitList',async(req, res) => {
 
 });
 
+DashboardRouter.get('/dash', async(req, res) => {
+  try {
+      // Extract range_id from session
+      const range_id = req.session.user.range_id;
+      const select = "a.id,a.cop_soc_name,a.reg_no,a.functional_status,a.tenure_ends_on,b.soc_type_name,c.dist_name,d.zone_name,e.range_name,f.soc_tier_name";
+      if(range_id > 0){ 
+      var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' AND a.range_code = "${range_id}" LIMIT 25`;
+      var table_list_for_onemonth_before = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' AND a.range_code = "${range_id}" AND a.tenure_ends_on >= CURDATE() AND a.tenure_ends_on < DATE_ADD(CURDATE(), INTERVAL 1 MONTH) `;
+      var soc_list_over_election = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' AND a.range_code = "${range_id}" AND a.tenure_ends_on < CURDATE()  `;
+   
+      var soctype = `md_society a,md_society_type b WHERE a.soc_type = b.soc_type_id
+         AND a.range_code = '${range1}' AND a.functional_status = 'Functional' group by a.range_code,a.soc_type`;
+       }else{
+        var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' LIMIT 25`;
+        var table_list_for_onemonth_before = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' AND a.tenure_ends_on >= CURDATE() AND a.tenure_ends_on < DATE_ADD(CURDATE(), INTERVAL 1 MONTH) `;
+        var soc_list_over_election = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' AND a.tenure_ends_on < CURDATE() `;
+        var soctype = `md_society a,md_society_type b WHERE a.soc_type = b.soc_type_id AND a.functional_status = 'Functional' group by a.range_code,a.soc_type`;
+       }
+      whr = '';
+      const order = null;
+      if(range_id > 0){
+          whr1 = `functional_status='Functional' AND range_code='${range_id}'`;
+      }else{
+        whr1 =`functional_status='Functional' `;
+      }
+      var onemonthduereport = await db_Select('COUNT(*) as  onemnth', table_list_for_onemonth_before, whr, order);
+      var overelection = await db_Select('COUNT(*) as  overele', soc_list_over_election, whr, order);
+      var soctyperes = await db_Select(`a.soc_type,b.soc_type_name,count(a.cop_soc_name)tot_soc_type`, soctype, null, null);
+      // Execute database query
+
+      
+      const result = await db_Select(select, table_name, whr, order);
+      const select2 = "COUNT(*) as total";
+      const countResult = await db_Select(select2, 'md_society', whr1, order);
+      const total = countResult.msg[0].total;
+      const totalPages = Math.ceil(total / 25);
+      var regauttypehres = await db_Select('*', 'md_controlling_authority_type', null, null);
+      const zoneres = await db_Select('*', 'md_zone', null, null);
+      const ranzeres = await db_Select('*', 'md_range', null, null);
+      var blockres ;
+      if(range_id > 0){
+        const results = await db_Select('*', 'md_range', `range_id = '${range_id}'`, null);
+        const distcode = results.msg[0].dist_id > 0 ? results.msg[0].dist_id : 0;
+         blockres = await db_Select('*', 'md_block',  `dist_id='${distcode}'`, null);
+      }else{
+         blockres = await db_Select('*', 'md_block',  `dist_id='0'`, null);
+      }
+      const ulbcatgres = await db_Select('*', 'md_ulb_catg', null, null);
+      const soctierres = await db_Select('*', 'md_soc_tier', null, null);
+      const soctietype = await db_Select('*', 'md_society_type', null, null);
+      const distres = await db_Select('*', 'md_district', null, null);
+      // Prepare data for rendering
+      const res_dt = {
+        data: result.suc > 0 ? result.msg : '',page: 1,totalPages:totalPages,
+        onemondue:onemonthduereport.suc > 0 ? onemonthduereport.msg[0] : '',
+        overelect:overelection.suc> 0 ? overelection.msg[0] : '',
+        soctyplist: soctyperes.suc > 0 ? soctyperes.msg : '',
+        regauthtypelist: regauttypehres.suc > 0 ? regauttypehres.msg : '',ranzelist: ranzeres.suc > 0 ? ranzeres.msg : '',
+        blocklist:blockres.suc > 0 ? blockres.msg : '',ulbcatglist: ulbcatgres.suc > 0 ? ulbcatgres.msg : '',
+        soctierlist:soctierres.suc > 0 ? soctierres.msg : '', soctietypelist:soctietype.suc > 0 ? soctietype.msg : '',
+        zonereslist:zoneres.suc > 0 ? zoneres.msg : '',distlist:distres.suc > 0 ? distres.msg : '',
+        cntr_auth_type:0,zone_code:0,dist_code:0,soc_tier:0,soc_type_id:0,range_code:0,urban_rural_flag:0,
+        ulb_catg:0,block_id:0,total:total,socname:'',functional_status:'1',soc_data_status:''
+      };
+    
+      // Render the view with data
+      res.render('dashboard/dashboard', res_dt);
+    } catch (error) {
+      // Log the error and send an appropriate response
+      console.error('Error during dashboard rendering:', error);
+      //res.status(500).send('An error occurred while loading the dashboard.');
+      res.render('dashboard/dashboard', res_dt);
+    }
+})
+
+DashboardRouter.post('/get_society_tot',async(req,res)=>{
+  try {
+    // Extract query parameter 'claims'
+    var data = req.body
+    var select = `SUM(CASE WHEN a.functional_status = 'Functional' THEN 1 ELSE 0 END) AS func_tot, SUM(CASE WHEN a.functional_status = 'Under Liquidation' THEN 1 ELSE 0 END) AS liquidation_tot, SUM(CASE WHEN a.functional_status = 'Non-Functional / Dormant' THEN 1 ELSE 0 END) AS non_functional`,
+    table_name = `md_society a`,
+    where = data.range_code > 0 ? `a.range_code ='${data.range_code}'` : ``,
+    order = null;
+    var res_dt = await db_Select(select, table_name, where, order);
+    const responseData = {
+      soctot: res_dt.suc > 0 ? res_dt.msg[0] : '', // Echoing the received claims
+    };
+    // Send response back to the client
+    res.json(responseData);
+    } catch (err) {
+        console.error('Error handling /regauth request:', err);
+        res.status(500).json({
+            success: false,
+            message: 'Internal server error'
+        });
+    }
+})
+DashboardRouter.post('/get_election_status',async(req,res)=>{
+  try {
+    // Extract query parameter 'claims'
+    var data = req.body
+    var select = `SUM(CASE WHEN election_status = 'DUE' THEN 1 ELSE 0 END) AS due_tot,SUM(CASE WHEN election_status = 'ONGOING' THEN 1 ELSE 0 END) AS ongoing_tot, SUM(CASE WHEN election_status = 'DONE' THEN 1 ELSE 0 END) AS done_tot`,
+    table_name = `md_society`,
+   
+    where = data.range_code > 0 ? `functional_status = 'Functional' AND range_code ='${data.range_code}'` : `functional_status = 'Functional'`,
+    order = null;
+    var res_dt = await db_Select(select, table_name, where, order);
+    const responseData = {
+      soctot: res_dt.suc > 0 ? res_dt.msg[0] : '', // Echoing the received claims
+    };
+    // Send response back to the client
+    res.json(responseData);
+    } catch (err) {
+        console.error('Error handling /regauth request:', err);
+        res.status(500).json({
+            success: false,
+            message: 'Internal server error'
+        });
+    }
+})
+   ///  *************  Code for Society Election Result    ****   ////
+DashboardRouter.get('/societyelection', async(req, res) => {
+  try {
+      // Extract range_id from session
+      const range_id = req.session.user.range_id;
+      var range_code = req.query.range_code;
+      
+      const select = "a.id,a.cop_soc_name,a.reg_no,a.functional_status,b.soc_type_name,c.dist_name,d.zone_name,e.range_name,f.soc_tier_name";
+      if(range_id > 0){ 
+      var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' AND a.election_status ='ONGOING' AND a.range_code = "${range_id}" LIMIT 25`;
+       }else{
+        var confor_range = range_code> 0 ? `AND a.range_code = '${range_code}'` : '' ;
+        var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' AND a.election_status ='ONGOING' ${confor_range} LIMIT 25`;
+       }
+      whr = '';
+      const order = null;
+      if(range_id > 0){
+          whr1 = `election_status ='ONGOING' AND functional_status='Functional' AND range_code='${range_id}'`;
+      }else{
+        var confor_range = range_code> 0 ? `AND a.range_code = '${range_code}'` : '' ;
+        whr1 =`election_status ='ONGOING' AND functional_status='Functional' ${confor_range}`;
+      }
+     
+      // Execute database query
+      const result = await db_Select(select, table_name, whr, order);
+      const select2 = "COUNT(*) as total";
+      const countResult = await db_Select(select2, 'md_society', whr1, order);
+      const total = countResult.msg[0].total;
+      const totalPages = Math.ceil(total / 25);
+      var regauttypehres = await db_Select('*', 'md_controlling_authority_type', null, null);
+      const zoneres = await db_Select('*', 'md_zone', null, null);
+      const ranzeres = await db_Select('*', 'md_range',`range_id=${range_code}`, null);
+      console.log(ranzeres);
+     if(range_code > 0){
+      range_name = ranzeres.msg[0].range_name;
+     }else{
+      range_name =  'ALL';
+     }
+      var blockres ;
+         blockres = await db_Select('*', 'md_block',  `dist_id='0'`, null);
+    
+      const ulbcatgres = await db_Select('*', 'md_ulb_catg', null, null);
+      const soctierres = await db_Select('*', 'md_soc_tier', null, null);
+      const soctietype = await db_Select('*', 'md_society_type', null, null);
+      const distres = await db_Select('*', 'md_district', null, null);
+      // Prepare data for rendering
+      const res_dt = {
+        data: result.suc > 0 ? result.msg : '',
+        page: 1,totalPages:totalPages,confor_range:range_code,range_name:range_name,
+        regauthtypelist: regauttypehres.suc > 0 ? regauttypehres.msg : '',
+        blocklist:blockres.suc > 0 ? blockres.msg : '',ulbcatglist: ulbcatgres.suc > 0 ? ulbcatgres.msg : '',
+        soctierlist:soctierres.suc > 0 ? soctierres.msg : '', soctietypelist:soctietype.suc > 0 ? soctietype.msg : '',
+        zonereslist:zoneres.suc > 0 ? zoneres.msg : '',distlist:distres.suc > 0 ? distres.msg : '',
+        cntr_auth_type:0,zone_code:0,dist_code:0,soc_tier:0,soc_type_id:0,range_code:0,urban_rural_flag:0,
+        ulb_catg:0,block_id:0,total:total,socname:'',functional_status:'1',soc_data_status:''
+      };
+      // Render the view with data
+      res.render('dashboard/election_result', res_dt);
+    } catch (error) {
+      // Log the error and send an appropriate response
+      console.error('Error during dashboard rendering:', error);
+      //res.status(500).send('An error occurred while loading the dashboard.');
+      res.render('dashboard/election_result', res_dt);
+    }
+})
+
+DashboardRouter.get('/socLimitListfor_election_status',async(req, res) => {
+  const page = parseInt(req.query.page) || 1;
+  const limit = 25;
+  const offset = (page - 1) * limit;
+  
+  var con1 = req.query.cntr_auth_type > 0 ? `AND a.cntr_auth_type=${req.query.cntr_auth_type} ` : '';
+  var dist_code = req.query.dist_code > 0 ? `AND a.dist_code=${req.query.dist_code} ` : '';
+  var zone_code = req.query.zone_code > 0 ? `AND a.zone_code=${req.query.zone_code} ` : '';
+  var range_code = req.query.range_code > 0 ? `AND a.range_code=${req.query.range_code} ` : '';
+  var con6 = req.query.soc_tier > 0 ? `AND a.soc_tier=${req.query.soc_tier} ` : '';
+  var con4 = req.query.urban_rural_flag > 0 ? `AND a.urban_rural_flag=${req.query.urban_rural_flag} ` : '';
+  var con7 = req.query.soc_type_id > 0 ? `AND a.soc_type=${req.query.soc_type_id}` : '';
+  var soc_data_status =  req.query.soc_data_status > 0 ? `AND a.approve_status=${req.query.soc_data_status} ` : '';
+
+  var functional_status = ` AND a.functional_status='Functional'`;
+  var election_status   = ` AND a.election_status='${req.query.election_status}'`;
+  var maincon =con1+dist_code+zone_code+range_code+con4+con6+con7 +functional_status+soc_data_status+election_status;
+     console.log(maincon);
+      const range_id = req.session.user.range_id;
+      const select = "a.id,a.cop_soc_name,a.reg_no,a.functional_status,b.soc_type_name,c.dist_name,d.zone_name,e.range_name,f.soc_tier_name";
+      var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id`;
+      if(range_id > 0){
+        var whr = `a.functional_status='Functional' AND a.range_code='${range_id}' ${maincon} LIMIT ${offset} , ${limit}`;
+      }else{
+        var whr = `a.functional_status='Functional' ${maincon} LIMIT ${offset} , ${limit}`;
+      }
+      
+      const order = null;
+     
+      const select2 = "COUNT(*) as total";
+      if(range_id > 0){
+        var countResult = await db_Select(select2, table_name,`a.range_code='${range_id}' ${maincon}`, order);
+      }else{
+        var countResult = await db_Select(select2, table_name,`1 ${maincon}`, order);
+      }
+    
+        const total = countResult.msg[0].total;
+       const totalPages = Math.ceil(total / limit);
+      // Execute database query
+     const result = await db_Select(select, table_name, whr, order);
+     res.json({ data: result.suc > 0 ? result.msg : '', page,totalPages:totalPages,total:total });
+
+});
+
 module.exports = {DashboardRouter}

@@ -26,7 +26,7 @@ LoginRouter.post('/logincheck', async(req, res) => {
                 
                 req.session.user = res_dt.msg[0];
             
-              res.redirect("/dashboard");
+              res.redirect("/dash/dash");
             } else {
               result = {
                 suc: 0,
