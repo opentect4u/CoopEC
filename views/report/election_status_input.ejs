@@ -1,0 +1,45 @@
+<div class="row">
+  <div class="col-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title card_title_cus">Election Past Input</h4>
+        <form class="forms-sample" action="/report/election_due" method="post" >
+          <input type="hidden" class="form-control"  name="id" value="" required>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputName1">Range<span class="red">*</span></label>
+                  <select name="range_id" class="form-control" required> 
+                    <option value="">Please Select</option>
+                    <option value="0">ALL Range</option>
+                    <% 
+                    range_list.forEach(dt => { %>
+                    <option value="<%= dt.range_id %>"><%= dt.range_name %></option>
+                    <% }) %>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputName1">Society Type<span class="red">*</span></label>
+                  <select name="soc_type" class="form-control" required> 
+                    <option value="">Please Select</option>
+                    <option value="0">ALL Type</option>
+                    <%  socty_list.forEach(dt => { %>
+                    <option value="<%= dt.soc_type_id %>"><%= dt.soc_type_name %></option>
+                    <% }) %>
+                    
+                  </select>
+                </div>
+              </div>
+            </div>
+            
+          <button type="submit" class="btn btn-primary mr-2" id="submit">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
