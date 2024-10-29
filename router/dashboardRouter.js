@@ -228,7 +228,6 @@ DashboardRouter.get('/socLimitList',async(req, res) => {
       }
       
       const order = null;
-     
       const select2 = "COUNT(*) as total";
       if(range_id > 0){
         var countResult = await db_Select(select2, table_name,`a.range_code='${range_id}' ${maincon}`, order);
@@ -248,7 +247,7 @@ DashboardRouter.get('/dash', async(req, res) => {
   try {
       // Extract range_id from session
       const range_id = req.session.user.range_id;
-      const select = "a.id,a.cop_soc_name,a.reg_no,a.functional_status,a.tenure_ends_on,b.soc_type_name,c.dist_name,d.zone_name,e.range_name,f.soc_tier_name";
+      const select = "a.id,a.cop_soc_name,a.reg_no,a.functional_status,a.tenure_ends_on,a.elec_due_date,b.soc_type_name,c.dist_name,d.zone_name,e.range_name,f.soc_tier_name";
       if(range_id > 0){ 
       var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' AND a.range_code = "${range_id}" LIMIT 25`;
       var table_list_for_onemonth_before = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' AND a.range_code = "${range_id}" AND a.tenure_ends_on >= CURDATE() AND a.tenure_ends_on < DATE_ADD(CURDATE(), INTERVAL 1 MONTH) `;

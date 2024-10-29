@@ -19,12 +19,20 @@
                 <span class="menu-title">Add Society</span>
             </a>
         </li>
-        <!-- <li class="nav-item" style='background-color:#72721d !important; '  >
-            <a class="nav-link" href="/society/modifiedlist">
-                <i class="icon-add menu-icon" >+</i>
-                <span class="menu-title" style="color: #ffff;">Modified Society</span>
+       
+        <li class="nav-item active">
+            <a class="nav-link" data-toggle="collapse" href="#report" aria-expanded="false" aria-controls="report">
+                <i class="icon-ban menu-icon"></i>
+                <span class="menu-title">Report</span>
+                <i class="menu-arrow"></i>
             </a>
-        </li> -->
+            <div class="collapse" id="report">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" href="/report/election_due">Election Due</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="/report/election_upcoming">Election Upcoming</a></li>
+                </ul>
+            </div>
+        </li>
         <%  if(user.user_type == 'S'){  %>
         <li class="nav-item active">
             <a class="nav-link" data-toggle="collapse" href="#error" aria-expanded="false" aria-controls="error">
@@ -86,6 +94,7 @@
             </div>
         </li>
         <%  } %>
+        
         <!-- <li class="nav-item active">
             <a class="nav-link" href="/society/modifiedlist">
                 <i class="icon-add menu-icon" >+</i>

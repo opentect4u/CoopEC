@@ -219,10 +219,10 @@
     </div>
   </div>
   <script>
-    societytot(<%= user.range_id %>)
-    electionstatus(<%= user.range_id %>)
+    societytot(<%= user.range_id %>);
+    electionstatus(<%= user.range_id %>);
     barchartsoctype(<%= user.range_id %>);
-    pieChartId(<%= user.range_id %>)
+    pieChartId(<%= user.range_id %>);
     $('#range_code').change(function() {
         var range_code = $(this).val();
         societytot(range_code);

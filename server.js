@@ -60,12 +60,14 @@ const { LoginRouter } = require("./router/loginRouter");
 const { SocietyRouter } = require("./router/societyRouter");
 const { WapiRouter } = require("./router/WapiRouter");
 const { WdtlsRouter } = require("./router/WdtlsRouter");
+const { reportRouter } = require("./router/reportRouter");
 
 app.use("/login",LoginRouter)
 app.use("/dash",DashboardRouter)
 app.use("/society",SocietyRouter)
 app.use("/wapi",WapiRouter)
 app.use("/wdtls",WdtlsRouter)
+app.use("/report",reportRouter)
 //app.use(DashboardRouter)
 
 app.get("/",async (req, res) => {
