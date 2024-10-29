@@ -474,7 +474,7 @@ DashboardRouter.post('/get_soctype_detail',async(req,res)=>{
     // Extract query parameter 'claims'
     var data = req.body;
     var soctype = `md_society a,md_society_type b`,
-    where = data.range_code > 0 ? `a.soc_type = b.soc_type_id AND a.functional_status = 'Functional' AND a.range_code ='${data.range_code}' group by a.range_code,a.soc_type` : `a.soc_type = b.soc_type_id AND a.functional_status = 'Functional' group by a.range_code,a.soc_type`,
+    where = data.range_code > 0 ? `a.soc_type = b.soc_type_id AND a.functional_status = 'Functional' AND a.range_code ='${data.range_code}' group by a.range_code,a.soc_type` : `a.soc_type = b.soc_type_id AND a.functional_status = 'Functional' group by a.soc_type`,
     order = null;
     var soctyperes = await db_Select(`a.soc_type,b.soc_type_name,count(a.cop_soc_name)tot_soc_type`, soctype, where, null);
     const responseData = {
