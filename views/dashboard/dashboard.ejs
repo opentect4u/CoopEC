@@ -170,7 +170,7 @@
   <div class="col-sm-12 class_chart">
 
   <div class="stockPointSecTitle_cus_half">
-  <h2>Societies Type</h2>
+  <h2> Types of Societies</h2>
 <!--			<a href="#" class="heading_link">Details</a>-->
 
   </div>
@@ -219,10 +219,10 @@
     </div>
   </div>
   <script>
-    societytot(0)
-    electionstatus(0)
-    barchartsoctype(0);
-    pieChartId(0)
+    societytot(user.range_id)
+    electionstatus(user.range_id)
+    barchartsoctype(user.range_id);
+    pieChartId(user.range_id)
     $('#range_code').change(function() {
         var range_code = $(this).val();
         societytot(range_code);
