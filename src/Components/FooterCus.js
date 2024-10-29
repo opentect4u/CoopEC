@@ -54,16 +54,16 @@ useEffect(()=>{
     <div class="col-sm-9 float-left footerLeft">
     <h2>More Links</h2>
     <ul>
-    <li><a href="#">Home</a></li> 
-    <li><a href="#">About Us </a></li> 
-    <li><a href="#">Act &amp; Rules </a></li> 
-    <li><a href="#">Notifications &amp; Orders</a></li> 
-    <li><a href="#">Tenders</a></li> 
-    <li><a href="#">Statistics</a></li> 
-    <li><a href="#">Downloads</a></li> 
-    <li><a href="#">Contact Us</a></li> 
-    <li><a href="#">RTI</a></li>     
-    <li><a href="/importantLinks">Important Links</a></li>     
+    <li><Link to="/">Home</Link></li> 
+    <li><Link to="/about">About Us </Link></li> 
+    <li><Link to="/actRules">Act &amp; Rules </Link></li> 
+    <li><Link to="/notificationsorders">Notifications &amp; Orders</Link></li> 
+    <li><Link to="/tenders">Tenders</Link></li> 
+    <li><Link to="/statistics">Statistics</Link></li> 
+    <li><Link to="/downloads">Downloads</Link></li> 
+    <li><Link to="/contact-us">Contact Us</Link></li> 
+    <li><Link to="/actRules">Act & Rules</Link></li>     
+    <li><Link to="/importantLinks">Important Links</Link></li>     
     </ul>
     </div>
     {/* <div class="col-sm-3 float-left footerMidle">

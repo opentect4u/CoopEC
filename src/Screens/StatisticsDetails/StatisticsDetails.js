@@ -12,6 +12,7 @@ import autoTable from 'jspdf-autotable'
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 import { BASE_URL } from '../../routes/config';
+import FooterCus from '../../Components/FooterCus';
 
 function StatisticsDetails() {
 
@@ -465,7 +466,7 @@ function StatisticsDetails() {
 
     </div>
     </div>
-
+    <FooterCus/>
     {/* <DefaultPage pageTitle={pageContentData.pageTitle} pageContent = {pageContentData.pageContent} /> */}
     </>
   )

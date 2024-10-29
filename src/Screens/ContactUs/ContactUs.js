@@ -58,7 +58,7 @@ function ContactUs() {
 
     <h1>Contact Us</h1>
 <div className='row'>
-    <div className='col-sm-8 float-left'>
+    <div className='col-sm-8 float-left contact_left'>
     <iframe
       src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3684.252739823028!2d88.34100661435752!3d22.569648685184315!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a0277a200f6df61%3A0xca19a1b2688346e!2sNew%20Secretariat%20Building!5e0!3m2!1sen!2sin!4v1669789685511!5m2!1sen!2sin"
       width="100%"

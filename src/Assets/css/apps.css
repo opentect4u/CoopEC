@@ -974,6 +974,23 @@ button.viewDetails:focus{outline: none; border: none;}
 .black_White .search_box label button[type="submit"] {font-size: 18px; color: #000; background: #fff;}
 .black_White .scroll_top{-webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */ filter: grayscale(100%);}
 
+.black_White .searchPageTop table thead.ant-table-thead tr th.ant-table-cell{background: #000 !important;}
+.black_White a.docDownload {background: #000;}
+.black_White :where(.css-dev-only-do-not-override-ywd3mv).ant-pagination .ant-pagination-item-active {border-color: #000;}
+
+.black_White .search_data_table table thead.ant-table-thead tr th.ant-table-cell {background: #000 !important;}
+.black_White .green_Fnc {background: #909190;}
+.black_White button.viewDetails{background: #000;}
+.black_White .excelDownload img {-webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */ filter: grayscale(100%);}
+.black_White .radio_Btn__ {-webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */ filter: grayscale(100%);}
+
+.black_White .right_sec .search_box label.searchSec button[type="submit"] {color: #0b0b0b; background: #fff;}
+.black_White .right_sec .search_box label.resetSec button[type="reset"] {color: #000; background: #bdbdbd}
+
+.black_White .address_1, .black_White .address_2 {background-color: #000;}
+.black_White .contact_left {-webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */ filter: grayscale(100%);}
+.black_White .thumbnail_image_sec, .black_White .ant-image-preview-img-wrapper {-webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */ filter: grayscale(100%);}
+
 /*====================================================================================== Black and White CSS End*/
 
 
