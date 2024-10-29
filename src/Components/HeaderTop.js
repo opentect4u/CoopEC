@@ -7,8 +7,12 @@ import acce_c from "../Assets/images/aaa.png";
 import logo from "../Assets/images/logo.png";
 import TopMenu from './TopMenu';
 import { BASE_URL } from '../routes/config';
+import {Detector, Online, Offline} from "react-detect-offline"
+import { useNavigate } from 'react-router-dom';
+import Sidebar from './sidebar';
 
 function HeaderTop() {
+const navigation = useNavigate();
 
 var default_siz = 14;
 var min = 12;
@@ -96,9 +100,10 @@ const defaiultFontSize = () => {
 	<div className="rightNav">
 	<div className="language">
 	<ul>
-	<li><a href="#">Screen Reader Access</a></li> 	
-	<li><a href="#main_info_content">Skip to Main Content</a></li> 
-	<li>
+	<li className='scrnn_page'><a href="#">Screen Reader Access</a></li> 	
+	<li className='skip_btn'><a href="#main_info_content">Skip to Main Content</a></li> 
+    
+	<li className='fontResize'>
 	{/* javascript:decreaseFontSize(); */}
     <a href="javascript:void(0)" onClick={() => decreaseFontSize()}><img src={`${acce_a}`} alt=""/></a> 
     <a href="javascript:void(0)" onClick={() => defaiultFontSize()}><img src={`${acce_b}`} alt=""/></a>
@@ -111,6 +116,7 @@ const defaiultFontSize = () => {
     </div>
     <span className="text" style={{display: 'none'}}>FF</span>
 		</li>
+    <li className='topLogin_'><Link to={`${BASE_URL}/login`} target="_blank">Login</Link></li>
 	</ul>
 	</div>
 	</div>
@@ -123,10 +129,23 @@ const defaiultFontSize = () => {
 	<Link to="/"><img src={`${logo}`} alt=""/></Link>
     
 	</div>
+
+
 	
 	<div className="login">
 	<ul>
-	<li><Link to={`${BASE_URL}/login`} target="_blank">Login</Link></li>	
+    
+	<li className='topLogin'><Link to={`${BASE_URL}/login`} target="_blank">Login</Link></li>
+    <li className='fontResize'>
+	{/* javascript:decreaseFontSize(); */}
+    <a href="javascript:void(0)" onClick={() => decreaseFontSize()}><img src={`${acce_a}`} alt=""/></a> 
+    <a href="javascript:void(0)" onClick={() => defaiultFontSize()}><img src={`${acce_b}`} alt=""/></a>
+    <a href="javascript:void(0)" onClick={() => increaseFontSize()}><img src={`${acce_c}`} alt=""/></a>
+	</li>
+    <li className='colorTogle'><div className="toggle" onClick={() => toggle()} >
+        <div className="circle"></div>
+    </div>
+    <span className="text" style={{display: 'none'}}>FF</span></li>	
 	</ul>
 	</div>
 </div>

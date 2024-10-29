@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import "./Assets/css/apps.css"
 import "./Assets/css/bootstrap.css"
 import "./Assets/css/font-awesome.css"
+import "./Assets/css/res.css"
 // import "./Assets/js/bootstrap.min.js"
 
 import ReactDOM from 'react-dom/client';
@@ -27,6 +28,7 @@ import Faq from './Screens/Faq/Faq';
 import ImportantLinks from './Screens/ImportantLinks/ImportantLinks';
 import Statistics from './Screens/Statistics/Statistics';
 import StatisticsDetails from './Screens/StatisticsDetails/StatisticsDetails';
+
 
 
 

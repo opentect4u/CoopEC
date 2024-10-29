@@ -3,6 +3,7 @@ import scroll_top from "../Assets/images/scroll_top.png";
 import { BASE_URL } from '../routes/config';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import {Detector, Online, Offline} from "react-detect-offline"
 
 
 function FooterCus() {
@@ -44,7 +45,7 @@ const fetchdata = ()=>{
 
 
 useEffect(()=>{
-  fetchdata()
+  // fetchdata()
 },[])
 
   return (

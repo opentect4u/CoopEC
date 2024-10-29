@@ -1,10 +1,95 @@
 
+@media only screen and (max-width: 1200px) {
+.anouncement .scroll_sec {width: 59%; box-sizing: border-box;}
+}
 
+@media only screen and (max-width: 1000px) {
+.slider_sec_sub {background-size: 17%;}
+.slider_sec {background-size: 24%;}
 
-@media only screen and (max-width: 482px) {
 
 }
 
 
-	
-	
+@media only screen and (max-width: 950px) {
+.rightNav ul li {padding: 0 4px;}
+.rightNav ul li a {font-size: 13px;}
+.rightNav ul li a img{max-width: 20px; height: 20px;}
+.toggle {width: 47px; height: 22px;}
+.circle {width: 18px; height: 18px;}
+.leftNav ul li {font-size: 13px;}
+.leftNav ul li a {font-size: 13px;}
+
+.logoArea img{max-width:250px;}
+.login ul li.topLogin a {padding: 4px 22px;}
+
+.bannerSliderMain .col-sm-4{max-width: 50%;}
+.bannerSliderMain .col-sm-8{max-width: 50%;}
+
+}
+
+
+@media only screen and (max-width: 766px) {	
+.login ul li.colorTogle{display: block;}
+.login ul li.fontResize{display: block;}
+.rightNav{display: none;}
+.leftNav {margin: 0; width: 100%; text-align: center;}
+
+.bannerSliderMain .col-sm-4{max-width: 100%;}
+.bannerSliderMain .col-sm-8{max-width: 50%; display: none;}
+
+.anouncement .scroll_sec {width: 59%; padding-left: 2%;}
+
+.anouncement .title {max-width: 18%; font-size: 11px; padding: 15px 8px 15px 8px;}
+
+.anouncement .title i {font-size: 11px;}
+.anouncement a.link_view {margin: 8px 10px 8px auto;}
+
+}
+
+@media only screen and (max-width: 690px) {	
+.anouncement .title i {display: none;}
+}
+
+@media only screen and (max-width: 550px) {	
+.login ul li.fontResize a img{max-width: 20px; height: 20px;}
+.login ul li.topLogin a {padding: 2px 15px; line-height: 28px;}
+}
+
+
+@media only screen and (max-width:488px) {
+.login{display: none;}	
+.rightNav {display: block; margin: 0 auto;}	
+
+.rightNav ul li.topLogin_ a {
+    background: #17b0fd;
+    font-size: 15px;
+    color: #fff;
+    padding: 2px 15px;
+    border-radius: 30px;
+  }
+.rightNav ul li {border-right:none;}
+.rightNav ul li.scrnn_page{display: none;}
+.rightNav ul li.skip_btn{display: none;}
+.rightNav ul li.fontResize{border-right:none;}
+.leftNav{display: none;}
+.rightNav .language{width: 100%; margin: 0;}
+}
+
+@media only screen and (max-width:488px) {
+
+.anouncement a.link_view{display: none;}
+.anouncement .title {max-width: 30%;}
+.anouncement .scroll_sec {width: 68%; padding-left: 2%;}
+}
+
+
+
+
+
+
+
+
+
+
+

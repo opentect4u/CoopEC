@@ -1,8 +1,19 @@
 import React from 'react'
+import Sidebar from '../../Components/sidebar'
+
+
 
 function TestPage() {
   return (
-    <div>TestPage</div>
+    <div>
+test
+{/* <Sidebar 
+        // pageWrapId={'page-wrap'} 
+        // outerContainerId={'App'} 
+        width={'24em'}
+        //menu={'left'}
+        /> */}
+    </div>
   )
 }
 

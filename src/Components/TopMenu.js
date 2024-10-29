@@ -100,11 +100,11 @@ const items = [
     // { label: 'Option 1', key: 'setting_8:1' },
     // { label: 'Option 1', key: 'setting_8:2' }
     // ],
-  }
-  // {
-  //   label: 'Test',
-  //   key: '/test',
-  // },
+  },
+  {
+    label: 'Test',
+    key: '/test',
+  },
   // {
   //   label: 'Map',
   //   key: '/map',
