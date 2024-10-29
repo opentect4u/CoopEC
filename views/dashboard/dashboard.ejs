@@ -58,7 +58,7 @@
       </div>
   
 <div class="stockPointSecTitle_cus">
-            <h2>Statistics  </h2>
+            <h2>Status  </h2>
   <a href="#" class="heading_link" id="election_link">View</a>
             
         </div>
@@ -106,7 +106,7 @@
           <div class="threeBoxNewSmall">
             <div class="threeBoxImg yellowCol"><img src="/images/icon_d.png" alt=""></div>
             <div class="threeBoxTxt">
-              <h2>Number of Societies Within One Month Election</h2>
+              <h2>Election Within One Month</h2>
               <p class="price">
         <span class="lit" id="total_ongoing"><%= onemondue.onemnth%></span>
               </p>
@@ -119,7 +119,7 @@
             <div class="threeBoxImg greenCol"><img src="/images/icon_f.png" alt="">
             </div>
             <div class="threeBoxTxt">
-              <h2>Number of Societies of Election Over Date</h2>
+              <h2>Election Due</h2>
               <p class="price">
                 <span class="lit" id="total_completed"><%= overelect.overele%></span>
               </p>
@@ -132,7 +132,7 @@
       <div class="sectionNew" id="">
         <div class="col-sm-6 float-left">
     <div class="stockPointSecTitle_cus_half">
-            <h2>List Of Societies Within One Month Election</h2>
+            <h2></h2>
       <a href="#" class="heading_link">Details</a>
         </div>
           <!-- <div class="bloxkSec">
@@ -156,7 +156,7 @@
         <div class="col-sm-6 float-left">
     
     <div class="stockPointSecTitle_cus_half">
-            <h2>List Of Societies Due Election  </h2>
+            <h2></h2>
   <a href="#" class="heading_link">Details</a>
         </div>
           <!-- <div class="bloxkSec">
@@ -209,7 +209,7 @@
 
         <div class="col-sm-6 float-left">
 				
-          <div class="bloxkSec">
+          <div class="bloxkSec" style="height: 350px">
             <canvas id="pieChart"></canvas>
           </div>
         </div>
@@ -351,7 +351,7 @@ function pieChartId(range_code) {
         method: 'POST',
         data: { range_code: range_code },
         beforeSend: function() {
-          
+
             // Show a loading indicator if needed
           // $('#block_id').html('<option value="0">Loading...</option>');
         },
