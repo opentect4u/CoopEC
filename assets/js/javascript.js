@@ -55,24 +55,24 @@ beginAtZero: true
 }
 
 
-var pieChartId = document.getElementById("pieChart");
+// var pieChartId = document.getElementById("pieChart");
 
-if(pieChartId){
-	var ctxP = document.getElementById("pieChart").getContext('2d');
+// if(pieChartId){
+// 	var ctxP = document.getElementById("pieChart").getContext('2d');
 	
-    var myPieChart = new Chart(ctxP, {
-      type: 'pie',
-      data: {
-        labels: ["Rural Mapping", "Urban Mapping"],
-        datasets: [{
-          data: [300, 50],
-          backgroundColor: ["#228fd4", "#eb5437"],
-          hoverBackgroundColor: ["#5ab3ec", "#ce2a0b"]
-        }]
-      },
-      options: {
-        responsive: true
-      }
-    });
-}
+//     var myPieChart = new Chart(ctxP, {
+//       type: 'pie',
+//       data: {
+//         labels: ["Rural Mapping", "Urban Mapping"],
+//         datasets: [{
+//           data: [300, 50],
+//           backgroundColor: ["#228fd4", "#eb5437"],
+//           hoverBackgroundColor: ["#5ab3ec", "#ce2a0b"]
+//         }]
+//       },
+//       options: {
+//         responsive: true
+//       }
+//     });
+// }
 	

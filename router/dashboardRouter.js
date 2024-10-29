@@ -254,13 +254,11 @@ DashboardRouter.get('/dash', async(req, res) => {
       var table_list_for_onemonth_before = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' AND a.range_code = "${range_id}" AND a.tenure_ends_on >= CURDATE() AND a.tenure_ends_on < DATE_ADD(CURDATE(), INTERVAL 1 MONTH) `;
       var soc_list_over_election = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' AND a.range_code = "${range_id}" AND a.tenure_ends_on < CURDATE()  `;
    
-      var soctype = `md_society a,md_society_type b WHERE a.soc_type = b.soc_type_id
-         AND a.range_code = '${range1}' AND a.functional_status = 'Functional' group by a.range_code,a.soc_type`;
        }else{
         var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' LIMIT 25`;
         var table_list_for_onemonth_before = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' AND a.tenure_ends_on >= CURDATE() AND a.tenure_ends_on < DATE_ADD(CURDATE(), INTERVAL 1 MONTH) `;
         var soc_list_over_election = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' AND a.tenure_ends_on < CURDATE() `;
-        var soctype = `md_society a,md_society_type b WHERE a.soc_type = b.soc_type_id AND a.functional_status = 'Functional' group by a.range_code,a.soc_type`;
+    
        }
       whr = '';
       const order = null;
@@ -271,10 +269,8 @@ DashboardRouter.get('/dash', async(req, res) => {
       }
       var onemonthduereport = await db_Select('COUNT(*) as  onemnth', table_list_for_onemonth_before, whr, order);
       var overelection = await db_Select('COUNT(*) as  overele', soc_list_over_election, whr, order);
-      var soctyperes = await db_Select(`a.soc_type,b.soc_type_name,count(a.cop_soc_name)tot_soc_type`, soctype, null, null);
       // Execute database query
 
-      
       const result = await db_Select(select, table_name, whr, order);
       const select2 = "COUNT(*) as total";
       const countResult = await db_Select(select2, 'md_society', whr1, order);
@@ -300,7 +296,6 @@ DashboardRouter.get('/dash', async(req, res) => {
         data: result.suc > 0 ? result.msg : '',page: 1,totalPages:totalPages,
         onemondue:onemonthduereport.suc > 0 ? onemonthduereport.msg[0] : '',
         overelect:overelection.suc> 0 ? overelection.msg[0] : '',
-        soctyplist: soctyperes.suc > 0 ? soctyperes.msg : '',
         regauthtypelist: regauttypehres.suc > 0 ? regauttypehres.msg : '',ranzelist: ranzeres.suc > 0 ? ranzeres.msg : '',
         blocklist:blockres.suc > 0 ? blockres.msg : '',ulbcatglist: ulbcatgres.suc > 0 ? ulbcatgres.msg : '',
         soctierlist:soctierres.suc > 0 ? soctierres.msg : '', soctietypelist:soctietype.suc > 0 ? soctietype.msg : '',
@@ -473,5 +468,50 @@ DashboardRouter.get('/socLimitListfor_election_status',async(req, res) => {
      res.json({ data: result.suc > 0 ? result.msg : '', page,totalPages:totalPages,total:total });
 
 });
+
+DashboardRouter.post('/get_soctype_detail',async(req,res)=>{
+  try {
+    // Extract query parameter 'claims'
+    var data = req.body;
+    var soctype = `md_society a,md_society_type b`,
+    where = data.range_code > 0 ? `a.soc_type = b.soc_type_id AND a.functional_status = 'Functional' AND a.range_code ='${data.range_code}' group by a.range_code,a.soc_type` : `a.soc_type = b.soc_type_id AND a.functional_status = 'Functional' group by a.range_code,a.soc_type`,
+    order = null;
+    var soctyperes = await db_Select(`a.soc_type,b.soc_type_name,count(a.cop_soc_name)tot_soc_type`, soctype, where, null);
+    const responseData = {
+      soctype: soctyperes.suc > 0 ? soctyperes.msg : '', // Echoing the received claims
+    };
+    // Send response back to the client
+    res.json(responseData);
+    } catch (err) {
+        console.error('Error handling /regauth request:', err);
+        res.status(500).json({
+            success: false,
+            message: 'Internal server error'
+        });
+    }
+})
+
+DashboardRouter.post('/get_rular_urban',async(req,res)=>{
+  try {
+    // Extract query parameter 'claims'
+    var data = req.body
+    var select = `SUM(CASE WHEN urban_rural_flag = 'U' THEN 1 ELSE 0 END) AS urban_tot,SUM(CASE WHEN election_status = 'R' THEN 1 ELSE 0 END) AS rular_tot`,
+    table_name = `md_society`,
+    where = data.range_code > 0 ? `functional_status = 'Functional' AND range_code ='${data.range_code}'` : `functional_status = 'Functional'`,
+    order = null;
+    var res_dt = await db_Select(select, table_name, where, order);
+    const responseData = {
+      soctot: res_dt.suc > 0 ? res_dt.msg[0] : '', // Echoing the received claims
+    };
+    // Send response back to the client
+    res.json(responseData);
+    } catch (err) {
+        console.error('Error handling /regauth request:', err);
+        res.status(500).json({
+            success: false,
+            message: 'Internal server error'
+        });
+    }
+})
 
 module.exports = {DashboardRouter}

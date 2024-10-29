@@ -183,114 +183,13 @@
       <div class="bloxkSec">
 				 
         <div class="range_1">
-          <div class="bloxkSec_scroll">
-            <% if(soctyplist.length > 0){
-                var range = 5000 ;
-              var i = 1
-              soctyplist.forEach(dt => { %>
-          <div class="range_row">
-            <label class="range_small"><span class="societies_name"><%= dt.soc_type_name %></span></label>
-            <label class="range_half">
-              <span class="barChartMap" style="width: <%= ((dt.tot_soc_type / 5000) * 100).toFixed(2) %> %; display: inline-block;"></span><span class="counter_soc"><%= dt.tot_soc_type %></span>
-            </label>
-          </div>
-          <% } ) } %>
+          <div class="bloxkSec_scroll" id="item-list">
+           
           <!-- <div class="range_row">
             <label class="range_small"><span class="societies_name">Women CCS</span></label>
             <label class="range_half">
               <span class="barChartMap" style="width: 2.5%; display: inline-block;"></span>
                 <span class="counter_soc">5</span>
-            </label>
-          </div>
-          
-          <div class="range_row">
-            <label class="range_small"><span class="societies_name">PACS</span></label>
-            <label class="range_half">
-              <span class="barChartMap" style="width: 49.5%; display: inline-block;"></span><span class="counter_soc">99</span>
-            </label>
-          </div>
-          <div class="range_row">
-            <label class="range_small"><span class="societies_name">Women CCS</span></label>
-            <label class="range_half">
-              <span class="barChartMap" style="width: 2.5%; display: inline-block;"></span>
-                <span class="counter_soc">5</span>
-            </label>
-          </div>
-          
-          <div class="range_row">
-            <label class="range_small"><span class="societies_name">PACS</span></label>
-            <label class="range_half">
-              <span class="barChartMap" style="width: 49.5%; display: inline-block;"></span><span class="counter_soc">99</span>
-            </label>
-          </div>
-          <div class="range_row">
-            <label class="range_small"><span class="societies_name">Women CCS</span></label>
-            <label class="range_half">
-              <span class="barChartMap" style="width: 2.5%; display: inline-block;"></span>
-                <span class="counter_soc">5</span>
-            </label>
-          </div>
-          
-          <div class="range_row">
-            <label class="range_small"><span class="societies_name">PACS</span></label>
-            <label class="range_half">
-              <span class="barChartMap" style="width: 49.5%; display: inline-block;"></span><span class="counter_soc">99</span>
-            </label>
-          </div>
-          <div class="range_row">
-            <label class="range_small"><span class="societies_name">Women CCS</span></label>
-            <label class="range_half">
-              <span class="barChartMap" style="width: 2.5%; display: inline-block;"></span>
-                <span class="counter_soc">5</span>
-            </label>
-          </div>
-          
-          <div class="range_row">
-            <label class="range_small"><span class="societies_name">PACS</span></label>
-            <label class="range_half">
-              <span class="barChartMap" style="width: 49.5%; display: inline-block;"></span><span class="counter_soc">99</span>
-            </label>
-          </div>
-          <div class="range_row">
-            <label class="range_small"><span class="societies_name">Women CCS</span></label>
-            <label class="range_half">
-              <span class="barChartMap" style="width: 2.5%; display: inline-block;"></span>
-                <span class="counter_soc">5</span>
-            </label>
-          </div>
-          
-          <div class="range_row">
-            <label class="range_small"><span class="societies_name">PACS</span></label>
-            <label class="range_half">
-              <span class="barChartMap" style="width: 49.5%; display: inline-block;"></span><span class="counter_soc">99</span>
-            </label>
-          </div>
-          <div class="range_row">
-            <label class="range_small"><span class="societies_name">Women CCS</span></label>
-            <label class="range_half">
-              <span class="barChartMap" style="width: 2.5%; display: inline-block;"></span>
-                <span class="counter_soc">5</span>
-            </label>
-          </div>
-          
-          <div class="range_row">
-            <label class="range_small"><span class="societies_name">PACS</span></label>
-            <label class="range_half">
-              <span class="barChartMap" style="width: 49.5%; display: inline-block;"></span><span class="counter_soc">99</span>
-            </label>
-          </div>
-          <div class="range_row">
-            <label class="range_small"><span class="societies_name">Women CCS</span></label>
-            <label class="range_half">
-              <span class="barChartMap" style="width: 2.5%; display: inline-block;"></span>
-                <span class="counter_soc">5</span>
-            </label>
-          </div>
-          
-          <div class="range_row">
-            <label class="range_small"><span class="societies_name">PACS</span></label>
-            <label class="range_half">
-              <span class="barChartMap" style="width: 49.5%; display: inline-block;"></span><span class="counter_soc">99</span>
             </label>
           </div>
           <div class="range_row">
@@ -305,16 +204,13 @@
         
         </div>
         </div>
-<!--                <canvas id="barChart" ></canvas>-->
             </div>
-      <!-- <canvas id="barChart" ></canvas> -->
-    
         </div>
-    
-   <div class="col-sm-6 float-left">
-    
-          <div class="bloxkSec"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-            <canvas id="pieChart" width="423" height="211" style="display: block; width: 423px; height: 211px;" class="chartjs-render-monitor"></canvas>
+
+        <div class="col-sm-6 float-left">
+				
+          <div class="bloxkSec">
+            <canvas id="pieChart"></canvas>
           </div>
         </div>
 
@@ -325,10 +221,14 @@
   <script>
     societytot(0)
     electionstatus(0)
+    barchartsoctype(0);
+    pieChartId(0)
     $('#range_code').change(function() {
         var range_code = $(this).val();
         societytot(range_code);
         electionstatus(range_code);
+        barchartsoctype(range_code);
+        pieChartId(range_code);
       //  window.location.href = this.href; // Redirect to the new URL
     });
     function societytot(range_code) {
@@ -377,8 +277,6 @@
         }
       });
     }
-
-
     document.getElementById('election_link').addEventListener('click', function(event) {
         event.preventDefault(); // Prevent the default anchor behavior
         var range_code= $('#range_code').val();
@@ -391,6 +289,102 @@
     }
     return ((totSocType / 300) * 100).toFixed(2);
 }
+   
+  function barchartsoctype(range_code) {
+   
+        $.ajax({
+          url: '/dash/get_soctype_detail',
+          method: 'POST',
+          data: { range_code: range_code },
+          beforeSend: function() {
+            $('#item-list').html('');
+         
+          },
+          success: function(response) {
+            var soctyplist = response.soctype;
+            let rows = '';
+             if(soctyplist.length > 0){
+                var range = 5000 ;
+              var i = 1
+              soctyplist.forEach(dt => { 
+                rows += `<div class="range_row">
+            <label class="range_small"><span class="societies_name">${dt.soc_type_name}</span></label>
+            <label class="range_half">
+              <span class="barChartMap" style="width:  ${((dt.tot_soc_type/500)* 100).toFixed(2)}%; display: inline-block;"></span><span class="counter_soc">${dt.tot_soc_type}</span>
+            </label>
+          </div>`
+           } ) }
+
+           $('#item-list').html(rows);
+          },
+          error: function(err) {
+              // Handle any errors
+              $('#dist_code').html('<option value="0">Error fetching data. Please try again.</option>');
+              console.error('AJAX Error:', err); // Log error for debugging
+          }
+        });
+      }
+
+//       var pieChartId = document.getElementById("pieChart");
+// if(pieChartId){
+// 	var ctxP = document.getElementById("pieChart").getContext('2d');
+//     var myPieChart = new Chart(ctxP, {
+//       type: 'pie',
+//       data: {
+//         labels: ["Rural Mapping", "Urban Mapping"],
+//         datasets: [{
+//           data: [300, 50],
+//           backgroundColor: ["#228fd4", "#eb5437"],
+//           hoverBackgroundColor: ["#5ab3ec", "#ce2a0b"]
+//         }]
+//       },
+//       options: {
+//         responsive: true
+//       }
+//     });
+// }   
+
+function pieChartId(range_code) {
+//  var pieChartId = document.getElementById("pieChart");
+      $.ajax({
+        url: '/dash/get_rular_urban',
+        method: 'POST',
+        data: { range_code: range_code },
+        beforeSend: function() {
+          
+            // Show a loading indicator if needed
+          // $('#block_id').html('<option value="0">Loading...</option>');
+        },
+        success: function(response) {
+           var soc = response.soctot;
+           var urban_tot = soc.urban_tot ? soc.urban_tot : 0 
+           var rular_tot = soc.rular_tot ? soc.rular_tot : 0 
+           var ctxP = document.getElementById("pieChart").getContext('2d');
+    var myPieChart = new Chart(ctxP, {
+      type: 'pie',
+      data: {
+        labels: ["Rural Mapping", "Urban Mapping"],
+        datasets: [{
+          data: [rular_tot, urban_tot],
+          backgroundColor: ["#228fd4", "#eb5437"],
+          hoverBackgroundColor: ["#5ab3ec", "#ce2a0b"]
+        }]
+      },
+      options: {
+        responsive: true
+      }
+    });
+          //  $('#total_ongoing').html(soc.ongoing_tot ? soc.ongoing_tot : 0);
+          //  $('#total_completed').html(soc.done_tot?soc.done_tot:0 );
+          //  $('#total_due').html(soc.due_tot?soc.due_tot:0);
+        },
+        error: function(err) {
+            // Handle any errors
+            $('#dist_code').html('<option value="0">Error fetching data. Please try again.</option>');
+            console.error('AJAX Error:', err); // Log error for debugging
+        }
+      });
+    }
   </script>
 
 
