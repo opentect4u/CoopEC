@@ -175,7 +175,7 @@ reportRouter.use((req, res, next) => {
             LEFT JOIN md_zone d ON a.zone_code = d.zone_id 
             LEFT JOIN md_range e ON a.range_code = e.range_id 
             LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id`;
-            var con = `a.tenure_ends_on < CURDATE()`;
+            var con = `a.functional_status = 'Functional' AND a.tenure_ends_on < CURDATE()`;
 
         const where = `${con + range + soc_type}`; // Ensure these variables are properly defined
         const res_dt = await db_Select(select, table_name, where,null);
@@ -261,7 +261,7 @@ reportRouter.get('/downloadexcel_upcoming', async (req, res) => {
           LEFT JOIN md_zone d ON a.zone_code = d.zone_id 
           LEFT JOIN md_range e ON a.range_code = e.range_id 
           LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id`;
-          var con = `a.tenure_ends_on >= CURDATE() AND a.tenure_ends_on < DATE_ADD(CURDATE(), INTERVAL 2 MONTH)`;
+          var con = `a.functional_status = 'Functional' AND a.tenure_ends_on >= CURDATE() AND a.tenure_ends_on < DATE_ADD(CURDATE(), INTERVAL 2 MONTH)`;
 
       const where = `${con + range + soc_type}`; // Ensure these variables are properly defined
       const res_dt = await db_Select(select, table_name, where,null);
