@@ -403,15 +403,20 @@ const districtList = async()=>{
   // }
 
   const excelData = getPageData.map((item) => ({
-    'Society Name': item.cop_soc_name, 
-    'Society Type': item.soc_type_name,  
-    'Functional Status': item.functional_status,
+    'Society Name': item.cop_soc_name == null ? '--' : item.cop_soc_name, 
+    'Society Type': item.soc_type_name == null ? '--' : item.soc_type_name,
+    'District Name': item.dist_name == null ? '--' : item.dist_name, 
+    'Range Name': item.range_name == null ? '--' : item.range_name, 
+    'Registration Number': item.reg_no == null ? '--' : item.reg_no, 
+    'Tier of the Society': item.soc_tier_name == null ? '--' : item.soc_tier_name, 
+    'Zone': item.zone_name == null ? '--' : item.zone_name, 
+    'Functional Status': item.functional_status == null ? '--' : item.functional_status,
     'Last Election Date': item.last_elec_date ? new Date(item.last_elec_date).toLocaleDateString('en-GB') : '--', // Format as DD/MM/YYYY : '--',,
     'Tenure Ends On': item.tenure_ends_on  ? new Date(item.tenure_ends_on).toLocaleDateString('en-GB') : '--',
-    'Key Persone Name': item.contact_name,
-    'Key Persone Designation': item.contact_designation,
-    'Contact Number': item.contact_number,
-    'Email': item.email,
+    'Key Persone Name': item.contact_name == null ? '--' : item.contact_name,
+    'Key Persone Designation': item.contact_designation == null ? '--' : item.contact_designation,
+    'Contact Number': item.contact_number == null ? '--' : item.contact_number,
+    'Email': item.email == null ? '--' : item.email,
     // 'Residential Address': item.address, // Change 'address' to 'Residential Address'
   }));
 
@@ -455,7 +460,10 @@ const districtList = async()=>{
     </h1>
 
 
-  <Table columns={columns} loading={{ spinning: loading, tip: 'Loading data, please wait...' }} dataSource={filteredData} id='dataTable_search' />
+  <Table columns={columns} loading={{ spinning: loading, tip: 'Loading data, please wait...' }} dataSource={filteredData} id='dataTable_search' scroll={{ x: 'max-content' }} />
+
+  {/* scroll={{ x: 750 }
+  scroll={{ x: 'max-content' }}  */}
 
   {/* <Table columns={columns} loading={loading ? { spinning: true, tip: 'Loading data, please wait...' } : false} dataSource={filteredData} id='dataTable_search' /> */}
 

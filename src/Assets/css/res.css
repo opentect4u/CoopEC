@@ -26,8 +26,18 @@
 .bannerSliderMain .col-sm-4{max-width: 50%;}
 .bannerSliderMain .col-sm-8{max-width: 50%;}
 
+.footerLeft ul li {width: 33%;}
+
+.address_1 {margin-bottom: 30px;}
+
 }
 
+@media only screen and (max-width: 800px) {
+
+  .search_data_table .ant-table-container .ant-table-content table {width: max-content !important;}
+  .searchPageTop .ant-table-container .ant-table-content table {width: max-content !important;}
+
+}
 
 @media only screen and (max-width: 766px) {	
 .login ul li.colorTogle{display: block;}
@@ -45,16 +55,84 @@
 .anouncement .title i {font-size: 11px;}
 .anouncement a.link_view {margin: 8px 10px 8px auto;}
 
+.welcomeSecLeft {
+  width: 100%;
+  max-width: 100%;
+  float: none;
+  margin-bottom: 35px; display: inline-block;
 }
+
+.welcomeSecRight {
+  width: 100%;
+  max-width: 100%;
+  float: none;
+}
+
+.faqSec .section-header h2 {font-size: 40px; line-height: 45px;}
+
+.faqs-section .container{max-width: 100%;}
+.faqs-section .container .col-sm-10{max-width: 100%; flex:auto;}
+
+.faqCustom .ant-collapse-item .ant-collapse-header {padding: 15px; font-size: 17px;}
+
+.footerBlue .col-sm-9{max-width: 65%;}
+.footerBlue .col-sm-3{max-width: 35%;}
+.footerRight ul.address li.addresList {font-size: 14px; line-height: 19px;}
+.footerRight ul.address li.phonList {font-size: 14px; line-height: 19px;}
+
+.footerLeft ul li a {font-size: 14px; padding-bottom: 6px; padding-top: 6px;}
+
+.footerLeft ul li {width: 50%;}
+
+.searchPageTop .search_box form{display: block;}
+.searchPageTop .search_box label {width: 23%; margin: 0 1%;}
+.searchPageTop .search_box label.searchSec {margin: 10px 1% 0 1%; padding: 0; width: 48%; float: left;}
+.searchPageTop .search_box label.resetSec {margin: 10px 1% 0 1%; padding: 0; width: 48%; float: left;}
+
+.left_sec h1.search_page {font-size: 18px;}
+
+.contactPage .col-sm-8{max-width: 100%; flex: inherit;}
+.contactPage .col-sm-4{max-width: 100%; margin-top: 25px; flex: inherit;}
+
+.inner_page_Sec {
+  padding-top: 20px;
+  padding-bottom: 20px;}
+
+}
+
+
 
 @media only screen and (max-width: 690px) {	
 .anouncement .title i {display: none;}
 }
 
+@media only screen and (max-width: 690px) {	
+
+.inner_page_Sec .col-sm-8{max-width: 100%;}
+.inner_page_Sec .col-sm-4{max-width: 100%; margin-top: 25px;}
+
+
+
+}
+
 @media only screen and (max-width: 550px) {	
 .login ul li.fontResize a img{max-width: 20px; height: 20px;}
 .login ul li.topLogin a {padding: 2px 15px; line-height: 28px;}
+
+.welcomeSecLeft p img{display: none;}
+.welcomeSecLeft h1 {font-size: 24px; margin: 0 0 10px 0;}
+
+.footerBlue .col-sm-9 {max-width: 100%;}
+.footerBlue .col-sm-3 {max-width: 100%;}
+.footerLeft h2 {margin-bottom: 6px;}
+.footerRight h2 {margin-bottom: 10px;}
+
+.footerWhite {font-size: 13px;}
+
+a.docDownload {font-size: 11px;}
+
 }
+
 
 
 @media only screen and (max-width:488px) {
@@ -74,19 +152,35 @@
 .rightNav ul li.fontResize{border-right:none;}
 .leftNav{display: none;}
 .rightNav .language{width: 100%; margin: 0;}
-}
 
-@media only screen and (max-width:488px) {
 
 .anouncement a.link_view{display: none;}
 .anouncement .title {max-width: 30%;}
 .anouncement .scroll_sec {width: 68%; padding-left: 2%;}
 }
 
+@media only screen and (max-width:450px) {
+
+.faqCustom .ant-collapse-item .ant-collapse-header {padding: 15px; font-size: 15px;}
+
+}
+
+@media only screen and (max-width:400px) {
+.homeGallery ul li:nth-child(1) {height: 200px;}
+.homeGallery ul li:nth-child(2) {height: 100px;}
+.homeGallery ul li:nth-child(3) {height: 100px;}
+
+.searchPageTop .search_box label {width: 48%; margin: 0 1% 10px 1%;}
+.searchPageTop .search_box label.searchSec {margin: 0 1% 0 1%; padding: 0; width: 48%; float: left;}
+.searchPageTop .search_box label.resetSec {margin: 0 1% 0 1%; padding: 0; width: 48%; float: left;}
+
+}
 
 
+@media only screen and (max-width:400px) {
 
-
+  
+  }
 
 
 

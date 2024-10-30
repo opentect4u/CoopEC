@@ -54,7 +54,7 @@ function ContactUs() {
 
 <div class="wrapper">
     <div class="inner_page_Sec">
-    <div class="col-sm-12 float-left left_sec searchPageTop">
+    <div class="col-sm-12 float-left left_sec searchPageTop contactPage">
 
     <h1>Contact Us</h1>
 <div className='row'>
