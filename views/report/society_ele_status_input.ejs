@@ -1,0 +1,48 @@
+<div class="row">
+  <div class="col-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title card_title_cus">Society Election Status </h4>
+        <form class="forms-sample" action="/report/society_ele_status_result" method="post" >
+          <input type="hidden" class="form-control"  name="id" value="" required>
+            <div class="row">
+              <% if(user.range_id== 0) { %>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputName1">Range<span class="red">*</span></label>
+                  <select name="range_id" class="form-control" required> 
+                    <option value="">Please Select</option>
+                    <option value="0">ALL Range</option>
+                    <% 
+                    range_list.forEach(dt => { %>
+                    <option value="<%= dt.range_id %>"><%= dt.range_name %></option>
+                    <% }) %>
+                  </select>
+                </div>
+              </div>
+              <% }else{ %>
+               <input type="hidden" name="range_id" value="<%=user.range_id%>">
+
+                <% } %>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputName1">Election Status<span class="red">*</span></label>
+                  <select name="election_status" class="form-control" required> 
+                    <option value="">Please Select</option>
+                      <option value="ONGOING">ONGOING</option>
+                      <option value="DUE">DUE</option>
+                      <option value="DONE">DONE</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            
+          <button type="submit" class="btn btn-primary mr-2" id="submit">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

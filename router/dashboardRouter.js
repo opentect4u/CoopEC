@@ -13,6 +13,7 @@ DashboardRouter.get('/dashboard', async(req, res) => {
     try {
         // Extract range_id from session
         const range_id = req.session.user.range_id;
+      //  const suc_msg = req.flash('success_msg') ;
         const select = "a.id,a.cop_soc_name,a.reg_no,a.functional_status,b.soc_type_name,c.dist_name,d.zone_name,e.range_name,f.soc_tier_name";
         if(range_id > 0){ 
         var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' AND a.range_code = "${range_id}" LIMIT 25`;
@@ -49,6 +50,9 @@ DashboardRouter.get('/dashboard', async(req, res) => {
         const soctietype = await db_Select('*', 'md_society_type', null, null);
         const distres = await db_Select('*', 'md_district', null, null);
         // Prepare data for rendering
+        // console.log('Check Message Data');
+        // console.log(suc_msg);
+        // console.log('Check Message Data');
         const res_dt = {
           data: result.suc > 0 ? result.msg : '',page: 1,totalPages:totalPages,
           regauthtypelist: regauttypehres.suc > 0 ? regauttypehres.msg : '',ranzelist: ranzeres.suc > 0 ? ranzeres.msg : '',

@@ -93,7 +93,6 @@ SocietyRouter.post('/socedit', async(req, res) => {
     var flag = 1;
     var save_data = await db_Insert(table_name, fields, values, whr, flag);
   
-   
     const board_memb_id = data['board_memb_id[]'];
     const board_memb_name = data['board_memb_name[]'];
     const board_memb_desig = data['board_memb_desig[]'];
@@ -115,8 +114,8 @@ SocietyRouter.post('/socedit', async(req, res) => {
               await db_Insert('td_board_member', fields, values, null, false);
           }
       }
-  }
-     console.log(data);
+    }
+      req.flash('success_msg', 'Update successful!');
       res.redirect("/dash/dashboard");
     } catch (error) {
       // Log the error and send an appropriate response

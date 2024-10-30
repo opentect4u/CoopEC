@@ -161,6 +161,8 @@
         <div class="card">
           <div class="card-body">
             <h4 class="card-title card_title_cus">List Co-operative Societies in <%= range_name %> (<span id="filtot"><%= total %></span>) 
+             
+             
               
               <div class="table_title_icon"> 
                 <a href="/dash/society_download" class=""><img src="/images/excel.jpg" alt="excel" class="excel_cus" /></a>
@@ -268,7 +270,11 @@
 </div>
 
 <script>
-
+          $(document).ready(function() {
+                <% if (success_msg.length > 0) { %>
+                    toastr.success('<%= success_msg %>');
+            <% } %>
+            });
     $(document).ready(function() {
       //$('#pagination span').click(function(event) {
         $(document).on('click', '.page-link', function(event) {
