@@ -72,6 +72,7 @@ SocietyRouter.post('/socedit', async(req, res) => {
     // Format it as YYYY-MM-DD HH:mm:ss
       var formattedDate = date_ob.format('YYYY-MM-DD HH:mm:ss');
       const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+   
       var data = req.body;
       var table_name = "md_society";
     var values = null;

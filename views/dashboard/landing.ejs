@@ -185,12 +185,9 @@
                   <tr>
                     <th class="society_th_1">SL No</th>
                     <th class="society_th_2">Society Name</th>
-                    <!-- <th class="society_th_5">District</th>
-                    <th class="society_th_4">Zone</th> -->
-                    <!-- <th class="society_th_3">Range</th> -->
                     <th class="society_th_6">Registration Number</th>
-                    <!-- <th class="society_th_7">Tier </th> -->
                     <th class="society_th_8">Society Type</th>
+                    <th class="society_th_7">Status </th>
                     <th class="society_th_9">Option</th>
                   </tr>
                 </thead>
@@ -207,14 +204,15 @@
                               <span style="background-color: red;"><%= dt.functional_status %></span>
                           <% } %>
                           </td>
-                          <!-- <td><%= dt.dist_name %></td>
-                          <td><%= dt.zone_name %></td> -->
-                          <!-- <td><%= dt.range_name %></td> -->
                           <td><%= dt.reg_no %></td>
-                          <!-- <td><%= dt.soc_tier_name %></td> -->
                           <td><%= dt.soc_type_name %></td>
+                          <td><% if (dt.approve_status == 'A'){ %>
+                            <span class="green">APPROVED</span>
+                        <%  } else if(dt.approve_status == 'E'){  %>
+                          <span style="background-color: orangered;">EDITED</span>
+                      <%  } %></td>
                           <td>
-                            <a href="/society/edit?id=<%= dt.id %>" class="edit_dashboard">Edit</a>
+                            <a href="/society/edit?id=<%= dt.id %>" class="ti-marker-alt" style="font-size: 2em;"></a>
                           </td>
                       </tr>
                   <% }) %>
@@ -276,7 +274,7 @@
             <% } %>
             });
     $(document).ready(function() {
-      //$('#pagination span').click(function(event) {
+     
         $(document).on('click', '.page-link', function(event) {
         event.preventDefault(); // Prevent default anchor behavior
              $('#item-list').html('');
@@ -319,6 +317,14 @@
                         let i = $('#item-list tr').length + 1; // Start from the next index
 
                         data.forEach(dt => {
+                              let statusHTML;
+                              if (dt.approve_status === 'A') {
+                                  statusHTML = '<span class="green">APPROVED</span>';
+                              } else if (dt.approve_status === 'E') {
+                                  statusHTML = '<span style="background-color: orangered;">EDITED</span>';
+                              } else{
+                                statusHTML ='';
+                              }
                             rows += `
                                  <tr>
                                     <td>${startIndex++}</td>
@@ -329,6 +335,7 @@
                                     </td>
                                     <td>${dt.reg_no}</td> 
                                     <td>${dt.soc_type_name}</td> 
+                                    <td>${statusHTML}</td> 
                                     <td>
                                         <a href="/society/edit?id=${dt.id}" class="edit_dashboard">Edit</a>
                                     </td>
@@ -429,6 +436,14 @@
                         let i = $('#item-list tr').length + 1; // Start from the next index
 
                         data.forEach(dt => {
+                          var statusHTML = '';
+                              if (dt.approve_status === 'A') {
+                                  statusHTML = '<span class="green">APPROVED</span>';
+                              } else if (dt.approve_status === 'E') {
+                                  statusHTML = '<span style="background-color: orangered;">EDITED</span>';
+                              }else if (dt.approve_status === null){
+                                statusHTML = '';
+                              }
                             rows += `
                                  <tr>
                                     <td>${startIndex++}</td>
@@ -438,7 +453,8 @@
                                             : `<span style="background-color: red;">${dt.functional_status}</span>`}
                                     </td>
                                     <td>${dt.reg_no}</td> 
-                                    <td>${dt.soc_type_name}</td> 
+                                    <td>${dt.soc_type_name}
+                                    <td>${statusHTML}</td>
                                     <td>
                                         <a href="/society/edit?id=${dt.id}" class="edit_dashboard">Edit</a>
                                     </td>
