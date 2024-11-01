@@ -125,6 +125,8 @@ SocietyRouter.post('/socedit', async(req, res) => {
       res.render('dashboard/edit', res_dt);
     }
 })
+
+  
 SocietyRouter.get('/socadd', async(req, res) => {
   try {
       // Extract range_id from session
@@ -441,9 +443,9 @@ SocietyRouter.get('/modifiedlist', async(req, res) => {
         const range_id = req.session.user.range_id;
         const select = "a.id,a.cop_soc_name,a.reg_no,a.functional_status,b.soc_type_name,c.dist_name,d.zone_name,e.range_name,f.soc_tier_name";
         if(range_id > 0){ 
-        var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' AND a.range_code = "${range_id}" AND approve_status ='E' LIMIT 25`;
+        var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' AND a.range_code = "${range_id}" AND approve_status ='E' `;
          }else{
-          var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' AND approve_status ='E' LIMIT 25`;
+          var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' AND approve_status ='E'`;
          }
         whr = '';
         const order = null;
@@ -475,5 +477,90 @@ SocietyRouter.get('/modifiedlist', async(req, res) => {
         res.render('society/modified_list', res_dt);
       }
 })
+
+  SocietyRouter.get('/approve', async(req, res) => {
+  try {
+      // Extract range_id from session
+      const soc_id = req.query.id;
+      const range_id = req.session.user.range_id;
+      const select = "*";
+      const table_name = "md_society";
+      const whr = `id='${soc_id}' `;
+      const order = null;
+      // Execute database query
+      const result = await db_Select(select, table_name, whr, order);
+      const typelist = await db_Select('*', 'md_society_type', null, null);
+      const soctierres = await db_Select('*', 'md_soc_tier', null, null);
+      const regauttypehres = await db_Select('*', 'md_controlling_authority_type', null, null);
+      const regauthres = await db_Select('*', 'md_controlling_authority', null, null);
+      const zoneres = await db_Select('*', 'md_zone', null, null);
+      const distres = await db_Select('*', 'md_district', null, null);
+      const distcode = result.msg[0].dist_code > 0 ? result.msg[0].dist_code : 0;
+      const zone_id = result.msg[0].zone_code > 0 ? result.msg[0].zone_code : 0;
+      const ranzeres = await db_Select('*', 'md_range', `dist_id='${distcode}'`, null);
+        console.log(ranzeres);
+      const ulbcatgres = await db_Select('*', 'md_ulb_catg', null, null);
+      const ulbres = await db_Select('*', 'md_ulb', null, null);
+      const managementres = await db_Select('*', 'md_management_status', null, null);
+      const officertyperes = await db_Select('*', 'md_officer_type', null, null);
+      const caseflagres = await db_Select('*', 'md_case_flag', null, null);
+      const wardres = await db_Select('*', 'md_ward', null, null);
+      const blockres = await db_Select('*', 'md_block',  `dist_id='${distcode}'`, null);
+      const gpres = await db_Select('*', 'md_gp',  `dist_id='${distcode}'`, null);
+      const villres = await db_Select('*', 'md_village',  `dist_id='${distcode}'`, null);
+      const boardmembdtsl = await db_Select('*', 'td_board_member',  `soc_id='${soc_id}'`, null);
+      
+  
+      // Prepare data for rendering
+      const res_dt = {
+        soc: result.suc > 0 ? result.msg[0] : '',soctypelist: typelist.suc > 0 ? typelist.msg : '',
+        soctierlist: soctierres.suc > 0 ? soctierres.msg : '',regauthtypelist: regauttypehres.suc > 0 ? regauttypehres.msg : '',
+        regauthlist: regauthres.suc > 0 ? regauthres.msg : '',moment: moment,
+        zonelist: zoneres.suc > 0 ? zoneres.msg : '',districtlist: distres.suc > 0 ? distres.msg : '',
+        ranzelist: ranzeres.suc > 0 ? ranzeres.msg : '',ulbcatglist: ulbcatgres.suc > 0 ? ulbcatgres.msg : '',
+        ulblist: ulbres.suc > 0 ? ulbres.msg : '',managementlist: managementres.suc > 0 ? managementres.msg : '',
+        officertypelist: officertyperes.suc > 0 ? officertyperes.msg : '',caseflaglist: caseflagres.suc > 0 ? caseflagres.msg : '',
+        wardlist:wardres.suc > 0 ? wardres.msg : '',blocklist:blockres.suc > 0 ? blockres.msg : '',
+        gplist:gpres.suc > 0 ? gpres.msg : '',villlist:villres.suc > 0 ? villres.msg : '',
+        boardmembdlist: boardmembdtsl.suc > 0 ? boardmembdtsl.msg : '',
+      };
+      // Render the view with data
+      res.render('society/approve', res_dt);
+    } catch (error) {
+      // Log the error and send an appropriate response
+      console.error('Error during dashboard rendering:', error);
+      //res.status(500).send('An error occurred while loading the dashboard.');
+      res.render('dashboard/approve', res_dt);
+    }
+  })
+
+  SocietyRouter.post('/approve', async(req, res) => {
+    try {
+        // Extract range_id from session
+        var user_id = req.session.user.user_id;
+        var date_ob = moment();
+      // Format it as YYYY-MM-DD HH:mm:ss
+        var formattedDate = date_ob.format('YYYY-MM-DD HH:mm:ss');
+        const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+        var data = req.body;
+        var table_name = "md_society";
+      var values = null;
+      
+      var fields = `approve_status='A',approve_by='${user_id}',
+      approve_dt = '${formattedDate}',approve_ip='${ip}' `;
+      var whr = `id = '${data.id}'` ;
+      var flag = 1;
+      var save_data = await db_Insert(table_name, fields, values, whr, flag);
+    
+      
+        req.flash('success_msg', 'Update successful!');
+        res.redirect("/dash/dashboard");
+      } catch (error) {
+        // Log the error and send an appropriate response
+        console.error('Error during dashboard rendering:', error);
+        //res.status(500).send('An error occurred while loading the dashboard.');
+        res.render('dashboard/edit', res_dt);
+      }
+  })
 
 module.exports = {SocietyRouter}

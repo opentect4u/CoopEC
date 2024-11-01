@@ -10,6 +10,11 @@
             event.preventDefault(); // Prevent the default action (e.g., form submission)
         }
     }
+    function confirmapprove(event) {
+        if (!confirm("Are you sure you want to Approve this Society?")) {
+            event.preventDefault(); // Prevent the default action (e.g., form submission)
+        }
+    }
     toastr.options = {
     "closeButton": true,
     "debug": false,

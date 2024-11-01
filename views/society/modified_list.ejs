@@ -39,7 +39,7 @@
                           <td><%= dt.reg_no %></td>
                           <td><%= dt.soc_type_name %></td>
                           <td>
-                            <a href="/society/edit?id=<%= dt.id %>" class="edit_dashboard">Edit</a>
+                            <a href="/society/approve?id=<%= dt.id %>" class="edit_dashboard">Edit</a>
                           </td>
                       </tr>
                   <% }) %>
@@ -48,7 +48,7 @@
         
             </div>
 
-          <nav aria-label="Page navigation" class="pagination_cus">
+          <!-- <nav aria-label="Page navigation" class="pagination_cus">
             <ul  style="float: left;" id="pagination_count">
               Showing 1 to <%= i-1 %> of, <%= total %> entries
             </ul>
@@ -87,7 +87,7 @@
                     </a>
                 </li>
             </ul>
-        </nav>
+        </nav> -->
         
           </div>
         </div>
@@ -120,8 +120,6 @@
                 var soc_tier = $('#soc_tier').val();
                 var soc_type_id = $('#soc_type_id').val();
                 var functional_status = '';
-
-
                 $.ajax({
                     url: '/dash/socLimitList',
                     type: 'GET',
