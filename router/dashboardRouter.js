@@ -11,9 +11,10 @@ DashboardRouter.use((req, res, next) => {
 });
 
 DashboardRouter.get('/checkip', (req, res) => {
-  //const ip = req.headers['x-forwarded-for'] ? req.headers['x-forwarded-for'].split(',')[0] : req.socket.remoteAddress;
-  console.log('Client IP:', ip); // Log the IP address
-  res.send(`Your  request is: ${req.headers}`);
+
+  const ip = req.headers['x-forwarded-for'] ? req.headers['x-forwarded-for'].split(',')[0] : req.socket.remoteAddress;
+
+  res.send(`Your IP address is: ${ip}`);
 });
 DashboardRouter.get('/dashboard', async(req, res) => {
     try {
