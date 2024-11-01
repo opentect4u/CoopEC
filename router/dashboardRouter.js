@@ -11,6 +11,7 @@ DashboardRouter.use((req, res, next) => {
 });
 
 DashboardRouter.get('/checkip', (req, res) => {
+  // Get the remote address from the socket
   const remoteAddress = req.socket.remoteAddress;
 
   // Handle local testing (IPv6 localhost)
@@ -22,6 +23,7 @@ DashboardRouter.get('/checkip', (req, res) => {
   // Send the client IP as a JSON response
   res.json({ message: 'Your IP socket is:', clientIp });
 });
+
 DashboardRouter.get('/dashboard', async(req, res) => {
     try {
         // Extract range_id from session
