@@ -14,7 +14,7 @@ DashboardRouter.get('/checkip', (req, res) => {
 
   const ip =  req.socket.remoteAddress;
 
-  res.send(`Your IP address is: ${ip}`);
+  res.send(`Your  address is: ${ip}`);
 });
 DashboardRouter.get('/dashboard', async(req, res) => {
     try {
