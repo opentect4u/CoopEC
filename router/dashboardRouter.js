@@ -11,12 +11,12 @@ DashboardRouter.use((req, res, next) => {
 });
 
 DashboardRouter.get('/checkip', (req, res) => {
-  const remoteAddress = req.socket ? req.socket.remoteAddress : req.connection.remoteAddress;
+  const remoteAddress = req.socket.remoteAddress;
 
   // Handle local testing (IPv6 localhost)
-  const clientIp = remoteAddress === '::1' ? '127.0.0.1' : remoteAddress;
+  const clientIp = remoteAddress === '::1' ? '127.0.0.1' : remoteAddress || 'Unknown IP';
 
-  // Log the remote address for debugging
+  // Log the client IP for debugging
   console.log('Client IP:', clientIp);
 
   // Send the client IP as a JSON response
