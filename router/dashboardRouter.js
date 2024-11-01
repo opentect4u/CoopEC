@@ -1,5 +1,6 @@
 const DashboardRouter = require('express').Router()
 const ExcelJS = require('exceljs');
+const requestIp = require('request-ip');
 const {db_Select} = require('../modules/MasterModule');
 DashboardRouter.use((req, res, next) => {
     var user = req.session.user;
@@ -12,16 +13,10 @@ DashboardRouter.use((req, res, next) => {
 
 DashboardRouter.get('/checkip', (req, res) => {
   // Get the remote address from the socket
-  const remoteAddress = req.socket.remoteAddress;
+  const clientIp = req.clientIp || 'Unknown IP';
 
-  // Handle local testing (IPv6 localhost)
-  const clientIp = remoteAddress === '::1' ? '127.0.0.1' : remoteAddress || 'Unknown IP';
-
-  // Log the client IP for debugging
-  console.log('Client IP:', clientIp);
-
-  // Send the client IP as a JSON response
-  res.json({ message: 'Your IP socket is:', clientIp });
+    console.log('Client IP:', clientIp);
+    res.json({ message: 'Your IP socket is:', clientIp });
 });
 
 DashboardRouter.get('/dashboard', async(req, res) => {
