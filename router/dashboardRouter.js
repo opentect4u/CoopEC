@@ -12,9 +12,9 @@ DashboardRouter.use((req, res, next) => {
 
 DashboardRouter.get('/checkip', (req, res) => {
 
-  const ip =  req.socket.remoteAddress;
-
-  res.send(`Your  address is: ${ip}`);
+  const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress; // Simplified
+  console.log('Client IP:', ip); // Log the IP address
+  res.send(`Your IP address is: ${ip}`);
 });
 DashboardRouter.get('/dashboard', async(req, res) => {
     try {
