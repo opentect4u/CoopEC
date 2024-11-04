@@ -503,7 +503,7 @@ WdtlsRouter.post('/update_statistic', async(req, res) => {
         }else{
           var pass =  bcrypt.hashSync('1234', 10) ;
         }
-      var values = `('${data.user_id}','${data.user_name}','${data.user_email}','${data.designation}','${data.user_type}','${pass}','${data.user_status}','${data.range_id}','${formattedDate}','${user.user_id}','${ip}')`
+      var values = `('${data.user_id}','${data.user_name}','${data.user_email}','${data.designation}','${data.user_type}','${pass}','I','${data.range_id}','${formattedDate}','${user.user_id}','${ip}')`
       
         var table_name = "md_user";
       var fields = data.id > 0 ? `user_id = '${data.user_id}',user_name = '${data.user_name.split("'").join("\\'")}',user_email = '${data.user_email}',designation = '${data.designation}',user_type = '${data.user_type}',
