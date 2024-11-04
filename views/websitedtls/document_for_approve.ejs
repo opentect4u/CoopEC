@@ -1,0 +1,41 @@
+<style>
+  #suggestions {
+      position: absolute;
+      z-index: 1000; /* Ensure it appears above other elements */
+    
+  }
+</style>
+<div class="row">
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title card_title_cus">Document Name: <%= data.doc_title %>   |  Uploaded By : <%= data.created_by %>  |  Datetime  <%= new Date(data.created_at).toLocaleString('en-IN', {
+              year: 'numeric',
+              month: 'short',
+              day: 'numeric',
+              hour: '2-digit',
+              minute: '2-digit',
+              hour12: true // Set to false for 24-hour format
+          }) %>
+            </h4>
+            <div class="table-responsive pt-3 custome_table_res">
+              <% if (data.doc_type == 1 ){ %>
+              <iframe src="/uploads/notifications/<%= data.document %>" width="100%" height="800px"></iframe>
+              <%  } else if(data.doc_type == 2 ){  %>
+                <iframe src="/uploads/tenders/<%= data.document %>" width="100%" height="800px"></iframe>
+                <%  } else if(data.doc_type == 3 ){  %>
+                  <iframe src="/uploads/announcement/<%= data.document %>" width="100%" height="800px"></iframe>
+                  <%  } else if(data.doc_type == 4 ){  %>
+                    <iframe src="/uploads/downloads/<%= data.document %>" width="100%" height="800px"></iframe>  
+                    <% } %>
+            </div>
+             
+          </div>
+              <form action="/wdtls/approve_document" method="post">
+                <input type="hidden" name="doc_id" value="<%= data.id %>">
+                <button type="submit" class="btn btn-primary" onclick="confirmapprove_(event)" >Approve Document</button>
+              </form>
+        </div>
+      </div>
+</div>
+

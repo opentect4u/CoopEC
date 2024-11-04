@@ -25,7 +25,7 @@ app.set("layout", "templates/layout");
 
 // SET ASSETS AS A STATIC PATH //
 app.use(express.static(path.join(__dirname, "assets/")));
-
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // SET SSL CERT //
 /*const options = {

@@ -49,6 +49,70 @@ WdtlsRouter.get('/adddoc', async(req, res) => {
     }
 })
 
+  WdtlsRouter.get('/doclist_for_approve', async(req, res) => {
+    try {
+        // Extract range_id from session
+        const doclist = await db_Select('a.*,b.doc_type as doc_type_name', 'td_document_upload a,md_document b',`a.doc_type = b.doc_type_id`, null);
+        // Prepare data for rendering
+        const res_dt = {
+          data:doclist.suc > 0 ? doclist.msg : '', 
+        };
+        res.render('websitedtls/document_list_for_approve',res_dt);
+      } catch (error) {
+        // Log the error and send an appropriate response
+        console.error('Error during dashboard rendering:', error);
+        //res.status(500).send('An error occurred while loading the dashboard.');
+        res.render('websitedtls/document_list');
+      }
+  })
+  WdtlsRouter.get('/doc_for_approve', async(req, res) => {
+    try {
+        // Extract range_id from session
+        var id = req.query.id;
+        var whr= `id=${id}`;
+        const doclist = await db_Select('*', 'td_document_upload', whr, null);
+        // Prepare data for rendering
+        const res_dt = {
+          data:doclist.suc > 0 ? doclist.msg[0] : '', 
+        };
+        res.render('websitedtls/document_for_approve',res_dt);
+      } catch (error) {
+        // Log the error and send an appropriate response
+        console.error('Error during dashboard rendering:', error);
+        //res.status(500).send('An error occurred while loading the dashboard.');
+        res.render('websitedtls/document_list');
+      }
+  })
+
+  WdtlsRouter.post('/approve_document', async(req, res) => {
+    try {
+        // Extract range_id from session
+        var user_id = req.session.user.user_id;
+        var date_ob = moment();
+      // Format it as YYYY-MM-DD HH:mm:ss
+        var formattedDate = date_ob.format('YYYY-MM-DD HH:mm:ss');
+        const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+        var data = req.body;
+        var table_name = "td_document_upload";
+      var values = null;
+      
+      var fields = `status='A',approved_by='${user_id}',
+      approved_at = '${formattedDate}',approved_ip='${ip}' `;
+      var whr = `id = '${data.doc_id}'` ;
+      var flag = 1;
+      var save_data = await db_Insert(table_name, fields, values, whr, flag);
+    
+        req.flash('success_msg', 'Update successful!');
+        res.redirect("/wdtls/doclist_for_approve");
+      } catch (error) {
+        // Log the error and send an appropriate response
+        console.error('Error during dashboard rendering:', error);
+        //res.status(500).send('An error occurred while loading the dashboard.');
+        res.render('wdtls/doclist_for_approve', res_dt);
+      }
+  })
+  
+
 // Set up storage and multer
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {

@@ -15,6 +15,11 @@
             event.preventDefault(); // Prevent the default action (e.g., form submission)
         }
     }
+    function confirmapprove_(event) {
+        if (!confirm("Are you sure you want to Approve this?")) {
+            event.preventDefault(); // Prevent the default action (e.g., form submission)
+        }
+    }
     toastr.options = {
     "closeButton": true,
     "debug": false,
