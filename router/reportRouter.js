@@ -25,7 +25,7 @@ reportRouter.use((req, res, next) => {
           range_name =  'ALL Range';
         }
         const rangeres = await db_Select('*', 'md_range',null, null);
-        const soctyperes = await db_Select('*', 'md_society_type',null, null);
+        const soctyperes = await db_Select('*', 'md_society_type',`AND a.approve_status = 'A'`, null);
         // Prepare data for rendering
         const res_dt = {
           range_list : rangeres.suc > 0 ? rangeres.msg : '',
@@ -51,11 +51,11 @@ reportRouter.use((req, res, next) => {
         const select = "a.id,a.cop_soc_name,a.last_elec_date,a.tenure_ends_on,a.elec_due_date,a.reg_no,b.soc_type_name,c.dist_name,d.zone_name,e.range_name,f.soc_tier_name";
         if(range_id > 0){ 
           var select_type = postdata.soc_type > 0 ? `AND a.range_code = '${postdata.soc_type}'` : '' ;
-        var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' ${select_type} AND a.tenure_ends_on < CURDATE() AND a.range_code = "${range_id}" `;
+        var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' AND a.approve_status = 'A' ${select_type} AND a.tenure_ends_on < CURDATE() AND a.range_code = "${range_id}" `;
         }else{
           var select_range = range_code > 0 ? `AND a.range_code = '${range_code}'` : '' ;
           var select_type = postdata.soc_type > 0 ? `AND a.range_code = '${postdata.soc_type}'` : '' ;
-          var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' ${select_range+select_type} AND a.tenure_ends_on < CURDATE() `;
+          var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' AND a.approve_status = 'A' ${select_range+select_type} AND a.tenure_ends_on < CURDATE() `;
         }
         // Execute database query
         const result = await db_Select(select, table_name, null, null);
@@ -104,7 +104,7 @@ reportRouter.use((req, res, next) => {
             LEFT JOIN md_zone d ON a.zone_code = d.zone_id 
             LEFT JOIN md_range e ON a.range_code = e.range_id 
             LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id`;
-            var con = `a.functional_status = 'Functional' AND a.tenure_ends_on < CURDATE()`;
+            var con = `a.functional_status = 'Functional' AND a.approve_status = 'A' AND a.tenure_ends_on < CURDATE()`;
 
         const where = `${con + range + soc_type}`; // Ensure these variables are properly defined
         const res_dt = await db_Select(select, table_name, where,null);
@@ -209,11 +209,11 @@ reportRouter.use((req, res, next) => {
         const select = "a.id,a.cop_soc_name,a.last_elec_date,a.tenure_ends_on,a.elec_due_date,a.reg_no,b.soc_type_name,c.dist_name,d.zone_name,e.range_name,f.soc_tier_name";
         if(range_id > 0){ 
           var select_type = postdata.soc_type > 0 ? `AND a.range_code = '${postdata.soc_type}'` : '' ;
-        var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' ${select_type} AND a.tenure_ends_on >= CURDATE() AND a.tenure_ends_on < DATE_ADD(CURDATE(), INTERVAL ${month_interval} MONTH) AND a.range_code = "${range_id}" `;
+        var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' AND a.approve_status = 'A' ${select_type} AND a.tenure_ends_on >= CURDATE() AND a.tenure_ends_on < DATE_ADD(CURDATE(), INTERVAL ${month_interval} MONTH) AND a.range_code = "${range_id}" `;
         }else{
           var select_range = range_code > 0 ? `AND a.range_code = '${range_code}'` : '' ;
           var select_type = postdata.soc_type > 0 ? `AND a.soc_type = '${postdata.soc_type}'` : '' ;
-          var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' ${select_range+select_type} AND a.tenure_ends_on >= CURDATE() AND a.tenure_ends_on < DATE_ADD(CURDATE(), INTERVAL ${month_interval} MONTH) `;
+          var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' ${select_range+select_type} AND a.approve_status = 'A' AND a.tenure_ends_on >= CURDATE() AND a.tenure_ends_on < DATE_ADD(CURDATE(), INTERVAL ${month_interval} MONTH) `;
         }
     
         // Execute database query
@@ -262,7 +262,7 @@ reportRouter.use((req, res, next) => {
           LEFT JOIN md_zone d ON a.zone_code = d.zone_id 
           LEFT JOIN md_range e ON a.range_code = e.range_id 
           LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id`;
-          var con = `a.functional_status = 'Functional' AND a.tenure_ends_on >= CURDATE() AND a.tenure_ends_on < DATE_ADD(CURDATE(), INTERVAL 2 MONTH)`;
+          var con = `a.functional_status = 'Functional' AND a.approve_status = 'A' AND a.tenure_ends_on >= CURDATE() AND a.tenure_ends_on < DATE_ADD(CURDATE(), INTERVAL 2 MONTH)`;
 
       const where = `${con + range + soc_type}`; // Ensure these variables are properly defined
       const res_dt = await db_Select(select, table_name, where,null);
@@ -383,11 +383,11 @@ reportRouter.use((req, res, next) => {
         const select = "a.id,a.cop_soc_name,a.last_elec_date,a.tenure_ends_on,a.elec_due_date,a.reg_no,b.soc_type_name,c.dist_name,d.zone_name,e.range_name,f.soc_tier_name";
         if(range_id > 0){ 
           var select_type = postdata.ur_type != 0 ? ` AND a.urban_rural_flag = '${postdata.ur_type}'` : '' ;
-        var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' ${select_type + bl_ulb_con} AND a.range_code = "${range_id}" `;
+        var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' AND a.approve_status = 'A' ${select_type + bl_ulb_con} AND a.range_code = "${range_id}" `;
         }else{
           var select_range = range_code > 0 ? `AND a.range_code = '${range_code}'` : '' ;
           var select_type = postdata.ur_type != 0 ? ` AND a.urban_rural_flag = '${postdata.ur_type}'` : '' ;
-          var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' ${select_range+select_type + bl_ulb_con}  `;
+          var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' AND a.approve_status = 'A' ${select_range+select_type + bl_ulb_con}  `;
         }
     
         // Execute database query
@@ -446,7 +446,7 @@ reportRouter.use((req, res, next) => {
           LEFT JOIN md_zone d ON a.zone_code = d.zone_id 
           LEFT JOIN md_range e ON a.range_code = e.range_id 
           LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id`;
-          var con = `a.functional_status = 'Functional' `;
+          var con = `a.functional_status = 'Functional' AND a.approve_status = 'A' `;
 
       const where = `${con + range + bl_ulb_con + urban_rural_flag}`; // Ensure these variables are properly defined
       const res_dt = await db_Select(select, table_name, where,null);
@@ -556,11 +556,11 @@ reportRouter.use((req, res, next) => {
         const select = "a.id,a.cop_soc_name,a.last_elec_date,a.tenure_ends_on,a.elec_due_date,a.reg_no,b.soc_type_name,c.dist_name,d.zone_name,e.range_name,f.soc_tier_name";
         if(range_id > 0){ 
           var election_status = ` AND a.election_status = '${postdata.election_status}'` ;
-        var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' ${election_status} AND a.range_code = "${range_id}" `;
+        var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' AND a.approve_status = 'A' ${election_status} AND a.range_code = "${range_id}" `;
         }else{
           var select_range = range_code > 0 ? `AND a.range_code = '${range_code}'` : '' ;
           var election_status = ` AND a.election_status = '${postdata.election_status}'` ;
-          var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' ${select_range+election_status} `;
+          var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' AND a.approve_status = 'A' ${select_range+election_status} `;
         }
     
         // Execute database query
@@ -616,7 +616,7 @@ reportRouter.use((req, res, next) => {
           LEFT JOIN md_zone d ON a.zone_code = d.zone_id 
           LEFT JOIN md_range e ON a.range_code = e.range_id 
           LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id`;
-          var con = `a.functional_status = 'Functional' `;
+          var con = `a.functional_status = 'Functional' AND a.approve_status = 'A'  `;
 
       const where = `${con + range + election_status}`; // Ensure these variables are properly defined
       const res_dt = await db_Select(select, table_name, where,null);

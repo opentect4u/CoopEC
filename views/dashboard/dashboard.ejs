@@ -56,78 +56,113 @@
           </div>
         </div>
       </div>
-  
-<div class="stockPointSecTitle_cus">
+        <div class="stockPointSecTitle_cus">
+            <h2>Number Of Updated Data  </h2>
+            <a href="/dash/dashboard" class="heading_link">View</a>
+        </div>
+        <div class="threeBoxNewmain">
+          <div class="col-sm-4 float-left">
+            <div class="threeBoxNewSmall">
+              <div class="threeBoxImg redCol"><img src="/images/icon_a.png" alt=""></div>
+              <div class="threeBoxTxt">
+                <h2>Total Approved</h2>
+                <p class="price">
+                  <span class="lit" id="total_approved"></span>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4 float-left">
+            <div class="threeBoxNewSmall">
+              <div class="threeBoxImg darkBlue"><img src="/images/icon_b.png" alt=""></div>
+              <div class="threeBoxTxt">
+                <h2>Modified</h2>
+                <p class="price"><span class="lit" id="total_edited"></span>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4 float-left">
+            <div class="threeBoxNewSmall">
+              <div class="threeBoxImg lightBlue"><img src="/images/boxIcon_b.png" alt=""></div>
+              <div class="threeBoxTxt">
+                <h2>Unapproved</h2>
+                <p class="price">
+                  <span class="lit" id="total_unapproved"></span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+    <div class="stockPointSecTitle_cus">
             <h2>Status  </h2>
-  <a href="#" class="heading_link" id="election_link">View</a>
-            
+              <a href="#" class="heading_link" id="election_link">View</a>
         </div>
   
-      <div class="threeBoxNewmain">
-        <div class="col-sm-4 float-left">
-          <div class="threeBoxNewSmall">
-            <div class="threeBoxImg yellowCol"><img src="/images/icon_d.png" alt=""></div>
-            <div class="threeBoxTxt">
-              <h2>Ongoing Elections</h2>
-              <p class="price">
-        <span class="lit" id="total_ongoing"></span>
-              </p>
+          <div class="threeBoxNewmain">
+            <div class="col-sm-4 float-left">
+              <div class="threeBoxNewSmall">
+                <div class="threeBoxImg yellowCol"><img src="/images/icon_d.png" alt=""></div>
+                <div class="threeBoxTxt">
+                  <h2>Ongoing Elections</h2>
+                  <p class="price">
+            <span class="lit" id="total_ongoing"></span>
+                  </p>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
 
-        <div class="col-sm-4 float-left">
-          <div class="threeBoxNewSmall">
-            <div class="threeBoxImg greenCol"><img src="/images/icon_f.png" alt="">
+            <div class="col-sm-4 float-left">
+              <div class="threeBoxNewSmall">
+                <div class="threeBoxImg greenCol"><img src="/images/icon_f.png" alt="">
+                </div>
+                <div class="threeBoxTxt">
+                  <h2>Completed Elections</h2>
+                  <p class="price">
+                    <span class="lit" id="total_completed"></span>
+                  </p>
+                </div>
+              </div>
             </div>
-            <div class="threeBoxTxt">
-              <h2>Completed Elections</h2>
-              <p class="price">
-                <span class="lit" id="total_completed"></span>
-              </p>
+            <div class="col-sm-4 float-left">
+              <div class="threeBoxNewSmall">
+                <div class="threeBoxImg redCol"><img src="/images/icon_e.png" alt=""></div>
+                <div class="threeBoxTxt">
+                  <h2>Due Elections</h2>
+                  <p class="price">
+            <span class="lit" id="total_due"></span>
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="col-sm-4 float-left">
-          <div class="threeBoxNewSmall">
-            <div class="threeBoxImg redCol"><img src="/images/icon_e.png" alt=""></div>
-            <div class="threeBoxTxt">
-              <h2>Due Elections</h2>
-              <p class="price">
-        <span class="lit" id="total_due"></span>
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <div class="threeBoxNewmain">
-        <div class="col-sm-6 float-left">
-          <div class="threeBoxNewSmall">
-            <div class="threeBoxImg yellowCol"><img src="/images/icon_d.png" alt=""></div>
-            <div class="threeBoxTxt">
-              <h2>Election Within One Month</h2>
-              <p class="price">
-        <span class="lit" id="total_ongoing"><%= onemondue.onemnth%></span>
-              </p>
+        <div class="threeBoxNewmain">
+          <div class="col-sm-6 float-left">
+            <div class="threeBoxNewSmall">
+              <div class="threeBoxImg yellowCol"><img src="/images/icon_d.png" alt=""></div>
+              <div class="threeBoxTxt">
+                <h2>Election Within One Month</h2>
+                <p class="price">
+          <span class="lit" id="total_ongoing"><%= onemondue.onemnth%></span>
+                </p>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="col-sm-6 float-left">
-          <div class="threeBoxNewSmall">
-            <div class="threeBoxImg greenCol"><img src="/images/icon_f.png" alt="">
-            </div>
-            <div class="threeBoxTxt">
-              <h2>Election Due</h2>
-              <p class="price">
-                <span class="lit" id="total_completed"><%= overelect.overele%></span>
-              </p>
+          <div class="col-sm-6 float-left">
+            <div class="threeBoxNewSmall">
+              <div class="threeBoxImg greenCol"><img src="/images/icon_f.png" alt="">
+              </div>
+              <div class="threeBoxTxt">
+                <h2>Election Due</h2>
+                <p class="price">
+                  <span class="lit" id="total_completed"><%= overelect.overele%></span>
+                </p>
+              </div>
             </div>
           </div>
         </div>
-      
-      </div>
       <!-- <div class="sectionNew" id="sectionNew"> -->
       <div class="sectionNew" id="">
         <div class="col-sm-6 float-left">
@@ -135,36 +170,15 @@
             <h2></h2>
       <a href="#" class="heading_link">Details</a>
         </div>
-          <!-- <div class="bloxkSec">
-    <div class="bloxkSec_sub">
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">Sl</th>
-            <th scope="col">Society Name</th>
-            <th scope="col">Tenure Ends On</th>
-          </tr>
-        </thead>
-        <tbody>
-        
-        </tbody>
-      </table>
-    </div>
-  </div> -->
+          
         </div>
 
-        <div class="col-sm-6 float-left">
-    
-    <div class="stockPointSecTitle_cus_half">
-            <h2></h2>
-  <a href="#" class="heading_link">Details</a>
-        </div>
-          <!-- <div class="bloxkSec">
-            <div class="bloxkSec_sub">
-             
-            </div>
-          </div> -->
-        </div>
+          <div class="col-sm-6 float-left">
+              <div class="stockPointSecTitle_cus_half">
+                  <h2></h2>
+                  <a href="#" class="heading_link">Details</a>
+              </div>
+          </div>
     
     
   <div class="col-sm-12 class_chart">
@@ -220,12 +234,14 @@
   </div>
   <script>
     societytot(<%= user.range_id %>);
+    societymodifiedstatus('<%= user.range_id %>');
     electionstatus(<%= user.range_id %>);
     barchartsoctype(<%= user.range_id %>);
     pieChartId(<%= user.range_id %>);
     $('#range_code').change(function() {
         var range_code = $(this).val();
         societytot(range_code);
+        societymodifiedstatus(range_code);
         electionstatus(range_code);
         barchartsoctype(range_code);
         pieChartId(range_code);
@@ -245,6 +261,29 @@
        $('#total_society').html(soc.func_tot+soc.liquidation_tot+soc.non_functional);
            $('#total_functional').html(soc.func_tot ? soc.func_tot : 0);
            $('#total_nonfunctional').html(soc.liquidation_tot+soc.non_functional);
+         
+        },
+        error: function(err) {
+            // Handle any errors
+            $('#dist_code').html('<option value="0">Error fetching data. Please try again.</option>');
+            console.error('AJAX Error:', err); // Log error for debugging
+        }
+      });
+    }
+    function societymodifiedstatus(range_code) {
+      $.ajax({
+        url: '/dash/get_society_modified_data',
+        method: 'POST',
+        data: { range_code: range_code },
+        beforeSend: function() {
+            // Show a loading indicator if needed
+          // $('#block_id').html('<option value="0">Loading...</option>');
+        },
+        success: function(response) {
+           var soc = response.soctot;
+          $('#total_approved').html(soc.appr_tot ? soc.appr_tot : 0);
+           $('#total_edited').html(soc.edited_tot ? soc.edited_tot : 0);
+           $('#total_unapproved').html(soc.unapproved ? soc.unapproved : 0);
          
         },
         error: function(err) {

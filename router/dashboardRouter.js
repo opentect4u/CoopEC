@@ -350,6 +350,28 @@ DashboardRouter.post('/get_society_tot',async(req,res)=>{
         });
     }
 })
+DashboardRouter.post('/get_society_modified_data',async(req,res)=>{
+  try {
+    // Extract query parameter 'claims'
+    var data = req.body
+    var select = `SUM(CASE WHEN a.approve_status = 'A' THEN 1 ELSE 0 END) AS appr_tot, SUM(CASE WHEN a.approve_status = 'E' THEN 1 ELSE 0 END) AS edited_tot, SUM(CASE WHEN a.approve_status = 'U' THEN 1 ELSE 0 END) AS unapproved`,
+    table_name = `md_society a`,
+    where = data.range_code > 0 ? `a.range_code ='${data.range_code}'` : ``,
+    order = null;
+    var res_dt = await db_Select(select, table_name, where, order);
+    const responseData = {
+      soctot: res_dt.suc > 0 ? res_dt.msg[0] : '', // Echoing the received claims
+    };
+    // Send response back to the client
+    res.json(responseData);
+    } catch (err) {
+        console.error('Error handling /regauth request:', err);
+        res.status(500).json({
+            success: false,
+            message: 'Internal server error'
+        });
+    }
+})
 DashboardRouter.post('/get_election_status',async(req,res)=>{
   try {
     // Extract query parameter 'claims'
