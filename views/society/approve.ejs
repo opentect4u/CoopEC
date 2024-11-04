@@ -394,9 +394,9 @@
                       
                     <tr>
                       <input type="hidden" name="board_memb_id[]" value="<%= dt.board_memb_id %>" >
-                        <td style="padding: 10px;"><input type="text" name="board_memb_name[]" value="<%= dt.board_memb_name %>" class="form-control"></td>
-                        <td style="padding: 10px;"><input type="text" name="board_memb_desig[]" value="<%= dt.board_memb_desig %>" class="form-control"></td>
-                        <td style="padding: 10px;"><input type="text" name="bm_contact_no[]" value="<%= dt.bm_contact_no %>" class="form-control"></td>
+                        <td style="padding: 10px;"><input type="text" name="board_memb_name[]" value="<%= dt.board_memb_name %>" class="form-control" readonly></td>
+                        <td style="padding: 10px;"><input type="text" name="board_memb_desig[]" value="<%= dt.board_memb_desig %>" class="form-control" readonly></td>
+                        <td style="padding: 10px;"><input type="text" name="bm_contact_no[]" value="<%= dt.bm_contact_no %>" class="form-control" readonly></td>
                         <td style="padding: 10px;"></td>
                     </tr>
                     <% }) } %>
@@ -406,7 +406,6 @@
                         <td style="padding: 10px;"><input type="text" name="board_memb_desig[]" class="form-control" readonly></td>
                         <td style="padding: 10px;"><input type="text" name="bm_contact_no[]"  class="form-control" readonly></td>
                         <td style="padding: 10px;">
-                          <!-- <span class="btn btn-primary" onclick="addRow()">Add</span> -->
                         </td>
                     </tr>
                 </tbody>

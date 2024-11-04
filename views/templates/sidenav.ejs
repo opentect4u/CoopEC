@@ -19,7 +19,6 @@
                 <span class="menu-title">Add Society</span>
             </a>
         </li>
-       
         <li class="nav-item active">
             <a class="nav-link" data-toggle="collapse" href="#report" aria-expanded="false" aria-controls="report">
                 <i class="icon-ban menu-icon"></i>
@@ -35,12 +34,14 @@
                 </ul>
             </div>
         </li>
-        <!-- <li class="nav-item active">
+        <% if(user.user_type == 'M'){  %>
+        <li class="nav-item active">
             <a class="nav-link" href="/society/modifiedlist">
                 <i class="icon-add menu-icon" >+</i>
                 <span class="menu-title">Approve</span>
             </a>
-        </li> -->
+        </li>
+        <%  }  %>
         <%  if(user.user_type == 'S'){  %>
         <li class="nav-item active">
             <a class="nav-link" data-toggle="collapse" href="#error" aria-expanded="false" aria-controls="error">
