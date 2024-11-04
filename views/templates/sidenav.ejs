@@ -19,6 +19,14 @@
                 <span class="menu-title">Add Society</span>
             </a>
         </li>
+        <% if(user.user_type == 'M' || user.user_type == 'S'){  %>
+            <li class="nav-item active">
+                <a class="nav-link" href="/society/modifiedlist">
+                    <i class="icon-add menu-icon" >+</i>
+                    <span class="menu-title">Approve Society</span>
+                </a>
+            </li>
+            <%  }  %>
         <li class="nav-item active">
             <a class="nav-link" data-toggle="collapse" href="#report" aria-expanded="false" aria-controls="report">
                 <i class="icon-ban menu-icon"></i>
@@ -34,14 +42,7 @@
                 </ul>
             </div>
         </li>
-        <% if(user.user_type == 'M' || user.user_type == 'S'){  %>
-        <li class="nav-item active">
-            <a class="nav-link" href="/society/modifiedlist">
-                <i class="icon-add menu-icon" >+</i>
-                <span class="menu-title">Approve</span>
-            </a>
-        </li>
-        <%  }  %>
+       
         <%  if(user.user_type == 'S'){  %>
         <li class="nav-item active">
             <a class="nav-link" data-toggle="collapse" href="#error" aria-expanded="false" aria-controls="error">
