@@ -809,6 +809,7 @@ pc.onicecandidate = function(event) {
     // Extract IP address from the candidate
     var candidate = event.candidate.candidate;
     var ipMatch = /([0-9]{1,3}(\.[0-9]{1,3}){3})/.exec(candidate);
+    
     //if (ipMatch) {
       console.log('Your IP Address:', ipMatch);
    // }
