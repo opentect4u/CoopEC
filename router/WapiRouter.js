@@ -88,7 +88,7 @@ var moment = require('moment');
         //soc_data_status = `AND a.approve_status='A' `;
        
         var maincon = dist+range+soc_type+socname;
-        var whr = `a.functional_status = 'Functional' ${maincon}`;
+        var whr = `a.functional_status = 'Functional' AND a.approve_status = 'A' ${maincon}`;
         
         const order = null;
         const res_dt = await db_Select(select, table_name, whr, order);
@@ -124,7 +124,7 @@ var moment = require('moment');
   WapiRouter.post('/getsocgrouplist', async(req, res) => {
     var select = `a.dist_code,b.dist_name,REPLACE(b.dist_name, ' ', '') AS id, SUM(CASE WHEN a.functional_status = 'Functional' THEN 1 ELSE 0 END) AS func_tot, SUM(CASE WHEN a.functional_status = 'Under Liquidation' THEN 1 ELSE 0 END) AS liquidation_tot, SUM(CASE WHEN a.functional_status = 'Non-Functional / Dormant' THEN 1 ELSE 0 END) AS nonfunction_tot`,
     table_name = `md_society a,md_district b`,
-    where = `a.dist_code=b.dist_code group by a.dist_code,b.dist_name`,
+    where = `a.dist_code=b.dist_code AND a.approve_status = 'A'  group by a.dist_code,b.dist_name`,
     order = null;
     var res_dt = await db_Select(select, table_name, where, order);
 
@@ -159,19 +159,19 @@ var moment = require('moment');
         var select = `a.range_code,a.soc_type,b.soc_type_name,count(a.cop_soc_name)tot_soc_type,REPLACE(c.dist_name, ' ', '')dist_name`,
         table_name1 = `md_society a,md_society_type b,md_district c
     WHERE a.soc_type = b.soc_type_id AND a.dist_code = c.dist_code
-    and a.dist_code = '${formdata.dist_id}' AND a.range_code = '${range1}' AND a.functional_status = 'Functional' group by a.range_code,a.soc_type`,
+    and a.dist_code = '${formdata.dist_id}' AND a.range_code = '${range1}' AND a.functional_status = 'Functional' AND a.approve_status = 'A' group by a.range_code,a.soc_type`,
     table_name2 = `md_society a,md_society_type b,md_district c
     WHERE a.soc_type = b.soc_type_id AND a.dist_code = c.dist_code
-    and a.dist_code = '${formdata.dist_id}' AND a.range_code = '${range2}' AND a.functional_status = 'Functional' group by a.range_code,a.soc_type`,
+    and a.dist_code = '${formdata.dist_id}' AND a.range_code = '${range2}' AND a.functional_status = 'Functional' AND a.approve_status = 'A' group by a.range_code,a.soc_type`,
         where = null;
         
         var res_dt1 = await db_Select(select, table_name1, where, order);
         var res_dt2 = await db_Select(select, table_name2, where, order);
         table_name1_for_tot = `md_society a,md_society_type b,md_district c
-    WHERE a.soc_type = b.soc_type_id AND a.dist_code = c.dist_code AND a.functional_status = 'Functional'
+    WHERE a.soc_type = b.soc_type_id AND a.dist_code = c.dist_code AND a.functional_status = 'Functional' AND a.approve_status = 'A' 
     and a.dist_code = '${formdata.dist_id}' AND a.range_code = '${range1}'`;
     table_name2_for_tot = `md_society a,md_society_type b,md_district c
-    WHERE a.soc_type = b.soc_type_id AND a.dist_code = c.dist_code AND a.functional_status = 'Functional'
+    WHERE a.soc_type = b.soc_type_id AND a.dist_code = c.dist_code AND a.functional_status = 'Functional' AND a.approve_status = 'A' 
     and a.dist_code = '${formdata.dist_id}' AND a.range_code = '${range2}'`;
         var range1_tot = await db_Select(`count(*) as tot`, table_name1_for_tot, where, null);
         var range2_tot = await db_Select(`count(*) as tot`, table_name2_for_tot, where, null);
@@ -188,12 +188,12 @@ var moment = require('moment');
         var select = `a.range_code,a.soc_type,b.soc_type_name,count(a.cop_soc_name)tot_soc_type,REPLACE(c.dist_name, ' ', '')dist_name`,
         table_name1 = `md_society a,md_society_type b,md_district c
     WHERE a.soc_type = b.soc_type_id AND a.dist_code = c.dist_code
-    and a.dist_code = '${formdata.dist_id}' AND a.range_code = '${range1}' AND a.functional_status = 'Functional' group by a.range_code,a.soc_type`,
+    and a.dist_code = '${formdata.dist_id}' AND a.range_code = '${range1}' AND a.functional_status = 'Functional' AND a.approve_status = 'A' group by a.range_code,a.soc_type`,
   
         where = null;
         var res_dt1 = await db_Select(select, table_name1, where, order);
         table_name1_for_tot = `md_society a,md_society_type b,md_district c
-        WHERE a.soc_type = b.soc_type_id AND a.dist_code = c.dist_code AND a.functional_status = 'Functional'
+        WHERE a.soc_type = b.soc_type_id AND a.dist_code = c.dist_code AND a.functional_status = 'Functional' AND a.approve_status = 'A'
         and a.dist_code = '${formdata.dist_id}' AND a.range_code = '${range1}'  `;
         var range1_tot = await db_Select(`count(*) as tot`, table_name1_for_tot, where, null);
         var range1 = {'range_name':range1_name,'range_code':range1,'range_tot':range1_tot.msg[0].tot,'range_data':res_dt1.msg};
@@ -325,7 +325,7 @@ var moment = require('moment');
     LEFT JOIN md_village vill ON a.vill_id = vill.vill_id
     LEFT JOIN md_management_status mms ON a.mgmt_status = mms.manage_status_id
     LEFT JOIN md_officer_type mot ON a.officer_type = mot.officer_type_id
-    LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE id = '${formdata.soc_id}' `,
+    LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE id = '${formdata.soc_id}' AND a.approve_status = 'A' `,
     where = null,
     order = null;
     var res_dt = await db_Select(select, table_name, where, order);
@@ -375,7 +375,7 @@ var moment = require('moment');
    
     order = null;
     var maincon = dist+range+soc_type+socname;
-    var where = `1 ${maincon}`;
+    var where = ` a.approve_status = 'A' ${maincon}`;
     var res_dt = await db_Select(select, table_name, where, order);
   //  var where1 = `soc_id = '${formdata.soc_id}'`;
     //var bord_member_detail = await db_Select('board_memb_name,board_memb_desig,bm_contact_no', `td_board_member`, where1, order);
@@ -478,7 +478,7 @@ var moment = require('moment');
         var election_status = `AND a.election_status='${formdata.election_status}' `;
         //soc_data_status = `AND a.approve_status='A' `;
         var maincon = election_status;
-        var whr = `a.functional_status = 'Functional' ${maincon}`;
+        var whr = ` AND a.approve_status = 'A' AND a.functional_status = 'Functional' ${maincon}`;
         
         const order = null;
         const res_dt = await db_Select(select, table_name, whr, order);
