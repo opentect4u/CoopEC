@@ -10,6 +10,7 @@
             
             <h4>Welcome to Commission Office </h4>
             <h6 class="font-weight-light">Sign in to continue.</h6>
+           
             <form class="pt-3" action="/login/logincheck" method="POST">
               <div class="form-group">
                 <input type="text" class="form-control form-control-lg"  placeholder="Username" name="user_id">
@@ -45,3 +46,12 @@
     <!-- content-wrapper ends -->
   </div>
   <!-- page-body-wrapper ends -->
+
+  <script>
+   const urlParams = new URLSearchParams(window.location.search);
+const errorMsg = urlParams.get('msg');
+if (errorMsg) {
+    alert(errorMsg);
+  //console.log(errorMsg);
+}
+    </script>

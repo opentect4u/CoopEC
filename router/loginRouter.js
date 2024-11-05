@@ -19,7 +19,7 @@ LoginRouter.post('/logincheck', async(req, res) => {
                 var range_dtl = await db_Select('range_name', 'md_range', `range_id='${res_dt.msg[0].range_id}'`, order);
                 req.session.range_name = range_dtl.msg[0].range_name;
               }else{
-                req.session.range_name = 'ALL';
+                req.session.range_name = 'Head Office';
               }
 
             if (await bcrypt.compare(data.password, res_dt.msg[0].password)) {
@@ -34,17 +34,18 @@ LoginRouter.post('/logincheck', async(req, res) => {
                 dt: res_dt
               };
               // res.send(result)
-              res.redirect("/login");
+              req.session.errorMsg = "Please check your userid or password";
+              res.redirect("/login?error=true&msg=Please check your userid or password");
             }
           } else {
-            result = { suc: 0, msg: "No data found", dt: res_dt };
-            // res.send(result)
-            res.redirect("/login");
+          //  result = { suc: 0, msg: "No data found", dt: res_dt };
+            req.session.errorMsg = "Please check your userid or password";
+            res.redirect("/login?error=true&msg=Please check your userid or password");
           }
         } else {
-          result = { suc: 0, msg: res_dt.msg, dt: res_dt };
-          // res.send(result)
-          res.redirect("/login");
+         // result = { suc: 0, msg: res_dt.msg, dt: res_dt };
+          req.session.errorMsg = "Please check your userid or password";
+          res.redirect("/login?error=true&msg=Please check your userid or password");
         }
     //res.redirect('/dashboard')
 })
