@@ -70,7 +70,7 @@ DashboardRouter.get('/dashboard', async(req, res) => {
           soctierlist:soctierres.suc > 0 ? soctierres.msg : '', soctietypelist:soctietype.suc > 0 ? soctietype.msg : '',
           zonereslist:zoneres.suc > 0 ? zoneres.msg : '',distlist:distres.suc > 0 ? distres.msg : '',
           cntr_auth_type:0,zone_code:0,dist_code:0,soc_tier:0,soc_type_id:0,range_code:0,urban_rural_flag:0,
-          ulb_catg:0,block_id:0,total:total,socname:'',functional_status:'1',soc_data_status:''
+          ulb_catg:0,block_id:0,total:total,socname:'',functional_status:'1',soc_data_status:'',range_name:''
         };
         // Render the view with data
         res.render('dashboard/landing', res_dt);
