@@ -1417,13 +1417,14 @@ border-radius: 6px;}
 .searchPageTop .ant-table-container .ant-table-content table {width: 100% !important;}
 
 
+.no_internateBaner{width: 100%; min-height: 350px; background: #83add4 url("../images/internet.png") no-repeat  center 230px;}
 
+.no_internateText{text-align: center;}
+.no_internateText h1{color: #2b323c; font-size: 50px; font-weight: 900; border: none; text-align: center; display: block;}
+.no_internateText h1::after{display: none;}
 
-
-
-
-
-
+.no_internateText p{color: #506b8e; font-size: 15px; font-weight: bold;}
+.no_internateText p span{color: #506b8e; font-size: 20px; font-weight: 400; display: block;}
 
 
 

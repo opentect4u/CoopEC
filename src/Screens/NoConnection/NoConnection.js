@@ -4,13 +4,23 @@ import FooterCus from '../../Components/FooterCus'
 function NoConnection() {
   return (
     <>
+
+    <div className='no_internateBaner'>
+
+
+    </div>
     
     <div className="wrapper">
     <div className="inner_page_Sec">
    
-    <div className="col-sm-12 left_sec search_data_table">
+    <div className="col-sm-12 left_sec no_internateText">
 
-    <h1>Please Check Internate Conection</h1>
+    <h1>No Internet</h1>
+
+    <p>
+    <span>Slow or no Internet connection</span>
+    Check your connection or try again
+    </p>
 
     
 
@@ -20,8 +30,7 @@ function NoConnection() {
     </div>
 
     <FooterCus/>
-    
-    </>
+  </>
   )
 }
 
