@@ -19,7 +19,7 @@
                 <span class="menu-title">Add Society</span>
             </a>
         </li>
-        <% if(user.user_type == 'M' || user.user_type == 'S' || user.user_type == 'A' ){  %>
+        <% if(user.user_type == 'S' ){  %>
             <li class="nav-item active">
                 <a class="nav-link" href="/society/modifiedlist">
                     <i class="icon-add menu-icon" >+</i>
@@ -43,7 +43,7 @@
                 </div>
             </li>
             <%  }  %>
-            <% if(user.user_type == 'A' || user.user_type == 'S' ){  %>
+            <% if( user.user_type == 'S' ){  %>
             <li class="nav-item active">
                 <a class="nav-link" href="/wdtls/doclist_for_approve">
                     <i class="icon-add menu-icon" >+</i>
