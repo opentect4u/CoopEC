@@ -25,7 +25,7 @@ reportRouter.use((req, res, next) => {
           range_name =  'ALL Range';
         }
         const rangeres = await db_Select('*', 'md_range',null, null);
-        const soctyperes = await db_Select('*', 'md_society_type',`AND a.approve_status = 'A'`, null);
+        const soctyperes = await db_Select('*', 'md_society_type',null, null);
         // Prepare data for rendering
         const res_dt = {
           range_list : rangeres.suc > 0 ? rangeres.msg : '',
