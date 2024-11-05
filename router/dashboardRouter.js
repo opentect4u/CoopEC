@@ -136,11 +136,11 @@ DashboardRouter.post('/dashboard', async(req, res) => {
       }
       let soc_data_status = '';
 
-      if(range_id == 0){
+    
         if (formdata.soc_data_status == 'A' || formdata.soc_data_status == 'U' || formdata.soc_data_status == 'E') {
           soc_data_status = `AND a.approve_status='${formdata.soc_data_status}'`;
         }
-      }
+   
       
       
      // var con11 = formdata.functional_status !='' ? `AND a.functional_status='${formdata.functional_status}' ` : '';
@@ -200,8 +200,8 @@ DashboardRouter.post('/dashboard', async(req, res) => {
         dist_code:formdata.dist_code > 0 ? formdata.dist_code :0,
         soc_type_id:formdata.soc_type_id > 0 ? formdata.soc_type_id :0,
         soc_tier:formdata.soc_tier > 0 ? formdata.soc_tier :0,
-        urban_rural_flag,functional_status:'0',
-        ulb_catg:formdata.ulb_catg > 0 ? formdata.ulb_catg :0,soc_data_status,
+        urban_rural_flag,functional_status:'0',soc_data_status:formdata.soc_data_status,
+        ulb_catg:formdata.ulb_catg > 0 ? formdata.ulb_catg :0,
         block_id:formdata.block_id > 0 ? formdata.block_id :0,total:total,socname:formdata.socname.trim()
       };
  

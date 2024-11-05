@@ -133,7 +133,7 @@
               <select class="form-control" id="soc_data_status" name="soc_data_status" >
                 <option value="">Select Type </option>
                   <option value="A" <%= soc_data_status == 'A' ? 'selected' : '' %>>APPROVED </option>
-                  <option value="U" <%= soc_data_status == 'U' ? 'selected' : '' %> >UNAPPROVED</option>
+                  <option value="U" <%= soc_data_status == 'U' ? 'selected' : '' %> >UNEDITED</option>
                   <option value="E" <%= soc_data_status == 'E' ? 'selected' : '' %>>EDITED</option>
               </select>
             </div>
@@ -280,12 +280,12 @@
              $('#item-list').html('');
                // const page = $(this).val();
                 const page = $(this).data('page');
-           
                 var cntr_auth_type = $('#cntr_auth_type').val();
                 var dist_code = $('#dist_code').val();
                 var zone_code = $('#zone_code').val();
                 var range_code = $('#range_code').val();
                 var urban_rural_flags = $('#urban_rural_flag').val();
+                var soc_data_status = $('#soc_data_status').val();
                 var ulb_catg,block_id;
                 if(urban_rural_flags == 'U'){
                  ulb_catg = $('#ulb_catg').val();
