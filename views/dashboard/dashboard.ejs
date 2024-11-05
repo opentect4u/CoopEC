@@ -151,8 +151,19 @@
               </div>
             </div>
           </div>
-
           <div class="col-sm-6 float-left">
+            <div class="threeBoxNewSmall">
+              <div class="threeBoxImg yellowCol"><img src="/images/icon_d.png" alt=""></div>
+              <div class="threeBoxTxt">
+                <h2>Election Within Three Month</h2>
+                <p class="price">
+          <span class="lit" id="total_ongoing"><%= onemondue.onemnth%></span>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- <div class="col-sm-6 float-left">
             <div class="threeBoxNewSmall">
               <div class="threeBoxImg greenCol"><img src="/images/icon_f.png" alt="">
               </div>
@@ -163,7 +174,9 @@
                 </p>
               </div>
             </div>
-          </div>
+          </div> -->
+
+
         </div>
       <!-- <div class="sectionNew" id="sectionNew"> -->
       <div class="sectionNew" id="">
@@ -237,6 +250,7 @@
   <script>
     societytot(<%= user.range_id %>);
     societymodifiedstatus('<%= user.range_id %>');
+    societyelectiondue_monthwise('<%= user.range_id %>',6);
     electionstatus(<%= user.range_id %>);
     barchartsoctype(<%= user.range_id %>);
     pieChartId(<%= user.range_id %>);
@@ -286,6 +300,27 @@
           $('#total_approved').html(soc.appr_tot ? soc.appr_tot : 0);
            $('#total_edited').html(soc.edited_tot ? soc.edited_tot : 0);
            $('#total_unapproved').html(soc.unapproved ? soc.unapproved : 0);
+         
+        },
+        error: function(err) {
+            // Handle any errors
+            $('#dist_code').html('<option value="0">Error fetching data. Please try again.</option>');
+            console.error('AJAX Error:', err); // Log error for debugging
+        }
+      });
+    }
+    function societyelectiondue_monthwise(range_code,month_interval) {
+      $.ajax({
+        url: '/dash/get_society_election_due_monthwise',
+        method: 'POST',
+        data: { range_code: range_code,month_interval:month_interval },
+        beforeSend: function() {
+            // Show a loading indicator if needed
+          // $('#block_id').html('<option value="0">Loading...</option>');
+        },
+        success: function(response) {
+           var soc = response.soctot;
+          $('#total_approved').html(soc.appr_tot ? soc.month_before : 0);
          
         },
         error: function(err) {

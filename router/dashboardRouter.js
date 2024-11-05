@@ -636,4 +636,31 @@ DashboardRouter.get('/society_download', async (req, res) => {
   }
   });
 
+  DashboardRouter.post('/get_society_election_due_monthwise', async(req, res) => {
+    try {
+      // Extract query parameter 'claims'
+      var data = req.body
+      var month_interval = data.month_interval;
+      const select = "count(*) as month_before";
+      if(data.range_code > 0){
+      var table_name = `md_society a WHERE a.functional_status='Functional' AND a.approve_status = 'A' AND a.tenure_ends_on >= CURDATE() AND a.tenure_ends_on < DATE_ADD(CURDATE(), INTERVAL ${month_interval} MONTH) AND a.range_code = "${data.range_code}" `;
+      }else{
+        var select_range = range_code > 0 ? `AND a.range_code = '${range_code}'` : '' ;
+        var table_name = `md_society a WHERE a.functional_status='Functional' ${select_range} AND a.approve_status = 'A' AND a.tenure_ends_on >= CURDATE() AND a.tenure_ends_on < DATE_ADD(CURDATE(), INTERVAL ${month_interval} MONTH) `;
+      }
+      var res_dt = await db_Select(select, table_name, where, order);
+      const responseData = {
+        soctot: res_dt.suc > 0 ? res_dt.msg[0] : '', // Echoing the received claims
+      };
+      // Send response back to the client
+      res.json(responseData);
+      } catch (err) {
+          console.error('Error handling /regauth request:', err);
+          res.status(500).json({
+              success: false,
+              message: 'Internal server error'
+          });
+      }
+  })
+
 module.exports = {DashboardRouter}

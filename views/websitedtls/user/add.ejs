@@ -37,12 +37,22 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="exampleInputName1">User Type<span class="red">*</span></label>
+                  
                   <select name="user_type" class="form-control" required> 
                     <option value="">Please Select</option>
+                    <% if(user.user_type == 'S'){  %>
                     <option value="S">Super Admin</option>
                     <option value="A">Admin(HO)</option>
                     <option value="M">Range Admin</option>
                     <option value="U">Range User</option>
+                    <% }else if(user.user_type == 'A') { %>
+                      <option value="A">Admin(HO)</option>
+                      <option value="M">Range Admin</option>
+                      <option value="U">Range User</option>
+                      <% }else if(user.user_type == 'M'){ %>
+                        <option value="M">Range Admin</option>
+                        <option value="U">Range User</option>
+                        <% } %>
                   </select>
                 </div>
               </div>
