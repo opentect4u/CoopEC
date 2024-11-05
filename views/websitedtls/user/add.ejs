@@ -58,7 +58,8 @@
               </div>
             </div>
             <div class="row">
-              
+            
+                <% if(user.range_id== 0) { %>
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="exampleInputName1">Range<span class="red">*</span></label>
@@ -71,6 +72,10 @@
                   </select>
                 </div>
               </div>
+              <% }else  { %>
+                  <input type="number" name="range_id" value="<%= user.range_id %>">
+
+                <% } %>
               <!-- <div class="col-md-6">
                 <div class="form-group">
                   <label for="exampleInputName1">User Status<span class="red">*</span></label>

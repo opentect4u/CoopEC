@@ -102,7 +102,7 @@
         </div>
   
           <div class="threeBoxNewmain">
-            <div class="col-sm-4 float-left">
+            <div class="col-sm-6 float-left">
               <div class="threeBoxNewSmall">
                 <div class="threeBoxImg yellowCol"><img src="/images/icon_d.png" alt=""></div>
                 <div class="threeBoxTxt">
@@ -114,7 +114,7 @@
               </div>
             </div>
 
-            <div class="col-sm-4 float-left">
+            <div class="col-sm-6 float-left">
               <div class="threeBoxNewSmall">
                 <div class="threeBoxImg greenCol"><img src="/images/icon_f.png" alt="">
                 </div>
@@ -126,64 +126,50 @@
                 </div>
               </div>
             </div>
-            <div class="col-sm-4 float-left">
-              <div class="threeBoxNewSmall">
-                <div class="threeBoxImg redCol"><img src="/images/icon_e.png" alt=""></div>
-                <div class="threeBoxTxt">
-                  <h2>Due Elections</h2>
-                  <p class="price">
-            <span class="lit" id="total_due"></span>
-                  </p>
-                </div>
-              </div>
-            </div>
+            
           </div>
 
         <div class="threeBoxNewmain">
-          <div class="col-sm-6 float-left">
+          <div class="col-sm-4 float-left">
             <div class="threeBoxNewSmall">
               <div class="threeBoxImg yellowCol"><img src="/images/icon_d.png" alt=""></div>
               <div class="threeBoxTxt">
-                <h2>Election Within One Month</h2>
+                <h2>Election Within Six Month</h2>
                 <p class="price">
-          <span class="lit" id="total_ongoing"><%= onemondue.onemnth%></span>
+          <span class="lit" id="total_6month"></span>
                 </p>
               </div>
             </div>
           </div>
-          <div class="col-sm-6 float-left">
+          <div class="col-sm-4 float-left">
             <div class="threeBoxNewSmall">
               <div class="threeBoxImg yellowCol"><img src="/images/icon_d.png" alt=""></div>
               <div class="threeBoxTxt">
                 <h2>Election Within Three Month</h2>
                 <p class="price">
-          <span class="lit" id="total_ongoing"><%= onemondue.onemnth%></span>
+          <span class="lit" id="total_3month"></span>
                 </p>
               </div>
             </div>
           </div>
-
-          <!-- <div class="col-sm-6 float-left">
+          <div class="col-sm-4 float-left">
             <div class="threeBoxNewSmall">
-              <div class="threeBoxImg greenCol"><img src="/images/icon_f.png" alt="">
-              </div>
+              <div class="threeBoxImg redCol"><img src="/images/icon_e.png" alt=""></div>
               <div class="threeBoxTxt">
-                <h2>Election Due</h2>
+                <h2>Over</h2>
                 <p class="price">
-                  <span class="lit" id="total_completed"><%= overelect.overele%></span>
+          <span class="lit" id="total_due"></span>
                 </p>
               </div>
             </div>
-          </div> -->
-
-
+          </div>
         </div>
       <!-- <div class="sectionNew" id="sectionNew"> -->
       <div class="sectionNew" id="">
         <div class="col-sm-6 float-left">
     <div class="stockPointSecTitle_cus_half">
             <h2></h2>
-      <a href="#" class="heading_link">Details</a>
+      <!-- <a href="#" class="heading_link">Details</a> -->
         </div>
           
         </div>
@@ -251,6 +237,7 @@
     societytot(<%= user.range_id %>);
     societymodifiedstatus('<%= user.range_id %>');
     societyelectiondue_monthwise('<%= user.range_id %>',6);
+    societyelectiondue_monthwise('<%= user.range_id %>',3);
     electionstatus(<%= user.range_id %>);
     barchartsoctype(<%= user.range_id %>);
     pieChartId(<%= user.range_id %>);
@@ -259,6 +246,8 @@
         societytot(range_code);
         societymodifiedstatus(range_code);
         electionstatus(range_code);
+        societyelectiondue_monthwise(range_code,6);
+        societyelectiondue_monthwise(range_code,3);
         barchartsoctype(range_code);
         pieChartId(range_code);
       //  window.location.href = this.href; // Redirect to the new URL
@@ -320,7 +309,12 @@
         },
         success: function(response) {
            var soc = response.soctot;
-          $('#total_approved').html(soc.appr_tot ? soc.month_before : 0);
+           if(month_interval == 6 ) {
+            $('#total_6month').html(soc.appr_tot ? soc.month_before : 0);
+           }else{
+            $('#total_3month').html(soc.appr_tot ? soc.month_before : 0);
+           }
+          
          
         },
         error: function(err) {
