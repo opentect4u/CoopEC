@@ -144,6 +144,12 @@
                 <p class="price">
           <span class="lit" id="total_6month"></span>
                 </p>
+                <form action="/report/election_upcoming" method="post">
+                  <input type="hidden" value="0" name="soc_type">
+                  <input type="hidden" value="<%= user.range_id %>" name="range_id">
+                  <input type="hidden" value="6" name="month_tenure">
+                  <input type="submit" value="View" class="btn btn-primary btn-sm">
+                  </form>
               </div>
             </div>
           </div>
@@ -155,6 +161,12 @@
                 <p class="price">
           <span class="lit" id="total_3month"></span>
                 </p>
+                <form action="/report/election_upcoming" method="post">
+                  <input type="hidden" value="0" name="soc_type">
+                  <input type="hidden" value="<%= user.range_id %>" name="range_id">
+                  <input type="hidden" value="3" name="month_tenure">
+                  <input type="submit" value="View" class="btn btn-primary btn-sm">
+                  </form>
               </div>
             </div>
           </div>
@@ -242,8 +254,8 @@
   <script>
     societytot(<%= user.range_id %>);
     societymodifiedstatus('<%= user.range_id %>');
-    societyelectiondue_monthwise('<%= user.range_id %>',6);
-    societyelectiondue_monthwise('<%= user.range_id %>',3);
+    societyelectiondue_monthwise6('<%= user.range_id %>',6);
+    societyelectiondue_monthwise3('<%= user.range_id %>',3);
     electionstatus(<%= user.range_id %>);
     barchartsoctype(<%= user.range_id %>);
     pieChartId(<%= user.range_id %>);
@@ -252,8 +264,8 @@
         societytot(range_code);
         societymodifiedstatus(range_code);
         electionstatus(range_code);
-        societyelectiondue_monthwise(range_code,6);
-        societyelectiondue_monthwise(range_code,3);
+        societyelectiondue_monthwise6(range_code,6);
+        societyelectiondue_monthwise3(range_code,3);
         barchartsoctype(range_code);
         pieChartId(range_code);
       //  window.location.href = this.href; // Redirect to the new URL
@@ -304,7 +316,7 @@
         }
       });
     }
-    function societyelectiondue_monthwise(range_code,month_interval) {
+    function societyelectiondue_monthwise6(range_code,month_interval) {
       $.ajax({
         url: '/dash/get_society_election_due_monthwise',
         method: 'POST',
@@ -315,13 +327,27 @@
         },
         success: function(response) {
            var soc = response.soctot;
-           if(month_interval == 6 ) {
-            $('#total_6month').html(soc.appr_tot ? soc.month_before : 0);
-           }else{
-            $('#total_3month').html(soc.appr_tot ? soc.month_before : 0);
-           }
-          
-         
+            $('#total_6month').html(soc.month_before ? soc.month_before : 0);
+        },
+        error: function(err) {
+            // Handle any errors
+            $('#dist_code').html('<option value="0">Error fetching data. Please try again.</option>');
+            console.error('AJAX Error:', err); // Log error for debugging
+        }
+      });
+    }
+    function societyelectiondue_monthwise3(range_code,month_interval) {
+      $.ajax({
+        url: '/dash/get_society_election_due_monthwise',
+        method: 'POST',
+        data: { range_code: range_code,month_interval:month_interval },
+        beforeSend: function() {
+            // Show a loading indicator if needed
+          // $('#block_id').html('<option value="0">Loading...</option>');
+        },
+        success: function(response) {
+           var soc = response.soctot;
+            $('#total_3month').html(soc.month_before ? soc.month_before : 0);
         },
         error: function(err) {
             // Handle any errors
