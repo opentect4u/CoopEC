@@ -47,7 +47,7 @@ app.use(
 app.use(flash());
 app.use((req, res, next) => {
   res.locals.user = req.session.user;
-  res.locals.range_name_for_topbar = req.session.range_name || 'Head Office';
+  res.locals.range_name_for_topbar = req.session.range_name_for_topbar || 'Head Office';
   //res.locals.range_id = req.session.user.range_id || null;
   res.locals.path = req.path;
   res.locals.message = req.session.message;

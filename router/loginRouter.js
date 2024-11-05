@@ -17,9 +17,9 @@ LoginRouter.post('/logincheck', async(req, res) => {
           if (res_dt.msg.length > 0) {
               if(res_dt.msg[0].range_id > 0){
                 var range_dtl = await db_Select('range_name', 'md_range', `range_id='${res_dt.msg[0].range_id}'`, order);
-                req.session.range_name = range_dtl.msg[0].range_name;
+                req.session.range_name_for_topbar = range_dtl.msg[0].range_name;
               }else{
-                req.session.range_name = 'Head Office';
+                req.session.range_name_for_topbar = 'Head Office';
               }
 
             if (await bcrypt.compare(data.password, res_dt.msg[0].password)) {
