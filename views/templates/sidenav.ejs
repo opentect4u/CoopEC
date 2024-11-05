@@ -19,11 +19,35 @@
                 <span class="menu-title">Add Society</span>
             </a>
         </li>
-        <% if(user.user_type == 'M' || user.user_type == 'S'){  %>
+        <% if(user.user_type == 'M' || user.user_type == 'S' || user.user_type == 'A' ){  %>
             <li class="nav-item active">
                 <a class="nav-link" href="/society/modifiedlist">
                     <i class="icon-add menu-icon" >+</i>
                     <span class="menu-title">Approve Society</span>
+                </a>
+            </li>
+            <%  }  %>
+            <% if(user.user_type == 'A' || user.user_type == 'S'){  %>
+            <li class="nav-item active">
+                <a class="nav-link" data-toggle="collapse" href="#error" aria-expanded="false" aria-controls="error">
+                    <i class="icon-ban menu-icon"></i>
+                    <span class="menu-title">Document</span>
+                    <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="error">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" href="/wdtls/doclist">Dcoument List</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="/wdtls/adddoc">Upload Dcoument</a></li>
+                        <!-- <li class="nav-item"> <a class="nav-link" href="pages/samples/error-500.html"> 500 </a></li> -->
+                    </ul>
+                </div>
+            </li>
+            <%  }  %>
+            <% if(user.user_type == 'A' || user.user_type == 'S' ){  %>
+            <li class="nav-item active">
+                <a class="nav-link" href="/wdtls/doclist_for_approve">
+                    <i class="icon-add menu-icon" >+</i>
+                    <span class="menu-title">Dcoument Approve</span>
                 </a>
             </li>
             <%  }  %>
@@ -43,27 +67,7 @@
             </div>
         </li>
        
-        <%  if(user.user_type == 'S'){  %>
-        <li class="nav-item active">
-            <a class="nav-link" data-toggle="collapse" href="#error" aria-expanded="false" aria-controls="error">
-                <i class="icon-ban menu-icon"></i>
-                <span class="menu-title">Document</span>
-                <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="error">
-                <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="/wdtls/doclist">Dcoument List</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="/wdtls/adddoc">Upload Dcoument</a></li>
-                    <!-- <li class="nav-item"> <a class="nav-link" href="pages/samples/error-500.html"> 500 </a></li> -->
-                </ul>
-            </div>
-        </li>
-        <li class="nav-item active">
-            <a class="nav-link" href="/wdtls/doclist_for_approve">
-                <i class="icon-add menu-icon" >+</i>
-                <span class="menu-title">Dcoument Approve</span>
-            </a>
-        </li>
+        <%  if(user.user_type == 'A' || user.user_type == 'S' ){  %>
         <!-- <li class="nav-item active">
             <a class="nav-link" href="/wdtls/announcelist">
                 <i class="icon-add menu-icon" >+</i>

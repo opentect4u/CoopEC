@@ -3,6 +3,7 @@ const moment = require('moment');
 const multer = require('multer'); 
 const path = require("path");
 bcrypt = require("bcrypt");
+const fs = require('fs');
 const {db_Select,db_Insert,db_Delete} = require('../modules/MasterModule');
 WdtlsRouter.use((req, res, next) => {
     var user = req.session.user;
@@ -17,17 +18,17 @@ WdtlsRouter.get('/doclist', async(req, res) => {
   try {
       // Extract range_id from session
      
-      const doclist = await db_Select('*', 'td_document_upload', null, null);
+      const doclist = await db_Select('a.*,b.doc_type as doc_type_name', 'td_document_upload a,md_document b',`a.doc_type = b.doc_type_id`, null);
       // Prepare data for rendering
       const res_dt = {
         data:doclist.suc > 0 ? doclist.msg : '', 
       };
-      res.render('websitedtls/document_list',res_dt);
+      res.render('websitedtls/doc/document_list',res_dt);
     } catch (error) {
       // Log the error and send an appropriate response
       console.error('Error during dashboard rendering:', error);
       //res.status(500).send('An error occurred while loading the dashboard.');
-      res.render('websitedtls/document_list');
+      res.render('websitedtls/doc/document_list');
     }
 })
 WdtlsRouter.get('/adddoc', async(req, res) => {
@@ -41,7 +42,7 @@ WdtlsRouter.get('/adddoc', async(req, res) => {
         doctypelist:doctyperes.suc > 0 ? doctyperes.msg : '',
       };
       // Render the view with data
-      res.render('websitedtls/add_doc',res_dt);
+      res.render('websitedtls/doc/add_doc',res_dt);
     } catch (error) {
       // Log the error and send an appropriate response
       console.error('Error during dashboard rendering:', error);
@@ -57,12 +58,12 @@ WdtlsRouter.get('/adddoc', async(req, res) => {
         const res_dt = {
           data:doclist.suc > 0 ? doclist.msg : '', 
         };
-        res.render('websitedtls/document_list_for_approve',res_dt);
+        res.render('websitedtls/doc/document_list_for_approve',res_dt);
       } catch (error) {
         // Log the error and send an appropriate response
         console.error('Error during dashboard rendering:', error);
         //res.status(500).send('An error occurred while loading the dashboard.');
-        res.render('websitedtls/document_list');
+        res.render('websitedtls/doc/document_list');
       }
   })
   WdtlsRouter.get('/doc_for_approve', async(req, res) => {
@@ -75,13 +76,62 @@ WdtlsRouter.get('/adddoc', async(req, res) => {
         const res_dt = {
           data:doclist.suc > 0 ? doclist.msg[0] : '', 
         };
-        res.render('websitedtls/document_for_approve',res_dt);
+        res.render('websitedtls/doc/document_for_approve',res_dt);
       } catch (error) {
         // Log the error and send an appropriate response
         console.error('Error during dashboard rendering:', error);
         //res.status(500).send('An error occurred while loading the dashboard.');
-        res.render('websitedtls/document_list');
+        res.render('websitedtls/doc/document_list');
       }
+  })
+  WdtlsRouter.get('/doc_for_view', async(req, res) => {
+    try {
+        // Extract range_id from session
+        var id = req.query.id;
+        var whr= `id=${id}`;
+        const doclist = await db_Select('*', 'td_document_upload', whr, null);
+        // Prepare data for rendering
+        const res_dt = {
+          data:doclist.suc > 0 ? doclist.msg[0] : '', 
+        };
+        res.render('websitedtls/doc/document_for_view',res_dt);
+      } catch (error) {
+        // Log the error and send an appropriate response
+        console.error('Error during dashboard rendering:', error);
+        //res.status(500).send('An error occurred while loading the dashboard.');
+        res.render('websitedtls/doc/document_list');
+      }
+  })
+  WdtlsRouter.get('/deldock', async(req, res) => {
+    try {
+        var data = req.body;
+        var id =req.query.id,doc_type =req.query.doc_type;
+        var where=`id = '${id}' `;
+        const filename = req.query.file;
+        if(doc_type == 1){
+          var filePath = path.join(__dirname, 'uploads/notifications/', filename);
+        }else if(doc_type == 2){
+          var filePath = path.join(__dirname, 'uploads/tenders/', filename);
+        }else if(doc_type == 3){
+          var filePath = path.join(__dirname, 'uploads/announcement/', filename);
+        }else{
+          var filePath = path.join(__dirname, 'uploads/downloads/', filename);
+        }
+        console.log(doc_type);
+        fs.unlink(filePath, (err) => {
+            // if (err) {
+            //     console.error('Error deleting file:', err);
+            //     return res.status(500).send('Error deleting file');
+            // }
+            // res.redirect('/');
+        });
+        var res_dt = await db_Delete("td_document_upload", where);
+       res.redirect("/wdtls/doclist");
+    } catch (error) {
+      // Log the error and send an appropriate response
+      console.error('Error during dashboard rendering:', error);
+      res.redirect("/wdtls/doclist");
+    }
   })
 
   WdtlsRouter.post('/approve_document', async(req, res) => {
@@ -174,12 +224,12 @@ WdtlsRouter.get('/announcelist', async(req, res) => {
       const res_dt = {
         data:doclist.suc > 0 ? doclist.msg : '', 
       };
-      res.render('websitedtls/document_list',res_dt);
+      res.render('websitedtls/doc/document_list',res_dt);
     } catch (error) {
       // Log the error and send an appropriate response
       console.error('Error during dashboard rendering:', error);
       //res.status(500).send('An error occurred while loading the dashboard.');
-      res.render('websitedtls/document_list');
+      res.render('websitedtls/doc/document_list');
     }
 })
 WdtlsRouter.get('/addannouncement', async(req, res) => {

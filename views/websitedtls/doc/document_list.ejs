@@ -28,9 +28,9 @@
                 <thead>
                   <tr>
                     <th class="society_th_1">SL No</th>
-                    <!-- <th class="society_th_2">Document Type</th> -->
+                    <th class="society_th_2">Document Type</th>
                     <th class="society_th_6">Document Title</th>
-                    <th class="society_th_8">Document</th>
+                    <th class="society_th_8">View</th>
                     <th class="society_th_9">Option</th>
                   </tr>
                 </thead>
@@ -39,21 +39,19 @@
                   data.forEach(dt => { %>
                       <tr>
                           <td><%= i++ %></td>
-                          <!-- <td><%= dt.doc_type %></td> -->
+                          <td><%= dt.doc_type_name %></td>
                           <td><%= dt.doc_title %></td>
-                          <td><%= dt.document %></td>
-                          <td></td>
-                          <!-- <td>
-                            <a href="/del?id=<%= dt.id %>" class="edit_dashboard">Edit</a>
-                          </td> -->
+                          <!-- <td><%= dt.document %></td> -->
+                          <td> <a href="/wdtls/doc_for_view?id=<%= dt.id %>" class="edit_dashboard">View</a></td>
+                          <td>
+                            <a href="/wdtls/deldock?id=<%= dt.id %>&doc_type=<%= dt.doc_type %>&file=<%= dt.document %>" class="edit_dashboard">Delete</a>
+                            
+                          </td>
                       </tr>
                   <% }) %>
                 </tbody>
               </table>
-        
             </div>
-
-          
         
           </div>
         </div>
