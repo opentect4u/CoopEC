@@ -2,7 +2,8 @@ const WdtlsRouter = require('express').Router()
 const moment = require('moment');
 const multer = require('multer'); 
 const path = require("path");
-bcrypt = require("bcrypt");
+//bcrypt = require("bcrypt");
+const bcrypt = require('bcrypt');
 const fs = require('fs');
 const {db_Select,db_Insert,db_Delete} = require('../modules/MasterModule');
 WdtlsRouter.use((req, res, next) => {
@@ -604,4 +605,62 @@ WdtlsRouter.post('/update_statistic', async(req, res) => {
     }
   })
     ////     ********  Code End for User Management      *******   /// 
+
+    WdtlsRouter.get('/changepass', async(req, res) => {
+      try {
+        var user = req.session.user;
+          const res_dt = {
+            user_id:user.user_id,
+          };
+          res.render('websitedtls/user/change_password',res_dt);
+        } catch (error) {
+          // Log the error and send an appropriate response
+          console.error('Error during dashboard rendering:', error);
+        }
+    })
+    WdtlsRouter.post('/changepass', async(req, res) => {
+      try {
+        var user = req.session.user;
+        var data = req.body,result ;
+        var select = "*",table_name = "md_user",
+          whr = `user_id='${user.user_id}' AND user_status='A'`,
+          order = null;
+        var res_dt = await db_Select(select, table_name, whr, order);
+        if (res_dt.suc > 0) {
+          if (res_dt.msg.length > 0) {
+            if (await bcrypt.compare(data.old_pass, res_dt.msg[0].password)) {
+              var pass = bcrypt.hashSync(data.pass, 10)  ;
+            
+              var values = null;
+              var table_name = "md_user";
+            var fields = `password = '${pass}'`;
+            var whr = `user_id = '${user.user_id}'` ;
+           
+            var save_data = await db_Insert(table_name, fields, values, whr, 1);
+            req.flash('success_msg', 'Update successful!');
+            res.redirect("/dash/dashboard");
+            } else {
+                  result = {
+                    suc: 0,
+                    msg: "Please check your userid or password",
+                    dt: res_dt
+                  };
+               
+                  res.redirect("/wdtls/changepass");
+                }
+              } else {
+                result = { suc: 0, msg: "No data found", dt: res_dt };
+               
+                res.redirect("/wdtls/changepass");
+              }
+            } else {
+              result = { suc: 0, msg: res_dt.msg, dt: res_dt };
+              res.redirect("/wdtls/changepass");
+            }   
+
+        } catch (error) {
+          // Log the error and send an appropriate response
+          console.error('Error during dashboard rendering:', error);
+        }
+    })
 module.exports = {WdtlsRouter}
