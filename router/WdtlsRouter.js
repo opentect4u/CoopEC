@@ -508,7 +508,14 @@ WdtlsRouter.post('/update_statistic', async(req, res) => {
     ////     ********  Code start for User Management      *******   /// 
   WdtlsRouter.get('/userlist', async(req, res) => {
     try {
-           var table = `md_user a LEFT JOIN md_range b ON a.range_id = b.range_id `;
+      const range_id = req.session.user.range_id;
+      //  const suc_msg = req.flash('success_msg') ;
+       
+        if(range_id > 0){ 
+           var table = `md_user a JOIN md_range b ON a.range_id = b.range_id AND a.range_id='${range_id}'`;
+        }else{
+          var table = `md_user a LEFT JOIN md_range b ON a.range_id = b.range_id `;
+        }
         const faqllist = await db_Select('a.*,b.range_name', table, null, null);
         // Prepare data for rendering
         const res_dt = {

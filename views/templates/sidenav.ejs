@@ -98,6 +98,8 @@
                 <span class="menu-title">Important Links</span>
             </a>
         </li>
+        <%  } %>
+        <%  if(user.user_type == 'A' || user.user_type == 'S' || user.user_type == 'M'){  %>
         <li class="nav-item active">
             <a class="nav-link" data-toggle="collapse" href="#user" aria-expanded="false" aria-controls="user">
                 <i class="icon-ban menu-icon"></i>
@@ -113,6 +115,7 @@
             </div>
         </li>
         <%  } %>
+    
         
         <!-- <li class="nav-item active">
             <a class="nav-link" href="/society/modifiedlist">
