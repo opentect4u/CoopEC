@@ -564,7 +564,7 @@ WdtlsRouter.post('/update_statistic', async(req, res) => {
       var values = `('${data.user_id}','${data.user_name}','${data.user_email}','${data.designation}','${data.user_type}','${pass}','A','${data.range_id}','${formattedDate}','${user.user_id}','${ip}')`
       
         var table_name = "md_user";
-      var fields = data.id > 0 ? `user_id = '${data.user_id}',user_name = '${data.user_name.split("'").join("\\'")}',user_email = '${data.user_email}',designation = '${data.designation}',user_type = '${data.user_type}',
+      var fields = data.id > 0 ? `user_name = '${data.user_name.split("'").join("\\'")}',user_email = '${data.user_email}',designation = '${data.designation}',user_type = '${data.user_type}',
                    ${pass_string} user_status='${data.user_status}',range_id='${data.range_id}',modified_by='${user.user_id}',modified_at='${formattedDate}',
                   modified_ip = '${ip}' ` :`(user_id,user_name,user_email,designation,user_type,password,user_status,range_id,created_at,created_by,created_ip)`;
       var whr = `id = '${data.id}'` ;
