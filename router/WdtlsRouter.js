@@ -658,4 +658,20 @@ WdtlsRouter.post('/update_statistic', async(req, res) => {
           console.error('Error during dashboard rendering:', error);
         }
     })
+    WdtlsRouter.get('/editprofile', async(req, res) => {
+  
+      //var id = req.query.id;
+      var user = req.session.user;
+      try {
+            var ranze = await db_Select('*', 'md_range', null, null);
+            var userres = await db_Select('*', 'md_user', `user_id='${user.user_id}'`, null);
+            const res_dt = {
+              data:ranze.suc > 0 ? ranze.msg : '',usersd: userres.suc > 0 ? userres.msg[0] : ''
+            };
+            res.render('websitedtls/user/profile',res_dt);
+        } catch (error) {
+          // Log the error and send an appropriate response
+          console.error('Error during dashboard rendering:', error);
+        }
+    })
 module.exports = {WdtlsRouter}
