@@ -33,7 +33,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="exampleInputName1">Date of Registration <span class="red">*</span> </label>
-                  <input type="date" class="form-control"  name="reg_date" value="<%= moment(soc.reg_date).format('yyyy-MM-DD')  %>" required>
+                  <input type="date" class="form-control"  name="reg_date" value="<%= moment(soc.reg_date).format('yyyy-MM-DD')  %>" >
                 </div>
               </div>
             </div>
@@ -41,7 +41,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="exampleInputName1">Type of the Society <span class="red">*</span> </label>
-                  <select class="form-control select2" id="soc_type" name="soc_type" required>
+                  <select class="form-control select2" id="soc_type" name="soc_type" >
                     <% if(soctypelist.length > 0){
                       var i = 1
                       soctypelist.forEach(dt => { %>
@@ -54,7 +54,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="exampleInputName1">Tier of the Society <span class="red">*</span></label>
-                  <select class="form-control" id="soc_tier" name="soc_tier" required>
+                  <select class="form-control" id="soc_tier" name="soc_tier" >
                     <option value=""  >Select Tier</option>
                     <% if(soctierlist.length > 0){
                       var i = 1
@@ -67,7 +67,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="exampleInputName1">Registration & Controlling Authority <span class="red">*</span></label>
-                  <select class="form-control" id="cntr_auth_type" name="cntr_auth_type" required>
+                  <select class="form-control" id="cntr_auth_type" name="cntr_auth_type" >
                     <option value="" >Select Registration & Controlling Authority</option>
                     <% if(regauthtypelist.length > 0){
                       var i = 1
@@ -80,7 +80,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="exampleInputName1">Returning Officer of Society <span class="red">*</span> </label>
-                  <select class="form-control select2" id="cntr_auth" name="cntr_auth" required>
+                  <select class="form-control select2" id="cntr_auth" name="cntr_auth" >
                      <!-- <option value="0"  >Select Returning Officer of Society</option>
                    <% if(regauthlist.length > 0){
                       var i = 1
@@ -99,7 +99,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="exampleInputName1">District<span class="red">*</span></label>
-                  <select class="form-control" id="dist_code" name="dist_code" required>
+                  <select class="form-control" id="dist_code" name="dist_code" >
                     <option value="0"  >Select District</option>
                     <% if(districtlist.length > 0){
                       var i = 1
@@ -112,7 +112,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="exampleInputName1">Zone</label>
-                  <select class="form-control" id="zone_code" name="zone_code" required >
+                  <select class="form-control" id="zone_code" name="zone_code"  >
                     <option value="0"  >Select Zone Type</option>
                     <% if(zonelist.length > 0){
                       var i = 1
@@ -125,7 +125,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="exampleInputName1">Range <span class="red">*</span></label>
-                  <select class="form-control" id="range_code" name="range_code" required>
+                  <select class="form-control" id="range_code" name="range_code" >
                     <option value="">Select Range </option>
                     <% if(ranzelist.length > 0){
                       var i = 1
@@ -233,7 +233,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="exampleInputName1">Pin Code <span class="red">*</span></label>
-                  <input type="number" class="form-control" name="pin_no" value="<%= soc.pin_no %>" required>
+                  <input type="number" class="form-control" name="pin_no" value="<%= soc.pin_no %>" >
                 </div>
               </div>
               <div class="col-md-6">
@@ -242,13 +242,13 @@
               <div class="col-md-12">
                 <div class="form-group">
                   <label for="exampleInputName1">Address <span class="red">*</span></label>
-                  <textarea name="address" class="form-control" required><%= soc.address %></textarea>
+                  <textarea name="address" class="form-control" ><%= soc.address %></textarea>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="exampleInputName1">Management Status  <span class="red">*</span></label>
-                  <select class="form-control" id="mgmt_status" name="mgmt_status" required>
+                  <select class="form-control" id="mgmt_status" name="mgmt_status" >
                     <option value="">Select mgmt status </option>
                     <% if(managementlist.length > 0){
                       var i = 1
@@ -305,13 +305,13 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="exampleInputName1">Last election of BoD held on <span class="red">*</span> </label>
-                  <input type="date" class="form-control"  name="last_elec_date" id="last_elec_date" value="<%= moment(soc.last_elec_date).format('yyyy-MM-DD')  %>" required>
+                  <input type="date" class="form-control"  name="last_elec_date" id="last_elec_date" value="<%= moment(soc.last_elec_date).format('yyyy-MM-DD')  %>" >
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="exampleInputName1">Tenure Ends On <span class="red">*</span> </label>
-                  <input type="date" class="form-control"  name="tenure_ends_on" id="tenure_ends_on" value="<%= moment(soc.tenure_ends_on).format('yyyy-MM-DD')  %>" required>
+                  <input type="date" class="form-control"  name="tenure_ends_on" id="tenure_ends_on" value="<%= moment(soc.tenure_ends_on).format('yyyy-MM-DD')  %>" >
                 </div>
               </div>
               <div class="col-md-6" style="display: none;">
@@ -378,7 +378,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="exampleInputName1">Election Status</label>
-                  <select class="form-control" id="election_status" name="election_status" required>
+                  <select class="form-control" id="election_status" name="election_status" >
                     <option value="">Select Status </option>
                       <option value="DUE" <%= soc.election_status == "DUE" ? 'selected' : '' %> >DUE</option>
                       <option value="ONGOING" <%= soc.election_status == "ONGOING" ? 'selected' : '' %> >ONGOING</option>
@@ -664,15 +664,15 @@
     var urban_rural_flag = '<%= soc.urban_rural_flag %>'
    if(urban_rural_flag == 'U'){
     $('.rulby').hide();
-    $('#ulb_catg').attr('required',true);
-    $('#ulb_id').attr('required',true);
-    $('#block_id').attr('required',false);
-    $('#gp_id').attr('required',false);
+    // $('#ulb_catg').attr('required',true);
+    // $('#ulb_id').attr('required',true);
+    // $('#block_id').attr('required',false);
+    // $('#gp_id').attr('required',false);
    }else if(urban_rural_flag == 'R'){
-    $('#block_id').attr('required',true);
-    $('#gp_id').attr('required',true);
-    $('#ulb_catg').attr('required',false);
-    $('#ulb_id').attr('required',false);
+    // $('#block_id').attr('required',true);
+    // $('#gp_id').attr('required',true);
+    // $('#ulb_catg').attr('required',false);
+    // $('#ulb_id').attr('required',false);
     $('.urlby').hide();
    }else{
     $('.urlby').hide();
