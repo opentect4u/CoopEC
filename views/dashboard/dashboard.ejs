@@ -18,9 +18,9 @@
   </div>
   
     <div class="row">
-  <div class="stockPointSecTitle_cus">
+         <div class="stockPointSecTitle_cus">
             <h2>Number Of Societies  </h2>
-            <a href="/dash/dashboard" class="heading_link">View</a>
+           
         </div>
       <div class="threeBoxNewmain">
         <div class="col-sm-4 float-left">
@@ -31,6 +31,8 @@
               <p class="price">
                 <span class="lit" id="total_society"></span>
               </p>
+              <br>
+              <a href="/dash/dashboard" class="btn btn-primary btn-sm">View</a>
             </div>
           </div>
         </div>
@@ -40,7 +42,8 @@
             <div class="threeBoxTxt">
               <h2>Functional</h2>
               <p class="price"><span class="lit" id="total_functional"></span>
-              </p>
+              </p> <br>
+              <a href="/dash/dashboard" class="btn btn-primary btn-sm">View</a>
             </div>
           </div>
         </div>
@@ -51,14 +54,14 @@
               <h2>Non Functional</h2>
               <p class="price">
                 <span class="lit" id="total_nonfunctional"></span>
-              </p>
+              </p> <br>
+              <a href="/dash/dashboard" class="btn btn-primary btn-sm">View</a>
             </div>
           </div>
         </div>
       </div>
         <div class="stockPointSecTitle_cus">
             <h2>Data Edit Status  </h2>
-            <a href="/dash/dashboard" class="heading_link">View</a>
         </div>
         <div class="threeBoxNewmain">
           
@@ -69,7 +72,8 @@
                 <h2>Unedited</h2>
                 <p class="price">
                   <span class="lit" id="total_unapproved"></span>
-                </p>
+                </p><br>
+                <a href="/dash/dashboard" class="btn btn-primary btn-sm">View</a>
               </div>
             </div>
           </div>
@@ -79,7 +83,8 @@
               <div class="threeBoxTxt">
                 <h2>Edited</h2>
                 <p class="price"><span class="lit" id="total_edited"></span>
-                </p>
+                </p><br>
+                <a href="/dash/dashboard" class="btn btn-primary btn-sm">View</a>
               </div>
             </div>
           </div>
@@ -90,7 +95,8 @@
                 <h2>Approved</h2>
                 <p class="price">
                   <span class="lit" id="total_approved"></span>
-                </p>
+                </p><br>
+                <a href="/dash/dashboard" class="btn btn-primary btn-sm">View</a>
               </div>
             </div>
           </div>
@@ -98,7 +104,7 @@
         </div>
     <div class="stockPointSecTitle_cus">
             <h2>Status  </h2>
-              <a href="#" class="heading_link" id="election_link">View</a>
+            
         </div>
   
           <div class="threeBoxNewmain">
@@ -109,7 +115,8 @@
                   <h2>Ongoing Elections</h2>
                   <p class="price">
             <span class="lit" id="total_ongoing"></span>
-                  </p>
+                  </p><br>
+                  <a href="/dash/dashboard" class="btn btn-primary btn-sm">View</a>
                 </div>
               </div>
             </div>
@@ -125,7 +132,8 @@
                   <h2>Completed Elections</h2>
                   <p class="price">
                     <span class="lit" id="total_completed"></span>
-                  </p>
+                  </p><br>
+                  <a href="/dash/dashboard" class="btn btn-primary btn-sm">View</a>
                 </div>
               </div>
             </div>
@@ -133,7 +141,7 @@
           </div>
           <div class="stockPointSecTitle_cus">
             <h2>Upcoming  </h2>
-              <a href="/dash/dashboard" class="heading_link" id="election_link">View</a>
+              
         </div>
         <div class="threeBoxNewmain">
           <div class="col-sm-4 float-left">
@@ -178,6 +186,12 @@
                 <p class="price">
           <span class="lit" id="total_due"></span>
                 </p>
+                <form action="/report/election_due" method="post">
+                  <input type="hidden" value="0" name="soc_type">
+                  <input type="hidden" value="<%= user.range_id %>" name="range_id">
+               
+                  <input type="submit" value="View" class="btn btn-primary btn-sm">
+                  </form>
               </div>
             </div>
           </div>
@@ -189,17 +203,7 @@
             <h2></h2>
       <!-- <a href="#" class="heading_link">Details</a> -->
         </div>
-          
-        </div>
-
-          <div class="col-sm-6 float-left">
-              <div class="stockPointSecTitle_cus_half">
-                  <h2></h2>
-                  <a href="#" class="heading_link">Details</a>
-              </div>
-          </div>
-    
-    
+    </div>
   <div class="col-sm-12 class_chart">
 
   <div class="stockPointSecTitle_cus_half">
