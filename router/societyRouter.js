@@ -569,5 +569,130 @@ SocietyRouter.get('/modifiedlist', async(req, res) => {
         res.render('dashboard/edit', res_dt);
       }
   })
+   
+  // ********  Village Add code 
+  SocietyRouter.get('/managevillage', async(req, res) => {
+    try {
+        // Extract range_id from session
+        const distres = await db_Select('*', 'md_district', null, null);
+        // Prepare data for rendering
+        const res_dt = {
+           moment: moment,
+           districtlist: distres.suc > 0 ? distres.msg : '',
+        };
+        // Render the view with data
+        res.render('village/manage_village', res_dt);
+      } catch (error) {
+        // Log the error and send an appropriate response
+        console.error('Error during dashboard rendering:', error);
+        //res.status(500).send('An error occurred while loading the dashboard.');
+      }
+  })
+  SocietyRouter.post('/managevillage', async(req, res) => {
+    try {
+        // Extract range_id from session
+        var data = req.body;
+        var dist_id = data.dist_code, block = data.block_id,gp_id = data.gp_id;
+        var whr =` AND a.dist_id = ${dist_id} AND a.block_id = ${block} AND a.gp_id = ${gp_id} `;
+        const villlist = await db_Select('a.vill_id,a.vill_name,b.block_name,c.gp_name', `md_village a,md_block b,md_gp c where a.block_id=b.block_id AND a.gp_id =c.gp_id ${whr}`, null, null);
+        const res_dt = {
+          villlist: villlist.suc > 0 ? villlist.msg : '',
+        };
+        // Render the view with data
+        res.render('village/list', res_dt);
+      } catch (error) {
+        // Log the error and send an appropriate response
+        console.error('Error during dashboard rendering:', error);
+        //res.status(500).send('An error occurred while loading the dashboard.');
+      }
+  })
+  SocietyRouter.get('/addvillage', async(req, res) => {
+    try {
+        // Extract range_id from session
+        const distres = await db_Select('*', 'md_district', null, null);
+        // Prepare data for rendering
+        const res_dt = {
+           moment: moment,
+           districtlist: distres.suc > 0 ? distres.msg : '',
+        };
+        // Render the view with data
+        res.render('village/add', res_dt);
+      } catch (error) {
+        // Log the error and send an appropriate response
+        console.error('Error during dashboard rendering:', error);
+        //res.status(500).send('An error occurred while loading the dashboard.');
+      }
+  })
+  SocietyRouter.get('/editvillage', async(req, res) => {
+    try {
+        // Extract range_id from session
+        const distres = await db_Select('*', 'md_district', null, null);
+        const id = req.query.id;
+        // Prepare data for rendering
+        var whr =` AND a.vill_id = ${id}`;
+        var village = await db_Select('a.vill_id,a.dist_id,a.vill_name,b.block_name,c.gp_name', `md_village a,md_block b,md_gp c where a.block_id=b.block_id AND a.gp_id =c.gp_id ${whr}`,null, null);
+        const res_dt = {
+           moment: moment,
+           districtlist: distres.suc > 0 ? distres.msg : '',
+           villag: village.suc > 0 ? village.msg[0] : '',
+        };
+        // Render the view with data
+        res.render('village/edit', res_dt);
+      } catch (error) {
+        // Log the error and send an appropriate response
+        console.error('Error during dashboard rendering:', error);
+        //res.status(500).send('An error occurred while loading the dashboard.');
+      }
+  })
+  SocietyRouter.post('/editvillage', async(req, res) => {
+    try {
+        // Extract range_id from session
+        var user_id = req.session.user.user_id;
+        var date_ob = moment();
+      // Format it as YYYY-MM-DD HH:mm:ss
+        var formattedDate = date_ob.format('YYYY-MM-DD HH:mm:ss');
+        const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+        var data = req.body;
+        var table_name = "md_village";
+      var values = null;
+      
+      var fields = `vill_name='${data.vill_name}',modified_by='${user_id}',
+      modified_at = '${formattedDate}',modified_ip='${ip}' `;
+      var whr = `vill_id = '${data.vill_id}'` ;
+      var flag = 1;
+      var save_data = await db_Insert(table_name, fields, values, whr, flag);
+    
+      
+        req.flash('success_msg', 'Update successful!');
+        res.redirect("/society/managevillage");
+        // Render the view with data
+      } catch (error) {
+        // Log the error and send an appropriate response
+        console.error('Error during dashboard rendering:', error);
+        //res.status(500).send('An error occurred while loading the dashboard.');
+      }
+  })
+
+  SocietyRouter.post('/villageadddata', async(req, res) => {
+    try {
+            var user_id = req.session.user.user_id;
+            var date_ob = moment();
+          // Format it as YYYY-MM-DD HH:mm:ss
+            var formattedDate = date_ob.format('YYYY-MM-DD HH:mm:ss');
+            const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+            var data = req.body;
+            var table_name = "md_village";
+          var values = `('${data.dist_code}','${data.block_id}','${data.gp_id}','${data.vill_name}','${user_id}','${formattedDate}')`;
+          var fields = `(dist_id,block_id,gp_id,vill_name,created_by,created_at)`;
+          var save_data = await db_Insert(table_name, fields, values, whr,0);
+        
+            req.flash('success_msg', 'Village Added successful!');
+            res.redirect("/dash/dashboard");
+      } catch (error) {
+        // Log the error and send an appropriate response
+        console.error('Error during dashboard rendering:', error);
+        //res.status(500).send('An error occurred while loading the dashboard.');
+      }
+  })
 
 module.exports = {SocietyRouter}
