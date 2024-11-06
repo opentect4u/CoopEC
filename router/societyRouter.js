@@ -85,7 +85,7 @@ SocietyRouter.post('/socedit', async(req, res) => {
     soc_type = '${data.soc_type}',cntr_auth_type='${data.cntr_auth_type}',cntr_auth='${data.cntr_auth}',dist_code='${data.dist_code}',
     ulb_catg = '${ulb_catg}',ulb_id = '${ulb_id}',ward_no = '${data.ward_no}',pin_no = '${data.pin_no}',range_code = '${data.range_code}',
     urban_rural_flag ='${data.urban_rural_flag}',
-    block_id = '${block_id}',gp_id = '${gp_id}',vill_id = '${data.vill_id}',address='${data.address.split("'").join("\\'")}',num_of_memb='${data.num_of_memb}',audit_upto='${data.audit_upto}',
+    block_id = '${block_id}',gp_id = '${gp_id}',vill_id = '${data.vill_id}',mouza = '${data.mouza}',address='${data.address.split("'").join("\\'")}',num_of_memb='${data.num_of_memb}',audit_upto='${data.audit_upto}',
     mgmt_status = '${data.mgmt_status}',officer_type = '${data.officer_type}',last_elec_date = '${data.last_elec_date}',
     tenure_ends_on = '${data.tenure_ends_on}',elec_due_date = '${data.elec_due_date}',contact_name='${data.contact_name}',contact_designation='${data.contact_designation}',
     contact_number = '${data.contact_number}',email = '${data.email}',case_id='${data.case_id}',case_num='${data.case_num}',functional_status='${data.functional_status}',approve_status='E',election_status='${data.election_status}',modified_by='${user_id}',
@@ -145,9 +145,14 @@ SocietyRouter.get('/socadd', async(req, res) => {
       const regauthres = await db_Select('*', 'md_controlling_authority', null, null);
       const zoneres = await db_Select('*', 'md_zone', null, null);
       const distres = await db_Select('*', 'md_district', null, null);
-      const ranzeres = await db_Select('*', 'md_range', `range_id='${range_id}'`, null);
-      const distcode = ranzeres.msg[0].dist_id > 0 ? ranzeres.msg[0].dist_id : 0;
-      const zone_id = ranzeres.msg[0].zone_id > 0 ? ranzeres.msg[0].zone_id : 0;
+      if(range_id > 0){
+        var ranzeres = await db_Select('*', 'md_range', `range_id='${range_id}'`, null);
+        var distcode = ranzeres.msg[0].dist_id > 0 ? ranzeres.msg[0].dist_id : 0;
+      }else{
+        var ranzeres = await db_Select('*', 'md_range', null, null);
+        var distcode =  0;
+      }
+      
      
       const ulbcatgres = await db_Select('*', 'md_ulb_catg', null, null);
       const ulbres = await db_Select('*', 'md_ulb', null, null);
@@ -195,9 +200,11 @@ SocietyRouter.post('/socadddata', async(req, res) => {
     var gp_id  = data.gp_id || 0 ;
     var ulb_catg = data.ulb_catg || 0 ;
     var ulb_id  = data.ulb_id || 0 ;
-    var fields = `(cop_soc_name,reg_no,reg_date,soc_tier,soc_type,cntr_auth_type,cntr_auth,ulb_catg,ulb_id,ward_no,pin_no,zone_code,dist_code,range_code,urban_rural_flag,block_id,gp_id,vill_id,address,num_of_memb,audit_upto,mgmt_status,officer_type,last_elec_date,tenure_ends_on,elec_due_date,contact_name,contact_designation,contact_number,email,case_id,case_num,functional_status)`;
+
+            
+    var fields = `(cop_soc_name,reg_no,reg_date,soc_type,soc_tier,cntr_auth_type,cntr_auth,zone_code,dist_code,range_code,urban_rural_flag,ulb_catg,ulb_id,ward_no,block_id,gp_id,vill_id,pin_no,address,mouza,num_of_memb,audit_upto,mgmt_status,officer_type,last_elec_date,tenure_ends_on,elec_due_date,contact_name,contact_designation,contact_number,email,case_id,case_num,functional_status,created_by,created_dt)`;
   
-    var values = `('${data.cop_soc_name.split("'").join("\\'")}','${data.reg_no}','${data.reg_date}','${data.soc_tier}','${data.soc_type}','${data.cntr_auth_type}','${data.cntr_auth}','${ulb_catg}','${ulb_id}','${data.ward_no}','${data.pin_no}','${data.zone_code}','${data.dist_code}','${data.range_code}','${data.urban_rural_flag}','${block_id}','${gp_id}','${data.vill_id}','${data.address.split("'").join("\\'")}','${data.num_of_memb}','${data.audit_upto}','${data.mgmt_status}','${data.officer_type}','${data.last_elec_date}','${data.tenure_ends_on}','${data.elec_due_date}','${data.contact_name}','${data.contact_designation}','${data.contact_number}','${data.email}','${data.case_id}','${data.case_num}','${data.functional_status}')`;
+    var values = `('${data.cop_soc_name.split("'").join("\\'")}','${data.reg_no}','${data.reg_date}','${data.soc_type}','${data.soc_tier}','${data.cntr_auth_type}','${data.cntr_auth}','${data.zone_code}','${data.dist_code}','${data.range_code}','${data.urban_rural_flag}','${ulb_catg}','${ulb_id}','${data.ward_no}','${block_id}','${gp_id}','${data.vill_id}','${data.pin_no}','${data.address}','${data.mouza}','${data.num_of_memb}','${data.audit_upto}','${data.mgmt_status}','${data.officer_type}','${data.last_elec_date}','${data.tenure_ends_on}','${data.elec_due_date}','${data.contact_name}','${data.contact_designation}','${data.contact_number}','${data.email}','${data.case_id}','${data.case_num}','${data.functional_status}','${user_id}','${datetime}')`;
     var whr = null;
     var save_data = await db_Insert(table_name, fields, values, whr, 0);
   
