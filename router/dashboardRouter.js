@@ -201,7 +201,7 @@ DashboardRouter.post('/dashboard', async(req, res) => {
         soc_type_id:formdata.soc_type_id > 0 ? formdata.soc_type_id :0,
         soc_tier:formdata.soc_tier > 0 ? formdata.soc_tier :0,
         urban_rural_flag,functional_status:'0',soc_data_status:formdata.soc_data_status,
-        ulb_catg:formdata.ulb_catg > 0 ? formdata.ulb_catg :0,
+        ulb_catg:formdata.ulb_catg > 0 ? formdata.ulb_catg :0,range_name:'',
         block_id:formdata.block_id > 0 ? formdata.block_id :0,total:total,socname:formdata.socname.trim()
       };
  

@@ -48,7 +48,7 @@
                       <option value="<%= dt.soc_type_id %>" <%= soc.soc_type == dt.soc_type_id ? 'selected' : '' %> ><%= dt.soc_type_name %></option>
                         <% }) } %>
                   </select>
-                  <span class="red" id="soc_type_erro">Please Select valid Society Type</span> 
+                  <!-- <span class="red" id="soc_type_erro">Please Select valid Society Type</span>  -->
                 </div>
               </div>
               <div class="col-md-6">
@@ -297,7 +297,7 @@
     placeholder="YYYY-YY" 
     id="designationInput" 
     maxlength="7" value="<%= soc.audit_upto %>"
-    required 
+     
     pattern="^\d{4}-\d{2}$" 
     title="Format: YYYY-YY (e.g., 2023-24)">
                 </div>
@@ -430,7 +430,7 @@
                 </div>
               </div>
             </div>
-          <button type="submit" id="submit" class="btn btn-primary mr-2" <%= soc.soc_type == "31" ? 'disabled' : '' %> >Submit</button>
+          <button type="submit" id="submit" class="btn btn-primary mr-2" <%= soc.soc_type == "31" ? '' : '' %> >Submit</button>
           <!-- <button class="btn btn-light">Cancel</button> -->
         </form>
       </div>
@@ -778,11 +778,11 @@ $(document).ready(function() {
   get_type_error('<%= soc.soc_type %>');
   function get_type_error(num){
     if(num != 31){
-          $('#submit').attr('disabled', false);
+         // $('#submit').attr('disabled', false);
           $('#soc_type_erro').hide();
           
         }else{
-          $('#submit').attr('disabled', true);
+         // $('#submit').attr('disabled', true);
           $('#soc_type_erro').show();
         }
   }
