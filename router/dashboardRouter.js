@@ -1,7 +1,7 @@
 const DashboardRouter = require('express').Router()
 const ExcelJS = require('exceljs');
 const requestIp = require('request-ip');
-const {db_Select} = require('../modules/MasterModule');
+const {db_Select,db_Insert} = require('../modules/MasterModule');
 DashboardRouter.use((req, res, next) => {
     var user = req.session.user;
     if (!user) {
@@ -663,5 +663,33 @@ DashboardRouter.get('/society_download', async (req, res) => {
           });
       }
   })
+  DashboardRouter.get('/editprofile', async(req, res) => {
+      var user = req.session.user;
+      try {
+            var ranze = await db_Select('*', 'md_range', null, null);
+            var userres = await db_Select('*', 'md_user', `user_id='${user.user_id}'`, null);
+            const res_dt = {
+              data:ranze.suc > 0 ? ranze.msg : '',usersd: userres.suc > 0 ? userres.msg[0] : ''
+            };
+            res.render('user/profile',res_dt);
+        } catch (error) {
+          // Log the error and send an appropriate response
+          console.error('Error during dashboard rendering:', error);
+        }
+  })
+  DashboardRouter.post('/editprofile', async(req, res) => {
+    var user = req.session.user;
+    var data = req.body;
+    try {
+          var fields = `user_name = '${data.user_name}',designation='${data.designation}',user_email='${data.user_email}'`;
+          var whr = `id = '${data.id}' AND user_id = '${user.user_id}'` ;
+          var save_data = await db_Insert("md_user", fields, null, whr, 1);
+          req.flash('success_msg', 'Updated successful!');
+          res.redirect("/dash/editprofile");
+      } catch (error) {
+        // Log the error and send an appropriate response
+        console.error('Error during dashboard rendering:', error);
+      }
+   })
 
 module.exports = {DashboardRouter}

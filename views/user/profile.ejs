@@ -3,10 +3,24 @@
     <div class="card">
       <div class="card-body">
         <h4 class="card-title card_title_cus">Profile Update</h4>
-        <form class="forms-sample" action="/wdtls/saveuser" method="post" >
+        <form class="forms-sample" action="/dash/editprofile" method="post" >
           <input type="hidden" class="form-control"  name="id" value="<%= usersd.id %>" >
          
           <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="exampleInputName1">Range</label>
+                <select class="form-control" id="range_code" name="range_code"  disabled>
+                    <option value="0"  <%= usersd.range_id == 0 ? 'selected' : '' %>>Head Office</option>
+
+                    <% if(data.length > 0){
+                    var i = 1
+                    data.forEach(dt => { %>
+                    <option value="<%= dt.range_id %>" <%= usersd.range_id == dt.range_id ? 'selected' : '' %> ><%= dt.range_name %></option>
+                    <% }) } %>
+                    </select>
+              </div>
+            </div>
             <div class="col-md-6">
               <div class="form-group">
                 <label for="exampleInputName1">User Mobile (user ID)<span class="red">*</span></label>
@@ -19,6 +33,17 @@
                 <input type="text" class="form-control"  name="user_name" value="<%= usersd.user_name %>" required>
               </div>
             </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="exampleInputName1">User Type<span class="red">*</span></label>
+                <select name="user_type" class="form-control" disabled> 
+                  <option value="S" <%= usersd.user_type == 'S' ? 'selected' : '' %>>Super Admin</option>
+                  <option value="A" <%= usersd.user_type == 'A' ? 'selected' : '' %>>Admin</option>
+                  <option value="M" <%= usersd.user_type == 'M' ? 'selected' : '' %> >Range Admin</option>
+                  <option value="U" <%= usersd.user_type == 'U' ? 'selected' : '' %>>User </option>
+                </select>
+              </div>
+            </div>
           </div>
             <div class="row">
               <div class="col-md-6">
@@ -27,7 +52,6 @@
                   <input type="text" class="form-control"  name="designation" value="<%= usersd.designation %>" required>
                 </div>
               </div>
-             
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="exampleInputName1">User Email</label>
@@ -46,6 +70,11 @@
     </div>
   </div>
 </div>
-
-
+<script>
+  $(document).ready(function() {
+    '<% if (success_msg.length > 0) { %>'
+        toastr.success('<%= success_msg %>');
+    '<% } %>'
+  });
+</script>
 
