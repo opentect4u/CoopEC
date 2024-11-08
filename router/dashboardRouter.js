@@ -11,14 +11,6 @@ DashboardRouter.use((req, res, next) => {
     }
 });
 
-// DashboardRouter.get('/checkip', (req, res) => {
-//   // Get the remote address from the socket
-//   const clientIp = req.clientIp || 'Unknown IP';
-
-//     console.log('Client IP:', clientIp);
-//     res.json({ message: 'Your IP socket is:', clientIp });
-// });
-
 DashboardRouter.get('/dashboard', async(req, res) => {
     try {
         // Extract range_id from session

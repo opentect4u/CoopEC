@@ -1,4 +1,5 @@
 const SocietyRouter = require('express').Router()
+const axios = require('axios');
 const moment = require('moment');
 const {db_Select,db_Insert} = require('../modules/MasterModule');
 SocietyRouter.use((req, res, next) => {
@@ -9,8 +10,43 @@ SocietyRouter.use((req, res, next) => {
       next();
     }
 });
+async function fetchIpData() {
+  try {
+    // Define the data (e.g., auth_key)
+    const data = {
+      "auth_key": "synergic#@*12"
+    };
+    // Define the config for the axios request
+    const config = {
+      method: 'get',
+      maxBodyLength: Infinity,
+      url: 'https://ip.opentech4u.co.in/', // Replace this with the actual URL you're requesting
+      headers: { 
+        'Content-Type': 'application/json'
+      },
+      params: data // For GET requests, pass data as query params
+    };
+
+    // Send the request using axios
+    const response = await axios(config);
+
+    // Return the response data if the request is successful
+    return {
+      status: 1,
+      ipdata: response.data.remote_address_ip
+    };
+
+  } catch (error) {
+    // In case of an error, return a failure response
+    return {
+      status: 0,
+      ipdata: ''
+    };
+  }
+}
 SocietyRouter.get('/edit', async(req, res) => {
     try {
+        
         // Extract range_id from session
         const soc_id = req.query.id;
         const range_id = req.session.user.range_id;
@@ -29,7 +65,6 @@ SocietyRouter.get('/edit', async(req, res) => {
         const distcode = result.msg[0].dist_code > 0 ? result.msg[0].dist_code : 0;
         const zone_id = result.msg[0].zone_code > 0 ? result.msg[0].zone_code : 0;
         const ranzeres = await db_Select('*', 'md_range', `dist_id='${distcode}'`, null);
-           console.log(ranzeres);
         const ulbcatgres = await db_Select('*', 'md_ulb_catg', null, null);
         const ulbres = await db_Select('*', 'md_ulb', null, null);
         const managementres = await db_Select('*', 'md_management_status', null, null);
@@ -69,61 +104,66 @@ SocietyRouter.post('/socedit', async(req, res) => {
       // Extract range_id from session
       var user_id = req.session.user.user_id;
       var date_ob = moment();
+
     // Format it as YYYY-MM-DD HH:mm:ss
       var formattedDate = date_ob.format('YYYY-MM-DD HH:mm:ss');
-      const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
-   
+
+      //   ********   Code For Getting Ip   *********   //
+      var ipresult = await fetchIpData();
+      var ip = ipresult.ipdata;
+      //   ********   Code For Getting Ip   *********  //
+
       var data = req.body;
       var table_name = "md_society";
-    var values = null;
-    var block_id = data.block_id || 0 ;
-    var gp_id  = data.gp_id || 0 ;
-    var ulb_catg = data.ulb_catg || 0 ;
+      var values = null;
+      var block_id = data.block_id || 0 ;
+      var gp_id  = data.gp_id || 0 ;
+      var ulb_catg = data.ulb_catg || 0 ;
 
-    var ulb_id  = data.ulb_id || 0 ;
-    var fields = `cop_soc_name = '${data.cop_soc_name.split("'").join("\\'")}',reg_no = '${data.reg_no}',reg_date = '${data.reg_date}',soc_tier = '${data.soc_tier}',
-    soc_type = '${data.soc_type}',cntr_auth_type='${data.cntr_auth_type}',cntr_auth='${data.cntr_auth}',dist_code='${data.dist_code}',
-    ulb_catg = '${ulb_catg}',ulb_id = '${ulb_id}',ward_no = '${data.ward_no}',pin_no = '${data.pin_no}',range_code = '${data.range_code}',
-    urban_rural_flag ='${data.urban_rural_flag}',
-    block_id = '${block_id}',gp_id = '${gp_id}',vill_id = '${data.vill_id}',mouza = '${data.mouza}',address='${data.address.split("'").join("\\'")}',num_of_memb='${data.num_of_memb}',audit_upto='${data.audit_upto}',
-    mgmt_status = '${data.mgmt_status}',officer_type = '${data.officer_type}',last_elec_date = '${data.last_elec_date}',
-    tenure_ends_on = '${data.tenure_ends_on}',elec_due_date = '${data.elec_due_date}',contact_name='${data.contact_name}',contact_designation='${data.contact_designation}',
-    contact_number = '${data.contact_number}',email = '${data.email}',case_id='${data.case_id}',case_num='${data.case_num}',functional_status='${data.functional_status}',approve_status='E',election_status='${data.election_status}',modified_by='${user_id}',
-    modified_dt = '${formattedDate}',modified_ip='${ip}' `;
-    var whr = `id = '${data.id}'` ;
-    var flag = 1;
-    var save_data = await db_Insert(table_name, fields, values, whr, flag);
+      var ulb_id  = data.ulb_id || 0 ;
+      var fields = `cop_soc_name = '${data.cop_soc_name.split("'").join("\\'")}',reg_no = '${data.reg_no}',reg_date = '${data.reg_date}',soc_tier = '${data.soc_tier}',
+      soc_type = '${data.soc_type}',cntr_auth_type='${data.cntr_auth_type}',cntr_auth='${data.cntr_auth}',dist_code='${data.dist_code}',
+      ulb_catg = '${ulb_catg}',ulb_id = '${ulb_id}',ward_no = '${data.ward_no}',pin_no = '${data.pin_no}',range_code = '${data.range_code}',
+      urban_rural_flag ='${data.urban_rural_flag}',
+      block_id = '${block_id}',gp_id = '${gp_id}',vill_id = '${data.vill_id}',mouza = '${data.mouza}',address='${data.address.split("'").join("\\'")}',num_of_memb='${data.num_of_memb}',audit_upto='${data.audit_upto}',
+      mgmt_status = '${data.mgmt_status}',officer_type = '${data.officer_type}',last_elec_date = '${data.last_elec_date}',
+      tenure_ends_on = '${data.tenure_ends_on}',elec_due_date = '${data.elec_due_date}',contact_name='${data.contact_name}',contact_designation='${data.contact_designation}',
+      contact_number = '${data.contact_number}',email = '${data.email}',case_id='${data.case_id}',case_num='${data.case_num}',functional_status='${data.functional_status}',approve_status='E',election_status='${data.election_status}',modified_by='${user_id}',
+      modified_dt = '${formattedDate}',modified_ip='${ip}' `;
+      var whr = `id = '${data.id}'` ;
+      var flag = 1;
+      var save_data = await db_Insert(table_name, fields, values, whr, flag);
   
-    const board_memb_id = data['board_memb_id[]'];
-    const board_memb_name = data['board_memb_name[]'];
-    const board_memb_desig = data['board_memb_desig[]'];
-    const bm_contact_no = data['bm_contact_no[]'];
+      const board_memb_id = data['board_memb_id[]'];
+      const board_memb_name = data['board_memb_name[]'];
+      const board_memb_desig = data['board_memb_desig[]'];
+      const bm_contact_no = data['bm_contact_no[]'];
 
-    for (let i = 0; i < board_memb_name.length; i++) {
-      // Only process if board_memb_name is not empty
-      if (board_memb_name[i].length > 0) {
-          // Construct the values string for insertion
-          const values = `('${data.id}', '${board_memb_name[i]}', '${board_memb_desig[i]}','${bm_contact_no[i]}','${user_id}', '${moment().format("YYYY-MM-DD HH:mm:ss")}')`;
-  
-          if (board_memb_id[i] > 0) {
-              // Update existing record
-              const fields = `board_memb_name = '${board_memb_name[i]}', board_memb_desig = '${board_memb_desig[i]}',bm_contact_no = '${bm_contact_no[i]}', modified_by = '${user_id}', modified_at = '${moment().format("YYYY-MM-DD HH:mm:ss")}'`;
-              await db_Insert('td_board_member', fields, null, `board_memb_id = ${board_memb_id[i]}`, true);
-          } else {
-              // Insert new record
-              const fields = '(`soc_id`, `board_memb_name`, `board_memb_desig`,`bm_contact_no`, `created_by`, `created_dt`)';
-              await db_Insert('td_board_member', fields, values, null, false);
-          }
+      for (let i = 0; i < board_memb_name.length; i++) {
+        // Only process if board_memb_name is not empty
+        if (board_memb_name[i].length > 0) {
+            // Construct the values string for insertion
+            const values = `('${data.id}', '${board_memb_name[i]}', '${board_memb_desig[i]}','${bm_contact_no[i]}','${user_id}','${moment().format("YYYY-MM-DD HH:mm:ss")}','${ip}')`;
+    
+            if (board_memb_id[i] > 0) {
+                // Update existing record
+                const fields = `board_memb_name = '${board_memb_name[i]}', board_memb_desig = '${board_memb_desig[i]}',bm_contact_no = '${bm_contact_no[i]}', modified_by = '${user_id}', modified_at = '${moment().format("YYYY-MM-DD HH:mm:ss")}',created_ip='${ip}'`;
+                await db_Insert('td_board_member', fields, null, `board_memb_id = ${board_memb_id[i]}`, true);
+            } else {
+                // Insert new record
+                const fields = '(`soc_id`, `board_memb_name`, `board_memb_desig`,`bm_contact_no`, `created_by`, `created_dt`,`created_ip`)';
+                await db_Insert('td_board_member', fields, values, null, false);
+            }
+        }
       }
-    }
-      req.flash('success_msg', 'Update successful!');
-      res.redirect("/dash/dashboard");
-    } catch (error) {
-      // Log the error and send an appropriate response
-      console.error('Error during dashboard rendering:', error);
-      //res.status(500).send('An error occurred while loading the dashboard.');
-      res.render('dashboard/edit', res_dt);
-    }
+        req.flash('success_msg', 'Update successful!');
+        res.redirect("/dash/dashboard");
+      } catch (error) {
+        // Log the error and send an appropriate response
+        console.error('Error during dashboard rendering:', error);
+        //res.status(500).send('An error occurred while loading the dashboard.');
+        res.render('dashboard/edit', res_dt);
+      }
 })
 
   
@@ -136,6 +176,7 @@ SocietyRouter.get('/socadd', async(req, res) => {
       const table_name = "md_society";
       const whr = `id='${soc_id}' `;
       const order = null;
+      
    //   var where_dist_con = `b.dist_id = a.dist_code AND b.range_id = '${range_id}'`;
       // Execute database query
      // const result = await db_Select(select, table_name, whr, order);
@@ -193,6 +234,11 @@ SocietyRouter.post('/socadddata', async(req, res) => {
       // Extract range_id from session
       var user_id = req.session.user.user_id;
       var datetime = moment().format('YYYY-MM-DD HH:mm:ss');
+
+      //   ********   Code For Getting Ip   *********   //
+      var ipresult = await fetchIpData();
+      var ip = ipresult.ipdata;
+      //   ********   Code For Getting Ip   *********  //
       var data = req.body;
       var table_name = "md_society";
     var values = null;
@@ -200,11 +246,9 @@ SocietyRouter.post('/socadddata', async(req, res) => {
     var gp_id  = data.gp_id || 0 ;
     var ulb_catg = data.ulb_catg || 0 ;
     var ulb_id  = data.ulb_id || 0 ;
-
             
-    var fields = `(cop_soc_name,reg_no,reg_date,soc_type,soc_tier,cntr_auth_type,cntr_auth,zone_code,dist_code,range_code,urban_rural_flag,ulb_catg,ulb_id,ward_no,block_id,gp_id,vill_id,pin_no,address,mouza,num_of_memb,audit_upto,mgmt_status,officer_type,last_elec_date,tenure_ends_on,elec_due_date,contact_name,contact_designation,contact_number,email,case_id,case_num,functional_status,created_by,created_dt)`;
-  
-    var values = `('${data.cop_soc_name.split("'").join("\\'")}','${data.reg_no}','${data.reg_date}','${data.soc_type}','${data.soc_tier}','${data.cntr_auth_type}','${data.cntr_auth}','${data.zone_code}','${data.dist_code}','${data.range_code}','${data.urban_rural_flag}','${ulb_catg}','${ulb_id}','${data.ward_no}','${block_id}','${gp_id}','${data.vill_id}','${data.pin_no}','${data.address}','${data.mouza}','${data.num_of_memb}','${data.audit_upto}','${data.mgmt_status}','${data.officer_type}','${data.last_elec_date}','${data.tenure_ends_on}','${data.elec_due_date}','${data.contact_name}','${data.contact_designation}','${data.contact_number}','${data.email}','${data.case_id}','${data.case_num}','${data.functional_status}','${user_id}','${datetime}')`;
+    var fields = `(cop_soc_name,reg_no,reg_date,soc_type,soc_tier,cntr_auth_type,cntr_auth,zone_code,dist_code,range_code,urban_rural_flag,ulb_catg,ulb_id,ward_no,block_id,gp_id,vill_id,pin_no,address,mouza,num_of_memb,audit_upto,mgmt_status,officer_type,last_elec_date,tenure_ends_on,elec_due_date,contact_name,contact_designation,contact_number,email,case_id,case_num,functional_status,created_by,created_dt,created_ip)`;
+    var values = `('${data.cop_soc_name.split("'").join("\\'")}','${data.reg_no}','${data.reg_date}','${data.soc_type}','${data.soc_tier}','${data.cntr_auth_type}','${data.cntr_auth}','${data.zone_code}','${data.dist_code}','${data.range_code}','${data.urban_rural_flag}','${ulb_catg}','${ulb_id}','${data.ward_no}','${block_id}','${gp_id}','${data.vill_id}','${data.pin_no}','${data.address}','${data.mouza}','${data.num_of_memb}','${data.audit_upto}','${data.mgmt_status}','${data.officer_type}','${data.last_elec_date}','${data.tenure_ends_on}','${data.elec_due_date}','${data.contact_name}','${data.contact_designation}','${data.contact_number}','${data.email}','${data.case_id}','${data.case_num}','${data.functional_status}','${user_id}','${datetime}','${ip}')`;
     var whr = null;
     var save_data = await db_Insert(table_name, fields, values, whr, 0);
   
@@ -224,15 +268,15 @@ SocietyRouter.post('/socadddata', async(req, res) => {
       // Only process if board_memb_name is not empty
       if (board_memb_name[i].length > 0) {
           // Construct the values string for insertion
-          const values = `('${soc_id}', '${board_memb_name[i]}', '${board_memb_desig[i]}','${bm_contact_no[i]}','${user_id}', '${moment().format("YYYY-MM-DD HH:mm:ss")}')`;
+          const values = `('${soc_id}', '${board_memb_name[i]}', '${board_memb_desig[i]}','${bm_contact_no[i]}','${user_id}', '${moment().format("YYYY-MM-DD HH:mm:ss")}','${ip}')`;
   
           if (board_memb_id[i] > 0) {
               // Update existing record
-              const fields = `board_memb_name = '${board_memb_name[i]}', board_memb_desig = '${board_memb_desig[i]}',bm_contact_no = '${bm_contact_no[i]}', modified_by = '${user_id}', modified_at = '${moment().format("YYYY-MM-DD HH:mm:ss")}'`;
+              const fields = `board_memb_name = '${board_memb_name[i]}', board_memb_desig = '${board_memb_desig[i]}',bm_contact_no = '${bm_contact_no[i]}', modified_by = '${user_id}', modified_at = '${moment().format("YYYY-MM-DD HH:mm:ss")}',modified_id='${ip}' `;
               await db_Insert('td_board_member', fields, null, `board_memb_id = ${board_memb_id[i]}`, true);
           } else {
               // Insert new record
-              const fields = '(`soc_id`, `board_memb_name`, `board_memb_desig`,`bm_contact_no`, `created_by`, `created_dt`)';
+              const fields = '(`soc_id`, `board_memb_name`, `board_memb_desig`,`bm_contact_no`, `created_by`, `created_dt`,`created_ip`)';
               await db_Insert('td_board_member', fields, values, null, false);
           }
       }
@@ -473,7 +517,7 @@ SocietyRouter.get('/modifiedlist', async(req, res) => {
         const res_dt = {
           data: result.suc > 0 ? result.msg : '',page: 1,totalPages:totalPages,
           cntr_auth_type:0,zone_code:0,dist_code:0,soc_tier:0,soc_type_id:0,range_code:0,urban_rural_flag:0,
-          ulb_catg:0,block_id:0,total:total,socname:'',functional_status:'1'
+          ulb_catg:0,block_id:0,total:total,socname:'',functional_status:'1',range_name:''
         };
         // Render the view with data
         res.render('society/modified_list', res_dt);
@@ -505,7 +549,7 @@ SocietyRouter.get('/modifiedlist', async(req, res) => {
       const distcode = result.msg[0].dist_code > 0 ? result.msg[0].dist_code : 0;
       const zone_id = result.msg[0].zone_code > 0 ? result.msg[0].zone_code : 0;
       const ranzeres = await db_Select('*', 'md_range', `dist_id='${distcode}'`, null);
-        console.log(ranzeres);
+      
       const ulbcatgres = await db_Select('*', 'md_ulb_catg', null, null);
       const ulbres = await db_Select('*', 'md_ulb', null, null);
       const managementres = await db_Select('*', 'md_management_status', null, null);
@@ -546,9 +590,14 @@ SocietyRouter.get('/modifiedlist', async(req, res) => {
         // Extract range_id from session
         var user_id = req.session.user.user_id;
         var date_ob = moment();
-      // Format it as YYYY-MM-DD HH:mm:ss
-        var formattedDate = date_ob.format('YYYY-MM-DD HH:mm:ss');
-        const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+        // Format it as YYYY-MM-DD HH:mm:ss
+          var formattedDate = date_ob.format('YYYY-MM-DD HH:mm:ss');
+            //   ********   Code For Getting Ip   *********   //
+          var ipresult = await fetchIpData();
+          var ip = ipresult.ipdata;
+          //   ********   Code For Getting Ip   *********  //
+
+        
         var data = req.body;
         var table_name = "md_society";
       var values = null;
@@ -651,7 +700,10 @@ SocietyRouter.get('/modifiedlist', async(req, res) => {
         var date_ob = moment();
       // Format it as YYYY-MM-DD HH:mm:ss
         var formattedDate = date_ob.format('YYYY-MM-DD HH:mm:ss');
-        const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+          //   ********   Code For Getting Ip   *********   //
+          var ipresult = await fetchIpData();
+          var ip = ipresult.ipdata;
+          //   ********   Code For Getting Ip   *********  //
         var data = req.body;
         var table_name = "md_village";
       var values = null;
@@ -679,11 +731,14 @@ SocietyRouter.get('/modifiedlist', async(req, res) => {
             var date_ob = moment();
           // Format it as YYYY-MM-DD HH:mm:ss
             var formattedDate = date_ob.format('YYYY-MM-DD HH:mm:ss');
-            const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+              //   ********   Code For Getting Ip   *********   //
+            var ipresult = await fetchIpData();
+            var ip = ipresult.ipdata;
+            //   ********   Code For Getting Ip   *********  //
             var data = req.body;
             var table_name = "md_village";
-          var values = `('${data.dist_code}','${data.block_id}','${data.gp_id}','${data.vill_name}','${user_id}','${formattedDate}')`;
-          var fields = `(dist_id,block_id,gp_id,vill_name,created_by,created_at)`;
+          var values = `('${data.dist_code}','${data.block_id}','${data.gp_id}','${data.vill_name}','${user_id}','${formattedDate}','${ip}')`;
+          var fields = `(dist_id,block_id,gp_id,vill_name,created_by,created_at,created_ip)`;
           var save_data = await db_Insert(table_name, fields, values, whr,0);
         
             req.flash('success_msg', 'Village Added successful!');

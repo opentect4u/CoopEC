@@ -79,4 +79,7 @@ const db_Check = async (fields, table_name, whr) => {
   });
 };
 
+
+
+
 module.exports = { db_Select, db_Insert, db_Delete, db_Check};

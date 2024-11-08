@@ -2,6 +2,7 @@ const WdtlsRouter = require('express').Router()
 const moment = require('moment');
 const multer = require('multer'); 
 const path = require("path");
+const axios = require('axios');
 //bcrypt = require("bcrypt");
 const bcrypt = require('bcrypt');
 const fs = require('fs');
@@ -14,11 +15,46 @@ WdtlsRouter.use((req, res, next) => {
       next();
     }
 });
+async function fetchIpData() {
+  try {
+    // Define the data (e.g., auth_key)
+    const data = {
+      "auth_key": "synergic#@*12"
+    };
+    // Define the config for the axios request
+    const config = {
+      method: 'get',
+      maxBodyLength: Infinity,
+      url: 'https://ip.opentech4u.co.in/', // Replace this with the actual URL you're requesting
+      headers: { 
+        'Content-Type': 'application/json'
+      },
+      params: data // For GET requests, pass data as query params
+    };
+
+    // Send the request using axios
+    const response = await axios(config);
+    console.log('test data');
+     console.log(response.data);
+    // Return the response data if the request is successful
+    return {
+      status: 1,
+      ipdata: response.data.remote_address_ip
+    };
+
+  } catch (error) {
+    // In case of an error, return a failure response
+    return {
+      status: 0,
+      ipdata: ''
+    };
+  }
+}
 
 WdtlsRouter.get('/doclist', async(req, res) => {
   try {
       // Extract range_id from session
-     
+    
       const doclist = await db_Select('a.*,b.doc_type as doc_type_name', 'td_document_upload a,md_document b',`a.doc_type = b.doc_type_id`, null);
       // Prepare data for rendering
       const res_dt = {
@@ -142,7 +178,10 @@ WdtlsRouter.get('/adddoc', async(req, res) => {
         var date_ob = moment();
       // Format it as YYYY-MM-DD HH:mm:ss
         var formattedDate = date_ob.format('YYYY-MM-DD HH:mm:ss');
-        const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+          //   ********   Code For Getting Ip   *********   //
+          var ipresult = await fetchIpData();
+          var ip = ipresult.ipdata;
+          //   ********   Code For Getting Ip   *********  //
         var data = req.body;
         var table_name = "td_document_upload";
       var values = null;
@@ -195,7 +234,11 @@ WdtlsRouter.post('/uploaddoc', upload.single('document'), async (req, res) => {
   var date_ob = moment();
 // Format it as YYYY-MM-DD HH:mm:ss
    var formattedDate = date_ob.format('YYYY-MM-DD HH:mm:ss');
-   const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+     //   ********   Code For Getting Ip   *********   //
+     var ipresult = await fetchIpData();
+     var ip = ipresult.ipdata;
+     //   ********   Code For Getting Ip   *********  //
+    
   if (!req.file) {
     return res.status(400).send('No file uploaded.');
   }
@@ -252,8 +295,6 @@ WdtlsRouter.get('/addannouncement', async(req, res) => {
       
     }
 })
-
-
 
 WdtlsRouter.get('/gallerylist', async(req, res) => {
   try {
@@ -316,14 +357,18 @@ WdtlsRouter.post('/uploadgall', upload_gall, async (req, res) => {
     if (!req.file) {
       return res.status(400).send('No file uploaded.');
     }
-    
+    var date_ob = moment();
+    var formattedDate = date_ob.format('YYYY-MM-DD HH:mm:ss');
+    var ipresult = await fetchIpData();
+     var ip = ipresult.ipdata;
+
     const newFile = {
       filename: req.file.filename,
     };
     var data = req.body;
     var table_name = "td_gallery";
-    var fields = `(title, gal_img)`;
-    var values = `('${data.title.split("'").join("\\'")}','${newFile.filename}')`;
+    var fields = `(title, gal_img,created_at,created_by,created_ip)`;
+    var values = `('${data.title.split("'").join("\\'")}','${newFile.filename}','${formattedDate}','${user.user_id}','${ip}')`;
     
     var save_data = await db_Insert(table_name, fields, values, null, 0);
     
@@ -413,7 +458,9 @@ WdtlsRouter.post('/update_statistic', async(req, res) => {
         var user = req.session.user;
         var date_ob = moment();
         var formattedDate = date_ob.format('YYYY-MM-DD HH:mm:ss');
-        const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+        var ipresult = await fetchIpData();
+        var ip = ipresult.ipdata;
+    
       //  var values = '(question,answer,created_at,created_by,created_ip)';
       var values = `('${data.question}','${data.answer}','${formattedDate}','${user.user_id}','${ip}')`
       
@@ -475,7 +522,8 @@ WdtlsRouter.post('/update_statistic', async(req, res) => {
         var user = req.session.user;
         var date_ob = moment();
         var formattedDate = date_ob.format('YYYY-MM-DD HH:mm:ss');
-        const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+        var ipresult = await fetchIpData();
+        var ip = ipresult.ipdata;
       //  var values = '(question,answer,created_at,created_by,created_ip)';
       var values = `('${data.title}','${data.links}','${formattedDate}','${user.user_id}','${ip}')`
       
@@ -543,15 +591,15 @@ WdtlsRouter.post('/update_statistic', async(req, res) => {
       }
   })
   WdtlsRouter.post('/saveuser', async(req, res) => {
-    var user = req.session.user;
-    console.log(user);
+    
+   
     try {
         var data = req.body;
-        console.log(req.body)
-       
+        var user = req.session.user;
         var date_ob = moment();
         var formattedDate = date_ob.format('YYYY-MM-DD HH:mm:ss');
-        const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+        var ipresult = await fetchIpData();
+        var ip = ipresult.ipdata;
         var pass_string = '';
         if(data.id > 0){
           if(data.password.length > 0){
@@ -626,14 +674,18 @@ WdtlsRouter.post('/update_statistic', async(req, res) => {
           whr = `user_id='${user.user_id}' AND user_status='A'`,
           order = null;
          var res_dt = await db_Select(select, table_name, whr, order);
-      
+        
           if (res_dt.msg.length > 0) {
             if (await bcrypt.compare(data.old_pass, res_dt.msg[0].password)) {
               var pass = bcrypt.hashSync(data.pass, 10)  ;
-            
+        
+              var date_ob = moment();
+              var formattedDate = date_ob.format('YYYY-MM-DD HH:mm:ss');
+              var ipresult = await fetchIpData();
+              var ip = ipresult.ipdata;
               var values = null;
               var table_name = "md_user";
-              var fields = `password = '${pass}'`;
+              var fields = `password = '${pass}',modified_at=${formattedDate},modified_by='${user.user_id}',modified_ip='${ip}'`;
               var whr = `user_id = '${user.user_id}'` ;
               var save_data = await db_Insert(table_name, fields, values, whr, 1);
             req.flash('success_msg', 'Update successful!');
