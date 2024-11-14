@@ -81,13 +81,13 @@ const db_Check = async (fields, table_name, whr) => {
 
     const SendNotification = async (range_id,user_type) => {
       if(user_type == 'M'){
-        var sql = `SELECT a.*, b.slug, b.method_ FROM td_notification a LEFT JOIN md_slug b ON a.type = b.noti_type WHERE a.range_id = '${range_id}' AND a.type IN('S','V','SE') order by created_at desc`;
+        var sql = `SELECT a.*, b.slug, b.method_ FROM td_notification a LEFT JOIN md_slug b ON a.type = b.noti_type WHERE a.range_id = '${range_id}' AND a.user_type ='M' AND a.type IN('S','V','SE') order by created_at desc`;
       }else if(user_type == 'S'){
-        var sql = `SELECT a.*, b.slug, b.method_ FROM td_notification a LEFT JOIN md_slug b ON a.type = b.noti_type WHERE a.view_status = 1 AND a.type IN('D','G','F','SE') order by created_at desc`;
+        var sql = `SELECT a.*, b.slug, b.method_ FROM td_notification a LEFT JOIN md_slug b ON a.type = b.noti_type WHERE a.view_status = 1 AND a.user_type ='S' AND a.type IN('D','G','F','SE') order by created_at desc`;
       }else if(user_type == 'A'){
-        var sql = `SELECT a.*, b.slug, b.method_ FROM td_notification a LEFT JOIN md_slug b ON a.type = b.noti_type WHERE a.view_status = 1 AND a.type IN('SE') order by created_at desc`;
+        var sql = `SELECT a.*, b.slug, b.method_ FROM td_notification a LEFT JOIN md_slug b ON a.type = b.noti_type WHERE a.view_status = 1 AND a.user_type ='A' AND a.type IN('SE') order by created_at desc`;
       }else if(user_type == 'U'){
-        var sql = `SELECT a.*, b.slug, b.method_ FROM td_notification a LEFT JOIN md_slug b ON a.type = b.noti_type WHERE a.range_id = '${range_id}' AND a.view_status = 1 AND a.type IN('SE') order by created_at desc`;
+        var sql = `SELECT a.*, b.slug, b.method_ FROM td_notification a LEFT JOIN md_slug b ON a.type = b.noti_type WHERE a.range_id = '${range_id}' AND a.view_status = 1 AND a.user_type ='U' AND a.type IN('SE') order by created_at desc`;
       }
       
        console.log(sql);
