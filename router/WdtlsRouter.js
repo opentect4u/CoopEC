@@ -6,7 +6,7 @@ const axios = require('axios');
 //bcrypt = require("bcrypt");
 const bcrypt = require('bcrypt');
 const fs = require('fs');
-const {db_Select,db_Insert,db_Delete} = require('../modules/MasterModule');
+const {db_Select,db_Insert,db_Delete,SendNotification} = require('../modules/MasterModule');
 WdtlsRouter.use((req, res, next) => {
     var user = req.session.user;
     if (!user) {
@@ -229,35 +229,49 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 // File upload route
-WdtlsRouter.post('/uploaddoc', upload.single('document'), async (req, res) => {
-  var user = req.session.user;
-  var date_ob = moment();
-// Format it as YYYY-MM-DD HH:mm:ss
-   var formattedDate = date_ob.format('YYYY-MM-DD HH:mm:ss');
-     //   ********   Code For Getting Ip   *********   //
-     var ipresult = await fetchIpData();
-     var ip = ipresult.ipdata;
-     //   ********   Code For Getting Ip   *********  //
+  WdtlsRouter.post('/uploaddoc', upload.single('document'), async (req, res) => {
+    var user = req.session.user;
+    var date_ob = moment();
+    var range_id_ = req.session.user.range_id;
+  // Format it as YYYY-MM-DD HH:mm:ss
+    var formattedDate = date_ob.format('YYYY-MM-DD HH:mm:ss');
+      //   ********   Code For Getting Ip   *********   //
+      var ipresult = await fetchIpData();
+      var ip = ipresult.ipdata;
+      //   ********   Code For Getting Ip   *********  //
+      
+    if (!req.file) {
+      return res.status(400).send('No file uploaded.');
+    }
+    const newFile = {
+      filename: req.file.filename,
+    };
+    var data = req.body
+    var table_name = "td_document_upload";
+    var fields = `(doc_type,doc_title,document,folder_name,created_at,created_by,created_ip)`;
+    var values = `('${data.doc_type}','${data.doc_title.split("'").join("\\'")}','${newFile.filename}','','${formattedDate}','${user.user_id}','${ip}')`;
+    var whr = null;
+    var sa_data = await db_Insert(table_name, fields, values, whr, 0);
+      var message = `Document uploaded by ${user.user_id}.`;
+      var noti_fields = `(type,message,wrk_releated_id,user_type,view_status,range_id,created_by,created_at,created_ip)`;
+      var noti_values = `('D','${message}','${sa_data.lastId.insertId}','${req.session.user.user_type}','1','${range_id_}','${user.user_id}','${formattedDate}','${ip}')`;
+      var res_dt = await db_Insert('td_notification', noti_fields,noti_values, null, false);
+      if(res_dt){
+       
+        if(res_dt.suc > 0){
+          console.log('Event is emmititng');
+          var notification_dtls = await SendNotification()
+          req.io.emit('notification', {message: notification_dtls.msg});
+         }
+      }
+   
+    if(user.user_type == 'S'){
+      res.redirect("/wdtls/adddoc");
+    }else{
+      res.redirect("/wdtls/announcelist");
+    }
     
-  if (!req.file) {
-    return res.status(400).send('No file uploaded.');
-  }
-  const newFile = {
-    filename: req.file.filename,
-  };
-  var data = req.body
-  var table_name = "td_document_upload";
-  var fields = `(doc_type,doc_title,document,folder_name,created_at,created_by,created_ip)`;
-  var values = `('${data.doc_type}','${data.doc_title.split("'").join("\\'")}','${newFile.filename}','','${formattedDate}','${user.user_id}','${ip}')`;
-  var whr = null;
-  var save_data = await db_Insert(table_name, fields, values, whr, 0);
-  if(user.user_type == 'S'){
-    res.redirect("/wdtls/adddoc");
-  }else{
-    res.redirect("/wdtls/announcelist");
-  }
-  
-});
+  });
 
 WdtlsRouter.get('/announcelist', async(req, res) => {
   try {
@@ -369,9 +383,21 @@ WdtlsRouter.post('/uploadgall', upload_gall, async (req, res) => {
     var table_name = "td_gallery";
     var fields = `(title, gal_img,created_at,created_by,created_ip)`;
     var values = `('${data.title.split("'").join("\\'")}','${newFile.filename}','${formattedDate}','${user.user_id}','${ip}')`;
-    
-    var save_data = await db_Insert(table_name, fields, values, null, 0);
-    
+      var save_data = await db_Insert(table_name, fields, values, null, 0);
+      var range_id_ = req.session.user.range_id;
+      var message = `Image  Uploaded by ${user.user_id}.`;
+      var noti_fields = `(type,message,wrk_releated_id,user_type,view_status,range_id,created_by,created_at,created_ip)`;
+      var noti_values = `('G','${message}','${save_data.lastId.insertId}','${req.session.user.user_type}','1','${range_id_}','${user.user_id}','${formattedDate}','${ip}')`;
+      var res_dt = await db_Insert('td_notification', noti_fields,noti_values, null, false);
+      if(res_dt){
+       if(res_dt.suc > 0){
+        console.log('Event is emmititng');
+        var notification_dtls = await SendNotification()
+        req.io.emit('notification', {message: notification_dtls.msg});
+       }
+       
+      }
+        
     if (!save_data) {
       return res.status(500).send('Database error: Unable to save the data.');
     }
@@ -454,7 +480,7 @@ WdtlsRouter.post('/update_statistic', async(req, res) => {
   WdtlsRouter.post('/savefaq', async(req, res) => {
     try {
         var data = req.body;
-        console.log(req.body)
+        var range_id_ = req.session.user.range_id;
         var user = req.session.user;
         var date_ob = moment();
         var formattedDate = date_ob.format('YYYY-MM-DD HH:mm:ss');
@@ -470,7 +496,18 @@ WdtlsRouter.post('/update_statistic', async(req, res) => {
                   modified_ip = '${ip}' ` :`(question,answer,created_at,created_by,created_ip)`;
       var whr = `id = '${data.id}'` ;
       var flag = data.id > 0 ? 1 : 0;
-      var save_data = await db_Insert(table_name, fields, values, whr, flag);
+      var sa_data = await db_Insert(table_name, fields, values, whr, flag);
+      var message = `FAQ  Added by ${user.user_id}.`;
+      var noti_fields = `(type,message,wrk_releated_id,user_type,view_status,range_id,created_by,created_at,created_ip)`;
+      var noti_values = `('F','${message}','${sa_data.lastId.insertId}','${req.session.user.user_type}','1','${range_id_}','${user.user_id}','${formattedDate}','${ip}')`;
+      var res_dt = await db_Insert('td_notification', noti_fields,noti_values, null, false);
+      if(res_dt){
+        if(sa_data.suc > 0){
+          console.log('Event is emmititng');
+          var notification_dtls = await SendNotification()
+          req.io.emit('notification', {message: notification_dtls.msg});
+         }
+      }
       res.redirect("/wdtls/faqlist");
     } catch (error) {
       // Log the error and send an appropriate response

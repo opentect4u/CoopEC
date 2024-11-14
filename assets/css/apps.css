@@ -141,6 +141,18 @@ a.edit_dashboard{color: #fff;
   margin-top: 4px;
   display: inline-block;
 }
+.unreadmessage{
+  background-color: antiquewhite;
+}
+.uncount {
+  position: absolute;
+  left: 36%;
+  width: 12px;
+  height: 12px;
+  border-radius: 100%;
+  top: 1px;
+  border: 1px solid white;
+}
  
 
 

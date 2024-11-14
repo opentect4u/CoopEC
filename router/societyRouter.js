@@ -1,7 +1,7 @@
 const SocietyRouter = require('express').Router()
 const axios = require('axios');
 const moment = require('moment');
-const {db_Select,db_Insert} = require('../modules/MasterModule');
+const {db_Select,db_Insert,SendNotification} = require('../modules/MasterModule');
 SocietyRouter.use((req, res, next) => {
     var user = req.session.user;
     if (!user) {
@@ -103,8 +103,9 @@ SocietyRouter.post('/socedit', async(req, res) => {
   try {
       // Extract range_id from session
       var user_id = req.session.user.user_id;
+      
       var date_ob = moment();
-
+      var range_id_ = req.session.user.range_id;
     // Format it as YYYY-MM-DD HH:mm:ss
       var formattedDate = date_ob.format('YYYY-MM-DD HH:mm:ss');
 
@@ -155,7 +156,17 @@ SocietyRouter.post('/socedit', async(req, res) => {
                 await db_Insert('td_board_member', fields, values, null, false);
             }
         }
-      }
+      } 
+          var message = `Society ${data.cop_soc_name.split("'").join("\\'")} Updated by ${user_id}.`;
+          var noti_fields = `(type,message,wrk_releated_id,user_type,view_status,range_id,created_by,created_at,created_ip)`;
+          var noti_values = `('S','${message}','${data.id}','M','1','${data.range_code}','${user_id}','${formattedDate}','${ip}')`;
+          var sa_data = await db_Insert('td_notification', noti_fields,noti_values, null, false);
+          if(sa_data.suc > 0){
+            console.log('Event is emmititng');
+            var notification_dtls = await SendNotification(range_id_);
+            req.io.emit('notification', {message: notification_dtls.msg});
+           }
+
         req.flash('success_msg', 'Update successful!');
         res.redirect("/dash/dashboard");
       } catch (error) {
@@ -281,7 +292,7 @@ SocietyRouter.post('/socadddata', async(req, res) => {
           }
       }
   }
-     console.log(save_data.lastId.insertId);
+   
       res.redirect("/dash/dashboard");
     } catch (error) {
       // Log the error and send an appropriate response
@@ -729,6 +740,7 @@ SocietyRouter.get('/modifiedlist', async(req, res) => {
     try {
             var user_id = req.session.user.user_id;
             var date_ob = moment();
+            var range_id_ = req.session.user.range_id;
           // Format it as YYYY-MM-DD HH:mm:ss
             var formattedDate = date_ob.format('YYYY-MM-DD HH:mm:ss');
               //   ********   Code For Getting Ip   *********   //
@@ -740,13 +752,47 @@ SocietyRouter.get('/modifiedlist', async(req, res) => {
           var values = `('${data.dist_code}','${data.block_id}','${data.gp_id}','${data.vill_name}','${user_id}','${formattedDate}','${ip}')`;
           var fields = `(dist_id,block_id,gp_id,vill_name,created_by,created_at,created_ip)`;
           var save_data = await db_Insert(table_name, fields, values, whr,0);
-        
+       
+       
+          var message = `Village ${data.vill_name.split("'").join("\\'")} Added by ${user_id}.`;
+          var noti_fields = `(type,message,wrk_releated_id,user_type,view_status,range_id,created_by,created_at,created_ip)`;
+          var noti_values = `('V','${message}','${save_data.lastId.insertId}','M','1','${range_id_}','${user_id}','${formattedDate}','${ip}')`;
+          var sa_data = await db_Insert('td_notification', noti_fields,noti_values, null, false);
+          if(save_data.suc > 0){
+            console.log('Event is emmititng');
+            var notification_dtls = await SendNotification(range_id_,req.session.user.user_type);
+            req.io.emit('notification', {message: notification_dtls.msg});
+           }
             req.flash('success_msg', 'Village Added successful!');
             res.redirect("/dash/dashboard");
       } catch (error) {
         // Log the error and send an appropriate response
         console.error('Error during dashboard rendering:', error);
         //res.status(500).send('An error occurred while loading the dashboard.');
+      }
+  })
+
+  SocietyRouter.post('/updatenotiasread',async(req,res)=>{
+    try {
+      // Extract query parameter 'claims'
+      var data = req.body;
+      var values = null;
+      var fields = `view_status=0`;
+      var whr = `id = '${data.id}'` ;
+      console.log('check_update')
+      console.log(data.id)
+      const datahres = await db_Insert('td_notification',fields,values, whr,1);
+      const responseData = {
+        datahlist: datahres.suc > 0 ? datahres.msg : '', // Echoing the received claims
+      };
+      // Send response back to the client
+      res.json(responseData);
+      } catch (err) {
+          console.error('Error handling /regauth request:', err);
+          res.status(500).json({
+              success: false,
+              message: 'Internal server error'
+          });
       }
   })
 

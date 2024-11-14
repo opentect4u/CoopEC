@@ -79,7 +79,59 @@ const db_Check = async (fields, table_name, whr) => {
   });
 };
 
+    const SendNotification = async (range_id,user_type) => {
+      if(user_type == 'M'){
+        var sql = `SELECT a.*, b.slug, b.method_ FROM td_notification a LEFT JOIN md_slug b ON a.type = b.noti_type WHERE a.range_id = '${range_id}' AND a.type IN('S','V') order by created_at desc`;
+      }else if(user_type == 'S'){
+        var sql = `SELECT a.*, b.slug, b.method_ FROM td_notification a LEFT JOIN md_slug b ON a.type = b.noti_type WHERE a.range_id = '${range_id}' AND a.view_status = 1 AND a.type IN('D','G','F') order by created_at desc`;
+      }else if(user_type == 'U'){
+        var sql = `SELECT a.*, b.slug, b.method_ FROM td_notification a LEFT JOIN md_slug b ON a.type = b.noti_type WHERE a.range_id = '${range_id}' AND a.view_status = 1 AND a.type IN('SE') order by created_at desc`;
+      }
+      
+       console.log(sql);
+      return new Promise((resolve, reject) => {
+        db.query(sql, (err, result) => {
+          if (err) {
+            console.log(err);
+            data = { suc: 0, msg: JSON.stringify(err) };
+          } else {
+            data = { suc: 1, msg: result };
+          }
+          resolve(data);
+        });
+      });
+    };
+    const Notification_cnt = async () => {
+      var sql = `SELECT * FROM td_notification`;
+      // console.log(sql);
+      return new Promise((resolve, reject) => {
+        db.query(sql, (err, result) => {
+          if (err) {
+            console.log(err);
+            data = { suc: 0, msg: JSON.stringify(err) };
+          } else {
+            data = { suc: 1, msg: result.length };
+          }
+          resolve(data);
+        });
+      });
+    };
+    const UpdateNotification = async (range_id,user_type) => {
+      var sql = `UPDATE td_notification set view_status = 0 WHERE range_id = '${range_id}' AND user_type ='${user_type}' `;
+      // console.log(sql);
+      return new Promise((resolve, reject) => {
+        db.query(sql, (err, result) => {
+          if (err) {
+            console.log(err);
+            data = { suc: 0, msg: JSON.stringify(err) };
+          } else {
+            data = { suc: 1, msg: result.length };
+          }
+          resolve(data);
+        });
+      });
+    };
 
 
 
-module.exports = { db_Select, db_Insert, db_Delete, db_Check};
+module.exports = { db_Select, db_Insert, db_Delete, db_Check,SendNotification,Notification_cnt,UpdateNotification};
