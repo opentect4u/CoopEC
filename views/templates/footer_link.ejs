@@ -67,8 +67,11 @@ $('#example').DataTable();
                     $('#notification_list').html(html) ;
                     if(tot_view_count == 0){
                         var spanElement = document.getElementById('count_lid');
-                        spanElement.classList.remove('count');
+                       // spanElement.classList.remove('count');
                         spanElement.classList.add('uncount');
+                    }else{
+                        var spanElement = document.getElementById('count_lid');
+                        spanElement.classList.add('count');
                     }
                 }
             });
@@ -83,6 +86,7 @@ $('#example').DataTable();
                         spanElement.classList.remove('count');
                         spanElement.classList.add('uncount');
                 socket.on('notification', (data) => {
+                 //   alert('test');
                 $('#notification_list').html('') ;
                 var tot_view_count = 0;
                // $('#count').html(data.message.length > 0 ? data.message.length : 0);
@@ -109,9 +113,13 @@ $('#example').DataTable();
                     });
                     // Append the generated HTML to the dropdown container
                     $('#notification_list').html(html) ;
-                    if(tot_view_count > 0){
+                    if(tot_view_count == 0){
                         var spanElement = document.getElementById('count_lid');
+                       // spanElement.classList.remove('count');
                         spanElement.classList.add('uncount');
+                    }else{
+                        var spanElement = document.getElementById('count_lid');
+                        spanElement.classList.add('count');
                     }
                 }
             });

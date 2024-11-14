@@ -132,11 +132,12 @@ io.on('connection', (socket) => {
       socket.on('markassread', async (data) => {
         const range_id = data.range_code;
         const user_type = data.user_type
+        console.log(`Sending Mark As Red to socket ID: ${socket.id}`);
         try {
             // Simulate getting some data asynchronously
             const dataupdate = await UpdateNotification(range_id,user_type);
             const res_dt = await SendNotification(range_id,user_type);
-            console.log(`Sending notification to socket ID: ${socket.id}`);
+           // console.log(`Sending notification to socket ID: ${socket.id}`);
             socket.emit('notification', { message: res_dt.msg });
         } catch (err) {
             console.error('Error while sending notification:', err);

@@ -254,7 +254,7 @@ const upload = multer({ storage: storage });
     var sa_data = await db_Insert(table_name, fields, values, whr, 0);
       var message = `Document uploaded by ${user.user_id}.`;
       var noti_fields = `(type,message,wrk_releated_id,user_type,view_status,range_id,created_by,created_at,created_ip)`;
-      var noti_values = `('D','${message}','${sa_data.lastId.insertId}','${req.session.user.user_type}','1','${range_id_}','${user.user_id}','${formattedDate}','${ip}')`;
+      var noti_values = `('D','${message}','${sa_data.lastId.insertId}','S','1','${range_id_}','${user.user_id}','${formattedDate}','${ip}')`;
       var res_dt = await db_Insert('td_notification', noti_fields,noti_values, null, false);
       if(res_dt){
        
@@ -387,7 +387,7 @@ WdtlsRouter.post('/uploadgall', upload_gall, async (req, res) => {
       var range_id_ = req.session.user.range_id;
       var message = `Image  Uploaded by ${user.user_id}.`;
       var noti_fields = `(type,message,wrk_releated_id,user_type,view_status,range_id,created_by,created_at,created_ip)`;
-      var noti_values = `('G','${message}','${save_data.lastId.insertId}','${req.session.user.user_type}','1','${range_id_}','${user.user_id}','${formattedDate}','${ip}')`;
+      var noti_values = `('G','${message}','${save_data.lastId.insertId}','S','1','${range_id_}','${user.user_id}','${formattedDate}','${ip}')`;
       var res_dt = await db_Insert('td_notification', noti_fields,noti_values, null, false);
       if(res_dt){
        if(res_dt.suc > 0){
@@ -499,7 +499,7 @@ WdtlsRouter.post('/update_statistic', async(req, res) => {
       var sa_data = await db_Insert(table_name, fields, values, whr, flag);
       var message = `FAQ  Added by ${user.user_id}.`;
       var noti_fields = `(type,message,wrk_releated_id,user_type,view_status,range_id,created_by,created_at,created_ip)`;
-      var noti_values = `('F','${message}','${sa_data.lastId.insertId}','${req.session.user.user_type}','1','${range_id_}','${user.user_id}','${formattedDate}','${ip}')`;
+      var noti_values = `('F','${message}','${sa_data.lastId.insertId}','S','1','${range_id_}','${user.user_id}','${formattedDate}','${ip}')`;
       var res_dt = await db_Insert('td_notification', noti_fields,noti_values, null, false);
       if(res_dt){
         if(sa_data.suc > 0){
