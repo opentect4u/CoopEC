@@ -4,7 +4,6 @@ const {db_Select,db_Insert} = require('../modules/MasterModule');
 
 Cronjobrouter.get('/get_society_ele_due_monthwise', async(req, res) => {
   var date_ob = moment();
-  
   var formattedDate = date_ob.format('YYYY-MM-DD HH:mm:ss');
     try {
       // Extract query parameter 'claims'

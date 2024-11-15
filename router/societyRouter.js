@@ -145,7 +145,7 @@ SocietyRouter.post('/socedit', async(req, res) => {
         if (board_memb_name[i].length > 0) {
             // Construct the values string for insertion
             const values = `('${data.id}', '${board_memb_name[i]}', '${board_memb_desig[i]}','${bm_contact_no[i]}','${user_id}','${moment().format("YYYY-MM-DD HH:mm:ss")}','${ip}')`;
-    
+            console.log(board_memb_name[i]);
             if (board_memb_id[i] > 0) {
                 // Update existing record
                 const fields = `board_memb_name = '${board_memb_name[i]}', board_memb_desig = '${board_memb_desig[i]}',bm_contact_no = '${bm_contact_no[i]}', modified_by = '${user_id}', modified_at = '${moment().format("YYYY-MM-DD HH:mm:ss")}',created_ip='${ip}'`;

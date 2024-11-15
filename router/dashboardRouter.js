@@ -371,7 +371,7 @@ DashboardRouter.post('/get_election_status',async(req,res)=>{
     var select = `SUM(CASE WHEN election_status = 'DUE' THEN 1 ELSE 0 END) AS due_tot,SUM(CASE WHEN election_status = 'ONGOING' THEN 1 ELSE 0 END) AS ongoing_tot, SUM(CASE WHEN election_status = 'DONE' THEN 1 ELSE 0 END) AS done_tot`,
     table_name = `md_society`,
    
-    where = data.range_code > 0 ? `functional_status = 'Functional' AND range_code ='${data.range_code}'` : `functional_status = 'Functional'`,
+    where = data.range_code > 0 ? `functional_status = 'Functional' AND approve_status = 'A' AND range_code ='${data.range_code}'` : `functional_status = 'Functional' AND approve_status = 'A' `,
     order = null;
     var res_dt = await db_Select(select, table_name, where, order);
     const responseData = {

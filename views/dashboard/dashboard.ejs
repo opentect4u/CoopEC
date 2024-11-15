@@ -116,7 +116,11 @@
                   <p class="price">
             <span class="lit" id="total_ongoing"></span>
                   </p><br>
-                  <a href="/dash/dashboard" class="btn btn-primary btn-sm">View</a>
+                  <form action="/report/society_ele_status_result" method="post">
+                    <input type="hidden" value="<%= user.range_id %>" name="range_id">
+                    <input type="hidden" value="ONGOING" name="election_status">
+                    <input type="submit" value="View" class="btn btn-primary btn-sm">
+                    </form>
                 </div>
               </div>
             </div>
@@ -133,7 +137,11 @@
                   <p class="price">
                     <span class="lit" id="total_completed"></span>
                   </p><br>
-                  <a href="/dash/dashboard" class="btn btn-primary btn-sm">View</a>
+                  <form action="/report/society_ele_status_result" method="post">
+                    <input type="hidden" value="<%= user.range_id %>" name="range_id">
+                    <input type="hidden" value="DONE" name="election_status">
+                    <input type="submit" value="View" class="btn btn-primary btn-sm">
+                    </form>
                 </div>
               </div>
             </div>
