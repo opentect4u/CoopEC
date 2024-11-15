@@ -106,7 +106,7 @@ console.log(mapViewData,'mapdata')
       if(res.data.suc > 0){
         setDistDataStore(res?.data?.msg)
         setLoading_Map(false);
-        // console.log('getRangeList', res?.data?.msg);
+        console.log('getRangeList', res?.data);
       }
   
       }
@@ -117,6 +117,13 @@ console.log(mapViewData,'mapdata')
   
   const handleClick = async(area, event) => {
     // Get the bounding box of the clicked area
+    // alert('lllllllll')
+    setDistricContent([])
+    setDistDataStore([])
+
+    console.log(area, 'ggggg', event, '>>>', getDistricContent, '>>>', getDistDataStore);
+    
+    
     const svg = event.target.ownerSVGElement;
     const point = svg.createSVGPoint();
     point.x = event.clientX;
@@ -131,7 +138,6 @@ console.log(mapViewData,'mapdata')
       if(district.id === idCus){
         setDistricContent(district)
         // console.log(district, 'jjjjj', event, 'ggg', event.target.id);
-
         getDistrictData(district.dist_code)
 
         
@@ -474,50 +480,6 @@ console.log(mapViewData,'mapdata')
       </>
     )}
 
-    
-   
-{/* Popup old */}
-{/* {popup.visible && (
-
-  
-<div className='mapHover'
-  style={{
-    position: "absolute",
-    top: popup.y,
-    left: popup.x,
-    backgroundColor: "white",
-    padding: "10px",
-    border: "1px solid black",
-  }}
->
-  <button onClick={() => handleClickClose()} className='pophoverClose'><i class="fa fa-times-circle" aria-hidden="true"></i> </button>
-  <h4>{getDistricContent?.dist_name}</h4>
-
-  <div className="range_group">
-  <div className="range_1">
-    <label> <strong>Range Name:</strong> Range 1</label>
-    {getDistDataStore.map(item =>
-     <label> 
-     <strong>Societies Type Name:</strong> {item?.soc_type_name} | <strong>Total Societies Type:</strong> {item?.tot_soc_type}
-     </label> 
-     )} 
-
-    <a onClick={()=>{onSubmit(getDistricContent?.dist_code)}}> View </a>
-    </div> */}
-
-    {/* <div className="range_2">
-    <label> <strong>Range Name:</strong> Range 2</label>
-    <label> <strong>Societies Type Name:</strong> {getDistDataStore?.soc_type_name}</label>
-    <label> <strong>Total Societies Type:</strong> {getDistDataStore?.tot_soc_type}</label>
-    <a onClick={()=>{onSubmit(getDistricContent?.dist_code)}}> View </a>
-    </div> */}
-    
-  {/* </div> */}
-  {/* <p>{limitWords(getDistricContent?.description, mapPopHover_Wordcount)} / {popup.area}</p> */}
-  
-{/* </div>
-)} */}
-
 
 {popup.visible && (
   <div>
@@ -566,102 +528,119 @@ console.log(mapViewData,'mapdata')
       </button>
 
       {/* District Name */}
-      <h4>{getDistricContent?.dist_name}</h4>
+      {/* {JSON.stringify(getDistricContent.length, null, 2)}
+      {JSON.stringify(getDistDataStore, null, 2)} */}
+{/* {JSON.stringify(getDistricContent, null, 2)} */}
+{/* <pre>{JSON.stringify(getDistricContent, null, 2)} oooooooo () </pre>
+dddddddddddd
+<pre>{JSON.stringify(getDistDataStore.length, null, 2)} oooooooo () </pre> */}
+      {getDistDataStore.length != 0 ? (
+        <>
+        <h4>{getDistricContent?.dist_name}</h4>
+        
+        <div className="range_group">
+
+        <Tabs defaultActiveKey="1" animated>
+          {getDistDataStore?.range1?.range_data.length > 0 && (
+            <TabPane tab={
+              <>{getDistDataStore?.range1?.range_name} 
+                <strong> ({getDistDataStore?.range1?.range_tot})</strong>
+              </>
+            } key="1"> 
+              <div className="range_1">
+                {/* <label className="rangeName">
+                  {getDistDataStore?.range1?.range_name} <strong>({getDistDataStore?.range1?.range_tot})</strong>
+                </label> */}
+                {getDistDataStore?.range1?.range_data.map((item, index) => (
+                  <div className="range_row" key={index}>
+                    <label className="range_small">
+                      <span className="societies_name">{item?.soc_type_name}</span>
+                    </label>
+                    <label className="range_half">
+                      <Tooltip 
+                        placement="left" 
+                        color={'#000'} 
+                        overlayStyle={{ fontSize: '11px', color: 'blue' }} 
+                        title={<span> {item?.soc_type_name} <br />Total Societies: {item?.tot_soc_type}</span>}
+                      >
+                        <span 
+                          className="barChartMap" 
+                          style={{ width: percantage_cal(item?.tot_soc_type), display: 'inline-block' }}
+                        ></span>
+                        <span className="counter_soc">{item?.tot_soc_type}</span>
+                      </Tooltip>
+                    </label>
+                  </div>
+                ))}
+                <Link 
+                  onClick={() => onSubmit(getDistricContent?.dist_code, getDistDataStore?.range1?.range_code)} 
+                  style={{ cursor: "pointer", color: "blue", textDecoration: "underline" }}
+                >
+                  View 
+                  {/* {getDistricContent.dist_code} {getDistDataStore?.range1?.range_code} */}
+                </Link>
+              </div>
+            </TabPane>
+          )}
+        
+          {getDistDataStore?.range2?.range_data.length > 0 && (
+            <TabPane tab={<>
+            {getDistDataStore?.range2?.range_name} <strong>({getDistDataStore?.range2?.range_tot})</strong>
+            </>} key="2">
+              <div className="range_2">
+                {/* <label>
+                  {getDistDataStore?.range2?.range_name} <strong>({getDistDataStore?.range2?.range_tot})</strong>
+                </label> */}
+                {getDistDataStore?.range2?.range_data.map((item, index) => (
+                  <div className="range_row" key={index}>
+                    <label className="range_small">
+                      <span className="societies_name">{item?.soc_type_name}</span>
+                    </label>
+                    <label className="range_half">
+                      <Tooltip 
+                        placement="left" 
+                        color={'#000'} 
+                        overlayStyle={{ fontSize: '11px', color: 'blue' }} 
+                        title={<span> {item?.soc_type_name} <br />Total Societies: {item?.tot_soc_type}</span>}
+                      >
+                        <span 
+                          className="barChartMap" 
+                          style={{ width: percantage_cal(item?.tot_soc_type), display: 'inline-block' }}
+                        ></span>
+                        <span className="counter_soc">{item?.tot_soc_type}</span>
+                      </Tooltip>
+                    </label>
+                  </div>
+                ))}
+                <Link 
+                  onClick={() => onSubmit(getDistricContent?.dist_code, getDistDataStore?.range2?.range_code)} 
+                  style={{ cursor: "pointer", color: "blue", textDecoration: "underline" }}
+                >
+                  View 
+                  {/* {getDistricContent.dist_code} {getDistDataStore?.range2?.range_code} */}
+                </Link>
+              </div>
+            </TabPane>
+          )}
+        </Tabs>
+        </div>
+        </>
+      ) : (
+        <p>No Data Available</p>
+      )}
+
+      
 
       {/* Range Group */}
 
-      {loading_Map ?(
-      <Loader align = {'center'} gap = {'middle'} size = {'small'} />
+      {/* {loading_Map ?(
+      // <Loader align = {'center'} gap = {'middle'} size = {'small'} />
+      <p>No Data</p>
     ):(
       <>
-    <div className="range_group">
-
-<Tabs defaultActiveKey="1" animated>
-  {getDistDataStore?.range1?.range_data.length > 0 && (
-    <TabPane tab={
-      <>{getDistDataStore?.range1?.range_name} 
-        <strong> ({getDistDataStore?.range1?.range_tot})</strong>
+    
       </>
-    } key="1"> 
-      <div className="range_1">
-        {/* <label className="rangeName">
-          {getDistDataStore?.range1?.range_name} <strong>({getDistDataStore?.range1?.range_tot})</strong>
-        </label> */}
-        {getDistDataStore?.range1?.range_data.map((item, index) => (
-          <div className="range_row" key={index}>
-            <label className="range_small">
-              <span className="societies_name">{item?.soc_type_name}</span>
-            </label>
-            <label className="range_half">
-              <Tooltip 
-                placement="left" 
-                color={'#000'} 
-                overlayStyle={{ fontSize: '11px', color: 'blue' }} 
-                title={<span> {item?.soc_type_name} <br />Total Societies: {item?.tot_soc_type}</span>}
-              >
-                <span 
-                  className="barChartMap" 
-                  style={{ width: percantage_cal(item?.tot_soc_type), display: 'inline-block' }}
-                ></span>
-                <span className="counter_soc">{item?.tot_soc_type}</span>
-              </Tooltip>
-            </label>
-          </div>
-        ))}
-        <Link 
-          onClick={() => onSubmit(getDistricContent?.dist_code, getDistDataStore?.range1?.range_code)} 
-          style={{ cursor: "pointer", color: "blue", textDecoration: "underline" }}
-        >
-          View 
-          {/* {getDistricContent.dist_code} {getDistDataStore?.range1?.range_code} */}
-        </Link>
-      </div>
-    </TabPane>
-  )}
-
-  {getDistDataStore?.range2?.range_data.length > 0 && (
-    <TabPane tab={<>
-    {getDistDataStore?.range2?.range_name} <strong>({getDistDataStore?.range2?.range_tot})</strong>
-    </>} key="2">
-      <div className="range_2">
-        {/* <label>
-          {getDistDataStore?.range2?.range_name} <strong>({getDistDataStore?.range2?.range_tot})</strong>
-        </label> */}
-        {getDistDataStore?.range2?.range_data.map((item, index) => (
-          <div className="range_row" key={index}>
-            <label className="range_small">
-              <span className="societies_name">{item?.soc_type_name}</span>
-            </label>
-            <label className="range_half">
-              <Tooltip 
-                placement="left" 
-                color={'#000'} 
-                overlayStyle={{ fontSize: '11px', color: 'blue' }} 
-                title={<span> {item?.soc_type_name} <br />Total Societies: {item?.tot_soc_type}</span>}
-              >
-                <span 
-                  className="barChartMap" 
-                  style={{ width: percantage_cal(item?.tot_soc_type), display: 'inline-block' }}
-                ></span>
-                <span className="counter_soc">{item?.tot_soc_type}</span>
-              </Tooltip>
-            </label>
-          </div>
-        ))}
-        <Link 
-          onClick={() => onSubmit(getDistricContent?.dist_code, getDistDataStore?.range2?.range_code)} 
-          style={{ cursor: "pointer", color: "blue", textDecoration: "underline" }}
-        >
-          View 
-          {/* {getDistricContent.dist_code} {getDistDataStore?.range2?.range_code} */}
-        </Link>
-      </div>
-    </TabPane>
-  )}
-</Tabs>
-</div>
-      </>
-    )}
+    )} */}
       
       </div>
 
