@@ -48,7 +48,7 @@
                       <option value="<%= dt.soc_type_id %>" <%= soc.soc_type == dt.soc_type_id ? 'selected' : '' %> ><%= dt.soc_type_name %></option>
                         <% }) } %>
                   </select>
-                  <!-- <span class="red" id="soc_type_erro">Please Select valid Society Type</span>  -->
+                  <span class="red" id="soc_type_erro">Please Select valid Society Type</span> 
                 </div>
               </div>
               <div class="col-md-6">
@@ -784,11 +784,11 @@ $(document).ready(function() {
   get_type_error('<%= soc.soc_type %>');
   function get_type_error(num){
     if(num != 31){
-         // $('#submit').attr('disabled', false);
+          $('#submit').attr('disabled', false);
           $('#soc_type_erro').hide();
           
         }else{
-         // $('#submit').attr('disabled', true);
+          $('#submit').attr('disabled', true);
           $('#soc_type_erro').show();
         }
   }
