@@ -74,7 +74,7 @@ SocietyRouter.get('/edit', async(req, res) => {
         const blockres = await db_Select('*', 'md_block',  `dist_id='${distcode}'`, null);
         const gpres = await db_Select('*', 'md_gp',  `dist_id='${distcode}'`, null);
         const villres = await db_Select('*', 'md_village',  `dist_id='${distcode}'`, null);
-        const boardmembdtsl = await db_Select('*', 'td_board_member',  `soc_id='${soc_id}'`, null);
+        const boardmembdtsl = await db_Select('*', 'td_board_member',  `tenure_ends_on >= CURDATE() AND soc_id='${soc_id}'`, null);
         
     
         // Prepare data for rendering
