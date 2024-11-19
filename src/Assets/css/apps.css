@@ -188,6 +188,13 @@ width: 100%; padding:0;}
 .search_box h2:after {content: ""; width: 33px; height: 3px; background: #17b0fd; position: absolute; right: 0; bottom: 0;}
 
 .search_box label{width: 100%; display: block; margin-bottom: 25px; position: relative;}
+.search_box label.range_dropdown_cu{width: 100%; display: block; margin-bottom: 25px; position: relative;}
+.search_box label.range_dropdown_cu > div.ant-flex{position: absolute;
+  right: 26px;
+  top: 15px;}
+.search_box label.range_dropdown_cu > div.ant-flex .ant-spin-dot-holder{color: #000;}
+  
+
 .search_box label .required{color: red;
   font-size: 11px;
   position: absolute;
@@ -380,7 +387,7 @@ width: 100%; padding:0;}
 
   .listNotice{list-style-type:none; margin-bottom:0; position: relative; width:100%; height: 250px; overflow: hidden; display:block;}
   .listNotice p{color:#6e7275; font-size:15px; line-height:24px; padding:13px 0; border-bottom:dashed #717577 1px;
-    display: inline-block; margin: 0;}
+    display: block; margin: 0;}
   .listNotice p:last-child{border-bottom:none;}
   .listNotice p a{color:#6e7275; font-size:15px; text-decoration:none;}
   .listNotice p span {
@@ -1428,3 +1435,21 @@ border-radius: 6px;}
 
 
 
+.scroll-to-top-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  pointer-events: none; /* Prevent clicking when invisible */
+}
+
+.scroll-to-top-button.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto; /* Enable clicking when visible */
+}

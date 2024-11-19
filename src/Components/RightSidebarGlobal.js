@@ -1,12 +1,17 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import QuickLinkRight from './QuickLinkRight'
 import SearchBox from './SearchBox'
 import Tenders from './Tenders'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
+import { BASE_URL } from '../routes/config'
+import Anouncement from './Anouncement'
 
 function RightSidebarGlobal() {
 
     const _tender_WordCount= 5;
+
+    
     
   return (
     <>
@@ -19,11 +24,12 @@ function RightSidebarGlobal() {
             <div className="listNotice">
 		    <div className="noticeScrollMainSub">
 			<marquee className="marq" height="350px" direction="up" scrollamount="4" loop="">
-            <Tenders wordCount={_tender_WordCount}/>
+            <Anouncement wordCount={_tender_WordCount}/>
+
             </marquee>
             </div>
             </div>
-			{/* <a href="#">View All</a> */}
+
       <Link to="/importantannouncement" className="view-all-link"> View All </Link>
 		</div>
     </div>

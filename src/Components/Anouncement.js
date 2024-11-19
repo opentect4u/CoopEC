@@ -5,7 +5,11 @@ import Item from 'antd/es/list/Item';
 import { Link } from 'react-router-dom';
 
 
-function Anouncement() {
+function Anouncement(
+	{
+	wordCount
+	}
+) {
 
 	const [getAnouncement, setAnouncement] = useState([]);
 
@@ -58,20 +62,30 @@ function Anouncement() {
 		}
 
   return (
-    <>
-    <div className="anouncement">
-	<div className="title"><i className="fa fa-bullhorn" aria-hidden="true"></i> Election Results</div>
-	<div className="scroll_sec">
-		<marquee className="marq" direction="left" loop="">
-			{getAnouncement.map(item =>
-				<>
-				{limitWords(item?.doc_title, 5)} {getAnouncement.length > 1 ? '\u00A0|\u00A0' :  '' }
-				</>
-			)}
-		</marquee>
-		</div>
-	<Link to="/importantannouncement" className="link_view">View All</Link>
-	</div>
+    // <>
+    // <div className="anouncement">
+	// <div className="title"><i className="fa fa-bullhorn" aria-hidden="true"></i> Election Results</div>
+	// <div className="scroll_sec">
+	// 	<marquee className="marq" direction="left" loop="">
+	// 		{getAnouncement.map(item =>
+	// 			<>
+	// 			{limitWords(item?.doc_title, 5)} {getAnouncement.length > 1 ? '\u00A0|\u00A0' :  '' }
+	// 			</>
+	// 		)}
+	// 	</marquee>
+	// 	</div>
+	// <Link to="/importantannouncement" className="link_view">View All</Link>
+	// </div>
+    // </>
+
+	<>
+    {getAnouncement?.map(item=>
+    <p>
+    {/* {wordCount} */}
+    {limitWords(item?.doc_title, wordCount)}
+    {/* <span><i className="fa fa-clock-o" aria-hidden="true"></i> {item.email} </span> */}
+    </p>
+    )}
     </>
   )
 }

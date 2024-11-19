@@ -4,6 +4,7 @@ import { useFormik } from "formik";
 import { useParams, useNavigate } from "react-router";
 import axios from "axios";
 import { BASE_URL } from "../routes/config";
+import Loader from '../Components/Loader';
 
 // let district_def_value, range_def_value, type_def_value, soci_Name_def_value;
 
@@ -46,7 +47,8 @@ function SearchBox({district_def_Valu, range_def_Valu, type_def_Valu, soci_Name_
   const [getDistrictList, setDistrictList] = useState([]);
   const [getRangeList, setRangeList] = useState([]);
   const [getSocietyType, setSocietyType] = useState([]);
-  const [formValues,setFormValues]  = useState(initialValues)
+  const [formValues,setFormValues]  = useState(initialValues);
+  const [getLoading_range, setLoading_range] = useState(true);
 
 
   const districtList = async()=>{
@@ -91,7 +93,10 @@ function SearchBox({district_def_Valu, range_def_Valu, type_def_Valu, soci_Name_
       if(res.status == '200'){
       if(res.data.suc > 0){
         setRangeList(res?.data?.msg)
+        setLoading_range(false);
         console.log(getRangeList, 'getRangeList');
+      } else {
+        setLoading_range(false);
       }
 
       }
@@ -125,8 +130,6 @@ function SearchBox({district_def_Valu, range_def_Valu, type_def_Valu, soci_Name_
    }
 
 
-
-
 const navigation = useNavigate();
 
 const onSubmit = (values) => {
@@ -137,6 +140,8 @@ useEffect(()=>{
   districtList();
   societyType();
 },[])
+
+
   const formik = useFormik({
     initialValues:formValues,
     onSubmit,
@@ -144,10 +149,14 @@ useEffect(()=>{
     enableReinitialize: true,
     validateOnMount: true,
   });
+
+
+  
   
   useEffect(()=>{
 
   rangeList(formik.values.select_district);
+  setLoading_range(true);
     
   }, [formik.values.select_district])
  useEffect(()=>{
@@ -166,6 +175,7 @@ useEffect(()=>{
       <form onSubmit={formik.handleSubmit}>
         {/* Select District */}
         <label>
+          
           <select
             id="select_district"
             name="select_district"
@@ -174,7 +184,8 @@ useEffect(()=>{
             value={formik.values.select_district}
             // value={district_def_Valu && formik.values.select_district === '' ? district_def_Valu : formik.values.select_district}
           >
-            <option value='0'>Select District *</option>
+            
+            <option value='0'>Select District * </option>
             {getDistrictList?.map((option) => ( 
               <option key={option.dist_name} value={option.dist_code}>
                 {option.dist_name}
@@ -187,8 +198,21 @@ useEffect(()=>{
           )}
         </label>
 
+
+
+
+{/* {JSON.stringify({ getLoading_range }, null, 2)} */}
+
+    
         {/* Select Range */}
-        <label>
+        <label className="range_dropdown_cu">
+
+        {getLoading_range ?(
+        <Loader align = {'center'} gap = {'middle'} size = {'small'} />
+        ):(
+        <>
+        </>
+        )}
 
           <select
           id="select_range"
@@ -196,7 +220,6 @@ useEffect(()=>{
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value= {formik.values.select_range}
-          // value={range_def_Valu && formik.values.select_range === '' ? range_def_Valu : formik.values.select_range}
           >
 
           {getRangeList.length < 1 ? (
@@ -204,20 +227,18 @@ useEffect(()=>{
             ) : (
               <>
               <option value='0'>Select Range * </option>
+              <Loader align = {'center'} gap = {'middle'} size = {'small'} />
                 {getRangeList.map((option) => (
                   <option key={option.range_name} value={option.range_id}>
-                    {option.range_name}
+                    {option.range_name} 
                   </option>
                 ))}
               </>
             )}
 
-          {/* {select_rangeOptions.map((option) => (
-          <option key={option.key} value={option.value}>
-          {option.key}
-          </option>
-          ))} */}
           </select>
+
+
           
           {formik.errors.select_range && formik.touched.select_range && (
             <div className="required">{formik.errors.select_range}</div>

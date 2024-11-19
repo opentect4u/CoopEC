@@ -9,6 +9,7 @@ import {Detector, Online, Offline} from "react-detect-offline"
 function FooterCus() {
 
 const [getImportantLinks, setImportantLinks] = useState([]);
+const [showButton, setShowButton] = useState(false);
 
 const fetchdata = ()=>{
   
@@ -43,10 +44,40 @@ const fetchdata = ()=>{
 
 }
 
+const scrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth", // Enables smooth scrolling
+  });
+};
 
-useEffect(()=>{
-  // fetchdata()
-},[])
+
+// useEffect(()=>{
+//   // fetchdata()
+// },[])
+
+const handleScroll = () => {
+  const scrollHeight = document.documentElement.scrollHeight;
+  const scrollTop = document.documentElement.scrollTop;
+  const clientHeight = document.documentElement.clientHeight;
+
+  const middlePosition = scrollHeight / 2;
+
+  // Check if the user has scrolled near the bottom of the page
+  if (scrollTop + clientHeight / 2 >= middlePosition - clientHeight / 2) {
+    setShowButton(true);
+  } else {
+    setShowButton(false);
+  }
+};
+
+
+useEffect(() => {
+  window.addEventListener("scroll", handleScroll);
+  return () => {
+    window.removeEventListener("scroll", handleScroll);
+  };
+}, []);
 
   return (
     <>
@@ -92,8 +123,12 @@ useEffect(()=>{
 </div>
 	
 <div class="footerWhite">Copyright © 2024 Co-operative Election Commission, West Bengal. All rights reserved.</div>
-	
-<a href="#" class="scroll_top"> <img src={`${scroll_top}`} alt=""/> </a>
+
+
+
+      <Link onClick={scrollToTop} className={`scroll-to-top-button ${showButton ? "visible" : ""}`}> <img src={`${scroll_top}`} alt=""/> </Link>
+
+
     </>
   )
 }
