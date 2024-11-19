@@ -1,6 +1,30 @@
 const db = require("../db/db");
 // const dateFormat = require("dateformat");
 
+
+const db_Select_usin_gparam = (select, table_name, whr, order, params = []) => {
+  let tb_whr = whr ? `WHERE ${whr}` : "";  // Don't insert user input directly into SQL
+  let tb_order = order ? order : "";       // Same with order
+  
+  // Prepare the SQL query with placeholders
+  let sql = `SELECT ${select} FROM ${table_name} ${tb_whr} ${tb_order}`;
+  console.log(sql);
+  
+  // Return a promise for query execution
+  return new Promise((resolve, reject) => {
+    db.query(sql, params, (err, result) => {  // Pass parameters here
+      let data;
+      if (err) {
+        console.log(err);
+        data = { suc: 0, msg: JSON.stringify(err) };
+      } else {
+        data = { suc: 1, msg: result, sql };
+      }
+      resolve(data);
+    });
+  });
+};
+
 const db_Select = (select, table_name, whr, order) => {
   var tb_whr = whr ? `WHERE ${whr}` : "";
   var tb_order = order ? order : "";
@@ -136,4 +160,4 @@ const db_Check = async (fields, table_name, whr) => {
 
 
 
-module.exports = { db_Select, db_Insert, db_Delete, db_Check,SendNotification,Notification_cnt,UpdateNotification};
+module.exports = { db_Select, db_Insert, db_Delete, db_Check,SendNotification,Notification_cnt,UpdateNotification,db_Select_usin_gparam};
