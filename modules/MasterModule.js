@@ -2,7 +2,7 @@ const db = require("../db/db");
 // const dateFormat = require("dateformat");
 
 
-const db_Select_usin_gparam = (select, table_name, whr, order, params = []) => {
+const db_Select_using_param = (select, table_name, whr, order, params = []) => {
   let tb_whr = whr ? `WHERE ${whr}` : "";  // Don't insert user input directly into SQL
   let tb_order = order ? order : "";       // Same with order
   
@@ -160,4 +160,4 @@ const db_Check = async (fields, table_name, whr) => {
 
 
 
-module.exports = { db_Select, db_Insert, db_Delete, db_Check,SendNotification,Notification_cnt,UpdateNotification,db_Select_usin_gparam};
+module.exports = { db_Select, db_Insert, db_Delete, db_Check,SendNotification,Notification_cnt,UpdateNotification,db_Select_using_param};

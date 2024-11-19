@@ -13,7 +13,7 @@ LoginRouter.post('/logincheck', async(req, res) => {
     // Use a placeholder for `user_id` in the `whr` clause
          whr = "user_id = ? AND user_status = ?",
           order = null; var params = [data.user_id, 'A'];
-         var res_dt = await db_Select_usin_gparam(select, table_name, whr, order, params);
+         var res_dt = await db_Select_using_param(select, table_name, whr, order, params);
 // Pass user_id and 'A' (for active status) as parameters to bind to the placeholders
         if (res_dt.suc > 0) {
           if (res_dt.msg.length > 0) {
