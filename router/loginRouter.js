@@ -1,7 +1,7 @@
 const LoginRouter = require('express').Router()
 const bcrypt = require('bcrypt');
 
-const {db_Select,db_Select_usin_gparam} = require('../modules/MasterModule');
+const {db_Select,db_Select_using_param} = require('../modules/MasterModule');
 
 LoginRouter.get('/login', (req, res) => {
     res.render('login/login')
