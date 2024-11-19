@@ -823,7 +823,41 @@ pc.onicecandidate = function(event) {
     pc.onicecandidate = noop;
   }
 };
+$(document).ready(function() {
+      $('#dist_code').change(function() {
+          var selectedValue = $(this).val();
+          populaterange(selectedValue);
+      });
+    })
 
+    function populaterange(dist_code) {
+    $.ajax({
+        url: '/society/rangelist',
+        method: 'GET',
+        data: { dist_code: dist_code },
+        beforeSend: function() {
+            // Show a loading indicator if needed
+            $('#range_code').html('<option value="0">Loading...</option>');
+        },
+        success: function(response) {
+            var datahlists = response.datahlist;
+            var $select = $('#range_code');
+            // Clear existing options
+            $select.empty();
+            // Add a default "Select" option
+            $select.append('<option value="0">Select Range </option>');
+            // Append new options from the response data
+            datahlists.forEach(function(item) {
+                $select.append(`<option value="${item.range_id}" >${item.range_name}</option>`);
+            });
+        },
+        error: function(err) {
+            // Handle any errors
+            $('#range_code').html('<option value="0">Error fetching data. Please try again.</option>');
+            console.error('AJAX Error:', err); // Log error for debugging
+        }
+    });
+  }
 </script>
 
 
