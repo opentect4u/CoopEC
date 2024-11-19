@@ -141,9 +141,9 @@ a.edit_dashboard{color: #fff;
   margin-top: 4px;
   display: inline-block;
 }
-.unreadmessage{
+/* .unreadmessage{
   background-color: antiquewhite;
-}
+} */
 .uncount {
   position: absolute;
   left: 36%;
@@ -155,4 +155,73 @@ a.edit_dashboard{color: #fff;
 }
  
 
+/* ======================= Utsab Roy Start Style ======================= */
+.navbar_cus{background: none; padding-left: 15px;}
+.navbar_cus .form-inline .form-control{width: 450px;
+  height: 40px;
+  border-radius: 6px; color: #333;}
+  .navbar_cus .form-inline{position: relative;}
+.navbar_cus .form-inline button.search_btn{
+  position: absolute;
+  right: 13px;
+  height: 33px;
+  line-height: 33px;
+  padding: 0 15px;
+  border-radius: 6px;
+  background: #228FD4;
+  color: #fff;
+  border: none;
+  top: 3px;}
+
+  .notifica_cus{width: 365px !important;
+    background: #e9eef6 !important;
+    border-radius: 15px !important;
+    box-shadow: 0 4px 8px 3px rgba(0,0,0,.15),0 1px 3px rgba(0,0,0,.3) !important;
+    /* height: 358px; */
+    outline: 1px solid transparent;
+    /* overflow-x: hidden; */
+  }
+
+    .notifica_cus_sub{
+      height: 358px;
+      overflow-x: hidden;}
+
+.notifica_cus #notification_list .myButton_cus{border-bottom: #ccc solid 1px;}
+.notifica_cus #notification_list .myButton_cus:last-child{border-bottom: none;}
+
+  .notifica_cus #notification_list .myButton_cus .preview-item-content {width: 100%; word-break: break-all;
+      text-wrap: auto;}
+  .notifica_cus #notification_list .myButton_cus .preview-item-content h6{font-weight: 400 !important;
+    font-size: 12px;
+    line-height: 17px; margin: 0;
+  }
+  .notifica_cus #notification_list .myButton_cus .preview-item-content .date_cus{font-size: 12px; color: #333 !important; font-style: italic;}
+
+  .notifica_cus #notification_list .unreadmessage .preview-item-content h6{
+    font-weight: 700 !important;
+  }
+  .notifica_cus #notification_list .unreadmessage .preview-item-content .date_cus{
+    font-weight: 700 !important;
+  }
+
+  .notifica_cus #notification_list .myButton_cus:hover{
+   background: #fff;
+  }
+
+  h3.noti_title {
+    color: #086AA8;
+    font-size: 16px;
+    display: flex; align-items: center;
+  }
+
+  h3.noti_title button.read_all{margin: 0 0 0 auto;
+    font-size: 12px;
+    background: #228FD4;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 6px;
+    color: #fff;
+  }
+
+/* ======================= Utsab Roy Start End ======================= */
 

@@ -55,10 +55,10 @@ $('#example').DataTable();
                             }
                         // For each message, create a dropdown item
                         html += `
-                            <button class="myButton dropdown-item preview-item ${msg.view_status ==1 ? 'unreadmessage' : ''}" value="${slug}"  data-id="${msg.id}" >
+                            <button class="myButton myButton_cus dropdown-item preview-item ${msg.view_status ==1 ? 'unreadmessage' : 'readmessage'}" value="${slug}"  data-id="${msg.id}" >
                                 <div class="preview-item-content">
                                     <h6 class="preview-subject font-weight-normal">${msg.message || 'No subject'}</h6>
-                                    <p class="font-weight-light small-text mb-0 text-muted">${new Date(msg.created_at).toLocaleDateString('en-IN', { year: 'numeric' , month: 'short' ,day: 'numeric' }) || 'Just now'}</p>
+                                    <p class="date_cus font-weight-light small-text mb-0 text-muted">${new Date(msg.created_at).toLocaleDateString('en-IN', { year: 'numeric' , month: 'short' ,day: 'numeric' }) || 'Just now'}</p>
                                 </div>
                             </button>
                         `;
