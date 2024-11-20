@@ -156,7 +156,7 @@ a.edit_dashboard{color: #fff;
  
 
 /* ======================= Utsab Roy Start Style ======================= */
-.navbar_cus{background: none; padding-left: 15px;}
+.navbar_cus{background: none; padding-left: 15px; margin: 0 0 0 auto;}
 .navbar_cus .form-inline .form-control{width: 450px;
   height: 40px;
   border-radius: 6px; color: #333;}
@@ -223,5 +223,90 @@ a.edit_dashboard{color: #fff;
     color: #fff;
   }
 
+  .content-wrapper {
+    background: #fff;
+  }
+
+  .sidebar {
+    background: #e8e8e8;}
+  
+  .sidebar .nav.sub-menu {
+    padding: 0; list-style-type: none;
+  }
+  
+  .sidebar .nav.sub-menu li{position: relative;}
+  .sidebar .nav.sub-menu li::before {
+    background: #fff !important;
+    left: 15px;
+  }
+
+  .sidebar .nav.sub-menu .nav-item .nav-link{padding-left: 28px !important;}
+
+  .scroll_text{background: #fdcb05;
+    margin-bottom: 25px;
+    padding: 10px 15px;
+    border-radius: 3px;
+    /* box-shadow: 2px 2px 10px 0px #a0a1a2; */
+    border: #f9b258 solid 1px; color: #1c0f04;}
+
+  .indicat_exp{background: red;}
+
+  .footer {background: #fff;}
+
+
+
+
+
+  :root {
+    --dot-size: 12px;
+    --animation-duration: 2s;
+  }
+  
+  .dot_overDate {
+    width: var(--dot-size);
+    height: var(--dot-size);
+    background-color: red;
+    border-radius: 50%;
+  }
+
+  /* --- Animation --- */
+  
+  /* Define animation keyframes */
+  @keyframes blink {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 1; }
+  }
+
+  /* Minimal example */
+  .dot--basic {
+    animation: blink 2s infinite;
+  }
+
+  /* Disable animation if user prefers reduced motion */
+  /* @media (prefers-reduced-motion: reduce) {
+    .dot {
+      animation: none;
+    }
+  } */
+
+  .overDate_main {
+    /* --dot-size: 0.5rem; */
+    --offline-color: #999;
+    --offline-text-color: #666;
+    display: inline-flex;
+  align-items: center;
+  border:1px solid #bbb8b8;
+  border-radius: 4px;
+  padding: 3px 5px;
+  position: absolute;
+  left: 8px;
+  top: 8px;
+  font-size: 13px;
+  }
+
+  .overDate_main .dot_overDate {
+    margin-right: 4px;
+  }
+  
 /* ======================= Utsab Roy Start End ======================= */
 

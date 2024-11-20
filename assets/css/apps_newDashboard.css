@@ -110,15 +110,67 @@ html {
 	
 .rightSideSec .threeBoxNewmain{margin-bottom:0; width:100%; display:flex; margin-bottom:30px;}
 
-.threeBoxNewSmall{background:#fff; box-shadow: 0px 0px 7px 0px #d5d8db; border-radius: 8px; border: #e1e0e0 solid 1px; font-weight: 300;
-	width: 100%; display:flex; text-align:right; height:100%;}
+.threeBoxNewSmall{background: #eee;
+  box-shadow: 2px 2px 10px 0px #a0a1a2;
+  border-radius: 14px;
+  /* border: #b8cfef solid 2px; */
+  font-weight: 300;
+  width: 100%;
+  display: flex;
+  text-align: right;
+  height: 100%; overflow: hidden;}
 
 .threeBoxImg{ padding:15px; float:left; width:30%; text-align:center; align-items: center;
-  display: flex;}
+  display: flex; display: none;}
 .threeBoxImg img{max-width: 45px;
   width: 100%;
   margin: 0 auto;}
-.threeBoxTxt{ padding:15px; float:right; width:70%;}
+.threeBoxTxt{ padding:35px 15px; float:right; width:100%; text-align: center; position: relative;}
+.threeBoxTxt input.btn[type="submit"]{
+  /* border-radius: 3px; width: 100%; */
+  border-radius: 3px;
+  /* width: 100%; */
+  position: absolute;
+  right: 7px;
+  bottom: 6px;
+}
+
+.threeBoxTxt a.btn{border-radius: 3px; width: 100%;}
+
+.button_sape{width: 0;
+  height: 0;
+  border-bottom: 120px solid #1b64b3;
+  border-left: 100px solid transparent;
+  position: absolute;
+  bottom: 0;
+  right: 0;}
+.button_sape:hover{border-bottom: 120px solid #11549b;}
+
+.threeBoxTxt .button_sape input.btn[type="submit"]{
+    /* border-radius: 3px;
+  width: 100%; */
+  border-radius: 3px;
+  /* width: 100%; */
+  position: absolute;
+  background: none;
+  right: 7px;
+  bottom: -103px; outline-color: none; border: none;
+  }
+  .threeBoxTxt .button_sape:hover input.btn[type="submit"]{background: none; outline: none; border: none; text-decoration: underline;}
+  
+  .threeBoxTxt .button_sape a.btn{
+    /* border-radius: 3px;
+  width: 100%; */
+  border-radius: 3px;
+  /* width: 100%; */
+  position: absolute;
+  background: none;
+  right: 34px;
+  bottom: -103px; outline-color: none; border: none;
+  }
+
+  .threeBoxTxt .button_sape:hover a.btn{background: none; outline: none; border: none; text-decoration: underline;}
+
 
 .darkBlue{background:#228fd4; border-radius:8px 0 0 8px;}
 .lightBlue{background:#7419fc; border-radius:8px 0 0 8px;}
@@ -131,17 +183,22 @@ html {
 .threeBoxNewSmall_a{background:#fff url(../images/boxIcon_a.jpg) no-repeat left center; min-height:138px;}
 .threeBoxNewSmall_b{background:#fff url(../images/boxIcon_b.jpg) no-repeat left center; min-height:138px;}
 .threeBoxNewSmall_c{background:#fff url(../images/boxIcon_c.jpg) no-repeat left center; min-height:138px;}
-.threeBoxNewSmall h2{color:#26282a; font-size:18px; font-weight:400; margin-bottom: 2px; margin-top:0;}
-.threeBoxNewSmall p.price{color: #858686;
-  font-size: 16px;
+.threeBoxNewSmall h2{color: #11549B;
+  font-size: 15px;
   font-weight: 400;
-  margin: 0;
+  margin-bottom: 11px;
+  margin-top: 0;
+  text-transform: uppercase;}
+.threeBoxNewSmall p.price{color: #858686;
+  font-size: 26px;
+  font-weight: 400;
+  margin: 0 0 0 0;
   padding: 0;
   display: inline-block;}
 /*.threeBoxNewSmall p.price span{color:#e86e56; font-size:20px; font-weight:700;}*/
 
 .threeBoxNewSmall p.price .mt{padding-right:8px; border-right:#c8c8c8 solid 1px; float:left;}
-.threeBoxNewSmall p.price .lit{padding-left:8px; display:inline-block; float:right;}
+.threeBoxNewSmall p.price .lit{padding-left: 0; display: inline-block; color: #606060;}
 .threeBoxNewSmall p.price .mt2{padding-left:8px; padding-right:8px; display:inline-block; float:left; border-right:#c8c8c8 solid 1px;}
 .threeBoxNewSmall p.price strong{color:#e86e56; font-size:14px; font-weight:700; text-transform:uppercase;}
 
@@ -254,8 +311,21 @@ table.tablestockPoint tbody tr td strong{color:#e86e56;}
 
 .districWisSecRightTable{background:#fff; border-radius:0; min-height:350px; width:70%; float:left; padding:10px 10px;}
 
-.bloxkSec{background:#fff; box-shadow: 0px 0px 7px 0px #d5d8db; border-radius: 8px; border: #e1e0e0 solid 1px; font-weight: 300;
-	width: 100%; display: inline-block; text-align:right; padding:15px; margin-bottom:30px;}
+/* .bloxkSec{background:#fff; box-shadow: 0px 0px 7px 0px #d5d8db; border-radius: 8px; border: #e1e0e0 solid 1px; font-weight: 300;
+	width: 100%; display: inline-block; text-align:right; padding:15px; margin-bottom:30px;} */
+
+.bloxkSec{background: #eee;
+  box-shadow: 2px 2px 10px 0px #a0a1a2;
+  border-radius: 14px;
+  /* border: #b8cfef solid 2px; */
+  font-weight: 300;
+  width: 100%;
+  display: flex;
+  text-align: right;
+  height: 100%;
+  overflow: hidden;
+}
+  
 .bloxkSec_sub{height: 350px; overflow-y: scroll; width: 100%;}
 
 .bloxkSec ul{list-style-type: none; margin: 0; padding: 0; text-align: left;}
@@ -273,6 +343,7 @@ table.tablestockPoint tbody tr td strong{color:#e86e56;}
 .bloxkSec p.price .lit{padding-left:8px; display:inline-block; float:right;}
 .bloxkSec p.price strong{color:#e86e56; font-size:14px; font-weight:700; text-transform:uppercase;}
 
+.bloxkSec_paiChart{align-items: center;}
 
 
 .sliderBot{
