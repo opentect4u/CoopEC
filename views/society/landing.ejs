@@ -275,7 +275,6 @@
              $('#item-list').html('');
                // const page = $(this).val();
                 const page = $(this).data('page');
-           
                 var cntr_auth_type = $('#cntr_auth_type').val();
                 var dist_code = $('#dist_code').val();
                 var zone_code = $('#zone_code').val();
@@ -494,7 +493,7 @@
             });
         });
         var urban_rural_flag_dt = '<%= urban_rural_flag %>'
-       console.log(urban_rural_flag_dt);
+   
         if(urban_rural_flag_dt == "U"){
           $('#rural_sec').hide();
           $('#urban_sec').show();
