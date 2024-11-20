@@ -407,6 +407,7 @@
                 var zone_code = $('#zone_code').val();
                 var range_code = $('#range_code').val();
                 var urban_rural_flags = $('#urban_rural_flag').val();
+                var soc_data_status = $('#soc_data_status').val();
                 var ulb_catg,block_id;
                 if(urban_rural_flags == 'U'){
                  ulb_catg = $('#ulb_catg').val();
@@ -423,7 +424,7 @@
                 $.ajax({
                     url: '/dash/socLimitList',
                     type: 'GET',
-                    data: { page,cntr_auth_type,dist_code,zone_code,range_code,urban_rural_flags,ulb_catg,block_id,soc_type_id,soc_tier,functional_status },
+                    data: { page,cntr_auth_type,dist_code,zone_code,range_code,urban_rural_flags,ulb_catg,block_id,soc_type_id,soc_tier,functional_status,soc_data_status },
                     success: function(response) {
                         const data = response.data;
                         const totalPages = response.totalPages;
