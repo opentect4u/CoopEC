@@ -220,7 +220,7 @@ DashboardRouter.get('/socLimitList',async(req, res) => {
   var con6 = req.query.soc_tier > 0 ? `AND a.soc_tier=${req.query.soc_tier} ` : '';
   var con4 = req.query.urban_rural_flag > 0 ? `AND a.urban_rural_flag=${req.query.urban_rural_flag} ` : '';
   var con7 = req.query.soc_type_id > 0 ? `AND a.soc_type=${req.query.soc_type_id}` : '';
-  var soc_data_status =  req.query.soc_data_status.length > 0 ? `AND a.approve_status=${req.query.soc_data_status} ` : '';
+  var soc_data_status =  req.query.soc_data_status.length > 0 ? `AND a.approve_status= '${req.query.soc_data_status}' ` : '';
 
   var functional_status = req.query.functional_status != '' ? ` AND a.functional_status='${req.query.functional_status}'` : '';
   var maincon =con1+dist_code+zone_code+range_code+con4+con6+con7 +functional_status+soc_data_status;
@@ -465,7 +465,7 @@ DashboardRouter.get('/socLimitListfor_election_status',async(req, res) => {
   var con6 = req.query.soc_tier > 0 ? `AND a.soc_tier=${req.query.soc_tier} ` : '';
   var con4 = req.query.urban_rural_flag > 0 ? `AND a.urban_rural_flag=${req.query.urban_rural_flag} ` : '';
   var con7 = req.query.soc_type_id > 0 ? `AND a.soc_type=${req.query.soc_type_id}` : '';
-  var soc_data_status =  req.query.soc_data_status > 0 ? `AND a.approve_status=${req.query.soc_data_status} ` : '';
+  var soc_data_status =  req.query.soc_data_status > 0 ? `AND a.approve_status='${req.query.soc_data_status}' ` : '';
 
   var functional_status = ` AND a.functional_status='Functional'`;
   var election_status   = ` AND a.election_status='${req.query.election_status}'`;
