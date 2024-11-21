@@ -2,9 +2,9 @@ const express = require("express");
 const axios = require('axios');
 const os = require('os');
 const path = require("path");
+//const jwt = require('jsonwebtoken');
 const {db_Select,db_Insert} = require('../modules/MasterModule');
 WapiRouter = express.Router();
-
 var moment = require('moment');
 
   //   ****    Get District list   ***  //
@@ -26,6 +26,35 @@ var moment = require('moment');
         res.send(result);
       }
   });
+    // WapiRouter.get('/get_json_web_token', async(req, res) => {
+    //   let jwtSecretKey = 'T%&#$%*J(^9$&';
+    //   let data = {
+    //       _tokenid: 'HUY2*$45',
+    //   }
+    //   const token = jwt.sign(data, jwtSecretKey);
+    //   result = { token_: token };
+    //   res.send(token);
+    // });
+  //   WapiRouter.post("/validateToken", (req, res) => {
+  //     // Tokens are generally passed in header of request
+  //     // Due to security reasons.
+  //     var data = req.body;
+  //     let jwtSecretKey = 'T%&#$%*J(^9$&';
+  //     try {
+  //         const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfdG9rZW5pZCI6IkhVWTIqJDQ1IiwiaWF0IjoxNzMyMDk0NDk0fQ.pevrFtmB-mdzG8pBJD-foS4PhUDa03XeumcRiPT7XLs';
+  //         const verified = jwt.verify(token, jwtSecretKey);
+  //         if (verified) {
+  //             res.send("Successfully Verified");
+  //         } else {
+  //             // Access Denied
+  //             res.send("Access Denied");
+  //         }
+  //     } catch (error) {
+  //         // Access Denied
+  //         res.send("Access Denied");
+  //     }
+  // });
+  
 
   //   ****    Get Range list using District id   ***  //
   WapiRouter.post('/rangelist', async(req, res) => {
