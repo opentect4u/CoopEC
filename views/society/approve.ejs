@@ -81,7 +81,11 @@
                 <div class="form-group">
                   <label for="exampleInputName1">Returning Officer of Society <span class="red">*</span> </label>
                   <select class="form-control select2" id="cntr_auth" name="cntr_auth" disabled>
-                    
+                    <% if(regauthlist.length > 0){
+                      var i = 1
+                      regauthlist.forEach(dt => { %>
+                      <option value="<%= dt.controlling_authority_id %>" <%= soc.cntr_auth == dt.controlling_authority_id ? 'selected' : '' %> ><%= dt.controlling_authority_name %></option>
+                        <% }) } %>
                   </select>
                 </div>
               </div>
