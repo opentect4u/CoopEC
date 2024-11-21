@@ -1,13 +1,15 @@
 <!-- partial:partials/_sidebar.html -->
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
-        <li class="nav-item active">
-            <a class="nav-link" href="/dash/dash">
+        
+        <li class="nav-item">
+            <!-- <a class="nav-link" href="/dash/dash" onclick="location.href='/dash/dash';"></a> -->
+            <a class="nav-link" onclick="location.href='/dash/dash';">
                 <i class="icon-grid menu-icon"></i>
                 <span class="menu-title">Dashboard</span>
             </a>
         </li>
-        <li class="nav-item active">
+        <li class="nav-item">
             <a class="nav-link" href="/dash/dashboard">
                 <!-- <i class="icon-grid menu-icon"></i> -->
                 <i class="fa fa-arrow-circle-o-right icon-grid menu-icon" aria-hidden="true"></i>
@@ -15,13 +17,13 @@
                 <span class="menu-title">Manage Society</span>
             </a>
         </li>
-        <li class="nav-item active">
+        <li class="nav-item">
             <a class="nav-link" href="/society/socadd">
                 <i class="fa fa-plus-circle icon-add menu-icon" aria-hidden="true"></i>
                 <span class="menu-title">Add Society</span>
             </a>
         </li>
-        <li class="nav-item active">
+        <li class="nav-item">
             <a class="nav-link" href="/society/managevillage">
                 <i class="fa fa-plus-circle icon-add menu-icon" aria-hidden="true"></i>
                 <span class="menu-title">Manage Village</span>
@@ -34,7 +36,7 @@
             </a>
         </li> -->
         <% if(user.user_type == 'S' || user.user_type == 'M'){  %>
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="/society/modifiedlist">
                     <i class="fa fa-check-circle icon-grid menu-icon" aria-hidden="true"></i>
                     <span class="menu-title">Approve Society</span>
@@ -42,8 +44,8 @@
             </li>
             <%  }  %>
             <% if(user.user_type == 'A' || user.user_type == 'S'){  %>
-            <li class="nav-item active">
-                <a class="nav-link" data-toggle="collapse" href="#error" aria-expanded="false" aria-controls="error">
+            <li class="nav-item">
+                <a class="nav-link navlink_cus" data-toggle="collapse" href="#error" aria-expanded="false" aria-controls="error">
                     <i class="fa fa-arrow-circle-o-right icon-grid menu-icon" aria-hidden="true"></i>
                     <span class="menu-title">Document</span>
                     <i class="menu-arrow"></i>
@@ -58,14 +60,14 @@
             </li>
             <%  }  %>
             <% if( user.user_type == 'S' ){  %>
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="/wdtls/doclist_for_approve">
                     <i class="fa fa-check-circle icon-grid menu-icon" aria-hidden="true"></i>
                     <span class="menu-title">Dcoument Approve</span>
                 </a>
             </li>
             <%  }  %>
-        <li class="nav-item active">
+        <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#report" aria-expanded="false" aria-controls="report">
                 <i class="fa fa-file-text icon-grid menu-icon" aria-hidden="true"></i>
                 <span class="menu-title">Report</span>
@@ -88,7 +90,7 @@
                 <span class="menu-title">Announcement</span>
             </a>
         </li> -->
-        <li class="nav-item active">
+        <li class="nav-item">
             <a class="nav-link" href="/wdtls/gallerylist">
                 <i class="fa fa-picture-o icon-grid menu-icon" aria-hidden="true"></i>
                 <span class="menu-title">Gallery</span>
@@ -100,13 +102,13 @@
                 <span class="menu-title">Statistic</span>
             </a>
         </li> -->
-        <li class="nav-item active">
+        <li class="nav-item">
             <a class="nav-link" href="/wdtls/faqlist">
                 <i class="fa fa-arrow-circle-o-right icon-grid menu-icon" aria-hidden="true"></i>
                 <span class="menu-title">FAQ</span>
             </a>
         </li>
-        <li class="nav-item active">
+        <li class="nav-item">
             <a class="nav-link" href="/wdtls/qlinkslist">
                 <i class="fa fa-arrow-circle-o-right icon-grid menu-icon" aria-hidden="true"></i>
                 <span class="menu-title">Important Links</span>
@@ -114,7 +116,7 @@
         </li>
         <%  } %>
         <%  if(user.user_type == 'A' || user.user_type == 'S' || user.user_type == 'M'){  %>
-        <li class="nav-item active">
+        <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#user" aria-expanded="false" aria-controls="user">
                 <i class="fa fa-users icon-grid menu-icon" aria-hidden="true"></i>
                 <span class="menu-title">User Management</span>
