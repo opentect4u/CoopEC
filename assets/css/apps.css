@@ -361,8 +361,11 @@ a.edit_dashboard{color: #fff;
   cursor: pointer;
 }
 
+.sidebar .nav .nav-item.active {
+  background: none !important; 
+}
 .sidebar .nav .nav-item.active > .nav-link {
-  background: #fff; 
+  background: none ; 
 }
 .sidebar .nav .nav-item .nav-link i.menu-icon {
   color: #6C7383;
@@ -384,6 +387,8 @@ a.edit_dashboard{color: #fff;
 .sidebar .nav .nav-item.active > .nav-link:hover .menu-arrow {
   color: #fff;
 }
+
+.navbar .navbar-brand-wrapper .navbar-brand img {height: 52px;}
 
 /* ======================= Utsab Roy Start End ======================= */
 
