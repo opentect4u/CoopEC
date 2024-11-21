@@ -6,10 +6,17 @@
         <form class="forms-sample" action="/society/socadddata" method="post">
          
             <div class="row">
-              <div class="col-md-12">
+              <div class="col-md-6">
                 <div class="form-group">
                   <label for="exampleInputName1">Society Name<span class="red">*</span></label>
                   <input type="text" class="form-control"  name="cop_soc_name" value="" required>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputName1"> Status </label><br>
+                  <input type="radio" id="new_flag" name="new_flag" value="O" > Old
+                  <input type="radio" id="new_flag1" name="new_flag" value="N" > New
                 </div>
               </div>
             </div>
@@ -251,7 +258,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="exampleInputName1">Type of Special Officer </label>
-                  <select class="form-control" id="officer_type" name="officer_type" >
+                  <select class="form-control" id="officer_type" name="officer_type" disabled>
                     <option value="0">Select Special Officer </option>
                     <% if(officertypelist.length > 0){
                       var i = 1
@@ -272,13 +279,6 @@
                 <div class="form-group">
                   <label for="exampleInputName1">Audit Completed upto <span class="red">*</span> </label>
                   <!-- <input type="date" class="form-control"  name="audit_upto" value="<%= moment(soc.audit_upto).format('yyyy-MM-DD')  %>" required> -->
-                  <!-- <input type="text" maxlength="1" pattern="[0-9]" required>
-                  <input type="text" maxlength="1" pattern="[0-9]" required>
-                  <input type="text" maxlength="1" pattern="[0-9]" required>
-                  <input type="text" maxlength="1" pattern="[0-9]" required>
-                  <input type="text" maxlength="1" pattern="[0-9]" required>
-                  <input type="text" maxlength="1" pattern="[0-9]" required>
-                  <input type="text" maxlength="1" pattern="[0-9]" required> -->
                   <!-- <input type="text" class="form-control" name="audit_upto" value="" placeholder="YYYY-YY" id="designationInput" maxlength="7" required> -->
                   <input 
     type="text" 
@@ -286,8 +286,7 @@
     name="audit_upto" 
     placeholder="YYYY-YY" 
     id="designationInput" 
-    maxlength="7" value="<%= soc.audit_upto %>"
-    required 
+    maxlength="7" value="<%= soc.audit_upto %>" 
     pattern="^\d{4}-\d{2}$" 
     title="Format: YYYY-YY (e.g., 2023-24)">
                 </div>
@@ -731,6 +730,20 @@ $(document).ready(function() {
         var selectedValue = $(this).val();
         changecasest(selectedValue);
     });
+
+    $('#mgmt_status').change(function() {
+   
+        var selectedValue = $(this).val();
+        changemngstatus(selectedValue);
+    });
+    function changemngstatus(selectedValue){
+      if(selectedValue == 3 || selectedValue == 4)
+        {
+          $('#officer_type').attr('disabled', false);
+        }else{
+          $('#officer_type').attr('disabled', true);
+        }
+    }
 });
 $(document).ready(function() {
   $('#designationInput').change(function() {
