@@ -83,7 +83,7 @@ select.form-control, select.asColorPicker-input, .dataTables_wrapper select, .js
 .radioBtn_Cus label{margin-left: 5px;}
 
 .subtitle_Form_cus h3{font-size: 16px; display: flex; font-weight: bold;}
-.subtitle_Form_cus h3 .radioBtn_right{margin: 0 0 0 auto; display: flex;}
+.subtitle_Form_cus h3 .radioBtn_right{ display: flex;}
 .radioBtn_right .radioBtn_Cus{margin-left: 15px;}
 .urlby label{display: block; width: 100%;}
 
