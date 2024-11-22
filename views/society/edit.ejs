@@ -142,18 +142,18 @@
                   </select>
                 </div>
               </div>
-              <div class="col-md-6 subtitle_Form_cus">
+              <div class="col-md-12 subtitle_Form_cus">
                 <h3>Please Select Maping
                 <div class="radioBtn_right">
 
                   <div class="radioBtn_Cus"><input type="radio" id="U" name="urban_rural_flag" value="U"  <%= soc.urban_rural_flag == 'U' ? 'checked' : '' %> ><label><b>Urban Maping</b></label></div>
                  <div class="radioBtn_Cus"><input type="radio" id="R" name="urban_rural_flag" value="R" <%= soc.urban_rural_flag == 'R' ? 'checked' : '' %> ><label><b>Rural Maping</b></label></div>
+                 <div class="radioBtn_Cus"><input type="radio" id="D" name="urban_rural_flag" value="D" <%= soc.urban_rural_flag == 'D' ? 'checked' : '' %> ><label><b>Development Authority</b></label></div>
                 </div>
 
                 </h3>
               </div>
-              <div class="col-md-6" ></div>
-              
+             
               <!-- <div class="col-md-3" >
               </div>
               <div class="col-md-3 radioBtn_Cus"><input type="radio" id="U" name="urban_rural_flag" value="U"  <%= soc.urban_rural_flag == 'U' ? 'checked' : '' %> ><label><b>Urban Maping</b></label></div>
@@ -243,6 +243,19 @@
                   <input type="text" class="form-control" name="mouza" value="<%= soc.mouza %>" >
                 </div>
               </div>
+              <div class="col-md-6 dv">
+                <div class="form-group">
+                  <label for="exampleInputName1">Development Authority Name <span class="red">*</span> </label>
+                  <select class="form-control select2" id="dev_auth_id" name="dev_auth_id" >
+                    <option value="">Development Authority </option>
+                    <% if(devauth_list.length > 0){
+                      var i = 1
+                      devauth_list.forEach(dt => { %>
+                      <option value="<%= dt.id %>" <%= soc.dev_auth_id == dt.id ? 'selected' : '' %> ><%= dt.dev_auth_name %></option>
+                        <% }) } %>
+                  </select>
+                </div>
+              </div>
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="exampleInputName1">Pin Code <span class="red">*</span></label>
@@ -295,7 +308,6 @@
                 <div class="form-group">
                   <label for="exampleInputName1">Audit Completed upto  </label>
                   <!-- <input type="date" class="form-control"  name="audit_upto" value="<%= moment(soc.audit_upto).format('yyyy-MM-DD')  %>" required> -->
-                  <!-- <input type="text" maxlength="1" pattern="[0-9]" required> -->
                   <!-- <input type="text" class="form-control" name="audit_upto" value="" placeholder="YYYY-YY" id="designationInput" maxlength="7" required> -->
                   <input 
     type="text" 
@@ -670,19 +682,17 @@
     var urban_rural_flag = '<%= soc.urban_rural_flag %>'
    if(urban_rural_flag == 'U'){
     $('.rulby').hide();
-    // $('#ulb_catg').attr('required',true);
-    // $('#ulb_id').attr('required',true);
-    // $('#block_id').attr('required',false);
-    // $('#gp_id').attr('required',false);
+    $('.dv').hide();
    }else if(urban_rural_flag == 'R'){
-    // $('#block_id').attr('required',true);
-    // $('#gp_id').attr('required',true);
-    // $('#ulb_catg').attr('required',false);
-    // $('#ulb_id').attr('required',false);
     $('.urlby').hide();
+    $('.dv').hide();
+   }else if(urban_rural_flag == 'D'){
+    $('.urlby').hide();
+    $('.rulby').hide();
    }else{
     $('.urlby').hide();
     $('.rulby').hide();
+    $('.dv').hide();
    }
    
     
@@ -693,8 +703,10 @@
              $('#ulb_id').attr('required',true);
              $('#block_id').attr('required',false);
              $('#gp_id').attr('required',false);
+             $('#dev_auth_id').attr('required',false);
             $('.urlby').show();
             $('.rulby').hide();
+            $('.dv').hide();
           } else if ($(this).val() == 'R') {
           //  $('#block_id').addClass('form-control');
          //    $('#block_id').select2(); 
@@ -702,8 +714,21 @@
              $('#gp_id').attr('required',true);
              $('#ulb_catg').attr('required',false);
              $('#ulb_id').attr('required',false);
+             $('#dev_auth_id').attr('required',false);
               $('.rulby').show();
               $('.urlby').hide();
+              $('.dv').hide();
+          }else if ($(this).val() == 'D') {
+          //  $('#block_id').addClass('form-control');
+         //    $('#block_id').select2(); 
+             $('#block_id').attr('required',false);
+             $('#gp_id').attr('required',false);
+             $('#ulb_catg').attr('required',false);
+             $('#ulb_id').attr('required',false);
+             $('#dev_auth_id').attr('required',true);
+              $('.rulby').hide();
+              $('.urlby').hide();
+              $('.dv').show();
               
           }
       });

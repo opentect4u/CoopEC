@@ -127,22 +127,15 @@
                   </select>
                 </div>
               </div>
-              <div class="col-md-6 subtitle_Form_cus">
+              <div class="col-md-12 subtitle_Form_cus">
                 <h3>Please Select Maping
                 <div class="radioBtn_right">
                   <div class="radioBtn_Cus"><input type="radio" id="U" name="urban_rural_flag" value="U"   ><label><b>Urban Maping</b></label></div>
                  <div class="radioBtn_Cus"><input type="radio" id="R" name="urban_rural_flag" value="R"  ><label><b>Rural Maping</b></label></div>
+                 <div class="radioBtn_Cus"><input type="radio" id="D" name="urban_rural_flag" value="D" ><label><b>Development Authority</b></label></div>
                 </div>
-
                 </h3>
               </div>
-              <div class="col-md-6" ></div>
-              
-              <!-- <div class="col-md-3" >
-              </div>
-              <div class="col-md-3 radioBtn_Cus"><input type="radio" id="U" name="urban_rural_flag" value="U"  <%= soc.urban_rural_flag == 'U' ? 'checked' : '' %> ><label><b>Urban Maping</b></label></div>
-              <div class="col-md-3 radioBtn_Cus"><input type="radio" id="R" name="urban_rural_flag" value="R" <%= soc.urban_rural_flag == 'R' ? 'checked' : '' %> ><label><b>Rural Maping</b></label></div>
-               -->
               <div class="col-md-6 urlby" >
                 <div class="form-group">
                   <label for="exampleInputName1">Category of Urban Local Body <span class="red">*</span></label>
@@ -225,6 +218,19 @@
                 <div class="form-group">
                   <label for="exampleInputName1">Mouza</label>
                   <input type="text" class="form-control" name="mouza" value="" >
+                </div>
+              </div>
+              <div class="col-md-6 dv">
+                <div class="form-group">
+                  <label for="exampleInputName1">Development Authority Name <span class="red">*</span> </label>
+                  <select class="form-control select2" id="dev_auth_id" name="dev_auth_id" >
+                    <option value="">Development Authority </option>
+                    <% if(devauth_list.length > 0){
+                      var i = 1
+                      devauth_list.forEach(dt => { %>
+                      <option value="<%= dt.id %>" <%= soc.dev_auth_id == dt.id ? 'selected' : '' %> ><%= dt.dev_auth_name %></option>
+                        <% }) } %>
+                  </select>
                 </div>
               </div>
               <div class="col-md-6">
@@ -655,6 +661,7 @@
    }else{
     $('.urlby').hide();
     $('.rulby').hide();
+    $('.dv').hide();
    }
    
     
@@ -667,16 +674,23 @@
              $('#gp_id').attr('required',false);
             $('.urlby').show();
             $('.rulby').hide();
+            $('.dv').hide();
           } else if ($(this).val() == 'R') {
-          //  $('#block_id').addClass('form-control');
-         //    $('#block_id').select2(); 
              $('#block_id').attr('required',true);
              $('#gp_id').attr('required',true);
              $('#ulb_catg').attr('required',false);
              $('#ulb_id').attr('required',false);
               $('.rulby').show();
               $('.urlby').hide();
-              
+              $('.dv').hide();
+          } else if ($(this).val() == 'D') {
+            $('#block_id').attr('required',false);
+             $('#gp_id').attr('required',false);
+             $('#ulb_catg').attr('required',false);
+             $('#ulb_id').attr('required',false);
+              $('.rulby').hide();
+              $('.urlby').hide();
+              $('.dv').show();
           }
       });
 

@@ -134,17 +134,17 @@
                   </select>
                 </div>
               </div>
-              <div class="col-md-6 subtitle_Form_cus">
+              <div class="col-md-12 subtitle_Form_cus">
                 <h3>Please Select Maping
                 <div class="radioBtn_right">
-
                   <div class="radioBtn_Cus"><input type="radio" id="U" name="urban_rural_flag" value="U"  <%= soc.urban_rural_flag == 'U' ? 'checked' : '' %> disabled><label><b>Urban Maping</b></label></div>
                  <div class="radioBtn_Cus"><input type="radio" id="R" name="urban_rural_flag" value="R" <%= soc.urban_rural_flag == 'R' ? 'checked' : '' %> disabled><label><b>Rural Maping</b></label></div>
+                 <div class="radioBtn_Cus"><input type="radio" id="R" name="urban_rural_flag" value="R" <%= soc.urban_rural_flag == 'D' ? 'checked' : '' %> disabled><label><b>Development Authority</b></label></div>
                 </div>
 
                 </h3>
               </div>
-              <div class="col-md-6" ></div>
+              <% if(soc.urban_rural_flag == 'U' ) { %>
               <div class="col-md-6 urlby" >
                 <div class="form-group">
                   <label for="exampleInputName1">Category of Urban Local Body <span class="red">*</span></label>
@@ -184,6 +184,8 @@
                   </select>
                 </div>
               </div>
+              <% } %>
+              <% if(soc.urban_rural_flag == 'R' ) { %>
               <div class="col-md-6 rulby" >
                 <div class="form-group">
                   <label for="exampleInputName1">Block <span class="red">*</span></label>
@@ -223,6 +225,22 @@
                   </select>
                 </div>
               </div>
+              <% } %>
+              <% if(soc.urban_rural_flag == 'D' ) { %>
+              <div class="col-md-6 dv">
+                <div class="form-group">
+                  <label for="exampleInputName1">Development Authority Name <span class="red">*</span> </label>
+                  <select class="form-control select2" id="dev_auth_id" name="dev_auth_id" disabled>
+                    <option value="">Development Authority </option>
+                    <% if(devauth_list.length > 0){
+                      var i = 1
+                      devauth_list.forEach(dt => { %>
+                      <option value="<%= dt.id %>" <%= soc.dev_auth_id == dt.id ? 'selected' : '' %> ><%= dt.dev_auth_name %></option>
+                        <% }) } %>
+                  </select>
+                </div>
+              </div>
+              <% } %>
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="exampleInputName1">Pin Code <span class="red">*</span></label>

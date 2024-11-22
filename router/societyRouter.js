@@ -49,7 +49,7 @@ SocietyRouter.get('/edit', async(req, res) => {
         
         // Extract range_id from session
         const soc_id = req.query.id;
-        const range_id = req.session.user.range_id;
+        var range_id = req.session.user.range_id;
         const select = "*";
         const table_name = "md_society";
         const whr = `id='${soc_id}' `;
@@ -59,6 +59,11 @@ SocietyRouter.get('/edit', async(req, res) => {
         const typelist = await db_Select('*', 'md_society_type', null, null);
         const soctierres = await db_Select('*', 'md_soc_tier', null, null);
         const regauttypehres = await db_Select('*', 'md_controlling_authority_type', null, null);
+        if(range_id > 0){
+        var devauth_name = await db_Select('*', 'md_developement_authority', `range_id=${range_id}`, null);
+         }else{
+          var devauth_name = await db_Select('*', 'md_developement_authority', null, null);
+         }
         const regauthres = await db_Select('*', 'md_controlling_authority', null, null);
         const zoneres = await db_Select('*', 'md_zone', null, null);
         const distres = await db_Select('*', 'md_district', null, null);
@@ -88,7 +93,7 @@ SocietyRouter.get('/edit', async(req, res) => {
           officertypelist: officertyperes.suc > 0 ? officertyperes.msg : '',caseflaglist: caseflagres.suc > 0 ? caseflagres.msg : '',
           wardlist:wardres.suc > 0 ? wardres.msg : '',blocklist:blockres.suc > 0 ? blockres.msg : '',
           gplist:gpres.suc > 0 ? gpres.msg : '',villlist:villres.suc > 0 ? villres.msg : '',
-          boardmembdlist: boardmembdtsl.suc > 0 ? boardmembdtsl.msg : '',
+          boardmembdlist: boardmembdtsl.suc > 0 ? boardmembdtsl.msg : '',devauth_list : devauth_name.suc > 0 ? devauth_name.msg : ''
         };
         // Render the view with data
         res.render('society/edit', res_dt);
@@ -122,10 +127,11 @@ SocietyRouter.post('/socedit', async(req, res) => {
       var ulb_catg = data.ulb_catg || 0 ;
       var officer_type = data.officer_type || '' ;
       var ulb_id  = data.ulb_id || 0 ;
+      var dev_auth_id  = data.dev_auth_id || 0 ;
       var fields = `cop_soc_name = '${data.cop_soc_name.split("'").join("\\'")}',new_flag='${data.new_flag}',reg_no = '${data.reg_no}',reg_date = '${data.reg_date}',soc_tier = '${data.soc_tier}',
       soc_type = '${data.soc_type}',cntr_auth_type='${data.cntr_auth_type}',cntr_auth='${data.cntr_auth}',dist_code='${data.dist_code}',
       ulb_catg = '${ulb_catg}',ulb_id = '${ulb_id}',ward_no = '${data.ward_no}',pin_no = '${data.pin_no}',range_code = '${data.range_code}',
-      urban_rural_flag ='${data.urban_rural_flag}',
+      urban_rural_flag ='${data.urban_rural_flag}',dev_auth_id ='${data.dev_auth_id}',
       block_id = '${block_id}',gp_id = '${gp_id}',vill_id = '${data.vill_id}',mouza = '${data.mouza}',address='${data.address.split("'").join("\\'")}',num_of_memb='${data.num_of_memb}',audit_upto='${data.audit_upto}',
       mgmt_status = '${data.mgmt_status}',officer_type = '${officer_type}',last_elec_date = '${data.last_elec_date}',
       tenure_ends_on = '${data.tenure_ends_on}',elec_due_date = '${data.elec_due_date}',contact_name='${data.contact_name}',contact_designation='${data.contact_designation}',
@@ -204,7 +210,11 @@ SocietyRouter.get('/socadd', async(req, res) => {
         var ranzeres = await db_Select('*', 'md_range', null, null);
         var distcode =  0;
       }
-      
+      if(range_id > 0){
+        var devauth_name = await db_Select('*', 'md_developement_authority', `range_id=${range_id}`, null);
+         }else{
+          var devauth_name = await db_Select('*', 'md_developement_authority', null, null);
+         }
      
       const ulbcatgres = await db_Select('*', 'md_ulb_catg', null, null);
       const ulbres = await db_Select('*', 'md_ulb', null, null);
@@ -229,7 +239,7 @@ SocietyRouter.get('/socadd', async(req, res) => {
         officertypelist: officertyperes.suc > 0 ? officertyperes.msg : '',caseflaglist: caseflagres.suc > 0 ? caseflagres.msg : '',
         wardlist:wardres.suc > 0 ? wardres.msg : '',blocklist:blockres.suc > 0 ? blockres.msg : '',
         gplist:gpres.suc > 0 ? gpres.msg : '',villlist:villres.suc > 0 ? villres.msg : '',
-        boardmembdlist: boardmembdtsl.suc > 0 ? boardmembdtsl.msg : '',
+        boardmembdlist: boardmembdtsl.suc > 0 ? boardmembdtsl.msg : '',devauth_list : devauth_name.suc > 0 ? devauth_name.msg : ''
       };
       // Render the view with data
       res.render('society/add', res_dt);
@@ -257,9 +267,10 @@ SocietyRouter.post('/socadddata', async(req, res) => {
     var gp_id  = data.gp_id || 0 ;
     var ulb_catg = data.ulb_catg || 0 ;
     var ulb_id  = data.ulb_id || 0 ;
+    var dev_auth_id  = data.dev_auth_id || 0 ;
     var officer_type = data.officer_type || '' ;  
-    var fields = `(cop_soc_name,new_flag,reg_no,reg_date,soc_type,soc_tier,cntr_auth_type,cntr_auth,zone_code,dist_code,range_code,urban_rural_flag,ulb_catg,ulb_id,ward_no,block_id,gp_id,vill_id,pin_no,address,mouza,num_of_memb,audit_upto,mgmt_status,officer_type,last_elec_date,tenure_ends_on,elec_due_date,contact_name,contact_designation,contact_number,email,case_id,case_num,functional_status,created_by,created_dt,created_ip)`;
-    var values = `('${data.cop_soc_name.split("'").join("\\'")}','${data.new_flag}','${data.reg_no}','${data.reg_date}','${data.soc_type}','${data.soc_tier}','${data.cntr_auth_type}','${data.cntr_auth}','${data.zone_code}','${data.dist_code}','${data.range_code}','${data.urban_rural_flag}','${ulb_catg}','${ulb_id}','${data.ward_no}','${block_id}','${gp_id}','${data.vill_id}','${data.pin_no}','${data.address}','${data.mouza}','${data.num_of_memb}','${data.audit_upto}','${data.mgmt_status}','${data.officer_type}','${data.last_elec_date}','${data.tenure_ends_on}','${data.elec_due_date}','${data.contact_name}','${data.contact_designation}','${data.contact_number}','${data.email}','${data.case_id}','${data.case_num}','${data.functional_status}','${user_id}','${datetime}','${ip}')`;
+    var fields = `(cop_soc_name,new_flag,reg_no,reg_date,soc_type,soc_tier,cntr_auth_type,cntr_auth,zone_code,dist_code,range_code,urban_rural_flag,dev_auth_id,ulb_catg,ulb_id,ward_no,block_id,gp_id,vill_id,pin_no,address,mouza,num_of_memb,audit_upto,mgmt_status,officer_type,last_elec_date,tenure_ends_on,elec_due_date,contact_name,contact_designation,contact_number,email,case_id,case_num,functional_status,created_by,created_dt,created_ip)`;
+    var values = `('${data.cop_soc_name.split("'").join("\\'")}','${data.new_flag}','${data.reg_no}','${data.reg_date}','${data.soc_type}','${data.soc_tier}','${data.cntr_auth_type}','${data.cntr_auth}','${data.zone_code}','${data.dist_code}','${data.range_code}','${data.urban_rural_flag}','${data.dev_auth_id}','${ulb_catg}','${ulb_id}','${data.ward_no}','${block_id}','${gp_id}','${data.vill_id}','${data.pin_no}','${data.address}','${data.mouza}','${data.num_of_memb}','${data.audit_upto}','${data.mgmt_status}','${data.officer_type}','${data.last_elec_date}','${data.tenure_ends_on}','${data.elec_due_date}','${data.contact_name}','${data.contact_designation}','${data.contact_number}','${data.email}','${data.case_id}','${data.case_num}','${data.functional_status}','${user_id}','${datetime}','${ip}')`;
     var whr = null;
     var save_data = await db_Insert(table_name, fields, values, whr, 0);
   
@@ -571,7 +582,11 @@ SocietyRouter.get('/modifiedlist', async(req, res) => {
       const gpres = await db_Select('*', 'md_gp',  `dist_id='${distcode}'`, null);
       const villres = await db_Select('*', 'md_village',  `dist_id='${distcode}'`, null);
       const boardmembdtsl = await db_Select('*', 'td_board_member',  `soc_id='${soc_id}'`, null);
-      
+      if(range_id > 0){
+        var devauth_name = await db_Select('*', 'md_developement_authority', `range_id=${range_id}`, null);
+         }else{
+          var devauth_name = await db_Select('*', 'md_developement_authority', null, null);
+         }
   
       // Prepare data for rendering
       const res_dt = {
@@ -584,7 +599,7 @@ SocietyRouter.get('/modifiedlist', async(req, res) => {
         officertypelist: officertyperes.suc > 0 ? officertyperes.msg : '',caseflaglist: caseflagres.suc > 0 ? caseflagres.msg : '',
         wardlist:wardres.suc > 0 ? wardres.msg : '',blocklist:blockres.suc > 0 ? blockres.msg : '',
         gplist:gpres.suc > 0 ? gpres.msg : '',villlist:villres.suc > 0 ? villres.msg : '',
-        boardmembdlist: boardmembdtsl.suc > 0 ? boardmembdtsl.msg : '',
+        boardmembdlist: boardmembdtsl.suc > 0 ? boardmembdtsl.msg : '',devauth_list : devauth_name.suc > 0 ? devauth_name.msg : ''
       };
       // Render the view with data
       res.render('society/approve', res_dt);
