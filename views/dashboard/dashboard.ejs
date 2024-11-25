@@ -482,8 +482,7 @@
                 <span class="counter_soc">5</span>
             </label>
           </div> -->
-          
-<!--					  <a style="cursor: pointer; color: blue; text-decoration: underline;" href="/">View</a>-->
+    <!--	<a style="cursor: pointer; color: blue; text-decoration: underline;" href="/">View</a>-->
         
         </div>
         </div>
@@ -491,9 +490,7 @@
         </div>
 
         <div class="col-sm-4 float-left">
-				
           <div class="bloxkSec bloxkSec_paiChart" style="height: 315px">
-
           <!-- <div class="bloxkSec"> -->
             <!-- <div> -->
             <canvas id="pieChart"></canvas>
@@ -506,13 +503,13 @@
     </div>
   </div>
   <script>
-    societytot(<%= user.range_id %>);
+    societytot('<%= user.range_id %>');
     societymodifiedstatus('<%= user.range_id %>');
     societyelectiondue_monthwise6('<%= user.range_id %>',6);
     societyelectiondue_monthwise3('<%= user.range_id %>',3);
-    electionstatus(<%= user.range_id %>);
-    barchartsoctype(<%= user.range_id %>);
-    pieChartId(<%= user.range_id %>);
+    electionstatus('<%= user.range_id %>');
+    barchartsoctype('<%= user.range_id %>');
+    pieChartId('<%= user.range_id %>');
     $('#range_code').change(function() {
         var range_code = $(this).val();
         societytot(range_code);
@@ -683,24 +680,7 @@
         });
       }
 
-//       var pieChartId = document.getElementById("pieChart");
-// if(pieChartId){
-// 	var ctxP = document.getElementById("pieChart").getContext('2d');
-//     var myPieChart = new Chart(ctxP, {
-//       type: 'pie',
-//       data: {
-//         labels: ["Rural Mapping", "Urban Mapping"],
-//         datasets: [{
-//           data: [300, 50],
-//           backgroundColor: ["#228fd4", "#eb5437"],
-//           hoverBackgroundColor: ["#5ab3ec", "#ce2a0b"]
-//         }]
-//       },
-//       options: {
-//         responsive: true
-//       }
-//     });
-// }   
+ 
 
 function pieChartId(range_code) {
 //  var pieChartId = document.getElementById("pieChart");
@@ -717,6 +697,8 @@ function pieChartId(range_code) {
            var soc = response.soctot;
            var urban_tot = soc.urban_tot ? soc.urban_tot : 0 
            var rular_tot = soc.rular_tot ? soc.rular_tot : 0 
+           var six_month_data = response.six_month_data.month_before ? response.six_month_data.month_before : 0
+           var three_month_data = response.three_month_data.month_before ? response.three_month_data.month_before : 0 
            var ctxP = document.getElementById("pieChart").getContext('2d');
            var ctxP_1 = document.getElementById("pieChart_1").getContext('2d');
            var ctxP_2 = document.getElementById("pieChart_2").getContext('2d');
@@ -737,13 +719,13 @@ function pieChartId(range_code) {
       }
     });
 
-    var myPieChart = new Chart(ctxP_1, {
+    var myPieChart1 = new Chart(ctxP_1, {
       // type: 'pie',
       type: 'doughnut',
       data: {
-        labels: ["3 Months", "3 Months", "Ongoing Elections", "Completed Elections", "Need Action"],
+        labels: ["6 Months", "3 Months", "Ongoing Elections", "Completed Elections", "Need Action"],
         datasets: [{
-          data: [150, 350, 250, 156, 220],
+          data: [six_month_data, three_month_data, 2, 1, 1],
           backgroundColor: ["#7DA0FA", "#4747A1", "#7978E9", "#F3797E", "#43A8D9"],
           hoverBackgroundColor: ["#6a92f9", "#7373f0", "#5b5ae6", "#d7575c", "#2988b7"],
           borderWidth: 3,
@@ -755,7 +737,7 @@ function pieChartId(range_code) {
     });
 
 
-    var myPieChart = new Chart(ctxP_2, {
+    var myPieChart2 = new Chart(ctxP_2, {
       // type: 'pie',
       type: 'doughnut',
       data: {
@@ -771,15 +753,10 @@ function pieChartId(range_code) {
         responsive: true
       }
     });
-        
-  
   },
-        
-
-
     error: function(err) {
             // Handle any errors
-            $('#dist_code').html('<option value="0">Error fetching data. Please try again.</option>');
+            $('#dist_code').html('Error fetching data. Please try again');
             console.error('AJAX Error:', err); // Log error for debugging
         }
       });

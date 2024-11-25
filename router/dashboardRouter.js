@@ -528,8 +528,26 @@ DashboardRouter.post('/get_rular_urban',async(req,res)=>{
     where = data.range_code > 0 ? `functional_status = 'Functional' AND range_code ='${data.range_code}'` : `functional_status = 'Functional'`,
     order = null;
     var res_dt = await db_Select(select, table_name, where, order);
+
+   
+      const select_election = "count(*) as month_before";
+     
+      var range_code = data.range_code;
+      if(range_code > 0){
+      var table_name6 = `md_society a WHERE a.functional_status='Functional' AND a.approve_status = 'A' AND a.tenure_ends_on >= CURDATE() AND a.tenure_ends_on < DATE_ADD(CURDATE(), INTERVAL 6 MONTH) AND a.range_code = "${range_code}" `;
+      var table_name3 = `md_society a WHERE a.functional_status='Functional' AND a.approve_status = 'A' AND a.tenure_ends_on >= CURDATE() AND a.tenure_ends_on < DATE_ADD(CURDATE(), INTERVAL 3 MONTH) AND a.range_code = "${range_code}" `;
+      }else{
+        var select_range = range_code > 0 ? `AND a.range_code = '${range_code}'` : '' ;
+        var table_name6 = `md_society a WHERE a.functional_status='Functional' ${select_range} AND a.approve_status = 'A' AND a.tenure_ends_on >= CURDATE() AND a.tenure_ends_on < DATE_ADD(CURDATE(), INTERVAL 6 MONTH) `;
+        var table_name3 = `md_society a WHERE a.functional_status='Functional' ${select_range} AND a.approve_status = 'A' AND a.tenure_ends_on >= CURDATE() AND a.tenure_ends_on < DATE_ADD(CURDATE(), INTERVAL 3 MONTH) `;
+      }
+      var res_dt6 = await db_Select(select_election, table_name6, null, null);
+      var res_dt3 = await db_Select(select_election, table_name3, null, null);
+      
     const responseData = {
-      soctot: res_dt.suc > 0 ? res_dt.msg[0] : '', // Echoing the received claims
+      soctot: res_dt.suc > 0 ? res_dt.msg[0] : '',
+      six_month_data:res_dt6.suc > 0 ? res_dt6.msg[0] : '',
+      three_month_data:res_dt3.suc > 0 ? res_dt3.msg[0] : '',// Echoing the received claims
     };
     // Send response back to the client
     res.json(responseData);
