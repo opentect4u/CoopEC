@@ -543,11 +543,16 @@ DashboardRouter.post('/get_rular_urban',async(req,res)=>{
       }
       var res_dt6 = await db_Select(select_election, table_name6, null, null);
       var res_dt3 = await db_Select(select_election, table_name3, null, null);
+
+      var select_ele = `SUM(CASE WHEN election_status = 'DUE' THEN 1 ELSE 0 END) AS due_tot,SUM(CASE WHEN election_status = 'ONGOING' THEN 1 ELSE 0 END) AS ongoing_tot, SUM(CASE WHEN election_status = 'DONE' THEN 1 ELSE 0 END) AS done_tot`,
+      where_ele = data.range_code > 0 ? `functional_status = 'Functional' AND approve_status = 'A' AND range_code ='${data.range_code}'` : `functional_status = 'Functional' AND approve_status = 'A' `;
+      var res_dt_ele = await db_Select(select_ele, `md_society`, where_ele, null);
       
     const responseData = {
       soctot: res_dt.suc > 0 ? res_dt.msg[0] : '',
       six_month_data:res_dt6.suc > 0 ? res_dt6.msg[0] : '',
-      three_month_data:res_dt3.suc > 0 ? res_dt3.msg[0] : '',// Echoing the received claims
+      three_month_data:res_dt3.suc > 0 ? res_dt3.msg[0] : '',
+      election_result_data:res_dt_ele.suc > 0 ? res_dt_ele.msg[0] : '',// Echoing the received claims
     };
     // Send response back to the client
     res.json(responseData);

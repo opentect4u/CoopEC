@@ -233,7 +233,7 @@
           <div class="threeBoxTxt">
             <h2>Ongoing Elections</h2>
             <p class="price">
-      <span class="lit" id="total_ongoing"></span>
+      
             </p>
             <div class="button_sape">
             <form action="/report/society_ele_status_result" method="post">
@@ -699,6 +699,10 @@ function pieChartId(range_code) {
            var rular_tot = soc.rular_tot ? soc.rular_tot : 0 
            var six_month_data = response.six_month_data.month_before ? response.six_month_data.month_before : 0
            var three_month_data = response.three_month_data.month_before ? response.three_month_data.month_before : 0 
+           var ongoing_tot = response.election_result_data.ongoing_tot ? response.election_result_data.ongoing_tot : 0;
+           var completed_tot = response.election_result_data.done_tot ? response.election_result_data.done_tot : 0;
+           var due_tot = response.election_result_data.due_tot ? response.election_result_data.due_tot : 0;
+       
            var ctxP = document.getElementById("pieChart").getContext('2d');
            var ctxP_1 = document.getElementById("pieChart_1").getContext('2d');
            var ctxP_2 = document.getElementById("pieChart_2").getContext('2d');
@@ -725,7 +729,7 @@ function pieChartId(range_code) {
       data: {
         labels: ["6 Months", "3 Months", "Ongoing Elections", "Completed Elections", "Need Action"],
         datasets: [{
-          data: [six_month_data, three_month_data, 2, 1, 1],
+          data: [six_month_data, three_month_data, ongoing_tot, completed_tot, due_tot],
           backgroundColor: ["#7DA0FA", "#4747A1", "#7978E9", "#F3797E", "#43A8D9"],
           hoverBackgroundColor: ["#6a92f9", "#7373f0", "#5b5ae6", "#d7575c", "#2988b7"],
           borderWidth: 3,
