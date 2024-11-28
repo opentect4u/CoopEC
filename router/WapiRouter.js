@@ -528,7 +528,7 @@ var moment = require('moment');
         // Log the error and send an appropriate response
         console.error('Error during dashboard rendering:', error);
         //res.status(500).send('An error occurred while loading the dashboard.');
-        result = { suc: 0,status: 'Fail', msg: req.body };
+        result = { suc: 0,status: 'Fail', msg: 'Run Time Error' };
         res.send(result);
       }
    })
