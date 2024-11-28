@@ -210,11 +210,11 @@ function Home() {
 		<>
 			<BannerSlider />
 
-			<div className="wrapper">
+			{/* <div className="wrapper">
 				<div className="col-sm-12">
 					<Anouncement />
 				</div>
-			</div>
+			</div> */}
 
 			<div className="body_custom" id="main_info_content">
 
