@@ -524,13 +524,13 @@ var moment = require('moment');
         //   result = { suc: 0,status: 'Fail', msg: res_dt };
         //   res.send(result);
         // }
-            result = { suc: 0,status: 'Fail', msg: 'Try is closed' };
+            result = { suc: 0,status: 'Fail' };
           res.send(result);
       } catch (error) {
         // Log the error and send an appropriate response
         console.error('Error during dashboard rendering:', error);
         //res.status(500).send('An error occurred while loading the dashboard.');
-        result = { suc: 0,status: 'Fail', msg: 'Run Time Error' };
+        result = { suc: 0,status: 'Fail' };
         res.send(result);
       }
    })
