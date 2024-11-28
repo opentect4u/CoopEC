@@ -205,6 +205,13 @@ reportRouter.use((req, res, next) => {
         const range_id = req.session.user.range_id;
         var range_code = postdata.range_id;
         var month_interval = postdata.month_tenure;
+        if(month_interval == 6 ){
+          var title_sufix = 'Within Six(6) Month';
+        }else if(month_interval == 3 ){
+          var title_sufix = 'Within Three(3) Month';
+        }else{
+          var title_sufix = '';
+        }
         var title = 'Election Upcoming';
         const select = "a.id,a.cop_soc_name,a.last_elec_date,a.tenure_ends_on,a.elec_due_date,a.reg_no,b.soc_type_name,c.dist_name,d.zone_name,e.range_name,f.soc_tier_name";
         if(range_id > 0){ 
@@ -547,10 +554,13 @@ reportRouter.use((req, res, next) => {
         var range_code = postdata.range_id;
         if(postdata.election_status == 'ONGOING'){
           var title = 'ONGOING';
+          var order = 'order by a.elec_due_date DESC';
         }else if(postdata.election_status == 'DUE'){
           var title = 'DUE';
+          var order = '';
         }else{
           var title = 'DONE';
+          var order = 'order by a.last_elec_date DESC';
         }
         
         const select = "a.id,a.cop_soc_name,a.last_elec_date,a.tenure_ends_on,a.elec_due_date,a.reg_no,b.soc_type_name,c.dist_name,d.zone_name,e.range_name,f.soc_tier_name";
@@ -564,7 +574,7 @@ reportRouter.use((req, res, next) => {
         }
     
         // Execute database query
-        const result = await db_Select(select, table_name, null, null);
+        const result = await db_Select(select, table_name, null, order);
         const ranzeres = await db_Select('*', 'md_range',`range_id=${range_code}`, null);
       // console.log(ranzeres);
         if(range_code > 0){
