@@ -501,29 +501,31 @@ var moment = require('moment');
    });
    WapiRouter.post('/societyelectionstatus', async(req, res) => {
     try {
-        var formdata = req.body;
-        const select = "a.id,a.cop_soc_name,a.last_elec_date,a.tenure_ends_on,a.contact_name,a.contact_designation,a.contact_number,a.email,a.reg_no,a.functional_status,b.soc_type_name,c.dist_name,d.zone_name,e.range_name,f.soc_tier_name";
-        var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id `;
-        var election_status = `AND a.election_status='${formdata.election_status}' `;
-        //soc_data_status = `AND a.approve_status='A' `;
-        var maincon = election_status;
-        var whr = ` a.approve_status = 'A' AND a.functional_status = 'Functional' ${maincon}`;
+        // var formdata = req.body;
+        // const select = "a.id,a.cop_soc_name,a.last_elec_date,a.tenure_ends_on,a.contact_name,a.contact_designation,a.contact_number,a.email,a.reg_no,a.functional_status,b.soc_type_name,c.dist_name,d.zone_name,e.range_name,f.soc_tier_name";
+        // var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id `;
+        // var election_status = `AND a.election_status='${formdata.election_status}' `;
+        // //soc_data_status = `AND a.approve_status='A' `;
+        // var maincon = election_status;
+        // var whr = ` a.approve_status = 'A' AND a.functional_status = 'Functional' ${maincon}`;
         
-        const order = null;
-        const res_dt = await db_Select(select, table_name, whr, order);
+        // const order = null;
+        // const res_dt = await db_Select(select, table_name, whr, order);
        
-        // Prepare data for rendering
-        if (res_dt.suc > 0) {
-          if (res_dt.msg.length > 0) {
-              res.send({ suc: 1, status: "Data found", msg: res_dt.msg })
-          } else {
-            result = { suc: 0,status: 'Data no found', msg: '' };
-            res.send(result)
-          }
-        } else {
-          result = { suc: 0,status: 'Fail', msg: res_dt };
+        // // Prepare data for rendering
+        // if (res_dt.suc > 0) {
+        //   if (res_dt.msg.length > 0) {
+        //       res.send({ suc: 1, status: "Data found", msg: res_dt.msg })
+        //   } else {
+        //     result = { suc: 0,status: 'Data no found', msg: '' };
+        //     res.send(result)
+        //   }
+        // } else {
+        //   result = { suc: 0,status: 'Fail', msg: res_dt };
+        //   res.send(result);
+        // }
+            result = { suc: 0,status: 'Fail', msg: 'Try is closed' };
           res.send(result);
-        }
       } catch (error) {
         // Log the error and send an appropriate response
         console.error('Error during dashboard rendering:', error);
