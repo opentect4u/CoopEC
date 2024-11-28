@@ -511,15 +511,8 @@ var moment = require('moment');
         
         const order = null;
         const res_dt = await db_Select(select, table_name, whr, order);
-        const select2 = "COUNT(*) as total";
-        const countResult = await db_Select(select2, table_name, whr, order);
-        const total = countResult.msg[0].total;
-        const totalPages = Math.ceil(total / 25);
-        
+       
         // Prepare data for rendering
-        // const res_dt = {
-        //   data: result.suc > 0 ? result.msg : '',page: 1,totalPages:totalPages,
-        // };
         if (res_dt.suc > 0) {
           if (res_dt.msg.length > 0) {
               res.send({ suc: 1, status: "Data found", msg: res_dt.msg })
@@ -528,7 +521,7 @@ var moment = require('moment');
             res.send(result)
           }
         } else {
-          result = { suc: 0,status: 'Fail', msg: req.body };
+          result = { suc: 0,status: 'Fail', msg: res_dt };
           res.send(result);
         }
       } catch (error) {
