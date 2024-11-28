@@ -507,7 +507,7 @@ var moment = require('moment');
         var election_status = `AND a.election_status='${formdata.election_status}' `;
         //soc_data_status = `AND a.approve_status='A' `;
         var maincon = election_status;
-        var whr = ` AND a.approve_status = 'A' AND a.functional_status = 'Functional' ${maincon}`;
+        var whr = ` a.approve_status = 'A' AND a.functional_status = 'Functional' ${maincon}`;
         
         const order = null;
         const res_dt = await db_Select(select, table_name, whr, order);
