@@ -329,7 +329,21 @@ a.edit_dashboard{color: #fff;
 .welcome_sec .selectDropdown .stockPointSecTitle_cus{padding: 0 !important; margin: 0;}
 
 .notification_bar{width: 100%; margin-bottom: 15px;}
-.notification_bar .alert_cus {margin: 2px}
+.notification_bar .alert_cus {
+  margin: 2px;
+  display: flex;
+  position: relative;
+}
+.notification_bar .alert_cus form.notific_dtl{margin: 0 0 0 auto;}
+
+.notification_bar .alert_cus form.notific_dtl input[type="submit"]{background: none;
+  border: none;
+  padding: 0;
+  margin-right: 18px;
+  font-weight: 700;
+  color: #393783;
+  font-size: 13px;}
+
 .notification_bar .alert_cus i{margin-right: 3px;}
 .notification_bar .alert_cus a.showHide{text-decoration: underline; color: #393783; position: relative; padding-right: 25px;}
 .notification_bar .alert_cus a.showHide:hover{text-decoration: none;}
@@ -353,7 +367,14 @@ a.edit_dashboard{color: #fff;
 .notification_bar .alert_cus a.readMore{text-decoration: underline; color: #393783; position: relative; padding-right: 0;}
 .notification_bar .alert_cus a.readMore:hover{text-decoration: none;}
 
-.notification_bar .alert_cus a.crossLink{text-decoration: underline; color: #393783; position: relative; float: right;}
+/* .notification_bar .alert_cus a.crossLink{text-decoration: underline; color: #393783; position: relative; float: right;} */
+.notification_bar .alert_cus a.crossLink {
+  text-decoration: underline;
+  color: #393783;
+  float: right;
+  position: absolute;
+  right: 6px; top: 10px;
+}
 .notification_bar .alert_cus a.crossLink:hover{text-decoration: none;}
 
 

@@ -34,37 +34,10 @@
       <a href="javascript:void(0)" class="showHide accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">Hide</a>
     </div>
     <div id="collapseOne" class="accordion-collapse collapse notification_off_on" data-bs-parent="#accordionExample">
-    
-      <div class="alert alert-primary alert_cus" role="alert">
-        <!-- <i class="fa fa-info-circle" aria-hidden="true"></i>   -->
-        This is a primary alert—check it out!  
-        <a href="javascript:void(0)" class="readMore">View Details</a> <a href="javascript:void(0)" class="crossLink"> <i class="fa fa-times" aria-hidden="true"></i> </a>
-
-      </div>
-      <div class="alert alert-primary alert_cus" role="alert">
-        <!-- <i class="fa fa-info-circle" aria-hidden="true"></i>   -->
-        This is a primary alert—check it out! 
-        <a href="javascript:void(0)" class="readMore">View Details</a> <a href="javascript:void(0)" class="crossLink"> <i class="fa fa-times" aria-hidden="true"></i> </a>
-      </div>
       
-
     </div>
 
-    <!-- <div class="accordion" id="accordionExample">
-      <div class="accordion-item">
-        <h2 class="accordion-header">
-          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-            Accordion Item #1
-          </button>
-        </h2>
-        <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-          <div class="accordion-body">
-            <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-          </div>
-        </div>
-      </div>
-      
-    </div> -->
+    
   </div>
 </div>
   
@@ -86,20 +59,6 @@
           <div class="threeBoxTxt" style="height: 280px; width: 100%;">
             
             <canvas id="pieChart_1"></canvas>
-            <!-- <h2> 6 Months</h2>
-            <p class="price">
-      <span class="lit" id="total_6month"></span>
-            </p>
-
-            <div class="button_sape">
-              <form action="/report/election_upcoming" method="post">
-                <input type="hidden" value="0" name="soc_type">
-                <input type="hidden" value="<%= user.range_id %>" name="range_id">
-                <input type="hidden" value="6" name="month_tenure">
-                <input type="submit" value="View" class="btn btn-primary btn-sm button_sape_view">
-                </form> 
-
-            </div> -->
             
           </div>
         </div>
@@ -564,7 +523,17 @@
         },
         success: function(response) {
            var soc = response.soctot;
-            $('#total_6month').html(soc.month_before ? soc.month_before : 0);
+           var numsoc = soc.month_before ? soc.month_before : 0;
+            $('#total_6month').html(numsoc);
+             var row = `<div class="alert alert-primary alert_cus" role="alert">Election Due is Six Month(${numsoc}) —check it out!   <form action="/report/election_upcoming" method="post" class="notific_dtl">
+                <input type="hidden" value="0" name="soc_type">
+                <input type="hidden" value="<%= user.range_id %>" name="range_id">
+                <input type="hidden" value="6" name="month_tenure">
+                <input type="submit" value="View Details" class="readMore">
+                </form><a href="javascript:void(0)" class="crossLink"> <i class="fa fa-times" aria-hidden="true"></i> </a></div>`;
+             if(numsoc > 0){
+           $('#collapseOne').append(row);  
+            }        
         },
         error: function(err) {
             // Handle any errors
@@ -584,7 +553,17 @@
         },
         success: function(response) {
            var soc = response.soctot;
-            $('#total_3month').html(soc.month_before ? soc.month_before : 0);
+           var numsoc = soc.month_before ? soc.month_before : 0;
+            $('#total_3month').html(numsoc);
+            var row = `<div class="alert alert-primary alert_cus" role="alert">Election Due is Three Month(${numsoc}) —check it out!  <form action="/report/election_upcoming" method="post" class="notific_dtl">
+              <input type="hidden" value="0" name="soc_type">
+              <input type="hidden" value="<%= user.range_id %>" name="range_id">
+              <input type="hidden" value="3" name="month_tenure">
+              <input type="submit" value="View Details" class="readMore">
+              </form> <a href="javascript:void(0)" class="crossLink"> <i class="fa fa-times" aria-hidden="true"></i> </a></div>`;
+             if(numsoc > 0){
+           $('#collapseOne').append(row); 
+             }
         },
         error: function(err) {
             // Handle any errors
@@ -738,8 +717,35 @@ function pieChartId(range_code) {
     }
 
 
-
+// Select all the elements with the class 'crossLink'
+    // document.querySelectorAll('.crossLink').forEach(function(closeButton) {
+    //   // Add a click event listener to each button
+    //   closeButton.addEventListener('click', function(event) {
+    //     // Find the parent div of the button (the alert div)
+    //     var parentDiv = event.target.closest('.alert');
+    //     // Remove the parent div from the DOM
+    //     if (parentDiv) {
+    //       parentDiv.remove();
+    //     }
+    //   });
+    // });
+    
+   
     
   </script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <script>
+     $(document).ready(function() {
+    
+  $('.crossLink').click(function() {
+    var parentDiv = event.target.closest('.alert');
+    // Remove the parent div from the DOM
+    if (parentDiv) {
+      parentDiv.remove();
+    }
+    });
+});
+    </script>
 
 

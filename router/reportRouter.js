@@ -205,6 +205,7 @@ reportRouter.use((req, res, next) => {
         const range_id = req.session.user.range_id;
         var range_code = postdata.range_id;
         var month_interval = postdata.month_tenure;
+        var title_sufix ='';
         if(month_interval == 6 ){
           var title_sufix = 'Within Six(6) Month';
         }else if(month_interval == 3 ){
@@ -236,7 +237,7 @@ reportRouter.use((req, res, next) => {
         const res_dt = {
           data: result.suc > 0 ? result.msg : '',
           page: 1,range_name:range_name,range:postdata.range_id,soc_type:postdata.soc_type,
-          socname:'',title:title,soc_data_status:''
+          socname:'',title:title,soc_data_status:'',title_sufix:title_sufix
         };
         // Render the view with data
         res.render('report/election_result_upcoming', res_dt);
