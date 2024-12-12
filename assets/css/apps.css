@@ -265,7 +265,7 @@ a.edit_dashboard{color: #fff;
   .dot_overDate {
     width: var(--dot-size);
     height: var(--dot-size);
-    background-color: red;
+    background-color: #fff;
     border-radius: 50%;
   }
 
