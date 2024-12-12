@@ -235,7 +235,17 @@ html {
 .box_col_5{  background: rgb(255,195,195);
   background: linear-gradient(30deg, rgba(255,195,195,1) 0%, rgba(255,255,255,1) 100%); }
 
-
+  .box_col_1 .threeBoxTxt{background: rgb(255,195,195);
+    background: linear-gradient(30deg, rgb(253, 248, 166) 0%, rgb(255, 255, 255) 100%);}
+  .box_col_2 .threeBoxTxt{background: rgb(255,195,195);
+    background: linear-gradient(30deg, rgb(255, 194, 150) 0%, rgba(255,255,255,1) 100%);}
+  .box_col_4 .threeBoxTxt{background: rgb(255,195,195);
+    background: linear-gradient(30deg, rgb(194, 215, 149) 0%, rgba(255,255,255,1) 100%);}
+    
+  .box_col_1 .threeBoxNewSmall h2, 
+  .box_col_2 .threeBoxNewSmall h2, 
+  .box_col_4 .threeBoxNewSmall h2, 
+  .threeBoxNewSmall p.price .lit{color: #4f471d !important;}
   
 
 .threeBoxNewSmall_a{background:#fff url(../images/boxIcon_a.jpg) no-repeat left center; min-height:138px;}

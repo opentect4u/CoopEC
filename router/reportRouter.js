@@ -167,37 +167,8 @@ reportRouter.use((req, res, next) => {
         res.status(500).json({ error: 'An error occurred while generating the report.' });
     }
    });
-   //   **** Code start for Upcoming Election OF Society    ****   //
-  reportRouter.get('/election_upcoming_req', async(req, res) => {
-    try {
-        // Extract range_id from session
-        const range_id = req.session.user.range_id;
-        
-        var range_code = range_id;
-        var title = 'Election Upcoming';
-        const ranzeres = await db_Select('*', 'md_range',`range_id=${range_code}`, null);
-        if(range_code > 0){
-          range_name = ranzeres.msg[0].range_name;
-        }else{
-          range_name =  'ALL Range';
-        }
-        const rangeres = await db_Select('*', 'md_range',null, null);
-        const soctyperes = await db_Select('*', 'md_society_type',null, null);
-        // Prepare data for rendering
-        const res_dt = {
-          range_list : rangeres.suc > 0 ? rangeres.msg : '',
-          socty_list : soctyperes.suc > 0 ? soctyperes.msg : '',
-          page: 1,range_name:range_name,
-          socname:'',title:title,soc_data_status:''
-        };
-        // Render the view with data
-        res.render('report/election_upcoming_input', res_dt);
-      } catch (error) {
-        // Log the error and send an appropriate response
-        console.error('Error during dashboard rendering:', error);
-        res.render('report/election_upcoming_input', res_dt);
-      }
-  })
+   
+ 
   reportRouter.post('/election_upcoming', async(req, res) => {
     try {
         // Extract range_id from session
@@ -691,5 +662,545 @@ reportRouter.use((req, res, next) => {
   }
   });
    //   **** Code End for Upcoming Election OF Society    ****   //
+
+
+ 
+
+  
+   //   **** Code start for Upcoming Election OF Society    ****   //
+  reportRouter.get('/election_upcoming_req', async(req, res) => {
+    try {
+        // Extract range_id from session
+        const range_id = req.session.user.range_id;
+        
+        var range_code = range_id;
+        var title = 'Election Upcoming';
+        const ranzeres = await db_Select('*', 'md_range',`range_id=${range_code}`, null);
+        if(range_code > 0){
+          range_name = ranzeres.msg[0].range_name;
+        }else{
+          range_name =  'ALL Range';
+        }
+        const rangeres = await db_Select('*', 'md_range',null, null);
+        const soctyperes = await db_Select('*', 'md_society_type',null, null);
+        // Prepare data for rendering
+        const res_dt = {
+          range_list : rangeres.suc > 0 ? rangeres.msg : '',
+          socty_list : soctyperes.suc > 0 ? soctyperes.msg : '',
+          page: 1,range_name:range_name,
+          socname:'',title:title,soc_data_status:''
+        };
+        // Render the view with data
+        res.render('report/election_upcoming_input', res_dt);
+      } catch (error) {
+        // Log the error and send an appropriate response
+        console.error('Error during dashboard rendering:', error);
+        res.render('report/election_upcoming_input', res_dt);
+      }
+  })
+
+   //////  *******     Election result on Range Wise  ********** /////
+   reportRouter.get('/election_due_reqn', async(req, res) => {
+    try {
+        // Extract range_id from session
+        const range_id = req.session.user.range_id;
+        var range_code = range_id;
+        var title = 'Election Due';
+        const ranzeres = await db_Select('*', 'md_range',`range_id=${range_code}`, null);
+        if(range_code > 0){
+          range_name = ranzeres.msg[0].range_name;
+        }else{
+          range_name =  'ALL Range';
+        }
+        const rangeres = await db_Select('*', 'md_range',null, null);
+        const soctyperes = await db_Select('*', 'md_society_type',null, null);
+        // Prepare data for rendering
+        const res_dt = {
+          range_list : rangeres.suc > 0 ? rangeres.msg : '',
+          socty_list : soctyperes.suc > 0 ? soctyperes.msg : '',
+          page: 1,range_name:range_name,range_cd:range_code,
+          socname:'',title:title,soc_data_status:''
+        };
+        // Render the view with data
+        res.render('report/election_status_inputn', res_dt);
+      } catch (error) {
+        // Log the error and send an appropriate response
+        console.error('Error during dashboard rendering:', error);
+        res.render('report/election_status_inputn', res_dt);
+      }
+  })
+
+  reportRouter.post('/election_duen', async(req, res) => {
+    try {
+        // Extract range_id from session
+        var postdata = req.body;
+        const range_id = req.session.user.range_id;
+        var range_code = postdata.range_id;
+        var range_con = '';
+        if(range_code > 0){
+          range_con =`and  a.range_code  = ${range_code}`;
+        }
+        var title = 'Election Due';
+        const select = `range_name,sum(total_available)total,sum(DUE)DUE,sum(ONGOING)ONGOING,sum(DONE)HELD`;
+        var table_name = `( SELECT e.range_name range_name, COUNT(*) AS total_available, 0 DUE,0 ONGOING,0 DONE FROM md_society a,md_range e where  a.range_code = e.range_id and  a.functional_status = 'Functional' ${range_con} GROUP BY e.range_name
+                                  UNION
+                                  SELECT e.range_name range_name, 
+                                      0 total_available, 
+                                      count(*) DUE,
+                                      0 ONGOING,
+                                      0 DONE
+                                  FROM md_society a,md_range e
+                                  where  a.range_code = e.range_id
+                                  and  a.functional_status = 'Functional'
+                                  and  a.election_status  = 'DUE'
+                                  ${range_con}
+                                  GROUP BY e.range_name
+                                  UNION
+                                  SELECT e.range_name range_name, 
+                                      0 total_available, 
+                                      count(*) DUE,
+                                      0 ONGOING,
+                                      0 DONE
+                                  FROM md_society a,md_range e
+                                  where a.range_code = e.range_id
+                                  and  a.functional_status = 'Functional'
+                                  and  a.election_status = 'DUE'
+                                  ${range_con}
+                                  GROUP BY e.range_name
+                                  UNION
+                                  SELECT e.range_name range_name, 
+                                      0 total_available, 
+                                      0  DUE,
+                                      count(*) ONGOING,
+                                      0 DONE
+                                  FROM md_society a,md_range e
+                                  where a.range_code = e.range_id
+                                  and  a.functional_status = 'Functional'
+                                  and  a.election_status  = 'ONGOING'
+                                  ${range_con}
+                                  GROUP BY e.range_name
+                                  UNION
+                                  SELECT e.range_name range_name, 
+                                      0 total_available, 
+                                      0  DUE,
+                                      0 ONGOING,
+                                      count(*) HELD
+                                  FROM md_society a,md_range e
+                                  where a.range_code = e.range_id
+                                  and  a.functional_status = 'Functional'
+                                  and  a.election_status  = 'DONE'
+                                  ${range_con}
+                                  GROUP BY e.range_name
+                                      )a
+                                  group by range_name order by range_name ASC`;
+        //}
+        // Execute database query
+        const result = await db_Select(select, table_name, null, null);
+       
+      // console.log(ranzeres);
+        if(range_code > 0){
+          const ranzeres = await db_Select('*', 'md_range',`range_id=${range_code}`, null);
+          range_name = ranzeres.msg[0].range_name;
+        }else{
+          range_name =  'ALL Range';
+        }
+        // Prepare data for rendering
+        const res_dt = {
+          data: result.suc > 0 ? result.msg : '',
+          page: 1,range:postdata.range_id,soc_type:postdata.soc_type,range_name:range_name,
+          socname:'',title:title,soc_data_status:''
+        };
+        // Render the view with data
+        res.render('report/election_result_range', res_dt);
+      } catch (error) {
+        // Log the error and send an appropriate response
+        console.error('Error during dashboard rendering:', error);
+        //res.status(500).send('An error occurred while loading the dashboard.');
+        res.render('report/election_result_range', res_dt);
+      }
+  })
+  reportRouter.get('/dnlexcel_range', async (req, res) => {
+    try {
+      
+      var range_con = req.query.range_code > 0 ? `AND a.range_code=${req.query.range_code} ` : '';
+      const select = "range_name,sum(total_available)total,sum(DUE)DUE,sum(ONGOING)ONGOING,sum(DONE)HELD";
+      const table_name = `( SELECT e.range_name range_name, COUNT(*) AS total_available, 0 DUE,0 ONGOING,0 DONE FROM md_society a,md_range e where  a.range_code = e.range_id and  a.functional_status = 'Functional' ${range_con} GROUP BY e.range_name
+                                  UNION
+                                  SELECT e.range_name range_name, 
+                                      0 total_available, 
+                                      count(*) DUE,
+                                      0 ONGOING,
+                                      0 DONE
+                                  FROM md_society a,md_range e
+                                  where  a.range_code = e.range_id
+                                  and  a.functional_status = 'Functional'
+                                  and  a.election_status  = 'DUE'
+                                  ${range_con}
+                                  GROUP BY e.range_name
+                                  UNION
+                                  SELECT e.range_name range_name, 
+                                      0 total_available, 
+                                      count(*) DUE,
+                                      0 ONGOING,
+                                      0 DONE
+                                  FROM md_society a,md_range e
+                                  where a.range_code = e.range_id
+                                  and  a.functional_status = 'Functional'
+                                  and  a.election_status = 'DUE'
+                                  ${range_con}
+                                  GROUP BY e.range_name
+                                  UNION
+                                  SELECT e.range_name range_name, 
+                                      0 total_available, 
+                                      0  DUE,
+                                      count(*) ONGOING,
+                                      0 DONE
+                                  FROM md_society a,md_range e
+                                  where a.range_code = e.range_id
+                                  and  a.functional_status = 'Functional'
+                                  and  a.election_status  = 'ONGOING'
+                                  ${range_con}
+                                  GROUP BY e.range_name
+                                  UNION
+                                  SELECT e.range_name range_name, 
+                                      0 total_available, 
+                                      0  DUE,
+                                      0 ONGOING,
+                                      count(*) HELD
+                                  FROM md_society a,md_range e
+                                  where a.range_code = e.range_id
+                                  and  a.functional_status = 'Functional'
+                                  and  a.election_status  = 'DONE'
+                                  ${range_con}
+                                  GROUP BY e.range_name
+                                      )a
+                                  group by range_name order by range_name ASC`;
+      const res_dt = await db_Select(select, table_name, null, null);
+  
+      // Create a new workbook and worksheet
+      const workbook = new ExcelJS.Workbook();
+      const worksheet = workbook.addWorksheet('Report');
+  
+     
+      var result = res_dt.suc > 0 ? res_dt.msg : [];
+      // Initialize totals
+      let tot_tot = 0;
+      let tot_due = 0;
+      let tot_ongoing = 0;
+      let tot_held = 0;
+      // const formattedDate = new Date().toLocaleDateString();
+      //   worksheet.addRow([]); // Add an empty row before the title
+      //   worksheet.mergeCells('A1:E1'); // Merging columns A, B, C, and D for the title
+      //   worksheet.getCell('A1').value = `Angewise Election Status Of Co-operative Societies As On: ${formattedDate}`; 
+
+      //   // Optionally, style the title (e.g., bold, centered)
+      //   worksheet.getCell('A1').alignment = { horizontal: 'center', vertical: 'middle' };
+      //   worksheet.getCell('A1').font = { bold: true, size: 14 };
+
+         // Define column headers
+      worksheet.columns = [
+        { header: 'Range Name', key: 'range_name' },
+        { header: 'Total', key: 'total' },
+        { header: ' Due', key: 'DUE' },
+        { header: ' Ongoing', key: 'ONGOING' },
+        { header: ' Held', key: 'HELD' }  // Make sure the key is 'total_held' instead of 'total-total_due'
+    ];
+
+      // Add rows to the worksheet
+      result.forEach(item => {
+          // Add to the totals
+          tot_tot += item.total;
+          tot_due += item.DUE;
+          tot_ongoing +=item.ONGOING;
+          tot_held += item.HELD;  // Calculate the held value as total - total_due
+  
+          // Add the row to the worksheet
+          worksheet.addRow({
+            range_name: item.range_name,
+            total: item.total,
+            DUE: item.DUE,
+            ONGOING: item.ONGOING,
+            HELD: item.HELD  // Dynamically calculated
+        });
+      });
+  
+      // Add a final row for the totals
+      worksheet.addRow({
+          range_name: 'Total',
+          total: tot_tot,
+          DUE: tot_due,
+          ONGOING: tot_ongoing,
+          HELD: tot_held
+      });
+  
+      // Set response headers for the Excel file
+      res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+      res.setHeader('Content-Disposition', 'attachment; filename=rangetype_report.xlsx');
+  
+      // Write the Excel file to the response
+      await workbook.xlsx.write(res);
+      res.end();
+      } catch (error) {
+          console.error('Error during Excel generation:', error);
+          res.status(500).json({ error: 'An error occurred while generating the report.' });
+      }
+  
+   });
+   reportRouter.get('/ele_soctype_input', async(req, res) => {
+    try {
+        // Extract range_id from session
+        const range_id = req.session.user.range_id;
+        var range_code = range_id;
+        var title = 'Election Due';
+        const ranzeres = await db_Select('*', 'md_range',`range_id=${range_code}`, null);
+        if(range_code > 0){
+          range_name = ranzeres.msg[0].range_name;
+        }else{
+          range_name =  'ALL Range';
+        }
+        const rangeres = await db_Select('*', 'md_range',null, null);
+        const soctyperes = await db_Select('*', 'md_society_type',null, null);
+        // Prepare data for rendering
+        const res_dt = {
+          range_list : rangeres.suc > 0 ? rangeres.msg : '',
+          socty_list : soctyperes.suc > 0 ? soctyperes.msg : '',
+          page: 1,range_name:range_name,range_cd:range_code,
+          socname:'',title:title,soc_data_status:''
+        };
+        // Render the view with data
+        res.render('report/soctype/election_input', res_dt);
+      } catch (error) {
+        // Log the error and send an appropriate response
+        console.error('Error during dashboard rendering:', error);
+        res.render('report/soctype/election_status_inputn', res_dt);
+      }
+  })
+  reportRouter.post('/ele_soctype_output', async(req, res) => {
+    try {
+        // Extract range_id from session
+        var postdata = req.body;
+        const range_id = req.session.user.range_id;
+        var soc_type = postdata.range_id;
+        var soc_con = '';
+        if(soc_type > 0){
+          soc_con =`and  a.range_code  = ${soc_type}`;
+        }
+        var title = 'Election Due';
+        const select = `soc_type_id,soc_type_name,sum(total_available)total,sum(DUE)DUE,sum(ONGOING)ONGOING,sum(DONE)HELD`;
+        var table_name = `(SELECT b.soc_type_id soc_type_id,b.soc_type_name soc_type_name,COUNT(*) AS total_available, 0 DUE,0 ONGOING,0 DONE FROM md_society a,md_society_type b,md_range e where a.soc_type = b.soc_type_id and  a.range_code = e.range_id and  a.functional_status = 'Functional' ${soc_con} GROUP BY b.soc_type_id,b.soc_type_name 
+                                UNION SELECT b.soc_type_id soc_type_id,
+                                  b.soc_type_name soc_type_name,
+                                0 total_available, 
+                                count(*) DUE,
+                                0 ONGOING,
+                                0 DONE
+                            FROM md_society a,md_society_type b,md_range e
+                            where a.soc_type = b.soc_type_id
+                            and  a.range_code = e.range_id
+                            and  a.functional_status = 'Functional'
+                            and  a.election_status  = 'DUE'
+                            ${soc_con}
+                            GROUP BY b.soc_type_id,b.soc_type_name
+                            UNION
+                            SELECT b.soc_type_id soc_type_id,
+                                  b.soc_type_name soc_type_name,
+                                0 total_available, 
+                                count(*) DUE,
+                                0 ONGOING,
+                                0 DONE
+                            FROM md_society a,md_society_type b,md_range e
+                            where a.soc_type = b.soc_type_id
+                            and  a.range_code = e.range_id
+                            and  a.functional_status = 'Functional'
+                            and  a.election_status = 'DUE'
+                            ${soc_con}
+                            GROUP BY b.soc_type_id,b.soc_type_name
+                            UNION
+                            SELECT b.soc_type_id soc_type_id,
+                                  b.soc_type_name soc_type_name,
+                                0 total_available, 
+                                0  DUE,
+                                count(*) ONGOING,
+                                0 DONE
+                            FROM md_society a,md_society_type b,md_range e
+                            where a.soc_type = b.soc_type_id
+                            and  a.range_code = e.range_id
+                            and  a.functional_status = 'Functional'
+                            and  a.election_status  = 'ONGOING'
+                            ${soc_con}
+                            GROUP BY b.soc_type_id,b.soc_type_name
+                            UNION
+                            SELECT b.soc_type_id soc_type_id,
+                                  b.soc_type_name soc_type_name,
+                                0 total_available, 
+                                0  DUE,
+                                0 ONGOING,
+                                count(*) HELD
+                            FROM md_society a,md_society_type b,md_range e
+                            where a.soc_type = b.soc_type_id
+                            and  a.range_code = e.range_id
+                            and  a.functional_status = 'Functional'
+                            and  a.election_status  = 'DONE'
+                            ${soc_con}
+                            GROUP BY b.soc_type_id,b.soc_type_name
+                                )a
+                            group by soc_type_id,soc_type_name
+                            order by soc_type_id`;
+        const result = await db_Select(select, table_name, null, null);
+       
+      // console.log(ranzeres);
+         if(soc_type > 0){
+         const ranzeres = await db_Select('*', 'md_range',`range_id=${soc_type}`, null);
+           range_name = ranzeres.msg[0].range_name;
+         }else{
+          range_name =  'ALL Range';
+        }
+        // Prepare data for rendering
+        const res_dt = {
+          data: result.suc > 0 ? result.msg : '',
+          page: 1,range:postdata.range_id,soc_type:postdata.soc_type,range_name:range_name,
+          socname:'',title:title,soc_data_status:''
+        };
+        // Render the view with data
+        res.render('report/soctype/election_result', res_dt);
+      } catch (error) {
+        // Log the error and send an appropriate response
+        console.error('Error during dashboard rendering:', error);
+        //res.status(500).send('An error occurred while loading the dashboard.');
+        res.render('report/soctype/election_result', res_dt);
+      }
+  })
+
+  reportRouter.get('/dnlexcel_soctype', async (req, res) => {
+    try {
+      var range_con = req.query.range > 0 ? `AND a.range_code=${req.query.range} ` : '';
+      const select = "soc_type_id,soc_type_name,sum(total_available)total,sum(DUE)DUE,sum(ONGOING)ONGOING,sum(DONE)HELD";
+      const table_name = `(SELECT b.soc_type_id soc_type_id,b.soc_type_name soc_type_name,COUNT(*) AS total_available, 0 DUE,0 ONGOING,0 DONE FROM md_society a,md_society_type b,md_range e where a.soc_type = b.soc_type_id and  a.range_code = e.range_id and  a.functional_status = 'Functional' ${range_con} GROUP BY b.soc_type_id,b.soc_type_name 
+                                UNION SELECT b.soc_type_id soc_type_id,
+                                  b.soc_type_name soc_type_name,
+                                0 total_available, 
+                                count(*) DUE,
+                                0 ONGOING,
+                                0 DONE
+                            FROM md_society a,md_society_type b,md_range e
+                            where a.soc_type = b.soc_type_id
+                            and  a.range_code = e.range_id
+                            and  a.functional_status = 'Functional'
+                            and  a.election_status  = 'DUE'
+                            ${range_con}
+                            GROUP BY b.soc_type_id,b.soc_type_name
+                            UNION
+                            SELECT b.soc_type_id soc_type_id,
+                                  b.soc_type_name soc_type_name,
+                                0 total_available, 
+                                count(*) DUE,
+                                0 ONGOING,
+                                0 DONE
+                            FROM md_society a,md_society_type b,md_range e
+                            where a.soc_type = b.soc_type_id
+                            and  a.range_code = e.range_id
+                            and  a.functional_status = 'Functional'
+                            and  a.election_status = 'DUE'
+                            ${range_con}
+                            GROUP BY b.soc_type_id,b.soc_type_name
+                            UNION
+                            SELECT b.soc_type_id soc_type_id,
+                                  b.soc_type_name soc_type_name,
+                                0 total_available, 
+                                0  DUE,
+                                count(*) ONGOING,
+                                0 DONE
+                            FROM md_society a,md_society_type b,md_range e
+                            where a.soc_type = b.soc_type_id
+                            and  a.range_code = e.range_id
+                            and  a.functional_status = 'Functional'
+                            and  a.election_status  = 'ONGOING'
+                            ${range_con}
+                            GROUP BY b.soc_type_id,b.soc_type_name
+                            UNION
+                            SELECT b.soc_type_id soc_type_id,
+                                  b.soc_type_name soc_type_name,
+                                0 total_available, 
+                                0  DUE,
+                                0 ONGOING,
+                                count(*) HELD
+                            FROM md_society a,md_society_type b,md_range e
+                            where a.soc_type = b.soc_type_id
+                            and  a.range_code = e.range_id
+                            and  a.functional_status = 'Functional'
+                            and  a.election_status  = 'DONE'
+                            ${range_con}
+                            GROUP BY b.soc_type_id,b.soc_type_name
+                                )a
+                            group by soc_type_id,soc_type_name
+                            order by soc_type_id`;
+      const res_dt = await db_Select(select, table_name, null, null);
+  
+      // Create a new workbook and worksheet
+      const workbook = new ExcelJS.Workbook();
+      const worksheet = workbook.addWorksheet('Report');
+  
+      // Define column headers
+       // Define column headers
+       worksheet.columns = [
+        { header: 'Society Type', key: 'soc_type_name' },
+        { header: 'Total', key: 'total' },
+        { header: 'Election Due', key: 'DUE' },
+        { header: 'Election Ongoing', key: 'ONGOING' },
+        { header: 'Election Held', key: 'HELD' }  // Make sure the key is 'total_held' instead of 'total-total_due'
+    ];
+
+    var result = res_dt.suc > 0 ? res_dt.msg : [];
+    // Initialize totals
+    let tot_tot = 0;
+    let tot_due = 0;
+    let tot_ongoing = 0;
+    let tot_held = 0;
+
+    // Add rows to the worksheet
+    result.forEach(item => {
+        // Add to the totals
+        tot_tot += item.total;
+        tot_due += item.DUE;
+        tot_ongoing +=item.ONGOING;
+        tot_held += item.HELD;  // Calculate the held value as total - total_due
+
+        // Add the row to the worksheet
+        worksheet.addRow({
+          soc_type_name: item.soc_type_name,
+          total: item.total,
+          DUE: item.DUE,
+          ONGOING: item.ONGOING,
+          HELD: item.HELD  // Dynamically calculated
+      });
+    });
+
+    // Add a final row for the totals
+    worksheet.addRow({
+        range_name: 'Total',
+        total: tot_tot,
+        DUE: tot_due,
+        ONGOING: tot_ongoing,
+        HELD: tot_held
+    });
+      if(req.query.range > 0){
+        const ranzeres = await db_Select('*', 'md_range',`range_id=${req.query.range}`, null);
+          range_names = ranzeres.msg[0].range_name;
+        }else{
+          range_names =  'ALL Range';
+      }
+      // Set response headers for the Excel file
+      res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+      res.setHeader('Content-Disposition', `attachment; filename=soctype_report_${range_names}.xlsx`);
+  
+      // Write the Excel file to the response
+      await workbook.xlsx.write(res);
+      res.end();
+      } catch (error) {
+          console.error('Error during Excel generation:', error);
+          res.status(500).json({ error: 'An error occurred while generating the report.' });
+      }
+  
+   });
 
 module.exports = {reportRouter}
