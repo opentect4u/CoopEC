@@ -501,10 +501,77 @@ DashboardRouter.post('/get_soctype_detail',async(req,res)=>{
   try {
     // Extract query parameter 'claims'
     var data = req.body;
-    var soctype = `md_society a,md_society_type b`,
-    where = data.range_code > 0 ? `a.soc_type = b.soc_type_id AND a.functional_status = 'Functional' AND a.range_code ='${data.range_code}' group by a.soc_type` : `a.soc_type = b.soc_type_id AND a.functional_status = 'Functional' group by a.soc_type`,
-    order = null;
-    var soctyperes = await db_Select(`a.soc_type,b.soc_type_name,count(a.cop_soc_name)tot_soc_type`, soctype, where, null);
+    // var soctype = `md_society a,md_society_type b`,
+    // where = data.range_code > 0 ? `a.soc_type = b.soc_type_id AND a.functional_status = 'Functional' AND a.range_code ='${data.range_code}' group by a.soc_type` : `a.soc_type = b.soc_type_id AND a.functional_status = 'Functional' group by a.soc_type`,
+    // order = null;
+    // var soctyperes = await db_Select(`a.soc_type,b.soc_type_name,count(a.cop_soc_name)tot_soc_type`, soctype, where, null);
+    var soc_type = data.range_code;
+    var soc_con = '';
+    if(soc_type > 0){
+      soc_con =`and  a.range_code  = ${soc_type}`;
+    }
+    var title = 'Election Due';
+    const select = `soc_type_id,soc_type_name,sum(total_available)total,sum(DUE)DUE,sum(ONGOING)ONGOING,sum(DONE)HELD`;
+    var table_name = `(SELECT b.soc_type_id soc_type_id,b.soc_type_name soc_type_name,COUNT(*) AS total_available, 0 DUE,0 ONGOING,0 DONE FROM md_society a,md_society_type b,md_range e where a.soc_type = b.soc_type_id and  a.range_code = e.range_id and  a.functional_status = 'Functional' ${soc_con} GROUP BY b.soc_type_id,b.soc_type_name 
+                            UNION SELECT b.soc_type_id soc_type_id,
+                              b.soc_type_name soc_type_name,
+                            0 total_available, 
+                            count(*) DUE,
+                            0 ONGOING,
+                            0 DONE
+                        FROM md_society a,md_society_type b,md_range e
+                        where a.soc_type = b.soc_type_id
+                        and  a.range_code = e.range_id
+                        and  a.functional_status = 'Functional'
+                        and  a.election_status  = 'DUE'
+                        ${soc_con}
+                        GROUP BY b.soc_type_id,b.soc_type_name
+                        UNION
+                        SELECT b.soc_type_id soc_type_id,
+                              b.soc_type_name soc_type_name,
+                            0 total_available, 
+                            count(*) DUE,
+                            0 ONGOING,
+                            0 DONE
+                        FROM md_society a,md_society_type b,md_range e
+                        where a.soc_type = b.soc_type_id
+                        and  a.range_code = e.range_id
+                        and  a.functional_status = 'Functional'
+                        and  a.election_status = 'DUE'
+                        ${soc_con}
+                        GROUP BY b.soc_type_id,b.soc_type_name
+                        UNION
+                        SELECT b.soc_type_id soc_type_id,
+                              b.soc_type_name soc_type_name,
+                            0 total_available, 
+                            0  DUE,
+                            count(*) ONGOING,
+                            0 DONE
+                        FROM md_society a,md_society_type b,md_range e
+                        where a.soc_type = b.soc_type_id
+                        and  a.range_code = e.range_id
+                        and  a.functional_status = 'Functional'
+                        and  a.election_status  = 'ONGOING'
+                        ${soc_con}
+                        GROUP BY b.soc_type_id,b.soc_type_name
+                        UNION
+                        SELECT b.soc_type_id soc_type_id,
+                              b.soc_type_name soc_type_name,
+                            0 total_available, 
+                            0  DUE,
+                            0 ONGOING,
+                            count(*) HELD
+                        FROM md_society a,md_society_type b,md_range e
+                        where a.soc_type = b.soc_type_id
+                        and  a.range_code = e.range_id
+                        and  a.functional_status = 'Functional'
+                        and  a.election_status  = 'DONE'
+                        ${soc_con}
+                        GROUP BY b.soc_type_id,b.soc_type_name
+                            )a
+                        group by soc_type_id,soc_type_name
+                        order by soc_type_id`;
+    const soctyperes = await db_Select(select, table_name, null, null);
     const responseData = {
       soctype: soctyperes.suc > 0 ? soctyperes.msg : '', // Echoing the received claims
     };
