@@ -27,6 +27,7 @@ function Home() {
 	const [getOngoingData, setOngoingData] = useState('');
 	const [getCompletData, setCompletData] = useState('');
 	const [getDueData, setDueData] = useState('');
+	const [getFaqData, setFaqData] = useState([]);
 
 	const mapTxtWordCount= 5;
 
@@ -51,6 +52,41 @@ function Home() {
 			class_cus: 'box_c'
 		}
 	]
+
+	const fetchdata = async ()=>{
+
+		axios.post(`${BASE_URL}/wapi/faqlist`,
+		  {
+			auth_key:"xxxxx",
+		  }
+		  // ,
+		  // {
+		  //     headers: {
+		  //         Authorization: loginData.token,
+		  //     },
+		  // }
+		  ).then(res => {
+	  
+			if(res.status == '200'){
+			  // console.log('rrrrrr', res?.data?.msg);
+			  if(res.data.suc > 0){
+				setFaqData(res?.data?.msg);
+				setLoading(false)
+				  // setFolderLocation()
+				  console.log('ggggggggggggggggggggggg', res?.data?.msg.length);
+	  
+				  // pageDataCheck = res.data.status;
+			  } else {
+				setFaqData([])
+				// pageDataCheck = res.data.status;
+			  }
+		
+			  }
+	  
+		  }) 
+	
+	   }
+	
 
 	const fetchGallerydata = ()=>{
 	axios.post(`${BASE_URL}/wapi/gallimglist`,
@@ -203,6 +239,11 @@ function Home() {
 		fetchStaticsdata_complete('DONE');
 
 		fetchGallerydata();
+		fetchdata();
+		// console.log(getDueData?.length);
+		console.log(getFaqData?.length, 'gggggggggggggggggggggggffff' );
+		
+		
 	   },[])
 
 
@@ -330,9 +371,9 @@ function Home() {
 
 				{/* <TabContentHome /> */}
 
-				{/* <div className='wrapper'>
-				<div className='col-sm-6 float-left'> */}
-				<div className="faqSec">
+				
+				{getFaqData.length > 0 &&(
+					<div className="faqSec">
 
 					<div className="section-header text-center">
 
@@ -354,8 +395,9 @@ function Home() {
 					</div>
 
 				</div>
-				{/* </div>
-				</div> */}
+				)}
+				
+				
 
 
 				{/* <div className="three_box">

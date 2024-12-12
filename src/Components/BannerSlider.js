@@ -15,8 +15,8 @@ function BannerSlider() {
 	<div className="col-sm-8 float-left slider_sec">
 	<div className="slider_sec_sub">
 		<h2>Co-operative Election Commission, <span>West Bengal</span></h2>
-		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-			labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida.</p>
+		{/* <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
+			labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida.</p> */}
 	</div>
 	</div>
 	</div>

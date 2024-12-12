@@ -20,6 +20,7 @@ const [loading, setLoading] = useState(true);
 
 
 
+
     const fetchdata = async ()=>{
 
     axios.post(`${BASE_URL}/wapi/faqlist`,
