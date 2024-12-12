@@ -61,6 +61,7 @@ function DownloadPage() {
                 // pageDataCheck = res.data.status;
             } else {
               setPageData([])
+              setLoading(false);
               // pageDataCheck = res.data.status;
             }
       
@@ -203,12 +204,12 @@ function DownloadPage() {
     <div class="wrapper">
     <div class="inner_page_Sec">
     <div class="col-sm-8 float-left left_sec searchPageTop">
-    
+    <h1>Downloads</h1>
     {loading ?(
       <Loader align = {'center'} gap = {'middle'} size = {'large'} />
     ):(
       <>
-      <h1>{getPageTitle}</h1>
+      {/* <h1>{getPageTitle}</h1> */}
     <Table columns={columns} dataSource={getPageData} scroll={{
     x: 'max-content',
     }} />

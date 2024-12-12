@@ -46,6 +46,7 @@ const [loading, setLoading] = useState(true);
               // pageDataCheck = res.data.status;
           } else {
             setFaqData([])
+            setLoading(false);
             // pageDataCheck = res.data.status;
           }
     

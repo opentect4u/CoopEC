@@ -43,20 +43,23 @@ const fetchdata = ()=>{
  //     },
  // }
  ).then(res => {
-  console.log(res , 'uuuuuuuuuuuuuuuuuuuuuu', res?.data?.msg);
+  console.log(res.data.msg.length , 'uuuuuuuuuuuuuuuuuuuuuu', res?.data);
+  
    if(res.status == '200'){
      
      if(res.data.suc > 0){
          setPageData(res?.data?.msg);
+         console.log(res , 'uuuuuuuuuuuuuuuuuuuuuu', res.data);
          setPageTitle(res.data.title);
          setFolderLocation(res?.data?.folder_name);
          setLoading(false);
          // setFolderLocation()
-         console.log(res , 'uuuuuuuuuuuuuuuuuuuuuu', res?.data?.msg);
+        //  console.log(res , 'uuuuuuuuuuuuuuuuuuuuuu', res?.data?.msg);
 
          // pageDataCheck = res.data.status;
      } else {
-       setPageData([0])
+       setPageData([])
+       setLoading(false);
        // pageDataCheck = res.data.status;
      }
 
@@ -201,12 +204,19 @@ fetchdata();
 <div class="wrapper">
     <div class="inner_page_Sec">
     <div class="col-sm-8 float-left left_sec searchPageTop">
-
+    {/* {getPageData.length > 0 &&(
+    <>
+    {getPageData.length}
+    Have data
+    </>
+    )} */}
+    <h1>Announcement</h1>
+    
     {loading ?(
       <Loader align = {'center'} gap = {'middle'} size = {'large'} />
     ):(
       <>
-    <h1>{getPageTitle}</h1>
+    {/* <h1>{getPageTitle}</h1> */}
     <Table columns={columns} dataSource={getPageData} scroll={{
         x: 'max-content',
       }} />

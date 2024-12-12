@@ -10,7 +10,8 @@ function ActRules() {
   
     const pageContentData = {
         pageTitle: 'Act & Rules',
-        pageContent: getPageData?.body
+        // pageContent: getPageData?.body
+        pageContent: "Coming Soon"
       }
    
   

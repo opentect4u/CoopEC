@@ -57,7 +57,8 @@ const [loading, setLoading] = useState(true);
   
               // pageDataCheck = res.data.status;
           } else {
-            setPageData([0])
+            setPageData([])
+            setLoading(false);
             // pageDataCheck = res.data.status;
           }
     
@@ -202,12 +203,12 @@ const [loading, setLoading] = useState(true);
 <div class="wrapper">
     <div class="inner_page_Sec">
     <div class="col-sm-8 float-left left_sec searchPageTop">
-
+    <h1>Notifications & Orders</h1>
     {loading ?(
       <Loader align = {'center'} gap = {'middle'} size = {'large'} />
     ):(
       <>
-    <h1>{getPageTitle}</h1>
+    {/* <h1>{getPageTitle}</h1> */}
     <Table columns={columns} dataSource={getPageData} scroll={{
         x: 'max-content',
       }} />
