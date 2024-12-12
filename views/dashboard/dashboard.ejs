@@ -625,13 +625,24 @@
              if(soctyplist.length > 0){
                 var range = 5000 ;
               var i = 1
+              var due_per=0;var due_num=0;
               soctyplist.forEach(dt => { 
-                rows += `<div class="range_row">
+                due_per = 100-((dt.HELD/dt.total)* 100).toFixed(2);
+                due_num = (dt.total) - (dt.HELD);
+                      rows += `<div class="range_row">
             <label class="range_small"><span class="societies_name">${dt.soc_type_name}</span></label>
             <label class="range_half">
-              <span class="barChartMap" style="width:  ${((dt.tot_soc_type/500)* 100).toFixed(2)}%; display: inline-block;"></span><span class="counter_soc">${dt.tot_soc_type}</span>
+              <span class="barChartMapDue" style="width: ${due_per.toFixed(2)}%; display: inline-block;" data-toggle="tooltip" title="${due_num.toFixed(2)}"></span>
+              <span class="barChartMap" style="width:  ${((dt.HELD/dt.total)* 100).toFixed(2)}%; display: inline-block;" data-toggle="tooltip" title="${(dt.HELD).toFixed(2)}"></span><span class="counter_soc">${dt.total}</span>
             </label>
           </div>`
+                
+          //       rows += `<div class="range_row">
+          //   <label class="range_small"><span class="societies_name">${dt.soc_type_name}</span></label>
+          //   <label class="range_half">
+          //     <span class="barChartMap" style="width:  ${((dt.tot_soc_type/500)* 100).toFixed(2)}%; display: inline-block;"></span><span class="counter_soc">${dt.tot_soc_type}</span>
+          //   </label>
+          // </div>`
            } ) }
 
            $('#item-list').html(rows);
@@ -694,8 +705,8 @@ function pieChartId(range_code) {
         labels: ["6 Months", "3 Months", "Ongoing Elections", "Completed Elections", "Need Action"],
         datasets: [{
           data: [six_month_data, three_month_data, ongoing_tot, completed_tot, due_tot],
-          backgroundColor: ["#7DA0FA", "#4747A1", "#7978E9", "#F3797E", "#43A8D9"],
-          hoverBackgroundColor: ["#6a92f9", "#7373f0", "#5b5ae6", "#d7575c", "#2988b7"],
+          backgroundColor: ["#f2c617", "#FB8A38", "#EDF1FC", "#8FA63E", "#eb5437"],
+          hoverBackgroundColor: ["#f2c617", "#FB8A38", "#EDF1FC", "#8FA63E", "#eb5437"],
           borderWidth: 3,
         }]
       },
