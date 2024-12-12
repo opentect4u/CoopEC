@@ -130,10 +130,8 @@ $('#example').DataTable();
         $('#notification_list').on('click', '.myButton', function() {
             // Extract the 'value' attribute for the URL redirection
             const redirectUrl = $(this).val();
-            
             // Extract the 'data-id' attribute for the AJAX request
             const dataId = $(this).data('id');
-            
             // Fire the AJAX request
             $.ajax({
                 url: '/society/updatenotiasread',  // Replace with the actual endpoint
@@ -141,7 +139,6 @@ $('#example').DataTable();
                 data: { id: dataId },  // Send the 'data-id' value as part of the request
                 success: function(response) {
                     console.log('AJAX success:', response);
-                    
                     // After successful AJAX request, redirect the user
                     window.location.href = redirectUrl;  // Redirect to the URL specified in 'value'
                 },
@@ -151,7 +148,41 @@ $('#example').DataTable();
             });
         });
     });
+    
+    $(document).ready(function() {
+    $('#topsoc_search').on('input', function() {
+        let query = $(this).val();
+        if (query.length > 3) {
+            $('#loaderh').show(); // Show loader
+            $.ajax({
+                url: '/society/getsuggestions', // Your server endpoint
+                method: 'GET',
+                data: { name: query },
+                success: function(data) {
+                    var datahlist = data.datahlist;
+                    $('#suggestionsh').empty().show();
+                    datahlist.forEach(function(item) {
+                        $('#suggestionsh').append(`<li class="list-group-item top_list">${item.cop_soc_name}</li>`);
+                    });
+                },
+                error: function() {
+                    console.error('Error fetching suggestions.');
+                },
+                complete: function() {
+                    $('#loaderh').hide(); // Hide loader after the request is complete
+                }
+            });
+        } else {
+            $('#suggestionsh').hide();
+            $('#loaderh').hide(); // Hide loader if query is too short
+        }
+    });
 
+    $(document).on('click', '.top_list', function() {
+        $('#topsoc_search').val($(this).text());
+        $('#suggestionsh').hide();
+    });
+});
 </script>
 
 

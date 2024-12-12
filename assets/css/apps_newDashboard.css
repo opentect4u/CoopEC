@@ -235,7 +235,34 @@ html {
 .box_col_5{  background: rgb(255,195,195);
   background: linear-gradient(30deg, rgba(255,195,195,1) 0%, rgba(255,255,255,1) 100%); }
 
-
+  .box_col_1 .threeBoxTxt{
+    background: #E1B818;
+    /* background: rgb(255,195,195);
+    background: linear-gradient(30deg, rgb(253, 248, 166) 0%, rgb(255, 255, 255) 100%); */
+  }
+  
+  .box_col_2 .threeBoxTxt{
+    background: #FB8A38;
+    /* background: rgb(255,195,195);
+    background: linear-gradient(30deg, rgb(255, 194, 150) 0%, rgba(255,255,255,1) 100%); */
+  }
+  .box_col_4 .threeBoxTxt{
+    background: #8FA63E;
+    /* background: rgb(255,195,195);
+    background: linear-gradient(30deg, rgb(194, 215, 149) 0%, rgba(255,255,255,1) 100%); */
+  }
+  .box_col_5{
+    background: #F93B31;
+    /* background: rgb(255,195,195);
+      background: linear-gradient(30deg, rgb(194, 215, 149) 0%, rgba(255,255,255,1) 100%); */
+    }
+  
+  .box_col_1 h2, .box_col_2 h2, .box_col_4 h2, .box_col_5 h2{color: #fff !important;}
+  .box_col_1 p.price .lit, .box_col_2 p.price .lit, .box_col_4 p.price .lit,
+   .box_col_5 p.price .lit{color: #fff !important;}
+  
+   .box_col_1 .threeBoxTxt .button_sape input.btn[type="submit"], .box_col_2 .threeBoxTxt .button_sape input.btn[type="submit"],  .box_col_4 .threeBoxTxt .button_sape input.btn[type="submit"],
+   .box_col_5 .threeBoxTxt .button_sape input.btn[type="submit"]{color: #fff;}
   
 
 .threeBoxNewSmall_a{background:#fff url(../images/boxIcon_a.jpg) no-repeat left center; min-height:138px;}

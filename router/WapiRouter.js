@@ -2,9 +2,9 @@ const express = require("express");
 const axios = require('axios');
 const os = require('os');
 const path = require("path");
+//const jwt = require('jsonwebtoken');
 const {db_Select,db_Insert} = require('../modules/MasterModule');
 WapiRouter = express.Router();
-
 var moment = require('moment');
 
   //   ****    Get District list   ***  //
@@ -26,6 +26,35 @@ var moment = require('moment');
         res.send(result);
       }
   });
+    // WapiRouter.get('/get_json_web_token', async(req, res) => {
+    //   let jwtSecretKey = 'T%&#$%*J(^9$&';
+    //   let data = {
+    //       _tokenid: 'HUY2*$45',
+    //   }
+    //   const token = jwt.sign(data, jwtSecretKey);
+    //   result = { token_: token };
+    //   res.send(token);
+    // });
+  //   WapiRouter.post("/validateToken", (req, res) => {
+  //     // Tokens are generally passed in header of request
+  //     // Due to security reasons.
+  //     var data = req.body;
+  //     let jwtSecretKey = 'T%&#$%*J(^9$&';
+  //     try {
+  //         const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfdG9rZW5pZCI6IkhVWTIqJDQ1IiwiaWF0IjoxNzMyMDk0NDk0fQ.pevrFtmB-mdzG8pBJD-foS4PhUDa03XeumcRiPT7XLs';
+  //         const verified = jwt.verify(token, jwtSecretKey);
+  //         if (verified) {
+  //             res.send("Successfully Verified");
+  //         } else {
+  //             // Access Denied
+  //             res.send("Access Denied");
+  //         }
+  //     } catch (error) {
+  //         // Access Denied
+  //         res.send("Access Denied");
+  //     }
+  // });
+  
 
   //   ****    Get Range list using District id   ***  //
   WapiRouter.post('/rangelist', async(req, res) => {
@@ -478,19 +507,12 @@ var moment = require('moment');
         var election_status = `AND a.election_status='${formdata.election_status}' `;
         //soc_data_status = `AND a.approve_status='A' `;
         var maincon = election_status;
-        var whr = ` AND a.approve_status = 'A' AND a.functional_status = 'Functional' ${maincon}`;
+        var whr = ` a.approve_status = 'A' AND a.functional_status = 'Functional' ${maincon}`;
         
         const order = null;
         const res_dt = await db_Select(select, table_name, whr, order);
-        const select2 = "COUNT(*) as total";
-        const countResult = await db_Select(select2, table_name, whr, order);
-        const total = countResult.msg[0].total;
-        const totalPages = Math.ceil(total / 25);
-        
+       
         // Prepare data for rendering
-        // const res_dt = {
-        //   data: result.suc > 0 ? result.msg : '',page: 1,totalPages:totalPages,
-        // };
         if (res_dt.suc > 0) {
           if (res_dt.msg.length > 0) {
               res.send({ suc: 1, status: "Data found", msg: res_dt.msg })
@@ -499,14 +521,14 @@ var moment = require('moment');
             res.send(result)
           }
         } else {
-          result = { suc: 0,status: 'Fail', msg: req.body };
+          result = { suc: 0,status: 'Fail', msg: res_dt };
           res.send(result);
         }
       } catch (error) {
         // Log the error and send an appropriate response
         console.error('Error during dashboard rendering:', error);
         //res.status(500).send('An error occurred while loading the dashboard.');
-        result = { suc: 0,status: 'Fail', msg: req.body };
+        result = { suc: 0,status: 'Fail', msg: 'Run Time Error' };
         res.send(result);
       }
    })
