@@ -632,8 +632,8 @@
                       rows += `<div class="range_row">
             <label class="range_small"><span class="societies_name">${dt.soc_type_name}</span></label>
             <label class="range_half">
-              <span class="barChartMapDue" style="width: ${due_per.toFixed(2)}%; display: inline-block;" data-toggle="tooltip" title="${due_num.toFixed(2)}-Due"></span>
-              <span class="barChartMap" style="width:  ${((dt.HELD/dt.total)* 100).toFixed(2)}%; display: inline-block;" data-toggle="tooltip" title="${(dt.HELD).toFixed(2)}-Held"></span><span class="counter_soc">${dt.total}</span>
+              <span class="barChartMapDue" style="width: ${due_per.toFixed(2)}%; display: inline-block;" data-toggle="tooltip" title="${due_num.toFixed(0)}-Due"></span>
+              <span class="barChartMap" style="width:  ${((dt.HELD/dt.total)* 100).toFixed(2)}%; display: inline-block;" data-toggle="tooltip" title="${(dt.HELD).toFixed(0)}-Held"></span><span class="counter_soc">${dt.total}</span>
             </label>
           </div>`
                 
