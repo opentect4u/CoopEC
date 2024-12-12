@@ -30,41 +30,13 @@
 
   <div class="notification_bar">
     <div class="alert alert-primary alert_cus" role="alert">
-      <i class="fa fa-info-circle" aria-hidden="true"></i>  This is a primary alert—check it out! 
+      <i class="fa fa-info-circle" aria-hidden="true"></i>   Alert — check it out! &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
       <a href="javascript:void(0)" class="showHide accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">Hide</a>
     </div>
     <div id="collapseOne" class="accordion-collapse collapse notification_off_on" data-bs-parent="#accordionExample">
-    
-      <div class="alert alert-primary alert_cus" role="alert">
-        <!-- <i class="fa fa-info-circle" aria-hidden="true"></i>   -->
-        This is a primary alert—check it out!  
-        <a href="javascript:void(0)" class="readMore">View Details</a> <a href="javascript:void(0)" class="crossLink"> <i class="fa fa-times" aria-hidden="true"></i> </a>
-
-      </div>
-      <div class="alert alert-primary alert_cus" role="alert">
-        <!-- <i class="fa fa-info-circle" aria-hidden="true"></i>   -->
-        This is a primary alert—check it out! 
-        <a href="javascript:void(0)" class="readMore">View Details</a> <a href="javascript:void(0)" class="crossLink"> <i class="fa fa-times" aria-hidden="true"></i> </a>
-      </div>
-      
-
     </div>
 
-    <!-- <div class="accordion" id="accordionExample">
-      <div class="accordion-item">
-        <h2 class="accordion-header">
-          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-            Accordion Item #1
-          </button>
-        </h2>
-        <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-          <div class="accordion-body">
-            <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-          </div>
-        </div>
-      </div>
-      
-    </div> -->
+    
   </div>
 </div>
   
@@ -86,20 +58,6 @@
           <div class="threeBoxTxt" style="height: 280px; width: 100%;">
             
             <canvas id="pieChart_1"></canvas>
-            <!-- <h2> 6 Months</h2>
-            <p class="price">
-      <span class="lit" id="total_6month"></span>
-            </p>
-
-            <div class="button_sape">
-              <form action="/report/election_upcoming" method="post">
-                <input type="hidden" value="0" name="soc_type">
-                <input type="hidden" value="<%= user.range_id %>" name="range_id">
-                <input type="hidden" value="6" name="month_tenure">
-                <input type="submit" value="View" class="btn btn-primary btn-sm button_sape_view">
-                </form> 
-
-            </div> -->
             
           </div>
         </div>
@@ -229,26 +187,6 @@
     <div class="threeBoxNewmain">
       <div class="col-sm-4 float-left">
         <div class="threeBoxNewSmall">
-          <div class="threeBoxImg yellowCol"><img src="/images/icon_d.png" alt=""></div>
-          <div class="threeBoxTxt">
-            <h2>Ongoing Elections</h2>
-            <p class="price">
-      <span class="lit" id="total_ongoing"></span>
-            </p>
-            <div class="button_sape">
-            <form action="/report/society_ele_status_result" method="post">
-              <input type="hidden" value="<%= user.range_id %>" name="range_id">
-              <input type="hidden" value="ONGOING" name="election_status">
-              <input type="submit" value="View" class="btn btn-primary btn-sm button_sape_view">
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-
-      <div class="col-sm-4 float-left">
-        <div class="threeBoxNewSmall">
           <div class="threeBoxImg greenCol"><img src="/images/icon_f.png" alt="">
           </div>
           <div class="threeBoxTxt">
@@ -283,11 +221,11 @@
                   <h2>Functional</h2>
                   <p class="price"><span class="lit" id="total_functional"></span> </p>
 
+                  <h2>Non Functional</h2>
+                  <p class="price"><span class="lit" id="total_nonfunctional"></span> </p>
                   <h2>Total Society</h2>
                   <p class="price"><span class="lit" id="total_society"></span> </p>
 
-                  <h2>Non Functional</h2>
-                  <p class="price"><span class="lit" id="total_nonfunctional"></span> </p>
 
                   <!-- <p class="descrip">The total number of sessions within the date range. It is the period time a user is actively engaged with your website, page or app, etc</p> -->
 
@@ -298,33 +236,32 @@
                   <div class="table-responsive mb-3 mb-md-0 mt-3">
                     <table class="table table-borderless report-table">
                       <tbody><tr>
-                        <td class="text-muted">Total Functional </td>
+                        <td class="text-muted">Unedited </td>
                         <td class="w-100 px-0">
-                          <div class="progress progress-md mx-4">
-                            <div class="progress-bar bg-unedit" role="progressbar" style="width: 70%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+                          <div class="progress progress-md mx-4" id="unedited_progressbar">
+                            
                           </div>
                         </td>
-                        <td><h5 class="font-weight-bold mb-0"><span id="total_functional"></span></h5></td>
+                        <td><h5 class="font-weight-bold mb-0"><span id="total_unapproved"></span></h5></td>
                       </tr>
                       <tr>
-                        <td class="text-muted">Total Society </td>
+                        <td class="text-muted">Edited </td>
                         <td class="w-100 px-0">
-                          <div class="progress progress-md mx-4">
-                            <div class="progress-bar bg-warning" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                          <div class="progress progress-md mx-4" id="edited_progressbar">
+                          
                           </div>
                         </td>
-                        <td><h5 class="font-weight-bold mb-0"><span id="total_society"></span></h5></td>
+                        <td><h5 class="font-weight-bold mb-0"><span id="total_edited"></span></h5></td>
                       </tr>
                       <tr>
-                        <td class="text-muted">Non Functional </td>
+                        <td class="text-muted">Approved </td>
                         <td class="w-100 px-0">
-                          <div class="progress progress-md mx-4">
-                            <div class="progress-bar bg-approved" role="progressbar" style="width: 95%" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
+                          <div class="progress progress-md mx-4" id="approve_progressbar">
+                            
                           </div>
                         </td>
-                        <td><h5 class="font-weight-bold mb-0"><span id="total_nonfunctional"></span></h5></td>
+                        <td><h5 class="font-weight-bold mb-0"><span id="total_approved"></span></h5></td>
                       </tr>
-                     
                     </tbody></table>
                   </div>
                 </div>
@@ -413,19 +350,6 @@
           </div>
           <div class="col-sm-4 float-left">
             <div class="threeBoxNewSmall">
-              <div class="threeBoxImg darkBlue"><img src="/images/icon_b.png" alt=""></div>
-              <div class="threeBoxTxt">
-                <h2>Edited</h2>
-                <p class="price"><span class="lit" id="total_edited"></span>
-                </p>
-                <div class="button_sape">
-                <a href="/dash/dashboard" class="btn btn-primary btn-sm">View</a>
-              </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-4 float-left">
-            <div class="threeBoxNewSmall">
               <div class="threeBoxImg redCol"><img src="/images/icon_a.png" alt=""></div>
               <div class="threeBoxTxt">
                 <h2>Approved</h2>
@@ -453,21 +377,16 @@
   <div class="col-sm-12 class_chart">
 
   <div class="stockPointSecTitle_cus_half">
-  <h2> Types of Societies</h2>
+   <h2>Types of Societies</h2>
 <!--			<a href="#" class="heading_link">Details</a>-->
-
   </div>
   </div>
     
    <div class="col-sm-8 float-left">
-
     
-   
       <div class="bloxkSec">
-				 
         <div class="range_1">
           <div class="bloxkSec_scroll" id="item-list">
-           
           <!-- <div class="range_row">
             <label class="range_small"><span class="societies_name">Women CCS</span></label>
             <label class="range_half">
@@ -482,8 +401,7 @@
                 <span class="counter_soc">5</span>
             </label>
           </div> -->
-          
-<!--					  <a style="cursor: pointer; color: blue; text-decoration: underline;" href="/">View</a>-->
+    <!--	<a style="cursor: pointer; color: blue; text-decoration: underline;" href="/">View</a>-->
         
         </div>
         </div>
@@ -491,9 +409,7 @@
         </div>
 
         <div class="col-sm-4 float-left">
-				
           <div class="bloxkSec bloxkSec_paiChart" style="height: 315px">
-
           <!-- <div class="bloxkSec"> -->
             <!-- <div> -->
             <canvas id="pieChart"></canvas>
@@ -506,13 +422,13 @@
     </div>
   </div>
   <script>
-    societytot(<%= user.range_id %>);
+    societytot('<%= user.range_id %>');
     societymodifiedstatus('<%= user.range_id %>');
     societyelectiondue_monthwise6('<%= user.range_id %>',6);
     societyelectiondue_monthwise3('<%= user.range_id %>',3);
-    electionstatus(<%= user.range_id %>);
-    barchartsoctype(<%= user.range_id %>);
-    pieChartId(<%= user.range_id %>);
+    electionstatus('<%= user.range_id %>');
+    barchartsoctype('<%= user.range_id %>');
+    pieChartId('<%= user.range_id %>');
     $('#range_code').change(function() {
         var range_code = $(this).val();
         societytot(range_code);
@@ -561,6 +477,31 @@
           $('#total_approved').html(soc.appr_tot ? soc.appr_tot : 0);
            $('#total_edited').html(soc.edited_tot ? soc.edited_tot : 0);
            $('#total_unapproved').html(soc.unapproved ? soc.unapproved : 0);
+           var prange = 5000 ;
+           var unedited = soc.unapproved ? soc.unapproved : 0;
+           var edited = soc.edited_tot ? soc.edited_tot : 0;
+           var unapproved = soc.appr_tot ? soc.appr_tot : 0;
+           var ctxP_2 = document.getElementById("pieChart_2").getContext('2d');
+        
+           $('#unedited_progressbar').html(`<div class="progress-bar bg-unedit" role="progressbar" style="width: ${((unedited/prange)* 100).toFixed(2)}%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>`);
+           $('#edited_progressbar').html(`<div class="progress-bar bg-unedit" role="progressbar" style="width: ${((edited/prange)* 100).toFixed(2)}%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>`);
+           $('#approve_progressbar').html(`<div class="progress-bar bg-unedit" role="progressbar" style="width: ${((unapproved/prange)* 100).toFixed(2)}%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>`);
+           var myPieChart2 = new Chart(ctxP_2, {
+      // type: 'pie',
+      type: 'doughnut',
+      data: {
+        labels: ["Unedited", "Edited", "Approved"],
+        datasets: [{
+          data: [unedited, edited, unapproved],
+          backgroundColor: ["#9190c1", "#FFC100", "#559d1d"],
+          hoverBackgroundColor: ["#e1e0fd", "#fdd865", "#5eb71a"],
+          borderWidth: 3,
+        }]
+      },
+      options: {
+        responsive: true
+      }
+    });
          
         },
         error: function(err) {
@@ -581,7 +522,17 @@
         },
         success: function(response) {
            var soc = response.soctot;
-            $('#total_6month').html(soc.month_before ? soc.month_before : 0);
+           var numsoc = soc.month_before ? soc.month_before : 0;
+            $('#total_6month').html(numsoc);
+             var row = `<div class="alert alert-primary alert_cus" role="alert">Election Due is Six Month(${numsoc}) —check it out!   <form action="/report/election_upcoming" method="post" class="notific_dtl">
+                <input type="hidden" value="0" name="soc_type">
+                <input type="hidden" value="<%= user.range_id %>" name="range_id">
+                <input type="hidden" value="6" name="month_tenure">
+                <input type="submit" value="View Details" class="readMore">
+                </form><a href="javascript:void(0)" class="crossLink"> <i class="fa fa-times" aria-hidden="true"></i> </a></div>`;
+             if(numsoc > 0){
+           $('#collapseOne').append(row);  
+            }        
         },
         error: function(err) {
             // Handle any errors
@@ -601,7 +552,17 @@
         },
         success: function(response) {
            var soc = response.soctot;
-            $('#total_3month').html(soc.month_before ? soc.month_before : 0);
+           var numsoc = soc.month_before ? soc.month_before : 0;
+            $('#total_3month').html(numsoc);
+            var row = `<div class="alert alert-primary alert_cus" role="alert">Election Due is Three Month(${numsoc}) —check it out!  <form action="/report/election_upcoming" method="post" class="notific_dtl">
+              <input type="hidden" value="0" name="soc_type">
+              <input type="hidden" value="<%= user.range_id %>" name="range_id">
+              <input type="hidden" value="3" name="month_tenure">
+              <input type="submit" value="View Details" class="readMore">
+              </form> <a href="javascript:void(0)" class="crossLink"> <i class="fa fa-times" aria-hidden="true"></i> </a></div>`;
+             if(numsoc > 0){
+           $('#collapseOne').append(row); 
+             }
         },
         error: function(err) {
             // Handle any errors
@@ -683,24 +644,7 @@
         });
       }
 
-//       var pieChartId = document.getElementById("pieChart");
-// if(pieChartId){
-// 	var ctxP = document.getElementById("pieChart").getContext('2d');
-//     var myPieChart = new Chart(ctxP, {
-//       type: 'pie',
-//       data: {
-//         labels: ["Rural Mapping", "Urban Mapping"],
-//         datasets: [{
-//           data: [300, 50],
-//           backgroundColor: ["#228fd4", "#eb5437"],
-//           hoverBackgroundColor: ["#5ab3ec", "#ce2a0b"]
-//         }]
-//       },
-//       options: {
-//         responsive: true
-//       }
-//     });
-// }   
+ 
 
 function pieChartId(range_code) {
 //  var pieChartId = document.getElementById("pieChart");
@@ -717,17 +661,23 @@ function pieChartId(range_code) {
            var soc = response.soctot;
            var urban_tot = soc.urban_tot ? soc.urban_tot : 0 
            var rular_tot = soc.rular_tot ? soc.rular_tot : 0 
+           var devauth_tot = soc.devauth_tot ? soc.devauth_tot : 0  
+           var six_month_data = response.six_month_data.month_before ? response.six_month_data.month_before : 0
+           var three_month_data = response.three_month_data.month_before ? response.three_month_data.month_before : 0 
+           var ongoing_tot = response.election_result_data.ongoing_tot ? response.election_result_data.ongoing_tot : 0;
+           var completed_tot = response.election_result_data.done_tot ? response.election_result_data.done_tot : 0;
+           var due_tot = response.election_result_data.due_tot ? response.election_result_data.due_tot : 0;
+       
            var ctxP = document.getElementById("pieChart").getContext('2d');
            var ctxP_1 = document.getElementById("pieChart_1").getContext('2d');
-           var ctxP_2 = document.getElementById("pieChart_2").getContext('2d');
-           
+       
     var myPieChart = new Chart(ctxP, {
       // type: 'pie',
       type: 'doughnut',
       data: {
         labels: ["Rural Mapping", "Urban Mapping", "Development Authority"],
         datasets: [{
-          data: [rular_tot, urban_tot, 6050],
+          data: [rular_tot, urban_tot, devauth_tot],
           backgroundColor: ["#4747a1", "#eb5437", "#43a8d9"],
           hoverBackgroundColor: ["#4e4ec8", "#ce2a0b", "#23b3f9"]
         }]
@@ -737,13 +687,13 @@ function pieChartId(range_code) {
       }
     });
 
-    var myPieChart = new Chart(ctxP_1, {
+    var myPieChart1 = new Chart(ctxP_1, {
       // type: 'pie',
       type: 'doughnut',
       data: {
-        labels: ["3 Months", "3 Months", "Ongoing Elections", "Completed Elections", "Need Action"],
+        labels: ["6 Months", "3 Months", "Ongoing Elections", "Completed Elections", "Need Action"],
         datasets: [{
-          data: [150, 350, 250, 156, 220],
+          data: [six_month_data, three_month_data, ongoing_tot, completed_tot, due_tot],
           backgroundColor: ["#7DA0FA", "#4747A1", "#7978E9", "#F3797E", "#43A8D9"],
           hoverBackgroundColor: ["#6a92f9", "#7373f0", "#5b5ae6", "#d7575c", "#2988b7"],
           borderWidth: 3,
@@ -755,39 +705,46 @@ function pieChartId(range_code) {
     });
 
 
-    var myPieChart = new Chart(ctxP_2, {
-      // type: 'pie',
-      type: 'doughnut',
-      data: {
-        labels: ["Unedited", "Edited", "Approved"],
-        datasets: [{
-          data: [150, 350, 250],
-          backgroundColor: ["#9190c1", "#FFC100", "#559d1d"],
-          hoverBackgroundColor: ["#e1e0fd", "#fdd865", "#5eb71a"],
-          borderWidth: 3,
-        }]
-      },
-      options: {
-        responsive: true
-      }
-    });
-        
-  
+
   },
-        
-
-
     error: function(err) {
             // Handle any errors
-            $('#dist_code').html('<option value="0">Error fetching data. Please try again.</option>');
+            $('#dist_code').html('Error fetching data. Please try again');
             console.error('AJAX Error:', err); // Log error for debugging
         }
       });
     }
 
 
-
+// Select all the elements with the class 'crossLink'
+    // document.querySelectorAll('.crossLink').forEach(function(closeButton) {
+    //   // Add a click event listener to each button
+    //   closeButton.addEventListener('click', function(event) {
+    //     // Find the parent div of the button (the alert div)
+    //     var parentDiv = event.target.closest('.alert');
+    //     // Remove the parent div from the DOM
+    //     if (parentDiv) {
+    //       parentDiv.remove();
+    //     }
+    //   });
+    // });
+    
+   
     
   </script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <script>
+     $(document).ready(function() {
+    
+  $('.crossLink').click(function() {
+    var parentDiv = event.target.closest('.alert');
+    // Remove the parent div from the DOM
+    if (parentDiv) {
+      parentDiv.remove();
+    }
+    });
+});
+    </script>
 
 

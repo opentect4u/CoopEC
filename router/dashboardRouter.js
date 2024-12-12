@@ -220,7 +220,7 @@ DashboardRouter.get('/socLimitList',async(req, res) => {
   var con6 = req.query.soc_tier > 0 ? `AND a.soc_tier=${req.query.soc_tier} ` : '';
   var con4 = req.query.urban_rural_flag > 0 ? `AND a.urban_rural_flag=${req.query.urban_rural_flag} ` : '';
   var con7 = req.query.soc_type_id > 0 ? `AND a.soc_type=${req.query.soc_type_id}` : '';
-  var soc_data_status =  req.query.soc_data_status > 0 ? `AND a.approve_status=${req.query.soc_data_status} ` : '';
+  var soc_data_status =  req.query.soc_data_status.length > 0 ? `AND a.approve_status= '${req.query.soc_data_status}' ` : '';
 
   var functional_status = req.query.functional_status != '' ? ` AND a.functional_status='${req.query.functional_status}'` : '';
   var maincon =con1+dist_code+zone_code+range_code+con4+con6+con7 +functional_status+soc_data_status;
@@ -465,7 +465,7 @@ DashboardRouter.get('/socLimitListfor_election_status',async(req, res) => {
   var con6 = req.query.soc_tier > 0 ? `AND a.soc_tier=${req.query.soc_tier} ` : '';
   var con4 = req.query.urban_rural_flag > 0 ? `AND a.urban_rural_flag=${req.query.urban_rural_flag} ` : '';
   var con7 = req.query.soc_type_id > 0 ? `AND a.soc_type=${req.query.soc_type_id}` : '';
-  var soc_data_status =  req.query.soc_data_status > 0 ? `AND a.approve_status=${req.query.soc_data_status} ` : '';
+  var soc_data_status =  req.query.soc_data_status > 0 ? `AND a.approve_status='${req.query.soc_data_status}' ` : '';
 
   var functional_status = ` AND a.functional_status='Functional'`;
   var election_status   = ` AND a.election_status='${req.query.election_status}'`;
@@ -523,13 +523,36 @@ DashboardRouter.post('/get_rular_urban',async(req,res)=>{
   try {
     // Extract query parameter 'claims'
     var data = req.body
-    var select = `SUM(CASE WHEN urban_rural_flag = 'U' THEN 1 ELSE 0 END) AS urban_tot,SUM(CASE WHEN election_status = 'R' THEN 1 ELSE 0 END) AS rular_tot`,
+    var select = `SUM(CASE WHEN urban_rural_flag = 'U' THEN 1 ELSE 0 END) AS urban_tot,SUM(CASE WHEN election_status = 'R' THEN 1 ELSE 0 END) AS rular_tot,SUM(CASE WHEN election_status = 'D' THEN 1 ELSE 0 END) AS devauth_tot`,
     table_name = `md_society`,
     where = data.range_code > 0 ? `functional_status = 'Functional' AND range_code ='${data.range_code}'` : `functional_status = 'Functional'`,
     order = null;
     var res_dt = await db_Select(select, table_name, where, order);
+
+   
+      const select_election = "count(*) as month_before";
+     
+      var range_code = data.range_code;
+      if(range_code > 0){
+      var table_name6 = `md_society a WHERE a.functional_status='Functional' AND a.approve_status = 'A' AND a.tenure_ends_on >= CURDATE() AND a.tenure_ends_on < DATE_ADD(CURDATE(), INTERVAL 6 MONTH) AND a.range_code = "${range_code}" `;
+      var table_name3 = `md_society a WHERE a.functional_status='Functional' AND a.approve_status = 'A' AND a.tenure_ends_on >= CURDATE() AND a.tenure_ends_on < DATE_ADD(CURDATE(), INTERVAL 3 MONTH) AND a.range_code = "${range_code}" `;
+      }else{
+        var select_range = range_code > 0 ? `AND a.range_code = '${range_code}'` : '' ;
+        var table_name6 = `md_society a WHERE a.functional_status='Functional' ${select_range} AND a.approve_status = 'A' AND a.tenure_ends_on >= CURDATE() AND a.tenure_ends_on < DATE_ADD(CURDATE(), INTERVAL 6 MONTH) `;
+        var table_name3 = `md_society a WHERE a.functional_status='Functional' ${select_range} AND a.approve_status = 'A' AND a.tenure_ends_on >= CURDATE() AND a.tenure_ends_on < DATE_ADD(CURDATE(), INTERVAL 3 MONTH) `;
+      }
+      var res_dt6 = await db_Select(select_election, table_name6, null, null);
+      var res_dt3 = await db_Select(select_election, table_name3, null, null);
+
+      var select_ele = `SUM(CASE WHEN election_status = 'DUE' THEN 1 ELSE 0 END) AS due_tot,SUM(CASE WHEN election_status = 'ONGOING' THEN 1 ELSE 0 END) AS ongoing_tot, SUM(CASE WHEN election_status = 'DONE' THEN 1 ELSE 0 END) AS done_tot`,
+      where_ele = data.range_code > 0 ? `functional_status = 'Functional' AND approve_status = 'A' AND range_code ='${data.range_code}'` : `functional_status = 'Functional' AND approve_status = 'A' `;
+      var res_dt_ele = await db_Select(select_ele, `md_society`, where_ele, null);
+      
     const responseData = {
-      soctot: res_dt.suc > 0 ? res_dt.msg[0] : '', // Echoing the received claims
+      soctot: res_dt.suc > 0 ? res_dt.msg[0] : '',
+      six_month_data:res_dt6.suc > 0 ? res_dt6.msg[0] : '',
+      three_month_data:res_dt3.suc > 0 ? res_dt3.msg[0] : '',
+      election_result_data:res_dt_ele.suc > 0 ? res_dt_ele.msg[0] : '',// Echoing the received claims
     };
     // Send response back to the client
     res.json(responseData);

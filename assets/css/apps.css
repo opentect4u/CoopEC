@@ -83,7 +83,7 @@ select.form-control, select.asColorPicker-input, .dataTables_wrapper select, .js
 .radioBtn_Cus label{margin-left: 5px;}
 
 .subtitle_Form_cus h3{font-size: 16px; display: flex; font-weight: bold;}
-.subtitle_Form_cus h3 .radioBtn_right{margin: 0 0 0 auto; display: flex;}
+.subtitle_Form_cus h3 .radioBtn_right{ display: flex;}
 .radioBtn_right .radioBtn_Cus{margin-left: 15px;}
 .urlby label{display: block; width: 100%;}
 
@@ -99,7 +99,7 @@ nav.pagination_cus{margin-top: 20px !important;}
 
 .auth .brand_logo_cus img {width: auto !important;}
 
-.auth .brand_logo_cus {margin-bottom: 18px !important;}
+.auth .brand_logo_cus {margin-bottom: 18px !important; text-align: center;}
 
 .loginWrapper{padding: 30px; box-shadow: 0 0 22px 5px #cfcdd5; border: #d5d5d5 solid 1px;}
 
@@ -265,7 +265,7 @@ a.edit_dashboard{color: #fff;
   .dot_overDate {
     width: var(--dot-size);
     height: var(--dot-size);
-    background-color: red;
+    background-color: #fff;
     border-radius: 50%;
   }
 
@@ -329,7 +329,21 @@ a.edit_dashboard{color: #fff;
 .welcome_sec .selectDropdown .stockPointSecTitle_cus{padding: 0 !important; margin: 0;}
 
 .notification_bar{width: 100%; margin-bottom: 15px;}
-.notification_bar .alert_cus {margin: 2px}
+.notification_bar .alert_cus {
+  margin: 2px;
+  display: flex;
+  position: relative;
+}
+.notification_bar .alert_cus form.notific_dtl{margin: 0 0 0 auto;}
+
+.notification_bar .alert_cus form.notific_dtl input[type="submit"]{background: none;
+  border: none;
+  padding: 0;
+  margin-right: 18px;
+  font-weight: 700;
+  color: #393783;
+  font-size: 13px;}
+
 .notification_bar .alert_cus i{margin-right: 3px;}
 .notification_bar .alert_cus a.showHide{text-decoration: underline; color: #393783; position: relative; padding-right: 25px;}
 .notification_bar .alert_cus a.showHide:hover{text-decoration: none;}
@@ -353,7 +367,14 @@ a.edit_dashboard{color: #fff;
 .notification_bar .alert_cus a.readMore{text-decoration: underline; color: #393783; position: relative; padding-right: 0;}
 .notification_bar .alert_cus a.readMore:hover{text-decoration: none;}
 
-.notification_bar .alert_cus a.crossLink{text-decoration: underline; color: #393783; position: relative; float: right;}
+/* .notification_bar .alert_cus a.crossLink{text-decoration: underline; color: #393783; position: relative; float: right;} */
+.notification_bar .alert_cus a.crossLink {
+  text-decoration: underline;
+  color: #393783;
+  float: right;
+  position: absolute;
+  right: 6px; top: 10px;
+}
 .notification_bar .alert_cus a.crossLink:hover{text-decoration: none;}
 
 
