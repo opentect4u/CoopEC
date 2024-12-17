@@ -327,9 +327,32 @@
                 </div>
               </div>
               <div class="col-md-6">
+                <% 
+                const currentDate = moment();
+                const tenureEndsOn = moment(moment(soc.tenure_ends_on).format("yyyy-MM-DD"), 'YYYY-MM-DD');
+                
+                // Store a copy of the current date and add 6 months to it
+                const sixMonthsFromNow = moment().add(6, 'months');
+                
+                let color_class = '';
+                
+                // Compare the dates
+                const isOver = tenureEndsOn.isBefore(currentDate, 'day'); // If the date is before the current date
+                const isGreaterThanSixMonths = tenureEndsOn.isAfter(sixMonthsFromNow, 'day'); // Greater than 6 months from current date
+                const isLessThanSixMonths = tenureEndsOn.isAfter(currentDate, 'day') && tenureEndsOn.isBefore(sixMonthsFromNow, 'day'); // Between today and 6 months from now
+                
+                // Set the color class based on the comparison
+                if (isOver) {
+                  color_class = 'background-color: #f17676';  // Over the current date
+                } else if (isGreaterThanSixMonths) {
+                  color_class = 'background-color: #8cdf8c'; // Greater than 6 months
+                } else if (isLessThanSixMonths) {
+                  color_class = 'background-color: yellow'; // Within 6 months
+                }
+                %>
                 <div class="form-group">
                   <label for="exampleInputName1">Tenure Ends On <span class="red">*</span> </label>
-                  <input type="date" class="form-control"  name="tenure_ends_on" id="tenure_ends_on" value="<%= moment(soc.tenure_ends_on).format('yyyy-MM-DD')  %>" >
+                  <input type="date" class="form-control"  style="<%= color_class %>" name="tenure_ends_on" id="tenure_ends_on" value="<%= moment(soc.tenure_ends_on).format('yyyy-MM-DD')  %>" >
                 </div>
               </div>
               <div class="col-md-6" style="display: none;">
@@ -428,12 +451,12 @@
                       boardmembdlist.forEach(dt => {
                       %>
                       
-                    <tr>
+                    <tr id="<%= dt.board_memb_id %>">
                       <input type="hidden" name="board_memb_id[]" value="<%= dt.board_memb_id %>" >
-                        <td style="padding: 10px;"><input type="text" name="board_memb_name[]" value="<%= dt.board_memb_name %>" class="form-control"></td>
-                        <td style="padding: 10px;"><input type="text" name="board_memb_desig[]" value="<%= dt.board_memb_desig %>" class="form-control"></td>
+                        <td style="padding: 10px;"><input type="text" name="board_memb_name[]" value="<%= dt.board_memb_name %>" class="form-control" ></td>
+                        <td style="padding: 10px;"><input type="text" name="board_memb_desig[]" value="<%= dt.board_memb_desig %>" class="form-control" ></td>
                         <td style="padding: 10px;"><input type="text" name="bm_contact_no[]" value="<%= dt.bm_contact_no %>" class="form-control"></td>
-                        <td style="padding: 10px;"></td>
+                        <td style="padding: 10px;"><a href="/society/board_memb_del?id=<%= dt.board_memb_id %>&soc_id=<%= soc.id %>" class="delete-link" ><button class="btn btn-danger btn-sm" >Delete</button></a></td>
                     </tr>
                     <% }) } %>
                     <tr>
@@ -895,6 +918,33 @@ $(document).ready(function() {
         }
     });
   }
+
+  $(document).ready(function(){
+    // Attach click event to the delete link
+    $('.delete-link').on('click', function(e){
+        e.preventDefault();  // Prevent the default behavior (navigation)
+
+        var deleteUrl = $(this).attr('href');  // Get the URL from the link
+        // Send an AJAX request to the server
+        $.ajax({
+            url: deleteUrl,  // URL from the link
+            type: 'GET',     // You can also use 'POST' if your server expects it
+            success: function(response) {
+                // Handle success
+                // You can show a success message, reload the table, or remove the row
+                var id = response.td_id
+                alert(id);
+                //alert('Deleted successfully!');  // Show success message
+                // Optionally, you can remove the table row or update the UI
+                $('#'+id).remove(); // Remove the row (if it's in a table)
+            },
+            error: function(xhr, status, error) {
+                // Handle error
+                alert('Error: ' + error);  // Show error message
+            }
+        });
+    });
+});
 </script>
 
 

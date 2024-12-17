@@ -14,7 +14,8 @@ DashboardRouter.use((req, res, next) => {
 DashboardRouter.get('/dashboard', async(req, res) => {
     try {
         // Extract range_id from session
-        const range_id = req.session.user.range_id;
+        var range_id = req.session.user.range_id;
+        console.log(range_id);
       //  const suc_msg = req.flash('success_msg') ;
         const select = "a.id,a.cop_soc_name,a.reg_no,a.functional_status,a.approve_status,b.soc_type_name,c.dist_name,d.zone_name,e.range_name,f.soc_tier_name";
         if(range_id > 0){ 
@@ -61,9 +62,10 @@ DashboardRouter.get('/dashboard', async(req, res) => {
           blocklist:blockres.suc > 0 ? blockres.msg : '',ulbcatglist: ulbcatgres.suc > 0 ? ulbcatgres.msg : '',
           soctierlist:soctierres.suc > 0 ? soctierres.msg : '', soctietypelist:soctietype.suc > 0 ? soctietype.msg : '',
           zonereslist:zoneres.suc > 0 ? zoneres.msg : '',distlist:distres.suc > 0 ? distres.msg : '',
-          cntr_auth_type:0,zone_code:0,dist_code:0,soc_tier:0,soc_type_id:0,range_code:0,urban_rural_flag:0,
+          cntr_auth_type:0,zone_code:0,dist_code:0,soc_tier:0,soc_type_id:0,range_code:range_id,urban_rural_flag:0,
           ulb_catg:0,block_id:0,total:total,socname:'',functional_status:'1',soc_data_status:'',range_name:''
         };
+        //console.log(res_dt);
         // Render the view with data
         res.render('dashboard/landing', res_dt);
       } catch (error) {
@@ -284,7 +286,7 @@ DashboardRouter.get('/dash', async(req, res) => {
       const totalPages = Math.ceil(total / 25);
       var regauttypehres = await db_Select('*', 'md_controlling_authority_type', null, null);
       const zoneres = await db_Select('*', 'md_zone', null, null);
-      const ranzeres = await db_Select('*', 'md_range', null, null);
+      const ranzeres = await db_Select('*', 'md_range', null, 'order by range_name');
       var blockres ;
       if(range_id > 0){
         const results = await db_Select('*', 'md_range', `range_id = '${range_id}'`, null);
@@ -635,7 +637,36 @@ DashboardRouter.post('/get_rular_urban',async(req,res)=>{
 DashboardRouter.get('/society_download', async (req, res) => {
   try {
      var range_id = req.session.user.range_id;
-     var range = range_id > 0 ? `AND a.range_code=${range_id} ` : '';
+      var zone_code = '';
+      var range_code_for_name = 0;
+     if(range_id > 0) {
+       range_code_for_name = req.session.user.range_id;
+      var range = range_id > 0 ? `AND a.range_code=${req.session.user.range_id} ` : '';
+      
+     }else{
+       range_code_for_name = req.query.range_code > 0 ? req.query.range_code : 0;
+      var range = req.query.range_code > 0 ? `AND a.range_code=${req.query.range_code} ` : '';
+       zone_code = req.query.zone_code > 0 ? `AND a.zone_code=${req.query.zone_code} ` : '';
+     }
+     
+
+  var cntr_auth_type = req.query.cntr_auth_type > 0 ? `AND a.cntr_auth_type=${req.query.cntr_auth_type} ` : '';
+ // var dist_code = req.query.dist_code > 0 ? `AND a.dist_code=${req.query.dist_code} ` : '';
+
+  var soc_tier = req.query.soc_tier > 0 ? `AND a.soc_tier=${req.query.soc_tier} ` : '';
+  var urban_rural_flag = req.query.urban_rural_flag > 0 ? `AND a.urban_rural_flag=${req.query.urban_rural_flag} ` : '';
+  var soc_type_id = req.query.soc_type_id > 0 ? `AND a.soc_type=${req.query.soc_type_id}` : '';
+    if(req.query.soc_data_status){
+      var soc_data_status =  req.query.soc_data_status.length > 0 ? `AND a.approve_status= '${req.query.soc_data_status}' ` : '';
+    }else{
+      var soc_data_status =  '';
+    }
+    if(req.query.functional_status){
+      var functional_status =  req.query.functional_status.length > 0 ? `AND a.functional_status= '${req.query.functional_status}' ` : '';
+    }else{
+      var functional_status =  '';
+    }
+
      const select = "a.cop_soc_name, a.reg_no, a.reg_date, b.soc_type_name, f.soc_tier_name, h.controlling_authority_type_name AS reg_cont_auth, g.controlling_authority_name AS returning_officer, st.state_name, c.dist_name, d.zone_name, e.range_name, a.urban_rural_flag, ulcat.ulb_catg_name, ulb.ulb_name, wa.ward_name, mb.block_name, gp.gp_name, vill.vill_name, a.pin_no, a.address, mms.manage_status_name, mot.officer_type_name, a.num_of_memb, a.audit_upto, a.last_elec_date, a.tenure_ends_on, a.contact_name AS key_person, a.contact_designation AS key_person_desig, a.contact_number, a.email, a.case_id, a.case_num, a.functional_status";
       const table_name = `md_society a 
           LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id 
@@ -656,9 +687,15 @@ DashboardRouter.get('/society_download', async (req, res) => {
           LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id`;
           var con = `a.functional_status = 'Functional' `;
 
-      const where = `${con + range}`; // Ensure these variables are properly defined
+      const where = `${con + range +cntr_auth_type +zone_code +soc_tier +urban_rural_flag+soc_type_id+soc_data_status+functional_status}`; // Ensure these variables are properly defined
       const res_dt = await db_Select(select, table_name, where,null);
-
+      // if(range_code_for_name==0){
+      //         var range_name = 'ALL';
+      // }else{
+        const res_dt_range = await db_Select('range_name', 'md_range', `range_id = '${range_code_for_name}' `,null);
+        var range_name = res_dt_range.msg[0].range_name;
+        console.log(res_dt_range)
+      //}
       // Create a new workbook and worksheet
       const workbook = new ExcelJS.Workbook();
       const worksheet = workbook.addWorksheet('Report');
@@ -707,7 +744,7 @@ DashboardRouter.get('/society_download', async (req, res) => {
 
       // Set response headers for the Excel file
       res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-      res.setHeader('Content-Disposition', `attachment; filename=report_society_list.xlsx`);
+      res.setHeader('Content-Disposition', `attachment; filename=society_list_of${range_name}.xlsx`);
 
       // Write the Excel file to the response
       await workbook.xlsx.write(res);

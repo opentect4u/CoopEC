@@ -55,15 +55,14 @@
               <label for="exampleInputName1">Range </label>
                  <select class="form-control" id="range_code" name="range_code" >
                   <option value="0">Select </option>
-                  <!-- <% if(ranzelist.length > 0){
-                    var i = 1
-                    ranzelist.forEach(dt => { %>
-                    <option value="<%= dt.range_id %>" <%= range_code == dt.range_id ? 'selected' : '' %> ><%= dt.range_name %></option>
-                      <% }) } %> -->
               </select>
             </div>
           </div>
-          <% } %>
+          <% }else{ %>
+            <select class="form-control" id="range_code" name="range_code"  style="display: none;">
+              <option value="<%= range_code %>">Select <%= range_code %></option>
+          </select>
+          <% } %>  
           <div class="col-md-3">
             <div class="form-group">
               <label for="exampleInputName1">URBAN/RURAL</label>
@@ -164,8 +163,9 @@
              
              
               
-              <div class="table_title_icon"> 
-                <a href="/dash/society_download" class=""><img src="/images/excel.jpg" alt="excel" class="excel_cus" /></a>
+              <div class="table_title_icon">
+                 
+                <a href="/dash/society_download"  class="download-link"><img src="/images/excel.jpg" alt="excel" class="excel_cus" /></a>
                 <!-- <img src="/images/pdf.jpg" alt="pdf" class="pdf_cus" />
                 <img src="/images/excel.jpg" alt="excel" class="excel_cus" /> -->
               <!-- <i class="fa fa-file-pdf-o pdf_cus" aria-hidden="true"></i> 
@@ -269,6 +269,8 @@
 
 <script>
           $(document).ready(function() {
+           // alert(<%= range_code %>)
+            console.log('');
                 '<% if (success_msg.length > 0) { %>'
                     toastr.success('<%= success_msg %>');
             '<% } %>'
@@ -618,10 +620,13 @@
         success: function(response) {
             var datahlists = response.datahlist;
             var $select = $('#range_code');
+            // Add a default "Select" option
+            if(range_code == 0){
+          
             // Clear existing options
             $select.empty();
-            // Add a default "Select" option
             $select.append('<option value="0">Select Range</option>');
+            }
             // Append new options from the response data
             datahlists.forEach(function(item) {
                 $select.append(`<option value="${item.range_id}" ${(item.range_id == range_id) ? 'selected' : ''} >${item.range_name}</option>`);
@@ -714,6 +719,97 @@
         $('#suggestions').hide();
     });
 });
+document.addEventListener('DOMContentLoaded', function () {
+    // Reference to the select elements and download link
+    const functionalStatusElements = document.querySelectorAll('.functional_status');
+    const rangeSelect = document.getElementById('range_code');
+    const cntr_auth_type = document.getElementById('cntr_auth_type');
+    const zone_code = document.getElementById('zone_code');
+    const urban_rural_flag = document.getElementById('urban_rural_flag');
+    const soc_tier = document.getElementById('soc_tier');
+    const soc_type_id = document.getElementById('soc_type_id');
+    const soc_data_status = document.getElementById('soc_data_status');
+    const downloadLink = document.querySelector('.download-link');
+    var temp_range_code = '<%= range_code %>'
+    // Function to update the href of the download link
+    function updateDownloadLink() {
+         let functionalStatusValue = '';
+        // let rangeSelect = '';
+         let zoneCodeValue = '';
+          if (zone_code) {
+              zoneCodeValue = zone_code.value;
+          }
+        // Collect selected values from all select boxes
+      
+        const selectedFunctionalStatus = document.querySelector('input[name="functional_status"]:checked');
+        if (selectedFunctionalStatus) {
+            functionalStatusValue = selectedFunctionalStatus.value;
+        }
+        const cntrAuthTypeValue = cntr_auth_type.value;
+        
+        const urbanRuralFlagValue = urban_rural_flag.value;
+        const socTierValue = soc_tier.value;
+        const socTypeIdValue = soc_type_id.value;
+        const socDataStatusValue = soc_data_status.value;
+        
+        // Construct the query string with all selected values
+        let queryString = '';
+        if(temp_range_code == 0){
+          const rangeValue = rangeSelect.value;
+        
+        if (rangeValue) queryString += `range_id=${rangeValue}&`;
+        if (zoneCodeValue) queryString += `zone_code=${zoneCodeValue}&`;
+        }
+        if (functionalStatusValue) queryString += `functional_status=${functionalStatusValue}&`;
+        if (cntrAuthTypeValue) queryString += `cntr_auth_type=${cntrAuthTypeValue}&`;
+
+        if (urbanRuralFlagValue) queryString += `urban_rural_flag=${urbanRuralFlagValue}&`;
+        if (socTierValue) queryString += `soc_tier=${socTierValue}&`;
+        if (socTypeIdValue) queryString += `soc_type_id=${socTypeIdValue}&`;
+        if (socDataStatusValue) queryString += `soc_data_status=${socDataStatusValue}&`;
+
+        // Remove the last '&' if present
+        queryString = queryString.slice(0, -1);
+
+        // Construct the final URL
+        const baseUrl = '/dash/society_download';
+        const updatedUrl = queryString ? `${baseUrl}?${queryString}` : baseUrl;
+
+        // Update the href of the download link
+        downloadLink.setAttribute('href', updatedUrl);
+    }
+
+    // Listen for changes to the select boxes
+   
+     if(temp_range_code == 0){
+      //rangeSelect.addEventListener('change', updateDownloadLink);
+      if (rangeSelect) {
+       rangeSelect.addEventListener('change', updateDownloadLink);
+       }
+       if(zone_code){
+        zone_code.addEventListener('change', updateDownloadLink);
+       }
+      
+     }
+    
+     functionalStatusElements.forEach(radio => {
+        radio.addEventListener('change', updateDownloadLink);
+    });
+    cntr_auth_type.addEventListener('change', updateDownloadLink);
+    cntr_auth_type.addEventListener('change', updateDownloadLink);
+    urban_rural_flag.addEventListener('change', updateDownloadLink);
+    soc_tier.addEventListener('change', updateDownloadLink);
+   // soc_type_id.addEventListener('change', updateDownloadLink);
+    $('#soc_type_id').on('change', function() {
+          const selectedValue = $(this).val();
+          updateDownloadLink();
+      });
+    soc_data_status.addEventListener('change', updateDownloadLink);
+
+    // Initial update (in case the page is loaded with pre-selected values)
+    updateDownloadLink();
+});
+
 
 </script>
 

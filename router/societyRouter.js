@@ -1,7 +1,7 @@
 const SocietyRouter = require('express').Router()
 const axios = require('axios');
 const moment = require('moment');
-const {db_Select,db_Insert,SendNotification} = require('../modules/MasterModule');
+const {db_Select,db_Insert,SendNotification,db_Delete} = require('../modules/MasterModule');
 SocietyRouter.use((req, res, next) => {
     var user = req.session.user;
     if (!user) {
@@ -311,6 +311,31 @@ SocietyRouter.post('/socadddata', async(req, res) => {
       //res.status(500).send('An error occurred while loading the dashboard.');
       res.render('dashboard/edit', res_dt);
     }
+})
+
+SocietyRouter.get('/board_memb_del', async(req, res) => {
+  try {
+      
+      var id = req.query.id,where=`board_memb_id = '${id}' `;
+      var soc_id = req.query.soc_id;
+      var res_dt = await db_Delete("td_board_member", where);
+      if(res_dt.suc > 0){
+        var responseData = {
+          td_id:id,
+          message:'Status updated successfully' ,success: true// Echoing the received claims
+        };
+      }else{
+        var responseData = {
+          message:'Fail' ,success: false// Echoing the received claims
+        };
+      }
+      res.json(responseData);
+     //res.redirect("/society/edit?id="+soc_id);
+  } catch (error) {
+    // Log the error and send an appropriate response
+    console.error('Error during dashboard rendering:', error);
+    res.redirect("dash/dashboard");
+  }
 })
 SocietyRouter.get('/regauth',async(req,res)=>{
   try {
