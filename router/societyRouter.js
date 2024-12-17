@@ -477,7 +477,7 @@ SocietyRouter.get('/villlist',async(req,res)=>{
     try {
       // Extract query parameter 'claims'
       const dist_code = req.query.dist_code;
-      const datahres = await db_Select('range_id,range_name','md_range',`dist_id='${dist_code}'`, null);
+      const datahres = await db_Select('range_id,range_name','md_range',`dist_id='${dist_code}' AND range_id != 0 `, null);
       const responseData = {
         datahlist: datahres.suc > 0 ? datahres.msg : '', // Echoing the received claims
       };

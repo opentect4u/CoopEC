@@ -129,11 +129,14 @@
                   </select>
                 </div>
               </div>
-              <div class="col-md-6">
+             
+              <div class="col-md-6" id="range_id_to" <% if(soc.cntr_auth_type > 1){ %> 
+                style="display: none;"
+            <% } %> >
                 <div class="form-group">
                   <label for="exampleInputName1">Range <span class="red">*</span></label>
                   <select class="form-control" id="range_code" name="range_code" >
-                    <option value="">Select Range </option>
+                    <!-- <option value="">Select Range </option> -->
                     <% if(ranzelist.length > 0){
                       var i = 1
                       ranzelist.forEach(dt => { %>
@@ -176,7 +179,7 @@
                 <div class="form-group">
                   <label for="exampleInputName1">Urban Local Body <span class="red">*</span></label>
                   <select class="form-control select2" id="ulb_id" name="ulb_id" >
-                    <option value="">Select Range </option>
+                    <option value="">Select  </option>
                     <% if(ulblist.length > 0){
                       var i = 1
                       ulblist.forEach(dt => { %>
@@ -513,10 +516,19 @@
       // On change event, call the function to populate select
     var initialSelectedValue = '<%= soc.cntr_auth_type %>';
     var controlling_authority_id = '<%= soc.cntr_auth %>'; // Server-side value embedded in the script
+    if(controlling_authority_id > 1){
+          $('#range_id_to').hide();
+        }
     populateros(initialSelectedValue,controlling_authority_id);
     // Handle change event for dynamic updates
     $('#cntr_auth_type').change(function() {
         var selectedValue = $(this).val();
+        if(selectedValue > 1){
+          $('#range_id_to').hide();
+        }else{
+          $('#range_id_to').show();
+        }
+       
         populateros(selectedValue,0);
     });
    ///    ****************     Change Data for Urban Local Body   ************    ///
@@ -883,18 +895,19 @@ pc.onicecandidate = function(event) {
     pc.onicecandidate = noop;
   }
 };
-$(document).ready(function() {
+     $(document).ready(function() {
       $('#dist_code').change(function() {
           var selectedValue = $(this).val();
-          populaterange(selectedValue);
+          var controlling_auth = $('#cntr_auth_type').val();
+          populaterange(selectedValue,controlling_auth);
       });
     })
 
-    function populaterange(dist_code) {
+    function populaterange(dist_code,controlling_auth) {
     $.ajax({
         url: '/society/rangelist',
         method: 'GET',
-        data: { dist_code: dist_code },
+        data: { dist_code: dist_code,controlling_auth:controlling_auth },
         beforeSend: function() {
             // Show a loading indicator if needed
             $('#range_code').html('<option value="0">Loading...</option>');
@@ -905,7 +918,12 @@ $(document).ready(function() {
             // Clear existing options
             $select.empty();
             // Add a default "Select" option
-            $select.append('<option value="0">Select Range </option>');
+            if(controlling_auth == 1){
+              $select.append('<option value="0">Select Range </option>');
+            }else{
+              $('#range_code').hide();$('#range_id_to').hide();
+              
+            }
             // Append new options from the response data
             datahlists.forEach(function(item) {
                 $select.append(`<option value="${item.range_id}" >${item.range_name}</option>`);

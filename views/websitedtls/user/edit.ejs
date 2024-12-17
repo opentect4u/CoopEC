@@ -63,7 +63,18 @@
               <% }else  { %>
                 <input type="hidden" name="range_id" value="<%= user.range_id %>">
               <% } %>
-             
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputName1">Registration & Controlling Authority <span class="red">*</span></label>
+                  <select name="cntr_auth_type" id="cntr_auth_type" class="form-control" required> 
+                    <option value="">Please Select</option>
+                    <% 
+                    cnt_type.forEach(dt => { %>
+                    <option value="<%= dt.controlling_authority_type_id %>" <%= usersd.cntr_auth_type == dt.controlling_authority_type_id ? 'selected' : '' %> ><%= dt.controlling_authority_type_name %></option>
+                    <% }) %>
+                  </select>
+                </div>
+              </div>
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="exampleInputName1">User Status<span class="red">*</span></label>

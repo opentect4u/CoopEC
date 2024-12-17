@@ -69,6 +69,7 @@ const { WapiRouter } = require("./router/WapiRouter");
 const { WdtlsRouter } = require("./router/WdtlsRouter");
 const { reportRouter } = require("./router/reportRouter");
 const { Cronjobrouter } = require("./router/cronjobrouter");
+const { rangeRouter } = require("./router/rangeRouter");
 
 app.use("/login",LoginRouter)
 app.use("/dash",DashboardRouter)
@@ -77,6 +78,7 @@ app.use("/wapi",WapiRouter)
 app.use("/wdtls",WdtlsRouter)
 app.use("/report",reportRouter)
 app.use("/crn",Cronjobrouter)
+app.use("/rangeR",rangeRouter)
 
 
 app.get("/",async (req, res) => {

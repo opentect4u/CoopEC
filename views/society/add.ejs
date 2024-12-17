@@ -114,7 +114,7 @@
                   </select>
                 </div>
               </div>
-              <div class="col-md-6">
+              <div class="col-md-6" id="range_id_to">
                 <div class="form-group">
                   <label for="exampleInputName1">Range <span class="red">*</span></label>
                   <select class="form-control" id="range_code" name="range_code" required>
@@ -461,6 +461,12 @@
     // Handle change event for dynamic updates
     $('#cntr_auth_type').change(function() {
         var selectedValue = $(this).val();
+
+        if(selectedValue > 1){
+          $('#range_id_to').hide();
+        }else{
+          $('#range_id_to').show();
+        }
         populateros(selectedValue,0);
     });
    ///    ****************     Change Data for Urban Local Body   ************    ///
@@ -797,6 +803,47 @@ $(document).ready(function() {
         }
   })
 })
+$(document).ready(function() {
+      $('#dist_code').change(function() {
+          var selectedValue = $(this).val();
+          var controlling_auth = $('#cntr_auth_type').val();
+          populaterange(selectedValue,controlling_auth);
+      });
+    })
+
+    function populaterange(dist_code,controlling_auth) {
+    $.ajax({
+        url: '/society/rangelist',
+        method: 'GET',
+        data: { dist_code: dist_code,controlling_auth:controlling_auth },
+        beforeSend: function() {
+            // Show a loading indicator if needed
+            $('#range_code').html('<option value="0">Loading...</option>');
+        },
+        success: function(response) {
+            var datahlists = response.datahlist;
+            var $select = $('#range_code');
+            // Clear existing options
+            $select.empty();
+            // Add a default "Select" option
+            if(controlling_auth == 1){
+              $select.append('<option value="0">Select Range </option>');
+            }else{
+              $('#range_code').hide();$('#range_id_to').hide();
+              
+            }
+            // Append new options from the response data
+            datahlists.forEach(function(item) {
+                $select.append(`<option value="${item.range_id}" >${item.range_name}</option>`);
+            });
+        },
+        error: function(err) {
+            // Handle any errors
+            $('#range_code').html('<option value="0">Error fetching data. Please try again.</option>');
+            console.error('AJAX Error:', err); // Log error for debugging
+        }
+    });
+  }
 
 </script>
 

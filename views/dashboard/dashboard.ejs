@@ -625,15 +625,40 @@
              if(soctyplist.length > 0){
                 var range = 5000 ;
               var i = 1
-              var due_per=0;var due_num=0;
+              var due_per=0;var due_num=0,ongoing_num,ongoing_per =0,held_per,held_num;
               soctyplist.forEach(dt => { 
-                due_per = 100-((dt.HELD/dt.total)* 100).toFixed(2);
-                due_num = (dt.total) - (dt.HELD);
+                if(dt.ONGOING > 0){
+                  ongoing_per = (dt.ONGOING/100).toFixed();
+                  ongoing_num = dt.ONGOING;
+                }else{
+                  ongoing_per = 0;
+                  ongoing_num = 0;
+                }
+                if(dt.HELD > 0){
+                  held_per = (dt.HELD/100).toFixed();
+                  held_num = dt.HELD;
+                }else{
+                  held_per = 0;
+                  held_num = 0;
+                }
+                due_per = (100-ongoing_per-held_per).toFixed();
+                
+                due_num = (dt.total) - held_num- ongoing_num;
+                // <span class="count_Cus">10</span>
                       rows += `<div class="range_row">
             <label class="range_small"><span class="societies_name">${dt.soc_type_name}</span></label>
             <label class="range_half">
-              <span class="barChartMapDue" style="width: ${due_per.toFixed(2)}%; display: inline-block;" data-toggle="tooltip" title="${due_num.toFixed(0)}-Due"></span>
-              <span class="barChartMap" style="width:  ${((dt.HELD/dt.total)* 100).toFixed(2)}%; display: inline-block;" data-toggle="tooltip" title="${(dt.HELD).toFixed(0)}-Held"></span><span class="counter_soc">${dt.total}</span>
+              <span class="barChartMapDue" style="width: ${due_per}%; display: inline-block;" data-toggle="tooltip" title="${due_num.toFixed()}-Due">
+                 
+                </span>
+              <span class="barChartMapongoing" style="width: ${ongoing_per}%; display: inline-block;" data-toggle="tooltip" title="${ongoing_num.toFixed()}-Ongoing">
+                
+                </span>
+              <span class="barChartMap" style="width:  ${held_per}%; display: inline-block;" data-toggle="tooltip" title="${(held_num).toFixed()}-Held">
+                 
+                </span>
+                
+                <span class="counter_soc">${dt.total}</span>
             </label>
           </div>`
                 
@@ -664,7 +689,6 @@ function pieChartId(range_code) {
         method: 'POST',
         data: { range_code: range_code },
         beforeSend: function() {
-
             // Show a loading indicator if needed
           // $('#block_id').html('<option value="0">Loading...</option>');
         },
@@ -682,39 +706,39 @@ function pieChartId(range_code) {
            var ctxP = document.getElementById("pieChart").getContext('2d');
            var ctxP_1 = document.getElementById("pieChart_1").getContext('2d');
        
-    var myPieChart = new Chart(ctxP, {
-      // type: 'pie',
-      type: 'doughnut',
-      data: {
-        labels: ["Rural Mapping", "Urban Mapping", "Development Authority"],
-        datasets: [{
-          data: [rular_tot, urban_tot, devauth_tot],
-          backgroundColor: ["#4747a1", "#eb5437", "#43a8d9"],
-          hoverBackgroundColor: ["#4e4ec8", "#ce2a0b", "#23b3f9"]
-        }]
-      },
-      options: {
-        responsive: true
-      }
-    });
+            var myPieChart = new Chart(ctxP, {
+              // type: 'pie',
+              type: 'doughnut',
+              data: {
+                labels: ["Rural Mapping", "Urban Mapping", "Development Authority"],
+                datasets: [{
+                  data: [rular_tot, urban_tot, devauth_tot],
+                  backgroundColor: ["#4747a1", "#eb5437", "#43a8d9"],
+                  hoverBackgroundColor: ["#4e4ec8", "#ce2a0b", "#23b3f9"]
+                }]
+              },
+              options: {
+                responsive: true
+              }
+            });
 
-    var myPieChart1 = new Chart(ctxP_1, {
-      // type: 'pie',
-      type: 'doughnut',
-      data: {
-        labels: ["6 Months", "3 Months", "Ongoing Elections", "Completed Elections", "Need Action"],
-        datasets: [{
-          data: [six_month_data, three_month_data, ongoing_tot, completed_tot, due_tot],
-          backgroundColor: ["#f2c617", "#FB8A38", "#EDF1FC", "#8FA63E", "#eb5437"],
-          hoverBackgroundColor: ["#f2c617", "#FB8A38", "#EDF1FC", "#8FA63E", "#eb5437"],
-          borderWidth: 3,
-        }]
-      },
-      options: {
-        responsive: true
-      }
-    });
-  },
+           var myPieChart1 = new Chart(ctxP_1, {
+            // type: 'pie',
+            type: 'doughnut',
+            data: {
+            labels: ["6 Months", "3 Months", "Ongoing Elections", "Completed Elections", "Need Action"],
+            datasets: [{
+              data: [six_month_data, three_month_data, ongoing_tot, completed_tot, due_tot],
+              backgroundColor: ["#f2c617", "#FB8A38", "#EDF1FC", "#8FA63E", "#eb5437"],
+              hoverBackgroundColor: ["#f2c617", "#FB8A38", "#EDF1FC", "#8FA63E", "#eb5437"],
+              borderWidth: 3,
+            }]
+          },
+          options: {
+            responsive: true
+          }
+          });
+     },
     error: function(err) {
             // Handle any errors
             $('#dist_code').html('Error fetching data. Please try again');

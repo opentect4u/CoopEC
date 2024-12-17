@@ -547,7 +547,7 @@ background-size: cover; min-height:inherit; width: 100%;}
 
 
 .range_1 .barChartMap {
-  background: #008000;
+  background: #8FA63E;
   height: 15px;
   width: 100%;
   display: inline-block;
@@ -556,7 +556,15 @@ background-size: cover; min-height:inherit; width: 100%;}
 }
 
 .range_1 .barChartMapDue {
-  background: #ef190d;
+  background: #EF190D;
+  height: 15px;
+  width: 100%;
+  display: inline-block;
+  /* border-radius: 0 4px 4px 0; */
+  border-radius: 0; cursor: pointer;
+}
+.range_1 .barChartMapongoing {
+  background: #f2c617;
   height: 15px;
   width: 100%;
   display: inline-block;
@@ -573,4 +581,33 @@ background-size: cover; min-height:inherit; width: 100%;}
   text-transform: uppercase;
   cursor: pointer;
   display: inline-block;
+}
+
+.range_half {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.barChartMapDue, .barChartMapongoing, .barChartMap {
+    position: relative;
+}
+
+.barLabelDue, .barLabelOngoing, .barLabelHeld {
+    position: absolute;
+    bottom: -20px;  /* Adjust the space between the bar and the label */
+    width: 100%;
+    text-align: center;
+    font-size: 12px;  /* You can adjust the font size as needed */
+    color: #333;  /* Adjust text color if needed */
+}
+
+.barChartMapDue .count_Cus, .barChartMapongoing .count_Cus, .barChartMap .count_Cus{color: #fff;
+  font-weight: 700;
+  padding-right: 2%;}
+
+.counter_soc {
+    font-size: 14px;
+    font-weight: bold;
 }

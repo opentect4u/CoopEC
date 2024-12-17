@@ -1,0 +1,56 @@
+<div class="row">
+  <div class="col-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title card_title_cus">Add user</h4>
+        <form class="forms-sample" action="/rangeR/saverangedtl" method="post" >
+          <input type="hidden" class="form-control"  name="id" value="<%= rdtl.id %>" >
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="exampleInputName1">Address<span class="red">*</span></label>
+                <textarea name="address" rows="10" cols="5" class="form-control" required><%= rdtl.address %></textarea>
+              </div>
+            </div>
+          </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputName1">Contact No<span class="red">*</span></label>
+                  <input type="text" class="form-control"  name="contact_no" value="<%= rdtl.contact_no %>" required>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputName1">Email</label>
+                  <input type="text" class="form-control"  name="range_email" value="<%= rdtl.range_email %>"  required>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputName1">Ro Name<span class="red">*</span></label>
+                  <input type="text" class="form-control"  name="ro_name" value="<%= rdtl.ro_name %>" />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputName1">Ro Contact No<span class="red">*</span></label>
+                  <input type="text" class="form-control"  name="ro_contact" value="<%= rdtl.ro_contact %>" />
+                </div>
+              </div>
+            </div>
+         
+            
+          
+            
+          <button type="submit" class="btn btn-primary mr-2" id="submit">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
