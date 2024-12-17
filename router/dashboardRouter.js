@@ -592,7 +592,7 @@ DashboardRouter.post('/get_rular_urban',async(req,res)=>{
   try {
     // Extract query parameter 'claims'
     var data = req.body
-    var select = `SUM(CASE WHEN urban_rural_flag = 'U' THEN 1 ELSE 0 END) AS urban_tot,SUM(CASE WHEN election_status = 'R' THEN 1 ELSE 0 END) AS rular_tot,SUM(CASE WHEN election_status = 'D' THEN 1 ELSE 0 END) AS devauth_tot`,
+    var select = `SUM(CASE WHEN urban_rural_flag = 'U' THEN 1 ELSE 0 END) AS urban_tot,SUM(CASE WHEN urban_rural_flag = 'R' THEN 1 ELSE 0 END) AS rular_tot,SUM(CASE WHEN urban_rural_flag = 'D' THEN 1 ELSE 0 END) AS devauth_tot`,
     table_name = `md_society`,
     where = data.range_code > 0 ? `functional_status = 'Functional' AND range_code ='${data.range_code}'` : `functional_status = 'Functional'`,
     order = null;
