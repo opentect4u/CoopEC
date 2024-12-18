@@ -629,7 +629,6 @@ WdtlsRouter.post('/update_statistic', async(req, res) => {
       }
   })
   WdtlsRouter.post('/saveuser', async(req, res) => {
-    
    
     try {
         var data = req.body;
@@ -680,10 +679,18 @@ WdtlsRouter.post('/update_statistic', async(req, res) => {
   })
   WdtlsRouter.get('/deluser', async(req, res) => {
     try {
-        var data = req.body;
-        var id = req.query.id,where=`id = '${id}' `;
-        var res_dt = await db_Delete("td_faq", where);
-       res.redirect("/wdtls/faqlist");
+       
+        var id = req.query.id,where=`modified_by = '${id}' OR created_by = '${id}' `;
+        var wrk_dtl = await db_Select("*","md_society", where,null);
+        
+        if(wrk_dtl.msg.length == 0){
+           var res_dt = await db_Delete("md_user", `user_id = '${id}' `);
+           req.flash("success_msg", "Deleted successful!");
+        }else{
+          req.flash("error_msg", "Since the user has entered some data,so it cannot be deleted.");
+        }
+        
+       res.redirect("/wdtls/userlist");
     } catch (error) {
       // Log the error and send an appropriate response
       console.error('Error during dashboard rendering:', error);
