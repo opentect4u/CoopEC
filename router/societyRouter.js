@@ -814,7 +814,6 @@ SocietyRouter.get("/modifiedlist", async (req, res) => {
     // Extract range_id from session
     const range_id = req.session.user.range_id;
     var cntr_auth_type = req.session.user.cntr_auth_type;
-    console.log(range_id,cntr_auth_type);
     if(cntr_auth_type == 1){
           var select =
           "a.id,a.cop_soc_name,a.reg_no,a.functional_status,b.soc_type_name,c.dist_name,d.zone_name,e.range_name,f.soc_tier_name";
@@ -874,20 +873,47 @@ SocietyRouter.post("/modifiedlist", async (req, res) => {
     }else{
       var soc_name = '';
     }
-    const select =
-      "a.id,a.cop_soc_name,a.reg_no,a.functional_status,b.soc_type_name,c.dist_name,d.zone_name,e.range_name,f.soc_tier_name";
-    if (range_id > 0) {
-      var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' AND a.range_code = "${range_id}" ${soc_name} AND approve_status ='E' `;
-    } else {
-      var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' ${soc_name} AND approve_status ='E'`;
+
+    var cntr_auth_type = req.session.user.cntr_auth_type;
+    if(cntr_auth_type == 1){
+          var select =
+          "a.id,a.cop_soc_name,a.reg_no,a.functional_status,b.soc_type_name,c.dist_name,d.zone_name,e.range_name,f.soc_tier_name";
+        if (range_id > 0) {
+          var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' AND a.range_code = "${range_id}" ${soc_name} AND (approve_status = 'E' OR approve_status = 'U') `;
+        } else {
+          var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' ${soc_name} AND (approve_status = 'E' OR approve_status = 'U') `;
+        }
+        whr = "";
+        var order = null;
+        if (range_id > 0) {
+          whr1 = `functional_status='Functional' ${soc_name} AND range_code='${range_id}' AND (approve_status = 'E' OR approve_status = 'U')`;
+        } else {
+          whr1 = `functional_status='Functional' ${soc_name} AND (approve_status = 'E' OR approve_status = 'U') `;
+        }
+    }else{
+          var select =
+          "a.id,a.cop_soc_name,a.reg_no,a.functional_status,b.soc_type_name,c.dist_name,d.zone_name,e.range_name,f.soc_tier_name";
+          var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' AND a.dist_code = "${range_id}" ${soc_name} AND cntr_auth_type='${cntr_auth_type}' AND (approve_status = 'E' OR approve_status = 'U') `;
+        
+        var whr = "";
+        var order = null;
+        var whr1 = `functional_status='Functional' ${soc_name} AND dist_code='${range_id}' AND cntr_auth_type='${cntr_auth_type}' AND (approve_status = 'E' OR approve_status = 'U')`;
     }
-    whr = '';
-    const order = null;
-    if (range_id > 0) {
-      whr1 = `functional_status='Functional' AND range_code='${range_id}' ${soc_name} AND approve_status ='E'`;
-    } else {
-      whr1 = `functional_status='Functional' ${soc_name} AND approve_status ='E' `;
-    }
+
+    // const select =
+    //   "a.id,a.cop_soc_name,a.reg_no,a.functional_status,b.soc_type_name,c.dist_name,d.zone_name,e.range_name,f.soc_tier_name";
+    // if (range_id > 0) {
+    //   var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' AND a.range_code = "${range_id}" ${soc_name} AND approve_status ='E' `;
+    // } else {
+    //   var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' ${soc_name} AND approve_status ='E'`;
+    // }
+    // whr = '';
+    // const order = null;
+    // if (range_id > 0) {
+    //   whr1 = `functional_status='Functional' AND range_code='${range_id}' ${soc_name} AND approve_status ='E'`;
+    // } else {
+    //   whr1 = `functional_status='Functional' ${soc_name} AND approve_status ='E' `;
+    // }
 
     // Execute database query
     const result = await db_Select(select, table_name, whr, order);
@@ -918,22 +944,34 @@ SocietyRouter.get("/getmodifiedsuggestions", async (req, res) => {
     // Extract query parameter 'claims'
     const sugname = req.query.name;
     const range_id = req.session.user.range_id;
-    if (range_id > 0) {
-      var datahres = await db_Select(
-        "cop_soc_name",
-        "md_society",
-        `range_code='${range_id}' AND approve_status ='E' AND cop_soc_name LIKE '%${sugname
-          .split("'")
-          .join("\\'")}%'`,
-        null
-      );
-    } else {
-      var datahres = await db_Select(
-        "cop_soc_name",
-        "md_society",
-        `cop_soc_name LIKE '%${sugname.split("'").join("\\'")}%'`,
-        null
-      );
+    var cntr_auth_type = req.session.user.cntr_auth_type;
+    if(cntr_auth_type == 1){
+        if (range_id > 0) {
+          var datahres = await db_Select(
+            "cop_soc_name",
+            "md_society",
+            `range_code='${range_id}' AND approve_status ='E' AND cop_soc_name LIKE '%${sugname
+              .split("'")
+              .join("\\'")}%'`,
+            null
+          );
+        } else {
+          var datahres = await db_Select(
+            "cop_soc_name",
+            "md_society",
+            `cop_soc_name LIKE '%${sugname.split("'").join("\\'")}%'`,
+            null
+          );
+        }
+    }else{
+          var datahres = await db_Select(
+            "cop_soc_name",
+            "md_society",
+            `cntr_auth_type='${cntr_auth_type}' AND approve_status ='E' AND cop_soc_name LIKE '%${sugname
+              .split("'")
+              .join("\\'")}%'`,
+            null
+          );
     }
 
     const responseData = {
