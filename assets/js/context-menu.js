@@ -1,240 +1,240 @@
-(function($) {
-  'use strict';
+(function ($) {
+  "use strict";
   $.contextMenu({
-    selector: '#context-menu-simple',
-    callback: function(key, options) {},
+    selector: "#context-menu-simple",
+    callback: function (key, options) {},
     items: {
-      "edit": {
+      edit: {
         name: "Edit",
-        icon: "edit"
+        icon: "edit",
       },
-      "cut": {
+      cut: {
         name: "Cut",
-        icon: "cut"
+        icon: "cut",
       },
       copy: {
         name: "Copy",
-        icon: "copy"
-      },
-      "paste": {
-        name: "Paste",
-        icon: "paste"
-      },
-      "delete": {
-        name: "Delete",
-        icon: "delete"
-      },
-      "sep1": "---------",
-      "quit": {
-        name: "Quit",
-        icon: function() {
-          return 'context-menu-icon context-menu-icon-quit';
-        }
-      }
-    }
-  });
-  $.contextMenu({
-    selector: '#context-menu-access',
-    callback: function(key, options) {
-      var m = "clicked: " + key;
-      window.console && console.log(m) || alert(m);
-    },
-    items: {
-      "edit": {
-        name: "Edit",
-        icon: "edit",
-        accesskey: "e"
-      },
-      "cut": {
-        name: "Cut",
-        icon: "cut",
-        accesskey: "c"
-      },
-      // first unused character is taken (here: o)
-      "copy": {
-        name: "Copy",
         icon: "copy",
-        accesskey: "c o p y"
       },
-      // words are truncated to their first letter (here: p)
-      "paste": {
+      paste: {
         name: "Paste",
         icon: "paste",
-        accesskey: "cool paste"
       },
-      "delete": {
+      delete: {
         name: "Delete",
-        icon: "delete"
+        icon: "delete",
       },
-      "sep1": "---------",
-      "quit": {
+      sep1: "---------",
+      quit: {
         name: "Quit",
-        icon: function($element, key, item) {
-          return 'context-menu-icon context-menu-icon-quit';
-        }
-      }
-    }
+        icon: function () {
+          return "context-menu-icon context-menu-icon-quit";
+        },
+      },
+    },
   });
   $.contextMenu({
-    selector: '#context-menu-open',
-    callback: function(key, options) {
+    selector: "#context-menu-access",
+    callback: function (key, options) {
       var m = "clicked: " + key;
-      window.console && console.log(m) || alert(m);
+      (window.console && console.log(m)) || alert(m);
     },
     items: {
-      "edit": {
+      edit: {
+        name: "Edit",
+        icon: "edit",
+        accesskey: "e",
+      },
+      cut: {
+        name: "Cut",
+        icon: "cut",
+        accesskey: "c",
+      },
+      // first unused character is taken (here: o)
+      copy: {
+        name: "Copy",
+        icon: "copy",
+        accesskey: "c o p y",
+      },
+      // words are truncated to their first letter (here: p)
+      paste: {
+        name: "Paste",
+        icon: "paste",
+        accesskey: "cool paste",
+      },
+      delete: {
+        name: "Delete",
+        icon: "delete",
+      },
+      sep1: "---------",
+      quit: {
+        name: "Quit",
+        icon: function ($element, key, item) {
+          return "context-menu-icon context-menu-icon-quit";
+        },
+      },
+    },
+  });
+  $.contextMenu({
+    selector: "#context-menu-open",
+    callback: function (key, options) {
+      var m = "clicked: " + key;
+      (window.console && console.log(m)) || alert(m);
+    },
+    items: {
+      edit: {
         name: "Closing on Click",
         icon: "edit",
-        callback: function() {
+        callback: function () {
           return true;
-        }
+        },
       },
-      "cut": {
+      cut: {
         name: "Open after Click",
         icon: "cut",
-        callback: function() {
+        callback: function () {
           return false;
-        }
-      }
-    }
+        },
+      },
+    },
   });
   $.contextMenu({
-    selector: '#context-menu-multi',
-    callback: function(key, options) {
+    selector: "#context-menu-multi",
+    callback: function (key, options) {
       var m = "clicked: " + key;
-      window.console && console.log(m) || alert(m);
+      (window.console && console.log(m)) || alert(m);
     },
     items: {
-      "edit": {
-        "name": "Edit",
-        "icon": "edit"
+      edit: {
+        name: "Edit",
+        icon: "edit",
       },
-      "cut": {
-        "name": "Cut",
-        "icon": "cut"
+      cut: {
+        name: "Cut",
+        icon: "cut",
       },
-      "sep1": "---------",
-      "quit": {
-        "name": "Quit",
-        "icon": "quit"
+      sep1: "---------",
+      quit: {
+        name: "Quit",
+        icon: "quit",
       },
-      "sep2": "---------",
-      "fold1": {
-        "name": "Sub group",
-        "items": {
+      sep2: "---------",
+      fold1: {
+        name: "Sub group",
+        items: {
           "fold1-key1": {
-            "name": "Foo bar"
+            name: "Foo bar",
           },
-          "fold2": {
-            "name": "Sub group 2",
-            "items": {
+          fold2: {
+            name: "Sub group 2",
+            items: {
               "fold2-key1": {
-                "name": "alpha"
+                name: "alpha",
               },
               "fold2-key2": {
-                "name": "bravo"
+                name: "bravo",
               },
               "fold2-key3": {
-                "name": "charlie"
-              }
-            }
+                name: "charlie",
+              },
+            },
           },
           "fold1-key3": {
-            "name": "delta"
-          }
-        }
+            name: "delta",
+          },
+        },
       },
-      "fold1a": {
-        "name": "Other group",
-        "items": {
+      fold1a: {
+        name: "Other group",
+        items: {
           "fold1a-key1": {
-            "name": "echo"
+            name: "echo",
           },
           "fold1a-key2": {
-            "name": "foxtrot"
+            name: "foxtrot",
           },
           "fold1a-key3": {
-            "name": "golf"
-          }
-        }
-      }
-    }
+            name: "golf",
+          },
+        },
+      },
+    },
   });
   $.contextMenu({
-    selector: '#context-menu-hover',
-    trigger: 'hover',
+    selector: "#context-menu-hover",
+    trigger: "hover",
     delay: 500,
-    callback: function(key, options) {
+    callback: function (key, options) {
       var m = "clicked: " + key;
-      window.console && console.log(m) || alert(m);
+      (window.console && console.log(m)) || alert(m);
     },
     items: {
-      "edit": {
+      edit: {
         name: "Edit",
-        icon: "edit"
+        icon: "edit",
       },
-      "cut": {
+      cut: {
         name: "Cut",
-        icon: "cut"
+        icon: "cut",
       },
-      "copy": {
+      copy: {
         name: "Copy",
-        icon: "copy"
+        icon: "copy",
       },
-      "paste": {
+      paste: {
         name: "Paste",
-        icon: "paste"
+        icon: "paste",
       },
-      "delete": {
+      delete: {
         name: "Delete",
-        icon: "delete"
+        icon: "delete",
       },
-      "sep1": "---------",
-      "quit": {
+      sep1: "---------",
+      quit: {
         name: "Quit",
-        icon: function($element, key, item) {
-          return 'context-menu-icon context-menu-icon-quit';
-        }
-      }
-    }
+        icon: function ($element, key, item) {
+          return "context-menu-icon context-menu-icon-quit";
+        },
+      },
+    },
   });
   $.contextMenu({
-    selector: '#context-menu-hover-autohide',
-    trigger: 'hover',
+    selector: "#context-menu-hover-autohide",
+    trigger: "hover",
     delay: 500,
     autoHide: true,
-    callback: function(key, options) {
+    callback: function (key, options) {
       var m = "clicked: " + key;
-      window.console && console.log(m) || alert(m);
+      (window.console && console.log(m)) || alert(m);
     },
     items: {
-      "edit": {
+      edit: {
         name: "Edit",
-        icon: "edit"
+        icon: "edit",
       },
-      "cut": {
+      cut: {
         name: "Cut",
-        icon: "cut"
+        icon: "cut",
       },
-      "copy": {
+      copy: {
         name: "Copy",
-        icon: "copy"
+        icon: "copy",
       },
-      "paste": {
+      paste: {
         name: "Paste",
-        icon: "paste"
+        icon: "paste",
       },
-      "delete": {
+      delete: {
         name: "Delete",
-        icon: "delete"
+        icon: "delete",
       },
-      "sep1": "---------",
-      "quit": {
+      sep1: "---------",
+      quit: {
         name: "Quit",
-        icon: function($element, key, item) {
-          return 'context-menu-icon context-menu-icon-quit';
-        }
-      }
-    }
+        icon: function ($element, key, item) {
+          return "context-menu-icon context-menu-icon-quit";
+        },
+      },
+    },
   });
 })(jQuery);

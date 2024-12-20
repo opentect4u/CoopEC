@@ -1,239 +1,245 @@
-$(function() {
-  'use strict';
-  if ($('#morris-line-example').length) {
+$(function () {
+  "use strict";
+  if ($("#morris-line-example").length) {
     Morris.Line({
-      element: 'morris-line-example',
-      lineColors: ['#63CF72', '#F36368', '#76C1FA', '#FABA66'],
-      data: [{
-          y: '2006',
+      element: "morris-line-example",
+      lineColors: ["#63CF72", "#F36368", "#76C1FA", "#FABA66"],
+      data: [
+        {
+          y: "2006",
           a: 100,
-          b: 150
+          b: 150,
         },
         {
-          y: '2007',
+          y: "2007",
           a: 75,
-          b: 65
+          b: 65,
         },
         {
-          y: '2008',
+          y: "2008",
           a: 50,
-          b: 40
+          b: 40,
         },
         {
-          y: '2009',
+          y: "2009",
           a: 75,
-          b: 65
+          b: 65,
         },
         {
-          y: '2010',
+          y: "2010",
           a: 50,
-          b: 40
+          b: 40,
         },
         {
-          y: '2011',
+          y: "2011",
           a: 75,
-          b: 65
+          b: 65,
         },
         {
-          y: '2012',
+          y: "2012",
           a: 100,
-          b: 90
-        }
+          b: 90,
+        },
       ],
-      xkey: 'y',
-      ykeys: ['a', 'b'],
-      labels: ['Series A', 'Series B']
+      xkey: "y",
+      ykeys: ["a", "b"],
+      labels: ["Series A", "Series B"],
     });
   }
-  if ($('#morris-area-example').length) {
+  if ($("#morris-area-example").length) {
     Morris.Area({
-      element: 'morris-area-example',
-      lineColors: ['#76C1FA', '#F36368', '#63CF72', '#FABA66'],
-      data: [{
-          y: '2006',
+      element: "morris-area-example",
+      lineColors: ["#76C1FA", "#F36368", "#63CF72", "#FABA66"],
+      data: [
+        {
+          y: "2006",
           a: 100,
-          b: 90
+          b: 90,
         },
         {
-          y: '2007',
+          y: "2007",
           a: 75,
-          b: 105
+          b: 105,
         },
         {
-          y: '2008',
+          y: "2008",
           a: 50,
-          b: 40
+          b: 40,
         },
         {
-          y: '2009',
+          y: "2009",
           a: 75,
-          b: 65
+          b: 65,
         },
         {
-          y: '2010',
+          y: "2010",
           a: 50,
-          b: 40
+          b: 40,
         },
         {
-          y: '2011',
+          y: "2011",
           a: 75,
-          b: 65
+          b: 65,
         },
         {
-          y: '2012',
+          y: "2012",
           a: 100,
-          b: 90
-        }
+          b: 90,
+        },
       ],
-      xkey: 'y',
-      ykeys: ['a', 'b'],
-      labels: ['Series A', 'Series B']
+      xkey: "y",
+      ykeys: ["a", "b"],
+      labels: ["Series A", "Series B"],
     });
   }
   if ($("#morris-bar-example").length) {
     Morris.Bar({
-      element: 'morris-bar-example',
-      barColors: ['#63CF72', '#F36368', '#76C1FA', '#FABA66'],
-      data: [{
-          y: '2006',
+      element: "morris-bar-example",
+      barColors: ["#63CF72", "#F36368", "#76C1FA", "#FABA66"],
+      data: [
+        {
+          y: "2006",
           a: 100,
-          b: 90
+          b: 90,
         },
         {
-          y: '2007',
+          y: "2007",
           a: 75,
-          b: 65
+          b: 65,
         },
         {
-          y: '2008',
+          y: "2008",
           a: 50,
-          b: 40
+          b: 40,
         },
         {
-          y: '2009',
+          y: "2009",
           a: 75,
-          b: 65
+          b: 65,
         },
         {
-          y: '2010',
+          y: "2010",
           a: 50,
-          b: 40
+          b: 40,
         },
         {
-          y: '2011',
+          y: "2011",
           a: 75,
-          b: 65
+          b: 65,
         },
         {
-          y: '2012',
+          y: "2012",
           a: 100,
-          b: 90
-        }
+          b: 90,
+        },
       ],
-      xkey: 'y',
-      ykeys: ['a', 'b'],
-      labels: ['Series A', 'Series B']
+      xkey: "y",
+      ykeys: ["a", "b"],
+      labels: ["Series A", "Series B"],
     });
   }
   if ($("#morris-donut-example").length) {
     Morris.Donut({
-      element: 'morris-donut-example',
-      colors: ['#76C1FA', '#F36368', '#63CF72', '#FABA66'],
-      data: [{
+      element: "morris-donut-example",
+      colors: ["#76C1FA", "#F36368", "#63CF72", "#FABA66"],
+      data: [
+        {
           label: "Download Sales",
-          value: 12
+          value: 12,
         },
         {
           label: "In-Store Sales",
-          value: 30
+          value: 30,
         },
         {
           label: "Mail-Order Sales",
-          value: 20
-        }
-      ]
+          value: 20,
+        },
+      ],
     });
   }
 
   if ($("#morris-donut-dark-example").length) {
     Morris.Donut({
-      element: 'morris-donut-dark-example',
-      colors: ['#76C1FA', '#F36368', '#63CF72', '#FABA66'],
-      data: [{
+      element: "morris-donut-dark-example",
+      colors: ["#76C1FA", "#F36368", "#63CF72", "#FABA66"],
+      data: [
+        {
           label: "Download Sales",
-          value: 12
+          value: 12,
         },
         {
           label: "In-Store Sales",
-          value: 30
+          value: 30,
         },
         {
           label: "Mail-Order Sales",
-          value: 20
-        }
+          value: 20,
+        },
       ],
-      labelColor: "#b1b1b5"
+      labelColor: "#b1b1b5",
     });
   }
 
-  if ($('#morris-dashboard-taget').length) {
+  if ($("#morris-dashboard-taget").length) {
     Morris.Area({
-      element: 'morris-dashboard-taget',
+      element: "morris-dashboard-taget",
       parseTime: false,
-      lineColors: ['#76C1FA', '#F36368', '#63CF72', '#FABA66'],
-      data: [{
-          y: 'Jan',
+      lineColors: ["#76C1FA", "#F36368", "#63CF72", "#FABA66"],
+      data: [
+        {
+          y: "Jan",
           Revenue: 190,
-          Target: 170
+          Target: 170,
         },
         {
-          y: 'Feb',
+          y: "Feb",
           Revenue: 60,
-          Target: 90
+          Target: 90,
         },
         {
-          y: 'March',
+          y: "March",
           Revenue: 100,
-          Target: 120
+          Target: 120,
         },
         {
-          y: 'Apr',
+          y: "Apr",
           Revenue: 150,
-          Target: 140
+          Target: 140,
         },
         {
-          y: 'May',
+          y: "May",
           Revenue: 130,
-          Target: 170
+          Target: 170,
         },
         {
-          y: 'Jun',
+          y: "Jun",
           Revenue: 200,
-          Target: 160
+          Target: 160,
         },
         {
-          y: 'Jul',
+          y: "Jul",
           Revenue: 150,
-          Target: 180
+          Target: 180,
         },
         {
-          y: 'Aug',
+          y: "Aug",
           Revenue: 170,
-          Target: 180
+          Target: 180,
         },
         {
-          y: 'Sep',
+          y: "Sep",
           Revenue: 140,
-          Target: 90
-        }
+          Target: 90,
+        },
       ],
-      xkey: 'y',
-      ykeys: ['Target', 'Revenue'],
-      labels: ['Monthly Target', 'Monthly Revenue'],
-      hideHover: 'auto',
+      xkey: "y",
+      ykeys: ["Target", "Revenue"],
+      labels: ["Monthly Target", "Monthly Revenue"],
+      hideHover: "auto",
       behaveLikeLine: true,
       resize: true,
-      axes: 'x'
+      axes: "x",
     });
   }
 });

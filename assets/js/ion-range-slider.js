@@ -1,7 +1,7 @@
-(function($) {
-  'use strict';
+(function ($) {
+  "use strict";
 
-  if ($('#range_01').length) {
+  if ($("#range_01").length) {
     $("#range_01").ionRangeSlider();
   }
 
@@ -9,7 +9,7 @@
     $("#range_02").ionRangeSlider({
       min: 100,
       max: 1000,
-      from: 550
+      from: 550,
     });
   }
 
@@ -21,7 +21,7 @@
       max: 1000,
       from: 200,
       to: 800,
-      prefix: "$"
+      prefix: "$",
     });
   }
 
@@ -34,7 +34,7 @@
       to: 155,
       prefix: "Weight: ",
       postfix: " million pounds",
-      decorate_both: true
+      decorate_both: true,
     });
   }
 
@@ -47,7 +47,7 @@
       to: 1800,
       hide_min_max: true,
       hide_from_to: true,
-      grid: false
+      grid: false,
     });
   }
 
@@ -60,7 +60,7 @@
       to: 1800,
       hide_min_max: true,
       hide_from_to: true,
-      grid: true
+      grid: true,
     });
   }
 
@@ -71,7 +71,7 @@
       min: 0,
       max: 10000,
       from: 1000,
-      prefix: "$"
+      prefix: "$",
     });
   }
 
@@ -82,7 +82,7 @@
       min: -90,
       max: 90,
       from: 0,
-      postfix: "Â°"
+      postfix: "Â°",
     });
   }
 
@@ -91,7 +91,7 @@
       type: "double",
       min: 0,
       max: 10000,
-      grid: true
+      grid: true,
     });
   }
 
@@ -101,7 +101,7 @@
       min: 0,
       max: 10000,
       grid: true,
-      grid_num: 10
+      grid_num: 10,
     });
   }
 
@@ -112,7 +112,7 @@
       max: 10000,
       step: 500,
       grid: true,
-      grid_snap: true
+      grid_snap: true,
     });
   }
 
@@ -123,7 +123,7 @@
       max: 10,
       step: 2.34,
       grid: true,
-      grid_snap: true
+      grid_snap: true,
     });
   }
 
@@ -134,7 +134,7 @@
       max: 100,
       from: 30,
       to: 70,
-      from_fixed: true
+      from_fixed: true,
     });
   }
 
@@ -144,7 +144,7 @@
       max: 100,
       from: 30,
       from_min: 10,
-      from_max: 50
+      from_max: 50,
     });
   }
 
@@ -155,7 +155,7 @@
       from: 30,
       from_min: 10,
       from_max: 50,
-      from_shadow: true
+      from_shadow: true,
     });
   }
 
@@ -173,7 +173,7 @@
       to_max: 90,
       to_shadow: true,
       grid: true,
-      grid_num: 10
+      grid_num: 10,
     });
   }
 
@@ -182,8 +182,7 @@
       min: 0,
       max: 100,
       from: 30,
-      disable: true
+      disable: true,
     });
   }
-
 })(jQuery);

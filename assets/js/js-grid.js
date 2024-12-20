@@ -1,7 +1,6 @@
-(function($) {
-  'use strict';
-  $(function() {
-
+(function ($) {
+  "use strict";
+  $(function () {
     //basic config
     if ($("#js-grid").length) {
       $("#js-grid").jsGrid({
@@ -17,55 +16,57 @@
         pageButtonCount: 5,
         deleteConfirm: "Do you really want to delete the client?",
         data: db.clients,
-        fields: [{
+        fields: [
+          {
             name: "Name",
             type: "text",
-            width: 150
+            width: 150,
           },
           {
             name: "Age",
             type: "number",
-            width: 50
+            width: 50,
           },
           {
             name: "Address",
             type: "text",
-            width: 200
+            width: 200,
           },
           {
             name: "Country",
             type: "select",
             items: db.countries,
             valueField: "Id",
-            textField: "Name"
+            textField: "Name",
           },
           {
             name: "Married",
             title: "Is Married",
-            itemTemplate: function(value, item) {
+            itemTemplate: function (value, item) {
               return $("<div>")
                 .addClass("form-check mt-0")
                 .append(
-                  $("<label>").addClass("form-check-label")
-                  .append(
-                    $("<input>").attr("type", "checkbox")
-                    .addClass("form-check-input")
-                    .attr("checked", value || item.Checked)
-                    .on("change", function() {
-                      item.Checked = $(this).is(":checked");
-                    })
-                  )
-                  .append('<i class="input-helper"></i>')
+                  $("<label>")
+                    .addClass("form-check-label")
+                    .append(
+                      $("<input>")
+                        .attr("type", "checkbox")
+                        .addClass("form-check-input")
+                        .attr("checked", value || item.Checked)
+                        .on("change", function () {
+                          item.Checked = $(this).is(":checked");
+                        }),
+                    )
+                    .append('<i class="input-helper"></i>'),
                 );
-            }
+            },
           },
           {
-            type: "control"
-          }
-        ]
+            type: "control",
+          },
+        ],
       });
     }
-
 
     //Static
     if ($("#js-grid-static").length) {
@@ -78,49 +79,52 @@
 
         data: db.clients,
 
-        fields: [{
+        fields: [
+          {
             name: "Name",
             type: "text",
-            width: 150
+            width: 150,
           },
           {
             name: "Age",
             type: "number",
-            width: 50
+            width: 50,
           },
           {
             name: "Address",
             type: "text",
-            width: 200
+            width: 200,
           },
           {
             name: "Country",
             type: "select",
             items: db.countries,
             valueField: "Id",
-            textField: "Name"
+            textField: "Name",
           },
           {
             name: "Married",
             title: "Is Married",
-            itemTemplate: function(value, item) {
+            itemTemplate: function (value, item) {
               return $("<div>")
                 .addClass("form-check mt-0")
                 .append(
-                  $("<label>").addClass("form-check-label")
-                  .append(
-                    $("<input>").attr("type", "checkbox")
-                    .addClass("form-check-input")
-                    .attr("checked", value || item.Checked)
-                    .on("change", function() {
-                      item.Checked = $(this).is(":checked");
-                    })
-                  )
-                  .append('<i class="input-helper"></i>')
+                  $("<label>")
+                    .addClass("form-check-label")
+                    .append(
+                      $("<input>")
+                        .attr("type", "checkbox")
+                        .addClass("form-check-input")
+                        .attr("checked", value || item.Checked)
+                        .on("change", function () {
+                          item.Checked = $(this).is(":checked");
+                        }),
+                    )
+                    .append('<i class="input-helper"></i>'),
                 );
-            }
-          }
-        ]
+            },
+          },
+        ],
       });
     }
 
@@ -135,58 +139,60 @@
 
         controller: db,
 
-        fields: [{
+        fields: [
+          {
             name: "Name",
             type: "text",
-            width: 150
+            width: 150,
           },
           {
             name: "Age",
             type: "number",
-            width: 50
+            width: 50,
           },
           {
             name: "Address",
             type: "text",
-            width: 200
+            width: 200,
           },
           {
             name: "Country",
             type: "select",
             items: db.countries,
             valueField: "Id",
-            textField: "Name"
+            textField: "Name",
           },
           {
             name: "Married",
             title: "Is Married",
-            itemTemplate: function(value, item) {
+            itemTemplate: function (value, item) {
               return $("<div>")
                 .addClass("form-check mt-0")
                 .append(
-                  $("<label>").addClass("form-check-label")
-                  .append(
-                    $("<input>").attr("type", "checkbox")
-                    .addClass("form-check-input")
-                    .attr("checked", value || item.Checked)
-                    .on("change", function() {
-                      item.Checked = $(this).is(":checked");
-                    })
-                  )
-                  .append('<i class="input-helper"></i>')
+                  $("<label>")
+                    .addClass("form-check-label")
+                    .append(
+                      $("<input>")
+                        .attr("type", "checkbox")
+                        .addClass("form-check-input")
+                        .attr("checked", value || item.Checked)
+                        .on("change", function () {
+                          item.Checked = $(this).is(":checked");
+                        }),
+                    )
+                    .append('<i class="input-helper"></i>'),
                 );
-            }
-          }
-        ]
+            },
+          },
+        ],
       });
     }
 
     if ($("#sort").length) {
-      $("#sort").on("click", function() {
+      $("#sort").on("click", function () {
         var field = $("#sortingField").val();
         $("#js-grid-sortable").jsGrid("sort", field);
       });
     }
-
   });
 })(jQuery);

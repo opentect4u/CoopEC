@@ -1,5 +1,5 @@
-(function($) {
-  'use strict';
+(function ($) {
+  "use strict";
   if ($("#lightgallery").length) {
     $("#lightgallery").lightGallery();
   }
@@ -8,7 +8,7 @@
     $("#lightgallery-without-thumb").lightGallery({
       thumbnail: true,
       animateThumb: false,
-      showThumbByDefault: false
+      showThumbByDefault: false,
     });
   }
 

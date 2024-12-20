@@ -10,20 +10,20 @@
   margin-right: 2px;
 }
 .br-theme-fontawesome-stars-o .br-widget a:after {
-  content: '\f006';
+  content: "\f006";
   color: #d2d2d2;
 }
 .br-theme-fontawesome-stars-o .br-widget a.br-active:after {
-  content: '\f005';
-  color: #50E3C2;
+  content: "\f005";
+  color: #50e3c2;
 }
 .br-theme-fontawesome-stars-o .br-widget a.br-selected:after {
-  content: '\f005';
-  color: #50E3C2;
+  content: "\f005";
+  color: #50e3c2;
 }
 .br-theme-fontawesome-stars-o .br-widget a.br-fractional:after {
-  content: '\f123';
-  color: #50E3C2;
+  content: "\f123";
+  color: #50e3c2;
 }
 .br-theme-fontawesome-stars-o .br-widget .br-current-rating {
   display: none;
@@ -41,16 +41,16 @@
 }
 @media print {
   .br-theme-fontawesome-stars-o .br-widget a:after {
-    content: '\f006';
+    content: "\f006";
     color: black;
   }
   .br-theme-fontawesome-stars-o .br-widget a.br-active:after,
   .br-theme-fontawesome-stars-o .br-widget a.br-selected:after {
-    content: '\f005';
+    content: "\f005";
     color: black;
   }
   .br-theme-fontawesome-stars-o .br-widget a.br-fractional:after {
-    content: '\f123';
+    content: "\f123";
     color: black;
   }
 }

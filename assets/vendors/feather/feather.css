@@ -1,9 +1,10 @@
 @charset "UTF-8";
- 
+
 @font-face {
   font-family: "feather";
-  src:url("fonts/feather-webfont.eot");
-  src:url("fonts/feather-webfont.eot?#iefix") format("embedded-opentype"),
+  src: url("fonts/feather-webfont.eot");
+  src:
+    url("fonts/feather-webfont.eot?#iefix") format("embedded-opentype"),
     url("fonts/feather-webfont.woff") format("woff"),
     url("fonts/feather-webfont.ttf") format("truetype"),
     url("fonts/feather-webfont.svg#feather") format("svg");
@@ -12,7 +13,7 @@
 }
 
 /* Character Mapping Method */
- 
+
 [data-icon]:before {
   display: inline-block;
   font-family: "feather";
@@ -28,7 +29,7 @@
 }
 
 /* CSS Class Mapping Method */
- 
+
 [class^="icon-"],
 [class*=" icon-"] {
   display: inline-block;

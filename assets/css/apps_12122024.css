@@ -1,0 +1,700 @@
+/* Primary Color #1b64b3
+Primary Hover Color #11549b */
+
+.btn-primary,
+.wizard > .actions a {
+  color: #fff;
+  background-color: #1b64b3;
+  border-color: #1b64b3;
+}
+
+.btn-primary:hover,
+.wizard > .actions a:hover {
+  color: #fff;
+  background-color: #11549b;
+  border-color: #11549b;
+}
+
+.navbar
+  .navbar-menu-wrapper
+  .navbar-nav
+  .nav-item.dropdown
+  .count-indicator
+  .count {
+  background: #1b64b3;
+}
+
+.text-primary,
+.list-wrapper .completed .remove {
+  color: #1b64b3 !important;
+}
+
+.sidebar .nav:not(.sub-menu) > .nav-item:hover > .nav-link,
+.sidebar .nav:not(.sub-menu) > .nav-item:hover[aria-expanded="true"] {
+  background: #1b64b3;
+}
+
+.sidebar .nav.sub-menu {
+  background: #1b64b3;
+}
+
+.sidebar .nav:not(.sub-menu) > .nav-item > .nav-link[aria-expanded="true"] {
+  background: #1b64b3;
+}
+
+.sidebar .nav .nav-item .nav-link i.menu-icon {
+  color: #fff;
+}
+
+.table th,
+.jsgrid .jsgrid-table th,
+.table td,
+.jsgrid .jsgrid-table td {
+  padding: 1.125rem 10px;
+}
+.society_th_1 {
+  width: 100%;
+  max-width: 70px;
+}
+.society_th_2 {
+  width: 100%;
+  max-width: 250px;
+}
+
+.custome_table_res {
+  padding-top: 0 !important;
+}
+.custome_table_res table thead tr th,
+.custome_table_res table tbody tr td {
+  width: auto;
+}
+
+.custome_table_res table.table_cus thead tr th {
+  padding: 1.125rem 10px;
+  font-size: 0.875rem;
+}
+.custome_table_res table.table_cus thead tr th:nth-child(1) {
+  width: 62px;
+}
+
+.custome_table_res table.table_cus tbody tr td {
+  padding: 10px 10px;
+  font-size: 14px;
+}
+.custome_table_res table.table_cus tbody tr td a.link_fnc {
+  width: 100%;
+  display: block;
+  color: #333;
+}
+.custome_table_res table.table_cus tbody tr td span {
+  background: #008000;
+  color: #fff;
+  margin-top: 5px;
+  border-radius: 6px;
+  padding: 4px 10px;
+  display: inline-block;
+}
+
+.select2-container--default .select2-selection--single {
+  height: 44px !important;
+  border: 1px solid #ced4da;
+}
+.select2-container--default
+  .select2-selection--single
+  .select2-selection__rendered {
+  line-height: 44px !important;
+}
+.select2-container--default
+  .select2-selection--single
+  .select2-selection__arrow {
+  height: 44px;
+}
+
+h4.card_title_cus {
+  display: flex;
+  padding-left: 0;
+  border-bottom: #aeaeae solid 1px;
+  padding-bottom: 10px;
+}
+.table_title_icon {
+  margin: 0 0 0 auto;
+  padding-right: 8px;
+}
+.table_title_icon i {
+  font-size: 22px;
+  margin-left: 10px;
+}
+.table_title_icon i.pdf_cus {
+  color: #ff0000;
+}
+.table_title_icon i.excel_cus {
+  color: #008000;
+}
+
+.pagination .page-item.active .page-link,
+.jsgrid .jsgrid-pager .page-item.active .page-link,
+.jsgrid .jsgrid-pager .active.jsgrid-pager-nav-button .page-link,
+.jsgrid .jsgrid-pager .active.jsgrid-pager-page .page-link,
+.pagination .page-item.active .jsgrid .jsgrid-pager .jsgrid-pager-nav-button a,
+.jsgrid .jsgrid-pager .page-item.active .jsgrid-pager-nav-button a,
+.jsgrid .jsgrid-pager .jsgrid-pager-nav-button .page-item.active a,
+.jsgrid .jsgrid-pager .active.jsgrid-pager-nav-button a,
+.pagination .page-item.active .jsgrid .jsgrid-pager .jsgrid-pager-page a,
+.jsgrid .jsgrid-pager .page-item.active .jsgrid-pager-page a,
+.jsgrid .jsgrid-pager .jsgrid-pager-page .page-item.active a,
+.jsgrid .jsgrid-pager .active.jsgrid-pager-page a,
+.pagination .page-item:hover .page-link,
+.jsgrid .jsgrid-pager .page-item:hover .page-link,
+.jsgrid .jsgrid-pager .jsgrid-pager-nav-button:hover .page-link,
+.jsgrid .jsgrid-pager .jsgrid-pager-page:hover .page-link,
+.pagination .page-item:hover .jsgrid .jsgrid-pager .jsgrid-pager-nav-button a,
+.jsgrid .jsgrid-pager .page-item:hover .jsgrid-pager-nav-button a,
+.jsgrid .jsgrid-pager .jsgrid-pager-nav-button .page-item:hover a,
+.jsgrid .jsgrid-pager .jsgrid-pager-nav-button:hover a,
+.pagination .page-item:hover .jsgrid .jsgrid-pager .jsgrid-pager-page a,
+.jsgrid .jsgrid-pager .page-item:hover .jsgrid-pager-page a,
+.jsgrid .jsgrid-pager .jsgrid-pager-page .page-item:hover a,
+.jsgrid .jsgrid-pager .jsgrid-pager-page:hover a,
+.pagination .page-item:focus .page-link,
+.jsgrid .jsgrid-pager .page-item:focus .page-link,
+.jsgrid .jsgrid-pager .jsgrid-pager-nav-button:focus .page-link,
+.jsgrid .jsgrid-pager .jsgrid-pager-page:focus .page-link,
+.pagination .page-item:focus .jsgrid .jsgrid-pager .jsgrid-pager-nav-button a,
+.jsgrid .jsgrid-pager .page-item:focus .jsgrid-pager-nav-button a,
+.jsgrid .jsgrid-pager .jsgrid-pager-nav-button .page-item:focus a,
+.jsgrid .jsgrid-pager .jsgrid-pager-nav-button:focus a,
+.pagination .page-item:focus .jsgrid .jsgrid-pager .jsgrid-pager-page a,
+.jsgrid .jsgrid-pager .page-item:focus .jsgrid-pager-page a,
+.jsgrid .jsgrid-pager .jsgrid-pager-page .page-item:focus a,
+.jsgrid .jsgrid-pager .jsgrid-pager-page:focus a,
+.pagination .page-item:active .page-link,
+.jsgrid .jsgrid-pager .page-item:active .page-link,
+.jsgrid .jsgrid-pager .jsgrid-pager-nav-button:active .page-link,
+.jsgrid .jsgrid-pager .jsgrid-pager-page:active .page-link,
+.pagination .page-item:active .jsgrid .jsgrid-pager .jsgrid-pager-nav-button a,
+.jsgrid .jsgrid-pager .page-item:active .jsgrid-pager-nav-button a,
+.jsgrid .jsgrid-pager .jsgrid-pager-nav-button .page-item:active a,
+.jsgrid .jsgrid-pager .jsgrid-pager-nav-button:active a,
+.pagination .page-item:active .jsgrid .jsgrid-pager .jsgrid-pager-page a,
+.jsgrid .jsgrid-pager .page-item:active .jsgrid-pager-page a,
+.jsgrid .jsgrid-pager .jsgrid-pager-page .page-item:active a,
+.jsgrid .jsgrid-pager .jsgrid-pager-page:active a {
+  background: #1b64b3;
+  border-color: #1b64b3;
+  color: #ffffff !important;
+}
+
+#pagination a {
+  color: #333;
+}
+
+select.form-control,
+select.asColorPicker-input,
+.dataTables_wrapper select,
+.jsgrid .jsgrid-table .jsgrid-filter-row select,
+.select2-container--default select.select2-selection--single,
+.select2-container--default
+  .select2-selection--single
+  select.select2-search__field,
+select.typeahead,
+select.tt-query,
+select.tt-hint {
+  color: #495057;
+}
+.radioBtn_Cus label {
+  margin-left: 5px;
+}
+
+.subtitle_Form_cus h3 {
+  font-size: 16px;
+  display: flex;
+  font-weight: bold;
+}
+.subtitle_Form_cus h3 .radioBtn_right {
+  display: flex;
+}
+.radioBtn_right .radioBtn_Cus {
+  margin-left: 15px;
+}
+.urlby label {
+  display: block;
+  width: 100%;
+}
+
+.form-control,
+.asColorPicker-input,
+.dataTables_wrapper select,
+.jsgrid .jsgrid-table .jsgrid-filter-row input[type="text"],
+.jsgrid .jsgrid-table .jsgrid-filter-row select,
+.jsgrid .jsgrid-table .jsgrid-filter-row input[type="number"],
+.select2-container--default .select2-selection--single,
+.select2-container--default .select2-selection--single .select2-search__field,
+.typeahead,
+.tt-query,
+.tt-hint {
+  padding: 0.875rem 8px;
+}
+
+nav.pagination_cus {
+  margin-top: 20px !important;
+}
+.pagination_cus ul {
+  float: right;
+}
+.btn,
+.fc button,
+.ajax-upload-dragdrop .ajax-file-upload,
+.swal2-modal .swal2-buttonswrapper .swal2-styled,
+.swal2-modal .swal2-buttonswrapper .swal2-styled.swal2-confirm,
+.swal2-modal .swal2-buttonswrapper .swal2-styled.swal2-cancel,
+.wizard > .actions a {
+  border-radius: 8px;
+}
+
+.navbar .navbar-brand-wrapper .brand-logo-mini img {
+  width: auto;
+}
+
+.auth .brand_logo_cus img {
+  width: auto !important;
+}
+
+.auth .brand_logo_cus {
+  margin-bottom: 18px !important;
+  text-align: center;
+}
+
+.loginWrapper {
+  padding: 30px;
+  box-shadow: 0 0 22px 5px #cfcdd5;
+  border: #d5d5d5 solid 1px;
+}
+
+.sidebar .nav .nav-item.active > .nav-link {
+  background: #1b64b3;
+}
+
+.sidebar .nav:not(.sub-menu) > .nav-item:hover > .nav-link,
+.sidebar .nav:not(.sub-menu) > .nav-item:hover[aria-expanded="true"] {
+  background: #11549b;
+}
+
+a.edit_dashboard {
+  color: #fff;
+  font-weight: 700;
+  font-size: 13px;
+  background: #1b64b3;
+  padding: 4px 7px;
+  border-radius: 3px;
+}
+
+.form-group label {
+  font-weight: 900;
+}
+
+.rulby label {
+  width: 100%;
+}
+.rulby .select2-container {
+  width: 100% !important;
+}
+
+.urlby label {
+  width: 100%;
+}
+.urlby .select2-container {
+  width: 100% !important;
+}
+
+.red {
+  color: #ff0000;
+  font-size: 16px;
+  font-weight: 700;
+}
+.blue {
+  background: #24357e;
+  font-size: 12px;
+  font-weight: 500;
+  color: #fff;
+  padding: 0px 6px;
+  margin-top: 4px;
+  display: inline-block;
+}
+/* .unreadmessage{
+  background-color: antiquewhite;
+} */
+.uncount {
+  position: absolute;
+  left: 36%;
+  width: 12px;
+  height: 12px;
+  border-radius: 100%;
+  top: 1px;
+  border: 1px solid white;
+}
+
+/* ======================= Utsab Roy Start Style ======================= */
+.navbar_cus {
+  background: none;
+  padding-left: 15px;
+  margin: 0 0 0 auto;
+  box-shadow: none;
+}
+.navbar_cus .form-inline .form-control {
+  width: 450px;
+  height: 40px;
+  border-radius: 6px;
+  color: #333;
+}
+.navbar_cus .form-inline {
+  position: relative;
+}
+.navbar_cus .form-inline button.search_btn {
+  position: absolute;
+  right: 13px;
+  height: 33px;
+  line-height: 33px;
+  padding: 0 15px;
+  border-radius: 6px;
+  background: #228fd4;
+  color: #fff;
+  border: none;
+  top: 3px;
+}
+
+.notifica_cus {
+  width: 365px !important;
+  background: #e9eef6 !important;
+  border-radius: 15px !important;
+  box-shadow:
+    0 4px 8px 3px rgba(0, 0, 0, 0.15),
+    0 1px 3px rgba(0, 0, 0, 0.3) !important;
+  /* height: 358px; */
+  outline: 1px solid transparent;
+  /* overflow-x: hidden; */
+}
+
+.notifica_cus_sub {
+  height: 358px;
+  overflow-x: hidden;
+}
+
+.notifica_cus #notification_list .myButton_cus {
+  border-bottom: #ccc solid 1px;
+}
+.notifica_cus #notification_list .myButton_cus:last-child {
+  border-bottom: none;
+}
+
+.notifica_cus #notification_list .myButton_cus .preview-item-content {
+  width: 100%;
+  word-break: break-all;
+  text-wrap: auto;
+}
+.notifica_cus #notification_list .myButton_cus .preview-item-content h6 {
+  font-weight: 400 !important;
+  font-size: 12px;
+  line-height: 17px;
+  margin: 0;
+}
+.notifica_cus #notification_list .myButton_cus .preview-item-content .date_cus {
+  font-size: 12px;
+  color: #333 !important;
+  font-style: italic;
+}
+
+.notifica_cus #notification_list .unreadmessage .preview-item-content h6 {
+  font-weight: 700 !important;
+}
+.notifica_cus
+  #notification_list
+  .unreadmessage
+  .preview-item-content
+  .date_cus {
+  font-weight: 700 !important;
+}
+
+.notifica_cus #notification_list .myButton_cus:hover {
+  background: #fff;
+}
+
+h3.noti_title {
+  color: #086aa8;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+}
+
+h3.noti_title button.read_all {
+  margin: 0 0 0 auto;
+  font-size: 12px;
+  background: #228fd4;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 6px;
+  color: #fff;
+}
+
+.content-wrapper {
+  background: #fff;
+}
+
+.sidebar {
+  background: #e8e8e8;
+}
+
+.sidebar .nav.sub-menu {
+  padding: 0;
+  list-style-type: none;
+}
+
+.sidebar .nav.sub-menu li {
+  position: relative;
+}
+.sidebar .nav.sub-menu li::before {
+  background: #fff !important;
+  left: 15px;
+}
+
+.sidebar .nav.sub-menu .nav-item .nav-link {
+  padding-left: 28px !important;
+}
+
+.scroll_text {
+  background: #fdcb05;
+  margin-bottom: 25px;
+  padding: 10px 15px;
+  border-radius: 3px;
+  /* box-shadow: 2px 2px 10px 0px #a0a1a2; */
+  border: #f9b258 solid 1px;
+  color: #1c0f04;
+}
+
+.indicat_exp {
+  background: red;
+}
+
+.footer {
+  background: #fff;
+}
+
+:root {
+  --dot-size: 12px;
+  --animation-duration: 2s;
+}
+
+.dot_overDate {
+  width: var(--dot-size);
+  height: var(--dot-size);
+  background-color: #fff;
+  border-radius: 50%;
+}
+
+/* --- Animation --- */
+
+/* Define animation keyframes */
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Minimal example */
+.dot--basic {
+  animation: blink 2s infinite;
+}
+
+/* Disable animation if user prefers reduced motion */
+/* @media (prefers-reduced-motion: reduce) {
+    .dot {
+      animation: none;
+    }
+  } */
+
+.overDate_main {
+  /* --dot-size: 0.5rem; */
+  --offline-color: #999;
+  --offline-text-color: #666;
+  display: inline-flex;
+  align-items: center;
+  /* border:1px solid #bbb8b8; */
+  border-radius: 4px;
+  /* padding: 3px 5px; */
+  position: absolute;
+  left: 8px;
+  top: 8px;
+  font-size: 13px;
+}
+
+.overDate_main .dot_overDate {
+  margin-right: 4px;
+}
+
+.top_no_padding {
+  padding-left: 0;
+  padding-right: 0;
+}
+.top_no_padding .margin_bot {
+  margin-bottom: 31px;
+}
+
+.bg-unedit {
+  background-color: #9190c1 !important;
+}
+
+.bg-approved {
+  background-color: #559d1d !important;
+}
+
+.welcome_sec {
+  width: 100%;
+  display: flex;
+  margin-bottom: 24px;
+  padding: 0 5px;
+  align-items: center;
+}
+.welcome_sec .welcome_sec_text {
+  margin: 0 auto 0 0;
+}
+.welcome_sec .welcome_sec_text h2 {
+  color: #000;
+  font-size: 22px;
+  margin: 0 0 0 0;
+  padding: 0;
+  font-weight: 700;
+}
+.welcome_sec .welcome_sec_text p {
+  color: #000;
+  font-size: 15px;
+  margin: 0;
+  padding: 0;
+  font-weight: 400;
+}
+
+.welcome_sec .selectDropdown {
+  margin: 0 0 0 auto;
+}
+.welcome_sec .selectDropdown .stockPointSecTitle_cus {
+  padding: 0 !important;
+  margin: 0;
+}
+
+.notification_bar {
+  width: 100%;
+  margin-bottom: 15px;
+}
+.notification_bar .alert_cus {
+  margin: 2px;
+  display: flex;
+  position: relative;
+}
+.notification_bar .alert_cus form.notific_dtl {
+  margin: 0 0 0 auto;
+}
+
+.notification_bar .alert_cus form.notific_dtl input[type="submit"] {
+  background: none;
+  border: none;
+  padding: 0;
+  margin-right: 18px;
+  font-weight: 700;
+  color: #393783;
+  font-size: 13px;
+}
+
+.notification_bar .alert_cus i {
+  margin-right: 3px;
+}
+.notification_bar .alert_cus a.showHide {
+  text-decoration: underline;
+  color: #393783;
+  position: relative;
+  padding-right: 25px;
+}
+.notification_bar .alert_cus a.showHide:hover {
+  text-decoration: none;
+}
+.notification_bar .alert_cus .crossLink {
+  margin-left: auto;
+}
+.accordion-button::after {
+  flex-shrink: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-left: auto;
+  content: "";
+  background: url("../images/aro_down.png") no-repeat 3px 6px;
+  position: absolute;
+  transition: transform 0.2s ease-in-out;
+}
+
+.accordion-button:not(.collapsed)::after {
+  background: url("../images/aro_down.png") no-repeat 0 6px;
+  transform: rotate(-180deg);
+}
+
+.notification_bar .alert_cus a.readMore {
+  text-decoration: underline;
+  color: #393783;
+  position: relative;
+  padding-right: 0;
+}
+.notification_bar .alert_cus a.readMore:hover {
+  text-decoration: none;
+}
+
+/* .notification_bar .alert_cus a.crossLink{text-decoration: underline; color: #393783; position: relative; float: right;} */
+.notification_bar .alert_cus a.crossLink {
+  text-decoration: underline;
+  color: #393783;
+  float: right;
+  position: absolute;
+  right: 6px;
+  top: 10px;
+}
+.notification_bar .alert_cus a.crossLink:hover {
+  text-decoration: none;
+}
+
+.sidebar .nav .nav-item > .nav-link {
+  cursor: pointer;
+}
+
+.sidebar .nav .nav-item.active {
+  background: none !important;
+}
+.sidebar .nav .nav-item.active > .nav-link {
+  background: none;
+}
+.sidebar .nav .nav-item .nav-link i.menu-icon {
+  color: #6c7383;
+}
+.sidebar .nav .nav-item .nav-link:hover i.menu-icon {
+  color: #fff;
+}
+
+.sidebar .nav .nav-item.active > .nav-link i,
+.sidebar .nav .nav-item.active > .nav-link .menu-title,
+.sidebar .nav .nav-item.active > .nav-link .menu-arrow {
+  color: #6c7383;
+}
+
+/* .sidebar .nav .nav-item.active > .navlink_cus .menu-arrow {
+  color: #fff;
+} */
+
+.sidebar .nav .nav-item.active > .nav-link:hover i,
+.sidebar .nav .nav-item.active > .nav-link:hover .menu-title,
+.sidebar .nav .nav-item.active > .nav-link:hover .menu-arrow {
+  color: #fff;
+}
+
+.navbar .navbar-brand-wrapper .navbar-brand img {
+  height: 52px;
+}
+
+/* ======================= Utsab Roy Start End ======================= */

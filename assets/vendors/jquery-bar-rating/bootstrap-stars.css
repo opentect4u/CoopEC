@@ -3,21 +3,21 @@
   white-space: nowrap;
 }
 .br-theme-bootstrap-stars .br-widget a {
-  font: normal normal normal 18px/1 'Glyphicons Halflings';
+  font: normal normal normal 18px/1 "Glyphicons Halflings";
   text-rendering: auto;
   -webkit-font-smoothing: antialiased;
   text-decoration: none;
   margin-right: 2px;
 }
 .br-theme-bootstrap-stars .br-widget a:after {
-  content: '\e006';
+  content: "\e006";
   color: #d2d2d2;
 }
 .br-theme-bootstrap-stars .br-widget a.br-active:after {
-  color: #EDB867;
+  color: #edb867;
 }
 .br-theme-bootstrap-stars .br-widget a.br-selected:after {
-  color: #EDB867;
+  color: #edb867;
 }
 .br-theme-bootstrap-stars .br-widget .br-current-rating {
   display: none;
@@ -27,12 +27,12 @@
 }
 @media print {
   .br-theme-bootstrap-stars .br-widget a:after {
-    content: '\e007';
+    content: "\e007";
     color: black;
   }
   .br-theme-bootstrap-stars .br-widget a.br-active:after,
   .br-theme-bootstrap-stars .br-widget a.br-selected:after {
-    content: '\e006';
+    content: "\e006";
     color: black;
   }
 }

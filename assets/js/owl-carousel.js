@@ -1,11 +1,11 @@
-(function($) {
-  'use strict';
-  $.fn.andSelf = function() {
+(function ($) {
+  "use strict";
+  $.fn.andSelf = function () {
     return this.addBack.apply(this, arguments);
-  }
+  };
 
-  if ($('.example-1').length) {
-    $('.example-1').owlCarousel({
+  if ($(".example-1").length) {
+    $(".example-1").owlCarousel({
       loop: true,
       margin: 10,
       nav: true,
@@ -13,32 +13,35 @@
       autoplayTimeout: 4500,
       responsive: {
         0: {
-          items: 1
+          items: 1,
         },
         600: {
-          items: 3
+          items: 3,
         },
         1000: {
-          items: 5
-        }
-      }
+          items: 5,
+        },
+      },
     });
   }
 
-  if ($('.full-width').length) {
-    $('.full-width').owlCarousel({
+  if ($(".full-width").length) {
+    $(".full-width").owlCarousel({
       loop: true,
       margin: 10,
       items: 1,
       nav: true,
       autoplay: true,
       autoplayTimeout: 5500,
-      navText: ["<i class='ti-angle-left'></i>", "<i class='ti-angle-right'></i>"]
+      navText: [
+        "<i class='ti-angle-left'></i>",
+        "<i class='ti-angle-right'></i>",
+      ],
     });
   }
 
-  if ($('.loop').length) {
-    $('.loop').owlCarousel({
+  if ($(".loop").length) {
+    $(".loop").owlCarousel({
       center: true,
       items: 2,
       loop: true,
@@ -47,14 +50,14 @@
       autoplayTimeout: 8500,
       responsive: {
         600: {
-          items: 4
-        }
-      }
+          items: 4,
+        },
+      },
     });
   }
 
-  if ($('.nonloop').length) {
-    $('.nonloop').owlCarousel({
+  if ($(".nonloop").length) {
+    $(".nonloop").owlCarousel({
       items: 5,
       loop: false,
       margin: 10,
@@ -62,14 +65,14 @@
       autoplayTimeout: 6000,
       responsive: {
         600: {
-          items: 4
-        }
-      }
+          items: 4,
+        },
+      },
     });
   }
 
-  if ($('.auto-width').length) {
-    $('.auto-width').owlCarousel({
+  if ($(".auto-width").length) {
+    $(".auto-width").owlCarousel({
       items: 2,
       margin: 10,
       loop: true,
@@ -79,8 +82,8 @@
     });
   }
 
-  if ($('.lazy-load').length) {
-    $('.lazy-load').owlCarousel({
+  if ($(".lazy-load").length) {
+    $(".lazy-load").owlCarousel({
       items: 4,
       lazyLoad: true,
       loop: true,
@@ -91,8 +94,8 @@
     });
   }
 
-  if ($('.rtl-carousel').length) {
-    $('.rtl-carousel').owlCarousel({
+  if ($(".rtl-carousel").length) {
+    $(".rtl-carousel").owlCarousel({
       rtl: true,
       loop: true,
       margin: 10,
@@ -100,20 +103,20 @@
       autoplayTimeout: 3000,
       responsive: {
         0: {
-          items: 1
+          items: 1,
         },
         600: {
-          items: 3
+          items: 3,
         },
         1000: {
-          items: 5
-        }
-      }
+          items: 5,
+        },
+      },
     });
   }
 
-  if ($('.video-carousel').length) {
-    $('.video-carousel').owlCarousel({
+  if ($(".video-carousel").length) {
+    $(".video-carousel").owlCarousel({
       loop: false,
       margin: 10,
       video: true,
@@ -122,13 +125,12 @@
       autoplayTimeout: 7000,
       responsive: {
         480: {
-          items: 4
+          items: 4,
         },
         600: {
-          items: 4
-        }
-      }
+          items: 4,
+        },
+      },
     });
   }
-
 })(jQuery);

@@ -1,5 +1,5 @@
-$(function() {
-  'use strict';
+$(function () {
+  "use strict";
   if ($(".mapael-example-1").length) {
     $(".mapael-example-1").mapael({
       map: {
@@ -9,62 +9,67 @@ $(function() {
             fill: "#343434",
             stroke: "#5d5d5d",
             "stroke-width": 1,
-            "stroke-linejoin": "round"
-          }
-        }
+            "stroke-linejoin": "round",
+          },
+        },
       },
       legend: {
         plot: {
-          cssClass: 'myLegend',
-          mode: 'horizontal',
+          cssClass: "myLegend",
+          mode: "horizontal",
           labelAttrs: {
-            fill: "#4a4a4a"
+            fill: "#4a4a4a",
           },
           titleAttrs: {
-            fill: "#4a4a4a"
+            fill: "#4a4a4a",
           },
           marginBottom: 20,
           marginLeft: 10,
           hideElemsOnClick: {
-            opacity: 0
+            opacity: 0,
           },
           title: "French cities population",
-          slices: [{
-            size: 5,
-            type: "circle",
-            max: 20000,
-            attrs: {
-              fill: "#89ff72"
+          slices: [
+            {
+              size: 5,
+              type: "circle",
+              max: 20000,
+              attrs: {
+                fill: "#89ff72",
+              },
+              label: "200 +",
             },
-            label: "200 +"
-          }, {
-            size: 15,
-            type: "circle",
-            min: 20000,
-            max: 100000,
-            attrs: {
-              fill: "#fffd72"
+            {
+              size: 15,
+              type: "circle",
+              min: 20000,
+              max: 100000,
+              attrs: {
+                fill: "#fffd72",
+              },
+              label: "200 - 100",
             },
-            label: "200 - 100"
-          }, {
-            size: 20,
-            type: "circle",
-            min: 100000,
-            max: 200000,
-            attrs: {
-              fill: "#ffbd54"
+            {
+              size: 20,
+              type: "circle",
+              min: 100000,
+              max: 200000,
+              attrs: {
+                fill: "#ffbd54",
+              },
+              label: "100 - 200",
             },
-            label: "100 - 200"
-          }, {
-            size: 25,
-            type: "circle",
-            min: 200000,
-            attrs: {
-              fill: "#ff5454"
+            {
+              size: 25,
+              type: "circle",
+              min: 200000,
+              attrs: {
+                fill: "#ff5454",
+              },
+              label: "200 +",
             },
-            label: "200 +"
-          }]
-        }
+          ],
+        },
       },
       plots: {
         "town-75056": {
@@ -73,8 +78,9 @@ $(function() {
           longitude: 2.3444444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Paris (75056)</span><br />Population : 2268265"
-          }
+            content:
+              '<span style="font-weight:bold;">Paris (75056)</span><br />Population : 2268265',
+          },
         },
         "town-13055": {
           value: "859368",
@@ -82,8 +88,9 @@ $(function() {
           longitude: 5.3763888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Marseille (13055)</span><br />Population : 859368"
-          }
+            content:
+              '<span style="font-weight:bold;">Marseille (13055)</span><br />Population : 859368',
+          },
         },
         "town-69123": {
           value: "492578",
@@ -91,8 +98,9 @@ $(function() {
           longitude: 4.8413888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Lyon (69123)</span><br />Population : 492578"
-          }
+            content:
+              '<span style="font-weight:bold;">Lyon (69123)</span><br />Population : 492578',
+          },
         },
         "town-31555": {
           value: "449328",
@@ -100,8 +108,9 @@ $(function() {
           longitude: 1.4419444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Toulouse (31555)</span><br />Population : 449328"
-          }
+            content:
+              '<span style="font-weight:bold;">Toulouse (31555)</span><br />Population : 449328',
+          },
         },
         "town-06088": {
           value: "347105",
@@ -109,8 +118,9 @@ $(function() {
           longitude: 7.2683333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Nice (06088)</span><br />Population : 347105"
-          }
+            content:
+              '<span style="font-weight:bold;">Nice (06088)</span><br />Population : 347105',
+          },
         },
         "town-44109": {
           value: "293234",
@@ -118,8 +128,9 @@ $(function() {
           longitude: -1.5538888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Nantes (44109)</span><br />Population : 293234"
-          }
+            content:
+              '<span style="font-weight:bold;">Nantes (44109)</span><br />Population : 293234',
+          },
         },
         "town-67482": {
           value: "276401",
@@ -127,8 +138,9 @@ $(function() {
           longitude: 7.7480555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Strasbourg (67482)</span><br />Population : 276401"
-          }
+            content:
+              '<span style="font-weight:bold;">Strasbourg (67482)</span><br />Population : 276401',
+          },
         },
         "town-34172": {
           value: "260572",
@@ -136,8 +148,9 @@ $(function() {
           longitude: 3.8766666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Montpellier (34172)</span><br />Population : 260572"
-          }
+            content:
+              '<span style="font-weight:bold;">Montpellier (34172)</span><br />Population : 260572',
+          },
         },
         "town-33063": {
           value: "242945",
@@ -145,8 +158,9 @@ $(function() {
           longitude: -0.57944444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Bordeaux (33063)</span><br />Population : 242945"
-          }
+            content:
+              '<span style="font-weight:bold;">Bordeaux (33063)</span><br />Population : 242945',
+          },
         },
         "town-59350": {
           value: "234058",
@@ -154,8 +168,9 @@ $(function() {
           longitude: 3.0575,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Lille (59350)</span><br />Population : 234058"
-          }
+            content:
+              '<span style="font-weight:bold;">Lille (59350)</span><br />Population : 234058',
+          },
         },
         "town-35238": {
           value: "212939",
@@ -163,8 +178,9 @@ $(function() {
           longitude: -1.6808333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Rennes (35238)</span><br />Population : 212939"
-          }
+            content:
+              '<span style="font-weight:bold;">Rennes (35238)</span><br />Population : 212939',
+          },
         },
         "town-51454": {
           value: "184011",
@@ -172,8 +188,9 @@ $(function() {
           longitude: 4.0286111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Reims (51454)</span><br />Population : 184011"
-          }
+            content:
+              '<span style="font-weight:bold;">Reims (51454)</span><br />Population : 184011',
+          },
         },
         "town-76351": {
           value: "178070",
@@ -181,8 +198,9 @@ $(function() {
           longitude: 0.12111111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Le Havre (76351)</span><br />Population : 178070"
-          }
+            content:
+              '<span style="font-weight:bold;">Le Havre (76351)</span><br />Population : 178070',
+          },
         },
         "town-42218": {
           value: "174566",
@@ -190,8 +208,9 @@ $(function() {
           longitude: 4.3897222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Ã‰tienne (42218)</span><br />Population : 174566"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Ã‰tienne (42218)</span><br />Population : 174566',
+          },
         },
         "town-83137": {
           value: "166851",
@@ -199,8 +218,9 @@ $(function() {
           longitude: 5.9305555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Toulon (83137)</span><br />Population : 166851"
-          }
+            content:
+              '<span style="font-weight:bold;">Toulon (83137)</span><br />Population : 166851',
+          },
         },
         "town-38185": {
           value: "158249",
@@ -208,8 +228,9 @@ $(function() {
           longitude: 5.7263888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Grenoble (38185)</span><br />Population : 158249"
-          }
+            content:
+              '<span style="font-weight:bold;">Grenoble (38185)</span><br />Population : 158249',
+          },
         },
         "town-21231": {
           value: "155233",
@@ -217,8 +238,9 @@ $(function() {
           longitude: 5.0419444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Dijon (21231)</span><br />Population : 155233"
-          }
+            content:
+              '<span style="font-weight:bold;">Dijon (21231)</span><br />Population : 155233',
+          },
         },
         "town-49007": {
           value: "151957",
@@ -226,8 +248,9 @@ $(function() {
           longitude: -0.55555555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Angers (49007)</span><br />Population : 151957"
-          }
+            content:
+              '<span style="font-weight:bold;">Angers (49007)</span><br />Population : 151957',
+          },
         },
         "town-72181": {
           value: "147108",
@@ -235,8 +258,9 @@ $(function() {
           longitude: 0.19694444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Le Mans (72181)</span><br />Population : 147108"
-          }
+            content:
+              '<span style="font-weight:bold;">Le Mans (72181)</span><br />Population : 147108',
+          },
         },
         "town-69266": {
           value: "146729",
@@ -244,8 +268,9 @@ $(function() {
           longitude: 4.8794444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Villeurbanne (69266)</span><br />Population : 146729"
-          }
+            content:
+              '<span style="font-weight:bold;">Villeurbanne (69266)</span><br />Population : 146729',
+          },
         },
         "town-97411": {
           value: "146489",
@@ -253,8 +278,9 @@ $(function() {
           longitude: 55.448055555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Denis (97411)</span><br />Population : 146489"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Denis (97411)</span><br />Population : 146489',
+          },
         },
         "town-29019": {
           value: "145561",
@@ -262,8 +288,9 @@ $(function() {
           longitude: -4.4869444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Brest (29019)</span><br />Population : 145561"
-          }
+            content:
+              '<span style="font-weight:bold;">Brest (29019)</span><br />Population : 145561',
+          },
         },
         "town-30189": {
           value: "145501",
@@ -271,8 +298,9 @@ $(function() {
           longitude: 4.36,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">NÃ®mes (30189)</span><br />Population : 145501"
-          }
+            content:
+              '<span style="font-weight:bold;">NÃ®mes (30189)</span><br />Population : 145501',
+          },
         },
         "town-13001": {
           value: "144884",
@@ -280,8 +308,9 @@ $(function() {
           longitude: 5.4455555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Aix-en-Provence (13001)</span><br />Population : 144884"
-          }
+            content:
+              '<span style="font-weight:bold;">Aix-en-Provence (13001)</span><br />Population : 144884',
+          },
         },
         "town-63113": {
           value: "143669",
@@ -289,8 +318,9 @@ $(function() {
           longitude: 3.0869444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Clermont-Ferrand (63113)</span><br />Population : 143669"
-          }
+            content:
+              '<span style="font-weight:bold;">Clermont-Ferrand (63113)</span><br />Population : 143669',
+          },
         },
         "town-87085": {
           value: "141540",
@@ -298,8 +328,9 @@ $(function() {
           longitude: 1.2616666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Limoges (87085)</span><br />Population : 141540"
-          }
+            content:
+              '<span style="font-weight:bold;">Limoges (87085)</span><br />Population : 141540',
+          },
         },
         "town-37261": {
           value: "138268",
@@ -307,8 +338,9 @@ $(function() {
           longitude: 0.68833333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Tours (37261)</span><br />Population : 138268"
-          }
+            content:
+              '<span style="font-weight:bold;">Tours (37261)</span><br />Population : 138268',
+          },
         },
         "town-80021": {
           value: "136512",
@@ -316,8 +348,9 @@ $(function() {
           longitude: 2.2977777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Amiens (80021)</span><br />Population : 136512"
-          }
+            content:
+              '<span style="font-weight:bold;">Amiens (80021)</span><br />Population : 136512',
+          },
         },
         "town-57463": {
           value: "122928",
@@ -325,8 +358,9 @@ $(function() {
           longitude: 6.1769444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Metz (57463)</span><br />Population : 122928"
-          }
+            content:
+              '<span style="font-weight:bold;">Metz (57463)</span><br />Population : 122928',
+          },
         },
         "town-25056": {
           value: "121038",
@@ -334,8 +368,9 @@ $(function() {
           longitude: 6.0213888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">BesanÃ§on (25056)</span><br />Population : 121038"
-          }
+            content:
+              '<span style="font-weight:bold;">BesanÃ§on (25056)</span><br />Population : 121038',
+          },
         },
         "town-66136": {
           value: "119536",
@@ -343,8 +378,9 @@ $(function() {
           longitude: 2.8947222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Perpignan (66136)</span><br />Population : 119536"
-          }
+            content:
+              '<span style="font-weight:bold;">Perpignan (66136)</span><br />Population : 119536',
+          },
         },
         "town-45234": {
           value: "117833",
@@ -352,8 +388,9 @@ $(function() {
           longitude: 1.9041666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">OrlÃ©ans (45234)</span><br />Population : 117833"
-          }
+            content:
+              '<span style="font-weight:bold;">OrlÃ©ans (45234)</span><br />Population : 117833',
+          },
         },
         "town-92012": {
           value: "115264",
@@ -361,8 +398,9 @@ $(function() {
           longitude: 2.2413888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Boulogne-Billancourt (92012)</span><br />Population : 115264"
-          }
+            content:
+              '<span style="font-weight:bold;">Boulogne-Billancourt (92012)</span><br />Population : 115264',
+          },
         },
         "town-76540": {
           value: "113461",
@@ -370,8 +408,9 @@ $(function() {
           longitude: 1.1025,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Rouen (76540)</span><br />Population : 113461"
-          }
+            content:
+              '<span style="font-weight:bold;">Rouen (76540)</span><br />Population : 113461',
+          },
         },
         "town-14118": {
           value: "111949",
@@ -379,8 +418,9 @@ $(function() {
           longitude: -0.37055555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Caen (14118)</span><br />Population : 111949"
-          }
+            content:
+              '<span style="font-weight:bold;">Caen (14118)</span><br />Population : 111949',
+          },
         },
         "town-68224": {
           value: "111273",
@@ -388,8 +428,9 @@ $(function() {
           longitude: 7.3391666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Mulhouse (68224)</span><br />Population : 111273"
-          }
+            content:
+              '<span style="font-weight:bold;">Mulhouse (68224)</span><br />Population : 111273',
+          },
         },
         "town-93066": {
           value: "107959",
@@ -397,8 +438,9 @@ $(function() {
           longitude: 2.3538888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Denis (93066)</span><br />Population : 107959"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Denis (93066)</span><br />Population : 107959',
+          },
         },
         "town-93066": {
           value: "107959",
@@ -406,8 +448,9 @@ $(function() {
           longitude: 2.3538888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Denis (93066)</span><br />Population : 107959"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Denis (93066)</span><br />Population : 107959',
+          },
         },
         "town-54395": {
           value: "107710",
@@ -415,8 +458,9 @@ $(function() {
           longitude: 6.1836111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Nancy (54395)</span><br />Population : 107710"
-          }
+            content:
+              '<span style="font-weight:bold;">Nancy (54395)</span><br />Population : 107710',
+          },
         },
         "town-95018": {
           value: "104843",
@@ -424,8 +468,9 @@ $(function() {
           longitude: 2.2475,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Argenteuil (95018)</span><br />Population : 104843"
-          }
+            content:
+              '<span style="font-weight:bold;">Argenteuil (95018)</span><br />Population : 104843',
+          },
         },
         "town-97415": {
           value: "104818",
@@ -433,8 +478,9 @@ $(function() {
           longitude: 55.269722222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Paul (97415)</span><br />Population : 104818"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Paul (97415)</span><br />Population : 104818',
+          },
         },
         "town-93048": {
           value: "103675",
@@ -442,8 +488,9 @@ $(function() {
           longitude: 2.4430555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Montreuil (93048)</span><br />Population : 103675"
-          }
+            content:
+              '<span style="font-weight:bold;">Montreuil (93048)</span><br />Population : 103675',
+          },
         },
         "town-59512": {
           value: "95506",
@@ -451,8 +498,9 @@ $(function() {
           longitude: 3.1808333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Roubaix (59512)</span><br />Population : 95506"
-          }
+            content:
+              '<span style="font-weight:bold;">Roubaix (59512)</span><br />Population : 95506',
+          },
         },
         "town-59183": {
           value: "93489",
@@ -460,8 +508,9 @@ $(function() {
           longitude: 2.3763888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Dunkerque (59183)</span><br />Population : 93489"
-          }
+            content:
+              '<span style="font-weight:bold;">Dunkerque (59183)</span><br />Population : 93489',
+          },
         },
         "town-59599": {
           value: "92620",
@@ -469,8 +518,9 @@ $(function() {
           longitude: 3.1602777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Tourcoing (59599)</span><br />Population : 92620"
-          }
+            content:
+              '<span style="font-weight:bold;">Tourcoing (59599)</span><br />Population : 92620',
+          },
         },
         "town-84007": {
           value: "91657",
@@ -478,8 +528,9 @@ $(function() {
           longitude: 4.8083333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Avignon (84007)</span><br />Population : 91657"
-          }
+            content:
+              '<span style="font-weight:bold;">Avignon (84007)</span><br />Population : 91657',
+          },
         },
         "town-92050": {
           value: "91114",
@@ -487,8 +538,9 @@ $(function() {
           longitude: 2.2036111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Nanterre (92050)</span><br />Population : 91114"
-          }
+            content:
+              '<span style="font-weight:bold;">Nanterre (92050)</span><br />Population : 91114',
+          },
         },
         "town-94028": {
           value: "90779",
@@ -496,8 +548,9 @@ $(function() {
           longitude: 2.4619444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">CrÃ©teil (94028)</span><br />Population : 90779"
-          }
+            content:
+              '<span style="font-weight:bold;">CrÃ©teil (94028)</span><br />Population : 90779',
+          },
         },
         "town-86194": {
           value: "90386",
@@ -505,8 +558,9 @@ $(function() {
           longitude: 0.33527777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Poitiers (86194)</span><br />Population : 90386"
-          }
+            content:
+              '<span style="font-weight:bold;">Poitiers (86194)</span><br />Population : 90386',
+          },
         },
         "town-97209": {
           value: "88623",
@@ -514,8 +568,9 @@ $(function() {
           longitude: -61.069444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Fort-de-France (97209)</span><br />Population : 88623"
-          }
+            content:
+              '<span style="font-weight:bold;">Fort-de-France (97209)</span><br />Population : 88623',
+          },
         },
         "town-78646": {
           value: "88253",
@@ -523,8 +578,9 @@ $(function() {
           longitude: 2.1341666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Versailles (78646)</span><br />Population : 88253"
-          }
+            content:
+              '<span style="font-weight:bold;">Versailles (78646)</span><br />Population : 88253',
+          },
         },
         "town-92026": {
           value: "88169",
@@ -532,8 +588,9 @@ $(function() {
           longitude: 2.2522222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Courbevoie (92026)</span><br />Population : 88169"
-          }
+            content:
+              '<span style="font-weight:bold;">Courbevoie (92026)</span><br />Population : 88169',
+          },
         },
         "town-94081": {
           value: "86210",
@@ -541,8 +598,9 @@ $(function() {
           longitude: 2.3927777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Vitry-sur-Seine (94081)</span><br />Population : 86210"
-          }
+            content:
+              '<span style="font-weight:bold;">Vitry-sur-Seine (94081)</span><br />Population : 86210',
+          },
         },
         "town-92025": {
           value: "86094",
@@ -550,8 +608,9 @@ $(function() {
           longitude: 2.2522222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Colombes (92025)</span><br />Population : 86094"
-          }
+            content:
+              '<span style="font-weight:bold;">Colombes (92025)</span><br />Population : 86094',
+          },
         },
         "town-92004": {
           value: "82998",
@@ -559,8 +618,9 @@ $(function() {
           longitude: 2.2855555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">AsniÃ¨res-sur-Seine (92004)</span><br />Population : 82998"
-          }
+            content:
+              '<span style="font-weight:bold;">AsniÃ¨res-sur-Seine (92004)</span><br />Population : 82998',
+          },
         },
         "town-93005": {
           value: "82778",
@@ -568,8 +628,9 @@ $(function() {
           longitude: 2.4930555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Aulnay-sous-Bois (93005)</span><br />Population : 82778"
-          }
+            content:
+              '<span style="font-weight:bold;">Aulnay-sous-Bois (93005)</span><br />Population : 82778',
+          },
         },
         "town-64445": {
           value: "82776",
@@ -577,8 +638,9 @@ $(function() {
           longitude: -0.37,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Pau (64445)</span><br />Population : 82776"
-          }
+            content:
+              '<span style="font-weight:bold;">Pau (64445)</span><br />Population : 82776',
+          },
         },
         "town-92063": {
           value: "80905",
@@ -586,8 +648,9 @@ $(function() {
           longitude: 2.1883333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Rueil-Malmaison (92063)</span><br />Population : 80905"
-          }
+            content:
+              '<span style="font-weight:bold;">Rueil-Malmaison (92063)</span><br />Population : 80905',
+          },
         },
         "town-97416": {
           value: "80027",
@@ -595,8 +658,9 @@ $(function() {
           longitude: 55.477777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Pierre (97416)</span><br />Population : 80027"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Pierre (97416)</span><br />Population : 80027',
+          },
         },
         "town-17300": {
           value: "77875",
@@ -604,8 +668,9 @@ $(function() {
           longitude: -1.1513888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">La Rochelle (17300)</span><br />Population : 77875"
-          }
+            content:
+              '<span style="font-weight:bold;">La Rochelle (17300)</span><br />Population : 77875',
+          },
         },
         "town-93001": {
           value: "76728",
@@ -613,8 +678,9 @@ $(function() {
           longitude: 2.3825,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Aubervilliers (93001)</span><br />Population : 76728"
-          }
+            content:
+              '<span style="font-weight:bold;">Aubervilliers (93001)</span><br />Population : 76728',
+          },
         },
         "town-94017": {
           value: "76235",
@@ -622,8 +688,9 @@ $(function() {
           longitude: 2.5155555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Champigny-sur-Marne (94017)</span><br />Population : 76235"
-          }
+            content:
+              '<span style="font-weight:bold;">Champigny-sur-Marne (94017)</span><br />Population : 76235',
+          },
         },
         "town-94068": {
           value: "75772",
@@ -631,8 +698,9 @@ $(function() {
           longitude: 2.4988888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Maur-des-FossÃ©s (94068)</span><br />Population : 75772"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Maur-des-FossÃ©s (94068)</span><br />Population : 75772',
+          },
         },
         "town-06004": {
           value: "75174",
@@ -640,8 +708,9 @@ $(function() {
           longitude: 7.1230555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Antibes (06004)</span><br />Population : 75174"
-          }
+            content:
+              '<span style="font-weight:bold;">Antibes (06004)</span><br />Population : 75174',
+          },
         },
         "town-62193": {
           value: "74573",
@@ -649,8 +718,9 @@ $(function() {
           longitude: 1.8555555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Calais (62193)</span><br />Population : 74573"
-          }
+            content:
+              '<span style="font-weight:bold;">Calais (62193)</span><br />Population : 74573',
+          },
         },
         "town-06029": {
           value: "74273",
@@ -658,8 +728,9 @@ $(function() {
           longitude: 7.0213888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Cannes (06029)</span><br />Population : 74273"
-          }
+            content:
+              '<span style="font-weight:bold;">Cannes (06029)</span><br />Population : 74273',
+          },
         },
         "town-97422": {
           value: "74174",
@@ -667,8 +738,9 @@ $(function() {
           longitude: 55.515277777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Le Tampon (97422)</span><br />Population : 74174"
-          }
+            content:
+              '<span style="font-weight:bold;">Le Tampon (97422)</span><br />Population : 74174',
+          },
         },
         "town-34032": {
           value: "72466",
@@ -676,8 +748,9 @@ $(function() {
           longitude: 3.2161111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">BÃ©ziers (34032)</span><br />Population : 72466"
-          }
+            content:
+              '<span style="font-weight:bold;">BÃ©ziers (34032)</span><br />Population : 72466',
+          },
         },
         "town-44184": {
           value: "69724",
@@ -685,8 +758,9 @@ $(function() {
           longitude: -2.21,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Nazaire (44184)</span><br />Population : 69724"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Nazaire (44184)</span><br />Population : 69724',
+          },
         },
         "town-68066": {
           value: "69187",
@@ -694,8 +768,9 @@ $(function() {
           longitude: 7.355,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Colmar (68066)</span><br />Population : 69187"
-          }
+            content:
+              '<span style="font-weight:bold;">Colmar (68066)</span><br />Population : 69187',
+          },
         },
         "town-18033": {
           value: "68590",
@@ -703,8 +778,9 @@ $(function() {
           longitude: 2.3955555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Bourges (18033)</span><br />Population : 68590"
-          }
+            content:
+              '<span style="font-weight:bold;">Bourges (18033)</span><br />Population : 68590',
+          },
         },
         "town-93029": {
           value: "67202",
@@ -712,8 +788,9 @@ $(function() {
           longitude: 2.445,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Drancy (93029)</span><br />Population : 67202"
-          }
+            content:
+              '<span style="font-weight:bold;">Drancy (93029)</span><br />Population : 67202',
+          },
         },
         "town-33281": {
           value: "67136",
@@ -721,8 +798,9 @@ $(function() {
           longitude: -0.645,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">MÃ©rignac (33281)</span><br />Population : 67136"
-          }
+            content:
+              '<span style="font-weight:bold;">MÃ©rignac (33281)</span><br />Population : 67136',
+          },
         },
         "town-29232": {
           value: "67131",
@@ -730,8 +808,9 @@ $(function() {
           longitude: -4.0977777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Quimper (29232)</span><br />Population : 67131"
-          }
+            content:
+              '<span style="font-weight:bold;">Quimper (29232)</span><br />Population : 67131',
+          },
         },
         "town-2A004": {
           value: "66203",
@@ -739,8 +818,9 @@ $(function() {
           longitude: 8.7363888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Ajaccio (2A004)</span><br />Population : 66203"
-          }
+            content:
+              '<span style="font-weight:bold;">Ajaccio (2A004)</span><br />Population : 66203',
+          },
         },
         "town-92040": {
           value: "65178",
@@ -748,8 +828,9 @@ $(function() {
           longitude: 2.2691666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Issy-les-Moulineaux (92040)</span><br />Population : 65178"
-          }
+            content:
+              '<span style="font-weight:bold;">Issy-les-Moulineaux (92040)</span><br />Population : 65178',
+          },
         },
         "town-26362": {
           value: "65043",
@@ -757,8 +838,9 @@ $(function() {
           longitude: 4.8908333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Valence (26362)</span><br />Population : 65043"
-          }
+            content:
+              '<span style="font-weight:bold;">Valence (26362)</span><br />Population : 65043',
+          },
         },
         "town-92044": {
           value: "64757",
@@ -766,8 +848,9 @@ $(function() {
           longitude: 2.2877777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Levallois-Perret (92044)</span><br />Population : 64757"
-          }
+            content:
+              '<span style="font-weight:bold;">Levallois-Perret (92044)</span><br />Population : 64757',
+          },
         },
         "town-59009": {
           value: "64328",
@@ -775,8 +858,9 @@ $(function() {
           longitude: 3.1441666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Villeneuve-d'Ascq (59009)</span><br />Population : 64328"
-          }
+            content:
+              '<span style="font-weight:bold;">Villeneuve-d\'Ascq (59009)</span><br />Population : 64328',
+          },
         },
         "town-93051": {
           value: "63526",
@@ -784,8 +868,9 @@ $(function() {
           longitude: 2.5580555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Noisy-le-Grand (93051)</span><br />Population : 63526"
-          }
+            content:
+              '<span style="font-weight:bold;">Noisy-le-Grand (93051)</span><br />Population : 63526',
+          },
         },
         "town-83126": {
           value: "62883",
@@ -793,8 +878,9 @@ $(function() {
           longitude: 5.8783333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">La Seyne-sur-Mer (83126)</span><br />Population : 62883"
-          }
+            content:
+              '<span style="font-weight:bold;">La Seyne-sur-Mer (83126)</span><br />Population : 62883',
+          },
         },
         "town-92002": {
           value: "62644",
@@ -802,8 +888,9 @@ $(function() {
           longitude: 2.2966666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Antony (92002)</span><br />Population : 62644"
-          }
+            content:
+              '<span style="font-weight:bold;">Antony (92002)</span><br />Population : 62644',
+          },
         },
         "town-92051": {
           value: "62565",
@@ -811,8 +898,9 @@ $(function() {
           longitude: 2.2675,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Neuilly-sur-Seine (92051)</span><br />Population : 62565"
-          }
+            content:
+              '<span style="font-weight:bold;">Neuilly-sur-Seine (92051)</span><br />Population : 62565',
+          },
         },
         "town-10387": {
           value: "61936",
@@ -820,8 +908,9 @@ $(function() {
           longitude: 4.0780555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Troyes (10387)</span><br />Population : 61936"
-          }
+            content:
+              '<span style="font-weight:bold;">Troyes (10387)</span><br />Population : 61936',
+          },
         },
         "town-69259": {
           value: "60448",
@@ -829,8 +918,9 @@ $(function() {
           longitude: 4.8858333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">VÃ©nissieux (69259)</span><br />Population : 60448"
-          }
+            content:
+              '<span style="font-weight:bold;">VÃ©nissieux (69259)</span><br />Population : 60448',
+          },
         },
         "town-79191": {
           value: "59504",
@@ -838,8 +928,9 @@ $(function() {
           longitude: -0.46222222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Niort (79191)</span><br />Population : 59504"
-          }
+            content:
+              '<span style="font-weight:bold;">Niort (79191)</span><br />Population : 59504',
+          },
         },
         "town-97101": {
           value: "59267",
@@ -847,8 +938,9 @@ $(function() {
           longitude: -61.504722222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Les Abymes (97101)</span><br />Population : 59267"
-          }
+            content:
+              '<span style="font-weight:bold;">Les Abymes (97101)</span><br />Population : 59267',
+          },
         },
         "town-92024": {
           value: "59228",
@@ -856,8 +948,9 @@ $(function() {
           longitude: 2.3055555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Clichy (92024)</span><br />Population : 59228"
-          }
+            content:
+              '<span style="font-weight:bold;">Clichy (92024)</span><br />Population : 59228',
+          },
         },
         "town-95585": {
           value: "59204",
@@ -865,8 +958,9 @@ $(function() {
           longitude: 2.3780555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Sarcelles (95585)</span><br />Population : 59204"
-          }
+            content:
+              '<span style="font-weight:bold;">Sarcelles (95585)</span><br />Population : 59204',
+          },
         },
         "town-73065": {
           value: "59184",
@@ -874,8 +968,9 @@ $(function() {
           longitude: 5.9208333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">ChambÃ©ry (73065)</span><br />Population : 59184"
-          }
+            content:
+              '<span style="font-weight:bold;">ChambÃ©ry (73065)</span><br />Population : 59184',
+          },
         },
         "town-33318": {
           value: "58977",
@@ -883,8 +978,9 @@ $(function() {
           longitude: -0.63222222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Pessac (33318)</span><br />Population : 58977"
-          }
+            content:
+              '<span style="font-weight:bold;">Pessac (33318)</span><br />Population : 58977',
+          },
         },
         "town-56121": {
           value: "58831",
@@ -892,8 +988,9 @@ $(function() {
           longitude: -3.3663888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Lorient (56121)</span><br />Population : 58831"
-          }
+            content:
+              '<span style="font-weight:bold;">Lorient (56121)</span><br />Population : 58831',
+          },
         },
         "town-94041": {
           value: "58189",
@@ -901,8 +998,9 @@ $(function() {
           longitude: 2.3877777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Ivry-sur-Seine (94041)</span><br />Population : 58189"
-          }
+            content:
+              '<span style="font-weight:bold;">Ivry-sur-Seine (94041)</span><br />Population : 58189',
+          },
         },
         "town-82121": {
           value: "58014",
@@ -910,8 +1008,9 @@ $(function() {
           longitude: 1.355,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Montauban (82121)</span><br />Population : 58014"
-          }
+            content:
+              '<span style="font-weight:bold;">Montauban (82121)</span><br />Population : 58014',
+          },
         },
         "town-95127": {
           value: "57900",
@@ -919,8 +1018,9 @@ $(function() {
           longitude: 2.0625,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Cergy (95127)</span><br />Population : 57900"
-          }
+            content:
+              '<span style="font-weight:bold;">Cergy (95127)</span><br />Population : 57900',
+          },
         },
         "town-02691": {
           value: "57533",
@@ -928,8 +1028,9 @@ $(function() {
           longitude: 3.2855555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Quentin (02691)</span><br />Population : 57533"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Quentin (02691)</span><br />Population : 57533',
+          },
         },
         "town-60057": {
           value: "56181",
@@ -937,8 +1038,9 @@ $(function() {
           longitude: 2.0875,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Beauvais (60057)</span><br />Population : 56181"
-          }
+            content:
+              '<span style="font-weight:bold;">Beauvais (60057)</span><br />Population : 56181',
+          },
         },
         "town-49099": {
           value: "56137",
@@ -946,8 +1048,9 @@ $(function() {
           longitude: -0.87972222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Cholet (49099)</span><br />Population : 56137"
-          }
+            content:
+              '<span style="font-weight:bold;">Cholet (49099)</span><br />Population : 56137',
+          },
         },
         "town-85191": {
           value: "56101",
@@ -955,8 +1058,9 @@ $(function() {
           longitude: -1.4277777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">La Roche-sur-Yon (85191)</span><br />Population : 56101"
-          }
+            content:
+              '<span style="font-weight:bold;">La Roche-sur-Yon (85191)</span><br />Population : 56101',
+          },
         },
         "town-97302": {
           value: "56002",
@@ -964,8 +1068,9 @@ $(function() {
           longitude: -52.335,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Cayenne (97302)</span><br />Population : 56002"
-          }
+            content:
+              '<span style="font-weight:bold;">Cayenne (97302)</span><br />Population : 56002',
+          },
         },
         "town-83069": {
           value: "55906",
@@ -973,8 +1078,9 @@ $(function() {
           longitude: 6.1286111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">HyÃ¨res (83069)</span><br />Population : 55906"
-          }
+            content:
+              '<span style="font-weight:bold;">HyÃ¨res (83069)</span><br />Population : 55906',
+          },
         },
         "town-94076": {
           value: "55879",
@@ -982,8 +1088,9 @@ $(function() {
           longitude: 2.3611111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Villejuif (94076)</span><br />Population : 55879"
-          }
+            content:
+              '<span style="font-weight:bold;">Villejuif (94076)</span><br />Population : 55879',
+          },
         },
         "town-56260": {
           value: "55116",
@@ -991,8 +1098,9 @@ $(function() {
           longitude: -2.7616666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Vannes (56260)</span><br />Population : 55116"
-          }
+            content:
+              '<span style="font-weight:bold;">Vannes (56260)</span><br />Population : 55116',
+          },
         },
         "town-93031": {
           value: "54775",
@@ -1000,8 +1108,9 @@ $(function() {
           longitude: 2.3083333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Ã‰pinay-sur-Seine (93031)</span><br />Population : 54775"
-          }
+            content:
+              '<span style="font-weight:bold;">Ã‰pinay-sur-Seine (93031)</span><br />Population : 54775',
+          },
         },
         "town-93055": {
           value: "54464",
@@ -1009,8 +1118,9 @@ $(function() {
           longitude: 2.4072222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Pantin (93055)</span><br />Population : 54464"
-          }
+            content:
+              '<span style="font-weight:bold;">Pantin (93055)</span><br />Population : 54464',
+          },
         },
         "town-97409": {
           value: "54311",
@@ -1018,8 +1128,9 @@ $(function() {
           longitude: 55.650555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-AndrÃ© (97409)</span><br />Population : 54311"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-AndrÃ© (97409)</span><br />Population : 54311',
+          },
         },
         "town-53130": {
           value: "54100",
@@ -1027,8 +1138,9 @@ $(function() {
           longitude: -0.77,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Laval (53130)</span><br />Population : 54100"
-          }
+            content:
+              '<span style="font-weight:bold;">Laval (53130)</span><br />Population : 54100',
+          },
         },
         "town-93010": {
           value: "53934",
@@ -1036,8 +1148,9 @@ $(function() {
           longitude: 2.4836111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Bondy (93010)</span><br />Population : 53934"
-          }
+            content:
+              '<span style="font-weight:bold;">Bondy (93010)</span><br />Population : 53934',
+          },
         },
         "town-13004": {
           value: "53785",
@@ -1045,8 +1158,9 @@ $(function() {
           longitude: 4.6286111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Arles (13004)</span><br />Population : 53785"
-          }
+            content:
+              '<span style="font-weight:bold;">Arles (13004)</span><br />Population : 53785',
+          },
         },
         "town-94033": {
           value: "53667",
@@ -1054,8 +1168,9 @@ $(function() {
           longitude: 2.4772222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Fontenay-sous-Bois (94033)</span><br />Population : 53667"
-          }
+            content:
+              '<span style="font-weight:bold;">Fontenay-sous-Bois (94033)</span><br />Population : 53667',
+          },
         },
         "town-94046": {
           value: "53513",
@@ -1063,8 +1178,9 @@ $(function() {
           longitude: 2.4377777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Maisons-Alfort (94046)</span><br />Population : 53513"
-          }
+            content:
+              '<span style="font-weight:bold;">Maisons-Alfort (94046)</span><br />Population : 53513',
+          },
         },
         "town-27229": {
           value: "53260",
@@ -1072,8 +1188,9 @@ $(function() {
           longitude: 1.1525,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Ã‰vreux (27229)</span><br />Population : 53260"
-          }
+            content:
+              '<span style="font-weight:bold;">Ã‰vreux (27229)</span><br />Population : 53260',
+          },
         },
         "town-77108": {
           value: "53238",
@@ -1081,8 +1198,9 @@ $(function() {
           longitude: 2.5888888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Chelles (77108)</span><br />Population : 53238"
-          }
+            content:
+              '<span style="font-weight:bold;">Chelles (77108)</span><br />Population : 53238',
+          },
         },
         "town-92023": {
           value: "53113",
@@ -1090,8 +1208,9 @@ $(function() {
           longitude: 2.2619444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Clamart (92023)</span><br />Population : 53113"
-          }
+            content:
+              '<span style="font-weight:bold;">Clamart (92023)</span><br />Population : 53113',
+          },
         },
         "town-91228": {
           value: "53019",
@@ -1099,8 +1218,9 @@ $(function() {
           longitude: 2.4441666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Ã‰vry (91228)</span><br />Population : 53019"
-          }
+            content:
+              '<span style="font-weight:bold;">Ã‰vry (91228)</span><br />Population : 53019',
+          },
         },
         "town-83061": {
           value: "52580",
@@ -1108,8 +1228,9 @@ $(function() {
           longitude: 6.7355555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">FrÃ©jus (83061)</span><br />Population : 52580"
-          }
+            content:
+              '<span style="font-weight:bold;">FrÃ©jus (83061)</span><br />Population : 52580',
+          },
         },
         "town-77284": {
           value: "52540",
@@ -1117,8 +1238,9 @@ $(function() {
           longitude: 2.8877777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Meaux (77284)</span><br />Population : 52540"
-          }
+            content:
+              '<span style="font-weight:bold;">Meaux (77284)</span><br />Population : 52540',
+          },
         },
         "town-97414": {
           value: "52507",
@@ -1126,8 +1248,9 @@ $(function() {
           longitude: 55.409166666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Louis (97414)</span><br />Population : 52507"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Louis (97414)</span><br />Population : 52507',
+          },
         },
         "town-11262": {
           value: "52489",
@@ -1135,8 +1258,9 @@ $(function() {
           longitude: 3.0036111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Narbonne (11262)</span><br />Population : 52489"
-          }
+            content:
+              '<span style="font-weight:bold;">Narbonne (11262)</span><br />Population : 52489',
+          },
         },
         "town-74010": {
           value: "52375",
@@ -1144,8 +1268,9 @@ $(function() {
           longitude: 6.1294444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Annecy (74010)</span><br />Population : 52375"
-          }
+            content:
+              '<span style="font-weight:bold;">Annecy (74010)</span><br />Population : 52375',
+          },
         },
         "town-06069": {
           value: "52185",
@@ -1153,8 +1278,9 @@ $(function() {
           longitude: 6.9252777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Grasse (06069)</span><br />Population : 52185"
-          }
+            content:
+              '<span style="font-weight:bold;">Grasse (06069)</span><br />Population : 52185',
+          },
         },
         "town-93007": {
           value: "51735",
@@ -1162,8 +1288,9 @@ $(function() {
           longitude: 2.4611111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Le Blanc-Mesnil (93007)</span><br />Population : 51735"
-          }
+            content:
+              '<span style="font-weight:bold;">Le Blanc-Mesnil (93007)</span><br />Population : 51735',
+          },
         },
         "town-08105": {
           value: "51647",
@@ -1171,8 +1298,9 @@ $(function() {
           longitude: 4.7194444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Charleville-MÃ©ziÃ¨res (08105)</span><br />Population : 51647"
-          }
+            content:
+              '<span style="font-weight:bold;">Charleville-MÃ©ziÃ¨res (08105)</span><br />Population : 51647',
+          },
         },
         "town-78586": {
           value: "51504",
@@ -1180,8 +1308,9 @@ $(function() {
           longitude: 2.17,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Sartrouville (78586)</span><br />Population : 51504"
-          }
+            content:
+              '<span style="font-weight:bold;">Sartrouville (78586)</span><br />Population : 51504',
+          },
         },
         "town-90010": {
           value: "51233",
@@ -1189,8 +1318,9 @@ $(function() {
           longitude: 6.8494444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Belfort (90010)</span><br />Population : 51233"
-          }
+            content:
+              '<span style="font-weight:bold;">Belfort (90010)</span><br />Population : 51233',
+          },
         },
         "town-81004": {
           value: "51181",
@@ -1198,8 +1328,9 @@ $(function() {
           longitude: 2.1458333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Albi (81004)</span><br />Population : 51181"
-          }
+            content:
+              '<span style="font-weight:bold;">Albi (81004)</span><br />Population : 51181',
+          },
         },
         "town-19031": {
           value: "50272",
@@ -1207,8 +1338,9 @@ $(function() {
           longitude: 1.5330555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Brive-la-Gaillarde (19031)</span><br />Population : 50272"
-          }
+            content:
+              '<span style="font-weight:bold;">Brive-la-Gaillarde (19031)</span><br />Population : 50272',
+          },
         },
         "town-93071": {
           value: "50225",
@@ -1216,8 +1348,9 @@ $(function() {
           longitude: 2.5227777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Sevran (93071)</span><br />Population : 50225"
-          }
+            content:
+              '<span style="font-weight:bold;">Sevran (93071)</span><br />Population : 50225',
+          },
         },
         "town-92049": {
           value: "48983",
@@ -1225,8 +1358,9 @@ $(function() {
           longitude: 2.3211111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Montrouge (92049)</span><br />Population : 48983"
-          }
+            content:
+              '<span style="font-weight:bold;">Montrouge (92049)</span><br />Population : 48983',
+          },
         },
         "town-94080": {
           value: "48955",
@@ -1234,8 +1368,9 @@ $(function() {
           longitude: 2.4391666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Vincennes (94080)</span><br />Population : 48955"
-          }
+            content:
+              '<span style="font-weight:bold;">Vincennes (94080)</span><br />Population : 48955',
+          },
         },
         "town-11069": {
           value: "48893",
@@ -1243,8 +1378,9 @@ $(function() {
           longitude: 2.3513888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Carcassonne (11069)</span><br />Population : 48893"
-          }
+            content:
+              '<span style="font-weight:bold;">Carcassonne (11069)</span><br />Population : 48893',
+          },
         },
         "town-41018": {
           value: "48568",
@@ -1252,8 +1388,9 @@ $(function() {
           longitude: 1.3272222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Blois (41018)</span><br />Population : 48568"
-          }
+            content:
+              '<span style="font-weight:bold;">Blois (41018)</span><br />Population : 48568',
+          },
         },
         "town-13056": {
           value: "48261",
@@ -1261,8 +1398,9 @@ $(function() {
           longitude: 5.0475,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Martigues (13056)</span><br />Population : 48261"
-          }
+            content:
+              '<span style="font-weight:bold;">Martigues (13056)</span><br />Population : 48261',
+          },
         },
         "town-22278": {
           value: "48246",
@@ -1270,8 +1408,9 @@ $(function() {
           longitude: -2.7602777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Brieuc (22278)</span><br />Population : 48246"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Brieuc (22278)</span><br />Population : 48246',
+          },
         },
         "town-36044": {
           value: "48187",
@@ -1279,8 +1418,9 @@ $(function() {
           longitude: 1.6902777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">ChÃ¢teauroux (36044)</span><br />Population : 48187"
-          }
+            content:
+              '<span style="font-weight:bold;">ChÃ¢teauroux (36044)</span><br />Population : 48187',
+          },
         },
         "town-35288": {
           value: "48133",
@@ -1288,8 +1428,9 @@ $(function() {
           longitude: -2.0088888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Malo (35288)</span><br />Population : 48133"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Malo (35288)</span><br />Population : 48133',
+          },
         },
         "town-93008": {
           value: "47855",
@@ -1297,8 +1438,9 @@ $(function() {
           longitude: 2.4386111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Bobigny (93008)</span><br />Population : 47855"
-          }
+            content:
+              '<span style="font-weight:bold;">Bobigny (93008)</span><br />Population : 47855',
+          },
         },
         "town-06027": {
           value: "47711",
@@ -1306,8 +1448,9 @@ $(function() {
           longitude: 7.1483333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Cagnes-sur-Mer (06027)</span><br />Population : 47711"
-          }
+            content:
+              '<span style="font-weight:bold;">Cagnes-sur-Mer (06027)</span><br />Population : 47711',
+          },
         },
         "town-93070": {
           value: "47604",
@@ -1315,8 +1458,9 @@ $(function() {
           longitude: 2.3330555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Ouen (93070)</span><br />Population : 47604"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Ouen (93070)</span><br />Population : 47604',
+          },
         },
         "town-92073": {
           value: "47121",
@@ -1324,8 +1468,9 @@ $(function() {
           longitude: 2.2269444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Suresnes (92073)</span><br />Population : 47121"
-          }
+            content:
+              '<span style="font-weight:bold;">Suresnes (92073)</span><br />Population : 47121',
+          },
         },
         "town-13005": {
           value: "46892",
@@ -1333,8 +1478,9 @@ $(function() {
           longitude: 5.5708333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Aubagne (13005)</span><br />Population : 46892"
-          }
+            content:
+              '<span style="font-weight:bold;">Aubagne (13005)</span><br />Population : 46892',
+          },
         },
         "town-71076": {
           value: "46791",
@@ -1342,8 +1488,9 @@ $(function() {
           longitude: 4.8475,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Chalon-sur-SaÃ´ne (71076)</span><br />Population : 46791"
-          }
+            content:
+              '<span style="font-weight:bold;">Chalon-sur-SaÃ´ne (71076)</span><br />Population : 46791',
+          },
         },
         "town-51108": {
           value: "46668",
@@ -1351,8 +1498,9 @@ $(function() {
           longitude: 4.3644444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">ChÃ¢lons-en-Champagne (51108)</span><br />Population : 46668"
-          }
+            content:
+              '<span style="font-weight:bold;">ChÃ¢lons-en-Champagne (51108)</span><br />Population : 46668',
+          },
         },
         "town-64102": {
           value: "46191",
@@ -1360,8 +1508,9 @@ $(function() {
           longitude: -1.4763888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Bayonne (64102)</span><br />Population : 46191"
-          }
+            content:
+              '<span style="font-weight:bold;">Bayonne (64102)</span><br />Population : 46191',
+          },
         },
         "town-92048": {
           value: "45834",
@@ -1369,8 +1518,9 @@ $(function() {
           longitude: 2.2402777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Meudon (92048)</span><br />Population : 45834"
-          }
+            content:
+              '<span style="font-weight:bold;">Meudon (92048)</span><br />Population : 45834',
+          },
         },
         "town-92062": {
           value: "45093",
@@ -1378,8 +1528,9 @@ $(function() {
           longitude: 2.2380555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Puteaux (92062)</span><br />Population : 45093"
-          }
+            content:
+              '<span style="font-weight:bold;">Puteaux (92062)</span><br />Population : 45093',
+          },
         },
         "town-65440": {
           value: "44952",
@@ -1387,8 +1538,9 @@ $(function() {
           longitude: 0.07444444444444399,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Tarbes (65440)</span><br />Population : 44952"
-          }
+            content:
+              '<span style="font-weight:bold;">Tarbes (65440)</span><br />Population : 44952',
+          },
         },
         "town-94002": {
           value: "44439",
@@ -1396,8 +1548,9 @@ $(function() {
           longitude: 2.4241666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Alfortville (94002)</span><br />Population : 44439"
-          }
+            content:
+              '<span style="font-weight:bold;">Alfortville (94002)</span><br />Population : 44439',
+          },
         },
         "town-59606": {
           value: "44362",
@@ -1405,8 +1558,9 @@ $(function() {
           longitude: 3.525,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Valenciennes (59606)</span><br />Population : 44362"
-          }
+            content:
+              '<span style="font-weight:bold;">Valenciennes (59606)</span><br />Population : 44362',
+          },
         },
         "town-16015": {
           value: "44219",
@@ -1414,8 +1568,9 @@ $(function() {
           longitude: 0.15944444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">AngoulÃªme (16015)</span><br />Population : 44219"
-          }
+            content:
+              '<span style="font-weight:bold;">AngoulÃªme (16015)</span><br />Population : 44219',
+          },
         },
         "town-44162": {
           value: "44078",
@@ -1423,8 +1578,9 @@ $(function() {
           longitude: -1.6511111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Herblain (44162)</span><br />Population : 44078"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Herblain (44162)</span><br />Population : 44078',
+          },
         },
         "town-81065": {
           value: "43995",
@@ -1432,8 +1588,9 @@ $(function() {
           longitude: 2.24,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Castres (81065)</span><br />Population : 43995"
-          }
+            content:
+              '<span style="font-weight:bold;">Castres (81065)</span><br />Population : 43995',
+          },
         },
         "town-13103": {
           value: "43830",
@@ -1441,8 +1598,9 @@ $(function() {
           longitude: 5.0972222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Salon-de-Provence (13103)</span><br />Population : 43830"
-          }
+            content:
+              '<span style="font-weight:bold;">Salon-de-Provence (13103)</span><br />Population : 43830',
+          },
         },
         "town-62160": {
           value: "43805",
@@ -1450,8 +1608,9 @@ $(function() {
           longitude: 1.6138888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Boulogne-sur-Mer (62160)</span><br />Population : 43805"
-          }
+            content:
+              '<span style="font-weight:bold;">Boulogne-sur-Mer (62160)</span><br />Population : 43805',
+          },
         },
         "town-91174": {
           value: "43747",
@@ -1459,8 +1618,9 @@ $(function() {
           longitude: 2.4747222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Corbeil-Essonnes (91174)</span><br />Population : 43747"
-          }
+            content:
+              '<span style="font-weight:bold;">Corbeil-Essonnes (91174)</span><br />Population : 43747',
+          },
         },
         "town-13047": {
           value: "43651",
@@ -1468,8 +1628,9 @@ $(function() {
           longitude: 4.9888888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Istres (13047)</span><br />Population : 43651"
-          }
+            content:
+              '<span style="font-weight:bold;">Istres (13047)</span><br />Population : 43651',
+          },
         },
         "town-2B033": {
           value: "43615",
@@ -1477,8 +1638,9 @@ $(function() {
           longitude: 9.449444444444399,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Bastia (2B033)</span><br />Population : 43615"
-          }
+            content:
+              '<span style="font-weight:bold;">Bastia (2B033)</span><br />Population : 43615',
+          },
         },
         "town-59178": {
           value: "43530",
@@ -1486,8 +1648,9 @@ $(function() {
           longitude: 3.0791666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Douai (59178)</span><br />Population : 43530"
-          }
+            content:
+              '<span style="font-weight:bold;">Douai (59178)</span><br />Population : 43530',
+          },
         },
         "town-34301": {
           value: "43436",
@@ -1495,8 +1658,9 @@ $(function() {
           longitude: 3.6966666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">SÃ¨te (34301)</span><br />Population : 43436"
-          }
+            content:
+              '<span style="font-weight:bold;">SÃ¨te (34301)</span><br />Population : 43436',
+          },
         },
         "town-62041": {
           value: "43289",
@@ -1504,8 +1668,9 @@ $(function() {
           longitude: 2.78,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Arras (62041)</span><br />Population : 43289"
-          }
+            content:
+              '<span style="font-weight:bold;">Arras (62041)</span><br />Population : 43289',
+          },
         },
         "town-78361": {
           value: "43268",
@@ -1513,8 +1678,9 @@ $(function() {
           longitude: 1.7166666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Mantes-la-Jolie (78361)</span><br />Population : 43268"
-          }
+            content:
+              '<span style="font-weight:bold;">Mantes-la-Jolie (78361)</span><br />Population : 43268',
+          },
         },
         "town-91377": {
           value: "43006",
@@ -1522,8 +1688,9 @@ $(function() {
           longitude: 2.2763888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Massy (91377)</span><br />Population : 43006"
-          }
+            content:
+              '<span style="font-weight:bold;">Massy (91377)</span><br />Population : 43006',
+          },
         },
         "town-06030": {
           value: "42780",
@@ -1531,8 +1698,9 @@ $(function() {
           longitude: 7.0186111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Le Cannet (06030)</span><br />Population : 42780"
-          }
+            content:
+              '<span style="font-weight:bold;">Le Cannet (06030)</span><br />Population : 42780',
+          },
         },
         "town-30007": {
           value: "42697",
@@ -1540,8 +1708,9 @@ $(function() {
           longitude: 4.0808333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">AlÃ¨s (30007)</span><br />Population : 42697"
-          }
+            content:
+              '<span style="font-weight:bold;">AlÃ¨s (30007)</span><br />Population : 42697',
+          },
         },
         "town-69290": {
           value: "42428",
@@ -1549,8 +1718,9 @@ $(function() {
           longitude: 4.9438888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Priest (69290)</span><br />Population : 42428"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Priest (69290)</span><br />Population : 42428',
+          },
         },
         "town-60159": {
           value: "42295",
@@ -1558,8 +1728,9 @@ $(function() {
           longitude: 2.8222222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">CompiÃ¨gne (60159)</span><br />Population : 42295"
-          }
+            content:
+              '<span style="font-weight:bold;">CompiÃ¨gne (60159)</span><br />Population : 42295',
+          },
         },
         "town-01053": {
           value: "42184",
@@ -1567,8 +1738,9 @@ $(function() {
           longitude: 5.2280555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Bourg-en-Bresse (01053)</span><br />Population : 42184"
-          }
+            content:
+              '<span style="font-weight:bold;">Bourg-en-Bresse (01053)</span><br />Population : 42184',
+          },
         },
         "town-93046": {
           value: "42060",
@@ -1576,8 +1748,9 @@ $(function() {
           longitude: 2.5352777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Livry-Gargan (93046)</span><br />Population : 42060"
-          }
+            content:
+              '<span style="font-weight:bold;">Livry-Gargan (93046)</span><br />Population : 42060',
+          },
         },
         "town-78551": {
           value: "42009",
@@ -1585,8 +1758,9 @@ $(function() {
           longitude: 2.0905555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Germain-en-Laye (78551)</span><br />Population : 42009"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Germain-en-Laye (78551)</span><br />Population : 42009',
+          },
         },
         "town-33522": {
           value: "41971",
@@ -1594,8 +1768,9 @@ $(function() {
           longitude: -0.5891666666666699,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Talence (33522)</span><br />Population : 41971"
-          }
+            content:
+              '<span style="font-weight:bold;">Talence (33522)</span><br />Population : 41971',
+          },
         },
         "town-57672": {
           value: "41971",
@@ -1603,8 +1778,9 @@ $(function() {
           longitude: 6.1683333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Thionville (57672)</span><br />Population : 41971"
-          }
+            content:
+              '<span style="font-weight:bold;">Thionville (57672)</span><br />Population : 41971',
+          },
         },
         "town-69256": {
           value: "41970",
@@ -1612,8 +1788,9 @@ $(function() {
           longitude: 4.925,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Vaulx-en-Velin (69256)</span><br />Population : 41970"
-          }
+            content:
+              '<span style="font-weight:bold;">Vaulx-en-Velin (69256)</span><br />Population : 41970',
+          },
         },
         "town-69034": {
           value: "41840",
@@ -1621,8 +1798,9 @@ $(function() {
           longitude: 4.8463888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Caluire-et-Cuire (69034)</span><br />Population : 41840"
-          }
+            content:
+              '<span style="font-weight:bold;">Caluire-et-Cuire (69034)</span><br />Population : 41840',
+          },
         },
         "town-59650": {
           value: "41809",
@@ -1630,8 +1808,9 @@ $(function() {
           longitude: 3.2133333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Wattrelos (59650)</span><br />Population : 41809"
-          }
+            content:
+              '<span style="font-weight:bold;">Wattrelos (59650)</span><br />Population : 41809',
+          },
         },
         "town-92036": {
           value: "41676",
@@ -1639,8 +1818,9 @@ $(function() {
           longitude: 2.3047222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Gennevilliers (92036)</span><br />Population : 41676"
-          }
+            content:
+              '<span style="font-weight:bold;">Gennevilliers (92036)</span><br />Population : 41676',
+          },
         },
         "town-05061": {
           value: "41659",
@@ -1648,8 +1828,9 @@ $(function() {
           longitude: 6.0777777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Gap (05061)</span><br />Population : 41659"
-          }
+            content:
+              '<span style="font-weight:bold;">Gap (05061)</span><br />Population : 41659',
+          },
         },
         "town-93064": {
           value: "41431",
@@ -1657,8 +1838,9 @@ $(function() {
           longitude: 2.4852777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Rosny-sous-Bois (93064)</span><br />Population : 41431"
-          }
+            content:
+              '<span style="font-weight:bold;">Rosny-sous-Bois (93064)</span><br />Population : 41431',
+          },
         },
         "town-94022": {
           value: "41275",
@@ -1666,8 +1848,9 @@ $(function() {
           longitude: 2.4077777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Choisy-le-Roi (94022)</span><br />Population : 41275"
-          }
+            content:
+              '<span style="font-weight:bold;">Choisy-le-Roi (94022)</span><br />Population : 41275',
+          },
         },
         "town-77288": {
           value: "40609",
@@ -1675,8 +1858,9 @@ $(function() {
           longitude: 2.6591666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Melun (77288)</span><br />Population : 40609"
-          }
+            content:
+              '<span style="font-weight:bold;">Melun (77288)</span><br />Population : 40609',
+          },
         },
         "town-28085": {
           value: "40420",
@@ -1684,8 +1868,9 @@ $(function() {
           longitude: 1.4883333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Chartres (28085)</span><br />Population : 40420"
-          }
+            content:
+              '<span style="font-weight:bold;">Chartres (28085)</span><br />Population : 40420',
+          },
         },
         "town-95268": {
           value: "40274",
@@ -1693,8 +1878,9 @@ $(function() {
           longitude: 2.4,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Garges-lÃ¨s-Gonesse (95268)</span><br />Population : 40274"
-          }
+            content:
+              '<span style="font-weight:bold;">Garges-lÃ¨s-Gonesse (95268)</span><br />Population : 40274',
+          },
         },
         "town-97213": {
           value: "39996",
@@ -1702,8 +1888,9 @@ $(function() {
           longitude: -61.001944444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Le Lamentin (97213)</span><br />Population : 39996"
-          }
+            content:
+              '<span style="font-weight:bold;">Le Lamentin (97213)</span><br />Population : 39996',
+          },
         },
         "town-93053": {
           value: "39949",
@@ -1711,8 +1898,9 @@ $(function() {
           longitude: 2.4536111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Noisy-le-Sec (93053)</span><br />Population : 39949"
-          }
+            content:
+              '<span style="font-weight:bold;">Noisy-le-Sec (93053)</span><br />Population : 39949',
+          },
         },
         "town-59378": {
           value: "39782",
@@ -1720,8 +1908,9 @@ $(function() {
           longitude: 3.0963888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Marcq-en-BarÅ“ul (59378)</span><br />Population : 39782"
-          }
+            content:
+              '<span style="font-weight:bold;">Marcq-en-BarÅ“ul (59378)</span><br />Population : 39782',
+          },
         },
         "town-50129": {
           value: "39772",
@@ -1729,8 +1918,9 @@ $(function() {
           longitude: -1.6158333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Cherbourg-Octeville (50129)</span><br />Population : 39772"
-          }
+            content:
+              '<span style="font-weight:bold;">Cherbourg-Octeville (50129)</span><br />Population : 39772',
+          },
         },
         "town-03185": {
           value: "39712",
@@ -1738,8 +1928,9 @@ $(function() {
           longitude: 2.6025,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">MontluÃ§on (03185)</span><br />Population : 39712"
-          }
+            content:
+              '<span style="font-weight:bold;">MontluÃ§on (03185)</span><br />Population : 39712',
+          },
         },
         "town-44143": {
           value: "39683",
@@ -1747,8 +1938,9 @@ $(function() {
           longitude: -1.5691666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">RezÃ© (44143)</span><br />Population : 39683"
-          }
+            content:
+              '<span style="font-weight:bold;">RezÃ© (44143)</span><br />Population : 39683',
+          },
         },
         "town-64024": {
           value: "39432",
@@ -1756,8 +1948,9 @@ $(function() {
           longitude: -1.5194444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Anglet (64024)</span><br />Population : 39432"
-          }
+            content:
+              '<span style="font-weight:bold;">Anglet (64024)</span><br />Population : 39432',
+          },
         },
         "town-93032": {
           value: "39350",
@@ -1765,8 +1958,9 @@ $(function() {
           longitude: 2.5388888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Gagny (93032)</span><br />Population : 39350"
-          }
+            content:
+              '<span style="font-weight:bold;">Gagny (93032)</span><br />Population : 39350',
+          },
         },
         "town-69029": {
           value: "39238",
@@ -1774,8 +1968,9 @@ $(function() {
           longitude: 4.9130555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Bron (69029)</span><br />Population : 39238"
-          }
+            content:
+              '<span style="font-weight:bold;">Bron (69029)</span><br />Population : 39238',
+          },
         },
         "town-97407": {
           value: "38668",
@@ -1783,8 +1978,9 @@ $(function() {
           longitude: 55.287222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Le Port (97407)</span><br />Population : 38668"
-          }
+            content:
+              '<span style="font-weight:bold;">Le Port (97407)</span><br />Population : 38668',
+          },
         },
         "town-97311": {
           value: "38657",
@@ -1792,8 +1988,9 @@ $(function() {
           longitude: -54.028888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Laurent-du-Maroni (97311)</span><br />Population : 38657"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Laurent-du-Maroni (97311)</span><br />Population : 38657',
+          },
         },
         "town-92007": {
           value: "38384",
@@ -1801,8 +1998,9 @@ $(function() {
           longitude: 2.3125,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Bagneux (92007)</span><br />Population : 38384"
-          }
+            content:
+              '<span style="font-weight:bold;">Bagneux (92007)</span><br />Population : 38384',
+          },
         },
         "town-93027": {
           value: "38361",
@@ -1810,8 +2008,9 @@ $(function() {
           longitude: 2.3958333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">La Courneuve (93027)</span><br />Population : 38361"
-          }
+            content:
+              '<span style="font-weight:bold;">La Courneuve (93027)</span><br />Population : 38361',
+          },
         },
         "town-58194": {
           value: "38352",
@@ -1819,8 +2018,9 @@ $(function() {
           longitude: 3.1566666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Nevers (58194)</span><br />Population : 38352"
-          }
+            content:
+              '<span style="font-weight:bold;">Nevers (58194)</span><br />Population : 38352',
+          },
         },
         "town-89024": {
           value: "38248",
@@ -1828,8 +2028,9 @@ $(function() {
           longitude: 3.5669444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Auxerre (89024)</span><br />Population : 38248"
-          }
+            content:
+              '<span style="font-weight:bold;">Auxerre (89024)</span><br />Population : 38248',
+          },
         },
         "town-42187": {
           value: "38225",
@@ -1837,8 +2038,9 @@ $(function() {
           longitude: 4.0680555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Roanne (42187)</span><br />Population : 38225"
-          }
+            content:
+              '<span style="font-weight:bold;">Roanne (42187)</span><br />Population : 38225',
+          },
         },
         "town-78498": {
           value: "38049",
@@ -1846,8 +2048,9 @@ $(function() {
           longitude: 2.0447222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Poissy (78498)</span><br />Population : 38049"
-          }
+            content:
+              '<span style="font-weight:bold;">Poissy (78498)</span><br />Population : 38049',
+          },
         },
         "town-83050": {
           value: "37295",
@@ -1855,8 +2058,9 @@ $(function() {
           longitude: 6.4661111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Draguignan (83050)</span><br />Population : 37295"
-          }
+            content:
+              '<span style="font-weight:bold;">Draguignan (83050)</span><br />Population : 37295',
+          },
         },
         "town-91589": {
           value: "37203",
@@ -1864,8 +2068,9 @@ $(function() {
           longitude: 2.3525,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Savigny-sur-Orge (91589)</span><br />Population : 37203"
-          }
+            content:
+              '<span style="font-weight:bold;">Savigny-sur-Orge (91589)</span><br />Population : 37203',
+          },
         },
         "town-26198": {
           value: "36669",
@@ -1873,8 +2078,9 @@ $(function() {
           longitude: 4.7508333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">MontÃ©limar (26198)</span><br />Population : 36669"
-          }
+            content:
+              '<span style="font-weight:bold;">MontÃ©limar (26198)</span><br />Population : 36669',
+          },
         },
         "town-37122": {
           value: "36525",
@@ -1882,8 +2088,9 @@ $(function() {
           longitude: 0.66166666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">JouÃ©-lÃ¨s-Tours (37122)</span><br />Population : 36525"
-          }
+            content:
+              '<span style="font-weight:bold;">JouÃ©-lÃ¨s-Tours (37122)</span><br />Population : 36525',
+          },
         },
         "town-38421": {
           value: "36504",
@@ -1891,8 +2098,9 @@ $(function() {
           longitude: 5.7647222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Martin-d'HÃ¨res (38421)</span><br />Population : 36504"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Martin-d\'HÃ¨res (38421)</span><br />Population : 36504',
+          },
         },
         "town-97412": {
           value: "36459",
@@ -1900,8 +2108,9 @@ $(function() {
           longitude: 55.619166666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Joseph (97412)</span><br />Population : 36459"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Joseph (97412)</span><br />Population : 36459',
+          },
         },
         "town-42207": {
           value: "36397",
@@ -1909,8 +2118,9 @@ $(function() {
           longitude: 4.5147222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Chamond (42207)</span><br />Population : 36397"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Chamond (42207)</span><br />Population : 36397',
+          },
         },
         "town-38151": {
           value: "36054",
@@ -1918,8 +2128,9 @@ $(function() {
           longitude: 5.7177777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Ã‰chirolles (38151)</span><br />Population : 36054"
-          }
+            content:
+              '<span style="font-weight:bold;">Ã‰chirolles (38151)</span><br />Population : 36054',
+          },
         },
         "town-93078": {
           value: "35931",
@@ -1927,8 +2138,9 @@ $(function() {
           longitude: 2.5302777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Villepinte (93078)</span><br />Population : 35931"
-          }
+            content:
+              '<span style="font-weight:bold;">Villepinte (93078)</span><br />Population : 35931',
+          },
         },
         "town-69264": {
           value: "35900",
@@ -1936,8 +2148,9 @@ $(function() {
           longitude: 4.7197222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Villefranche-sur-SaÃ´ne (69264)</span><br />Population : 35900"
-          }
+            content:
+              '<span style="font-weight:bold;">Villefranche-sur-SaÃ´ne (69264)</span><br />Population : 35900',
+          },
         },
         "town-77373": {
           value: "35873",
@@ -1945,8 +2158,9 @@ $(function() {
           longitude: 2.6052777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Pontault-Combault (77373)</span><br />Population : 35873"
-          }
+            content:
+              '<span style="font-weight:bold;">Pontault-Combault (77373)</span><br />Population : 35873',
+          },
         },
         "town-78172": {
           value: "35840",
@@ -1954,8 +2168,9 @@ $(function() {
           longitude: 2.0944444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Conflans-Sainte-Honorine (78172)</span><br />Population : 35840"
-          }
+            content:
+              '<span style="font-weight:bold;">Conflans-Sainte-Honorine (78172)</span><br />Population : 35840',
+          },
         },
         "town-62498": {
           value: "35748",
@@ -1963,8 +2178,9 @@ $(function() {
           longitude: 2.8325,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Lens (62498)</span><br />Population : 35748"
-          }
+            content:
+              '<span style="font-weight:bold;">Lens (62498)</span><br />Population : 35748',
+          },
         },
         "town-31149": {
           value: "35480",
@@ -1972,8 +2188,9 @@ $(function() {
           longitude: 1.3358333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Colomiers (31149)</span><br />Population : 35480"
-          }
+            content:
+              '<span style="font-weight:bold;">Colomiers (31149)</span><br />Population : 35480',
+          },
         },
         "town-13117": {
           value: "35459",
@@ -1981,8 +2198,9 @@ $(function() {
           longitude: 5.2486111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Vitrolles (13117)</span><br />Population : 35459"
-          }
+            content:
+              '<span style="font-weight:bold;">Vitrolles (13117)</span><br />Population : 35459',
+          },
         },
         "town-83129": {
           value: "35415",
@@ -1990,8 +2208,9 @@ $(function() {
           longitude: 5.8394444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Six-Fours-les-Plages (83129)</span><br />Population : 35415"
-          }
+            content:
+              '<span style="font-weight:bold;">Six-Fours-les-Plages (83129)</span><br />Population : 35415',
+          },
         },
         "town-47001": {
           value: "35293",
@@ -1999,8 +2218,9 @@ $(function() {
           longitude: 0.61861111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Agen (47001)</span><br />Population : 35293"
-          }
+            content:
+              '<span style="font-weight:bold;">Agen (47001)</span><br />Population : 35293',
+          },
         },
         "town-74281": {
           value: "35257",
@@ -2008,8 +2228,9 @@ $(function() {
           longitude: 6.4797222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Thonon-les-Bains (74281)</span><br />Population : 35257"
-          }
+            content:
+              '<span style="font-weight:bold;">Thonon-les-Bains (74281)</span><br />Population : 35257',
+          },
         },
         "town-97410": {
           value: "35252",
@@ -2017,8 +2238,9 @@ $(function() {
           longitude: 55.712777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-BenoÃ®t (97410)</span><br />Population : 35252"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-BenoÃ®t (97410)</span><br />Population : 35252',
+          },
         },
         "town-71270": {
           value: "35118",
@@ -2026,8 +2248,9 @@ $(function() {
           longitude: 4.8319444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">MÃ¢con (71270)</span><br />Population : 35118"
-          }
+            content:
+              '<span style="font-weight:bold;">MÃ¢con (71270)</span><br />Population : 35118',
+          },
         },
         "town-67180": {
           value: "34913",
@@ -2035,8 +2258,9 @@ $(function() {
           longitude: 7.7877777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Haguenau (67180)</span><br />Population : 34913"
-          }
+            content:
+              '<span style="font-weight:bold;">Haguenau (67180)</span><br />Population : 34913',
+          },
         },
         "town-13054": {
           value: "34773",
@@ -2044,8 +2268,9 @@ $(function() {
           longitude: 5.2147222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Marignane (13054)</span><br />Population : 34773"
-          }
+            content:
+              '<span style="font-weight:bold;">Marignane (13054)</span><br />Population : 34773',
+          },
         },
         "town-93073": {
           value: "34744",
@@ -2053,8 +2278,9 @@ $(function() {
           longitude: 2.5763888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Tremblay-en-France (93073)</span><br />Population : 34744"
-          }
+            content:
+              '<span style="font-weight:bold;">Tremblay-en-France (93073)</span><br />Population : 34744',
+          },
         },
         "town-88160": {
           value: "34575",
@@ -2062,8 +2288,9 @@ $(function() {
           longitude: 6.4516666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Ã‰pinal (88160)</span><br />Population : 34575"
-          }
+            content:
+              '<span style="font-weight:bold;">Ã‰pinal (88160)</span><br />Population : 34575',
+          },
         },
         "town-91549": {
           value: "34514",
@@ -2071,8 +2298,9 @@ $(function() {
           longitude: 2.3322222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Sainte-GeneviÃ¨ve-des-Bois (91549)</span><br />Population : 34514"
-          }
+            content:
+              '<span style="font-weight:bold;">Sainte-GeneviÃ¨ve-des-Bois (91549)</span><br />Population : 34514',
+          },
         },
         "town-26281": {
           value: "34321",
@@ -2080,8 +2308,9 @@ $(function() {
           longitude: 5.0508333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Romans-sur-IsÃ¨re (26281)</span><br />Population : 34321"
-          }
+            content:
+              '<span style="font-weight:bold;">Romans-sur-IsÃ¨re (26281)</span><br />Population : 34321',
+          },
         },
         "town-13028": {
           value: "34258",
@@ -2089,8 +2318,9 @@ $(function() {
           longitude: 5.6080555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">La Ciotat (13028)</span><br />Population : 34258"
-          }
+            content:
+              '<span style="font-weight:bold;">La Ciotat (13028)</span><br />Population : 34258',
+          },
         },
         "town-93006": {
           value: "34232",
@@ -2098,8 +2328,9 @@ $(function() {
           longitude: 2.4169444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Bagnolet (93006)</span><br />Population : 34232"
-          }
+            content:
+              '<span style="font-weight:bold;">Bagnolet (93006)</span><br />Population : 34232',
+          },
         },
         "town-83118": {
           value: "34220",
@@ -2107,8 +2338,9 @@ $(function() {
           longitude: 6.7677777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-RaphaÃ«l (83118)</span><br />Population : 34220"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-RaphaÃ«l (83118)</span><br />Population : 34220',
+          },
         },
         "town-83118": {
           value: "34220",
@@ -2116,8 +2348,9 @@ $(function() {
           longitude: 6.7677777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-RaphaÃ«l (83118)</span><br />Population : 34220"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-RaphaÃ«l (83118)</span><br />Population : 34220',
+          },
         },
         "town-93072": {
           value: "34048",
@@ -2125,8 +2358,9 @@ $(function() {
           longitude: 2.3822222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Stains (93072)</span><br />Population : 34048"
-          }
+            content:
+              '<span style="font-weight:bold;">Stains (93072)</span><br />Population : 34048',
+          },
         },
         "town-60175": {
           value: "34001",
@@ -2134,8 +2368,9 @@ $(function() {
           longitude: 2.4827777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Creil (60175)</span><br />Population : 34001"
-          }
+            content:
+              '<span style="font-weight:bold;">Creil (60175)</span><br />Population : 34001',
+          },
         },
         "town-78423": {
           value: "33899",
@@ -2143,8 +2378,9 @@ $(function() {
           longitude: 2.0325,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Montigny-le-Bretonneux (78423)</span><br />Population : 33899"
-          }
+            content:
+              '<span style="font-weight:bold;">Montigny-le-Bretonneux (78423)</span><br />Population : 33899',
+          },
         },
         "town-93050": {
           value: "33781",
@@ -2152,8 +2388,9 @@ $(function() {
           longitude: 2.5311111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Neuilly-sur-Marne (93050)</span><br />Population : 33781"
-          }
+            content:
+              '<span style="font-weight:bold;">Neuilly-sur-Marne (93050)</span><br />Population : 33781',
+          },
         },
         "town-86066": {
           value: "33420",
@@ -2161,8 +2398,9 @@ $(function() {
           longitude: 0.54527777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">ChÃ¢tellerault (86066)</span><br />Population : 33420"
-          }
+            content:
+              '<span style="font-weight:bold;">ChÃ¢tellerault (86066)</span><br />Population : 33420',
+          },
         },
         "town-59122": {
           value: "33345",
@@ -2170,8 +2408,9 @@ $(function() {
           longitude: 3.2347222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Cambrai (59122)</span><br />Population : 33345"
-          }
+            content:
+              '<span style="font-weight:bold;">Cambrai (59122)</span><br />Population : 33345',
+          },
         },
         "town-95252": {
           value: "33324",
@@ -2179,8 +2418,9 @@ $(function() {
           longitude: 2.2305555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Franconville (95252)</span><br />Population : 33324"
-          }
+            content:
+              '<span style="font-weight:bold;">Franconville (95252)</span><br />Population : 33324',
+          },
         },
         "town-40192": {
           value: "33124",
@@ -2188,8 +2428,9 @@ $(function() {
           longitude: -0.50055555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Mont-de-Marsan (40192)</span><br />Population : 33124"
-          }
+            content:
+              '<span style="font-weight:bold;">Mont-de-Marsan (40192)</span><br />Population : 33124',
+          },
         },
         "town-76217": {
           value: "32966",
@@ -2197,8 +2438,9 @@ $(function() {
           longitude: 1.0777777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Dieppe (76217)</span><br />Population : 32966"
-          }
+            content:
+              '<span style="font-weight:bold;">Dieppe (76217)</span><br />Population : 32966',
+          },
         },
         "town-92020": {
           value: "32947",
@@ -2206,8 +2448,9 @@ $(function() {
           longitude: 2.2886111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">ChÃ¢tillon (92020)</span><br />Population : 32947"
-          }
+            content:
+              '<span style="font-weight:bold;">ChÃ¢tillon (92020)</span><br />Population : 32947',
+          },
         },
         "town-94058": {
           value: "32799",
@@ -2215,8 +2458,9 @@ $(function() {
           longitude: 2.5036111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Le Perreux-sur-Marne (94058)</span><br />Population : 32799"
-          }
+            content:
+              '<span style="font-weight:bold;">Le Perreux-sur-Marne (94058)</span><br />Population : 32799',
+          },
         },
         "town-74012": {
           value: "32790",
@@ -2224,8 +2468,9 @@ $(function() {
           longitude: 6.2355555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Annemasse (74012)</span><br />Population : 32790"
-          }
+            content:
+              '<span style="font-weight:bold;">Annemasse (74012)</span><br />Population : 32790',
+          },
         },
         "town-92019": {
           value: "32573",
@@ -2233,8 +2478,9 @@ $(function() {
           longitude: 2.2780555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">ChÃ¢tenay-Malabry (92019)</span><br />Population : 32573"
-          }
+            content:
+              '<span style="font-weight:bold;">ChÃ¢tenay-Malabry (92019)</span><br />Population : 32573',
+          },
         },
         "town-94078": {
           value: "32506",
@@ -2242,8 +2488,9 @@ $(function() {
           longitude: 2.4497222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Villeneuve-Saint-Georges (94078)</span><br />Population : 32506"
-          }
+            content:
+              '<span style="font-weight:bold;">Villeneuve-Saint-Georges (94078)</span><br />Population : 32506',
+          },
         },
         "town-91687": {
           value: "32396",
@@ -2251,8 +2498,9 @@ $(function() {
           longitude: 2.3758333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Viry-ChÃ¢tillon (91687)</span><br />Population : 32396"
-          }
+            content:
+              '<span style="font-weight:bold;">Viry-ChÃ¢tillon (91687)</span><br />Population : 32396',
+          },
         },
         "town-62510": {
           value: "32328",
@@ -2260,8 +2508,9 @@ $(function() {
           longitude: 2.7777777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">LiÃ©vin (62510)</span><br />Population : 32328"
-          }
+            content:
+              '<span style="font-weight:bold;">LiÃ©vin (62510)</span><br />Population : 32328',
+          },
         },
         "town-94052": {
           value: "31975",
@@ -2269,8 +2518,9 @@ $(function() {
           longitude: 2.4825,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Nogent-sur-Marne (94052)</span><br />Population : 31975"
-          }
+            content:
+              '<span style="font-weight:bold;">Nogent-sur-Marne (94052)</span><br />Population : 31975',
+          },
         },
         "town-78311": {
           value: "31849",
@@ -2278,8 +2528,9 @@ $(function() {
           longitude: 2.1883333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Houilles (78311)</span><br />Population : 31849"
-          }
+            content:
+              '<span style="font-weight:bold;">Houilles (78311)</span><br />Population : 31849',
+          },
         },
         "town-28134": {
           value: "31610",
@@ -2287,8 +2538,9 @@ $(function() {
           longitude: 1.3655555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Dreux (28134)</span><br />Population : 31610"
-          }
+            content:
+              '<span style="font-weight:bold;">Dreux (28134)</span><br />Population : 31610',
+          },
         },
         "town-54547": {
           value: "31464",
@@ -2296,8 +2548,9 @@ $(function() {
           longitude: 6.1675,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">VandÅ“uvre-lÃ¨s-Nancy (54547)</span><br />Population : 31464"
-          }
+            content:
+              '<span style="font-weight:bold;">VandÅ“uvre-lÃ¨s-Nancy (54547)</span><br />Population : 31464',
+          },
         },
         "town-59392": {
           value: "31435",
@@ -2305,8 +2558,9 @@ $(function() {
           longitude: 3.9725,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Maubeuge (59392)</span><br />Population : 31435"
-          }
+            content:
+              '<span style="font-weight:bold;">Maubeuge (59392)</span><br />Population : 31435',
+          },
         },
         "town-78490": {
           value: "31360",
@@ -2314,8 +2568,9 @@ $(function() {
           longitude: 1.9463888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Plaisir (78490)</span><br />Population : 31360"
-          }
+            content:
+              '<span style="font-weight:bold;">Plaisir (78490)</span><br />Population : 31360',
+          },
         },
         "town-92046": {
           value: "31325",
@@ -2323,8 +2578,9 @@ $(function() {
           longitude: 2.2991666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Malakoff (92046)</span><br />Population : 31325"
-          }
+            content:
+              '<span style="font-weight:bold;">Malakoff (92046)</span><br />Population : 31325',
+          },
         },
         "town-97413": {
           value: "31298",
@@ -2332,8 +2588,9 @@ $(function() {
           longitude: 55.286944444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Leu (97413)</span><br />Population : 31298"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Leu (97413)</span><br />Population : 31298',
+          },
         },
         "town-95280": {
           value: "31237",
@@ -2341,8 +2598,9 @@ $(function() {
           longitude: 2.4736111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Goussainville (95280)</span><br />Population : 31237"
-          }
+            content:
+              '<span style="font-weight:bold;">Goussainville (95280)</span><br />Population : 31237',
+          },
         },
         "town-67447": {
           value: "31218",
@@ -2350,8 +2608,9 @@ $(function() {
           longitude: 7.7491666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Schiltigheim (67447)</span><br />Population : 31218"
-          }
+            content:
+              '<span style="font-weight:bold;">Schiltigheim (67447)</span><br />Population : 31218',
+          },
         },
         "town-91477": {
           value: "31175",
@@ -2359,8 +2618,9 @@ $(function() {
           longitude: 2.2497222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Palaiseau (91477)</span><br />Population : 31175"
-          }
+            content:
+              '<span style="font-weight:bold;">Palaiseau (91477)</span><br />Population : 31175',
+          },
         },
         "town-78440": {
           value: "31116",
@@ -2368,8 +2628,9 @@ $(function() {
           longitude: 1.9083333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Les Mureaux (78440)</span><br />Population : 31116"
-          }
+            content:
+              '<span style="font-weight:bold;">Les Mureaux (78440)</span><br />Population : 31116',
+          },
         },
         "town-95500": {
           value: "31011",
@@ -2377,8 +2638,9 @@ $(function() {
           longitude: 2.1008333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Pontoise (95500)</span><br />Population : 31011"
-          }
+            content:
+              '<span style="font-weight:bold;">Pontoise (95500)</span><br />Population : 31011',
+          },
         },
         "town-24322": {
           value: "31000",
@@ -2386,8 +2648,9 @@ $(function() {
           longitude: 0.71805555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">PÃ©rigueux (24322)</span><br />Population : 31000"
-          }
+            content:
+              '<span style="font-weight:bold;">PÃ©rigueux (24322)</span><br />Population : 31000',
+          },
         },
         "town-91027": {
           value: "30845",
@@ -2395,8 +2658,9 @@ $(function() {
           longitude: 2.3891666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Athis-Mons (91027)</span><br />Population : 30845"
-          }
+            content:
+              '<span style="font-weight:bold;">Athis-Mons (91027)</span><br />Population : 30845',
+          },
         },
         "town-97408": {
           value: "30784",
@@ -2404,8 +2668,9 @@ $(function() {
           longitude: 55.335833333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">La Possession (97408)</span><br />Population : 30784"
-          }
+            content:
+              '<span style="font-weight:bold;">La Possession (97408)</span><br />Population : 30784',
+          },
         },
         "town-97103": {
           value: "30775",
@@ -2413,8 +2678,9 @@ $(function() {
           longitude: -61.586944444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Baie-Mahault (97103)</span><br />Population : 30775"
-          }
+            content:
+              '<span style="font-weight:bold;">Baie-Mahault (97103)</span><br />Population : 30775',
+          },
         },
         "town-69282": {
           value: "30672",
@@ -2422,8 +2688,9 @@ $(function() {
           longitude: 5.0027777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Meyzieu (69282)</span><br />Population : 30672"
-          }
+            content:
+              '<span style="font-weight:bold;">Meyzieu (69282)</span><br />Population : 30672',
+          },
         },
         "town-78146": {
           value: "30667",
@@ -2431,8 +2698,9 @@ $(function() {
           longitude: 2.1569444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Chatou (78146)</span><br />Population : 30667"
-          }
+            content:
+              '<span style="font-weight:bold;">Chatou (78146)</span><br />Population : 30667',
+          },
         },
         "town-94038": {
           value: "30588",
@@ -2440,8 +2708,9 @@ $(function() {
           longitude: 2.3372222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">L'HaÃ¿-les-Roses (94038)</span><br />Population : 30588"
-          }
+            content:
+              '<span style="font-weight:bold;">L\'HaÃ¿-les-Roses (94038)</span><br />Population : 30588',
+          },
         },
         "town-92064": {
           value: "30416",
@@ -2449,8 +2718,9 @@ $(function() {
           longitude: 2.2152777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Cloud (92064)</span><br />Population : 30416"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Cloud (92064)</span><br />Population : 30416',
+          },
         },
         "town-69286": {
           value: "30375",
@@ -2458,8 +2728,9 @@ $(function() {
           longitude: 4.8975,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Rillieux-la-Pape (69286)</span><br />Population : 30375"
-          }
+            content:
+              '<span style="font-weight:bold;">Rillieux-la-Pape (69286)</span><br />Population : 30375',
+          },
         },
         "town-84031": {
           value: "30360",
@@ -2467,8 +2738,9 @@ $(function() {
           longitude: 5.0480555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Carpentras (84031)</span><br />Population : 30360"
-          }
+            content:
+              '<span style="font-weight:bold;">Carpentras (84031)</span><br />Population : 30360',
+          },
         },
         "town-97418": {
           value: "30293",
@@ -2476,8 +2748,9 @@ $(function() {
           longitude: 55.549166666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Sainte-Marie (97418)</span><br />Population : 30293"
-          }
+            content:
+              '<span style="font-weight:bold;">Sainte-Marie (97418)</span><br />Population : 30293',
+          },
         },
         "town-06123": {
           value: "30235",
@@ -2485,8 +2758,9 @@ $(function() {
           longitude: 7.19,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Laurent-du-Var (06123)</span><br />Population : 30235"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Laurent-du-Var (06123)</span><br />Population : 30235',
+          },
         },
         "town-38544": {
           value: "30169",
@@ -2494,8 +2768,9 @@ $(function() {
           longitude: 4.8747222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Vienne (38544)</span><br />Population : 30169"
-          }
+            content:
+              '<span style="font-weight:bold;">Vienne (38544)</span><br />Population : 30169',
+          },
         },
         "town-93014": {
           value: "29998",
@@ -2503,8 +2778,9 @@ $(function() {
           longitude: 2.5472222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Clichy-sous-Bois (93014)</span><br />Population : 29998"
-          }
+            content:
+              '<span style="font-weight:bold;">Clichy-sous-Bois (93014)</span><br />Population : 29998',
+          },
         },
         "town-94073": {
           value: "29949",
@@ -2512,8 +2788,9 @@ $(function() {
           longitude: 2.3913888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Thiais (94073)</span><br />Population : 29949"
-          }
+            content:
+              '<span style="font-weight:bold;">Thiais (94073)</span><br />Population : 29949',
+          },
         },
         "town-02722": {
           value: "29846",
@@ -2521,8 +2798,9 @@ $(function() {
           longitude: 3.3225,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Soissons (02722)</span><br />Population : 29846"
-          }
+            content:
+              '<span style="font-weight:bold;">Soissons (02722)</span><br />Population : 29846',
+          },
         },
         "town-84087": {
           value: "29791",
@@ -2530,8 +2808,9 @@ $(function() {
           longitude: 4.8088888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Orange (84087)</span><br />Population : 29791"
-          }
+            content:
+              '<span style="font-weight:bold;">Orange (84087)</span><br />Population : 29791',
+          },
         },
         "town-78621": {
           value: "29705",
@@ -2539,8 +2818,9 @@ $(function() {
           longitude: 2.0016666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Trappes (78621)</span><br />Population : 29705"
-          }
+            content:
+              '<span style="font-weight:bold;">Trappes (78621)</span><br />Population : 29705',
+          },
         },
         "town-78158": {
           value: "29682",
@@ -2548,8 +2828,9 @@ $(function() {
           longitude: 2.1302777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Le Chesnay (78158)</span><br />Population : 29682"
-          }
+            content:
+              '<span style="font-weight:bold;">Le Chesnay (78158)</span><br />Population : 29682',
+          },
         },
         "town-15014": {
           value: "29677",
@@ -2557,8 +2838,9 @@ $(function() {
           longitude: 2.4397222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Aurillac (15014)</span><br />Population : 29677"
-          }
+            content:
+              '<span style="font-weight:bold;">Aurillac (15014)</span><br />Population : 29677',
+          },
         },
         "town-94018": {
           value: "29664",
@@ -2566,8 +2848,9 @@ $(function() {
           longitude: 2.4119444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Charenton-le-Pont (94018)</span><br />Population : 29664"
-          }
+            content:
+              '<span style="font-weight:bold;">Charenton-le-Pont (94018)</span><br />Population : 29664',
+          },
         },
         "town-92009": {
           value: "29519",
@@ -2575,8 +2858,9 @@ $(function() {
           longitude: 2.2683333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Bois-Colombes (92009)</span><br />Population : 29519"
-          }
+            content:
+              '<span style="font-weight:bold;">Bois-Colombes (92009)</span><br />Population : 29519',
+          },
         },
         "town-76681": {
           value: "29518",
@@ -2584,8 +2868,9 @@ $(function() {
           longitude: 1.0891666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Sotteville-lÃ¨s-Rouen (76681)</span><br />Population : 29518"
-          }
+            content:
+              '<span style="font-weight:bold;">Sotteville-lÃ¨s-Rouen (76681)</span><br />Population : 29518',
+          },
         },
         "town-91691": {
           value: "29392",
@@ -2593,8 +2878,9 @@ $(function() {
           longitude: 2.4908333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Yerres (91691)</span><br />Population : 29392"
-          }
+            content:
+              '<span style="font-weight:bold;">Yerres (91691)</span><br />Population : 29392',
+          },
         },
         "town-06083": {
           value: "29389",
@@ -2602,8 +2888,9 @@ $(function() {
           longitude: 7.4997222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Menton (06083)</span><br />Population : 29389"
-          }
+            content:
+              '<span style="font-weight:bold;">Menton (06083)</span><br />Population : 29389',
+          },
         },
         "town-33550": {
           value: "28905",
@@ -2611,8 +2898,9 @@ $(function() {
           longitude: -0.56694444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Villenave-d'Ornon (33550)</span><br />Population : 28905"
-          }
+            content:
+              '<span style="font-weight:bold;">Villenave-d\'Ornon (33550)</span><br />Population : 28905',
+          },
         },
         "town-59328": {
           value: "28870",
@@ -2620,8 +2908,9 @@ $(function() {
           longitude: 3.0241666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Lambersart (59328)</span><br />Population : 28870"
-          }
+            content:
+              '<span style="font-weight:bold;">Lambersart (59328)</span><br />Population : 28870',
+          },
         },
         "town-77445": {
           value: "28838",
@@ -2629,8 +2918,9 @@ $(function() {
           longitude: 2.5827777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Savigny-le-Temple (77445)</span><br />Population : 28838"
-          }
+            content:
+              '<span style="font-weight:bold;">Savigny-le-Temple (77445)</span><br />Population : 28838',
+          },
         },
         "town-91201": {
           value: "28802",
@@ -2638,8 +2928,9 @@ $(function() {
           longitude: 2.4094444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Draveil (91201)</span><br />Population : 28802"
-          }
+            content:
+              '<span style="font-weight:bold;">Draveil (91201)</span><br />Population : 28802',
+          },
         },
         "town-49328": {
           value: "28772",
@@ -2647,8 +2938,9 @@ $(function() {
           longitude: -0.078055555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saumur (49328)</span><br />Population : 28772"
-          }
+            content:
+              '<span style="font-weight:bold;">Saumur (49328)</span><br />Population : 28772',
+          },
         },
         "town-24037": {
           value: "28691",
@@ -2656,8 +2948,9 @@ $(function() {
           longitude: 0.48194444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Bergerac (24037)</span><br />Population : 28691"
-          }
+            content:
+              '<span style="font-weight:bold;">Bergerac (24037)</span><br />Population : 28691',
+          },
         },
         "town-76575": {
           value: "28601",
@@ -2665,8 +2958,9 @@ $(function() {
           longitude: 1.1041666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Ã‰tienne-du-Rouvray (76575)</span><br />Population : 28601"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Ã‰tienne-du-Rouvray (76575)</span><br />Population : 28601',
+          },
         },
         "town-94016": {
           value: "28550",
@@ -2674,8 +2968,9 @@ $(function() {
           longitude: 2.3319444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Cachan (94016)</span><br />Population : 28550"
-          }
+            content:
+              '<span style="font-weight:bold;">Cachan (94016)</span><br />Population : 28550',
+          },
         },
         "town-78297": {
           value: "28518",
@@ -2683,8 +2978,9 @@ $(function() {
           longitude: 2.0730555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Guyancourt (78297)</span><br />Population : 28518"
-          }
+            content:
+              '<span style="font-weight:bold;">Guyancourt (78297)</span><br />Population : 28518',
+          },
         },
         "town-06155": {
           value: "28450",
@@ -2692,8 +2988,9 @@ $(function() {
           longitude: 7.0533333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Vallauris (06155)</span><br />Population : 28450"
-          }
+            content:
+              '<span style="font-weight:bold;">Vallauris (06155)</span><br />Population : 28450',
+          },
         },
         "town-73008": {
           value: "28439",
@@ -2701,8 +2998,9 @@ $(function() {
           longitude: 5.915,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Aix-les-Bains (73008)</span><br />Population : 28439"
-          }
+            content:
+              '<span style="font-weight:bold;">Aix-les-Bains (73008)</span><br />Population : 28439',
+          },
         },
         "town-97307": {
           value: "28407",
@@ -2710,8 +3008,9 @@ $(function() {
           longitude: -52.331111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Matoury (97307)</span><br />Population : 28407"
-          }
+            content:
+              '<span style="font-weight:bold;">Matoury (97307)</span><br />Population : 28407',
+          },
         },
         "town-33449": {
           value: "28396",
@@ -2719,8 +3018,9 @@ $(function() {
           longitude: -0.7175,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-MÃ©dard-en-Jalles (33449)</span><br />Population : 28396"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-MÃ©dard-en-Jalles (33449)</span><br />Population : 28396',
+          },
         },
         "town-95063": {
           value: "28277",
@@ -2728,8 +3028,9 @@ $(function() {
           longitude: 2.2169444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Bezons (95063)</span><br />Population : 28277"
-          }
+            content:
+              '<span style="font-weight:bold;">Bezons (95063)</span><br />Population : 28277',
+          },
         },
         "town-93077": {
           value: "28257",
@@ -2737,8 +3038,9 @@ $(function() {
           longitude: 2.5111111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Villemomble (93077)</span><br />Population : 28257"
-          }
+            content:
+              '<span style="font-weight:bold;">Villemomble (93077)</span><br />Population : 28257',
+          },
         },
         "town-93059": {
           value: "28076",
@@ -2746,8 +3048,9 @@ $(function() {
           longitude: 2.3608333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Pierrefitte-sur-Seine (93059)</span><br />Population : 28076"
-          }
+            content:
+              '<span style="font-weight:bold;">Pierrefitte-sur-Seine (93059)</span><br />Population : 28076',
+          },
         },
         "town-92060": {
           value: "27931",
@@ -2755,8 +3058,9 @@ $(function() {
           longitude: 2.2636111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Le Plessis-Robinson (92060)</span><br />Population : 27931"
-          }
+            content:
+              '<span style="font-weight:bold;">Le Plessis-Robinson (92060)</span><br />Population : 27931',
+          },
         },
         "town-92035": {
           value: "27923",
@@ -2764,8 +3068,9 @@ $(function() {
           longitude: 2.2436111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">La Garenne-Colombes (92035)</span><br />Population : 27923"
-          }
+            content:
+              '<span style="font-weight:bold;">La Garenne-Colombes (92035)</span><br />Population : 27923',
+          },
         },
         "town-61001": {
           value: "27863",
@@ -2773,8 +3078,9 @@ $(function() {
           longitude: 0.091944444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">AlenÃ§on (61001)</span><br />Population : 27863"
-          }
+            content:
+              '<span style="font-weight:bold;">AlenÃ§on (61001)</span><br />Population : 27863',
+          },
         },
         "town-95219": {
           value: "27713",
@@ -2782,8 +3088,9 @@ $(function() {
           longitude: 2.2594444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Ermont (95219)</span><br />Population : 27713"
-          }
+            content:
+              '<span style="font-weight:bold;">Ermont (95219)</span><br />Population : 27713',
+          },
         },
         "town-91521": {
           value: "27689",
@@ -2791,8 +3098,9 @@ $(function() {
           longitude: 2.4130555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Ris-Orangis (91521)</span><br />Population : 27689"
-          }
+            content:
+              '<span style="font-weight:bold;">Ris-Orangis (91521)</span><br />Population : 27689',
+          },
         },
         "town-18279": {
           value: "27675",
@@ -2800,8 +3108,9 @@ $(function() {
           longitude: 2.0683333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Vierzon (18279)</span><br />Population : 27675"
-          }
+            content:
+              '<span style="font-weight:bold;">Vierzon (18279)</span><br />Population : 27675',
+          },
         },
         "town-94079": {
           value: "27568",
@@ -2809,8 +3118,9 @@ $(function() {
           longitude: 2.5447222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Villiers-sur-Marne (94079)</span><br />Population : 27568"
-          }
+            content:
+              '<span style="font-weight:bold;">Villiers-sur-Marne (94079)</span><br />Population : 27568',
+          },
         },
         "town-67218": {
           value: "27556",
@@ -2818,8 +3128,9 @@ $(function() {
           longitude: 7.7144444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Illkirch-Graffenstaden (67218)</span><br />Population : 27556"
-          }
+            content:
+              '<span style="font-weight:bold;">Illkirch-Graffenstaden (67218)</span><br />Population : 27556',
+          },
         },
         "town-91657": {
           value: "27546",
@@ -2827,8 +3138,9 @@ $(function() {
           longitude: 2.4172222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Vigneux-sur-Seine (91657)</span><br />Population : 27546"
-          }
+            content:
+              '<span style="font-weight:bold;">Vigneux-sur-Seine (91657)</span><br />Population : 27546',
+          },
         },
         "town-17415": {
           value: "27430",
@@ -2836,8 +3148,9 @@ $(function() {
           longitude: -0.63444444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saintes (17415)</span><br />Population : 27430"
-          }
+            content:
+              '<span style="font-weight:bold;">Saintes (17415)</span><br />Population : 27430',
+          },
         },
         "town-92075": {
           value: "27314",
@@ -2845,8 +3158,9 @@ $(function() {
           longitude: 2.2888888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Vanves (92075)</span><br />Population : 27314"
-          }
+            content:
+              '<span style="font-weight:bold;">Vanves (92075)</span><br />Population : 27314',
+          },
         },
         "town-78208": {
           value: "27262",
@@ -2854,8 +3168,9 @@ $(function() {
           longitude: 1.9580555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Ã‰lancourt (78208)</span><br />Population : 27262"
-          }
+            content:
+              '<span style="font-weight:bold;">Ã‰lancourt (78208)</span><br />Population : 27262',
+          },
         },
         "town-95680": {
           value: "27004",
@@ -2863,8 +3178,9 @@ $(function() {
           longitude: 2.3902777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Villiers-le-Bel (95680)</span><br />Population : 27004"
-          }
+            content:
+              '<span style="font-weight:bold;">Villiers-le-Bel (95680)</span><br />Population : 27004',
+          },
         },
         "town-78517": {
           value: "27001",
@@ -2872,8 +3188,9 @@ $(function() {
           longitude: 1.83,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Rambouillet (78517)</span><br />Population : 27001"
-          }
+            content:
+              '<span style="font-weight:bold;">Rambouillet (78517)</span><br />Population : 27001',
+          },
         },
         "town-02408": {
           value: "26991",
@@ -2881,8 +3198,9 @@ $(function() {
           longitude: 3.6236111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Laon (02408)</span><br />Population : 26991"
-          }
+            content:
+              '<span style="font-weight:bold;">Laon (02408)</span><br />Population : 26991',
+          },
         },
         "town-38053": {
           value: "26841",
@@ -2890,8 +3208,9 @@ $(function() {
           longitude: 5.2791666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Bourgoin-Jallieu (38053)</span><br />Population : 26841"
-          }
+            content:
+              '<span style="font-weight:bold;">Bourgoin-Jallieu (38053)</span><br />Population : 26841',
+          },
         },
         "town-91286": {
           value: "26796",
@@ -2899,8 +3218,9 @@ $(function() {
           longitude: 2.3880555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Grigny (91286)</span><br />Population : 26796"
-          }
+            content:
+              '<span style="font-weight:bold;">Grigny (91286)</span><br />Population : 26796',
+          },
         },
         "town-97113": {
           value: "26743",
@@ -2908,8 +3228,9 @@ $(function() {
           longitude: -61.491944444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Le Gosier (97113)</span><br />Population : 26743"
-          }
+            content:
+              '<span style="font-weight:bold;">Le Gosier (97113)</span><br />Population : 26743',
+          },
         },
         "town-62427": {
           value: "26728",
@@ -2917,8 +3238,9 @@ $(function() {
           longitude: 2.95,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">HÃ©nin-Beaumont (62427)</span><br />Population : 26728"
-          }
+            content:
+              '<span style="font-weight:bold;">HÃ©nin-Beaumont (62427)</span><br />Population : 26728',
+          },
         },
         "town-95582": {
           value: "26659",
@@ -2926,8 +3248,9 @@ $(function() {
           longitude: 2.2569444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Sannois (95582)</span><br />Population : 26659"
-          }
+            content:
+              '<span style="font-weight:bold;">Sannois (95582)</span><br />Population : 26659',
+          },
         },
         "town-95277": {
           value: "26627",
@@ -2935,8 +3258,9 @@ $(function() {
           longitude: 2.4486111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Gonesse (95277)</span><br />Population : 26627"
-          }
+            content:
+              '<span style="font-weight:bold;">Gonesse (95277)</span><br />Population : 26627',
+          },
         },
         "town-52448": {
           value: "26549",
@@ -2944,8 +3268,9 @@ $(function() {
           longitude: 4.9488888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Dizier (52448)</span><br />Population : 26549"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Dizier (52448)</span><br />Population : 26549',
+          },
         },
         "town-95306": {
           value: "26533",
@@ -2953,8 +3278,9 @@ $(function() {
           longitude: 2.1655555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Herblay (95306)</span><br />Population : 26533"
-          }
+            content:
+              '<span style="font-weight:bold;">Herblay (95306)</span><br />Population : 26533',
+          },
         },
         "town-62119": {
           value: "26530",
@@ -2962,8 +3288,9 @@ $(function() {
           longitude: 2.64,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">BÃ©thune (62119)</span><br />Population : 26530"
-          }
+            content:
+              '<span style="font-weight:bold;">BÃ©thune (62119)</span><br />Population : 26530',
+          },
         },
         "town-25388": {
           value: "26501",
@@ -2971,8 +3298,9 @@ $(function() {
           longitude: 6.7983333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">MontbÃ©liard (25388)</span><br />Population : 26501"
-          }
+            content:
+              '<span style="font-weight:bold;">MontbÃ©liard (25388)</span><br />Population : 26501',
+          },
         },
         "town-94034": {
           value: "26446",
@@ -2980,8 +3308,9 @@ $(function() {
           longitude: 2.3236111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Fresnes (94034)</span><br />Population : 26446"
-          }
+            content:
+              '<span style="font-weight:bold;">Fresnes (94034)</span><br />Population : 26446',
+          },
         },
         "town-95607": {
           value: "26440",
@@ -2989,8 +3318,9 @@ $(function() {
           longitude: 2.2266666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Taverny (95607)</span><br />Population : 26440"
-          }
+            content:
+              '<span style="font-weight:bold;">Taverny (95607)</span><br />Population : 26440',
+          },
         },
         "town-83062": {
           value: "26321",
@@ -2998,8 +3328,9 @@ $(function() {
           longitude: 6.0105555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">La Garde (83062)</span><br />Population : 26321"
-          }
+            content:
+              '<span style="font-weight:bold;">La Garde (83062)</span><br />Population : 26321',
+          },
         },
         "town-27681": {
           value: "26306",
@@ -3007,8 +3338,9 @@ $(function() {
           longitude: 1.485,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Vernon (27681)</span><br />Population : 26306"
-          }
+            content:
+              '<span style="font-weight:bold;">Vernon (27681)</span><br />Population : 26306',
+          },
         },
         "town-94043": {
           value: "26267",
@@ -3016,8 +3348,9 @@ $(function() {
           longitude: 2.3580555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Le Kremlin-BicÃªtre (94043)</span><br />Population : 26267"
-          }
+            content:
+              '<span style="font-weight:bold;">Le Kremlin-BicÃªtre (94043)</span><br />Population : 26267',
+          },
         },
         "town-94071": {
           value: "26150",
@@ -3025,8 +3358,9 @@ $(function() {
           longitude: 2.5227777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Sucy-en-Brie (94071)</span><br />Population : 26150"
-          }
+            content:
+              '<span style="font-weight:bold;">Sucy-en-Brie (94071)</span><br />Population : 26150',
+          },
         },
         "town-93063": {
           value: "26025",
@@ -3034,8 +3368,9 @@ $(function() {
           longitude: 2.4361111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Romainville (93063)</span><br />Population : 26025"
-          }
+            content:
+              '<span style="font-weight:bold;">Romainville (93063)</span><br />Population : 26025',
+          },
         },
         "town-64122": {
           value: "25994",
@@ -3043,8 +3378,9 @@ $(function() {
           longitude: -1.5572222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Biarritz (64122)</span><br />Population : 25994"
-          }
+            content:
+              '<span style="font-weight:bold;">Biarritz (64122)</span><br />Population : 25994',
+          },
         },
         "town-69275": {
           value: "25988",
@@ -3052,8 +3388,9 @@ $(function() {
           longitude: 4.9588888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">DÃ©cines-Charpieu (69275)</span><br />Population : 25988"
-          }
+            content:
+              '<span style="font-weight:bold;">DÃ©cines-Charpieu (69275)</span><br />Population : 25988',
+          },
         },
         "town-12202": {
           value: "25974",
@@ -3061,8 +3398,9 @@ $(function() {
           longitude: 2.5741666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Rodez (12202)</span><br />Population : 25974"
-          }
+            content:
+              '<span style="font-weight:bold;">Rodez (12202)</span><br />Population : 25974',
+          },
         },
         "town-17299": {
           value: "25962",
@@ -3070,8 +3408,9 @@ $(function() {
           longitude: -0.9669444444444401,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Rochefort (17299)</span><br />Population : 25962"
-          }
+            content:
+              '<span style="font-weight:bold;">Rochefort (17299)</span><br />Population : 25962',
+          },
         },
         "town-31557": {
           value: "25854",
@@ -3079,8 +3418,9 @@ $(function() {
           longitude: 1.3436111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Tournefeuille (31557)</span><br />Population : 25854"
-          }
+            content:
+              '<span style="font-weight:bold;">Tournefeuille (31557)</span><br />Population : 25854',
+          },
         },
         "town-44190": {
           value: "25832",
@@ -3088,8 +3428,9 @@ $(function() {
           longitude: -1.5025,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-SÃ©bastien-sur-Loire (44190)</span><br />Population : 25832"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-SÃ©bastien-sur-Loire (44190)</span><br />Population : 25832',
+          },
         },
         "town-13063": {
           value: "25823",
@@ -3097,8 +3438,9 @@ $(function() {
           longitude: 5.0013888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Miramas (13063)</span><br />Population : 25823"
-          }
+            content:
+              '<span style="font-weight:bold;">Miramas (13063)</span><br />Population : 25823',
+          },
         },
         "town-59017": {
           value: "25786",
@@ -3106,8 +3448,9 @@ $(function() {
           longitude: 2.8802777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">ArmentiÃ¨res (59017)</span><br />Population : 25786"
-          }
+            content:
+              '<span style="font-weight:bold;">ArmentiÃ¨res (59017)</span><br />Population : 25786',
+          },
         },
         "town-91114": {
           value: "25785",
@@ -3115,8 +3458,9 @@ $(function() {
           longitude: 2.5033333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Brunoy (91114)</span><br />Population : 25785"
-          }
+            content:
+              '<span style="font-weight:bold;">Brunoy (91114)</span><br />Population : 25785',
+          },
         },
         "town-39198": {
           value: "25776",
@@ -3124,8 +3468,9 @@ $(function() {
           longitude: 5.4897222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Dole (39198)</span><br />Population : 25776"
-          }
+            content:
+              '<span style="font-weight:bold;">Dole (39198)</span><br />Population : 25776',
+          },
         },
         "town-89387": {
           value: "25676",
@@ -3133,8 +3478,9 @@ $(function() {
           longitude: 3.2833333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Sens (89387)</span><br />Population : 25676"
-          }
+            content:
+              '<span style="font-weight:bold;">Sens (89387)</span><br />Population : 25676',
+          },
         },
         "town-34145": {
           value: "25509",
@@ -3142,8 +3488,9 @@ $(function() {
           longitude: 4.1352777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Lunel (34145)</span><br />Population : 25509"
-          }
+            content:
+              '<span style="font-weight:bold;">Lunel (34145)</span><br />Population : 25509',
+          },
         },
         "town-93047": {
           value: "25499",
@@ -3151,8 +3498,9 @@ $(function() {
           longitude: 2.5647222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Montfermeil (93047)</span><br />Population : 25499"
-          }
+            content:
+              '<span style="font-weight:bold;">Montfermeil (93047)</span><br />Population : 25499',
+          },
         },
         "town-84035": {
           value: "25440",
@@ -3160,8 +3508,9 @@ $(function() {
           longitude: 5.0372222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Cavaillon (84035)</span><br />Population : 25440"
-          }
+            content:
+              '<span style="font-weight:bold;">Cavaillon (84035)</span><br />Population : 25440',
+          },
         },
         "town-69149": {
           value: "25413",
@@ -3169,8 +3518,9 @@ $(function() {
           longitude: 4.8075,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Oullins (69149)</span><br />Population : 25413"
-          }
+            content:
+              '<span style="font-weight:bold;">Oullins (69149)</span><br />Population : 25413',
+          },
         },
         "town-97304": {
           value: "25404",
@@ -3178,8 +3528,9 @@ $(function() {
           longitude: -52.642777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Kourou (97304)</span><br />Population : 25404"
-          }
+            content:
+              '<span style="font-weight:bold;">Kourou (97304)</span><br />Population : 25404',
+          },
         },
         "town-92078": {
           value: "25374",
@@ -3187,8 +3538,9 @@ $(function() {
           longitude: 2.3277777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Villeneuve-la-Garenne (92078)</span><br />Population : 25374"
-          }
+            content:
+              '<span style="font-weight:bold;">Villeneuve-la-Garenne (92078)</span><br />Population : 25374',
+          },
         },
         "town-03310": {
           value: "25235",
@@ -3196,8 +3548,9 @@ $(function() {
           longitude: 3.4258333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Vichy (03310)</span><br />Population : 25235"
-          }
+            content:
+              '<span style="font-weight:bold;">Vichy (03310)</span><br />Population : 25235',
+          },
         },
         "town-44114": {
           value: "25216",
@@ -3205,8 +3558,9 @@ $(function() {
           longitude: -1.6236111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Orvault (44114)</span><br />Population : 25216"
-          }
+            content:
+              '<span style="font-weight:bold;">Orvault (44114)</span><br />Population : 25216',
+          },
         },
         "town-33039": {
           value: "25205",
@@ -3214,8 +3568,9 @@ $(function() {
           longitude: -0.54888888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">BÃ¨gles (33039)</span><br />Population : 25205"
-          }
+            content:
+              '<span style="font-weight:bold;">BÃ¨gles (33039)</span><br />Population : 25205',
+          },
         },
         "town-76322": {
           value: "25189",
@@ -3223,8 +3578,9 @@ $(function() {
           longitude: 1.0522222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Le Grand-Quevilly (76322)</span><br />Population : 25189"
-          }
+            content:
+              '<span style="font-weight:bold;">Le Grand-Quevilly (76322)</span><br />Population : 25189',
+          },
         },
         "town-91692": {
           value: "25055",
@@ -3232,8 +3588,9 @@ $(function() {
           longitude: 2.1675,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Les Ulis (91692)</span><br />Population : 25055"
-          }
+            content:
+              '<span style="font-weight:bold;">Les Ulis (91692)</span><br />Population : 25055',
+          },
         },
         "town-33529": {
           value: "25018",
@@ -3241,8 +3598,9 @@ $(function() {
           longitude: -1.145,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">La Teste-de-Buch (33529)</span><br />Population : 25018"
-          }
+            content:
+              '<span style="font-weight:bold;">La Teste-de-Buch (33529)</span><br />Population : 25018',
+          },
         },
         "town-34003": {
           value: "24972",
@@ -3250,8 +3608,9 @@ $(function() {
           longitude: 3.4752777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Agde (34003)</span><br />Population : 24972"
-          }
+            content:
+              '<span style="font-weight:bold;">Agde (34003)</span><br />Population : 24972',
+          },
         },
         "town-80001": {
           value: "24953",
@@ -3259,8 +3618,9 @@ $(function() {
           longitude: 1.8352777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Abbeville (80001)</span><br />Population : 24953"
-          }
+            content:
+              '<span style="font-weight:bold;">Abbeville (80001)</span><br />Population : 24953',
+          },
         },
         "town-51230": {
           value: "24733",
@@ -3268,8 +3628,9 @@ $(function() {
           longitude: 3.9591666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Ã‰pernay (51230)</span><br />Population : 24733"
-          }
+            content:
+              '<span style="font-weight:bold;">Ã‰pernay (51230)</span><br />Population : 24733',
+          },
         },
         "town-47323": {
           value: "24700",
@@ -3277,8 +3638,9 @@ $(function() {
           longitude: 0.70416666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Villeneuve-sur-Lot (47323)</span><br />Population : 24700"
-          }
+            content:
+              '<span style="font-weight:bold;">Villeneuve-sur-Lot (47323)</span><br />Population : 24700',
+          },
         },
         "town-31395": {
           value: "24653",
@@ -3286,8 +3648,9 @@ $(function() {
           longitude: 1.3258333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Muret (31395)</span><br />Population : 24653"
-          }
+            content:
+              '<span style="font-weight:bold;">Muret (31395)</span><br />Population : 24653',
+          },
         },
         "town-77083": {
           value: "24636",
@@ -3295,8 +3658,9 @@ $(function() {
           longitude: 2.6019444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Champs-sur-Marne (77083)</span><br />Population : 24636"
-          }
+            content:
+              '<span style="font-weight:bold;">Champs-sur-Marne (77083)</span><br />Population : 24636',
+          },
         },
         "town-97128": {
           value: "24611",
@@ -3304,8 +3668,9 @@ $(function() {
           longitude: -61.386111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Sainte-Anne (97128)</span><br />Population : 24611"
-          }
+            content:
+              '<span style="font-weight:bold;">Sainte-Anne (97128)</span><br />Population : 24611',
+          },
         },
         "town-52121": {
           value: "24500",
@@ -3313,8 +3678,9 @@ $(function() {
           longitude: 5.1386111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Chaumont (52121)</span><br />Population : 24500"
-          }
+            content:
+              '<span style="font-weight:bold;">Chaumont (52121)</span><br />Population : 24500',
+          },
         },
         "town-95203": {
           value: "24386",
@@ -3322,8 +3688,9 @@ $(function() {
           longitude: 2.2797222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Eaubonne (95203)</span><br />Population : 24386"
-          }
+            content:
+              '<span style="font-weight:bold;">Eaubonne (95203)</span><br />Population : 24386',
+          },
         },
         "town-33243": {
           value: "24302",
@@ -3331,8 +3698,9 @@ $(function() {
           longitude: -0.24388888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Libourne (33243)</span><br />Population : 24302"
-          }
+            content:
+              '<span style="font-weight:bold;">Libourne (33243)</span><br />Population : 24302',
+          },
         },
         "town-77514": {
           value: "24296",
@@ -3340,8 +3708,9 @@ $(function() {
           longitude: 2.6063888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Villeparisis (77514)</span><br />Population : 24296"
-          }
+            content:
+              '<span style="font-weight:bold;">Villeparisis (77514)</span><br />Population : 24296',
+          },
         },
         "town-97222": {
           value: "24095",
@@ -3349,8 +3718,9 @@ $(function() {
           longitude: -60.939166666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Le Robert (97222)</span><br />Population : 24095"
-          }
+            content:
+              '<span style="font-weight:bold;">Le Robert (97222)</span><br />Population : 24095',
+          },
         },
         "town-95572": {
           value: "23889",
@@ -3358,8 +3728,9 @@ $(function() {
           longitude: 2.1102777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Ouen-l'AumÃ´ne (95572)</span><br />Population : 23889"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Ouen-l\'AumÃ´ne (95572)</span><br />Population : 23889',
+          },
         },
         "town-62178": {
           value: "23869",
@@ -3367,8 +3738,9 @@ $(function() {
           longitude: 2.5477777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Bruay-la-BuissiÃ¨re (62178)</span><br />Population : 23869"
-          }
+            content:
+              '<span style="font-weight:bold;">Bruay-la-BuissiÃ¨re (62178)</span><br />Population : 23869',
+          },
         },
         "town-91103": {
           value: "23812",
@@ -3376,8 +3748,9 @@ $(function() {
           longitude: 2.3077777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">BrÃ©tigny-sur-Orge (91103)</span><br />Population : 23812"
-          }
+            content:
+              '<span style="font-weight:bold;">BrÃ©tigny-sur-Orge (91103)</span><br />Population : 23812',
+          },
         },
         "town-77058": {
           value: "23663",
@@ -3385,8 +3758,9 @@ $(function() {
           longitude: 2.6977777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Bussy-Saint-Georges (77058)</span><br />Population : 23663"
-          }
+            content:
+              '<span style="font-weight:bold;">Bussy-Saint-Georges (77058)</span><br />Population : 23663',
+          },
         },
         "town-97118": {
           value: "23606",
@@ -3394,8 +3768,9 @@ $(function() {
           longitude: -61.590277777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Petit-Bourg (97118)</span><br />Population : 23606"
-          }
+            content:
+              '<span style="font-weight:bold;">Petit-Bourg (97118)</span><br />Population : 23606',
+          },
         },
         "town-92032": {
           value: "23603",
@@ -3403,8 +3778,9 @@ $(function() {
           longitude: 2.2855555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Fontenay-aux-Roses (92032)</span><br />Population : 23603"
-          }
+            content:
+              '<span style="font-weight:bold;">Fontenay-aux-Roses (92032)</span><br />Population : 23603',
+          },
         },
         "town-91223": {
           value: "23575",
@@ -3412,8 +3788,9 @@ $(function() {
           longitude: 2.1622222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Ã‰tampes (91223)</span><br />Population : 23575"
-          }
+            content:
+              '<span style="font-weight:bold;">Ã‰tampes (91223)</span><br />Population : 23575',
+          },
         },
         "town-33192": {
           value: "23546",
@@ -3421,8 +3798,9 @@ $(function() {
           longitude: -0.61694444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Gradignan (33192)</span><br />Population : 23546"
-          }
+            content:
+              '<span style="font-weight:bold;">Gradignan (33192)</span><br />Population : 23546',
+          },
         },
         "town-33069": {
           value: "23539",
@@ -3430,8 +3808,9 @@ $(function() {
           longitude: -0.59861111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Le Bouscat (33069)</span><br />Population : 23539"
-          }
+            content:
+              '<span style="font-weight:bold;">Le Bouscat (33069)</span><br />Population : 23539',
+          },
         },
         "town-92072": {
           value: "23412",
@@ -3439,8 +3818,9 @@ $(function() {
           longitude: 2.2108333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">SÃ¨vres (92072)</span><br />Population : 23412"
-          }
+            content:
+              '<span style="font-weight:bold;">SÃ¨vres (92072)</span><br />Population : 23412',
+          },
         },
         "town-95176": {
           value: "23318",
@@ -3448,8 +3828,9 @@ $(function() {
           longitude: 2.2005555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Cormeilles-en-Parisis (95176)</span><br />Population : 23318"
-          }
+            content:
+              '<span style="font-weight:bold;">Cormeilles-en-Parisis (95176)</span><br />Population : 23318',
+          },
         },
         "town-01283": {
           value: "23308",
@@ -3457,8 +3838,9 @@ $(function() {
           longitude: 5.655,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Oyonnax (01283)</span><br />Population : 23308"
-          }
+            content:
+              '<span style="font-weight:bold;">Oyonnax (01283)</span><br />Population : 23308',
+          },
         },
         "town-78358": {
           value: "23287",
@@ -3466,8 +3848,9 @@ $(function() {
           longitude: 2.145,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Maisons-Laffitte (78358)</span><br />Population : 23287"
-          }
+            content:
+              '<span style="font-weight:bold;">Maisons-Laffitte (78358)</span><br />Population : 23287',
+          },
         },
         "town-71153": {
           value: "23186",
@@ -3475,8 +3858,9 @@ $(function() {
           longitude: 4.4402777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Le Creusot (71153)</span><br />Population : 23186"
-          }
+            content:
+              '<span style="font-weight:bold;">Le Creusot (71153)</span><br />Population : 23186',
+          },
         },
         "town-21054": {
           value: "23135",
@@ -3484,8 +3868,9 @@ $(function() {
           longitude: 4.8388888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Beaune (21054)</span><br />Population : 23135"
-          }
+            content:
+              '<span style="font-weight:bold;">Beaune (21054)</span><br />Population : 23135',
+          },
         },
         "town-91421": {
           value: "23131",
@@ -3493,8 +3878,9 @@ $(function() {
           longitude: 2.4552777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Montgeron (91421)</span><br />Population : 23131"
-          }
+            content:
+              '<span style="font-weight:bold;">Montgeron (91421)</span><br />Population : 23131',
+          },
         },
         "town-57480": {
           value: "23049",
@@ -3502,8 +3888,9 @@ $(function() {
           longitude: 6.1533333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Montigny-lÃ¨s-Metz (57480)</span><br />Population : 23049"
-          }
+            content:
+              '<span style="font-weight:bold;">Montigny-lÃ¨s-Metz (57480)</span><br />Population : 23049',
+          },
         },
         "town-32013": {
           value: "22931",
@@ -3511,8 +3898,9 @@ $(function() {
           longitude: 0.58861111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Auch (32013)</span><br />Population : 22931"
-          }
+            content:
+              '<span style="font-weight:bold;">Auch (32013)</span><br />Population : 22931',
+          },
         },
         "town-59155": {
           value: "22918",
@@ -3520,8 +3908,9 @@ $(function() {
           longitude: 2.3908333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Coudekerque-Branche (59155)</span><br />Population : 22918"
-          }
+            content:
+              '<span style="font-weight:bold;">Coudekerque-Branche (59155)</span><br />Population : 22918',
+          },
         },
         "town-04112": {
           value: "22852",
@@ -3529,8 +3918,9 @@ $(function() {
           longitude: 5.7830555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Manosque (04112)</span><br />Population : 22852"
-          }
+            content:
+              '<span style="font-weight:bold;">Manosque (04112)</span><br />Population : 22852',
+          },
         },
         "town-12145": {
           value: "22775",
@@ -3538,8 +3928,9 @@ $(function() {
           longitude: 3.0777777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Millau (12145)</span><br />Population : 22775"
-          }
+            content:
+              '<span style="font-weight:bold;">Millau (12145)</span><br />Population : 22775',
+          },
         },
         "town-59368": {
           value: "22758",
@@ -3547,8 +3938,9 @@ $(function() {
           longitude: 3.0702777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">La Madeleine (59368)</span><br />Population : 22758"
-          }
+            content:
+              '<span style="font-weight:bold;">La Madeleine (59368)</span><br />Population : 22758',
+          },
         },
         "town-56098": {
           value: "22744",
@@ -3556,8 +3948,9 @@ $(function() {
           longitude: -3.3388888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Lanester (56098)</span><br />Population : 22744"
-          }
+            content:
+              '<span style="font-weight:bold;">Lanester (56098)</span><br />Population : 22744',
+          },
         },
         "town-34108": {
           value: "22743",
@@ -3565,8 +3958,9 @@ $(function() {
           longitude: 3.7555555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Frontignan (34108)</span><br />Population : 22743"
-          }
+            content:
+              '<span style="font-weight:bold;">Frontignan (34108)</span><br />Population : 22743',
+          },
         },
         "town-97117": {
           value: "22716",
@@ -3574,8 +3968,9 @@ $(function() {
           longitude: -61.343611111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Le Moule (97117)</span><br />Population : 22716"
-          }
+            content:
+              '<span style="font-weight:bold;">Le Moule (97117)</span><br />Population : 22716',
+          },
         },
         "town-94067": {
           value: "22666",
@@ -3583,8 +3978,9 @@ $(function() {
           longitude: 2.4177777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-MandÃ© (94067)</span><br />Population : 22666"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-MandÃ© (94067)</span><br />Population : 22666',
+          },
         },
         "town-77468": {
           value: "22639",
@@ -3592,8 +3988,9 @@ $(function() {
           longitude: 2.6508333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Torcy (77468)</span><br />Population : 22639"
-          }
+            content:
+              '<span style="font-weight:bold;">Torcy (77468)</span><br />Population : 22639',
+          },
         },
         "town-97420": {
           value: "22627",
@@ -3601,8 +3998,9 @@ $(function() {
           longitude: 55.607222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Sainte-Suzanne (97420)</span><br />Population : 22627"
-          }
+            content:
+              '<span style="font-weight:bold;">Sainte-Suzanne (97420)</span><br />Population : 22627',
+          },
         },
         "town-33119": {
           value: "22588",
@@ -3610,8 +4008,9 @@ $(function() {
           longitude: -0.53277777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Cenon (33119)</span><br />Population : 22588"
-          }
+            content:
+              '<span style="font-weight:bold;">Cenon (33119)</span><br />Population : 22588',
+          },
         },
         "town-14366": {
           value: "22547",
@@ -3619,8 +4018,9 @@ $(function() {
           longitude: 0.22555555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Lisieux (14366)</span><br />Population : 22547"
-          }
+            content:
+              '<span style="font-weight:bold;">Lisieux (14366)</span><br />Population : 22547',
+          },
         },
         "town-77390": {
           value: "22514",
@@ -3628,8 +4028,9 @@ $(function() {
           longitude: 2.6513888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Roissy-en-Brie (77390)</span><br />Population : 22514"
-          }
+            content:
+              '<span style="font-weight:bold;">Roissy-en-Brie (77390)</span><br />Population : 22514',
+          },
         },
         "town-06079": {
           value: "22498",
@@ -3637,8 +4038,9 @@ $(function() {
           longitude: 6.9375,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Mandelieu-la-Napoule (06079)</span><br />Population : 22498"
-          }
+            content:
+              '<span style="font-weight:bold;">Mandelieu-la-Napoule (06079)</span><br />Population : 22498',
+          },
         },
         "town-38169": {
           value: "22485",
@@ -3646,8 +4048,9 @@ $(function() {
           longitude: 5.6847222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Fontaine (38169)</span><br />Population : 22485"
-          }
+            content:
+              '<span style="font-weight:bold;">Fontaine (38169)</span><br />Population : 22485',
+          },
         },
         "town-93045": {
           value: "22410",
@@ -3655,8 +4058,9 @@ $(function() {
           longitude: 2.4169444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Les Lilas (93045)</span><br />Population : 22410"
-          }
+            content:
+              '<span style="font-weight:bold;">Les Lilas (93045)</span><br />Population : 22410',
+          },
         },
         "town-69202": {
           value: "22229",
@@ -3664,8 +4068,9 @@ $(function() {
           longitude: 4.8025,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Sainte-Foy-lÃ¨s-Lyon (69202)</span><br />Population : 22229"
-          }
+            content:
+              '<span style="font-weight:bold;">Sainte-Foy-lÃ¨s-Lyon (69202)</span><br />Population : 22229',
+          },
         },
         "town-88413": {
           value: "22225",
@@ -3673,8 +4078,9 @@ $(function() {
           longitude: 6.9491666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-DiÃ©-des-Vosges (88413)</span><br />Population : 22225"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-DiÃ©-des-Vosges (88413)</span><br />Population : 22225',
+          },
         },
         "town-76498": {
           value: "22215",
@@ -3682,8 +4088,9 @@ $(function() {
           longitude: 1.0527777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Le Petit-Quevilly (76498)</span><br />Population : 22215"
-          }
+            content:
+              '<span style="font-weight:bold;">Le Petit-Quevilly (76498)</span><br />Population : 22215',
+          },
         },
         "town-31069": {
           value: "22119",
@@ -3691,8 +4098,9 @@ $(function() {
           longitude: 1.39,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Blagnac (31069)</span><br />Population : 22119"
-          }
+            content:
+              '<span style="font-weight:bold;">Blagnac (31069)</span><br />Population : 22119',
+          },
         },
         "town-44215": {
           value: "22117",
@@ -3700,8 +4108,9 @@ $(function() {
           longitude: -1.4713888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Vertou (44215)</span><br />Population : 22117"
-          }
+            content:
+              '<span style="font-weight:bold;">Vertou (44215)</span><br />Population : 22117',
+          },
         },
         "town-57631": {
           value: "22094",
@@ -3709,8 +4118,9 @@ $(function() {
           longitude: 7.0672222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Sarreguemines (57631)</span><br />Population : 22094"
-          }
+            content:
+              '<span style="font-weight:bold;">Sarreguemines (57631)</span><br />Population : 22094',
+          },
         },
         "town-59295": {
           value: "22086",
@@ -3718,8 +4128,9 @@ $(function() {
           longitude: 2.5383333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Hazebrouck (59295)</span><br />Population : 22086"
-          }
+            content:
+              '<span style="font-weight:bold;">Hazebrouck (59295)</span><br />Population : 22086',
+          },
         },
         "town-59360": {
           value: "22081",
@@ -3727,8 +4138,9 @@ $(function() {
           longitude: 3.0136111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Loos (59360)</span><br />Population : 22081"
-          }
+            content:
+              '<span style="font-weight:bold;">Loos (59360)</span><br />Population : 22081',
+          },
         },
         "town-59410": {
           value: "22036",
@@ -3736,8 +4148,9 @@ $(function() {
           longitude: 3.1077777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Mons-en-BarÅ“ul (59410)</span><br />Population : 22036"
-          }
+            content:
+              '<span style="font-weight:bold;">Mons-en-BarÅ“ul (59410)</span><br />Population : 22036',
+          },
         },
         "town-93057": {
           value: "21972",
@@ -3745,8 +4158,9 @@ $(function() {
           longitude: 2.5105555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Les Pavillons-sous-Bois (93057)</span><br />Population : 21972"
-          }
+            content:
+              '<span style="font-weight:bold;">Les Pavillons-sous-Bois (93057)</span><br />Population : 21972',
+          },
         },
         "town-57227": {
           value: "21920",
@@ -3754,8 +4168,9 @@ $(function() {
           longitude: 6.9,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Forbach (57227)</span><br />Population : 21920"
-          }
+            content:
+              '<span style="font-weight:bold;">Forbach (57227)</span><br />Population : 21920',
+          },
         },
         "town-76108": {
           value: "21876",
@@ -3763,8 +4178,9 @@ $(function() {
           longitude: 1.1080555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Bois-Guillaume (76108)</span><br />Population : 21876"
-          }
+            content:
+              '<span style="font-weight:bold;">Bois-Guillaume (76108)</span><br />Population : 21876',
+          },
         },
         "town-76108": {
           value: "21876",
@@ -3772,8 +4188,9 @@ $(function() {
           longitude: 1.1080555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Bois-Guillaume - Bihorel (76108)</span><br />Population : 21876"
-          }
+            content:
+              '<span style="font-weight:bold;">Bois-Guillaume - Bihorel (76108)</span><br />Population : 21876',
+          },
         },
         "town-77122": {
           value: "21845",
@@ -3781,8 +4198,9 @@ $(function() {
           longitude: 2.5630555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Combs-la-Ville (77122)</span><br />Population : 21845"
-          }
+            content:
+              '<span style="font-weight:bold;">Combs-la-Ville (77122)</span><br />Population : 21845',
+          },
         },
         "town-14327": {
           value: "21829",
@@ -3790,8 +4208,9 @@ $(function() {
           longitude: -0.32638888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">HÃ©rouville-Saint-Clair (14327)</span><br />Population : 21829"
-          }
+            content:
+              '<span style="font-weight:bold;">HÃ©rouville-Saint-Clair (14327)</span><br />Population : 21829',
+          },
         },
         "town-95197": {
           value: "21741",
@@ -3799,8 +4218,9 @@ $(function() {
           longitude: 2.3286111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Deuil-la-Barre (95197)</span><br />Population : 21741"
-          }
+            content:
+              '<span style="font-weight:bold;">Deuil-la-Barre (95197)</span><br />Population : 21741',
+          },
         },
         "town-40088": {
           value: "21702",
@@ -3808,8 +4228,9 @@ $(function() {
           longitude: -1.0513888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Dax (40088)</span><br />Population : 21702"
-          }
+            content:
+              '<span style="font-weight:bold;">Dax (40088)</span><br />Population : 21702',
+          },
         },
         "town-94054": {
           value: "21691",
@@ -3817,8 +4238,9 @@ $(function() {
           longitude: 2.3927777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Orly (94054)</span><br />Population : 21691"
-          }
+            content:
+              '<span style="font-weight:bold;">Orly (94054)</span><br />Population : 21691',
+          },
         },
         "town-91345": {
           value: "21574",
@@ -3826,8 +4248,9 @@ $(function() {
           longitude: 2.2955555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Longjumeau (91345)</span><br />Population : 21574"
-          }
+            content:
+              '<span style="font-weight:bold;">Longjumeau (91345)</span><br />Population : 21574',
+          },
         },
         "town-95428": {
           value: "21475",
@@ -3835,8 +4258,9 @@ $(function() {
           longitude: 2.3219444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Montmorency (95428)</span><br />Population : 21475"
-          }
+            content:
+              '<span style="font-weight:bold;">Montmorency (95428)</span><br />Population : 21475',
+          },
         },
         "town-45147": {
           value: "21450",
@@ -3844,8 +4268,9 @@ $(function() {
           longitude: 1.9211111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Fleury-les-Aubrais (45147)</span><br />Population : 21450"
-          }
+            content:
+              '<span style="font-weight:bold;">Fleury-les-Aubrais (45147)</span><br />Population : 21450',
+          },
         },
         "town-78126": {
           value: "21374",
@@ -3853,8 +4278,9 @@ $(function() {
           longitude: 2.145,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">La Celle-Saint-Cloud (78126)</span><br />Population : 21374"
-          }
+            content:
+              '<span style="font-weight:bold;">La Celle-Saint-Cloud (78126)</span><br />Population : 21374',
+          },
         },
         "town-46042": {
           value: "21333",
@@ -3862,8 +4288,9 @@ $(function() {
           longitude: 1.4405555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Cahors (46042)</span><br />Population : 21333"
-          }
+            content:
+              '<span style="font-weight:bold;">Cahors (46042)</span><br />Population : 21333',
+          },
         },
         "town-91272": {
           value: "21259",
@@ -3871,8 +4298,9 @@ $(function() {
           longitude: 2.1336111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Gif-sur-Yvette (91272)</span><br />Population : 21259"
-          }
+            content:
+              '<span style="font-weight:bold;">Gif-sur-Yvette (91272)</span><br />Population : 21259',
+          },
         },
         "town-59271": {
           value: "21235",
@@ -3880,8 +4308,9 @@ $(function() {
           longitude: 2.3022222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Grande-Synthe (59271)</span><br />Population : 21235"
-          }
+            content:
+              '<span style="font-weight:bold;">Grande-Synthe (59271)</span><br />Population : 21235',
+          },
         },
         "town-97229": {
           value: "21209",
@@ -3889,8 +4318,9 @@ $(function() {
           longitude: -61.101388888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">SchÅ“lcher (97229)</span><br />Population : 21209"
-          }
+            content:
+              '<span style="font-weight:bold;">SchÅ“lcher (97229)</span><br />Population : 21209',
+          },
         },
         "town-91434": {
           value: "21113",
@@ -3898,8 +4328,9 @@ $(function() {
           longitude: 2.3513888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Morsang-sur-Orge (91434)</span><br />Population : 21113"
-          }
+            content:
+              '<span style="font-weight:bold;">Morsang-sur-Orge (91434)</span><br />Population : 21113',
+          },
         },
         "town-83144": {
           value: "21035",
@@ -3907,8 +4338,9 @@ $(function() {
           longitude: 5.9825,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">La Valette-du-Var (83144)</span><br />Population : 21035"
-          }
+            content:
+              '<span style="font-weight:bold;">La Valette-du-Var (83144)</span><br />Population : 21035',
+          },
         },
         "town-22113": {
           value: "20983",
@@ -3916,8 +4348,9 @@ $(function() {
           longitude: -3.4552777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Lannion (22113)</span><br />Population : 20983"
-          }
+            content:
+              '<span style="font-weight:bold;">Lannion (22113)</span><br />Population : 20983',
+          },
         },
         "town-69204": {
           value: "20982",
@@ -3925,8 +4358,9 @@ $(function() {
           longitude: 4.7930555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Genis-Laval (69204)</span><br />Population : 20982"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Genis-Laval (69204)</span><br />Population : 20982',
+          },
         },
         "town-59163": {
           value: "20962",
@@ -3934,8 +4368,9 @@ $(function() {
           longitude: 3.1538888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Croix (59163)</span><br />Population : 20962"
-          }
+            content:
+              '<span style="font-weight:bold;">Croix (59163)</span><br />Population : 20962',
+          },
         },
         "town-77152": {
           value: "20923",
@@ -3943,8 +4378,9 @@ $(function() {
           longitude: 2.6344444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Dammarie-les-Lys (77152)</span><br />Population : 20923"
-          }
+            content:
+              '<span style="font-weight:bold;">Dammarie-les-Lys (77152)</span><br />Population : 20923',
+          },
         },
         "town-74011": {
           value: "20881",
@@ -3952,8 +4388,9 @@ $(function() {
           longitude: 6.1419444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Annecy-le-Vieux (74011)</span><br />Population : 20881"
-          }
+            content:
+              '<span style="font-weight:bold;">Annecy-le-Vieux (74011)</span><br />Population : 20881',
+          },
         },
         "town-77285": {
           value: "20830",
@@ -3961,8 +4398,9 @@ $(function() {
           longitude: 2.6319444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Le MÃ©e-sur-Seine (77285)</span><br />Population : 20830"
-          }
+            content:
+              '<span style="font-weight:bold;">Le MÃ©e-sur-Seine (77285)</span><br />Population : 20830',
+          },
         },
         "town-13041": {
           value: "20799",
@@ -3970,8 +4408,9 @@ $(function() {
           longitude: 5.4761111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Gardanne (13041)</span><br />Population : 20799"
-          }
+            content:
+              '<span style="font-weight:bold;">Gardanne (13041)</span><br />Population : 20799',
+          },
         },
         "town-93049": {
           value: "20683",
@@ -3979,8 +4418,9 @@ $(function() {
           longitude: 2.5097222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Neuilly-Plaisance (93049)</span><br />Population : 20683"
-          }
+            content:
+              '<span style="font-weight:bold;">Neuilly-Plaisance (93049)</span><br />Population : 20683',
+          },
         },
         "town-35115": {
           value: "20637",
@@ -3988,8 +4428,9 @@ $(function() {
           longitude: -1.2,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">FougÃ¨res (35115)</span><br />Population : 20637"
-          }
+            content:
+              '<span style="font-weight:bold;">FougÃ¨res (35115)</span><br />Population : 20637',
+          },
         },
         "town-77350": {
           value: "20598",
@@ -3997,8 +4438,9 @@ $(function() {
           longitude: 2.6791666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Ozoir-la-FerriÃ¨re (77350)</span><br />Population : 20598"
-          }
+            content:
+              '<span style="font-weight:bold;">Ozoir-la-FerriÃ¨re (77350)</span><br />Population : 20598',
+          },
         },
         "town-38563": {
           value: "20573",
@@ -4006,8 +4448,9 @@ $(function() {
           longitude: 5.59,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Voiron (38563)</span><br />Population : 20573"
-          }
+            content:
+              '<span style="font-weight:bold;">Voiron (38563)</span><br />Population : 20573',
+          },
         },
         "town-77243": {
           value: "20538",
@@ -4015,8 +4458,9 @@ $(function() {
           longitude: 2.7066666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Lagny-sur-Marne (77243)</span><br />Population : 20538"
-          }
+            content:
+              '<span style="font-weight:bold;">Lagny-sur-Marne (77243)</span><br />Population : 20538',
+          },
         },
         "town-59172": {
           value: "20523",
@@ -4024,8 +4468,9 @@ $(function() {
           longitude: 3.395,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Denain (59172)</span><br />Population : 20523"
-          }
+            content:
+              '<span style="font-weight:bold;">Denain (59172)</span><br />Population : 20523',
+          },
         },
         "town-68297": {
           value: "20481",
@@ -4033,8 +4478,9 @@ $(function() {
           longitude: 7.565,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Louis (68297)</span><br />Population : 20481"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Louis (68297)</span><br />Population : 20481',
+          },
         },
         "town-97129": {
           value: "20443",
@@ -4042,8 +4488,9 @@ $(function() {
           longitude: -61.698055555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Sainte-Rose (97129)</span><br />Population : 20443"
-          }
+            content:
+              '<span style="font-weight:bold;">Sainte-Rose (97129)</span><br />Population : 20443',
+          },
         },
         "town-59279": {
           value: "20370",
@@ -4051,8 +4498,9 @@ $(function() {
           longitude: 3.1247222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Halluin (59279)</span><br />Population : 20370"
-          }
+            content:
+              '<span style="font-weight:bold;">Halluin (59279)</span><br />Population : 20370',
+          },
         },
         "town-78640": {
           value: "20348",
@@ -4060,8 +4508,9 @@ $(function() {
           longitude: 2.1883333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">VÃ©lizy-Villacoublay (78640)</span><br />Population : 20348"
-          }
+            content:
+              '<span style="font-weight:bold;">VÃ©lizy-Villacoublay (78640)</span><br />Population : 20348',
+          },
         },
         "town-91570": {
           value: "20345",
@@ -4069,8 +4518,9 @@ $(function() {
           longitude: 2.3027777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Michel-sur-Orge (91570)</span><br />Population : 20345"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Michel-sur-Orge (91570)</span><br />Population : 20345',
+          },
         },
         "town-95555": {
           value: "20326",
@@ -4078,8 +4528,9 @@ $(function() {
           longitude: 2.2819444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Gratien (95555)</span><br />Population : 20326"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Gratien (95555)</span><br />Population : 20326',
+          },
         },
         "town-92014": {
           value: "20303",
@@ -4087,8 +4538,9 @@ $(function() {
           longitude: 2.3158333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Bourg-la-Reine (92014)</span><br />Population : 20303"
-          }
+            content:
+              '<span style="font-weight:bold;">Bourg-la-Reine (92014)</span><br />Population : 20303',
+          },
         },
         "town-59646": {
           value: "20293",
@@ -4096,8 +4548,9 @@ $(function() {
           longitude: 3.13,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Wasquehal (59646)</span><br />Population : 20293"
-          }
+            content:
+              '<span style="font-weight:bold;">Wasquehal (59646)</span><br />Population : 20293',
+          },
         },
         "town-54329": {
           value: "20286",
@@ -4105,8 +4558,9 @@ $(function() {
           longitude: 6.5016666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">LunÃ©ville (54329)</span><br />Population : 20286"
-          }
+            content:
+              '<span style="font-weight:bold;">LunÃ©ville (54329)</span><br />Population : 20286',
+          },
         },
         "town-33249": {
           value: "20271",
@@ -4114,8 +4568,9 @@ $(function() {
           longitude: -0.5216666666666701,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Lormont (33249)</span><br />Population : 20271"
-          }
+            content:
+              '<span style="font-weight:bold;">Lormont (33249)</span><br />Population : 20271',
+          },
         },
         "town-03190": {
           value: "20229",
@@ -4123,8 +4578,9 @@ $(function() {
           longitude: 3.3325,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Moulins (03190)</span><br />Population : 20229"
-          }
+            content:
+              '<span style="font-weight:bold;">Moulins (03190)</span><br />Population : 20229',
+          },
         },
         "town-45232": {
           value: "20196",
@@ -4132,8 +4588,9 @@ $(function() {
           longitude: 1.8997222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Olivet (45232)</span><br />Population : 20196"
-          }
+            content:
+              '<span style="font-weight:bold;">Olivet (45232)</span><br />Population : 20196',
+          },
         },
         "town-94044": {
           value: "20112",
@@ -4141,8 +4598,9 @@ $(function() {
           longitude: 2.4883333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Limeil-BrÃ©vannes (94044)</span><br />Population : 20112"
-          }
+            content:
+              '<span style="font-weight:bold;">Limeil-BrÃ©vannes (94044)</span><br />Population : 20112',
+          },
         },
         "town-33162": {
           value: "19998",
@@ -4150,8 +4608,9 @@ $(function() {
           longitude: -0.65138888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Eysines (33162)</span><br />Population : 19998"
-          }
+            content:
+              '<span style="font-weight:bold;">Eysines (33162)</span><br />Population : 19998',
+          },
         },
         "town-92071": {
           value: "19986",
@@ -4159,8 +4618,9 @@ $(function() {
           longitude: 2.2905555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Sceaux (92071)</span><br />Population : 19986"
-          }
+            content:
+              '<span style="font-weight:bold;">Sceaux (92071)</span><br />Population : 19986',
+          },
         },
         "town-94003": {
           value: "19964",
@@ -4168,8 +4628,9 @@ $(function() {
           longitude: 2.3352777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Arcueil (94003)</span><br />Population : 19964"
-          }
+            content:
+              '<span style="font-weight:bold;">Arcueil (94003)</span><br />Population : 19964',
+          },
         },
         "town-50502": {
           value: "19944",
@@ -4177,8 +4638,9 @@ $(function() {
           longitude: -1.0916666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-LÃ´ (50502)</span><br />Population : 19944"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-LÃ´ (50502)</span><br />Population : 19944',
+          },
         },
         "town-69244": {
           value: "19938",
@@ -4186,8 +4648,9 @@ $(function() {
           longitude: 4.78,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Tassin-la-Demi-Lune (69244)</span><br />Population : 19938"
-          }
+            content:
+              '<span style="font-weight:bold;">Tassin-la-Demi-Lune (69244)</span><br />Population : 19938',
+          },
         },
         "town-76451": {
           value: "19880",
@@ -4195,8 +4658,9 @@ $(function() {
           longitude: 1.0872222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Mont-Saint-Aignan (76451)</span><br />Population : 19880"
-          }
+            content:
+              '<span style="font-weight:bold;">Mont-Saint-Aignan (76451)</span><br />Population : 19880',
+          },
         },
         "town-33199": {
           value: "19877",
@@ -4204,8 +4668,9 @@ $(function() {
           longitude: -1.0677777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Gujan-Mestras (33199)</span><br />Population : 19877"
-          }
+            content:
+              '<span style="font-weight:bold;">Gujan-Mestras (33199)</span><br />Population : 19877',
+          },
         },
         "town-71306": {
           value: "19855",
@@ -4213,8 +4678,9 @@ $(function() {
           longitude: 4.3688888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Montceau-les-Mines (71306)</span><br />Population : 19855"
-          }
+            content:
+              '<span style="font-weight:bold;">Montceau-les-Mines (71306)</span><br />Population : 19855',
+          },
         },
         "town-13002": {
           value: "19775",
@@ -4222,8 +4688,9 @@ $(function() {
           longitude: 5.4822222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Allauch (13002)</span><br />Population : 19775"
-          }
+            content:
+              '<span style="font-weight:bold;">Allauch (13002)</span><br />Population : 19775',
+          },
         },
         "town-78005": {
           value: "19754",
@@ -4231,8 +4698,9 @@ $(function() {
           longitude: 2.0686111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">AchÃ¨res (78005)</span><br />Population : 19754"
-          }
+            content:
+              '<span style="font-weight:bold;">AchÃ¨res (78005)</span><br />Population : 19754',
+          },
         },
         "town-55545": {
           value: "19714",
@@ -4240,8 +4708,9 @@ $(function() {
           longitude: 5.3827777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Verdun (55545)</span><br />Population : 19714"
-          }
+            content:
+              '<span style="font-weight:bold;">Verdun (55545)</span><br />Population : 19714',
+          },
         },
         "town-73011": {
           value: "19713",
@@ -4249,8 +4718,9 @@ $(function() {
           longitude: 6.3925,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Albertville (73011)</span><br />Population : 19713"
-          }
+            content:
+              '<span style="font-weight:bold;">Albertville (73011)</span><br />Population : 19713',
+          },
         },
         "town-63124": {
           value: "19709",
@@ -4258,8 +4728,9 @@ $(function() {
           longitude: 3.1963888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Cournon-d'Auvergne (63124)</span><br />Population : 19709"
-          }
+            content:
+              '<span style="font-weight:bold;">Cournon-d\'Auvergne (63124)</span><br />Population : 19709',
+          },
         },
         "town-13071": {
           value: "19706",
@@ -4267,8 +4738,9 @@ $(function() {
           longitude: 5.3094444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Les Pennes-Mirabeau (13071)</span><br />Population : 19706"
-          }
+            content:
+              '<span style="font-weight:bold;">Les Pennes-Mirabeau (13071)</span><br />Population : 19706',
+          },
         },
         "town-97309": {
           value: "19691",
@@ -4276,8 +4748,9 @@ $(function() {
           longitude: -52.276388888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Remire-Montjoly (97309)</span><br />Population : 19691"
-          }
+            content:
+              '<span style="font-weight:bold;">Remire-Montjoly (97309)</span><br />Population : 19691',
+          },
         },
         "town-29039": {
           value: "19688",
@@ -4285,8 +4758,9 @@ $(function() {
           longitude: -3.9188888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Concarneau (29039)</span><br />Population : 19688"
-          }
+            content:
+              '<span style="font-weight:bold;">Concarneau (29039)</span><br />Population : 19688',
+          },
         },
         "town-79049": {
           value: "19676",
@@ -4294,8 +4768,9 @@ $(function() {
           longitude: -0.48861111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Bressuire (79049)</span><br />Population : 19676"
-          }
+            content:
+              '<span style="font-weight:bold;">Bressuire (79049)</span><br />Population : 19676',
+          },
         },
         "town-43157": {
           value: "19665",
@@ -4303,8 +4778,9 @@ $(function() {
           longitude: 3.885,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Le Puy-en-Velay (43157)</span><br />Population : 19665"
-          }
+            content:
+              '<span style="font-weight:bold;">Le Puy-en-Velay (43157)</span><br />Population : 19665',
+          },
         },
         "town-45284": {
           value: "19623",
@@ -4312,8 +4788,9 @@ $(function() {
           longitude: 1.9711111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Jean-de-Braye (45284)</span><br />Population : 19623"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Jean-de-Braye (45284)</span><br />Population : 19623',
+          },
         },
         "town-76259": {
           value: "19581",
@@ -4321,8 +4798,9 @@ $(function() {
           longitude: 0.37916666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">FÃ©camp (76259)</span><br />Population : 19581"
-          }
+            content:
+              '<span style="font-weight:bold;">FÃ©camp (76259)</span><br />Population : 19581',
+          },
         },
         "town-67462": {
           value: "19576",
@@ -4330,8 +4808,9 @@ $(function() {
           longitude: 7.4541666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">SÃ©lestat (67462)</span><br />Population : 19576"
-          }
+            content:
+              '<span style="font-weight:bold;">SÃ©lestat (67462)</span><br />Population : 19576',
+          },
         },
         "town-97210": {
           value: "19547",
@@ -4339,8 +4818,9 @@ $(function() {
           longitude: -60.9025,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Le FranÃ§ois (97210)</span><br />Population : 19547"
-          }
+            content:
+              '<span style="font-weight:bold;">Le FranÃ§ois (97210)</span><br />Population : 19547',
+          },
         },
         "town-97107": {
           value: "19544",
@@ -4348,8 +4828,9 @@ $(function() {
           longitude: -61.564722222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Capesterre-Belle-Eau (97107)</span><br />Population : 19544"
-          }
+            content:
+              '<span style="font-weight:bold;">Capesterre-Belle-Eau (97107)</span><br />Population : 19544',
+          },
         },
         "town-84054": {
           value: "19525",
@@ -4357,8 +4838,9 @@ $(function() {
           longitude: 5.0513888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">L'Isle-sur-la-Sorgue (84054)</span><br />Population : 19525"
-          }
+            content:
+              '<span style="font-weight:bold;">L\'Isle-sur-la-Sorgue (84054)</span><br />Population : 19525',
+          },
         },
         "town-74268": {
           value: "19499",
@@ -4366,8 +4848,9 @@ $(function() {
           longitude: 6.0961111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Seynod (74268)</span><br />Population : 19499"
-          }
+            content:
+              '<span style="font-weight:bold;">Seynod (74268)</span><br />Population : 19499',
+          },
         },
         "town-06157": {
           value: "19489",
@@ -4375,8 +4858,9 @@ $(function() {
           longitude: 7.1136111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Vence (06157)</span><br />Population : 19489"
-          }
+            content:
+              '<span style="font-weight:bold;">Vence (06157)</span><br />Population : 19489',
+          },
         },
         "town-78362": {
           value: "19418",
@@ -4384,8 +4868,9 @@ $(function() {
           longitude: 1.7108333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Mantes-la-Ville (78362)</span><br />Population : 19418"
-          }
+            content:
+              '<span style="font-weight:bold;">Mantes-la-Ville (78362)</span><br />Population : 19418',
+          },
         },
         "town-85047": {
           value: "19341",
@@ -4393,8 +4878,9 @@ $(function() {
           longitude: -1.8791666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Challans (85047)</span><br />Population : 19341"
-          }
+            content:
+              '<span style="font-weight:bold;">Challans (85047)</span><br />Population : 19341',
+          },
         },
         "town-16102": {
           value: "19335",
@@ -4402,8 +4888,9 @@ $(function() {
           longitude: -0.32916666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Cognac (16102)</span><br />Population : 19335"
-          }
+            content:
+              '<span style="font-weight:bold;">Cognac (16102)</span><br />Population : 19335',
+          },
         },
         "town-94059": {
           value: "19304",
@@ -4411,8 +4898,9 @@ $(function() {
           longitude: 2.5716666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Le Plessis-TrÃ©vise (94059)</span><br />Population : 19304"
-          }
+            content:
+              '<span style="font-weight:bold;">Le Plessis-TrÃ©vise (94059)</span><br />Population : 19304',
+          },
         },
         "town-95424": {
           value: "19296",
@@ -4420,8 +4908,9 @@ $(function() {
           longitude: 2.195,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Montigny-lÃ¨s-Cormeilles (95424)</span><br />Population : 19296"
-          }
+            content:
+              '<span style="font-weight:bold;">Montigny-lÃ¨s-Cormeilles (95424)</span><br />Population : 19296',
+          },
         },
         "town-06085": {
           value: "19267",
@@ -4429,8 +4918,9 @@ $(function() {
           longitude: 6.9947222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Mougins (06085)</span><br />Population : 19267"
-          }
+            content:
+              '<span style="font-weight:bold;">Mougins (06085)</span><br />Population : 19267',
+          },
         },
         "town-84089": {
           value: "19265",
@@ -4438,8 +4928,9 @@ $(function() {
           longitude: 5.5030555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Pertuis (84089)</span><br />Population : 19265"
-          }
+            content:
+              '<span style="font-weight:bold;">Pertuis (84089)</span><br />Population : 19265',
+          },
         },
         "town-69091": {
           value: "19258",
@@ -4447,8 +4938,9 @@ $(function() {
           longitude: 4.7688888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Givors (69091)</span><br />Population : 19258"
-          }
+            content:
+              '<span style="font-weight:bold;">Givors (69091)</span><br />Population : 19258',
+          },
         },
         "town-25462": {
           value: "19227",
@@ -4456,8 +4948,9 @@ $(function() {
           longitude: 6.3547222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Pontarlier (25462)</span><br />Population : 19227"
-          }
+            content:
+              '<span style="font-weight:bold;">Pontarlier (25462)</span><br />Population : 19227',
+          },
         },
         "town-60463": {
           value: "19155",
@@ -4465,8 +4958,9 @@ $(function() {
           longitude: 2.4675,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Nogent-sur-Oise (60463)</span><br />Population : 19155"
-          }
+            content:
+              '<span style="font-weight:bold;">Nogent-sur-Oise (60463)</span><br />Population : 19155',
+          },
         },
         "town-26058": {
           value: "19133",
@@ -4474,8 +4968,9 @@ $(function() {
           longitude: 4.8952777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Bourg-lÃ¨s-Valence (26058)</span><br />Population : 19133"
-          }
+            content:
+              '<span style="font-weight:bold;">Bourg-lÃ¨s-Valence (26058)</span><br />Population : 19133',
+          },
         },
         "town-47157": {
           value: "19113",
@@ -4483,8 +4978,9 @@ $(function() {
           longitude: 0.16527777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Marmande (47157)</span><br />Population : 19113"
-          }
+            content:
+              '<span style="font-weight:bold;">Marmande (47157)</span><br />Population : 19113',
+          },
         },
         "town-08409": {
           value: "19099",
@@ -4492,8 +4988,9 @@ $(function() {
           longitude: 4.9402777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Sedan (08409)</span><br />Population : 19099"
-          }
+            content:
+              '<span style="font-weight:bold;">Sedan (08409)</span><br />Population : 19099',
+          },
         },
         "town-78383": {
           value: "19014",
@@ -4501,8 +4998,9 @@ $(function() {
           longitude: 1.9455555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Maurepas (78383)</span><br />Population : 19014"
-          }
+            content:
+              '<span style="font-weight:bold;">Maurepas (78383)</span><br />Population : 19014',
+          },
         },
         "town-92022": {
           value: "18887",
@@ -4510,8 +5008,9 @@ $(function() {
           longitude: 2.1886111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Chaville (92022)</span><br />Population : 18887"
-          }
+            content:
+              '<span style="font-weight:bold;">Chaville (92022)</span><br />Population : 18887',
+          },
         },
         "town-44047": {
           value: "18861",
@@ -4519,8 +5018,9 @@ $(function() {
           longitude: -1.7238888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">CouÃ«ron (44047)</span><br />Population : 18861"
-          }
+            content:
+              '<span style="font-weight:bold;">CouÃ«ron (44047)</span><br />Population : 18861',
+          },
         },
         "town-44020": {
           value: "18762",
@@ -4528,8 +5028,9 @@ $(function() {
           longitude: -1.6247222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Bouguenais (44020)</span><br />Population : 18762"
-          }
+            content:
+              '<span style="font-weight:bold;">Bouguenais (44020)</span><br />Population : 18762',
+          },
         },
         "town-30028": {
           value: "18705",
@@ -4537,8 +5038,9 @@ $(function() {
           longitude: 4.62,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Bagnols-sur-CÃ¨ze (30028)</span><br />Population : 18705"
-          }
+            content:
+              '<span style="font-weight:bold;">Bagnols-sur-CÃ¨ze (30028)</span><br />Population : 18705',
+          },
         },
         "town-38553": {
           value: "18703",
@@ -4546,8 +5048,9 @@ $(function() {
           longitude: 5.1486111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Villefontaine (38553)</span><br />Population : 18703"
-          }
+            content:
+              '<span style="font-weight:bold;">Villefontaine (38553)</span><br />Population : 18703',
+          },
         },
         "town-63300": {
           value: "18684",
@@ -4555,8 +5058,9 @@ $(function() {
           longitude: 3.1125,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Riom (63300)</span><br />Population : 18684"
-          }
+            content:
+              '<span style="font-weight:bold;">Riom (63300)</span><br />Population : 18684',
+          },
         },
         "town-17306": {
           value: "18674",
@@ -4564,8 +5068,9 @@ $(function() {
           longitude: -1.0255555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Royan (17306)</span><br />Population : 18674"
-          }
+            content:
+              '<span style="font-weight:bold;">Royan (17306)</span><br />Population : 18674',
+          },
         },
         "town-77294": {
           value: "18671",
@@ -4573,8 +5078,9 @@ $(function() {
           longitude: 2.6163888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Mitry-Mory (77294)</span><br />Population : 18671"
-          }
+            content:
+              '<span style="font-weight:bold;">Mitry-Mory (77294)</span><br />Population : 18671',
+          },
         },
         "town-91161": {
           value: "18664",
@@ -4582,8 +5088,9 @@ $(function() {
           longitude: 2.3161111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Chilly-Mazarin (91161)</span><br />Population : 18664"
-          }
+            content:
+              '<span style="font-weight:bold;">Chilly-Mazarin (91161)</span><br />Population : 18664',
+          },
         },
         "town-94021": {
           value: "18659",
@@ -4591,8 +5098,9 @@ $(function() {
           longitude: 2.3533333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Chevilly-Larue (94021)</span><br />Population : 18659"
-          }
+            content:
+              '<span style="font-weight:bold;">Chevilly-Larue (94021)</span><br />Population : 18659',
+          },
         },
         "town-97228": {
           value: "18622",
@@ -4600,8 +5108,9 @@ $(function() {
           longitude: -60.993611111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Sainte-Marie (97228)</span><br />Population : 18622"
-          }
+            content:
+              '<span style="font-weight:bold;">Sainte-Marie (97228)</span><br />Population : 18622',
+          },
         },
         "town-56162": {
           value: "18591",
@@ -4609,8 +5118,9 @@ $(function() {
           longitude: -3.4311111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Ploemeur (56162)</span><br />Population : 18591"
-          }
+            content:
+              '<span style="font-weight:bold;">Ploemeur (56162)</span><br />Population : 18591',
+          },
         },
         "town-94077": {
           value: "18568",
@@ -4618,8 +5128,9 @@ $(function() {
           longitude: 2.4108333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Villeneuve-le-Roi (94077)</span><br />Population : 18568"
-          }
+            content:
+              '<span style="font-weight:bold;">Villeneuve-le-Roi (94077)</span><br />Population : 18568',
+          },
         },
         "town-39300": {
           value: "18560",
@@ -4627,8 +5138,9 @@ $(function() {
           longitude: 5.5538888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Lons-le-Saunier (39300)</span><br />Population : 18560"
-          }
+            content:
+              '<span style="font-weight:bold;">Lons-le-Saunier (39300)</span><br />Population : 18560',
+          },
         },
         "town-92033": {
           value: "18469",
@@ -4636,8 +5148,9 @@ $(function() {
           longitude: 2.1869444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Garches (92033)</span><br />Population : 18469"
-          }
+            content:
+              '<span style="font-weight:bold;">Garches (92033)</span><br />Population : 18469',
+          },
         },
         "town-69081": {
           value: "18413",
@@ -4645,8 +5158,9 @@ $(function() {
           longitude: 4.7775,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Ã‰cully (69081)</span><br />Population : 18413"
-          }
+            content:
+              '<span style="font-weight:bold;">Ã‰cully (69081)</span><br />Population : 18413',
+          },
         },
         "town-27375": {
           value: "18332",
@@ -4654,8 +5168,9 @@ $(function() {
           longitude: 1.1655555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Louviers (27375)</span><br />Population : 18332"
-          }
+            content:
+              '<span style="font-weight:bold;">Louviers (27375)</span><br />Population : 18332',
+          },
         },
         "town-44026": {
           value: "18275",
@@ -4663,8 +5178,9 @@ $(function() {
           longitude: -1.4927777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Carquefou (44026)</span><br />Population : 18275"
-          }
+            content:
+              '<span style="font-weight:bold;">Carquefou (44026)</span><br />Population : 18275',
+          },
         },
         "town-59507": {
           value: "18235",
@@ -4672,8 +5188,9 @@ $(function() {
           longitude: 3.0877777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Ronchin (59507)</span><br />Population : 18235"
-          }
+            content:
+              '<span style="font-weight:bold;">Ronchin (59507)</span><br />Population : 18235',
+          },
         },
         "town-94019": {
           value: "18227",
@@ -4681,8 +5198,9 @@ $(function() {
           longitude: 2.5338888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">ChenneviÃ¨res-sur-Marne (94019)</span><br />Population : 18227"
-          }
+            content:
+              '<span style="font-weight:bold;">ChenneviÃ¨res-sur-Marne (94019)</span><br />Population : 18227',
+          },
         },
         "town-84129": {
           value: "18220",
@@ -4690,8 +5208,9 @@ $(function() {
           longitude: 4.8725,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Sorgues (84129)</span><br />Population : 18220"
-          }
+            content:
+              '<span style="font-weight:bold;">Sorgues (84129)</span><br />Population : 18220',
+          },
         },
         "town-93061": {
           value: "18171",
@@ -4699,8 +5218,9 @@ $(function() {
           longitude: 2.4038888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Le PrÃ©-Saint-Gervais (93061)</span><br />Population : 18171"
-          }
+            content:
+              '<span style="font-weight:bold;">Le PrÃ©-Saint-Gervais (93061)</span><br />Population : 18171',
+          },
         },
         "town-38229": {
           value: "18065",
@@ -4708,8 +5228,9 @@ $(function() {
           longitude: 5.7794444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Meylan (38229)</span><br />Population : 18065"
-          }
+            content:
+              '<span style="font-weight:bold;">Meylan (38229)</span><br />Population : 18065',
+          },
         },
         "town-67043": {
           value: "18038",
@@ -4717,8 +5238,9 @@ $(function() {
           longitude: 7.7519444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Bischheim (67043)</span><br />Population : 18038"
-          }
+            content:
+              '<span style="font-weight:bold;">Bischheim (67043)</span><br />Population : 18038',
+          },
         },
         "town-94042": {
           value: "17990",
@@ -4726,8 +5248,9 @@ $(function() {
           longitude: 2.4727777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Joinville-le-Pont (94042)</span><br />Population : 17990"
-          }
+            content:
+              '<span style="font-weight:bold;">Joinville-le-Pont (94042)</span><br />Population : 17990',
+          },
         },
         "town-78545": {
           value: "17976",
@@ -4735,8 +5258,9 @@ $(function() {
           longitude: 2.0625,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Cyr-l'Ã‰cole (78545)</span><br />Population : 17976"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Cyr-l\'Ã‰cole (78545)</span><br />Population : 17976',
+          },
         },
         "town-04070": {
           value: "17969",
@@ -4744,8 +5268,9 @@ $(function() {
           longitude: 6.2355555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Digne-les-Bains (04070)</span><br />Population : 17969"
-          }
+            content:
+              '<span style="font-weight:bold;">Digne-les-Bains (04070)</span><br />Population : 17969',
+          },
         },
         "town-50173": {
           value: "17942",
@@ -4753,8 +5278,9 @@ $(function() {
           longitude: -1.6547222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Ã‰queurdreville-Hainneville (50173)</span><br />Population : 17942"
-          }
+            content:
+              '<span style="font-weight:bold;">Ã‰queurdreville-Hainneville (50173)</span><br />Population : 17942',
+          },
         },
         "town-74081": {
           value: "17877",
@@ -4762,8 +5288,9 @@ $(function() {
           longitude: 6.5786111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Cluses (74081)</span><br />Population : 17877"
-          }
+            content:
+              '<span style="font-weight:bold;">Cluses (74081)</span><br />Population : 17877',
+          },
         },
         "town-44035": {
           value: "17814",
@@ -4771,8 +5298,9 @@ $(function() {
           longitude: -1.5527777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">La Chapelle-sur-Erdre (44035)</span><br />Population : 17814"
-          }
+            content:
+              '<span style="font-weight:bold;">La Chapelle-sur-Erdre (44035)</span><br />Population : 17814',
+          },
         },
         "town-78165": {
           value: "17773",
@@ -4780,8 +5308,9 @@ $(function() {
           longitude: 1.9836111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Les Clayes-sous-Bois (78165)</span><br />Population : 17773"
-          }
+            content:
+              '<span style="font-weight:bold;">Les Clayes-sous-Bois (78165)</span><br />Population : 17773',
+          },
         },
         "town-41194": {
           value: "17758",
@@ -4789,8 +5318,9 @@ $(function() {
           longitude: 1.7427777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Romorantin-Lanthenay (41194)</span><br />Population : 17758"
-          }
+            content:
+              '<span style="font-weight:bold;">Romorantin-Lanthenay (41194)</span><br />Population : 17758',
+          },
         },
         "town-41269": {
           value: "17687",
@@ -4798,8 +5328,9 @@ $(function() {
           longitude: 1.0655555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">VendÃ´me (41269)</span><br />Population : 17687"
-          }
+            content:
+              '<span style="font-weight:bold;">VendÃ´me (41269)</span><br />Population : 17687',
+          },
         },
         "town-63075": {
           value: "17683",
@@ -4807,8 +5338,9 @@ $(function() {
           longitude: 3.0669444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">ChamaliÃ¨res (63075)</span><br />Population : 17683"
-          }
+            content:
+              '<span style="font-weight:bold;">ChamaliÃ¨res (63075)</span><br />Population : 17683',
+          },
         },
         "town-95598": {
           value: "17670",
@@ -4816,8 +5348,9 @@ $(function() {
           longitude: 2.2997222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Soisy-sous-Montmorency (95598)</span><br />Population : 17670"
-          }
+            content:
+              '<span style="font-weight:bold;">Soisy-sous-Montmorency (95598)</span><br />Population : 17670',
+          },
         },
         "town-74093": {
           value: "17605",
@@ -4825,8 +5358,9 @@ $(function() {
           longitude: 6.1038888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Cran-Gevrier (74093)</span><br />Population : 17605"
-          }
+            content:
+              '<span style="font-weight:bold;">Cran-Gevrier (74093)</span><br />Population : 17605',
+          },
         },
         "town-59220": {
           value: "17581",
@@ -4834,8 +5368,9 @@ $(function() {
           longitude: 3.0736111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Faches-Thumesnil (59220)</span><br />Population : 17581"
-          }
+            content:
+              '<span style="font-weight:bold;">Faches-Thumesnil (59220)</span><br />Population : 17581',
+          },
         },
         "town-13077": {
           value: "17546",
@@ -4843,8 +5378,9 @@ $(function() {
           longitude: 4.9886111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Port-de-Bouc (13077)</span><br />Population : 17546"
-          }
+            content:
+              '<span style="font-weight:bold;">Port-de-Bouc (13077)</span><br />Population : 17546',
+          },
         },
         "town-59299": {
           value: "17538",
@@ -4852,8 +5388,9 @@ $(function() {
           longitude: 3.1877777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Hem (59299)</span><br />Population : 17538"
-          }
+            content:
+              '<span style="font-weight:bold;">Hem (59299)</span><br />Population : 17538',
+          },
         },
         "town-76231": {
           value: "17452",
@@ -4861,8 +5398,9 @@ $(function() {
           longitude: 1.0083333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Elbeuf (76231)</span><br />Population : 17452"
-          }
+            content:
+              '<span style="font-weight:bold;">Elbeuf (76231)</span><br />Population : 17452',
+          },
         },
         "town-62065": {
           value: "17429",
@@ -4870,8 +5408,9 @@ $(function() {
           longitude: 2.8327777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Avion (62065)</span><br />Population : 17429"
-          }
+            content:
+              '<span style="font-weight:bold;">Avion (62065)</span><br />Population : 17429',
+          },
         },
         "town-77296": {
           value: "17415",
@@ -4879,8 +5418,9 @@ $(function() {
           longitude: 2.5922222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Moissy-Cramayel (77296)</span><br />Population : 17415"
-          }
+            content:
+              '<span style="font-weight:bold;">Moissy-Cramayel (77296)</span><br />Population : 17415',
+          },
         },
         "town-35360": {
           value: "17393",
@@ -4888,8 +5428,9 @@ $(function() {
           longitude: -1.2094444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">VitrÃ© (35360)</span><br />Population : 17393"
-          }
+            content:
+              '<span style="font-weight:bold;">VitrÃ© (35360)</span><br />Population : 17393',
+          },
         },
         "town-42095": {
           value: "17380",
@@ -4897,8 +5438,9 @@ $(function() {
           longitude: 4.2872222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Firminy (42095)</span><br />Population : 17380"
-          }
+            content:
+              '<span style="font-weight:bold;">Firminy (42095)</span><br />Population : 17380',
+          },
         },
         "town-07010": {
           value: "17275",
@@ -4906,8 +5448,9 @@ $(function() {
           longitude: 4.6708333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Annonay (07010)</span><br />Population : 17275"
-          }
+            content:
+              '<span style="font-weight:bold;">Annonay (07010)</span><br />Population : 17275',
+          },
         },
         "town-62215": {
           value: "17275",
@@ -4915,8 +5458,9 @@ $(function() {
           longitude: 2.9580555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Carvin (62215)</span><br />Population : 17275"
-          }
+            content:
+              '<span style="font-weight:bold;">Carvin (62215)</span><br />Population : 17275',
+          },
         },
         "town-83047": {
           value: "17225",
@@ -4924,8 +5468,9 @@ $(function() {
           longitude: 6.0741666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">La Crau (83047)</span><br />Population : 17225"
-          }
+            content:
+              '<span style="font-weight:bold;">La Crau (83047)</span><br />Population : 17225',
+          },
         },
         "town-94037": {
           value: "17222",
@@ -4933,8 +5478,9 @@ $(function() {
           longitude: 2.3444444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Gentilly (94037)</span><br />Population : 17222"
-          }
+            content:
+              '<span style="font-weight:bold;">Gentilly (94037)</span><br />Population : 17222',
+          },
         },
         "town-97207": {
           value: "17209",
@@ -4942,8 +5488,9 @@ $(function() {
           longitude: -60.975833333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Ducos (97207)</span><br />Population : 17209"
-          }
+            content:
+              '<span style="font-weight:bold;">Ducos (97207)</span><br />Population : 17209',
+          },
         },
         "town-95218": {
           value: "17145",
@@ -4951,8 +5498,9 @@ $(function() {
           longitude: 2.0913888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Ã‰ragny (95218)</span><br />Population : 17145"
-          }
+            content:
+              '<span style="font-weight:bold;">Ã‰ragny (95218)</span><br />Population : 17145',
+          },
         },
         "town-97224": {
           value: "17057",
@@ -4960,8 +5508,9 @@ $(function() {
           longitude: -61.038055555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Joseph (97224)</span><br />Population : 17057"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Joseph (97224)</span><br />Population : 17057',
+          },
         },
         "town-78372": {
           value: "17019",
@@ -4969,8 +5518,9 @@ $(function() {
           longitude: 2.0941666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Marly-le-Roi (78372)</span><br />Population : 17019"
-          }
+            content:
+              '<span style="font-weight:bold;">Marly-le-Roi (78372)</span><br />Population : 17019',
+          },
         },
         "town-45285": {
           value: "16951",
@@ -4978,8 +5528,9 @@ $(function() {
           longitude: 1.8733333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Jean-de-la-Ruelle (45285)</span><br />Population : 16951"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Jean-de-la-Ruelle (45285)</span><br />Population : 16951',
+          },
         },
         "town-94004": {
           value: "16945",
@@ -4987,8 +5538,9 @@ $(function() {
           longitude: 2.5097222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Boissy-Saint-LÃ©ger (94004)</span><br />Population : 16945"
-          }
+            content:
+              '<span style="font-weight:bold;">Boissy-Saint-LÃ©ger (94004)</span><br />Population : 16945',
+          },
         },
         "town-70550": {
           value: "16934",
@@ -4996,8 +5548,9 @@ $(function() {
           longitude: 6.1552777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Vesoul (70550)</span><br />Population : 16934"
-          }
+            content:
+              '<span style="font-weight:bold;">Vesoul (70550)</span><br />Population : 16934',
+          },
         },
         "town-84092": {
           value: "16930",
@@ -5005,8 +5558,9 @@ $(function() {
           longitude: 4.86,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Le Pontet (84092)</span><br />Population : 16930"
-          }
+            content:
+              '<span style="font-weight:bold;">Le Pontet (84092)</span><br />Population : 16930',
+          },
         },
         "town-77305": {
           value: "16926",
@@ -5014,8 +5568,9 @@ $(function() {
           longitude: 2.9480555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Montereau-Fault-Yonne (77305)</span><br />Population : 16926"
-          }
+            content:
+              '<span style="font-weight:bold;">Montereau-Fault-Yonne (77305)</span><br />Population : 16926',
+          },
         },
         "town-97116": {
           value: "16895",
@@ -5023,8 +5578,9 @@ $(function() {
           longitude: -61.456944444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Morne-Ã -l'Eau (97116)</span><br />Population : 16895"
-          }
+            content:
+              '<span style="font-weight:bold;">Morne-Ã -l\'Eau (97116)</span><br />Population : 16895',
+          },
         },
         "town-59526": {
           value: "16894",
@@ -5032,8 +5588,9 @@ $(function() {
           longitude: 3.4269444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Amand-les-Eaux (59526)</span><br />Population : 16894"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Amand-les-Eaux (59526)</span><br />Population : 16894',
+          },
         },
         "town-94011": {
           value: "16888",
@@ -5041,8 +5598,9 @@ $(function() {
           longitude: 2.4875,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Bonneuil-sur-Marne (94011)</span><br />Population : 16888"
-          }
+            content:
+              '<span style="font-weight:bold;">Bonneuil-sur-Marne (94011)</span><br />Population : 16888',
+          },
         },
         "town-35047": {
           value: "16875",
@@ -5050,8 +5608,9 @@ $(function() {
           longitude: -1.7458333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Bruz (35047)</span><br />Population : 16875"
-          }
+            content:
+              '<span style="font-weight:bold;">Bruz (35047)</span><br />Population : 16875',
+          },
         },
         "town-60612": {
           value: "16867",
@@ -5059,8 +5618,9 @@ $(function() {
           longitude: 2.5866666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Senlis (60612)</span><br />Population : 16867"
-          }
+            content:
+              '<span style="font-weight:bold;">Senlis (60612)</span><br />Population : 16867',
+          },
         },
         "town-76447": {
           value: "16852",
@@ -5068,8 +5628,9 @@ $(function() {
           longitude: 0.18805555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Montivilliers (76447)</span><br />Population : 16852"
-          }
+            content:
+              '<span style="font-weight:bold;">Montivilliers (76447)</span><br />Population : 16852',
+          },
         },
         "town-55029": {
           value: "16830",
@@ -5077,8 +5638,9 @@ $(function() {
           longitude: 5.1672222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Bar-le-Duc (55029)</span><br />Population : 16830"
-          }
+            content:
+              '<span style="font-weight:bold;">Bar-le-Duc (55029)</span><br />Population : 16830',
+          },
         },
         "town-78481": {
           value: "16821",
@@ -5086,8 +5648,9 @@ $(function() {
           longitude: 2.1061111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Le Pecq (78481)</span><br />Population : 16821"
-          }
+            content:
+              '<span style="font-weight:bold;">Le Pecq (78481)</span><br />Population : 16821',
+          },
         },
         "town-33122": {
           value: "16802",
@@ -5095,8 +5658,9 @@ $(function() {
           longitude: -0.68222222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Cestas (33122)</span><br />Population : 16802"
-          }
+            content:
+              '<span style="font-weight:bold;">Cestas (33122)</span><br />Population : 16802',
+          },
         },
         "town-95323": {
           value: "16796",
@@ -5104,8 +5668,9 @@ $(function() {
           longitude: 2.0386111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Jouy-le-Moutier (95323)</span><br />Population : 16796"
-          }
+            content:
+              '<span style="font-weight:bold;">Jouy-le-Moutier (95323)</span><br />Population : 16796',
+          },
         },
         "town-69199": {
           value: "16787",
@@ -5113,8 +5678,9 @@ $(function() {
           longitude: 4.8533333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Fons (69199)</span><br />Population : 16787"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Fons (69199)</span><br />Population : 16787',
+          },
         },
         "town-83023": {
           value: "16757",
@@ -5122,8 +5688,9 @@ $(function() {
           longitude: 6.0616666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Brignoles (83023)</span><br />Population : 16757"
-          }
+            content:
+              '<span style="font-weight:bold;">Brignoles (83023)</span><br />Population : 16757',
+          },
         },
         "town-78650": {
           value: "16753",
@@ -5131,8 +5698,9 @@ $(function() {
           longitude: 2.1322222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Le VÃ©sinet (78650)</span><br />Population : 16753"
-          }
+            content:
+              '<span style="font-weight:bold;">Le VÃ©sinet (78650)</span><br />Population : 16753',
+          },
         },
         "town-57606": {
           value: "16723",
@@ -5140,8 +5708,9 @@ $(function() {
           longitude: 6.7080555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Avold (57606)</span><br />Population : 16723"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Avold (57606)</span><br />Population : 16723',
+          },
         },
         "town-83123": {
           value: "16643",
@@ -5149,8 +5718,9 @@ $(function() {
           longitude: 5.8022222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Sanary-sur-Mer (83123)</span><br />Population : 16643"
-          }
+            content:
+              '<span style="font-weight:bold;">Sanary-sur-Mer (83123)</span><br />Population : 16643',
+          },
         },
         "town-67267": {
           value: "16639",
@@ -5158,8 +5728,9 @@ $(function() {
           longitude: 7.6830555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Lingolsheim (67267)</span><br />Population : 16639"
-          }
+            content:
+              '<span style="font-weight:bold;">Lingolsheim (67267)</span><br />Population : 16639',
+          },
         },
         "town-44055": {
           value: "16623",
@@ -5167,8 +5738,9 @@ $(function() {
           longitude: -2.3922222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">La Baule-Escoublac (44055)</span><br />Population : 16623"
-          }
+            content:
+              '<span style="font-weight:bold;">La Baule-Escoublac (44055)</span><br />Population : 16623',
+          },
         },
         "town-77053": {
           value: "16604",
@@ -5176,8 +5748,9 @@ $(function() {
           longitude: 2.6111111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Brie-Comte-Robert (77053)</span><br />Population : 16604"
-          }
+            content:
+              '<span style="font-weight:bold;">Brie-Comte-Robert (77053)</span><br />Population : 16604',
+          },
         },
         "town-97120": {
           value: "16550",
@@ -5185,8 +5758,9 @@ $(function() {
           longitude: -61.533055555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Pointe-Ã -Pitre (97120)</span><br />Population : 16550"
-          }
+            content:
+              '<span style="font-weight:bold;">Pointe-Ã -Pitre (97120)</span><br />Population : 16550',
+          },
         },
         "town-29151": {
           value: "16547",
@@ -5194,8 +5768,9 @@ $(function() {
           longitude: -3.8277777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Morlaix (29151)</span><br />Population : 16547"
-          }
+            content:
+              '<span style="font-weight:bold;">Morlaix (29151)</span><br />Population : 16547',
+          },
         },
         "town-95476": {
           value: "16537",
@@ -5203,8 +5778,9 @@ $(function() {
           longitude: 2.0625,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Osny (95476)</span><br />Population : 16537"
-          }
+            content:
+              '<span style="font-weight:bold;">Osny (95476)</span><br />Population : 16537',
+          },
         },
         "town-78335": {
           value: "16534",
@@ -5212,8 +5788,9 @@ $(function() {
           longitude: 1.7358333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Limay (78335)</span><br />Population : 16534"
-          }
+            content:
+              '<span style="font-weight:bold;">Limay (78335)</span><br />Population : 16534',
+          },
         },
         "town-34154": {
           value: "16504",
@@ -5221,8 +5798,9 @@ $(function() {
           longitude: 4.0075,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Mauguio (34154)</span><br />Population : 16504"
-          }
+            content:
+              '<span style="font-weight:bold;">Mauguio (34154)</span><br />Population : 16504',
+          },
         },
         "town-37214": {
           value: "16503",
@@ -5230,8 +5808,9 @@ $(function() {
           longitude: 0.67805555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Cyr-sur-Loire (37214)</span><br />Population : 16503"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Cyr-sur-Loire (37214)</span><br />Population : 16503',
+          },
         },
         "town-57757": {
           value: "16475",
@@ -5239,8 +5818,9 @@ $(function() {
           longitude: 6.1886111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Yutz (57757)</span><br />Population : 16475"
-          }
+            content:
+              '<span style="font-weight:bold;">Yutz (57757)</span><br />Population : 16475',
+          },
         },
         "town-33167": {
           value: "16457",
@@ -5248,8 +5828,9 @@ $(function() {
           longitude: -0.52583333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Floirac (33167)</span><br />Population : 16457"
-          }
+            content:
+              '<span style="font-weight:bold;">Floirac (33167)</span><br />Population : 16457',
+          },
         },
         "town-09225": {
           value: "16450",
@@ -5257,8 +5838,9 @@ $(function() {
           longitude: 1.6108333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Pamiers (09225)</span><br />Population : 16450"
-          }
+            content:
+              '<span style="font-weight:bold;">Pamiers (09225)</span><br />Population : 16450',
+          },
         },
         "town-95637": {
           value: "16443",
@@ -5266,8 +5848,9 @@ $(function() {
           longitude: 2.0319444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">VaurÃ©al (95637)</span><br />Population : 16443"
-          }
+            content:
+              '<span style="font-weight:bold;">VaurÃ©al (95637)</span><br />Population : 16443',
+          },
         },
         "town-31424": {
           value: "16442",
@@ -5275,8 +5858,9 @@ $(function() {
           longitude: 1.2963888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Plaisance-du-Touch (31424)</span><br />Population : 16442"
-          }
+            content:
+              '<span style="font-weight:bold;">Plaisance-du-Touch (31424)</span><br />Population : 16442',
+          },
         },
         "town-50602": {
           value: "16377",
@@ -5284,8 +5868,9 @@ $(function() {
           longitude: -1.5788888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Tourlaville (50602)</span><br />Population : 16377"
-          }
+            content:
+              '<span style="font-weight:bold;">Tourlaville (50602)</span><br />Population : 16377',
+          },
         },
         "town-59569": {
           value: "16363",
@@ -5293,8 +5878,9 @@ $(function() {
           longitude: 3.1130555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Sin-le-Noble (59569)</span><br />Population : 16363"
-          }
+            content:
+              '<span style="font-weight:bold;">Sin-le-Noble (59569)</span><br />Population : 16363',
+          },
         },
         "town-38382": {
           value: "16355",
@@ -5302,8 +5888,9 @@ $(function() {
           longitude: 5.6830555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Ã‰grÃ¨ve (38382)</span><br />Population : 16355"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Ã‰grÃ¨ve (38382)</span><br />Population : 16355',
+          },
         },
         "town-44069": {
           value: "16263",
@@ -5311,8 +5898,9 @@ $(function() {
           longitude: -2.4291666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">GuÃ©rande (44069)</span><br />Population : 16263"
-          }
+            content:
+              '<span style="font-weight:bold;">GuÃ©rande (44069)</span><br />Population : 16263',
+          },
         },
         "town-28218": {
           value: "16262",
@@ -5320,8 +5908,9 @@ $(function() {
           longitude: 1.465,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">LucÃ© (28218)</span><br />Population : 16262"
-          }
+            content:
+              '<span style="font-weight:bold;">LucÃ© (28218)</span><br />Population : 16262',
+          },
         },
         "town-72154": {
           value: "16249",
@@ -5329,8 +5918,9 @@ $(function() {
           longitude: -0.076111111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">La FlÃ¨che (72154)</span><br />Population : 16249"
-          }
+            content:
+              '<span style="font-weight:bold;">La FlÃ¨che (72154)</span><br />Population : 16249',
+          },
         },
         "town-91471": {
           value: "16231",
@@ -5338,8 +5928,9 @@ $(function() {
           longitude: 2.1875,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Orsay (91471)</span><br />Population : 16231"
-          }
+            content:
+              '<span style="font-weight:bold;">Orsay (91471)</span><br />Population : 16231',
+          },
         },
         "town-78686": {
           value: "16224",
@@ -5347,8 +5938,9 @@ $(function() {
           longitude: 2.1722222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Viroflay (78686)</span><br />Population : 16224"
-          }
+            content:
+              '<span style="font-weight:bold;">Viroflay (78686)</span><br />Population : 16224',
+          },
         },
         "town-97115": {
           value: "16191",
@@ -5356,8 +5948,9 @@ $(function() {
           longitude: -61.632777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Lamentin (97115)</span><br />Population : 16191"
-          }
+            content:
+              '<span style="font-weight:bold;">Lamentin (97115)</span><br />Population : 16191',
+          },
         },
         "town-74256": {
           value: "16184",
@@ -5365,8 +5958,9 @@ $(function() {
           longitude: 6.6319444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Sallanches (74256)</span><br />Population : 16184"
-          }
+            content:
+              '<span style="font-weight:bold;">Sallanches (74256)</span><br />Population : 16184',
+          },
         },
         "town-30032": {
           value: "16183",
@@ -5374,8 +5968,9 @@ $(function() {
           longitude: 4.6433333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Beaucaire (30032)</span><br />Population : 16183"
-          }
+            content:
+              '<span style="font-weight:bold;">Beaucaire (30032)</span><br />Population : 16183',
+          },
         },
         "town-34129": {
           value: "16166",
@@ -5383,8 +5978,9 @@ $(function() {
           longitude: 3.9086111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Lattes (34129)</span><br />Population : 16166"
-          }
+            content:
+              '<span style="font-weight:bold;">Lattes (34129)</span><br />Population : 16166',
+          },
         },
         "town-54528": {
           value: "16080",
@@ -5392,8 +5988,9 @@ $(function() {
           longitude: 5.8916666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Toul (54528)</span><br />Population : 16080"
-          }
+            content:
+              '<span style="font-weight:bold;">Toul (54528)</span><br />Population : 16080',
+          },
         },
         "town-31157": {
           value: "16042",
@@ -5401,8 +5998,9 @@ $(function() {
           longitude: 1.3436111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Cugnaux (31157)</span><br />Population : 16042"
-          }
+            content:
+              '<span style="font-weight:bold;">Cugnaux (31157)</span><br />Population : 16042',
+          },
         },
         "town-38193": {
           value: "15980",
@@ -5410,8 +6008,9 @@ $(function() {
           longitude: 5.2330555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">L'Isle-d'Abeau (38193)</span><br />Population : 15980"
-          }
+            content:
+              "<span style=\"font-weight:bold;\">L'Isle-d'Abeau (38193)</span><br />Population : 15980",
+          },
         },
         "town-35051": {
           value: "15975",
@@ -5419,8 +6018,9 @@ $(function() {
           longitude: -1.6036111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Cesson-SÃ©vignÃ© (35051)</span><br />Population : 15975"
-          }
+            content:
+              '<span style="font-weight:bold;">Cesson-SÃ©vignÃ© (35051)</span><br />Population : 15975',
+          },
         },
         "town-29103": {
           value: "15903",
@@ -5428,8 +6028,9 @@ $(function() {
           longitude: -4.2494444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Landerneau (29103)</span><br />Population : 15903"
-          }
+            content:
+              '<span style="font-weight:bold;">Landerneau (29103)</span><br />Population : 15903',
+          },
         },
         "town-42147": {
           value: "15899",
@@ -5437,8 +6038,9 @@ $(function() {
           longitude: 4.0652777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Montbrison (42147)</span><br />Population : 15899"
-          }
+            content:
+              '<span style="font-weight:bold;">Montbrison (42147)</span><br />Population : 15899',
+          },
         },
         "town-19272": {
           value: "15838",
@@ -5446,8 +6048,9 @@ $(function() {
           longitude: 1.7722222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Tulle (19272)</span><br />Population : 15838"
-          }
+            content:
+              '<span style="font-weight:bold;">Tulle (19272)</span><br />Population : 15838',
+          },
         },
         "town-61169": {
           value: "15837",
@@ -5455,8 +6058,9 @@ $(function() {
           longitude: -0.56944444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Flers (61169)</span><br />Population : 15837"
-          }
+            content:
+              '<span style="font-weight:bold;">Flers (61169)</span><br />Population : 15837',
+          },
         },
         "town-57306": {
           value: "15835",
@@ -5464,8 +6068,9 @@ $(function() {
           longitude: 6.0619444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Hayange (57306)</span><br />Population : 15835"
-          }
+            content:
+              '<span style="font-weight:bold;">Hayange (57306)</span><br />Population : 15835',
+          },
         },
         "town-91645": {
           value: "15830",
@@ -5473,8 +6078,9 @@ $(function() {
           longitude: 2.2627777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">VerriÃ¨res-le-Buisson (91645)</span><br />Population : 15830"
-          }
+            content:
+              '<span style="font-weight:bold;">VerriÃ¨res-le-Buisson (91645)</span><br />Population : 15830',
+          },
         },
         "town-94015": {
           value: "15825",
@@ -5482,8 +6088,9 @@ $(function() {
           longitude: 2.5222222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Bry-sur-Marne (94015)</span><br />Population : 15825"
-          }
+            content:
+              '<span style="font-weight:bold;">Bry-sur-Marne (94015)</span><br />Population : 15825',
+          },
         },
         "town-64260": {
           value: "15802",
@@ -5491,8 +6098,9 @@ $(function() {
           longitude: -1.7744444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Hendaye (64260)</span><br />Population : 15802"
-          }
+            content:
+              '<span style="font-weight:bold;">Hendaye (64260)</span><br />Population : 15802',
+          },
         },
         "town-62108": {
           value: "15783",
@@ -5500,8 +6108,9 @@ $(function() {
           longitude: 1.5927777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Berck (62108)</span><br />Population : 15783"
-          }
+            content:
+              '<span style="font-weight:bold;">Berck (62108)</span><br />Population : 15783',
+          },
         },
         "town-77337": {
           value: "15782",
@@ -5509,8 +6118,9 @@ $(function() {
           longitude: 2.6288888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Noisiel (77337)</span><br />Population : 15782"
-          }
+            content:
+              '<span style="font-weight:bold;">Noisiel (77337)</span><br />Population : 15782',
+          },
         },
         "town-85109": {
           value: "15727",
@@ -5518,8 +6128,9 @@ $(function() {
           longitude: -1.0136111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Les Herbiers (85109)</span><br />Population : 15727"
-          }
+            content:
+              '<span style="font-weight:bold;">Les Herbiers (85109)</span><br />Population : 15727',
+          },
         },
         "town-77186": {
           value: "15665",
@@ -5527,8 +6138,9 @@ $(function() {
           longitude: 2.7016666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Fontainebleau (77186)</span><br />Population : 15665"
-          }
+            content:
+              '<span style="font-weight:bold;">Fontainebleau (77186)</span><br />Population : 15665',
+          },
         },
         "town-13039": {
           value: "15662",
@@ -5536,8 +6148,9 @@ $(function() {
           longitude: 4.9452777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Fos-sur-Mer (13039)</span><br />Population : 15662"
-          }
+            content:
+              '<span style="font-weight:bold;">Fos-sur-Mer (13039)</span><br />Population : 15662',
+          },
         },
         "town-37233": {
           value: "15651",
@@ -5545,8 +6158,9 @@ $(function() {
           longitude: 0.72805555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Pierre-des-Corps (37233)</span><br />Population : 15651"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Pierre-des-Corps (37233)</span><br />Population : 15651',
+          },
         },
         "town-71014": {
           value: "15630",
@@ -5554,8 +6168,9 @@ $(function() {
           longitude: 4.2986111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Autun (71014)</span><br />Population : 15630"
-          }
+            content:
+              '<span style="font-weight:bold;">Autun (71014)</span><br />Population : 15630',
+          },
         },
         "town-78124": {
           value: "15614",
@@ -5563,8 +6178,9 @@ $(function() {
           longitude: 2.1780555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">CarriÃ¨res-sur-Seine (78124)</span><br />Population : 15614"
-          }
+            content:
+              '<span style="font-weight:bold;">CarriÃ¨res-sur-Seine (78124)</span><br />Population : 15614',
+          },
         },
         "town-45208": {
           value: "15583",
@@ -5572,8 +6188,9 @@ $(function() {
           longitude: 2.7325,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Montargis (45208)</span><br />Population : 15583"
-          }
+            content:
+              '<span style="font-weight:bold;">Montargis (45208)</span><br />Population : 15583',
+          },
         },
         "town-78642": {
           value: "15581",
@@ -5581,8 +6198,9 @@ $(function() {
           longitude: 1.9738888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Verneuil-sur-Seine (78642)</span><br />Population : 15581"
-          }
+            content:
+              '<span style="font-weight:bold;">Verneuil-sur-Seine (78642)</span><br />Population : 15581',
+          },
         },
         "town-56083": {
           value: "15545",
@@ -5590,8 +6208,9 @@ $(function() {
           longitude: -3.2788888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Hennebont (56083)</span><br />Population : 15545"
-          }
+            content:
+              '<span style="font-weight:bold;">Hennebont (56083)</span><br />Population : 15545',
+          },
         },
         "town-29046": {
           value: "15540",
@@ -5599,8 +6218,9 @@ $(function() {
           longitude: -4.3302777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Douarnenez (29046)</span><br />Population : 15540"
-          }
+            content:
+              '<span style="font-weight:bold;">Douarnenez (29046)</span><br />Population : 15540',
+          },
         },
         "town-33056": {
           value: "15508",
@@ -5608,8 +6228,9 @@ $(function() {
           longitude: -0.6375,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Blanquefort (33056)</span><br />Population : 15508"
-          }
+            content:
+              '<span style="font-weight:bold;">Blanquefort (33056)</span><br />Population : 15508',
+          },
         },
         "town-45302": {
           value: "15423",
@@ -5617,8 +6238,9 @@ $(function() {
           longitude: 1.8802777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saran (45302)</span><br />Population : 15423"
-          }
+            content:
+              '<span style="font-weight:bold;">Saran (45302)</span><br />Population : 15423',
+          },
         },
         "town-78418": {
           value: "15412",
@@ -5626,8 +6248,9 @@ $(function() {
           longitude: 2.1494444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Montesson (78418)</span><br />Population : 15412"
-          }
+            content:
+              '<span style="font-weight:bold;">Montesson (78418)</span><br />Population : 15412',
+          },
         },
         "town-78123": {
           value: "15389",
@@ -5635,8 +6258,9 @@ $(function() {
           longitude: 2.0386111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">CarriÃ¨res-sous-Poissy (78123)</span><br />Population : 15389"
-          }
+            content:
+              '<span style="font-weight:bold;">CarriÃ¨res-sous-Poissy (78123)</span><br />Population : 15389',
+          },
         },
         "town-34057": {
           value: "15326",
@@ -5644,8 +6268,9 @@ $(function() {
           longitude: 3.9013888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Castelnau-le-Lez (34057)</span><br />Population : 15326"
-          }
+            content:
+              '<span style="font-weight:bold;">Castelnau-le-Lez (34057)</span><br />Population : 15326',
+          },
         },
         "town-76157": {
           value: "15281",
@@ -5653,8 +6278,9 @@ $(function() {
           longitude: 1.0252777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Canteleu (76157)</span><br />Population : 15281"
-          }
+            content:
+              '<span style="font-weight:bold;">Canteleu (76157)</span><br />Population : 15281',
+          },
         },
         "town-06161": {
           value: "15258",
@@ -5662,8 +6288,9 @@ $(function() {
           longitude: 7.1213888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Villeneuve-Loubet (06161)</span><br />Population : 15258"
-          }
+            content:
+              '<span style="font-weight:bold;">Villeneuve-Loubet (06161)</span><br />Population : 15258',
+          },
         },
         "town-45155": {
           value: "15254",
@@ -5671,8 +6298,9 @@ $(function() {
           longitude: 2.6294444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Gien (45155)</span><br />Population : 15254"
-          }
+            content:
+              '<span style="font-weight:bold;">Gien (45155)</span><br />Population : 15254',
+          },
         },
         "town-62765": {
           value: "15231",
@@ -5680,8 +6308,9 @@ $(function() {
           longitude: 2.2608333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Omer (62765)</span><br />Population : 15231"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Omer (62765)</span><br />Population : 15231',
+          },
         },
         "town-42186": {
           value: "15153",
@@ -5689,8 +6318,9 @@ $(function() {
           longitude: 4.6169444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Rive-de-Gier (42186)</span><br />Population : 15153"
-          }
+            content:
+              '<span style="font-weight:bold;">Rive-de-Gier (42186)</span><br />Population : 15153',
+          },
         },
         "town-54304": {
           value: "15139",
@@ -5698,8 +6328,9 @@ $(function() {
           longitude: 6.1522222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Laxou (54304)</span><br />Population : 15139"
-          }
+            content:
+              '<span style="font-weight:bold;">Laxou (54304)</span><br />Population : 15139',
+          },
         },
         "town-65286": {
           value: "15102",
@@ -5707,8 +6338,9 @@ $(function() {
           longitude: -0.045277777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Lourdes (65286)</span><br />Population : 15102"
-          }
+            content:
+              '<span style="font-weight:bold;">Lourdes (65286)</span><br />Population : 15102',
+          },
         },
         "town-25031": {
           value: "15094",
@@ -5716,8 +6348,9 @@ $(function() {
           longitude: 6.8397222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Audincourt (25031)</span><br />Population : 15094"
-          }
+            content:
+              '<span style="font-weight:bold;">Audincourt (25031)</span><br />Population : 15094',
+          },
         },
         "town-33075": {
           value: "15082",
@@ -5725,8 +6358,9 @@ $(function() {
           longitude: -0.6125,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Bruges (33075)</span><br />Population : 15082"
-          }
+            content:
+              '<span style="font-weight:bold;">Bruges (33075)</span><br />Population : 15082',
+          },
         },
         "town-61006": {
           value: "15082",
@@ -5734,8 +6368,9 @@ $(function() {
           longitude: -0.020277777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Argentan (61006)</span><br />Population : 15082"
-          }
+            content:
+              '<span style="font-weight:bold;">Argentan (61006)</span><br />Population : 15082',
+          },
         },
         "town-13027": {
           value: "15079",
@@ -5743,8 +6378,9 @@ $(function() {
           longitude: 4.855,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">ChÃ¢teaurenard (13027)</span><br />Population : 15079"
-          }
+            content:
+              '<span style="font-weight:bold;">ChÃ¢teaurenard (13027)</span><br />Population : 15079',
+          },
         },
         "town-95199": {
           value: "15075",
@@ -5752,8 +6388,9 @@ $(function() {
           longitude: 2.3266666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Domont (95199)</span><br />Population : 15075"
-          }
+            content:
+              '<span style="font-weight:bold;">Domont (95199)</span><br />Population : 15075',
+          },
         },
         "town-85092": {
           value: "15043",
@@ -5761,8 +6398,9 @@ $(function() {
           longitude: -0.80638888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Fontenay-le-Comte (85092)</span><br />Population : 15043"
-          }
+            content:
+              '<span style="font-weight:bold;">Fontenay-le-Comte (85092)</span><br />Population : 15043',
+          },
         },
         "town-02168": {
           value: "15020",
@@ -5770,8 +6408,9 @@ $(function() {
           longitude: 3.4030555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">ChÃ¢teau-Thierry (02168)</span><br />Population : 15020"
-          }
+            content:
+              '<span style="font-weight:bold;">ChÃ¢teau-Thierry (02168)</span><br />Population : 15020',
+          },
         },
         "town-97125": {
           value: "14998",
@@ -5779,8 +6418,9 @@ $(function() {
           longitude: -61.273888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-FranÃ§ois (97125)</span><br />Population : 14998"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-FranÃ§ois (97125)</span><br />Population : 14998',
+          },
         },
         "town-95563": {
           value: "14962",
@@ -5788,8 +6428,9 @@ $(function() {
           longitude: 2.2463888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Leu-la-ForÃªt (95563)</span><br />Population : 14962"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Leu-la-ForÃªt (95563)</span><br />Population : 14962',
+          },
         },
         "town-93013": {
           value: "14943",
@@ -5797,8 +6438,9 @@ $(function() {
           longitude: 2.4244444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Le Bourget (93013)</span><br />Population : 14943"
-          }
+            content:
+              '<span style="font-weight:bold;">Le Bourget (93013)</span><br />Population : 14943',
+          },
         },
         "town-77131": {
           value: "14920",
@@ -5806,8 +6448,9 @@ $(function() {
           longitude: 3.0836111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Coulommiers (77131)</span><br />Population : 14920"
-          }
+            content:
+              '<span style="font-weight:bold;">Coulommiers (77131)</span><br />Population : 14920',
+          },
         },
         "town-83116": {
           value: "14907",
@@ -5815,8 +6458,9 @@ $(function() {
           longitude: 5.8619444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Maximin-la-Sainte-Baume (83116)</span><br />Population : 14907"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Maximin-la-Sainte-Baume (83116)</span><br />Population : 14907',
+          },
         },
         "town-68154": {
           value: "14903",
@@ -5824,8 +6468,9 @@ $(function() {
           longitude: 7.3480555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Illzach (68154)</span><br />Population : 14903"
-          }
+            content:
+              '<span style="font-weight:bold;">Illzach (68154)</span><br />Population : 14903',
+          },
         },
         "town-85194": {
           value: "14888",
@@ -5833,8 +6478,9 @@ $(function() {
           longitude: -1.7847222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Les Sables-d'Olonne (85194)</span><br />Population : 14888"
-          }
+            content:
+              '<span style="font-weight:bold;">Les Sables-d\'Olonne (85194)</span><br />Population : 14888',
+          },
         },
         "town-56178": {
           value: "14860",
@@ -5842,8 +6488,9 @@ $(function() {
           longitude: -2.9627777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Pontivy (56178)</span><br />Population : 14860"
-          }
+            content:
+              '<span style="font-weight:bold;">Pontivy (56178)</span><br />Population : 14860',
+          },
         },
         "town-54431": {
           value: "14832",
@@ -5851,8 +6498,9 @@ $(function() {
           longitude: 6.0541666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Pont-Ã -Mousson (54431)</span><br />Population : 14832"
-          }
+            content:
+              '<span style="font-weight:bold;">Pont-Ã -Mousson (54431)</span><br />Population : 14832',
+          },
         },
         "town-59043": {
           value: "14772",
@@ -5860,8 +6508,9 @@ $(function() {
           longitude: 2.7338888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Bailleul (59043)</span><br />Population : 14772"
-          }
+            content:
+              '<span style="font-weight:bold;">Bailleul (59043)</span><br />Population : 14772',
+          },
         },
         "town-91326": {
           value: "14756",
@@ -5869,8 +6518,9 @@ $(function() {
           longitude: 2.3775,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Juvisy-sur-Orge (91326)</span><br />Population : 14756"
-          }
+            content:
+              '<span style="font-weight:bold;">Juvisy-sur-Orge (91326)</span><br />Population : 14756',
+          },
         },
         "town-54578": {
           value: "14753",
@@ -5878,8 +6528,9 @@ $(function() {
           longitude: 6.1547222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Villers-lÃ¨s-Nancy (54578)</span><br />Population : 14753"
-          }
+            content:
+              '<span style="font-weight:bold;">Villers-lÃ¨s-Nancy (54578)</span><br />Population : 14753',
+          },
         },
         "town-62643": {
           value: "14717",
@@ -5887,8 +6538,9 @@ $(function() {
           longitude: 1.5938888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Outreau (62643)</span><br />Population : 14717"
-          }
+            content:
+              '<span style="font-weight:bold;">Outreau (62643)</span><br />Population : 14717',
+          },
         },
         "town-54323": {
           value: "14707",
@@ -5896,8 +6548,9 @@ $(function() {
           longitude: 5.7605555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Longwy (54323)</span><br />Population : 14707"
-          }
+            content:
+              '<span style="font-weight:bold;">Longwy (54323)</span><br />Population : 14707',
+          },
         },
         "town-77258": {
           value: "14697",
@@ -5905,8 +6558,9 @@ $(function() {
           longitude: 2.6277777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Lognes (77258)</span><br />Population : 14697"
-          }
+            content:
+              '<span style="font-weight:bold;">Lognes (77258)</span><br />Population : 14697',
+          },
         },
         "town-94069": {
           value: "14647",
@@ -5914,8 +6568,9 @@ $(function() {
           longitude: 2.4347222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Maurice (94069)</span><br />Population : 14647"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Maurice (94069)</span><br />Population : 14647',
+          },
         },
         "town-59139": {
           value: "14632",
@@ -5923,8 +6578,9 @@ $(function() {
           longitude: 3.4116666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Caudry (59139)</span><br />Population : 14632"
-          }
+            content:
+              '<span style="font-weight:bold;">Caudry (59139)</span><br />Population : 14632',
+          },
         },
         "town-23096": {
           value: "14577",
@@ -5932,8 +6588,9 @@ $(function() {
           longitude: 1.8683333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">GuÃ©ret (23096)</span><br />Population : 14577"
-          }
+            content:
+              '<span style="font-weight:bold;">GuÃ©ret (23096)</span><br />Population : 14577',
+          },
         },
         "town-59286": {
           value: "14569",
@@ -5941,8 +6598,9 @@ $(function() {
           longitude: 2.9869444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Haubourdin (59286)</span><br />Population : 14569"
-          }
+            content:
+              '<span style="font-weight:bold;">Haubourdin (59286)</span><br />Population : 14569',
+          },
         },
         "town-95539": {
           value: "14487",
@@ -5950,8 +6608,9 @@ $(function() {
           longitude: 2.3569444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Brice-sous-ForÃªt (95539)</span><br />Population : 14487"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Brice-sous-ForÃªt (95539)</span><br />Population : 14487',
+          },
         },
         "town-63178": {
           value: "14475",
@@ -5959,8 +6618,9 @@ $(function() {
           longitude: 3.2488888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Issoire (63178)</span><br />Population : 14475"
-          }
+            content:
+              '<span style="font-weight:bold;">Issoire (63178)</span><br />Population : 14475',
+          },
         },
         "town-44131": {
           value: "14450",
@@ -5968,8 +6628,9 @@ $(function() {
           longitude: -2.1033333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Pornic (44131)</span><br />Population : 14450"
-          }
+            content:
+              '<span style="font-weight:bold;">Pornic (44131)</span><br />Population : 14450',
+          },
         },
         "town-42279": {
           value: "14425",
@@ -5977,8 +6638,9 @@ $(function() {
           longitude: 4.24,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Just-Saint-Rambert (42279)</span><br />Population : 14425"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Just-Saint-Rambert (42279)</span><br />Population : 14425',
+          },
         },
         "town-95427": {
           value: "14423",
@@ -5986,8 +6648,9 @@ $(function() {
           longitude: 2.3458333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Montmagny (95427)</span><br />Population : 14423"
-          }
+            content:
+              '<span style="font-weight:bold;">Montmagny (95427)</span><br />Population : 14423',
+          },
         },
         "town-68376": {
           value: "14403",
@@ -5995,8 +6658,9 @@ $(function() {
           longitude: 7.3369444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Wittenheim (68376)</span><br />Population : 14403"
-          }
+            content:
+              '<span style="font-weight:bold;">Wittenheim (68376)</span><br />Population : 14403',
+          },
         },
         "town-22187": {
           value: "14393",
@@ -6004,8 +6668,9 @@ $(function() {
           longitude: -2.7708333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">PlÃ©rin (22187)</span><br />Population : 14393"
-          }
+            content:
+              '<span style="font-weight:bold;">PlÃ©rin (22187)</span><br />Population : 14393',
+          },
         },
         "town-37208": {
           value: "14375",
@@ -6013,8 +6678,9 @@ $(function() {
           longitude: 0.72666666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Avertin (37208)</span><br />Population : 14375"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Avertin (37208)</span><br />Population : 14375',
+          },
         },
         "town-60176": {
           value: "14364",
@@ -6022,8 +6688,9 @@ $(function() {
           longitude: 2.8875,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">CrÃ©py-en-Valois (60176)</span><br />Population : 14364"
-          }
+            content:
+              '<span style="font-weight:bold;">CrÃ©py-en-Valois (60176)</span><br />Population : 14364',
+          },
         },
         "town-59291": {
           value: "14358",
@@ -6031,8 +6698,9 @@ $(function() {
           longitude: 3.9244444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Hautmont (59291)</span><br />Population : 14358"
-          }
+            content:
+              '<span style="font-weight:bold;">Hautmont (59291)</span><br />Population : 14358',
+          },
         },
         "town-02738": {
           value: "14320",
@@ -6040,8 +6708,9 @@ $(function() {
           longitude: 3.2872222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Tergnier (02738)</span><br />Population : 14320"
-          }
+            content:
+              '<span style="font-weight:bold;">Tergnier (02738)</span><br />Population : 14320',
+          },
         },
         "town-01004": {
           value: "14316",
@@ -6049,8 +6718,9 @@ $(function() {
           longitude: 5.3577777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">AmbÃ©rieu-en-Bugey (01004)</span><br />Population : 14316"
-          }
+            content:
+              '<span style="font-weight:bold;">AmbÃ©rieu-en-Bugey (01004)</span><br />Population : 14316',
+          },
         },
         "town-85166": {
           value: "14316",
@@ -6058,8 +6728,9 @@ $(function() {
           longitude: -1.7727777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Olonne-sur-Mer (85166)</span><br />Population : 14316"
-          }
+            content:
+              '<span style="font-weight:bold;">Olonne-sur-Mer (85166)</span><br />Population : 14316',
+          },
         },
         "town-77014": {
           value: "14287",
@@ -6067,8 +6738,9 @@ $(function() {
           longitude: 2.725,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Avon (77014)</span><br />Population : 14287"
-          }
+            content:
+              '<span style="font-weight:bold;">Avon (77014)</span><br />Population : 14287',
+          },
         },
         "town-53147": {
           value: "14264",
@@ -6076,8 +6748,9 @@ $(function() {
           longitude: -0.61361111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Mayenne (53147)</span><br />Population : 14264"
-          }
+            content:
+              '<span style="font-weight:bold;">Mayenne (53147)</span><br />Population : 14264',
+          },
         },
         "town-21166": {
           value: "14233",
@@ -6085,8 +6758,9 @@ $(function() {
           longitude: 5.0072222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">ChenÃ´ve (21166)</span><br />Population : 14233"
-          }
+            content:
+              '<span style="font-weight:bold;">ChenÃ´ve (21166)</span><br />Population : 14233',
+          },
         },
         "town-93062": {
           value: "14194",
@@ -6094,8 +6768,9 @@ $(function() {
           longitude: 2.5230555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Le Raincy (93062)</span><br />Population : 14194"
-          }
+            content:
+              '<span style="font-weight:bold;">Le Raincy (93062)</span><br />Population : 14194',
+          },
         },
         "town-84019": {
           value: "14092",
@@ -6103,8 +6778,9 @@ $(function() {
           longitude: 4.7488888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">BollÃ¨ne (84019)</span><br />Population : 14092"
-          }
+            content:
+              '<span style="font-weight:bold;">BollÃ¨ne (84019)</span><br />Population : 14092',
+          },
         },
         "town-28088": {
           value: "14035",
@@ -6112,8 +6788,9 @@ $(function() {
           longitude: 1.3377777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">ChÃ¢teaudun (28088)</span><br />Population : 14035"
-          }
+            content:
+              '<span style="font-weight:bold;">ChÃ¢teaudun (28088)</span><br />Population : 14035',
+          },
         },
         "town-13015": {
           value: "14028",
@@ -6121,8 +6798,9 @@ $(function() {
           longitude: 5.4144444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Bouc-Bel-Air (13015)</span><br />Population : 14028"
-          }
+            content:
+              '<span style="font-weight:bold;">Bouc-Bel-Air (13015)</span><br />Population : 14028',
+          },
         },
         "town-91182": {
           value: "13968",
@@ -6130,8 +6808,9 @@ $(function() {
           longitude: 2.4069444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Courcouronnes (91182)</span><br />Population : 13968"
-          }
+            content:
+              '<span style="font-weight:bold;">Courcouronnes (91182)</span><br />Population : 13968',
+          },
         },
         "town-97230": {
           value: "13965",
@@ -6139,8 +6818,9 @@ $(function() {
           longitude: -60.963055555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">La TrinitÃ© (97230)</span><br />Population : 13965"
-          }
+            content:
+              '<span style="font-weight:bold;">La TrinitÃ© (97230)</span><br />Population : 13965',
+          },
         },
         "town-60471": {
           value: "13907",
@@ -6148,8 +6828,9 @@ $(function() {
           longitude: 2.9988888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Noyon (60471)</span><br />Population : 13907"
-          }
+            content:
+              '<span style="font-weight:bold;">Noyon (60471)</span><br />Population : 13907',
+          },
         },
         "town-74225": {
           value: "13892",
@@ -6157,8 +6838,9 @@ $(function() {
           longitude: 5.9444444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Rumilly (74225)</span><br />Population : 13892"
-          }
+            content:
+              '<span style="font-weight:bold;">Rumilly (74225)</span><br />Population : 13892',
+          },
         },
         "town-78073": {
           value: "13880",
@@ -6166,8 +6848,9 @@ $(function() {
           longitude: 2.0316666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Bois-d'Arcy (78073)</span><br />Population : 13880"
-          }
+            content:
+              '<span style="font-weight:bold;">Bois-d\'Arcy (78073)</span><br />Population : 13880',
+          },
         },
         "town-03095": {
           value: "13873",
@@ -6175,8 +6858,9 @@ $(function() {
           longitude: 3.4563888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Cusset (03095)</span><br />Population : 13873"
-          }
+            content:
+              '<span style="font-weight:bold;">Cusset (03095)</span><br />Population : 13873',
+          },
         },
         "town-29075": {
           value: "13845",
@@ -6184,8 +6868,9 @@ $(function() {
           longitude: -4.4008333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Guipavas (29075)</span><br />Population : 13845"
-          }
+            content:
+              '<span style="font-weight:bold;">Guipavas (29075)</span><br />Population : 13845',
+          },
         },
         "town-31044": {
           value: "13832",
@@ -6193,8 +6878,9 @@ $(function() {
           longitude: 1.4986111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Balma (31044)</span><br />Population : 13832"
-          }
+            content:
+              '<span style="font-weight:bold;">Balma (31044)</span><br />Population : 13832',
+          },
         },
         "town-51649": {
           value: "13826",
@@ -6202,8 +6888,9 @@ $(function() {
           longitude: 4.5844444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Vitry-le-FranÃ§ois (51649)</span><br />Population : 13826"
-          }
+            content:
+              '<span style="font-weight:bold;">Vitry-le-FranÃ§ois (51649)</span><br />Population : 13826',
+          },
         },
         "town-85060": {
           value: "13802",
@@ -6211,8 +6898,9 @@ $(function() {
           longitude: -1.7372222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">ChÃ¢teau-d'Olonne (85060)</span><br />Population : 13802"
-          }
+            content:
+              '<span style="font-weight:bold;">ChÃ¢teau-d\'Olonne (85060)</span><br />Population : 13802',
+          },
         },
         "town-10323": {
           value: "13774",
@@ -6220,8 +6908,9 @@ $(function() {
           longitude: 3.7266666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Romilly-sur-Seine (10323)</span><br />Population : 13774"
-          }
+            content:
+              '<span style="font-weight:bold;">Romilly-sur-Seine (10323)</span><br />Population : 13774',
+          },
         },
         "town-57160": {
           value: "13770",
@@ -6229,8 +6918,9 @@ $(function() {
           longitude: 6.6958333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Creutzwald (57160)</span><br />Population : 13770"
-          }
+            content:
+              '<span style="font-weight:bold;">Creutzwald (57160)</span><br />Population : 13770',
+          },
         },
         "town-30258": {
           value: "13767",
@@ -6238,8 +6928,9 @@ $(function() {
           longitude: 4.4311111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Gilles (30258)</span><br />Population : 13767"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Gilles (30258)</span><br />Population : 13767',
+          },
         },
         "town-59421": {
           value: "13752",
@@ -6247,8 +6938,9 @@ $(function() {
           longitude: 3.1405555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Mouvaux (59421)</span><br />Population : 13752"
-          }
+            content:
+              '<span style="font-weight:bold;">Mouvaux (59421)</span><br />Population : 13752',
+          },
         },
         "town-50218": {
           value: "13723",
@@ -6256,8 +6948,9 @@ $(function() {
           longitude: -1.5869444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Granville (50218)</span><br />Population : 13723"
-          }
+            content:
+              '<span style="font-weight:bold;">Granville (50218)</span><br />Population : 13723',
+          },
         },
         "town-91386": {
           value: "13710",
@@ -6265,8 +6958,9 @@ $(function() {
           longitude: 2.4361111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Mennecy (91386)</span><br />Population : 13710"
-          }
+            content:
+              '<span style="font-weight:bold;">Mennecy (91386)</span><br />Population : 13710',
+          },
         },
         "town-14047": {
           value: "13702",
@@ -6274,8 +6968,9 @@ $(function() {
           longitude: -0.70388888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Bayeux (14047)</span><br />Population : 13702"
-          }
+            content:
+              '<span style="font-weight:bold;">Bayeux (14047)</span><br />Population : 13702',
+          },
         },
         "town-13014": {
           value: "13696",
@@ -6283,8 +6978,9 @@ $(function() {
           longitude: 5.1680555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Berre-l'Ã‰tang (13014)</span><br />Population : 13696"
-          }
+            content:
+              '<span style="font-weight:bold;">Berre-l\'Ã‰tang (13014)</span><br />Population : 13696',
+          },
         },
         "town-27701": {
           value: "13688",
@@ -6292,8 +6988,9 @@ $(function() {
           longitude: 1.2102777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Val-de-Reuil (27701)</span><br />Population : 13688"
-          }
+            content:
+              '<span style="font-weight:bold;">Val-de-Reuil (27701)</span><br />Population : 13688',
+          },
         },
         "town-06012": {
           value: "13684",
@@ -6301,8 +6998,9 @@ $(function() {
           longitude: 7.4236111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Beausoleil (06012)</span><br />Population : 13684"
-          }
+            content:
+              '<span style="font-weight:bold;">Beausoleil (06012)</span><br />Population : 13684',
+          },
         },
         "town-97404": {
           value: "13659",
@@ -6310,8 +7008,9 @@ $(function() {
           longitude: 55.366944444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">L'Ã‰tang-SalÃ© (97404)</span><br />Population : 13659"
-          }
+            content:
+              '<span style="font-weight:bold;">L\'Ã‰tang-SalÃ© (97404)</span><br />Population : 13659',
+          },
         },
         "town-95019": {
           value: "13656",
@@ -6319,8 +7018,9 @@ $(function() {
           longitude: 2.4166666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Arnouville (95019)</span><br />Population : 13656"
-          }
+            content:
+              '<span style="font-weight:bold;">Arnouville (95019)</span><br />Population : 13656',
+          },
         },
         "town-59014": {
           value: "13639",
@@ -6328,8 +7028,9 @@ $(function() {
           longitude: 3.5044444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Anzin (59014)</span><br />Population : 13639"
-          }
+            content:
+              '<span style="font-weight:bold;">Anzin (59014)</span><br />Population : 13639',
+          },
         },
         "town-29189": {
           value: "13587",
@@ -6337,8 +7038,9 @@ $(function() {
           longitude: -4.3705555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Plougastel-Daoulas (29189)</span><br />Population : 13587"
-          }
+            content:
+              '<span style="font-weight:bold;">Plougastel-Daoulas (29189)</span><br />Population : 13587',
+          },
         },
         "town-81099": {
           value: "13558",
@@ -6346,8 +7048,9 @@ $(function() {
           longitude: 1.8983333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Gaillac (81099)</span><br />Population : 13558"
-          }
+            content:
+              '<span style="font-weight:bold;">Gaillac (81099)</span><br />Population : 13558',
+          },
         },
         "town-03321": {
           value: "13545",
@@ -6355,8 +7058,9 @@ $(function() {
           longitude: 3.3544444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Yzeure (03321)</span><br />Population : 13545"
-          }
+            content:
+              '<span style="font-weight:bold;">Yzeure (03321)</span><br />Population : 13545',
+          },
         },
         "town-66037": {
           value: "13528",
@@ -6364,8 +7068,9 @@ $(function() {
           longitude: 3.0072222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Canet-en-Roussillon (66037)</span><br />Population : 13528"
-          }
+            content:
+              '<span style="font-weight:bold;">Canet-en-Roussillon (66037)</span><br />Population : 13528',
+          },
         },
         "town-33003": {
           value: "13511",
@@ -6373,8 +7078,9 @@ $(function() {
           longitude: -0.48666666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">AmbarÃ¨s-et-Lagrave (33003)</span><br />Population : 13511"
-          }
+            content:
+              '<span style="font-weight:bold;">AmbarÃ¨s-et-Lagrave (33003)</span><br />Population : 13511',
+          },
         },
         "town-57240": {
           value: "13481",
@@ -6382,8 +7088,9 @@ $(function() {
           longitude: 6.7988888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Freyming-Merlebach (57240)</span><br />Population : 13481"
-          }
+            content:
+              '<span style="font-weight:bold;">Freyming-Merlebach (57240)</span><br />Population : 13481',
+          },
         },
         "town-60395": {
           value: "13473",
@@ -6391,8 +7098,9 @@ $(function() {
           longitude: 2.135,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">MÃ©ru (60395)</span><br />Population : 13473"
-          }
+            content:
+              '<span style="font-weight:bold;">MÃ©ru (60395)</span><br />Population : 13473',
+          },
         },
         "town-36088": {
           value: "13452",
@@ -6400,8 +7108,9 @@ $(function() {
           longitude: 1.9933333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Issoudun (36088)</span><br />Population : 13452"
-          }
+            content:
+              '<span style="font-weight:bold;">Issoudun (36088)</span><br />Population : 13452',
+          },
         },
         "town-64483": {
           value: "13448",
@@ -6409,8 +7118,9 @@ $(function() {
           longitude: -1.6597222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Jean-de-Luz (64483)</span><br />Population : 13448"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Jean-de-Luz (64483)</span><br />Population : 13448',
+          },
         },
         "town-64129": {
           value: "13439",
@@ -6418,8 +7128,9 @@ $(function() {
           longitude: -0.39722222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">BillÃ¨re (64129)</span><br />Population : 13439"
-          }
+            content:
+              '<span style="font-weight:bold;">BillÃ¨re (64129)</span><br />Population : 13439',
+          },
         },
         "town-10081": {
           value: "13436",
@@ -6427,8 +7138,9 @@ $(function() {
           longitude: 4.0444444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">La Chapelle-Saint-Luc (10081)</span><br />Population : 13436"
-          }
+            content:
+              '<span style="font-weight:bold;">La Chapelle-Saint-Luc (10081)</span><br />Population : 13436',
+          },
         },
         "town-59648": {
           value: "13427",
@@ -6436,8 +7148,9 @@ $(function() {
           longitude: 3.0430555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Wattignies (59648)</span><br />Population : 13427"
-          }
+            content:
+              '<span style="font-weight:bold;">Wattignies (59648)</span><br />Population : 13427',
+          },
         },
         "town-13108": {
           value: "13426",
@@ -6445,8 +7158,9 @@ $(function() {
           longitude: 4.6594444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Tarascon (13108)</span><br />Population : 13426"
-          }
+            content:
+              '<span style="font-weight:bold;">Tarascon (13108)</span><br />Population : 13426',
+          },
         },
         "town-45068": {
           value: "13398",
@@ -6454,8 +7168,9 @@ $(function() {
           longitude: 2.7358333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">ChÃ¢lette-sur-Loing (45068)</span><br />Population : 13398"
-          }
+            content:
+              '<span style="font-weight:bold;">ChÃ¢lette-sur-Loing (45068)</span><br />Population : 13398',
+          },
         },
         "town-26235": {
           value: "13337",
@@ -6463,8 +7178,9 @@ $(function() {
           longitude: 4.6961111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Pierrelatte (26235)</span><br />Population : 13337"
-          }
+            content:
+              '<span style="font-weight:bold;">Pierrelatte (26235)</span><br />Population : 13337',
+          },
         },
         "town-97220": {
           value: "13325",
@@ -6472,8 +7188,9 @@ $(function() {
           longitude: -60.903333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">RiviÃ¨re-Pilote (97220)</span><br />Population : 13325"
-          }
+            content:
+              '<span style="font-weight:bold;">RiviÃ¨re-Pilote (97220)</span><br />Population : 13325',
+          },
         },
         "town-68278": {
           value: "13251",
@@ -6481,8 +7198,9 @@ $(function() {
           longitude: 7.4044444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Rixheim (68278)</span><br />Population : 13251"
-          }
+            content:
+              '<span style="font-weight:bold;">Rixheim (68278)</span><br />Population : 13251',
+          },
         },
         "town-82033": {
           value: "13249",
@@ -6490,8 +7208,9 @@ $(function() {
           longitude: 1.1069444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Castelsarrasin (82033)</span><br />Population : 13249"
-          }
+            content:
+              '<span style="font-weight:bold;">Castelsarrasin (82033)</span><br />Population : 13249',
+          },
         },
         "town-37003": {
           value: "13242",
@@ -6499,8 +7218,9 @@ $(function() {
           longitude: 0.9825,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Amboise (37003)</span><br />Population : 13242"
-          }
+            content:
+              '<span style="font-weight:bold;">Amboise (37003)</span><br />Population : 13242',
+          },
         },
         "town-83115": {
           value: "13220",
@@ -6508,8 +7228,9 @@ $(function() {
           longitude: 6.6377777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Sainte-Maxime (83115)</span><br />Population : 13220"
-          }
+            content:
+              '<span style="font-weight:bold;">Sainte-Maxime (83115)</span><br />Population : 13220',
+          },
         },
         "town-48095": {
           value: "13213",
@@ -6517,8 +7238,9 @@ $(function() {
           longitude: 3.5005555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Mende (48095)</span><br />Population : 13213"
-          }
+            content:
+              '<span style="font-weight:bold;">Mende (48095)</span><br />Population : 13213',
+          },
         },
         "town-57751": {
           value: "13203",
@@ -6526,8 +7248,9 @@ $(function() {
           longitude: 6.1513888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Woippy (57751)</span><br />Population : 13203"
-          }
+            content:
+              '<span style="font-weight:bold;">Woippy (57751)</span><br />Population : 13203',
+          },
         },
         "town-69089": {
           value: "13159",
@@ -6535,8 +7258,9 @@ $(function() {
           longitude: 4.7636111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Francheville (69089)</span><br />Population : 13159"
-          }
+            content:
+              '<span style="font-weight:bold;">Francheville (69089)</span><br />Population : 13159',
+          },
         },
         "town-83107": {
           value: "13125",
@@ -6544,8 +7268,9 @@ $(function() {
           longitude: 6.6377777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Roquebrune-sur-Argens (83107)</span><br />Population : 13125"
-          }
+            content:
+              '<span style="font-weight:bold;">Roquebrune-sur-Argens (83107)</span><br />Population : 13125',
+          },
         },
         "town-68166": {
           value: "13068",
@@ -6553,8 +7278,9 @@ $(function() {
           longitude: 7.3380555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Kingersheim (68166)</span><br />Population : 13068"
-          }
+            content:
+              '<span style="font-weight:bold;">Kingersheim (68166)</span><br />Population : 13068',
+          },
         },
         "town-59367": {
           value: "13067",
@@ -6562,8 +7288,9 @@ $(function() {
           longitude: 3.2144444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Lys-lez-Lannoy (59367)</span><br />Population : 13067"
-          }
+            content:
+              '<span style="font-weight:bold;">Lys-lez-Lannoy (59367)</span><br />Population : 13067',
+          },
         },
         "town-97221": {
           value: "13040",
@@ -6571,8 +7298,9 @@ $(function() {
           longitude: -60.981388888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">RiviÃ¨re-SalÃ©e (97221)</span><br />Population : 13040"
-          }
+            content:
+              '<span style="font-weight:bold;">RiviÃ¨re-SalÃ©e (97221)</span><br />Population : 13040',
+          },
         },
         "town-83090": {
           value: "13037",
@@ -6580,8 +7308,9 @@ $(function() {
           longitude: 5.8469444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Ollioules (83090)</span><br />Population : 13037"
-          }
+            content:
+              '<span style="font-weight:bold;">Ollioules (83090)</span><br />Population : 13037',
+          },
         },
         "town-42044": {
           value: "13023",
@@ -6589,8 +7318,9 @@ $(function() {
           longitude: 4.325,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Le Chambon-Feugerolles (42044)</span><br />Population : 13023"
-          }
+            content:
+              '<span style="font-weight:bold;">Le Chambon-Feugerolles (42044)</span><br />Population : 13023',
+          },
         },
         "town-59508": {
           value: "13016",
@@ -6598,8 +7328,9 @@ $(function() {
           longitude: 3.1202777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Roncq (59508)</span><br />Population : 13016"
-          }
+            content:
+              '<span style="font-weight:bold;">Roncq (59508)</span><br />Population : 13016',
+          },
         },
         "town-72264": {
           value: "12989",
@@ -6607,8 +7338,9 @@ $(function() {
           longitude: -0.33416666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">SablÃ©-sur-Sarthe (72264)</span><br />Population : 12989"
-          }
+            content:
+              '<span style="font-weight:bold;">SablÃ©-sur-Sarthe (72264)</span><br />Population : 12989',
+          },
         },
         "town-49015": {
           value: "12951",
@@ -6616,8 +7348,9 @@ $(function() {
           longitude: -0.58888888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">AvrillÃ© (49015)</span><br />Population : 12951"
-          }
+            content:
+              '<span style="font-weight:bold;">AvrillÃ© (49015)</span><br />Population : 12951',
+          },
         },
         "town-59249": {
           value: "12941",
@@ -6625,8 +7358,9 @@ $(function() {
           longitude: 4.0533333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Fourmies (59249)</span><br />Population : 12941"
-          }
+            content:
+              '<span style="font-weight:bold;">Fourmies (59249)</span><br />Population : 12941',
+          },
         },
         "town-77333": {
           value: "12907",
@@ -6634,8 +7368,9 @@ $(function() {
           longitude: 2.6936111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Nemours (77333)</span><br />Population : 12907"
-          }
+            content:
+              '<span style="font-weight:bold;">Nemours (77333)</span><br />Population : 12907',
+          },
         },
         "town-40279": {
           value: "12904",
@@ -6643,8 +7378,9 @@ $(function() {
           longitude: -1.0527777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Paul-lÃ¨s-Dax (40279)</span><br />Population : 12904"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Paul-lÃ¨s-Dax (40279)</span><br />Population : 12904',
+          },
         },
         "town-57630": {
           value: "12886",
@@ -6652,8 +7388,9 @@ $(function() {
           longitude: 7.0538888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Sarrebourg (57630)</span><br />Population : 12886"
-          }
+            content:
+              '<span style="font-weight:bold;">Sarrebourg (57630)</span><br />Population : 12886',
+          },
         },
         "town-12300": {
           value: "12881",
@@ -6661,8 +7398,9 @@ $(function() {
           longitude: 2.0341666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Villefranche-de-Rouergue (12300)</span><br />Population : 12881"
-          }
+            content:
+              '<span style="font-weight:bold;">Villefranche-de-Rouergue (12300)</span><br />Population : 12881',
+          },
         },
         "town-30351": {
           value: "12872",
@@ -6670,8 +7408,9 @@ $(function() {
           longitude: 4.7958333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Villeneuve-lÃ¨s-Avignon (30351)</span><br />Population : 12872"
-          }
+            content:
+              '<span style="font-weight:bold;">Villeneuve-lÃ¨s-Avignon (30351)</span><br />Population : 12872',
+          },
         },
         "town-78242": {
           value: "12865",
@@ -6679,8 +7418,9 @@ $(function() {
           longitude: 2.0486111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Fontenay-le-Fleury (78242)</span><br />Population : 12865"
-          }
+            content:
+              '<span style="font-weight:bold;">Fontenay-le-Fleury (78242)</span><br />Population : 12865',
+          },
         },
         "town-59491": {
           value: "12860",
@@ -6688,8 +7428,9 @@ $(function() {
           longitude: 3.4858333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Raismes (59491)</span><br />Population : 12860"
-          }
+            content:
+              '<span style="font-weight:bold;">Raismes (59491)</span><br />Population : 12860',
+          },
         },
         "town-57206": {
           value: "12829",
@@ -6697,8 +7438,9 @@ $(function() {
           longitude: 6.1097222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Fameck (57206)</span><br />Population : 12829"
-          }
+            content:
+              '<span style="font-weight:bold;">Fameck (57206)</span><br />Population : 12829',
+          },
         },
         "town-06152": {
           value: "12803",
@@ -6706,8 +7448,9 @@ $(function() {
           longitude: 7.0088888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Valbonne (06152)</span><br />Population : 12803"
-          }
+            content:
+              '<span style="font-weight:bold;">Valbonne (06152)</span><br />Population : 12803',
+          },
         },
         "town-67046": {
           value: "12800",
@@ -6715,8 +7458,9 @@ $(function() {
           longitude: 7.8569444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Bischwiller (67046)</span><br />Population : 12800"
-          }
+            content:
+              '<span style="font-weight:bold;">Bischwiller (67046)</span><br />Population : 12800',
+          },
         },
         "town-06104": {
           value: "12700",
@@ -6724,8 +7468,9 @@ $(function() {
           longitude: 7.4741666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Roquebrune-Cap-Martin (06104)</span><br />Population : 12700"
-          }
+            content:
+              '<span style="font-weight:bold;">Roquebrune-Cap-Martin (06104)</span><br />Population : 12700',
+          },
         },
         "town-56007": {
           value: "12695",
@@ -6733,8 +7478,9 @@ $(function() {
           longitude: -2.9825,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Auray (56007)</span><br />Population : 12695"
-          }
+            content:
+              '<span style="font-weight:bold;">Auray (56007)</span><br />Population : 12695',
+          },
         },
         "town-77379": {
           value: "12684",
@@ -6742,8 +7488,9 @@ $(function() {
           longitude: 3.2994444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Provins (77379)</span><br />Population : 12684"
-          }
+            content:
+              '<span style="font-weight:bold;">Provins (77379)</span><br />Population : 12684',
+          },
         },
         "town-93079": {
           value: "12662",
@@ -6751,8 +7498,9 @@ $(function() {
           longitude: 2.3441666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Villetaneuse (93079)</span><br />Population : 12662"
-          }
+            content:
+              '<span style="font-weight:bold;">Villetaneuse (93079)</span><br />Population : 12662',
+          },
         },
         "town-60414": {
           value: "12661",
@@ -6760,8 +7508,9 @@ $(function() {
           longitude: 2.4383333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Montataire (60414)</span><br />Population : 12661"
-          }
+            content:
+              '<span style="font-weight:bold;">Montataire (60414)</span><br />Population : 12661',
+          },
         },
         "town-68271": {
           value: "12661",
@@ -6769,8 +7518,9 @@ $(function() {
           longitude: 7.3669444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Riedisheim (68271)</span><br />Population : 12661"
-          }
+            content:
+              '<span style="font-weight:bold;">Riedisheim (68271)</span><br />Population : 12661',
+          },
         },
         "town-14762": {
           value: "12638",
@@ -6778,8 +7528,9 @@ $(function() {
           longitude: -0.88916666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Vire (14762)</span><br />Population : 12638"
-          }
+            content:
+              '<span style="font-weight:bold;">Vire (14762)</span><br />Population : 12638',
+          },
         },
         "town-44036": {
           value: "12630",
@@ -6787,8 +7538,9 @@ $(function() {
           longitude: -1.3761111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">ChÃ¢teaubriant (44036)</span><br />Population : 12630"
-          }
+            content:
+              '<span style="font-weight:bold;">ChÃ¢teaubriant (44036)</span><br />Population : 12630',
+          },
         },
         "town-82112": {
           value: "12620",
@@ -6796,8 +7548,9 @@ $(function() {
           longitude: 1.0852777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Moissac (82112)</span><br />Population : 12620"
-          }
+            content:
+              '<span style="font-weight:bold;">Moissac (82112)</span><br />Population : 12620',
+          },
         },
         "town-57660": {
           value: "12609",
@@ -6805,8 +7558,9 @@ $(function() {
           longitude: 6.9291666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Stiring-Wendel (57660)</span><br />Population : 12609"
-          }
+            content:
+              '<span style="font-weight:bold;">Stiring-Wendel (57660)</span><br />Population : 12609',
+          },
         },
         "town-59574": {
           value: "12602",
@@ -6814,8 +7568,9 @@ $(function() {
           longitude: 3.2802777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Somain (59574)</span><br />Population : 12602"
-          }
+            content:
+              '<span style="font-weight:bold;">Somain (59574)</span><br />Population : 12602',
+          },
         },
         "town-77407": {
           value: "12602",
@@ -6823,8 +7578,9 @@ $(function() {
           longitude: 2.5447222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Fargeau-Ponthierry (77407)</span><br />Population : 12602"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Fargeau-Ponthierry (77407)</span><br />Population : 12602',
+          },
         },
         "town-49353": {
           value: "12571",
@@ -6832,8 +7588,9 @@ $(function() {
           longitude: -0.46638888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">TrÃ©lazÃ© (49353)</span><br />Population : 12571"
-          }
+            content:
+              '<span style="font-weight:bold;">TrÃ©lazÃ© (49353)</span><br />Population : 12571',
+          },
         },
         "town-64348": {
           value: "12564",
@@ -6841,8 +7598,9 @@ $(function() {
           longitude: -0.41083333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Lons (64348)</span><br />Population : 12564"
-          }
+            content:
+              '<span style="font-weight:bold;">Lons (64348)</span><br />Population : 12564',
+          },
         },
         "town-22093": {
           value: "12539",
@@ -6850,8 +7608,9 @@ $(function() {
           longitude: -2.5177777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Lamballe (22093)</span><br />Population : 12539"
-          }
+            content:
+              '<span style="font-weight:bold;">Lamballe (22093)</span><br />Population : 12539',
+          },
         },
         "town-44154": {
           value: "12521",
@@ -6859,8 +7618,9 @@ $(function() {
           longitude: -2.1669444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Brevin-les-Pins (44154)</span><br />Population : 12521"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Brevin-les-Pins (44154)</span><br />Population : 12521',
+          },
         },
         "town-40046": {
           value: "12492",
@@ -6868,8 +7628,9 @@ $(function() {
           longitude: -1.1638888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Biscarrosse (40046)</span><br />Population : 12492"
-          }
+            content:
+              '<span style="font-weight:bold;">Biscarrosse (40046)</span><br />Population : 12492',
+          },
         },
         "town-59152": {
           value: "12469",
@@ -6877,8 +7638,9 @@ $(function() {
           longitude: 3.0077777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Comines (59152)</span><br />Population : 12469"
-          }
+            content:
+              '<span style="font-weight:bold;">Comines (59152)</span><br />Population : 12469',
+          },
         },
         "town-62186": {
           value: "12469",
@@ -6886,8 +7648,9 @@ $(function() {
           longitude: 2.7244444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Bully-les-Mines (62186)</span><br />Population : 12469"
-          }
+            content:
+              '<span style="font-weight:bold;">Bully-les-Mines (62186)</span><br />Population : 12469',
+          },
         },
         "town-77479": {
           value: "12459",
@@ -6895,8 +7658,9 @@ $(function() {
           longitude: 2.6380555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Vaires-sur-Marne (77479)</span><br />Population : 12459"
-          }
+            content:
+              '<span style="font-weight:bold;">Vaires-sur-Marne (77479)</span><br />Population : 12459',
+          },
         },
         "town-62413": {
           value: "12451",
@@ -6904,8 +7668,9 @@ $(function() {
           longitude: 2.9058333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Harnes (62413)</span><br />Population : 12451"
-          }
+            content:
+              '<span style="font-weight:bold;">Harnes (62413)</span><br />Population : 12451',
+          },
         },
         "town-29233": {
           value: "12443",
@@ -6913,8 +7678,9 @@ $(function() {
           longitude: -3.5497222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">QuimperlÃ© (29233)</span><br />Population : 12443"
-          }
+            content:
+              '<span style="font-weight:bold;">QuimperlÃ© (29233)</span><br />Population : 12443',
+          },
         },
         "town-59560": {
           value: "12429",
@@ -6922,8 +7688,9 @@ $(function() {
           longitude: 3.0294444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Seclin (59560)</span><br />Population : 12429"
-          }
+            content:
+              '<span style="font-weight:bold;">Seclin (59560)</span><br />Population : 12429',
+          },
         },
         "town-02173": {
           value: "12420",
@@ -6931,8 +7698,9 @@ $(function() {
           longitude: 3.2191666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Chauny (02173)</span><br />Population : 12420"
-          }
+            content:
+              '<span style="font-weight:bold;">Chauny (02173)</span><br />Population : 12420',
+          },
         },
         "town-59112": {
           value: "12413",
@@ -6940,8 +7708,9 @@ $(function() {
           longitude: 3.5394444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Bruay-sur-l'Escaut (59112)</span><br />Population : 12413"
-          }
+            content:
+              '<span style="font-weight:bold;">Bruay-sur-l\'Escaut (59112)</span><br />Population : 12413',
+          },
         },
         "town-76057": {
           value: "12371",
@@ -6949,8 +7718,9 @@ $(function() {
           longitude: 0.95361111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Barentin (76057)</span><br />Population : 12371"
-          }
+            content:
+              '<span style="font-weight:bold;">Barentin (76057)</span><br />Population : 12371',
+          },
         },
         "town-67437": {
           value: "12354",
@@ -6958,8 +7728,9 @@ $(function() {
           longitude: 7.3619444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saverne (67437)</span><br />Population : 12354"
-          }
+            content:
+              '<span style="font-weight:bold;">Saverne (67437)</span><br />Population : 12354',
+          },
         },
         "town-69277": {
           value: "12340",
@@ -6967,8 +7738,9 @@ $(function() {
           longitude: 5.0022222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Genas (69277)</span><br />Population : 12340"
-          }
+            content:
+              '<span style="font-weight:bold;">Genas (69277)</span><br />Population : 12340',
+          },
         },
         "town-76758": {
           value: "12328",
@@ -6976,8 +7748,9 @@ $(function() {
           longitude: 0.75305555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Yvetot (76758)</span><br />Population : 12328"
-          }
+            content:
+              '<span style="font-weight:bold;">Yvetot (76758)</span><br />Population : 12328',
+          },
         },
         "town-31446": {
           value: "12327",
@@ -6985,8 +7758,9 @@ $(function() {
           longitude: 1.4755555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Ramonville-Saint-Agne (31446)</span><br />Population : 12327"
-          }
+            content:
+              '<span style="font-weight:bold;">Ramonville-Saint-Agne (31446)</span><br />Population : 12327',
+          },
         },
         "town-78015": {
           value: "12327",
@@ -6994,8 +7768,9 @@ $(function() {
           longitude: 2.0583333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">AndrÃ©sy (78015)</span><br />Population : 12327"
-          }
+            content:
+              '<span style="font-weight:bold;">AndrÃ©sy (78015)</span><br />Population : 12327',
+          },
         },
         "town-74042": {
           value: "12321",
@@ -7003,8 +7778,9 @@ $(function() {
           longitude: 6.4008333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Bonneville (74042)</span><br />Population : 12321"
-          }
+            content:
+              '<span style="font-weight:bold;">Bonneville (74042)</span><br />Population : 12321',
+          },
         },
         "town-62617": {
           value: "12317",
@@ -7012,8 +7788,9 @@ $(function() {
           longitude: 2.6647222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">NÅ“ux-les-Mines (62617)</span><br />Population : 12317"
-          }
+            content:
+              '<span style="font-weight:bold;">NÅ“ux-les-Mines (62617)</span><br />Population : 12317',
+          },
         },
         "town-38485": {
           value: "12293",
@@ -7021,8 +7798,9 @@ $(function() {
           longitude: 5.6991666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Seyssinet-Pariset (38485)</span><br />Population : 12293"
-          }
+            content:
+              '<span style="font-weight:bold;">Seyssinet-Pariset (38485)</span><br />Population : 12293',
+          },
         },
         "town-91432": {
           value: "12248",
@@ -7030,8 +7808,9 @@ $(function() {
           longitude: 2.3347222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Morangis (91432)</span><br />Population : 12248"
-          }
+            content:
+              '<span style="font-weight:bold;">Morangis (91432)</span><br />Population : 12248',
+          },
         },
         "town-91215": {
           value: "12246",
@@ -7039,8 +7818,9 @@ $(function() {
           longitude: 2.5158333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Ã‰pinay-sous-SÃ©nart (91215)</span><br />Population : 12246"
-          }
+            content:
+              '<span style="font-weight:bold;">Ã‰pinay-sous-SÃ©nart (91215)</span><br />Population : 12246',
+          },
         },
         "town-49246": {
           value: "12240",
@@ -7048,8 +7828,9 @@ $(function() {
           longitude: -0.52527777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Les Ponts-de-CÃ© (49246)</span><br />Population : 12240"
-          }
+            content:
+              '<span style="font-weight:bold;">Les Ponts-de-CÃ© (49246)</span><br />Population : 12240',
+          },
         },
         "town-45004": {
           value: "12237",
@@ -7057,8 +7838,9 @@ $(function() {
           longitude: 2.7702777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Amilly (45004)</span><br />Population : 12237"
-          }
+            content:
+              '<span style="font-weight:bold;">Amilly (45004)</span><br />Population : 12237',
+          },
         },
         "town-94074": {
           value: "12228",
@@ -7066,8 +7848,9 @@ $(function() {
           longitude: 2.4672222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Valenton (94074)</span><br />Population : 12228"
-          }
+            content:
+              '<span style="font-weight:bold;">Valenton (94074)</span><br />Population : 12228',
+          },
         },
         "town-11076": {
           value: "12220",
@@ -7075,8 +7858,9 @@ $(function() {
           longitude: 1.9538888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Castelnaudary (11076)</span><br />Population : 12220"
-          }
+            content:
+              '<span style="font-weight:bold;">Castelnaudary (11076)</span><br />Population : 12220',
+          },
         },
         "town-07019": {
           value: "12205",
@@ -7084,8 +7868,9 @@ $(function() {
           longitude: 4.3902777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Aubenas (07019)</span><br />Population : 12205"
-          }
+            content:
+              '<span style="font-weight:bold;">Aubenas (07019)</span><br />Population : 12205',
+          },
         },
         "town-81105": {
           value: "12200",
@@ -7093,8 +7878,9 @@ $(function() {
           longitude: 1.9886111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Graulhet (81105)</span><br />Population : 12200"
-          }
+            content:
+              '<span style="font-weight:bold;">Graulhet (81105)</span><br />Population : 12200',
+          },
         },
         "town-44172": {
           value: "12187",
@@ -7102,8 +7888,9 @@ $(function() {
           longitude: -1.4866666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Sainte-Luce-sur-Loire (44172)</span><br />Population : 12187"
-          }
+            content:
+              '<span style="font-weight:bold;">Sainte-Luce-sur-Loire (44172)</span><br />Population : 12187',
+          },
         },
         "town-01033": {
           value: "12161",
@@ -7111,8 +7898,9 @@ $(function() {
           longitude: 5.8258333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Bellegarde-sur-Valserine (01033)</span><br />Population : 12161"
-          }
+            content:
+              '<span style="font-weight:bold;">Bellegarde-sur-Valserine (01033)</span><br />Population : 12161',
+          },
         },
         "town-97105": {
           value: "12145",
@@ -7120,8 +7908,9 @@ $(function() {
           longitude: -61.732777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Basse-Terre (97105)</span><br />Population : 12145"
-          }
+            content:
+              '<span style="font-weight:bold;">Basse-Terre (97105)</span><br />Population : 12145',
+          },
         },
         "town-53062": {
           value: "12143",
@@ -7129,8 +7918,9 @@ $(function() {
           longitude: -0.7027777777777801,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">ChÃ¢teau-Gontier (53062)</span><br />Population : 12143"
-          }
+            content:
+              '<span style="font-weight:bold;">ChÃ¢teau-Gontier (53062)</span><br />Population : 12143',
+          },
         },
         "town-40312": {
           value: "12141",
@@ -7138,8 +7928,9 @@ $(function() {
           longitude: -1.4613888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Tarnos (40312)</span><br />Population : 12141"
-          }
+            content:
+              '<span style="font-weight:bold;">Tarnos (40312)</span><br />Population : 12141',
+          },
         },
         "town-74243": {
           value: "12125",
@@ -7147,8 +7938,9 @@ $(function() {
           longitude: 6.0841666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Julien-en-Genevois (74243)</span><br />Population : 12125"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Julien-en-Genevois (74243)</span><br />Population : 12125',
+          },
         },
         "town-78688": {
           value: "12122",
@@ -7156,8 +7948,9 @@ $(function() {
           longitude: 2.0508333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Voisins-le-Bretonneux (78688)</span><br />Population : 12122"
-          }
+            content:
+              '<span style="font-weight:bold;">Voisins-le-Bretonneux (78688)</span><br />Population : 12122',
+          },
         },
         "town-05023": {
           value: "12094",
@@ -7165,8 +7958,9 @@ $(function() {
           longitude: 6.635,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">BrianÃ§on (05023)</span><br />Population : 12094"
-          }
+            content:
+              '<span style="font-weight:bold;">BrianÃ§on (05023)</span><br />Population : 12094',
+          },
         },
         "town-31561": {
           value: "12093",
@@ -7174,8 +7968,9 @@ $(function() {
           longitude: 1.4844444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">L'Union (31561)</span><br />Population : 12093"
-          }
+            content:
+              '<span style="font-weight:bold;">L\'Union (31561)</span><br />Population : 12093',
+          },
         },
         "town-78029": {
           value: "12092",
@@ -7183,8 +7978,9 @@ $(function() {
           longitude: 1.855,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Aubergenville (78029)</span><br />Population : 12092"
-          }
+            content:
+              '<span style="font-weight:bold;">Aubergenville (78029)</span><br />Population : 12092',
+          },
         },
         "town-84003": {
           value: "12064",
@@ -7192,8 +7988,9 @@ $(function() {
           longitude: 5.3963888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Apt (84003)</span><br />Population : 12064"
-          }
+            content:
+              '<span style="font-weight:bold;">Apt (84003)</span><br />Population : 12064',
+          },
         },
         "town-62570": {
           value: "12057",
@@ -7201,8 +7998,9 @@ $(function() {
           longitude: 2.8658333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">MÃ©ricourt (62570)</span><br />Population : 12057"
-          }
+            content:
+              '<span style="font-weight:bold;">MÃ©ricourt (62570)</span><br />Population : 12057',
+          },
         },
         "town-29212": {
           value: "12012",
@@ -7210,8 +8008,9 @@ $(function() {
           longitude: -4.6202777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">PlouzanÃ© (29212)</span><br />Population : 12012"
-          }
+            content:
+              '<span style="font-weight:bold;">PlouzanÃ© (29212)</span><br />Population : 12012',
+          },
         },
         "town-95313": {
           value: "11979",
@@ -7219,8 +8018,9 @@ $(function() {
           longitude: 2.2227777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">L'Isle-Adam (95313)</span><br />Population : 11979"
-          }
+            content:
+              '<span style="font-weight:bold;">L\'Isle-Adam (95313)</span><br />Population : 11979',
+          },
         },
         "town-83112": {
           value: "11972",
@@ -7228,8 +8028,9 @@ $(function() {
           longitude: 5.7086111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Cyr-sur-Mer (83112)</span><br />Population : 11972"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Cyr-sur-Mer (83112)</span><br />Population : 11972',
+          },
         },
         "town-95210": {
           value: "11959",
@@ -7237,8 +8038,9 @@ $(function() {
           longitude: 2.3080555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Enghien-les-Bains (95210)</span><br />Population : 11959"
-          }
+            content:
+              '<span style="font-weight:bold;">Enghien-les-Bains (95210)</span><br />Population : 11959',
+          },
         },
         "town-59383": {
           value: "11958",
@@ -7246,8 +8048,9 @@ $(function() {
           longitude: 3.5441666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Marly (59383)</span><br />Population : 11958"
-          }
+            content:
+              '<span style="font-weight:bold;">Marly (59383)</span><br />Population : 11958',
+          },
         },
         "town-60509": {
           value: "11948",
@@ -7255,8 +8058,9 @@ $(function() {
           longitude: 2.6036111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Pont-Sainte-Maxence (60509)</span><br />Population : 11948"
-          }
+            content:
+              '<span style="font-weight:bold;">Pont-Sainte-Maxence (60509)</span><br />Population : 11948',
+          },
         },
         "town-76114": {
           value: "11941",
@@ -7264,8 +8068,9 @@ $(function() {
           longitude: 0.4725,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Bolbec (76114)</span><br />Population : 11941"
-          }
+            content:
+              '<span style="font-weight:bold;">Bolbec (76114)</span><br />Population : 11941',
+          },
         },
         "town-69283": {
           value: "11931",
@@ -7273,8 +8078,9 @@ $(function() {
           longitude: 4.9530555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Mions (69283)</span><br />Population : 11931"
-          }
+            content:
+              '<span style="font-weight:bold;">Mions (69283)</span><br />Population : 11931',
+          },
         },
         "town-13081": {
           value: "11928",
@@ -7282,8 +8088,9 @@ $(function() {
           longitude: 5.2322222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Rognac (13081)</span><br />Population : 11928"
-          }
+            content:
+              '<span style="font-weight:bold;">Rognac (13081)</span><br />Population : 11928',
+          },
         },
         "town-74208": {
           value: "11917",
@@ -7291,8 +8098,9 @@ $(function() {
           longitude: 6.6863888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Passy (74208)</span><br />Population : 11917"
-          }
+            content:
+              '<span style="font-weight:bold;">Passy (74208)</span><br />Population : 11917',
+          },
         },
         "town-74208": {
           value: "11917",
@@ -7300,8 +8108,9 @@ $(function() {
           longitude: 6.6863888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Passy (74208)</span><br />Population : 11917"
-          }
+            content:
+              '<span style="font-weight:bold;">Passy (74208)</span><br />Population : 11917',
+          },
         },
         "town-28404": {
           value: "11881",
@@ -7309,8 +8118,9 @@ $(function() {
           longitude: 1.3605555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Vernouillet (28404)</span><br />Population : 11881"
-          }
+            content:
+              '<span style="font-weight:bold;">Vernouillet (28404)</span><br />Population : 11881',
+          },
         },
         "town-13007": {
           value: "11870",
@@ -7318,8 +8128,9 @@ $(function() {
           longitude: 5.6313888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Auriol (13007)</span><br />Population : 11870"
-          }
+            content:
+              '<span style="font-weight:bold;">Auriol (13007)</span><br />Population : 11870',
+          },
         },
         "town-59273": {
           value: "11868",
@@ -7327,8 +8138,9 @@ $(function() {
           longitude: 2.1275,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Gravelines (59273)</span><br />Population : 11868"
-          }
+            content:
+              '<span style="font-weight:bold;">Gravelines (59273)</span><br />Population : 11868',
+          },
         },
         "town-27284": {
           value: "11864",
@@ -7336,8 +8148,9 @@ $(function() {
           longitude: 1.7763888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Gisors (27284)</span><br />Population : 11864"
-          }
+            content:
+              '<span style="font-weight:bold;">Gisors (27284)</span><br />Population : 11864',
+          },
         },
         "town-97402": {
           value: "11860",
@@ -7345,8 +8158,9 @@ $(function() {
           longitude: 55.676111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Bras-Panon (97402)</span><br />Population : 11860"
-          }
+            content:
+              '<span style="font-weight:bold;">Bras-Panon (97402)</span><br />Population : 11860',
+          },
         },
         "town-87154": {
           value: "11831",
@@ -7354,8 +8168,9 @@ $(function() {
           longitude: 0.90111111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Junien (87154)</span><br />Population : 11831"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Junien (87154)</span><br />Population : 11831',
+          },
         },
         "town-83098": {
           value: "11830",
@@ -7363,8 +8178,9 @@ $(function() {
           longitude: 6.0233333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Le Pradet (83098)</span><br />Population : 11830"
-          }
+            content:
+              '<span style="font-weight:bold;">Le Pradet (83098)</span><br />Population : 11830',
+          },
         },
         "town-13026": {
           value: "11796",
@@ -7372,8 +8188,9 @@ $(function() {
           longitude: 5.1641666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">ChÃ¢teauneuf-les-Martigues (13026)</span><br />Population : 11796"
-          }
+            content:
+              '<span style="font-weight:bold;">ChÃ¢teauneuf-les-Martigues (13026)</span><br />Population : 11796',
+          },
         },
         "town-78624": {
           value: "11777",
@@ -7381,8 +8198,9 @@ $(function() {
           longitude: 2.0061111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Triel-sur-Seine (78624)</span><br />Population : 11777"
-          }
+            content:
+              '<span style="font-weight:bold;">Triel-sur-Seine (78624)</span><br />Population : 11777',
+          },
         },
         "town-68112": {
           value: "11757",
@@ -7390,8 +8208,9 @@ $(function() {
           longitude: 7.2102777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Guebwiller (68112)</span><br />Population : 11757"
-          }
+            content:
+              '<span style="font-weight:bold;">Guebwiller (68112)</span><br />Population : 11757',
+          },
         },
         "town-31483": {
           value: "11753",
@@ -7399,8 +8218,9 @@ $(function() {
           longitude: 0.7233333333333301,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Gaudens (31483)</span><br />Population : 11753"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Gaudens (31483)</span><br />Population : 11753',
+          },
         },
         "town-21617": {
           value: "11743",
@@ -7408,8 +8228,9 @@ $(function() {
           longitude: 5.0055555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Talant (21617)</span><br />Population : 11743"
-          }
+            content:
+              '<span style="font-weight:bold;">Talant (21617)</span><br />Population : 11743',
+          },
         },
         "town-64430": {
           value: "11674",
@@ -7417,8 +8238,9 @@ $(function() {
           longitude: -0.77083333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Orthez (64430)</span><br />Population : 11674"
-          }
+            content:
+              '<span style="font-weight:bold;">Orthez (64430)</span><br />Population : 11674',
+          },
         },
         "town-97405": {
           value: "11671",
@@ -7426,8 +8248,9 @@ $(function() {
           longitude: 55.565833333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Petite-ÃŽle (97405)</span><br />Population : 11671"
-          }
+            content:
+              '<span style="font-weight:bold;">Petite-ÃŽle (97405)</span><br />Population : 11671',
+          },
         },
         "town-63430": {
           value: "11645",
@@ -7435,8 +8258,9 @@ $(function() {
           longitude: 3.5475,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Thiers (63430)</span><br />Population : 11645"
-          }
+            content:
+              '<span style="font-weight:bold;">Thiers (63430)</span><br />Population : 11645',
+          },
         },
         "town-06033": {
           value: "11639",
@@ -7444,8 +8268,9 @@ $(function() {
           longitude: 7.1877777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Carros (06033)</span><br />Population : 11639"
-          }
+            content:
+              '<span style="font-weight:bold;">Carros (06033)</span><br />Population : 11639',
+          },
         },
         "town-12176": {
           value: "11639",
@@ -7453,8 +8278,9 @@ $(function() {
           longitude: 2.5936111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Onet-le-ChÃ¢teau (12176)</span><br />Population : 11639"
-          }
+            content:
+              '<span style="font-weight:bold;">Onet-le-ChÃ¢teau (12176)</span><br />Population : 11639',
+          },
         },
         "town-25580": {
           value: "11633",
@@ -7462,8 +8288,9 @@ $(function() {
           longitude: 6.8322222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Valentigney (25580)</span><br />Population : 11633"
-          }
+            content:
+              '<span style="font-weight:bold;">Valentigney (25580)</span><br />Population : 11633',
+          },
         },
         "town-73179": {
           value: "11620",
@@ -7471,8 +8298,9 @@ $(function() {
           longitude: 5.8775,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">La Motte-Servolex (73179)</span><br />Population : 11620"
-          }
+            content:
+              '<span style="font-weight:bold;">La Motte-Servolex (73179)</span><br />Population : 11620',
+          },
         },
         "town-76484": {
           value: "11613",
@@ -7480,8 +8308,9 @@ $(function() {
           longitude: 1.0913888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Oissel (76484)</span><br />Population : 11613"
-          }
+            content:
+              '<span style="font-weight:bold;">Oissel (76484)</span><br />Population : 11613',
+          },
         },
         "town-57221": {
           value: "11580",
@@ -7489,8 +8318,9 @@ $(function() {
           longitude: 6.1183333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Florange (57221)</span><br />Population : 11580"
-          }
+            content:
+              '<span style="font-weight:bold;">Florange (57221)</span><br />Population : 11580',
+          },
         },
         "town-62525": {
           value: "11576",
@@ -7498,8 +8328,9 @@ $(function() {
           longitude: 2.2372222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Longuenesse (62525)</span><br />Population : 11576"
-          }
+            content:
+              '<span style="font-weight:bold;">Longuenesse (62525)</span><br />Population : 11576',
+          },
         },
         "town-10333": {
           value: "11553",
@@ -7507,8 +8338,9 @@ $(function() {
           longitude: 4.0538888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-AndrÃ©-les-Vergers (10333)</span><br />Population : 11553"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-AndrÃ©-les-Vergers (10333)</span><br />Population : 11553',
+          },
         },
         "town-22215": {
           value: "11537",
@@ -7516,8 +8348,9 @@ $(function() {
           longitude: -2.7958333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Ploufragan (22215)</span><br />Population : 11537"
-          }
+            content:
+              '<span style="font-weight:bold;">Ploufragan (22215)</span><br />Population : 11537',
+          },
         },
         "town-68063": {
           value: "11527",
@@ -7525,8 +8358,9 @@ $(function() {
           longitude: 7.1758333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Cernay (68063)</span><br />Population : 11527"
-          }
+            content:
+              '<span style="font-weight:bold;">Cernay (68063)</span><br />Population : 11527',
+          },
         },
         "town-69027": {
           value: "11518",
@@ -7534,8 +8368,9 @@ $(function() {
           longitude: 4.7541666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Brignais (69027)</span><br />Population : 11518"
-          }
+            content:
+              '<span style="font-weight:bold;">Brignais (69027)</span><br />Population : 11518',
+          },
         },
         "town-59527": {
           value: "11505",
@@ -7543,8 +8378,9 @@ $(function() {
           longitude: 3.0438888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-AndrÃ©-lez-Lille (59527)</span><br />Population : 11505"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-AndrÃ©-lez-Lille (59527)</span><br />Population : 11505',
+          },
         },
         "town-94060": {
           value: "11494",
@@ -7552,8 +8388,9 @@ $(function() {
           longitude: 2.5766666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">La Queue-en-Brie (94060)</span><br />Population : 11494"
-          }
+            content:
+              '<span style="font-weight:bold;">La Queue-en-Brie (94060)</span><br />Population : 11494',
+          },
         },
         "town-76410": {
           value: "11486",
@@ -7561,8 +8398,9 @@ $(function() {
           longitude: 1.0419444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Maromme (76410)</span><br />Population : 11486"
-          }
+            content:
+              '<span style="font-weight:bold;">Maromme (76410)</span><br />Population : 11486',
+          },
         },
         "town-39478": {
           value: "11481",
@@ -7570,8 +8408,9 @@ $(function() {
           longitude: 5.8633333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Claude (39478)</span><br />Population : 11481"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Claude (39478)</span><br />Population : 11481',
+          },
         },
         "town-62758": {
           value: "11469",
@@ -7579,8 +8418,9 @@ $(function() {
           longitude: 1.6322222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Martin-Boulogne (62758)</span><br />Population : 11469"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Martin-Boulogne (62758)</span><br />Population : 11469',
+          },
         },
         "town-64422": {
           value: "11449",
@@ -7588,8 +8428,9 @@ $(function() {
           longitude: -0.60666666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Oloron-Sainte-Marie (64422)</span><br />Population : 11449"
-          }
+            content:
+              '<span style="font-weight:bold;">Oloron-Sainte-Marie (64422)</span><br />Population : 11449',
+          },
         },
         "town-62318": {
           value: "11442",
@@ -7597,8 +8438,9 @@ $(function() {
           longitude: 1.6405555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Ã‰taples (62318)</span><br />Population : 11442"
-          }
+            content:
+              '<span style="font-weight:bold;">Ã‰taples (62318)</span><br />Population : 11442',
+          },
         },
         "town-28280": {
           value: "11436",
@@ -7606,8 +8448,9 @@ $(function() {
           longitude: 0.82166666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Nogent-le-Rotrou (28280)</span><br />Population : 11436"
-          }
+            content:
+              '<span style="font-weight:bold;">Nogent-le-Rotrou (28280)</span><br />Population : 11436',
+          },
         },
         "town-33005": {
           value: "11415",
@@ -7615,8 +8458,9 @@ $(function() {
           longitude: -1.0902777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Andernos-les-Bains (33005)</span><br />Population : 11415"
-          }
+            content:
+              '<span style="font-weight:bold;">Andernos-les-Bains (33005)</span><br />Population : 11415',
+          },
         },
         "town-67365": {
           value: "11410",
@@ -7624,8 +8468,9 @@ $(function() {
           longitude: 7.7094444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Ostwald (67365)</span><br />Population : 11410"
-          }
+            content:
+              '<span style="font-weight:bold;">Ostwald (67365)</span><br />Population : 11410',
+          },
         },
         "town-13097": {
           value: "11396",
@@ -7633,8 +8478,9 @@ $(function() {
           longitude: 4.8125,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Martin-de-Crau (13097)</span><br />Population : 11396"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Martin-de-Crau (13097)</span><br />Population : 11396',
+          },
         },
         "town-38317": {
           value: "11386",
@@ -7642,8 +8488,9 @@ $(function() {
           longitude: 5.6980555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Le Pont-de-Claix (38317)</span><br />Population : 11386"
-          }
+            content:
+              '<span style="font-weight:bold;">Le Pont-de-Claix (38317)</span><br />Population : 11386',
+          },
         },
         "town-74133": {
           value: "11345",
@@ -7651,8 +8498,9 @@ $(function() {
           longitude: 6.2075,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Gaillard (74133)</span><br />Population : 11345"
-          }
+            content:
+              '<span style="font-weight:bold;">Gaillard (74133)</span><br />Population : 11345',
+          },
         },
         "town-38474": {
           value: "11317",
@@ -7660,8 +8508,9 @@ $(function() {
           longitude: 5.665,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Sassenage (38474)</span><br />Population : 11317"
-          }
+            content:
+              '<span style="font-weight:bold;">Sassenage (38474)</span><br />Population : 11317',
+          },
         },
         "town-2A247": {
           value: "11308",
@@ -7669,8 +8518,9 @@ $(function() {
           longitude: 9.279722222222199,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Porto-Vecchio (2A247)</span><br />Population : 11308"
-          }
+            content:
+              '<span style="font-weight:bold;">Porto-Vecchio (2A247)</span><br />Population : 11308',
+          },
         },
         "town-31187": {
           value: "11301",
@@ -7678,8 +8528,9 @@ $(function() {
           longitude: 1.2311111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Fonsorbes (31187)</span><br />Population : 11301"
-          }
+            content:
+              '<span style="font-weight:bold;">Fonsorbes (31187)</span><br />Population : 11301',
+          },
         },
         "town-83042": {
           value: "11292",
@@ -7687,8 +8538,9 @@ $(function() {
           longitude: 6.53,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Cogolin (83042)</span><br />Population : 11292"
-          }
+            content:
+              '<span style="font-weight:bold;">Cogolin (83042)</span><br />Population : 11292',
+          },
         },
         "town-07102": {
           value: "11291",
@@ -7696,8 +8548,9 @@ $(function() {
           longitude: 4.8747222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Guilherand-Granges (07102)</span><br />Population : 11291"
-          }
+            content:
+              '<span style="font-weight:bold;">Guilherand-Granges (07102)</span><br />Population : 11291',
+          },
         },
         "town-07324": {
           value: "11287",
@@ -7705,8 +8558,9 @@ $(function() {
           longitude: 4.8327777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Tournon-sur-RhÃ´ne (07324)</span><br />Population : 11287"
-          }
+            content:
+              '<span style="font-weight:bold;">Tournon-sur-RhÃ´ne (07324)</span><br />Population : 11287',
+          },
         },
         "town-31113": {
           value: "11285",
@@ -7714,8 +8568,9 @@ $(function() {
           longitude: 1.4980555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Castanet-Tolosan (31113)</span><br />Population : 11285"
-          }
+            content:
+              '<span style="font-weight:bold;">Castanet-Tolosan (31113)</span><br />Population : 11285',
+          },
         },
         "town-67348": {
           value: "11284",
@@ -7723,8 +8578,9 @@ $(function() {
           longitude: 7.4819444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Obernai (67348)</span><br />Population : 11284"
-          }
+            content:
+              '<span style="font-weight:bold;">Obernai (67348)</span><br />Population : 11284',
+          },
         },
         "town-22050": {
           value: "11280",
@@ -7732,8 +8588,9 @@ $(function() {
           longitude: -2.0502777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Dinan (22050)</span><br />Population : 11280"
-          }
+            content:
+              '<span style="font-weight:bold;">Dinan (22050)</span><br />Population : 11280',
+          },
         },
         "town-33009": {
           value: "11278",
@@ -7741,8 +8598,9 @@ $(function() {
           longitude: -1.1688888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Arcachon (33009)</span><br />Population : 11278"
-          }
+            content:
+              '<span style="font-weight:bold;">Arcachon (33009)</span><br />Population : 11278',
+          },
         },
         "town-13106": {
           value: "11258",
@@ -7750,8 +8608,9 @@ $(function() {
           longitude: 5.3658333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">SeptÃ¨mes-les-Vallons (13106)</span><br />Population : 11258"
-          }
+            content:
+              '<span style="font-weight:bold;">SeptÃ¨mes-les-Vallons (13106)</span><br />Population : 11258',
+          },
         },
         "town-31506": {
           value: "11244",
@@ -7759,8 +8618,9 @@ $(function() {
           longitude: 1.5341666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Orens-de-Gameville (31506)</span><br />Population : 11244"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Orens-de-Gameville (31506)</span><br />Population : 11244',
+          },
         },
         "town-63032": {
           value: "11229",
@@ -7768,8 +8628,9 @@ $(function() {
           longitude: 3.0830555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Beaumont (63032)</span><br />Population : 11229"
-          }
+            content:
+              '<span style="font-weight:bold;">Beaumont (63032)</span><br />Population : 11229',
+          },
         },
         "town-30341": {
           value: "11220",
@@ -7777,8 +8638,9 @@ $(function() {
           longitude: 4.2761111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Vauvert (30341)</span><br />Population : 11220"
-          }
+            content:
+              '<span style="font-weight:bold;">Vauvert (30341)</span><br />Population : 11220',
+          },
         },
         "town-83130": {
           value: "11214",
@@ -7786,8 +8648,9 @@ $(function() {
           longitude: 6.0411111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">SolliÃ¨s-Pont (83130)</span><br />Population : 11214"
-          }
+            content:
+              '<span style="font-weight:bold;">SolliÃ¨s-Pont (83130)</span><br />Population : 11214',
+          },
         },
         "town-18197": {
           value: "11204",
@@ -7795,8 +8658,9 @@ $(function() {
           longitude: 2.505,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Amand-Montrond (18197)</span><br />Population : 11204"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Amand-Montrond (18197)</span><br />Population : 11204',
+          },
         },
         "town-72003": {
           value: "11202",
@@ -7804,8 +8668,9 @@ $(function() {
           longitude: 0.16055555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Allonnes (72003)</span><br />Population : 11202"
-          }
+            content:
+              '<span style="font-weight:bold;">Allonnes (72003)</span><br />Population : 11202',
+          },
         },
         "town-14341": {
           value: "11192",
@@ -7813,8 +8678,9 @@ $(function() {
           longitude: -0.35305555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Ifs (14341)</span><br />Population : 11192"
-          }
+            content:
+              '<span style="font-weight:bold;">Ifs (14341)</span><br />Population : 11192',
+          },
         },
         "town-84080": {
           value: "11191",
@@ -7822,8 +8688,9 @@ $(function() {
           longitude: 4.9972222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Monteux (84080)</span><br />Population : 11191"
-          }
+            content:
+              '<span style="font-weight:bold;">Monteux (84080)</span><br />Population : 11191',
+          },
         },
         "town-77118": {
           value: "11190",
@@ -7831,8 +8698,9 @@ $(function() {
           longitude: 2.6866666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Claye-Souilly (77118)</span><br />Population : 11190"
-          }
+            content:
+              '<span style="font-weight:bold;">Claye-Souilly (77118)</span><br />Population : 11190',
+          },
         },
         "town-35093": {
           value: "11169",
@@ -7840,8 +8708,9 @@ $(function() {
           longitude: -2.0616666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Dinard (35093)</span><br />Population : 11169"
-          }
+            content:
+              '<span style="font-weight:bold;">Dinard (35093)</span><br />Population : 11169',
+          },
         },
         "town-59544": {
           value: "11134",
@@ -7849,8 +8718,9 @@ $(function() {
           longitude: 3.5547222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Saulve (59544)</span><br />Population : 11134"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Saulve (59544)</span><br />Population : 11134',
+          },
         },
         "town-60141": {
           value: "11132",
@@ -7858,8 +8728,9 @@ $(function() {
           longitude: 2.4608333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Chantilly (60141)</span><br />Population : 11132"
-          }
+            content:
+              '<span style="font-weight:bold;">Chantilly (60141)</span><br />Population : 11132',
+          },
         },
         "town-62048": {
           value: "11116",
@@ -7867,8 +8738,9 @@ $(function() {
           longitude: 2.4736111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Auchel (62048)</span><br />Population : 11116"
-          }
+            content:
+              '<span style="font-weight:bold;">Auchel (62048)</span><br />Population : 11116',
+          },
         },
         "town-77487": {
           value: "11078",
@@ -7876,8 +8748,9 @@ $(function() {
           longitude: 2.6822222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Vaux-le-PÃ©nil (77487)</span><br />Population : 11078"
-          }
+            content:
+              '<span style="font-weight:bold;">Vaux-le-PÃ©nil (77487)</span><br />Population : 11078',
+          },
         },
         "town-79202": {
           value: "11066",
@@ -7885,8 +8758,9 @@ $(function() {
           longitude: -0.24694444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Parthenay (79202)</span><br />Population : 11066"
-          }
+            content:
+              '<span style="font-weight:bold;">Parthenay (79202)</span><br />Population : 11066',
+          },
         },
         "town-29235": {
           value: "11041",
@@ -7894,8 +8768,9 @@ $(function() {
           longitude: -4.3969444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Le Relecq-Kerhuon (29235)</span><br />Population : 11041"
-          }
+            content:
+              '<span style="font-weight:bold;">Le Relecq-Kerhuon (29235)</span><br />Population : 11041',
+          },
         },
         "town-66172": {
           value: "11033",
@@ -7903,8 +8778,9 @@ $(function() {
           longitude: 2.8419444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-EstÃ¨ve (66172)</span><br />Population : 11033"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-EstÃ¨ve (66172)</span><br />Population : 11033',
+          },
         },
         "town-58086": {
           value: "11031",
@@ -7912,8 +8788,9 @@ $(function() {
           longitude: 2.9266666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Cosne-Cours-sur-Loire (58086)</span><br />Population : 11031"
-          }
+            content:
+              '<span style="font-weight:bold;">Cosne-Cours-sur-Loire (58086)</span><br />Population : 11031',
+          },
         },
         "town-42184": {
           value: "11022",
@@ -7921,8 +8798,9 @@ $(function() {
           longitude: 4.0405555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Riorges (42184)</span><br />Population : 11022"
-          }
+            content:
+              '<span style="font-weight:bold;">Riorges (42184)</span><br />Population : 11022',
+          },
         },
         "town-92077": {
           value: "11013",
@@ -7930,8 +8808,9 @@ $(function() {
           longitude: 2.1933333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Ville-d'Avray (92077)</span><br />Population : 11013"
-          }
+            content:
+              '<span style="font-weight:bold;">Ville-d\'Avray (92077)</span><br />Population : 11013',
+          },
         },
         "town-27056": {
           value: "11000",
@@ -7939,8 +8818,9 @@ $(function() {
           longitude: 0.5983333333333301,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Bernay (27056)</span><br />Population : 11000"
-          }
+            content:
+              '<span style="font-weight:bold;">Bernay (27056)</span><br />Population : 11000',
+          },
         },
         "town-37050": {
           value: "10986",
@@ -7948,8 +8828,9 @@ $(function() {
           longitude: 0.71388888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Chambray-lÃ¨s-Tours (37050)</span><br />Population : 10986"
-          }
+            content:
+              '<span style="font-weight:bold;">Chambray-lÃ¨s-Tours (37050)</span><br />Population : 10986',
+          },
         },
         "town-13075": {
           value: "10982",
@@ -7957,8 +8838,9 @@ $(function() {
           longitude: 5.4630555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Plan-de-Cuques (13075)</span><br />Population : 10982"
-          }
+            content:
+              '<span style="font-weight:bold;">Plan-de-Cuques (13075)</span><br />Population : 10982',
+          },
         },
         "town-67130": {
           value: "10954",
@@ -7966,8 +8848,9 @@ $(function() {
           longitude: 7.6611111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Erstein (67130)</span><br />Population : 10954"
-          }
+            content:
+              '<span style="font-weight:bold;">Erstein (67130)</span><br />Population : 10954',
+          },
         },
         "town-84141": {
           value: "10905",
@@ -7975,8 +8858,9 @@ $(function() {
           longitude: 4.9030555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">VedÃ¨ne (84141)</span><br />Population : 10905"
-          }
+            content:
+              '<span style="font-weight:bold;">VedÃ¨ne (84141)</span><br />Population : 10905',
+          },
         },
         "town-63284": {
           value: "10891",
@@ -7984,8 +8868,9 @@ $(function() {
           longitude: 3.2483333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Pont-du-ChÃ¢teau (63284)</span><br />Population : 10891"
-          }
+            content:
+              '<span style="font-weight:bold;">Pont-du-ChÃ¢teau (63284)</span><br />Population : 10891',
+          },
         },
         "town-91312": {
           value: "10878",
@@ -7993,8 +8878,9 @@ $(function() {
           longitude: 2.2261111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Igny (91312)</span><br />Population : 10878"
-          }
+            content:
+              '<span style="font-weight:bold;">Igny (91312)</span><br />Population : 10878',
+          },
         },
         "town-37109": {
           value: "10843",
@@ -8002,8 +8888,9 @@ $(function() {
           longitude: 0.59888888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Fondettes (37109)</span><br />Population : 10843"
-          }
+            content:
+              '<span style="font-weight:bold;">Fondettes (37109)</span><br />Population : 10843',
+          },
         },
         "town-57433": {
           value: "10842",
@@ -8011,8 +8898,9 @@ $(function() {
           longitude: 6.1611111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">MaiziÃ¨res-lÃ¨s-Metz (57433)</span><br />Population : 10842"
-          }
+            content:
+              '<span style="font-weight:bold;">MaiziÃ¨res-lÃ¨s-Metz (57433)</span><br />Population : 10842',
+          },
         },
         "town-37156": {
           value: "10833",
@@ -8020,8 +8908,9 @@ $(function() {
           longitude: 0.82722222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Montlouis-sur-Loire (37156)</span><br />Population : 10833"
-          }
+            content:
+              '<span style="font-weight:bold;">Montlouis-sur-Loire (37156)</span><br />Population : 10833',
+          },
         },
         "town-13100": {
           value: "10819",
@@ -8029,8 +8918,9 @@ $(function() {
           longitude: 4.8316666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-RÃ©my-de-Provence (13100)</span><br />Population : 10819"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-RÃ©my-de-Provence (13100)</span><br />Population : 10819',
+          },
         },
         "town-74224": {
           value: "10814",
@@ -8038,8 +8928,9 @@ $(function() {
           longitude: 6.3119444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">La Roche-sur-Foron (74224)</span><br />Population : 10814"
-          }
+            content:
+              '<span style="font-weight:bold;">La Roche-sur-Foron (74224)</span><br />Population : 10814',
+          },
         },
         "town-44132": {
           value: "10796",
@@ -8047,8 +8938,9 @@ $(function() {
           longitude: -2.34,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Pornichet (44132)</span><br />Population : 10796"
-          }
+            content:
+              '<span style="font-weight:bold;">Pornichet (44132)</span><br />Population : 10796',
+          },
         },
         "town-60157": {
           value: "10762",
@@ -8056,8 +8948,9 @@ $(function() {
           longitude: 2.4125,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Clermont (60157)</span><br />Population : 10762"
-          }
+            content:
+              '<span style="font-weight:bold;">Clermont (60157)</span><br />Population : 10762',
+          },
         },
         "town-19275": {
           value: "10748",
@@ -8065,8 +8958,9 @@ $(function() {
           longitude: 2.3091666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Ussel (19275)</span><br />Population : 10748"
-          }
+            content:
+              '<span style="font-weight:bold;">Ussel (19275)</span><br />Population : 10748',
+          },
         },
         "town-56206": {
           value: "10746",
@@ -8074,8 +8968,9 @@ $(function() {
           longitude: -2.7344444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-AvÃ© (56206)</span><br />Population : 10746"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-AvÃ© (56206)</span><br />Population : 10746',
+          },
         },
         "town-11206": {
           value: "10738",
@@ -8083,8 +8978,9 @@ $(function() {
           longitude: 2.2186111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Limoux (11206)</span><br />Population : 10738"
-          }
+            content:
+              '<span style="font-weight:bold;">Limoux (11206)</span><br />Population : 10738',
+          },
         },
         "town-97212": {
           value: "10737",
@@ -8092,8 +8988,9 @@ $(function() {
           longitude: -61.0075,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Gros-Morne (97212)</span><br />Population : 10737"
-          }
+            content:
+              '<span style="font-weight:bold;">Gros-Morne (97212)</span><br />Population : 10737',
+          },
         },
         "town-93030": {
           value: "10735",
@@ -8101,8 +8998,9 @@ $(function() {
           longitude: 2.4163888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Dugny (93030)</span><br />Population : 10735"
-          }
+            content:
+              '<span style="font-weight:bold;">Dugny (93030)</span><br />Population : 10735',
+          },
         },
         "town-97401": {
           value: "10730",
@@ -8110,8 +9008,9 @@ $(function() {
           longitude: 55.333333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Les Avirons (97401)</span><br />Population : 10730"
-          }
+            content:
+              '<span style="font-weight:bold;">Les Avirons (97401)</span><br />Population : 10730',
+          },
         },
         "town-56078": {
           value: "10718",
@@ -8119,8 +9018,9 @@ $(function() {
           longitude: -3.4886111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Guidel (56078)</span><br />Population : 10718"
-          }
+            content:
+              '<span style="font-weight:bold;">Guidel (56078)</span><br />Population : 10718',
+          },
         },
         "town-91021": {
           value: "10712",
@@ -8128,8 +9028,9 @@ $(function() {
           longitude: 2.2477777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Arpajon (91021)</span><br />Population : 10712"
-          }
+            content:
+              '<span style="font-weight:bold;">Arpajon (91021)</span><br />Population : 10712',
+          },
         },
         "town-77251": {
           value: "10711",
@@ -8137,8 +9038,9 @@ $(function() {
           longitude: 2.5486111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Lieusaint (77251)</span><br />Population : 10711"
-          }
+            content:
+              '<span style="font-weight:bold;">Lieusaint (77251)</span><br />Population : 10711',
+          },
         },
         "town-85226": {
           value: "10697",
@@ -8146,8 +9048,9 @@ $(function() {
           longitude: -1.9455555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Hilaire-de-Riez (85226)</span><br />Population : 10697"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Hilaire-de-Riez (85226)</span><br />Population : 10697',
+          },
         },
         "town-30202": {
           value: "10696",
@@ -8155,8 +9058,9 @@ $(function() {
           longitude: 4.6483333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Pont-Saint-Esprit (30202)</span><br />Population : 10696"
-          }
+            content:
+              '<span style="font-weight:bold;">Pont-Saint-Esprit (30202)</span><br />Population : 10696',
+          },
         },
         "town-02810": {
           value: "10691",
@@ -8164,8 +9068,9 @@ $(function() {
           longitude: 3.0902777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Villers-CotterÃªts (02810)</span><br />Population : 10691"
-          }
+            content:
+              '<span style="font-weight:bold;">Villers-CotterÃªts (02810)</span><br />Population : 10691',
+          },
         },
         "town-11203": {
           value: "10690",
@@ -8173,8 +9078,9 @@ $(function() {
           longitude: 2.7577777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">LÃ©zignan-CorbiÃ¨res (11203)</span><br />Population : 10690"
-          }
+            content:
+              '<span style="font-weight:bold;">LÃ©zignan-CorbiÃ¨res (11203)</span><br />Population : 10690',
+          },
         },
         "town-97124": {
           value: "10688",
@@ -8182,8 +9088,9 @@ $(function() {
           longitude: -61.698333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Claude (97124)</span><br />Population : 10688"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Claude (97124)</span><br />Population : 10688',
+          },
         },
         "town-89206": {
           value: "10676",
@@ -8191,8 +9098,9 @@ $(function() {
           longitude: 3.3972222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Joigny (89206)</span><br />Population : 10676"
-          }
+            content:
+              '<span style="font-weight:bold;">Joigny (89206)</span><br />Population : 10676',
+          },
         },
         "town-62250": {
           value: "10673",
@@ -8200,8 +9108,9 @@ $(function() {
           longitude: 2.9472222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">CourriÃ¨res (62250)</span><br />Population : 10673"
-          }
+            content:
+              '<span style="font-weight:bold;">CourriÃ¨res (62250)</span><br />Population : 10673',
+          },
         },
         "town-34157": {
           value: "10668",
@@ -8209,8 +9118,9 @@ $(function() {
           longitude: 3.6052777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">MÃ¨ze (34157)</span><br />Population : 10668"
-          }
+            content:
+              '<span style="font-weight:bold;">MÃ¨ze (34157)</span><br />Population : 10668',
+          },
         },
         "town-50147": {
           value: "10660",
@@ -8218,8 +9128,9 @@ $(function() {
           longitude: -1.4452777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Coutances (50147)</span><br />Population : 10660"
-          }
+            content:
+              '<span style="font-weight:bold;">Coutances (50147)</span><br />Population : 10660',
+          },
         },
         "town-84088": {
           value: "10654",
@@ -8227,8 +9138,9 @@ $(function() {
           longitude: 5.0591666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Pernes-les-Fontaines (84088)</span><br />Population : 10654"
-          }
+            content:
+              '<span style="font-weight:bold;">Pernes-les-Fontaines (84088)</span><br />Population : 10654',
+          },
         },
         "town-81140": {
           value: "10649",
@@ -8236,8 +9148,9 @@ $(function() {
           longitude: 1.8188888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Lavaur (81140)</span><br />Population : 10649"
-          }
+            content:
+              '<span style="font-weight:bold;">Lavaur (81140)</span><br />Population : 10649',
+          },
         },
         "town-35281": {
           value: "10647",
@@ -8245,8 +9158,9 @@ $(function() {
           longitude: -1.6955555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Jacques-de-la-Lande (35281)</span><br />Population : 10647"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Jacques-de-la-Lande (35281)</span><br />Population : 10647',
+          },
         },
         "town-70285": {
           value: "10635",
@@ -8254,8 +9168,9 @@ $(function() {
           longitude: 6.7616666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">HÃ©ricourt (70285)</span><br />Population : 10635"
-          }
+            content:
+              '<span style="font-weight:bold;">HÃ©ricourt (70285)</span><br />Population : 10635',
+          },
         },
         "town-01173": {
           value: "10634",
@@ -8263,8 +9178,9 @@ $(function() {
           longitude: 6.0577777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Gex (01173)</span><br />Population : 10634"
-          }
+            content:
+              '<span style="font-weight:bold;">Gex (01173)</span><br />Population : 10634',
+          },
         },
         "town-66171": {
           value: "10630",
@@ -8272,8 +9188,9 @@ $(function() {
           longitude: 3.0063888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Cyprien (66171)</span><br />Population : 10630"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Cyprien (66171)</span><br />Population : 10630',
+          },
         },
         "town-87114": {
           value: "10627",
@@ -8281,8 +9198,9 @@ $(function() {
           longitude: 1.31,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Panazol (87114)</span><br />Population : 10627"
-          }
+            content:
+              '<span style="font-weight:bold;">Panazol (87114)</span><br />Population : 10627',
+          },
         },
         "town-67204": {
           value: "10620",
@@ -8290,8 +9208,9 @@ $(function() {
           longitude: 7.7547222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">HÅ“nheim (67204)</span><br />Population : 10620"
-          }
+            content:
+              '<span style="font-weight:bold;">HÅ“nheim (67204)</span><br />Population : 10620',
+          },
         },
         "town-28229": {
           value: "10600",
@@ -8299,8 +9218,9 @@ $(function() {
           longitude: 1.4619444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Mainvilliers (28229)</span><br />Population : 10600"
-          }
+            content:
+              '<span style="font-weight:bold;">Mainvilliers (28229)</span><br />Population : 10600',
+          },
         },
         "town-95487": {
           value: "10592",
@@ -8308,8 +9228,9 @@ $(function() {
           longitude: 2.2711111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Persan (95487)</span><br />Population : 10592"
-          }
+            content:
+              '<span style="font-weight:bold;">Persan (95487)</span><br />Population : 10592',
+          },
         },
         "town-59616": {
           value: "10590",
@@ -8317,8 +9238,9 @@ $(function() {
           longitude: 3.5683333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Vieux-CondÃ© (59616)</span><br />Population : 10590"
-          }
+            content:
+              '<span style="font-weight:bold;">Vieux-CondÃ© (59616)</span><br />Population : 10590',
+          },
         },
         "town-10362": {
           value: "10587",
@@ -8326,8 +9248,9 @@ $(function() {
           longitude: 4.0488888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Sainte-Savine (10362)</span><br />Population : 10587"
-          }
+            content:
+              '<span style="font-weight:bold;">Sainte-Savine (10362)</span><br />Population : 10587',
+          },
         },
         "town-46102": {
           value: "10571",
@@ -8335,8 +9258,9 @@ $(function() {
           longitude: 2.0316666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Figeac (46102)</span><br />Population : 10571"
-          }
+            content:
+              '<span style="font-weight:bold;">Figeac (46102)</span><br />Population : 10571',
+          },
         },
         "town-63164": {
           value: "10524",
@@ -8344,8 +9268,9 @@ $(function() {
           longitude: 3.1447222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Gerzat (63164)</span><br />Population : 10524"
-          }
+            content:
+              '<span style="font-weight:bold;">Gerzat (63164)</span><br />Population : 10524',
+          },
         },
         "town-69243": {
           value: "10523",
@@ -8353,8 +9278,9 @@ $(function() {
           longitude: 4.4330555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Tarare (69243)</span><br />Population : 10523"
-          }
+            content:
+              '<span style="font-weight:bold;">Tarare (69243)</span><br />Population : 10523',
+          },
         },
         "town-42189": {
           value: "10522",
@@ -8362,8 +9288,9 @@ $(function() {
           longitude: 4.3236111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Roche-la-MoliÃ¨re (42189)</span><br />Population : 10522"
-          }
+            content:
+              '<span style="font-weight:bold;">Roche-la-MoliÃ¨re (42189)</span><br />Population : 10522',
+          },
         },
         "town-64335": {
           value: "10517",
@@ -8371,8 +9298,9 @@ $(function() {
           longitude: -0.43583333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Lescar (64335)</span><br />Population : 10517"
-          }
+            content:
+              '<span style="font-weight:bold;">Lescar (64335)</span><br />Population : 10517',
+          },
         },
         "town-51573": {
           value: "10496",
@@ -8380,8 +9308,9 @@ $(function() {
           longitude: 3.9908333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Tinqueux (51573)</span><br />Population : 10496"
-          }
+            content:
+              '<span style="font-weight:bold;">Tinqueux (51573)</span><br />Population : 10496',
+          },
         },
         "town-59179": {
           value: "10486",
@@ -8389,8 +9318,9 @@ $(function() {
           longitude: 3.3933333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Douchy-les-Mines (59179)</span><br />Population : 10486"
-          }
+            content:
+              '<span style="font-weight:bold;">Douchy-les-Mines (59179)</span><br />Population : 10486',
+          },
         },
         "town-59008": {
           value: "10469",
@@ -8398,8 +9328,9 @@ $(function() {
           longitude: 3.2511111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Aniche (59008)</span><br />Population : 10469"
-          }
+            content:
+              '<span style="font-weight:bold;">Aniche (59008)</span><br />Population : 10469',
+          },
         },
         "town-13110": {
           value: "10463",
@@ -8407,8 +9338,9 @@ $(function() {
           longitude: 5.6858333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Trets (13110)</span><br />Population : 10463"
-          }
+            content:
+              '<span style="font-weight:bold;">Trets (13110)</span><br />Population : 10463',
+          },
         },
         "town-06149": {
           value: "10453",
@@ -8416,8 +9348,9 @@ $(function() {
           longitude: 7.3141666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">La TrinitÃ© (06149)</span><br />Population : 10453"
-          }
+            content:
+              '<span style="font-weight:bold;">La TrinitÃ© (06149)</span><br />Population : 10453',
+          },
         },
         "town-35024": {
           value: "10447",
@@ -8425,8 +9358,9 @@ $(function() {
           longitude: -1.6438888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Betton (35024)</span><br />Population : 10447"
-          }
+            content:
+              '<span style="font-weight:bold;">Betton (35024)</span><br />Population : 10447',
+          },
         },
         "town-68375": {
           value: "10444",
@@ -8434,8 +9368,9 @@ $(function() {
           longitude: 7.2375,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Wittelsheim (68375)</span><br />Population : 10444"
-          }
+            content:
+              '<span style="font-weight:bold;">Wittelsheim (68375)</span><br />Population : 10444',
+          },
         },
         "town-06084": {
           value: "10443",
@@ -8443,8 +9378,9 @@ $(function() {
           longitude: 6.9719444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Mouans-Sartoux (06084)</span><br />Population : 10443"
-          }
+            content:
+              '<span style="font-weight:bold;">Mouans-Sartoux (06084)</span><br />Population : 10443',
+          },
         },
         "town-81163": {
           value: "10437",
@@ -8452,8 +9388,9 @@ $(function() {
           longitude: 2.3733333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Mazamet (81163)</span><br />Population : 10437"
-          }
+            content:
+              '<span style="font-weight:bold;">Mazamet (81163)</span><br />Population : 10437',
+          },
         },
         "town-35236": {
           value: "10413",
@@ -8461,8 +9398,9 @@ $(function() {
           longitude: -2.0847222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Redon (35236)</span><br />Population : 10413"
-          }
+            content:
+              '<span style="font-weight:bold;">Redon (35236)</span><br />Population : 10413',
+          },
         },
         "town-31488": {
           value: "10402",
@@ -8470,8 +9408,9 @@ $(function() {
           longitude: 1.505,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Jean (31488)</span><br />Population : 10402"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Jean (31488)</span><br />Population : 10402',
+          },
         },
         "town-83049": {
           value: "10389",
@@ -8479,8 +9418,9 @@ $(function() {
           longitude: 6.0708333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Cuers (83049)</span><br />Population : 10389"
-          }
+            content:
+              '<span style="font-weight:bold;">Cuers (83049)</span><br />Population : 10389',
+          },
         },
         "town-26057": {
           value: "10381",
@@ -8488,8 +9428,9 @@ $(function() {
           longitude: 5.05,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Bourg-de-PÃ©age (26057)</span><br />Population : 10381"
-          }
+            content:
+              '<span style="font-weight:bold;">Bourg-de-PÃ©age (26057)</span><br />Population : 10381',
+          },
         },
         "town-78190": {
           value: "10361",
@@ -8497,8 +9438,9 @@ $(function() {
           longitude: 2.1422222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Croissy-sur-Seine (78190)</span><br />Population : 10361"
-          }
+            content:
+              '<span style="font-weight:bold;">Croissy-sur-Seine (78190)</span><br />Population : 10361',
+          },
         },
         "town-81060": {
           value: "10361",
@@ -8506,8 +9448,9 @@ $(function() {
           longitude: 2.1580555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Carmaux (81060)</span><br />Population : 10361"
-          }
+            content:
+              '<span style="font-weight:bold;">Carmaux (81060)</span><br />Population : 10361',
+          },
         },
         "town-09122": {
           value: "10358",
@@ -8515,8 +9458,9 @@ $(function() {
           longitude: 1.6069444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Foix (09122)</span><br />Population : 10358"
-          }
+            content:
+              '<span style="font-weight:bold;">Foix (09122)</span><br />Population : 10358',
+          },
         },
         "town-69273": {
           value: "10327",
@@ -8524,8 +9468,9 @@ $(function() {
           longitude: 4.9019444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Corbas (69273)</span><br />Population : 10327"
-          }
+            content:
+              '<span style="font-weight:bold;">Corbas (69273)</span><br />Population : 10327',
+          },
         },
         "town-22136": {
           value: "10324",
@@ -8533,8 +9478,9 @@ $(function() {
           longitude: -2.7533333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">LoudÃ©ac (22136)</span><br />Population : 10324"
-          }
+            content:
+              '<span style="font-weight:bold;">LoudÃ©ac (22136)</span><br />Population : 10324',
+          },
         },
         "town-83148": {
           value: "10312",
@@ -8542,8 +9488,9 @@ $(function() {
           longitude: 6.4319444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Vidauban (83148)</span><br />Population : 10312"
-          }
+            content:
+              '<span style="font-weight:bold;">Vidauban (83148)</span><br />Population : 10312',
+          },
         },
         "town-76216": {
           value: "10286",
@@ -8551,8 +9498,9 @@ $(function() {
           longitude: 1.0497222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">DÃ©ville-lÃ¨s-Rouen (76216)</span><br />Population : 10286"
-          }
+            content:
+              '<span style="font-weight:bold;">DÃ©ville-lÃ¨s-Rouen (76216)</span><br />Population : 10286',
+          },
         },
         "town-24520": {
           value: "10279",
@@ -8560,8 +9508,9 @@ $(function() {
           longitude: 1.2166666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Sarlat-la-CanÃ©da (24520)</span><br />Population : 10279"
-          }
+            content:
+              '<span style="font-weight:bold;">Sarlat-la-CanÃ©da (24520)</span><br />Population : 10279',
+          },
         },
         "town-37195": {
           value: "10279",
@@ -8569,8 +9518,9 @@ $(function() {
           longitude: 0.66055555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">La Riche (37195)</span><br />Population : 10279"
-          }
+            content:
+              '<span style="font-weight:bold;">La Riche (37195)</span><br />Population : 10279',
+          },
         },
         "town-86041": {
           value: "10269",
@@ -8578,8 +9528,9 @@ $(function() {
           longitude: 0.34916666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Buxerolles (86041)</span><br />Population : 10269"
-          }
+            content:
+              '<span style="font-weight:bold;">Buxerolles (86041)</span><br />Population : 10269',
+          },
         },
         "town-35210": {
           value: "10240",
@@ -8587,8 +9538,9 @@ $(function() {
           longitude: -1.7738888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">PacÃ© (35210)</span><br />Population : 10240"
-          }
+            content:
+              '<span style="font-weight:bold;">PacÃ© (35210)</span><br />Population : 10240',
+          },
         },
         "town-54159": {
           value: "10239",
@@ -8596,8 +9548,9 @@ $(function() {
           longitude: 6.3497222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Dombasle-sur-Meurthe (54159)</span><br />Population : 10239"
-          }
+            content:
+              '<span style="font-weight:bold;">Dombasle-sur-Meurthe (54159)</span><br />Population : 10239',
+          },
         },
         "town-59426": {
           value: "10223",
@@ -8605,8 +9558,9 @@ $(function() {
           longitude: 3.1580555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Neuville-en-Ferrain (59426)</span><br />Population : 10223"
-          }
+            content:
+              '<span style="font-weight:bold;">Neuville-en-Ferrain (59426)</span><br />Population : 10223',
+          },
         },
         "town-91216": {
           value: "10222",
@@ -8614,8 +9568,9 @@ $(function() {
           longitude: 2.3272222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Ã‰pinay-sur-Orge (91216)</span><br />Population : 10222"
-          }
+            content:
+              '<span style="font-weight:bold;">Ã‰pinay-sur-Orge (91216)</span><br />Population : 10222',
+          },
         },
         "town-16374": {
           value: "10216",
@@ -8623,8 +9578,9 @@ $(function() {
           longitude: 0.19777777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Soyaux (16374)</span><br />Population : 10216"
-          }
+            content:
+              '<span style="font-weight:bold;">Soyaux (16374)</span><br />Population : 10216',
+          },
         },
         "town-62516": {
           value: "10189",
@@ -8632,8 +9588,9 @@ $(function() {
           longitude: 2.4819444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Lillers (62516)</span><br />Population : 10189"
-          }
+            content:
+              '<span style="font-weight:bold;">Lillers (62516)</span><br />Population : 10189',
+          },
         },
         "town-21515": {
           value: "10179",
@@ -8641,8 +9598,9 @@ $(function() {
           longitude: 5.1061111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Quetigny (21515)</span><br />Population : 10179"
-          }
+            content:
+              '<span style="font-weight:bold;">Quetigny (21515)</span><br />Population : 10179',
+          },
         },
         "town-57019": {
           value: "10167",
@@ -8650,8 +9608,9 @@ $(function() {
           longitude: 6.1419444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">AmnÃ©ville (57019)</span><br />Population : 10167"
-          }
+            content:
+              '<span style="font-weight:bold;">AmnÃ©ville (57019)</span><br />Population : 10167',
+          },
         },
         "town-62014": {
           value: "10164",
@@ -8659,8 +9618,9 @@ $(function() {
           longitude: 2.3966666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Aire-sur-la-Lys (62014)</span><br />Population : 10164"
-          }
+            content:
+              '<span style="font-weight:bold;">Aire-sur-la-Lys (62014)</span><br />Population : 10164',
+          },
         },
         "town-62040": {
           value: "10163",
@@ -8668,8 +9628,9 @@ $(function() {
           longitude: 2.3025,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Arques (62040)</span><br />Population : 10163"
-          }
+            content:
+              '<span style="font-weight:bold;">Arques (62040)</span><br />Population : 10163',
+          },
         },
         "town-91200": {
           value: "10151",
@@ -8677,8 +9638,9 @@ $(function() {
           longitude: 2.0108333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Dourdan (91200)</span><br />Population : 10151"
-          }
+            content:
+              '<span style="font-weight:bold;">Dourdan (91200)</span><br />Population : 10151',
+          },
         },
         "town-66008": {
           value: "10149",
@@ -8686,8 +9648,9 @@ $(function() {
           longitude: 3.0238888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">ArgelÃ¨s-sur-Mer (66008)</span><br />Population : 10149"
-          }
+            content:
+              '<span style="font-weight:bold;">ArgelÃ¨s-sur-Mer (66008)</span><br />Population : 10149',
+          },
         },
         "town-38565": {
           value: "10146",
@@ -8695,8 +9658,9 @@ $(function() {
           longitude: 5.6369444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Voreppe (38565)</span><br />Population : 10146"
-          }
+            content:
+              '<span style="font-weight:bold;">Voreppe (38565)</span><br />Population : 10146',
+          },
         },
         "town-35055": {
           value: "10145",
@@ -8704,8 +9668,9 @@ $(function() {
           longitude: -1.6163888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Chantepie (35055)</span><br />Population : 10145"
-          }
+            content:
+              '<span style="font-weight:bold;">Chantepie (35055)</span><br />Population : 10145',
+          },
         },
         "town-21171": {
           value: "10132",
@@ -8713,8 +9678,9 @@ $(function() {
           longitude: 5.1355555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Chevigny-Saint-Sauveur (21171)</span><br />Population : 10132"
-          }
+            content:
+              '<span style="font-weight:bold;">Chevigny-Saint-Sauveur (21171)</span><br />Population : 10132',
+          },
         },
         "town-97227": {
           value: "10131",
@@ -8722,8 +9688,9 @@ $(function() {
           longitude: -60.921666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Sainte-Luce (97227)</span><br />Population : 10131"
-          }
+            content:
+              '<span style="font-weight:bold;">Sainte-Luce (97227)</span><br />Population : 10131',
+          },
         },
         "town-59090": {
           value: "10130",
@@ -8731,8 +9698,9 @@ $(function() {
           longitude: 3.0933333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Bondues (59090)</span><br />Population : 10130"
-          }
+            content:
+              '<span style="font-weight:bold;">Bondues (59090)</span><br />Population : 10130',
+          },
         },
         "town-62587": {
           value: "10113",
@@ -8740,8 +9708,9 @@ $(function() {
           longitude: 2.9297222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Montigny-en-Gohelle (62587)</span><br />Population : 10113"
-          }
+            content:
+              '<span style="font-weight:bold;">Montigny-en-Gohelle (62587)</span><br />Population : 10113',
+          },
         },
         "town-78674": {
           value: "10106",
@@ -8749,8 +9718,9 @@ $(function() {
           longitude: 2.0022222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Villepreux (78674)</span><br />Population : 10106"
-          }
+            content:
+              '<span style="font-weight:bold;">Villepreux (78674)</span><br />Population : 10106',
+          },
         },
         "town-85128": {
           value: "10094",
@@ -8758,8 +9728,9 @@ $(function() {
           longitude: -1.1658333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">LuÃ§on (85128)</span><br />Population : 10094"
-          }
+            content:
+              '<span style="font-weight:bold;">LuÃ§on (85128)</span><br />Population : 10094',
+          },
         },
         "town-84138": {
           value: "10077",
@@ -8767,8 +9738,9 @@ $(function() {
           longitude: 4.9902777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">ValrÃ©as (84138)</span><br />Population : 10077"
-          }
+            content:
+              '<span style="font-weight:bold;">ValrÃ©as (84138)</span><br />Population : 10077',
+          },
         },
         "town-54482": {
           value: "10070",
@@ -8776,8 +9748,9 @@ $(function() {
           longitude: 6.2066666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-Max (54482)</span><br />Population : 10070"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-Max (54482)</span><br />Population : 10070',
+          },
         },
         "town-62771": {
           value: "10063",
@@ -8785,8 +9758,9 @@ $(function() {
           longitude: 2.8622222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Sallaumines (62771)</span><br />Population : 10063"
-          }
+            content:
+              '<span style="font-weight:bold;">Sallaumines (62771)</span><br />Population : 10063',
+          },
         },
         "town-69152": {
           value: "10061",
@@ -8794,8 +9768,9 @@ $(function() {
           longitude: 4.8241666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Pierre-BÃ©nite (69152)</span><br />Population : 10061"
-          }
+            content:
+              '<span style="font-weight:bold;">Pierre-BÃ©nite (69152)</span><br />Population : 10061',
+          },
         },
         "town-79329": {
           value: "10061",
@@ -8803,8 +9778,9 @@ $(function() {
           longitude: -0.21527777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Thouars (79329)</span><br />Population : 10061"
-          }
+            content:
+              '<span style="font-weight:bold;">Thouars (79329)</span><br />Population : 10061',
+          },
         },
         "town-83034": {
           value: "10060",
@@ -8812,8 +9788,9 @@ $(function() {
           longitude: 6.0736111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Carqueiranne (83034)</span><br />Population : 10060"
-          }
+            content:
+              '<span style="font-weight:bold;">Carqueiranne (83034)</span><br />Population : 10060',
+          },
         },
         "town-57591": {
           value: "10045",
@@ -8821,8 +9798,9 @@ $(function() {
           longitude: 6.0947222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Rombas (57591)</span><br />Population : 10045"
-          }
+            content:
+              '<span style="font-weight:bold;">Rombas (57591)</span><br />Population : 10045',
+          },
         },
         "town-83071": {
           value: "10017",
@@ -8830,8 +9808,9 @@ $(function() {
           longitude: 6.2344444444444,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">La Londe-les-Maures (83071)</span><br />Population : 10017"
-          }
+            content:
+              '<span style="font-weight:bold;">La Londe-les-Maures (83071)</span><br />Population : 10017',
+          },
         },
         "town-80016": {
           value: "10008",
@@ -8839,8 +9818,9 @@ $(function() {
           longitude: 2.6522222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Albert (80016)</span><br />Population : 10008"
-          }
+            content:
+              '<span style="font-weight:bold;">Albert (80016)</span><br />Population : 10008',
+          },
         },
         "town-67067": {
           value: "10002",
@@ -8848,8 +9828,9 @@ $(function() {
           longitude: 7.7083333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Brumath (67067)</span><br />Population : 10002"
-          }
+            content:
+              '<span style="font-weight:bold;">Brumath (67067)</span><br />Population : 10002',
+          },
         },
         "town-94055": {
           value: "9990",
@@ -8857,8 +9838,9 @@ $(function() {
           longitude: 2.5383333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Ormesson-sur-Marne (94055)</span><br />Population : 9990"
-          }
+            content:
+              '<span style="font-weight:bold;">Ormesson-sur-Marne (94055)</span><br />Population : 9990',
+          },
         },
         "town-57447": {
           value: "9984",
@@ -8866,8 +9848,9 @@ $(function() {
           longitude: 6.1497222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Marly (57447)</span><br />Population : 9984"
-          }
+            content:
+              '<span style="font-weight:bold;">Marly (57447)</span><br />Population : 9984',
+          },
         },
         "town-44129": {
           value: "9961",
@@ -8875,8 +9858,9 @@ $(function() {
           longitude: -2.0877777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">PontchÃ¢teau (44129)</span><br />Population : 9961"
-          }
+            content:
+              '<span style="font-weight:bold;">PontchÃ¢teau (44129)</span><br />Population : 9961',
+          },
         },
         "town-59324": {
           value: "9935",
@@ -8884,8 +9868,9 @@ $(function() {
           longitude: 4.1013888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Jeumont (59324)</span><br />Population : 9935"
-          }
+            content:
+              '<span style="font-weight:bold;">Jeumont (59324)</span><br />Population : 9935',
+          },
         },
         "town-62637": {
           value: "9934",
@@ -8893,8 +9878,9 @@ $(function() {
           longitude: 2.9936111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Oignies (62637)</span><br />Population : 9934"
-          }
+            content:
+              '<span style="font-weight:bold;">Oignies (62637)</span><br />Population : 9934',
+          },
         },
         "town-76319": {
           value: "9908",
@@ -8902,8 +9888,9 @@ $(function() {
           longitude: 1.0072222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Grand-Couronne (76319)</span><br />Population : 9908"
-          }
+            content:
+              '<span style="font-weight:bold;">Grand-Couronne (76319)</span><br />Population : 9908',
+          },
         },
         "town-76165": {
           value: "9907",
@@ -8911,8 +9898,9 @@ $(function() {
           longitude: 1.0211111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Caudebec-lÃ¨s-Elbeuf (76165)</span><br />Population : 9907"
-          }
+            content:
+              '<span style="font-weight:bold;">Caudebec-lÃ¨s-Elbeuf (76165)</span><br />Population : 9907',
+          },
         },
         "town-42005": {
           value: "9893",
@@ -8920,8 +9908,9 @@ $(function() {
           longitude: 4.2602777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">AndrÃ©zieux-BouthÃ©on (42005)</span><br />Population : 9893"
-          }
+            content:
+              '<span style="font-weight:bold;">AndrÃ©zieux-BouthÃ©on (42005)</span><br />Population : 9893',
+          },
         },
         "town-58303": {
           value: "9891",
@@ -8929,8 +9918,9 @@ $(function() {
           longitude: 3.1463888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Varennes-Vauzelles (58303)</span><br />Population : 9891"
-          }
+            content:
+              '<span style="font-weight:bold;">Varennes-Vauzelles (58303)</span><br />Population : 9891',
+          },
         },
         "town-59386": {
           value: "9877",
@@ -8938,8 +9928,9 @@ $(function() {
           longitude: 3.0661111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Marquette-lez-Lille (59386)</span><br />Population : 9877"
-          }
+            content:
+              '<span style="font-weight:bold;">Marquette-lez-Lille (59386)</span><br />Population : 9877',
+          },
         },
         "town-59636": {
           value: "9864",
@@ -8947,8 +9938,9 @@ $(function() {
           longitude: 3.0486111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Wambrechies (59636)</span><br />Population : 9864"
-          }
+            content:
+              '<span style="font-weight:bold;">Wambrechies (59636)</span><br />Population : 9864',
+          },
         },
         "town-45075": {
           value: "9840",
@@ -8956,8 +9948,9 @@ $(function() {
           longitude: 1.8397222222222,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">La Chapelle-Saint-Mesmin (45075)</span><br />Population : 9840"
-          }
+            content:
+              '<span style="font-weight:bold;">La Chapelle-Saint-Mesmin (45075)</span><br />Population : 9840',
+          },
         },
         "town-59153": {
           value: "9829",
@@ -8965,8 +9958,9 @@ $(function() {
           longitude: 3.5905555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">CondÃ©-sur-l'Escaut (59153)</span><br />Population : 9829"
-          }
+            content:
+              '<span style="font-weight:bold;">CondÃ©-sur-l\'Escaut (59153)</span><br />Population : 9829',
+          },
         },
         "town-33051": {
           value: "9826",
@@ -8974,8 +9968,9 @@ $(function() {
           longitude: -0.9783333333333299,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Biganos (33051)</span><br />Population : 9826"
-          }
+            content:
+              '<span style="font-weight:bold;">Biganos (33051)</span><br />Population : 9826',
+          },
         },
         "town-91661": {
           value: "9825",
@@ -8983,8 +9978,9 @@ $(function() {
           longitude: 2.245,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Villebon-sur-Yvette (91661)</span><br />Population : 9825"
-          }
+            content:
+              '<span style="font-weight:bold;">Villebon-sur-Yvette (91661)</span><br />Population : 9825',
+          },
         },
         "town-63014": {
           value: "9824",
@@ -8992,8 +9988,9 @@ $(function() {
           longitude: 3.1108333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">AubiÃ¨re (63014)</span><br />Population : 9824"
-          }
+            content:
+              '<span style="font-weight:bold;">AubiÃ¨re (63014)</span><br />Population : 9824',
+          },
         },
         "town-60282": {
           value: "9819",
@@ -9001,8 +9998,9 @@ $(function() {
           longitude: 2.4161111111111,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Gouvieux (60282)</span><br />Population : 9819"
-          }
+            content:
+              '<span style="font-weight:bold;">Gouvieux (60282)</span><br />Population : 9819',
+          },
         },
         "town-69271": {
           value: "9813",
@@ -9010,8 +10008,9 @@ $(function() {
           longitude: 4.9663888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Chassieu (69271)</span><br />Population : 9813"
-          }
+            content:
+              '<span style="font-weight:bold;">Chassieu (69271)</span><br />Population : 9813',
+          },
         },
         "town-33366": {
           value: "9809",
@@ -9019,8 +10018,9 @@ $(function() {
           longitude: -0.44583333333333,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Saint-AndrÃ©-de-Cubzac (33366)</span><br />Population : 9809"
-          }
+            content:
+              '<span style="font-weight:bold;">Saint-AndrÃ©-de-Cubzac (33366)</span><br />Population : 9809',
+          },
         },
         "town-31451": {
           value: "9795",
@@ -9028,8 +10028,9 @@ $(function() {
           longitude: 2.0041666666667,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Revel (31451)</span><br />Population : 9795"
-          }
+            content:
+              '<span style="font-weight:bold;">Revel (31451)</span><br />Population : 9795',
+          },
         },
         "town-59011": {
           value: "9775",
@@ -9037,8 +10038,9 @@ $(function() {
           longitude: 2.9327777777778,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">AnnÅ“ullin (59011)</span><br />Population : 9775"
-          }
+            content:
+              '<span style="font-weight:bold;">AnnÅ“ullin (59011)</span><br />Population : 9775',
+          },
         },
         "town-13069": {
           value: "9771",
@@ -9046,8 +10048,9 @@ $(function() {
           longitude: 5.1505555555556,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">PÃ©lissanne (13069)</span><br />Population : 9771"
-          }
+            content:
+              '<span style="font-weight:bold;">PÃ©lissanne (13069)</span><br />Population : 9771',
+          },
         },
         "town-91122": {
           value: "9769",
@@ -9055,8 +10058,9 @@ $(function() {
           longitude: 2.1613888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Bures-sur-Yvette (91122)</span><br />Population : 9769"
-          }
+            content:
+              '<span style="font-weight:bold;">Bures-sur-Yvette (91122)</span><br />Population : 9769',
+          },
         },
         "town-02381": {
           value: "9756",
@@ -9064,10 +10068,11 @@ $(function() {
           longitude: 4.0838888888889,
           href: "#",
           tooltip: {
-            content: "<span style=\"font-weight:bold;\">Hirson (02381)</span><br />Population : 9756"
-          }
-        }
-      }
+            content:
+              '<span style="font-weight:bold;">Hirson (02381)</span><br />Population : 9756',
+          },
+        },
+      },
     });
   }
 });
