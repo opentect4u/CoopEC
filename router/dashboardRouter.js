@@ -126,6 +126,8 @@ DashboardRouter.post("/dashboard", async (req, res) => {
   try {
     // Extract range_id from session
     const range_id = req.session.user.range_id;
+    var cntr_auth = req.session.user.cntr_auth_type;
+    var range_or_dist = cntr_auth > 1 ? 'dist_code':'range_code';
     if (range_id == 0) {
       const user_type = 1;
     } else {
@@ -135,7 +137,7 @@ DashboardRouter.post("/dashboard", async (req, res) => {
     const select =
       "a.id,a.cop_soc_name,a.reg_no,a.functional_status,a.approve_status,b.soc_type_name,c.dist_name,d.zone_name,e.range_name,f.soc_tier_name,g.controlling_authority_type_name";
     var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id LEFT JOIN md_controlling_authority_type g ON a.cntr_auth_type = g.controlling_authority_type_id`;
-    var cntr_auth = req.session.user.cntr_auth_type;
+  
     if(range_id > 0){
       var con1 =`AND (cntr_auth_type = "${cntr_auth}" OR cntr_auth_type = 0) `;
     }else{
@@ -145,7 +147,7 @@ DashboardRouter.post("/dashboard", async (req, res) => {
     }
     
     var con2 =
-      formdata.range_code > 0 ? `AND a.range_code=${formdata.range_code} ` : "";
+      formdata.range_code > 0 ? `AND a.${range_or_dist}=${formdata.range_code} ` : "";
 
     var con3;
     if (formdata.urban_rural_flag == "U") {
@@ -201,8 +203,6 @@ DashboardRouter.post("/dashboard", async (req, res) => {
       soc_data_status = `AND a.approve_status='${formdata.soc_data_status}'`;
     }
 
-    // var con11 = formdata.functional_status !='' ? `AND a.functional_status='${formdata.functional_status}' ` : '';
-
     var maincon =
       con1 +
       con2 +
@@ -216,7 +216,7 @@ DashboardRouter.post("/dashboard", async (req, res) => {
       con10 +
       soc_data_status;
     if (range_id > 0) {
-      var whr = ` a.range_code='${range_id}' ${maincon} LIMIT 25`;
+      var whr = ` a.${range_or_dist}='${range_id}' ${maincon} LIMIT 25`;
     } else {
       var whr = `1 ${maincon} LIMIT 25`;
     }
@@ -926,28 +926,38 @@ DashboardRouter.post("/get_rular_urban", async (req, res) => {
 DashboardRouter.get("/society_download", async (req, res) => {
   try {
     var range_id = req.session.user.range_id;
+    var cntr_auth_ty = req.session.user.cntr_auth_type;
     var zone_code = "";
     var range_code_for_name = 0;
+     var range_or_dist = cntr_auth_ty > 1 ? 'dist_code':'range_code';
     if (range_id > 0) {
       range_code_for_name = req.session.user.range_id;
       var range =
-        range_id > 0 ? `AND a.range_code=${req.session.user.range_id} ` : "";
+        range_id > 0 ? `AND a.${range_or_dist}=${req.session.user.range_id} ` : "";
     } else {
       range_code_for_name = req.query.range_code > 0 ? req.query.range_code : 0;
       var range =
         req.query.range_code > 0
-          ? `AND a.range_code=${req.query.range_code} `
+          ? `AND a.${range_or_dist}=${req.query.range_code} `
           : "";
       zone_code =
         req.query.zone_code > 0
           ? `AND a.zone_code=${req.query.zone_code} `
           : "";
     }
-
-    var cntr_auth_type =
-      req.query.cntr_auth_type > 0
-        ? `AND a.cntr_auth_type=${req.query.cntr_auth_type} `
-        : "";
+    if(cntr_auth_ty > 1){
+      var cntr_auth_type = `AND (a.cntr_auth_type=${cntr_auth_ty} OR a.cntr_auth_type=0)`;
+    }else{
+      if (range_id > 0) {
+        var cntr_auth_type = `AND (a.cntr_auth_type=${cntr_auth_ty} OR a.cntr_auth_type=0)`;
+      }else{
+        var cntr_auth_type =
+        req.query.cntr_auth_type > 0
+          ? `AND a.cntr_auth_type=${req.query.cntr_auth_type} `
+          : "";
+      }
+    }
+    
     // var dist_code = req.query.dist_code > 0 ? `AND a.dist_code=${req.query.dist_code} ` : '';
 
     var soc_tier =
@@ -1000,15 +1010,22 @@ DashboardRouter.get("/society_download", async (req, res) => {
 
     const where = `${con + range + cntr_auth_type + zone_code + soc_tier + urban_rural_flag + soc_type_id + soc_data_status + functional_status}`; // Ensure these variables are properly defined
     const res_dt = await db_Select(select, table_name, where, null);
-    // if(range_code_for_name==0){
-    //         var range_name = 'ALL';
-    // }else{
-    const res_dt_range = await db_Select(
-      "range_name",
-      "md_range",
-      `range_id = '${range_code_for_name}' `,
-      null,
-    );
+    if(cntr_auth_ty > 1 ){
+      var res_dt_range = await db_Select(
+        "range_name",
+        "md_range",
+        `range_id = '${range_code_for_name}' `,
+        null,
+      );
+    }else{
+      var res_dt_range = await db_Select(
+        "dist_name as range_name",
+        "md_district",
+        `dist_code = '${range_code_for_name}' `,
+        null,
+      );
+    }
+    
     var range_name = res_dt_range.msg[0].range_name;
     console.log(res_dt_range);
     //}
