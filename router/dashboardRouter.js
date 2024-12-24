@@ -317,7 +317,7 @@ DashboardRouter.get("/socLimitList", async (req, res) => {
   const limit = 25;
   const offset = (page - 1) * limit;
   var cntr_auth_type = req.session.user.cntr_auth_type;
-
+  var range_or_dist = cntr_auth_type > 1 ? 'dist_code' : 'range_code';
   
   var dist_code =
     req.query.dist_code > 0 ? `AND a.dist_code=${req.query.dist_code} ` : "";
@@ -373,7 +373,7 @@ DashboardRouter.get("/socLimitList", async (req, res) => {
         var whr = `1 ${maincon} LIMIT ${offset} , ${limit}`;
       }
     }else{
-      var whr = `1 ${maincon} LIMIT ${offset} , ${limit}`;
+      var whr = `1 AND a.dist_code='${range_id}' ${maincon} LIMIT ${offset} , ${limit}`;
     }
 
   const order = null;
@@ -398,7 +398,7 @@ DashboardRouter.get("/socLimitList", async (req, res) => {
       var countResult = await db_Select(
         select2,
         table_name,
-        `${maincon}`,
+        `a.dist_code='${range_id}' ${maincon}`,
         order,
       );
     }
