@@ -54,7 +54,7 @@ SocietyRouter.get("/edit", async (req, res) => {
     const soc_id = req.query.id;
     var range_id = req.session.user.range_id;
     var cntr_auth_type = req.session.user.cntr_auth_type;
-    console.log(cntr_auth_type);
+  
     const select = "*";
     const table_name = "md_society";
     const whr = `id='${soc_id}' `;
@@ -139,7 +139,7 @@ SocietyRouter.get("/edit", async (req, res) => {
       soctierlist: soctierres.suc > 0 ? soctierres.msg : "",
       regauthtypelist: regauttypehres.suc > 0 ? regauttypehres.msg : "",
       regauthlist: regauthres.suc > 0 ? regauthres.msg : "",
-      moment: moment,
+      moment: moment,cntr_auth_id:cntr_auth_type,
       zonelist: zoneres.suc > 0 ? zoneres.msg : "",
       districtlist: distres.suc > 0 ? distres.msg : "",
       ranzelist: ranzeres.suc > 0 ? ranzeres.msg : "",
@@ -155,6 +155,7 @@ SocietyRouter.get("/edit", async (req, res) => {
       boardmembdlist: boardmembdtsl.suc > 0 ? boardmembdtsl.msg : "",
       devauth_list: devauth_name.suc > 0 ? devauth_name.msg : "",
     };
+    
     // Render the view with data
     res.render("society/edit", res_dt);
   } catch (error) {
@@ -753,23 +754,36 @@ SocietyRouter.get("/getsuggestions", async (req, res) => {
     // Extract query parameter 'claims'
     const sugname = req.query.name;
     const range_id = req.session.user.range_id;
-    if (range_id > 0) {
-      var datahres = await db_Select(
-        "cop_soc_name",
-        "md_society",
-        `range_code='${range_id}' AND cop_soc_name LIKE '%${sugname
-          .split("'")
-          .join("\\'")}%'`,
-        null,
-      );
-    } else {
-      var datahres = await db_Select(
-        "cop_soc_name",
-        "md_society",
-        `cop_soc_name LIKE '%${sugname.split("'").join("\\'")}%'`,
-        null,
-      );
+    var cntr_auth_type = req.session.user.cntr_auth_type;
+    if(cntr_auth_type == 1){
+        if (range_id > 0) {
+          var datahres = await db_Select(
+            "cop_soc_name",
+            "md_society",
+            `range_code='${range_id}' AND cop_soc_name LIKE '%${sugname
+              .split("'")
+              .join("\\'")}%'`,
+            null,
+          );
+        } else {
+          var datahres = await db_Select(
+            "cop_soc_name",
+            "md_society",
+            `cop_soc_name LIKE '%${sugname.split("'").join("\\'")}%'`,
+            null,
+          );
+        }
+    }else{
+          var datahres = await db_Select(
+            "cop_soc_name",
+            "md_society",
+            `(cntr_auth_type = "${cntr_auth_type}" OR cntr_auth_type = 0) AND cop_soc_name LIKE '%${sugname
+              .split("'")
+              .join("\\'")}%'`,
+            null,
+          );
     }
+    
 
     const responseData = {
       datahlist: datahres.suc > 0 ? datahres.msg : "", // Echoing the received claims

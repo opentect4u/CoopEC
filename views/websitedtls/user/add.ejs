@@ -43,14 +43,14 @@
                     <% if(user.user_type == 'S'){  %>
                     <option value="S">Super Admin</option>
                     <option value="A">Admin(HO)</option>
-                    <option value="M">Range Admin</option>
-                    <option value="U">Range User</option>
+                    <option value="M"><%=user_ty%> Admin</option>
+                    <option value="U"><%=user_ty%> User</option>
                     <% }else if(user.user_type == 'A') { %>
                       <option value="A">Admin(HO)</option>
-                      <option value="M">Range Admin</option>
-                      <option value="U">Range User</option>
+                      <option value="M"><%=user_ty%> Admin</option>
+                      <option value="U"><%=user_ty%> User</option>
                       <% }else if(user.user_type == 'M'){ %>
-                        <option value="U">Range User</option>
+                        <option value="U"><%=user_ty%> User</option>
                         <% } %>
                   </select>
                 </div>

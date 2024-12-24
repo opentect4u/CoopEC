@@ -39,9 +39,11 @@
                   <label for="exampleInputName1">User Type<span class="red">*</span></label>
                   <select name="user_type" class="form-control" required> 
                     <option value="">Please Select</option>
+                    <%  if(user.user_type == 'A') { %>
                     <option value="A" <%= usersd.user_type == 'A' ? 'selected' : '' %>>Admin</option>
-                    <option value="M" <%= usersd.user_type == 'M' ? 'selected' : '' %> >Range Admin</option>
-                    <option value="U" <%= usersd.user_type == 'U' ? 'selected' : '' %>>User </option>
+                    <% } %>
+                    <option value="M" <%= usersd.user_type == 'M' ? 'selected' : '' %> ><%=user_ty%> Admin</option>
+                    <option value="U" <%= usersd.user_type == 'U' ? 'selected' : '' %>><%=user_ty%> User </option>
                   </select>
                 </div>
               </div>

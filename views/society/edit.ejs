@@ -74,8 +74,8 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="exampleInputName1">Registration & Controlling Authority <span class="red">*</span></label>
-                  <select class="form-control" id="cntr_auth_type" name="cntr_auth_type" >
-                    <option value="" >Select Registration & Controlling Authority</option>
+                  <select class="form-control" id="cntr_auth_type" name="cntr_auth_type" required>
+                    <option value="0" <%= soc.cntr_auth_type == 0 ? 'selected' : '' %>>Select Registration & Controlling Authority</option>
                     <% if(regauthtypelist.length > 0){
                       var i = 1
                       regauthtypelist.forEach(dt => { %>
@@ -422,7 +422,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="exampleInputName1">Election Status</label>
-                  <select class="form-control" id="election_status" name="election_status" >
+                  <select class="form-control" id="election_status" name="election_status" required>
                     <option value="">Select Status </option>
                       <option value="DUE" <%= soc.election_status == "DUE" ? 'selected' : '' %> >DUE</option>
                       <option value="ONGOING" <%= soc.election_status == "ONGOING" ? 'selected' : '' %> >ONGOING</option>
@@ -474,8 +474,9 @@
                 </div>
               </div>
             </div>
-          <button type="submit" id="submit" class="btn btn-primary mr-2" <%= soc.soc_type == "31" ? '' : '' %> >Submit</button>
-          <!-- <button class="btn btn-light">Cancel</button> -->
+          <% if(soc.cntr_auth_type == 0 || soc.cntr_auth_type == cntr_auth_id){  %> 
+          <button type="submit" id="submit" class="btn btn-primary mr-2" <%= soc.soc_type == "31" ? '' : '' %> >Submit </button>
+          <% }  %> 
         </form>
       </div>
     </div>

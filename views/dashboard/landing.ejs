@@ -22,6 +22,21 @@
               </select>
             </div>
           </div>
+          <% if(user.cntr_auth_type > 1) { %>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label for="exampleInputName1">District </label>
+                  <select class="form-control"  name="dist_code" >
+                    <option value="0">Select </option>
+                    <% if(distlist.length > 0){
+                      var i = 1
+                      distlist.forEach(dt => { %>
+                      <option value="<%= dt.dist_code %>" <%= dist_code == dt.dist_code ? 'selected' : '' %>><%= dt.dist_name %></option>
+                        <% }) } %>
+                </select>
+              </div>
+            </div>
+          <% } %>
           <% if(user.range_id== 0) { %>
             <div class="col-md-3">
               <div class="form-group">
