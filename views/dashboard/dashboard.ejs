@@ -8,9 +8,8 @@
     </div>
 
     <div class="selectDropdown">
-      <div class="stockPointSecTitle_cus">
-        <% if(user.range_id== 0) { %>
-          
+          <!-- <div class="stockPointSecTitle_cus">
+               <% if(user.range_id== 0) { %>
                 <div class="selectBox">
                   <label>Controlling Authority </label>
                   <select class="form-control" id="cntr_auth" name="cntr_auth" >
@@ -22,12 +21,12 @@
                         <% }) } %>
                   </select>
                 </div>
-           <%  } %>     
-            </div>
+               <%  } %>     
+          </div> -->
     </div>
     <div class="selectDropdown"  >
           <div class="stockPointSecTitle_cus" >
-            <div id = 'range_data'  style="display: none;">
+            <div id = 'range_data'  >
               <% if(user.range_id== 0) { %>
                 <div class="selectBox">
                   <label>Range </label>
@@ -42,7 +41,7 @@
                 </div>
               <%  } %>
             </div>
-            <div id = 'district_data' style="display: none;">
+            <!-- <div id = 'district_data' style="display: none;">
                   <div class="selectBox">
                      <label>District </label>
                     <select class="form-control" id="dist_code" name="dist_code" >
@@ -54,7 +53,7 @@
                           <% }) } %>
                     </select>
                   </div>
-            </div>
+            </div> -->
 
           </div>
        
