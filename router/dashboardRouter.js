@@ -331,7 +331,7 @@ DashboardRouter.get("/socLimitList", async (req, res) => {
     req.query.range_code > 0 ? `AND a.range_code=${req.query.range_code} ` : "";
     var con1 =
     req.query.cntr_auth_type > 0
-      ? `AND a.cntr_auth_type=${req.query.cntr_auth_type} `
+      ? `AND (a.cntr_auth_type=${cntr_auth_type} OR a.cntr_auth_type = 0)`
       : "";
   }else{
     var range_code = '';
