@@ -200,7 +200,7 @@
                   <tr>
                     <th class="society_th_1">SL No</th>
                     <th class="society_th_2">Society Name</th>
-                    <th class="society_th_6">Registration Number</th>
+                    <th class="society_th_6">Controlling authority</th>
                     <th class="society_th_8">Society Type</th>
                     <th class="society_th_7">Status </th>
                     <th class="society_th_9">Option</th>
@@ -219,7 +219,7 @@
                               <span style="background-color: red;"><%= dt.functional_status %></span>
                           <% } %>
                           </td>
-                          <td><%= dt.reg_no %></td>
+                          <td><%= dt.controlling_authority_type_name %></td>
                           <td><%= dt.soc_type_name %></td>
                           <td><% if (dt.approve_status == 'A'){ %>
                             <span class="green">APPROVED</span>
@@ -350,7 +350,7 @@
                                             ? '<span class="green">Functional</span>' 
                                             : `<span style="background-color: red;">${dt.functional_status}</span>`}
                                     </td>
-                                    <td>${dt.reg_no}</td> 
+                                    <td>${dt.controlling_authority_type_name ? dt.controlling_authority_type_name : ''}</td> 
                                     <td>${dt.soc_type_name}</td> 
                                     <td>${statusHTML}</td> 
                                     <td>
@@ -470,7 +470,7 @@
                                             ? '<span class="green">Functional</span>' 
                                             : `<span style="background-color: red;">${dt.functional_status}</span>`}
                                     </td>
-                                    <td>${dt.reg_no}</td> 
+                                    <td>${dt.controlling_authority_type_name ? dt.controlling_authority_type_name : ''}</td> 
                                     <td>${dt.soc_type_name}
                                     <td>${statusHTML}</td>
                                     <td>
