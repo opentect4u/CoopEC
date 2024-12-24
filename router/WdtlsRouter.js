@@ -635,15 +635,15 @@ WdtlsRouter.get("/userlist", async (req, res) => {
     const range_id = req.session.user.range_id;
     var cntr_auth_type = req.session.user.cntr_auth_type;
     if(cntr_auth_type == 1){
-      var select = `a.*,b.range_name`;
+      var select = `a.*,b.range_name,c.controlling_authority_type_name`;
       if (range_id > 0) {
-        var table = `md_user a JOIN md_range b ON a.range_id = b.range_id AND a.range_id='${range_id}'`;
+        var table = `md_user a JOIN md_range b ON a.range_id = b.range_id JOIN md_controlling_authority_type c ON a.cntr_auth_type =c.controlling_authority_type_id WHERE a.range_id='${range_id}' AND a.cntr_auth_type='${cntr_auth_type}'`;
       } else {
-        var table = `md_user a LEFT JOIN md_range b ON a.range_id = b.range_id `;
+        var table = `md_user a LEFT JOIN md_range b ON a.range_id = b.range_id LEFT JOIN md_controlling_authority_type c ON a.cntr_auth_type =c.controlling_authority_type_id`;
       }
     }else{
-      var select = `a.*,b.dist_name as range_name`;
-      var table = `md_user a JOIN md_district b ON a.range_id = b.dist_code AND a.range_id='${range_id}' AND a.cntr_auth_type='${cntr_auth_type}'`;
+      var select = `a.*,b.dist_name as range_name,c.controlling_authority_type_name`;
+      var table = `md_user a JOIN md_district b ON a.range_id = b.dist_code JOIN md_controlling_authority_type c ON a.cntr_auth_type =c.controlling_authority_type_id AND a.range_id='${range_id}' AND a.cntr_auth_type='${cntr_auth_type}'`;
     }
     
     const userlist = await db_Select(select, table, null, null);

@@ -1130,6 +1130,15 @@ DashboardRouter.post(
 DashboardRouter.get("/editprofile", async (req, res) => {
   var user = req.session.user;
   try {
+    var range_dist_id = req.session.user.range_id;
+    var cntr_auth_type = req.session.user.cntr_auth_type;
+    var distlist = await db_Select("*", "md_district", null, null);
+    var cnt_type = await db_Select(
+      "*",
+      "md_controlling_authority_type",
+      null,
+      null,
+    );
     var ranze = await db_Select("*", "md_range", null, null);
     var userres = await db_Select(
       "*",
@@ -1138,8 +1147,9 @@ DashboardRouter.get("/editprofile", async (req, res) => {
       null,
     );
     const res_dt = {
-      data: ranze.suc > 0 ? ranze.msg : "",
-      usersd: userres.suc > 0 ? userres.msg[0] : "",
+      data: ranze.suc > 0 ? ranze.msg : "",distl : distlist.suc > 0 ? distlist.msg : "",
+      cnt_type:cnt_type.suc > 0 ? cnt_type.msg : "",
+      usersd: userres.suc > 0 ? userres.msg[0] : "",cntr_auth_type:cntr_auth_type,range_dist:range_dist_id
     };
     res.render("user/profile", res_dt);
   } catch (error) {

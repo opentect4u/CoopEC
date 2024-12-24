@@ -22,6 +22,7 @@
                 <thead>
                   <tr>
                     <th class="society_th_1">SL No</th>
+                    <th>Registration & Controlling Authority</th>
                     <th class="society_th_6">Name</th>
                     <th class="society_th_9">User Type</th>
                     <th class="society_th_9">Range / District</th>
@@ -33,6 +34,7 @@
                   data.forEach(dt => { %>
                       <tr>
                           <td><%= i++ %></td>
+                          <td><%= dt.controlling_authority_type_name %></td>
                           <td><%= dt.user_name %></td>
                           <td><% if (dt.user_type == 'S') { %>
                             Super Admin

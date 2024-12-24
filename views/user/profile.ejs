@@ -9,16 +9,38 @@
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
-                <label for="exampleInputName1">Range</label>
-                <select class="form-control" id="range_code" name="range_code"  disabled>
+                <label for="exampleInputName1">Registration & Controlling Authority</label>
+                <select class="form-control" id="" name=""  disabled>
+                    <% if(cnt_type.length > 0){
+                    var i = 1
+                    cnt_type.forEach(dt => { %>
+                    <option value="<%= dt.controlling_authority_type_id %>" <%= usersd.cntr_auth_type == dt.range_id ? 'selected' : '' %> ><%= dt.controlling_authority_type_name %></option>
+                    <% }) } %>
+                    </select>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="exampleInputName1">Range / District</label>
+                <% if(cntr_auth_type == 1){ %>
+                <select class="form-control" id="" name=""  disabled>
                     <option value="0"  <%= usersd.range_id == 0 ? 'selected' : '' %>>Head Office</option>
-
                     <% if(data.length > 0){
                     var i = 1
                     data.forEach(dt => { %>
                     <option value="<%= dt.range_id %>" <%= usersd.range_id == dt.range_id ? 'selected' : '' %> ><%= dt.range_name %></option>
                     <% }) } %>
                     </select>
+                    <% }else{  %>
+                    <select class="form-control" id="" name=""  disabled>
+                      <option value="0"  <%= usersd.range_id == 0 ? 'selected' : '' %>>Head Office</option>
+                      <% if(distl.length > 0){
+                      var i = 1
+                      distl.forEach(dt => { %>
+                      <option value="<%= dt.dist_code %>" <%= usersd.range_id == dt.dist_code ? 'selected' : '' %> ><%= dt.dist_name %></option>
+                      <% }) } %>
+                      </select>
+                  <% } %>    
               </div>
             </div>
             <div class="col-md-6">
@@ -39,19 +61,20 @@
                 <select name="user_type" class="form-control" disabled> 
                   <option value="S" <%= usersd.user_type == 'S' ? 'selected' : '' %>>Super Admin</option>
                   <option value="A" <%= usersd.user_type == 'A' ? 'selected' : '' %>>Admin</option>
-                  <option value="M" <%= usersd.user_type == 'M' ? 'selected' : '' %> >Range Admin</option>
-                  <option value="U" <%= usersd.user_type == 'U' ? 'selected' : '' %>>User </option>
+                  <option value="M" <%= usersd.user_type == 'M' ? 'selected' : '' %> >RO</option>
+                  <option value="U" <%= usersd.user_type == 'U' ? 'selected' : '' %>>ARO </option>
                 </select>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="exampleInputName1">Designation<span class="red">*</span></label>
+                <input type="text" class="form-control"  name="designation" value="<%= usersd.designation %>" required>
               </div>
             </div>
           </div>
             <div class="row">
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label for="exampleInputName1">Designation<span class="red">*</span></label>
-                  <input type="text" class="form-control"  name="designation" value="<%= usersd.designation %>" required>
-                </div>
-              </div>
+              
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="exampleInputName1">User Email</label>
