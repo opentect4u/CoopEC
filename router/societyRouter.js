@@ -111,12 +111,23 @@ SocietyRouter.get("/edit", async (req, res) => {
     const officertyperes = await db_Select("*", "md_officer_type", null, null);
     const caseflagres = await db_Select("*", "md_case_flag", null, null);
     const wardres = await db_Select("*", "md_ward", null, null);
-    const blockres = await db_Select(
-      "*",
-      "md_block",
-      `dist_id='${distcode}'`,
-      null,
-    );
+    
+    //var dist_code_for_range = await db_Select("dist_id", "md_range", `range_id=${range_id}`, null);
+    if(cntr_auth_type > 1){
+        var blockres = await db_Select(
+          "*",
+          "md_block",
+          `dist_id='${range_id}'`,
+          null,
+        );
+    }else{
+      var blockres = await db_Select(
+        "*",
+        "md_block",
+        `dist_id='${distcode}'`,
+        null,
+      );
+    }
     const gpres = await db_Select("*", "md_gp", `dist_id='${distcode}'`, null);
     const villres = await db_Select(
       "*",
