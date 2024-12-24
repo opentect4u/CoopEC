@@ -42,8 +42,8 @@
                     <%  if(user.user_type == 'A') { %>
                     <option value="A" <%= usersd.user_type == 'A' ? 'selected' : '' %>>Admin</option>
                     <% } %>
-                    <option value="M" <%= usersd.user_type == 'M' ? 'selected' : '' %> ><%=user_ty%> Admin</option>
-                    <option value="U" <%= usersd.user_type == 'U' ? 'selected' : '' %>><%=user_ty%> User </option>
+                    <option value="M" <%= usersd.user_type == 'M' ? 'selected' : '' %> >RO</option>
+                    <option value="U" <%= usersd.user_type == 'U' ? 'selected' : '' %>>ARO </option>
                   </select>
                 </div>
               </div>
@@ -68,6 +68,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="exampleInputName1">Registration & Controlling Authority <span class="red">*</span></label>
+                  <% if(user.range_id== 0) { %>
                   <select name="cntr_auth_type" id="cntr_auth_type" class="form-control" required> 
                     <option value="">Please Select</option>
                     <% 
@@ -75,8 +76,42 @@
                     <option value="<%= dt.controlling_authority_type_id %>" <%= usersd.cntr_auth_type == dt.controlling_authority_type_id ? 'selected' : '' %> ><%= dt.controlling_authority_type_name %></option>
                     <% }) %>
                   </select>
+                  <% }else{  %>
+                    <select name="" id="" class="form-control" disabled> 
+                      <option value="">Please Select</option>
+                      <% 
+                      cnt_type.forEach(dt => { %>
+                      <option value="<%= dt.controlling_authority_type_id %>" <%= cntr_auth_type == dt.controlling_authority_type_id ? 'selected' : '' %> ><%= dt.controlling_authority_type_name %></option>
+                      <% }) %>
+                    </select>
+                    <input type="hidden" name="cntr_auth_type" value="<%= cntr_auth_type %>">
+
+                    <% } %>
+
                 </div>
               </div>
+              <% if(user.user_type == 'M'){ %>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="exampleInputName1"><%=user_ty%> <span class="red">*</span></label>
+                        <% if(cntr_auth_type == 1) { %>
+                        <select name="" class="form-control" disabled> 
+                          <% 
+                          data.forEach(dt => { %>
+                          <option value="<%= dt.range_id %>" <%= range_dist == dt.range_id ? 'selected' : '' %> ><%= dt.range_name %></option>
+                          <% }) %>
+                        </select>
+                       <% }else { %>
+                        <select name="" class="form-control" disabled> 
+                          <% 
+                          distl.forEach(dt => { %>
+                          <option value="<%= dt.dist_code %>" <%= range_dist == dt.dist_code ? 'selected' : '' %> ><%= dt.dist_name %></option>
+                          <% }) %>
+                        </select>
+                        <% } %>
+                  </div>
+                </div>
+                <% } %>
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="exampleInputName1">User Status<span class="red">*</span></label>
@@ -87,17 +122,16 @@
                   </select>
                 </div>
               </div>
-             
-                  <!-- <input type="hidden" value="I" name="user_status" /> -->
-              
-            </div>
-            <div class="row">
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="exampleInputName1">Reset Password</label>
                   <input type="text" class="form-control"  name="password" value="" >
                 </div>
               </div>
+              
+            </div>
+            <div class="row">
+             
             </div>
             
           <button type="submit" class="btn btn-primary mr-2" id="submit">Submit</button>

@@ -42,42 +42,26 @@
                     <option value="">Please Select</option>
                     <% if(user.user_type == 'S'){  %>
                     <option value="S">Super Admin</option>
-                    <option value="A">Admin(HO)</option>
-                    <option value="M"><%=user_ty%> Admin</option>
-                    <option value="U"><%=user_ty%> User</option>
+                    <option value="A">Admin</option>
+                    <option value="M">RO</option>
+                    <option value="U">ARO</option>
                     <% }else if(user.user_type == 'A') { %>
                       <option value="A">Admin(HO)</option>
-                      <option value="M"><%=user_ty%> Admin</option>
-                      <option value="U"><%=user_ty%> User</option>
+                      <option value="M">RO</option>
+                      <option value="U">ARO</option>
                       <% }else if(user.user_type == 'M'){ %>
-                        <option value="U"><%=user_ty%> User</option>
+                        <option value="U">ARO </option>
                         <% } %>
                   </select>
                 </div>
               </div>
             </div>
             <div class="row">
-            
-                <% if(user.range_id== 0) { %>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label for="exampleInputName1">Range<span class="red">*</span></label>
-                  <select name="range_id" class="form-control" required> 
-                    <option value="">Please Select</option>
-                    <% 
-                    data.forEach(dt => { %>
-                    <option value="<%= dt.range_id %>"><%= dt.range_name %></option>
-                    <% }) %>
-                  </select>
-                </div>
-              </div>
-              <% }else  { %>
-                  <input type="hidden" name="range_id" value="<%= user.range_id %>">
-
-                <% } %>
+          
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="exampleInputName1">Registration & Controlling Authority <span class="red">*</span></label>
+                    <% if(user.user_type == 'S'){ %>
                     <select name="cntr_auth_type" id="cntr_auth_type" class="form-control" required> 
                       <option value="">Please Select</option>
                       <% 
@@ -85,8 +69,52 @@
                       <option value="<%= dt.controlling_authority_type_id %>"><%= dt.controlling_authority_type_name %></option>
                       <% }) %>
                     </select>
+                    <%  }else if(user.user_type == 'M') { %>
+                      <select name="" id="" class="form-control" disabled> 
+                        <option value="">Please Select</option>
+                        <% 
+                        cnt_type.forEach(dt => { %>
+                        <option value="<%= dt.controlling_authority_type_id %>" <%= cntr_auth_type == dt.controlling_authority_type_id ? 'selected' : '' %> ><%= dt.controlling_authority_type_name %></option>
+                        <% }) %>
+                      </select>
+                      <input type="hidden" name="cntr_auth_type" value="<%= cntr_auth_type %>">
+                      <% } %>
                   </div>
                 </div>
+                <% if(user.range_id== 0) { %>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                            <label for="exampleInputName1">Range<span class="red">*</span></label>
+                            <select name="range_id" class="form-control" id="range_id" required> 
+                            </select>
+                    </div>
+                  </div>
+                  <% }else  { %>
+                      <input type="hidden" name="range_id" value="<%= user.range_id %>">
+    
+                  <% } %>
+                <% if(user.user_type == 'M'){ %>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="exampleInputName1"><%=user_ty%> <span class="red">*</span></label>
+                        <% if(cntr_auth_type == 1) { %>
+                        <select name="" class="form-control" disabled> 
+                          <% 
+                          data.forEach(dt => { %>
+                          <option value="<%= dt.range_id %>" <%= range_dist == dt.range_id ? 'selected' : '' %> ><%= dt.range_name %></option>
+                          <% }) %>
+                        </select>
+                       <% }else { %>
+                        <select name="" class="form-control" disabled> 
+                          <% 
+                          distl.forEach(dt => { %>
+                          <option value="<%= dt.dist_code %>" <%= range_dist == dt.dist_code ? 'selected' : '' %> ><%= dt.dist_name %></option>
+                          <% }) %>
+                        </select>
+                        <% } %>
+                  </div>
+                </div>
+                <% } %>
              
             </div>
             
@@ -97,5 +125,44 @@
   </div>
 </div>
 
+<script>
+$(document).ready(function() {
+  // $('#range_data').hide();
+ //  $('#district_data').hide();
+ $('#cntr_auth_type').change(function() {
+    // Ensure that rdata and ddata are populated properly
+    var rdata = <%- JSON.stringify(data) %>; // Array of range objects
+    var ddata = <%- JSON.stringify(distl) %>; // Array of district objects
+
+    // Clear existing options
+    $('#range_id').empty();
+
+    // Add a default "Please Select" option
+    var options = '<option value="">Please Select</option>';
+
+    // Check the value of #cntr_auth_type
+    if ($(this).val() == 1) {
+        // Loop through rdata and create options for the ranges
+        rdata.forEach(function(dt) {
+            // Check if the object has range_id and range_name before appending
+            if (dt.range_id && dt.range_name) {
+                options += '<option value="' + dt.range_id + '">' + dt.range_name + '</option>';
+            }
+        });
+    } else {
+        // Loop through ddata and create options for the districts
+        ddata.forEach(function(dt) {
+            // Check if the object has dist_code and dist_name before appending
+            if (dt.dist_code && dt.dist_name) {
+                options += '<option value="' + dt.dist_code + '">' + dt.dist_name + '</option>';
+            }
+        });
+    }
+
+    // Append the newly created options to the #range_id select element
+    $('#range_id').append(options);
+});
 
 
+});
+</script>

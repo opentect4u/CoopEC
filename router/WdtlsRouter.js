@@ -643,7 +643,7 @@ WdtlsRouter.get("/userlist", async (req, res) => {
       }
     }else{
       var select = `a.*,b.dist_name as range_name`;
-      var table = `md_user a JOIN md_district b ON a.range_id = b.dist_code AND a.range_id='${range_id}'`;
+      var table = `md_user a JOIN md_district b ON a.range_id = b.dist_code AND a.range_id='${range_id}' AND a.cntr_auth_type='${cntr_auth_type}'`;
     }
     
     const userlist = await db_Select(select, table, null, null);
@@ -663,8 +663,9 @@ WdtlsRouter.get("/adduser", async (req, res) => {
   try {
     var cntr_auth_type = req.session.user.cntr_auth_type;
     var user_type = cntr_auth_type > 1 ? 'District' : 'Range';
-   
+    var range_dist_id = req.session.user.range_id;
     var ranze = await db_Select("*", "md_range", null, null);
+    var distlist = await db_Select("*", "md_district", null, null);
     var cnt_type = await db_Select(
       "*",
       "md_controlling_authority_type",
@@ -672,8 +673,9 @@ WdtlsRouter.get("/adduser", async (req, res) => {
       null,
     );
     const res_dt = {
-      data: ranze.suc > 0 ? ranze.msg : "",user_ty:user_type,
-      cnt_type: cnt_type.suc > 0 ? cnt_type.msg : "",
+      data: ranze.suc > 0 ? ranze.msg : "",user_ty:user_type,range_dist:range_dist_id,
+      distl:distlist.suc > 0 ? distlist.msg : "",
+      cnt_type: cnt_type.suc > 0 ? cnt_type.msg : "",cntr_auth_type:cntr_auth_type
     };
     res.render("websitedtls/user/add", res_dt);
   } catch (error) {
@@ -721,6 +723,7 @@ WdtlsRouter.get("/edituser", async (req, res) => {
   try {
     var cntr_auth_type = req.session.user.cntr_auth_type;
     var user_type = cntr_auth_type > 1 ? 'District' : 'Range';
+    var range_dist_id = req.session.user.range_id;
     var cnt_type = await db_Select(
       "*",
       "md_controlling_authority_type",
@@ -729,10 +732,11 @@ WdtlsRouter.get("/edituser", async (req, res) => {
     );
     var ranze = await db_Select("*", "md_range", null, null);
     var userres = await db_Select("*", "md_user", `id='${id}'`, null);
+    var distlist = await db_Select("*", "md_district", null, null);
     const res_dt = {
-      data: ranze.suc > 0 ? ranze.msg : "",user_ty:user_type,
-      usersd: userres.suc > 0 ? userres.msg[0] : "",
-      cnt_type: cnt_type.suc > 0 ? cnt_type.msg : "",
+      data: ranze.suc > 0 ? ranze.msg : "",user_ty:user_type,range_dist:range_dist_id,
+      usersd: userres.suc > 0 ? userres.msg[0] : "",distl:distlist.suc > 0 ? distlist.msg : "",
+      cnt_type: cnt_type.suc > 0 ? cnt_type.msg : "",cntr_auth_type:cntr_auth_type
     };
     res.render("websitedtls/user/edit", res_dt);
   } catch (error) {
