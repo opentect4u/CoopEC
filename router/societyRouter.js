@@ -760,7 +760,7 @@ SocietyRouter.get("/getsuggestions", async (req, res) => {
           var datahres = await db_Select(
             "cop_soc_name",
             "md_society",
-            `range_code='${range_id}' AND cop_soc_name LIKE '%${sugname
+            `(cntr_auth_type=${cntr_auth_type} OR cntr_auth_type = 0) AND range_code='${range_id}' AND cop_soc_name LIKE '%${sugname
               .split("'")
               .join("\\'")}%'`,
             null,
@@ -777,7 +777,7 @@ SocietyRouter.get("/getsuggestions", async (req, res) => {
           var datahres = await db_Select(
             "cop_soc_name",
             "md_society",
-            `(cntr_auth_type = "${cntr_auth_type}" OR cntr_auth_type = 0) AND cop_soc_name LIKE '%${sugname
+            `(cntr_auth_type = "${cntr_auth_type}" OR cntr_auth_type = 0) AND dist_code='${range_id}' AND cop_soc_name LIKE '%${sugname
               .split("'")
               .join("\\'")}%'`,
             null,
