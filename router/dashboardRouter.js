@@ -21,14 +21,14 @@ DashboardRouter.get("/dashboard", async (req, res) => {
           var select =
           "a.id,a.cop_soc_name,a.reg_no,a.functional_status,a.approve_status,b.soc_type_name,c.dist_name,d.zone_name,e.range_name,f.soc_tier_name";
         if (range_id > 0) {
-          var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' AND a.range_code = "${range_id}" LIMIT 25`;
+          var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' AND (a.cntr_auth_type = "${cntr_auth_type}" OR a.cntr_auth_type = 0) AND a.range_code = "${range_id}" LIMIT 25`;
         } else {
           var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' LIMIT 25`;
         }
         whr = "";
         var order = null;
         if (range_id > 0) {
-          whr1 = `functional_status='Functional' AND range_code='${range_id}'`;
+          whr1 = `functional_status='Functional' AND (cntr_auth_type = "${cntr_auth_type}" OR cntr_auth_type = 0) AND range_code='${range_id}'`;
         } else {
           whr1 = `functional_status='Functional' `;
         }
