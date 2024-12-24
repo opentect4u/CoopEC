@@ -69,7 +69,7 @@
                       <option value="<%= dt.controlling_authority_type_id %>"><%= dt.controlling_authority_type_name %></option>
                       <% }) %>
                     </select>
-                    <%  }else if(user.user_type == 'M') { %>
+                    <%  }else if(user.user_type == 'M' || user.user_type == 'A') { %>
                       <select name="" id="" class="form-control" disabled> 
                         <option value="">Please Select</option>
                         <% 
@@ -81,15 +81,52 @@
                       <% } %>
                   </div>
                 </div>
-                <% if(user.range_id== 0) { %>
+                <% if(user.range_id== 0) {
+                  
+                  if(user.user_type == 'S') {
+                  
+                  %>
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                            <label for="exampleInputName1">Range<span class="red">*</span></label>
+                            <select name="range_id" class="form-control" id="range_id" required>
+                             
+                            </select>
+                    </div>
+                  </div>
+                 <% }else{ 
+                  
+                  if(cntr_auth_type == 1 ){ 
+                  %>
+
                   <div class="col-md-6">
                     <div class="form-group">
                             <label for="exampleInputName1">Range<span class="red">*</span></label>
                             <select name="range_id" class="form-control" id="range_id" required> 
+                              <% 
+                              data.forEach(dt => { %>
+                              <option value="<%= dt.range_id %>"><%= dt.range_name %></option>
+                              <% }) %> 
                             </select>
                     </div>
                   </div>
-                  <% }else  { %>
+                  <% }else{ %>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                            <label for="exampleInputName1">District<span class="red">*</span></label>
+                            <select name="range_id" class="form-control" id="range_id" required> 
+                              <% 
+                              distl.forEach(dt => { %>
+                              <option value="<%= dt.dist_code %>"><%= dt.dist_name %></option>
+                              <% }) %> 
+                            </select>
+                    </div>
+                  </div>
+
+                 <%   } } %>   
+
+                  <%      }else  { %>
                       <input type="hidden" name="range_id" value="<%= user.range_id %>">
     
                   <% } %>
