@@ -803,13 +803,42 @@ $(document).ready(function() {
         }
   })
 })
-$(document).ready(function() {
+    $(document).ready(function() {
       $('#dist_code').change(function() {
           var selectedValue = $(this).val();
           var controlling_auth = $('#cntr_auth_type').val();
           populaterange(selectedValue,controlling_auth);
+          populateblock(selectedValue);
       });
     })
+
+    function populateblock(dist_code) {
+      $.ajax({
+          url: '/society/blocklist',
+          method: 'GET',
+          data: { dist_code: dist_code },
+          beforeSend: function() {
+              // Show a loading indicator if needed
+              $('#range_code').html('<option value="0">Loading...</option>');
+          },
+          success: function(response) {
+              var datahlists = response.datahlist;
+              var $select = $('#block_id');
+              $select.empty();
+              // Add a default "Select" option
+              $select.append('<option value="0">Select Block </option>');
+              // Append new options from the response data
+              datahlists.forEach(function(item) {
+                  $select.append(`<option value="${item.block_id}" >${item.block_name}</option>`);
+              });
+          },
+          error: function(err) {
+              // Handle any errors
+              $('#block_id').html('<option value="0">Error fetching data. Please try again.</option>');
+              console.error('AJAX Error:', err); // Log error for debugging
+          }
+      });
+    }
 
     function populaterange(dist_code,controlling_auth) {
     $.ajax({
