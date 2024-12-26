@@ -49,26 +49,12 @@
               </div>
             </div>
             <div class="row">
-              <% if(user.range_id== 0) { %>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label for="exampleInputName1">Range<span class="red">*</span></label>
-                  <select name="range_id" class="form-control" required> 
-                    <option value="">Please Select</option>
-                    <% 
-                    data.forEach(dt => { %>
-                    <option value="<%= dt.range_id %>" <%= usersd.range_id == dt.range_id ? 'selected' : '' %>><%= dt.range_name %></option>
-                    <% }) %>
-                  </select>
-                </div>
-              </div>
-              <% }else  { %>
-                <input type="hidden" name="range_id" value="<%= user.range_id %>">
-              <% } %>
+
+           
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="exampleInputName1">Registration & Controlling Authority <span class="red">*</span></label>
-                  <% if(user.range_id== 0) { %>
+                  <% if(user.user_type== 'S') { %>
                   <select name="cntr_auth_type" id="cntr_auth_type" class="form-control" required> 
                     <option value="">Please Select</option>
                     <% 
@@ -90,27 +76,68 @@
 
                 </div>
               </div>
-              <% if(user.user_type == 'M'){ %>
+              <% if(user.user_type == 'M' || user.user_type == 'A'){ %>
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="exampleInputName1"><%=user_ty%> <span class="red">*</span></label>
                         <% if(cntr_auth_type == 1) { %>
+                          <% if(user.user_type == 'M') { %>
                         <select name="" class="form-control" disabled> 
                           <% 
                           data.forEach(dt => { %>
                           <option value="<%= dt.range_id %>" <%= range_dist == dt.range_id ? 'selected' : '' %> ><%= dt.range_name %></option>
                           <% }) %>
                         </select>
+                        <input type="hidden" name="range_id" value="<%= user.range_id %>">
+                        <% }else{   %>
+                          <select name="range_id" class="form-control" > 
+                            <% 
+                            data.forEach(dt => { %>
+                            <option value="<%= dt.range_id %>" <%= usersd.range_id == dt.range_id ? 'selected' : '' %> ><%= dt.range_name %></option>
+                            <% }) %>
+                          </select>
+                       <%  } %>
                        <% }else { %>
+                         <% if(user.user_type == 'M') { %>
                         <select name="" class="form-control" disabled> 
                           <% 
                           distl.forEach(dt => { %>
                           <option value="<%= dt.dist_code %>" <%= range_dist == dt.dist_code ? 'selected' : '' %> ><%= dt.dist_name %></option>
                           <% }) %>
                         </select>
+                        <input type="hidden" name="range_id" value="<%= user.range_id %>">
+                        <% }else{  %>
+                          <select name="range_id" class="form-control" > 
+                            <% 
+                            distl.forEach(dt => { %>
+                            <option value="<%= dt.dist_code %>" <%= usersd.range_id == dt.dist_code ? 'selected' : '' %> ><%= dt.dist_name %></option>
+                            <% }) %>
+                          </select>
+                         <%  } %>
                         <% } %>
                   </div>
                 </div>
+                <% }else{  %>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="exampleInputName1">Range/District<span class="red">*</span></label>
+                        <select name="range_id" class="form-control" id="range_id" required>
+                           <% if(usersd.cntr_auth_type  > 1) { %>
+                            <% 
+                          distl.forEach(dt => { %>
+                            <option value="<%= dt.dist_code %>" <%= usersd.range_id == dt.dist_code ? 'selected' : '' %> ><%= dt.dist_name %></option>
+                             <% }) %>
+                            <% }else{   %>
+
+                              <% 
+                            data.forEach(dt => { %>
+                              <option value="<%= dt.range_id %>" <%= usersd.range_id == dt.range_id ? 'selected' : '' %> ><%= dt.range_name %></option>
+                              <% }) %>
+                            <% }  %>
+
+                        </select>
+                      </div>
+                    </div>
                 <% } %>
               <div class="col-md-6">
                 <div class="form-group">
