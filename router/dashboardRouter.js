@@ -139,12 +139,7 @@ DashboardRouter.get("/dashboard", async (req, res) => {
       soc_data_status: "",
       range_name: "",
     };
-    // const res_dt = {
-      
-    //   distlist: distres.suc > 0 ? distres.msg : "",
-    // }
-   // console.log(res_dt);
-    // Render the view with data
+
     res.render("dashboard/landing", res_dt);
   } catch (error) {
     // Log the error and send an appropriate response
@@ -401,7 +396,6 @@ DashboardRouter.get("/socLimitList", async (req, res) => {
     con7 +
     functional_status +
     soc_data_status;
-  console.log(maincon);
   const range_id = req.session.user.range_id;
   const select =
     "a.id,a.cop_soc_name,a.reg_no,a.functional_status,a.approve_status,b.soc_type_name,c.dist_name,d.zone_name,e.range_name,f.soc_tier_name,g.controlling_authority_type_name";
@@ -413,7 +407,13 @@ DashboardRouter.get("/socLimitList", async (req, res) => {
         var whr = `1 ${maincon} LIMIT ${offset} , ${limit}`;
       }
     }else{
-      var whr = `1 AND a.dist_code='${range_id}' ${maincon} order by g.controlling_authority_type_name DESC LIMIT ${offset} , ${limit}`;
+
+      if(req.session.user.user_type == 'A'){
+         var whr = `1 ${maincon} order by g.controlling_authority_type_name DESC LIMIT ${offset} , ${limit}`;
+      }else{
+        var whr = `1 AND a.dist_code='${range_id}' ${maincon} order by g.controlling_authority_type_name DESC LIMIT ${offset} , ${limit}`;
+      }
+      
     }
 
   const order = null;
@@ -435,12 +435,21 @@ DashboardRouter.get("/socLimitList", async (req, res) => {
           );
         }
     }else{
+      if(req.session.user.user_type == 'A'){
       var countResult = await db_Select(
         select2,
         table_name,
-        `a.dist_code='${range_id}' ${maincon}`,
+        `1 ${maincon}`,
         order,
       );
+      }else{
+        var countResult = await db_Select(
+          select2,
+          table_name,
+          `a.dist_code='${range_id}' ${maincon}`,
+          order,
+        );
+      }
     }
 
   const total = countResult.msg[0].total;
