@@ -9,12 +9,12 @@
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
-                <label for="exampleInputName1">Registration & Controlling Authority</label>
+                <label for="exampleInputName1">Department</label>
                 <select class="form-control" id="" name=""  disabled>
                     <% if(cnt_type.length > 0){
                     var i = 1
                     cnt_type.forEach(dt => { %>
-                    <option value="<%= dt.controlling_authority_type_id %>" <%= usersd.cntr_auth_type == dt.range_id ? 'selected' : '' %> ><%= dt.controlling_authority_type_name %></option>
+                    <option value="<%= dt.controlling_authority_type_id %>" <%= usersd.cntr_auth_type == dt.controlling_authority_type_id ? 'selected' : '' %> ><%= dt.controlling_authority_type_name %></option>
                     <% }) } %>
                     </select>
               </div>
