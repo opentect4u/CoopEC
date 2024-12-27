@@ -215,7 +215,11 @@
                             <span class="green">APPROVED</span>
                         <%  } else if(dt.approve_status == 'E'){  %>
                           <span style="background-color: orangered;">EDITED</span>
-                      <%  } %></td>
+                      <%  } else if(dt.approve_status == 'R'){  %>
+                        <span style="background-color: red;">RETURN</span>
+                      <% } %>
+                    
+                    </td>
                           <td>
                             <a href="/society/edit?id=<%= dt.id %>" class="ti-marker-alt" style="font-size: 1.5em;">
                             </a>
@@ -329,8 +333,10 @@
                                   statusHTML = '<span class="green">APPROVED</span>';
                               } else if (dt.approve_status === 'E') {
                                   statusHTML = '<span style="background-color: orangered;">EDITED</span>';
-                              } else{
-                                statusHTML ='';
+                              }else if (dt.approve_status === 'R'){
+                                statusHTML = '<span style="background-color: red;">RETURN</span>';
+                              }else if (dt.approve_status === null){
+                                statusHTML = '';
                               }
                             rows += `
                                  <tr>
@@ -449,6 +455,8 @@
                                   statusHTML = '<span class="green">APPROVED</span>';
                               } else if (dt.approve_status === 'E') {
                                   statusHTML = '<span style="background-color: orangered;">EDITED</span>';
+                              }else if (dt.approve_status === 'R'){
+                                statusHTML = '<span style="background-color: red;">RETURN</span>';
                               }else if (dt.approve_status === null){
                                 statusHTML = '';
                               }
