@@ -16,47 +16,54 @@ DashboardRouter.get("/dashboard", async (req, res) => {
     // Extract range_id from session
     var range_id = req.session.user.range_id;
     var cntr_auth_type = req.session.user.cntr_auth_type;
-    
-    if(cntr_auth_type == 1){
-          var select =
+    if(req.session.user.user_type == 'S'){
+        var select =
           "a.id,a.cop_soc_name,a.reg_no,a.functional_status,a.approve_status,b.soc_type_name,c.dist_name,d.zone_name,e.range_name,f.soc_tier_name,g.controlling_authority_type_name";
-        if (range_id > 0) {
-          var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id LEFT JOIN md_controlling_authority_type g ON a.cntr_auth_type = g.controlling_authority_type_id WHERE a.functional_status='Functional' AND (a.cntr_auth_type = "${cntr_auth_type}" OR a.cntr_auth_type = 0) AND a.range_code = "${range_id}" order by g.controlling_authority_type_name DESC LIMIT 25`;
-        } else {
-          var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id LEFT JOIN md_controlling_authority_type g ON a.cntr_auth_type = g.controlling_authority_type_id WHERE a.functional_status='Functional' order by g.controlling_authority_type_name DESC LIMIT 25`;
-        }
+        var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id LEFT JOIN md_controlling_authority_type g ON a.cntr_auth_type = g.controlling_authority_type_id WHERE a.functional_status='Functional' order by g.controlling_authority_type_name DESC LIMIT 25`;
         whr = "";
         var order = null;
-        if (range_id > 0) {
-          whr1 = `functional_status='Functional' AND (cntr_auth_type = "${cntr_auth_type}" OR cntr_auth_type = 0) AND range_code='${range_id}'`;
-        } else {
-          whr1 = `functional_status='Functional' `;
-        }
+        whr1 = `functional_status='Functional' `;
         var distres = await db_Select("*", "md_district", null, null);
     }else{
+        if(cntr_auth_type == 1){
+              var select =
+              "a.id,a.cop_soc_name,a.reg_no,a.functional_status,a.approve_status,b.soc_type_name,c.dist_name,d.zone_name,e.range_name,f.soc_tier_name,g.controlling_authority_type_name";
+            if (range_id > 0) {
+              var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id LEFT JOIN md_controlling_authority_type g ON a.cntr_auth_type = g.controlling_authority_type_id WHERE a.functional_status='Functional' AND (a.cntr_auth_type = "${cntr_auth_type}" OR a.cntr_auth_type = 0) AND a.range_code = "${range_id}" order by g.controlling_authority_type_name DESC LIMIT 25`;
+            } else {
+              var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id LEFT JOIN md_controlling_authority_type g ON a.cntr_auth_type = g.controlling_authority_type_id WHERE a.functional_status='Functional' order by g.controlling_authority_type_name DESC LIMIT 25`;
+            }
+            whr = "";
+            var order = null;
+            if (range_id > 0) {
+              whr1 = `functional_status='Functional' AND (cntr_auth_type = "${cntr_auth_type}" OR cntr_auth_type = 0) AND range_code='${range_id}'`;
+            } else {
+              whr1 = `functional_status='Functional' `;
+            }
+            var distres = await db_Select("*", "md_district", null, null);
+        }else{
 
-         if(req.session.user.user_type == 'A'){
-          var select =
-          "a.id,a.cop_soc_name,a.reg_no,a.functional_status,a.approve_status,b.soc_type_name,c.dist_name,d.zone_name,e.range_name,f.soc_tier_name,g.controlling_authority_type_name";
-          var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id LEFT JOIN md_controlling_authority_type g ON a.cntr_auth_type = g.controlling_authority_type_id WHERE a.functional_status='Functional' AND (a.cntr_auth_type = "${cntr_auth_type}" OR a.cntr_auth_type = 0) order by g.controlling_authority_type_name DESC LIMIT 25`;
-        whr = "";
-        var order = null;
-        whr1 = `functional_status='Functional' AND (cntr_auth_type = "${cntr_auth_type}" OR cntr_auth_type = 0) `;
-        var distres = await db_Select("*", "md_district",  null, null);
-         }else{
+            if(req.session.user.user_type == 'A'){
+              var select =
+              "a.id,a.cop_soc_name,a.reg_no,a.functional_status,a.approve_status,b.soc_type_name,c.dist_name,d.zone_name,e.range_name,f.soc_tier_name,g.controlling_authority_type_name";
+              var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id LEFT JOIN md_controlling_authority_type g ON a.cntr_auth_type = g.controlling_authority_type_id WHERE a.functional_status='Functional' AND (a.cntr_auth_type = "${cntr_auth_type}" OR a.cntr_auth_type = 0) order by g.controlling_authority_type_name DESC LIMIT 25`;
+            whr = "";
+            var order = null;
+            whr1 = `functional_status='Functional' AND (cntr_auth_type = "${cntr_auth_type}" OR cntr_auth_type = 0) `;
+            var distres = await db_Select("*", "md_district",  null, null);
+            }else{
 
-          var select =
-          "a.id,a.cop_soc_name,a.reg_no,a.functional_status,a.approve_status,b.soc_type_name,c.dist_name,d.zone_name,e.range_name,f.soc_tier_name,g.controlling_authority_type_name";
-        
-          var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id LEFT JOIN md_controlling_authority_type g ON a.cntr_auth_type = g.controlling_authority_type_id WHERE a.functional_status='Functional' AND (a.cntr_auth_type = "${cntr_auth_type}" OR a.cntr_auth_type = 0) AND a.dist_code = "${range_id}" order by g.controlling_authority_type_name DESC LIMIT 25`;
-        whr = "";
-        var order = null;
-        whr1 = `functional_status='Functional' AND (cntr_auth_type = "${cntr_auth_type}" OR cntr_auth_type = 0) AND dist_code = "${range_id}"`;
-        var distres = await db_Select("*", "md_district",  `dist_code = '${range_id}'`, null);
-
-         }
-        
-    } 
+              var select =
+              "a.id,a.cop_soc_name,a.reg_no,a.functional_status,a.approve_status,b.soc_type_name,c.dist_name,d.zone_name,e.range_name,f.soc_tier_name,g.controlling_authority_type_name";
+            
+              var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id LEFT JOIN md_controlling_authority_type g ON a.cntr_auth_type = g.controlling_authority_type_id WHERE a.functional_status='Functional' AND (a.cntr_auth_type = "${cntr_auth_type}" OR a.cntr_auth_type = 0) AND a.dist_code = "${range_id}" order by g.controlling_authority_type_name DESC LIMIT 25`;
+            whr = "";
+            var order = null;
+            whr1 = `functional_status='Functional' AND (cntr_auth_type = "${cntr_auth_type}" OR cntr_auth_type = 0) AND dist_code = "${range_id}"`;
+            var distres = await db_Select("*", "md_district",  `dist_code = '${range_id}'`, null);
+            }
+        } 
+    }
    ///   in case when user is of head office
     if(req.session.user.user_type == 'A'){
       if(cntr_auth_type > 1){
@@ -358,17 +365,23 @@ DashboardRouter.get("/socLimitList", async (req, res) => {
     req.query.dist_code > 0 ? ` AND a.dist_code=${req.query.dist_code} ` : "";
   var zone_code =
     req.query.zone_code > 0 ? ` AND a.zone_code=${req.query.zone_code} ` : "";
-  if(cntr_auth_type == 1){
-  var range_code =
-    req.query.range_code > 0 ? ` AND a.range_code=${req.query.range_code} ` : "";
-    var con1 =
-    cntr_auth_type > 0
-      ? `AND (a.cntr_auth_type=${cntr_auth_type} OR a.cntr_auth_type = 0)`
-      : "";
-  }else{
-    var range_code = '';
-    var con1 =`AND (a.cntr_auth_type=${cntr_auth_type} OR a.cntr_auth_type = 0)`
+  if(req.session.user.user_type == 'S'){
+        var range_code = '';
+        var con1 =``;
+  }else {
+    if(cntr_auth_type == 1){
+      var range_code =
+        req.query.range_code > 0 ? ` AND a.range_code=${req.query.range_code} ` : "";
+        var con1 =
+        cntr_auth_type > 0
+          ? `AND (a.cntr_auth_type=${cntr_auth_type} OR a.cntr_auth_type = 0)`
+          : "";
+      }else{
+        var range_code = '';
+        var con1 =`AND (a.cntr_auth_type=${cntr_auth_type} OR a.cntr_auth_type = 0)`
+      }
   }
+  
   var con6 =
     req.query.soc_tier > 0 ? `AND a.soc_tier=${req.query.soc_tier} ` : "";
   var con4 =
@@ -400,56 +413,67 @@ DashboardRouter.get("/socLimitList", async (req, res) => {
   const select =
     "a.id,a.cop_soc_name,a.reg_no,a.functional_status,a.approve_status,b.soc_type_name,c.dist_name,d.zone_name,e.range_name,f.soc_tier_name,g.controlling_authority_type_name";
   var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id LEFT JOIN md_controlling_authority_type g ON a.cntr_auth_type = g.controlling_authority_type_id`;
-    if(cntr_auth_type == 1){
-      if (range_id > 0) {
-        var whr = `1 AND a.range_code='${range_id}' ${maincon} order by g.controlling_authority_type_name DESC LIMIT ${offset} , ${limit}`;
-      } else {
-        var whr = `1 ${maincon} LIMIT ${offset} , ${limit}`;
-      }
+    if(req.session.user.user_type == 'S'){
+      var whr = `1 ${maincon} order by g.controlling_authority_type_name DESC LIMIT ${offset} , ${limit}`;
     }else{
-
-      if(req.session.user.user_type == 'A'){
-         var whr = `1 ${maincon} order by g.controlling_authority_type_name DESC LIMIT ${offset} , ${limit}`;
+      if(cntr_auth_type == 1){
+        if (range_id > 0) {
+          var whr = `1 AND a.range_code='${range_id}' ${maincon} order by g.controlling_authority_type_name DESC LIMIT ${offset} , ${limit}`;
+        } else {
+          var whr = `1 ${maincon} LIMIT ${offset} , ${limit}`;
+        }
       }else{
-        var whr = `1 AND a.dist_code='${range_id}' ${maincon} order by g.controlling_authority_type_name DESC LIMIT ${offset} , ${limit}`;
+        if(req.session.user.user_type == 'A'){
+          var whr = `1 ${maincon} order by g.controlling_authority_type_name DESC LIMIT ${offset} , ${limit}`;
+        }else{
+          var whr = `1 AND a.dist_code='${range_id}' ${maincon} order by g.controlling_authority_type_name DESC LIMIT ${offset} , ${limit}`;
+        }
       }
-      
     }
 
   const order = null;
   const select2 = "COUNT(*) as total";
-    if(cntr_auth_type == 1){
-        if (range_id > 0) {
-          var countResult = await db_Select(
-            select2,
-            table_name,
-            `a.range_code='${range_id}' ${maincon}`,
-            order,
-          );
-        } else {
-          var countResult = await db_Select(
-            select2,
-            table_name,
-            `1 ${maincon}`,
-            order,
-          );
-        }
-    }else{
-      if(req.session.user.user_type == 'A'){
-      var countResult = await db_Select(
-        select2,
-        table_name,
-        `1 ${maincon}`,
-        order,
-      );
-      }else{
+    if(req.session.user.user_type == 'S'){
         var countResult = await db_Select(
           select2,
           table_name,
-          `a.dist_code='${range_id}' ${maincon}`,
+          `1 ${maincon}`,
           order,
         );
-      }
+    }else{
+          if(cntr_auth_type == 1){
+              if (range_id > 0) {
+                var countResult = await db_Select(
+                  select2,
+                  table_name,
+                  `a.range_code='${range_id}' ${maincon}`,
+                  order,
+                );
+              } else {
+                var countResult = await db_Select(
+                  select2,
+                  table_name,
+                  `1 ${maincon}`,
+                  order,
+                );
+              }
+          }else{
+            if(req.session.user.user_type == 'A'){
+            var countResult = await db_Select(
+              select2,
+              table_name,
+              `1 ${maincon}`,
+              order,
+            );
+            }else{
+              var countResult = await db_Select(
+                select2,
+                table_name,
+                `a.dist_code='${range_id}' ${maincon}`,
+                order,
+              );
+            }
+          }
     }
 
   const total = countResult.msg[0].total;
