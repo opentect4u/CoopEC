@@ -26,7 +26,7 @@
           <% }else{ %>
                   <input type="hidden" name="cntr_auth_type" id="cntr_auth_type" value="0">
             <% } %>
-          <% if(user.range_id== 0) { %>
+            <% if(user.user_type == 'S' || user.cntr_auth_type == 1 ) { %> 
             <div class="col-md-3">
               <div class="form-group">
                 <label for="exampleInputName1">Zone </label>
@@ -40,20 +40,34 @@
                 </select>
               </div>
           </div>
-          <div class="col-md-3">
+          <% } %>
+          <% if(user.range_id== 0) { %>
+          <% if(user.user_type == 'S' || user.cntr_auth_type == 1 ) { %> 
+              <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="exampleInputName1">District </label>
+                      <select class="form-control" id="dist_code" name="dist_code" >
+                        <option value="0">Select </option>
+                       
+                    </select>
+                  </div>
+              </div>
+          <% }else { %>
+            <div class="col-md-3">
               <div class="form-group">
                 <label for="exampleInputName1">District </label>
-                   <select class="form-control" id="dist_code" name="dist_code" >
+                  <select class="form-control" id="dist_code" name="dist_code" >
                     <option value="0">Select </option>
-                    <!-- <% if(distlist.length > 0){
+                    <% if(distlist.length > 0){
                       var i = 1
                       distlist.forEach(dt => { %>
                       <option value="<%= dt.dist_code %>" <%= dist_code == dt.dist_code ? 'selected' : '' %>><%= dt.dist_name %></option>
-                        <% }) } %> -->
+                        <% }) } %>
                 </select>
               </div>
           </div>
-          
+            <% } %>
+          <% if(user.user_type == 'S' || user.cntr_auth_type == 1 ) { %> 
           <div class="col-md-3">
             <div class="form-group">
               <label for="exampleInputName1">Range </label>
@@ -62,6 +76,7 @@
               </select>
             </div>
           </div>
+          <% } %>
           <% }else{ %>
             <select class="form-control" id="range_code" name="range_code"  style="display: none;">
               <option value="<%= range_code %>">Select <%= range_code %></option>
@@ -587,7 +602,9 @@
      //   populatezone(selectedValue,0);
         populateranze(selectedValue,0);
     });
+    '<% if(cntr_auth_type == 1 || user.user_type =="S")  { %>'
     populatedist('<%= zone_code %>','<%= dist_code %>')
+    '<% } %>'
     $('#zone_code').change(function() {
         var zone_code = $(this).val();
         populatedist(zone_code,0);
@@ -665,7 +682,7 @@
             var datahlists = response.datahlist;
             var $select = $('#dist_code');
             // Clear existing options
-            $select.empty();
+             $select.empty();
             // Add a default "Select" option
             $select.append('<option value="0">Select Dist</option>');
             // Append new options from the response data

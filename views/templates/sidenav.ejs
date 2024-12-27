@@ -52,12 +52,11 @@
                     <ul class="nav flex-column sub-menu">
                         <!-- <li class="nav-item"> <a class="nav-link" href="/rangeR/addrangedtl">Add </a></li> -->
                         <li class="nav-item"> <a class="nav-link" href="/rangeR/rangedtllist">List</a></li>
-                        
                     </ul>
                 </div>
             </li>
             <%  }  %>
-            <% if(user.user_type == 'A' || user.user_type == 'S'){  %>
+            <% if(user.user_type == 'S'){  %>
             <li class="nav-item">
                 <a class="nav-link navlink_cus" data-toggle="collapse" href="#error" aria-expanded="false" aria-controls="error">
                     <i class="fa fa-arrow-circle-o-right icon-grid menu-icon" aria-hidden="true"></i>
@@ -100,7 +99,7 @@
             </div>
         </li>
        
-        <%  if(user.user_type == 'A' || user.user_type == 'S' ){  %>
+        <%  if(user.user_type == 'S' ){  %>
         <!-- <li class="nav-item active">
             <a class="nav-link" href="/wdtls/announcelist">
                 <i class="icon-add menu-icon" >+</i>

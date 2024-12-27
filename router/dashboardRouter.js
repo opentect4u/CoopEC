@@ -34,7 +34,18 @@ DashboardRouter.get("/dashboard", async (req, res) => {
         }
         var distres = await db_Select("*", "md_district", null, null);
     }else{
-      var select =
+
+         if(req.session.user.user_type == 'A'){
+          var select =
+          "a.id,a.cop_soc_name,a.reg_no,a.functional_status,a.approve_status,b.soc_type_name,c.dist_name,d.zone_name,e.range_name,f.soc_tier_name,g.controlling_authority_type_name";
+          var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id LEFT JOIN md_controlling_authority_type g ON a.cntr_auth_type = g.controlling_authority_type_id WHERE a.functional_status='Functional' AND (a.cntr_auth_type = "${cntr_auth_type}" OR a.cntr_auth_type = 0) order by g.controlling_authority_type_name DESC LIMIT 25`;
+        whr = "";
+        var order = null;
+        whr1 = `functional_status='Functional' AND (cntr_auth_type = "${cntr_auth_type}" OR cntr_auth_type = 0) `;
+        var distres = await db_Select("*", "md_district",  null, null);
+         }else{
+
+          var select =
           "a.id,a.cop_soc_name,a.reg_no,a.functional_status,a.approve_status,b.soc_type_name,c.dist_name,d.zone_name,e.range_name,f.soc_tier_name,g.controlling_authority_type_name";
         
           var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id LEFT JOIN md_controlling_authority_type g ON a.cntr_auth_type = g.controlling_authority_type_id WHERE a.functional_status='Functional' AND (a.cntr_auth_type = "${cntr_auth_type}" OR a.cntr_auth_type = 0) AND a.dist_code = "${range_id}" order by g.controlling_authority_type_name DESC LIMIT 25`;
@@ -42,7 +53,16 @@ DashboardRouter.get("/dashboard", async (req, res) => {
         var order = null;
         whr1 = `functional_status='Functional' AND (cntr_auth_type = "${cntr_auth_type}" OR cntr_auth_type = 0) AND dist_code = "${range_id}"`;
         var distres = await db_Select("*", "md_district",  `dist_code = '${range_id}'`, null);
+
+         }
+        
     } 
+   ///   in case when user is of head office
+    if(req.session.user.user_type == 'A'){
+      if(cntr_auth_type > 1){
+        var distres = await db_Select("*", "md_district",  null, null);
+      }
+    }
     
    
     // Execute database query
