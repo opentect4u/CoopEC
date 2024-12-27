@@ -843,7 +843,7 @@ SocietyRouter.get("/modifiedlist", async (req, res) => {
       var select =
         "a.id,a.cop_soc_name,a.reg_no,a.functional_status,b.soc_type_name,c.dist_name,d.zone_name,e.range_name,f.soc_tier_name";
       if (range_id > 0) {
-        var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' AND a.range_code = "${range_id}" AND approve_status = 'E' `;
+        var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' AND a.range_code = "${range_id}" AND cntr_auth_type='${cntr_auth_type}' AND approve_status = 'E' `;
       } else {
         var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' AND approve_status = 'E' `;
       }
@@ -1133,18 +1133,20 @@ SocietyRouter.post("/approve", async (req, res) => {
     // Extract range_id from session
     var user_id = req.session.user.user_id;
     var date_ob = moment();
+    var formdata = req.body;
     // Format it as YYYY-MM-DD HH:mm:ss
     var formattedDate = date_ob.format("YYYY-MM-DD HH:mm:ss");
     //   ********   Code For Getting Ip   *********   //
     var ipresult = await fetchIpData();
     var ip = ipresult.ipdata;
+    
     //   ********   Code For Getting Ip   *********  //
 
     var data = req.body;
     var table_name = "md_society";
     var values = null;
 
-    var fields = `approve_status='A',approve_by='${user_id}',
+    var fields = `approve_status='${formdata.status}',return_reason = '${formdata.return_reason}',approve_by='${user_id}',
       approve_dt = '${formattedDate}',approve_ip='${ip}' `;
     var whr = `id = '${data.id}'`;
     var flag = 1;

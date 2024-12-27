@@ -198,7 +198,7 @@ DashboardRouter.post("/dashboard", async (req, res) => {
     if (
       formdata.soc_data_status == "A" ||
       formdata.soc_data_status == "U" ||
-      formdata.soc_data_status == "E"
+      formdata.soc_data_status == "E" || formdata.soc_data_status == "R"
     ) {
       soc_data_status = `AND a.approve_status='${formdata.soc_data_status}'`;
     }

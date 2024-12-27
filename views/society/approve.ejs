@@ -449,8 +449,41 @@
                 </div>
               </div>
             </div>
-          <button type="submit" id="submit" class="btn btn-primary mr-2"  onclick="confirmapprove(event)" >APPROVE</button>
-          <!-- <button class="btn btn-light">Cancel</button> -->
+            <style>
+              .approve-btn {
+                color: green;
+              }
+              .reject-btn {
+                color: red; 
+              }
+            </style>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                      <label for="approve" class="approve-btn">
+                        <input type="radio" id="approve" name="status" value="A" onclick="toggleReturnReason()" required>
+                        <span style="font-size: 18px;">Approve</span>
+                      </label>
+                     </div>  
+                    </div>
+                    <div class="col-md-3">
+                      <div class="form-group">    
+                      <label for="reject" class="reject-btn">
+                        <input type="radio" id="return" name="status" value="R" onclick="toggleReturnReason()" required>
+                        <span style="font-size: 18px;">Return</span>
+                      </label>
+                    </div>  
+                </div>
+            </div>
+            <div class="row" style="display:none" id="returnReasonRow">
+              <div class="col-md-12">
+                  <div class="form-group">
+                      <label for="exampleInputName1">Return Reason <span class="red">*</span></label>
+                      <textarea name="return_reason" class="form-control" rows="3" id="return_reason"></textarea>
+                  </div>
+              </div>
+            </div>
+          <button type="submit" id="submit" class="btn btn-primary mr-2"  onclick="confirmapprove(event)" >Submit</button>
         </form>
       </div>
     </div>
@@ -458,9 +491,23 @@
 </div>
 
 <script>
-  
- 
-
+  // Function to toggle the visibility of the return_reason text area
+  function toggleReturnReason() {
+    // Get the radio button values
+    const returnRadio = document.getElementById('return');
+    const returnReasonRow = document.getElementById('returnReasonRow');
+    const returnReasonTextarea = document.getElementById('return_reason');
+    
+    // If 'Return' is selected, show the textarea, else hide it
+    if (returnRadio.checked) {
+      returnReasonRow.style.display = 'block';  // Show the textarea
+      returnReasonTextarea.setAttribute('required', 'true');  // Show the textarea
+    } else {
+      returnReasonRow.style.display = 'none';  // Hide the textarea
+      returnReasonTextarea.removeAttribute('required');
+      returnReasonTextarea.value = '';
+    }
+  }
 </script>
 
 
