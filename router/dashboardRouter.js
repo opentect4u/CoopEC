@@ -393,7 +393,7 @@ DashboardRouter.get("/socLimitList", async (req, res) => {
         var whr = `1 ${maincon} LIMIT ${offset} , ${limit}`;
       }
     }else{
-      var whr = `1 AND a.dist_code='${range_id}' ${maincon} order by g.controlling_authority_type_name DESC DESC LIMIT ${offset} , ${limit}`;
+      var whr = `1 AND a.dist_code='${range_id}' ${maincon} order by g.controlling_authority_type_name DESC LIMIT ${offset} , ${limit}`;
     }
 
   const order = null;
