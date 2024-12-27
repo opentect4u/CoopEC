@@ -16,7 +16,7 @@ DashboardRouter.get("/dashboard", async (req, res) => {
     // Extract range_id from session
     var range_id = req.session.user.range_id;
     var cntr_auth_type = req.session.user.cntr_auth_type;
-    console.log(cntr_auth_type);
+    
     if(cntr_auth_type == 1){
           var select =
           "a.id,a.cop_soc_name,a.reg_no,a.functional_status,a.approve_status,b.soc_type_name,c.dist_name,d.zone_name,e.range_name,f.soc_tier_name,g.controlling_authority_type_name";
@@ -59,6 +59,7 @@ DashboardRouter.get("/dashboard", async (req, res) => {
     );
     const zoneres = await db_Select("*", "md_zone", null, null);
     const ranzeres = await db_Select("*", "md_range", null, null);
+    console.log(cntr_auth_type,range_id);
     var blockres;
     if (range_id > 0) {
       const results = await db_Select(
@@ -68,12 +69,22 @@ DashboardRouter.get("/dashboard", async (req, res) => {
         null,
       );
       const distcode = results.msg.length > 0 ? results.msg[0].dist_id : 0;
-      blockres = await db_Select(
-        "*",
-        "md_block",
-        `dist_id='${distcode}'`,
-        null,
-      );
+      if(cntr_auth_type == 1 ){
+          blockres = await db_Select(
+            "*",
+            "md_block",
+            `dist_id='${distcode}'`,
+            null,
+          );
+      }else{
+        blockres = await db_Select(
+          "*",
+          "md_block",
+          `dist_id='${range_id}'`,
+          null,
+        );
+      }
+      
     } else {
       blockres = await db_Select("*", "md_block", `dist_id='0'`, null);
     }
@@ -250,12 +261,21 @@ DashboardRouter.post("/dashboard", async (req, res) => {
     if (range_id > 0) {
       const distcode =
         ranzeres.msg[0].dist_id > 0 ? ranzeres.msg[0].dist_id : 0;
-      blockres = await db_Select(
-        "*",
-        "md_block",
-        `dist_id='${distcode}'`,
-        null,
-      );
+      if(cntr_auth == 1 ){
+          blockres = await db_Select(
+            "*",
+            "md_block",
+            `dist_id='${distcode}'`,
+            null,
+          );
+      }else{
+        blockres = await db_Select(
+          "*",
+          "md_block",
+          `dist_id='${range_id}'`,
+          null,
+        );
+      }
     } else {
       blockres = await db_Select("*", "md_block", null, null);
     }
