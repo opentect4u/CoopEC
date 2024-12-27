@@ -116,6 +116,7 @@
                   </select>
                 </div>
               </div>
+              <% if(soc.cntr_auth_type == 1){  %>
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="exampleInputName1">Zone</label>
@@ -129,7 +130,9 @@
                   </select>
                 </div>
               </div>
-             
+             <% }else { %>
+                <input type="hidden" value="1"  id="zone_code" name="zone_code" />
+              <% } %>
               <div class="col-md-6" id="range_id_to" <% if(soc.cntr_auth_type > 1){ %> 
                 style="display: none;"
             <% } %> >
