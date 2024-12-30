@@ -581,7 +581,7 @@ SocietyRouter.get("/socdelet", async (req, res) => {
     var get_data = await db_Select("*", "md_society", where, null);
    var data = get_data.msg[0];
     var fields = `(cop_soc_name,new_flag,reg_no,reg_date,soc_type,soc_tier,cntr_auth_type,cntr_auth,zone_code,dist_code,range_code,urban_rural_flag,dev_auth_id,ulb_catg,ulb_id,ward_no,block_id,gp_id,vill_id,pin_no,address,mouza,num_of_memb,audit_upto,mgmt_status,officer_type,last_elec_date,tenure_ends_on,elec_due_date,contact_name,contact_designation,contact_number,email,case_id,case_num,functional_status,approve_status,created_by,created_dt,created_ip,deleted_by,deleted_dt,deleted_ip)`;
-    var values = `('${data.reg_no}','${
+    var values = `('${data.cop_soc_name}','${
       data.new_flag
     }','${data.reg_no}','${moment(data.reg_date,'YYYY-MM-DD').format('YYYY-MM-DD')}','${data.soc_type}','${
       data.soc_tier
