@@ -1062,13 +1062,27 @@ reportRouter.post("/election_duen", async (req, res) => {
     } else {
       range_name = "ALL Range";
     }
+    var cntr_auth_name = '';
+    if (cntr_auth_type > 0) {
+      const ranzeres = await db_Select(
+        "*",
+        "md_controlling_authority_type",
+        `controlling_authority_type_id=${cntr_auth_type}`,
+        null,
+      );
+      cntr_auth_name = ranzeres.msg[0].controlling_authority_type_name;
+    } else {
+      cntr_auth_name = "ALL Range";
+    }
+
+    
     // Prepare data for rendering
     const res_dt = {
       data: result.suc > 0 ? result.msg : "",
       page: 1,
       range: postdata.range_id,
-      soc_type: postdata.soc_type,
-      range_name: range_name,
+      soc_type: postdata.soc_type,range_name: range_name,
+      cntr_auth_type:cntr_auth_type,cntr_auth_name:cntr_auth_name,
       socname: "",
       title: title,
       soc_data_status: "",
@@ -1082,65 +1096,146 @@ reportRouter.post("/election_duen", async (req, res) => {
     res.render("report/election_result_range", res_dt);
   }
 });
-reportRouter.get("/dnlexcel_range", async (req, res) => {
+reportRouter.get("/dnlexcel_group_by_dist_range", async (req, res) => {
   try {
-    var range_con =
-      req.query.range_code > 0
-        ? `AND a.range_code=${req.query.range_code} `
+    var cntr_auth_type = req.query.cntr_auth
+    if (cntr_auth_type > 0) {
+      const ranzeres = await db_Select(
+        "*",
+        "md_controlling_authority_type",
+        `controlling_authority_type_id=${cntr_auth_type}`,
+        null,
+      );
+      cntr_auth_name = ranzeres.msg[0].controlling_authority_type_name;
+    } else {
+      cntr_auth_name = "ALL ";
+    }
+    if( cntr_auth_type == 1){
+            var range_con =
+            req.query.range_dist > 0
+              ? `AND a.range_code=${req.query.range_dist} `
+              : "";
+              var select =
+            "range_name,sum(total_available)total,sum(DUE)DUE,sum(ONGOING)ONGOING,sum(DONE)HELD";
+            var table_name = `( SELECT e.range_name range_name, COUNT(*) AS total_available, 0 DUE,0 ONGOING,0 DONE FROM md_society a,md_range e where  a.range_code = e.range_id and  a.functional_status = 'Functional' ${range_con} AND  a.cntr_auth_type  = ${cntr_auth_type} GROUP BY e.range_name
+                                        UNION
+                                        SELECT e.range_name range_name, 
+                                            0 total_available, 
+                                            count(*) DUE,
+                                            0 ONGOING,
+                                            0 DONE
+                                        FROM md_society a,md_range e
+                                        where  a.range_code = e.range_id
+                                        and  a.functional_status = 'Functional'
+                                        and  a.election_status  = 'DUE'
+                                        AND  a.cntr_auth_type  = ${cntr_auth_type}
+                                        ${range_con}
+                                        GROUP BY e.range_name
+                                        UNION
+                                        SELECT e.range_name range_name, 
+                                            0 total_available, 
+                                            count(*) DUE,
+                                            0 ONGOING,
+                                            0 DONE
+                                        FROM md_society a,md_range e
+                                        where a.range_code = e.range_id
+                                        and  a.functional_status = 'Functional'
+                                        and  a.election_status = 'DUE'
+                                        AND  a.cntr_auth_type  = ${cntr_auth_type}
+                                        ${range_con}
+                                        GROUP BY e.range_name
+                                        UNION
+                                        SELECT e.range_name range_name, 
+                                            0 total_available, 
+                                            0  DUE,
+                                            count(*) ONGOING,
+                                            0 DONE
+                                        FROM md_society a,md_range e
+                                        where a.range_code = e.range_id
+                                        and  a.functional_status = 'Functional'
+                                        and  a.election_status  = 'ONGOING'
+                                        AND  a.cntr_auth_type  = ${cntr_auth_type}
+                                        ${range_con}
+                                        GROUP BY e.range_name
+                                        UNION
+                                        SELECT e.range_name range_name, 
+                                            0 total_available, 
+                                            0  DUE,
+                                            0 ONGOING,
+                                            count(*) HELD
+                                        FROM md_society a,md_range e
+                                        where a.range_code = e.range_id
+                                        and  a.functional_status = 'Functional'
+                                        and  a.election_status  = 'DONE'
+                                        AND  a.cntr_auth_type  = ${cntr_auth_type}
+                                        ${range_con}
+                                        GROUP BY e.range_name
+                                            )a
+                                        group by range_name order by range_name ASC`;
+    }else{
+      var range_con =
+      req.query.range_dist > 0
+        ? `AND a.dist_code=${req.query.range_dist} `
         : "";
-    const select =
-      "range_name,sum(total_available)total,sum(DUE)DUE,sum(ONGOING)ONGOING,sum(DONE)HELD";
-    const table_name = `( SELECT e.range_name range_name, COUNT(*) AS total_available, 0 DUE,0 ONGOING,0 DONE FROM md_society a,md_range e where  a.range_code = e.range_id and  a.functional_status = 'Functional' ${range_con} GROUP BY e.range_name
-                                  UNION
-                                  SELECT e.range_name range_name, 
-                                      0 total_available, 
-                                      count(*) DUE,
-                                      0 ONGOING,
-                                      0 DONE
-                                  FROM md_society a,md_range e
-                                  where  a.range_code = e.range_id
-                                  and  a.functional_status = 'Functional'
-                                  and  a.election_status  = 'DUE'
-                                  ${range_con}
-                                  GROUP BY e.range_name
-                                  UNION
-                                  SELECT e.range_name range_name, 
-                                      0 total_available, 
-                                      count(*) DUE,
-                                      0 ONGOING,
-                                      0 DONE
-                                  FROM md_society a,md_range e
-                                  where a.range_code = e.range_id
-                                  and  a.functional_status = 'Functional'
-                                  and  a.election_status = 'DUE'
-                                  ${range_con}
-                                  GROUP BY e.range_name
-                                  UNION
-                                  SELECT e.range_name range_name, 
-                                      0 total_available, 
-                                      0  DUE,
-                                      count(*) ONGOING,
-                                      0 DONE
-                                  FROM md_society a,md_range e
-                                  where a.range_code = e.range_id
-                                  and  a.functional_status = 'Functional'
-                                  and  a.election_status  = 'ONGOING'
-                                  ${range_con}
-                                  GROUP BY e.range_name
-                                  UNION
-                                  SELECT e.range_name range_name, 
-                                      0 total_available, 
-                                      0  DUE,
-                                      0 ONGOING,
-                                      count(*) HELD
-                                  FROM md_society a,md_range e
-                                  where a.range_code = e.range_id
-                                  and  a.functional_status = 'Functional'
-                                  and  a.election_status  = 'DONE'
-                                  ${range_con}
-                                  GROUP BY e.range_name
-                                      )a
-                                  group by range_name order by range_name ASC`;
+        var select =
+      "dist_name as range_name,sum(total_available)total,sum(DUE)DUE,sum(ONGOING)ONGOING,sum(DONE)HELD";
+      var table_name = `( SELECT e.dist_name dist_name, COUNT(*) AS total_available, 0 DUE,0 ONGOING,0 DONE FROM md_society a,md_district e where  a.dist_code = e.dist_code and  a.functional_status = 'Functional' ${range_con} AND  a.cntr_auth_type  = ${cntr_auth_type} GROUP BY e.dist_name
+                                UNION
+                                SELECT e.dist_name dist_name,
+                                    0 total_available,
+                                    count(*) DUE,
+                                    0 ONGOING,
+                                    0 DONE
+                                FROM md_society a,md_district e
+                                where  a.dist_code = e.dist_code
+                                and  a.functional_status = 'Functional'
+                                and  a.election_status  = 'DUE'
+                                AND  a.cntr_auth_type  = ${cntr_auth_type}
+                                ${range_con}
+                                GROUP BY e.dist_name
+                                UNION
+                                SELECT e.dist_name dist_name,
+                                    0 total_available,
+                                    count(*) DUE,
+                                    0 ONGOING,
+                                    0 DONE
+                                FROM md_society a,md_district e
+                                where a.dist_code = e.dist_code
+                                and  a.functional_status = 'Functional'
+                                and  a.election_status = 'DUE'
+                                AND  a.cntr_auth_type  = ${cntr_auth_type}
+                                ${range_con}
+                                GROUP BY e.dist_name
+                                UNION
+                                SELECT e.dist_name dist_name,
+                                    0 total_available,
+                                    0  DUE,
+                                    count(*) ONGOING,
+                                    0 DONE
+                                FROM md_society a,md_district e
+                                where a.dist_code = e.dist_code
+                                and  a.functional_status = 'Functional'
+                                and  a.election_status  = 'ONGOING'
+                                AND  a.cntr_auth_type  = ${cntr_auth_type}
+                                ${range_con}
+                                GROUP BY e.dist_name
+                                UNION
+                                SELECT e.dist_name dist_name,
+                                    0 total_available,
+                                    0  DUE,
+                                    0 ONGOING,
+                                    count(*) HELD
+                                FROM md_society a,md_district e
+                                where a.dist_code = e.dist_code
+                                and  a.functional_status = 'Functional'
+                                and  a.election_status  = 'DONE'
+                                AND  a.cntr_auth_type  = ${cntr_auth_type}
+                                ${range_con}
+                                GROUP BY e.dist_name
+                                    )a
+                                group by dist_name order by dist_name ASC`;
+      }
+                                
     const res_dt = await db_Select(select, table_name, null, null);
 
     // Create a new workbook and worksheet
@@ -1164,7 +1259,7 @@ reportRouter.get("/dnlexcel_range", async (req, res) => {
 
     // Define column headers
     worksheet.columns = [
-      { header: "Range Name", key: "range_name" },
+      { header: "Range/District Name", key: "range_name" },
       { header: "Total", key: "total" },
       { header: " Due", key: "DUE" },
       { header: " Ongoing", key: "ONGOING" },
@@ -1205,7 +1300,7 @@ reportRouter.get("/dnlexcel_range", async (req, res) => {
     );
     res.setHeader(
       "Content-Disposition",
-      "attachment; filename=rangetype_report.xlsx",
+      `attachment; filename=${cntr_auth_name} rangetype_report.xlsx`
     );
 
     // Write the Excel file to the response
@@ -1638,6 +1733,18 @@ reportRouter.get("/dnlexcel_soctype", async (req, res) => {
       } else {
         range_name = "ALL Range";
       }
+      var cntr_auth_name = '';
+    if (cntr_auth_type > 0) {
+      const ranzeres = await db_Select(
+        "*",
+        "md_controlling_authority_type",
+        `controlling_authority_type_id=${cntr_auth_type}`,
+        null,
+      );
+      cntr_auth_name = ranzeres.msg[0].controlling_authority_type_name;
+    } else {
+      cntr_auth_name = "ALL Range";
+    }
       // Prepare data for rendering
       const res_dt = {
         data: result.suc > 0 ? result.msg : "",
@@ -1645,6 +1752,7 @@ reportRouter.get("/dnlexcel_soctype", async (req, res) => {
         range: postdata.range_id,
         soc_type: postdata.soc_type,
         range_name: range_name,
+        cntr_auth_type:cntr_auth_type,cntr_auth_name:cntr_auth_name,
         socname: "",
         title: title,
         soc_data_status: "",

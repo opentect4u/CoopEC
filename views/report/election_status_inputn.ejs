@@ -61,28 +61,28 @@
 
 
 <script>
-  $(document).ready(function() {
-    $('form').submit(function(event) {
-      var fromDate = $('#fr_dt').val();
-      var toDate = $('#to_dt').val();
+  // $(document).ready(function() {
+  //   $('form').submit(function(event) {
+  //     var fromDate = $('#fr_dt').val();
+  //     var toDate = $('#to_dt').val();
       
-      // Check if From Date and To Date are not blank
-      if (!fromDate || !toDate) {
-        alert("Both From Date and To Date are required.");
-        event.preventDefault();  // Prevent form submission
-        return false;
-      }
+  //     // Check if From Date and To Date are not blank
+  //     if (!fromDate || !toDate) {
+  //       alert("Both From Date and To Date are required.");
+  //       event.preventDefault();  // Prevent form submission
+  //       return false;
+  //     }
       
-      // Check if To Date is greater than From Date
-      if (new Date(toDate) < new Date(fromDate)) {
-        alert("To Date must be greater than From Date.");
-        event.preventDefault();  // Prevent form submission
-        return false;
-      }
+  //     // Check if To Date is greater than From Date
+  //     if (new Date(toDate) < new Date(fromDate)) {
+  //       alert("To Date must be greater than From Date.");
+  //       event.preventDefault();  // Prevent form submission
+  //       return false;
+  //     }
 
-      return true;
-    });
-  });
+  //     return true;
+  //   });
+  // });
 </script>
 
 
