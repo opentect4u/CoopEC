@@ -939,7 +939,7 @@ reportRouter.post("/election_duen", async (req, res) => {
     }
     var title = "Election Due";
     const select = `range_name,sum(total_available)total,sum(DUE)DUE,sum(ONGOING)ONGOING,sum(DONE)HELD`;
-    var table_name = `( SELECT e.range_name range_name, COUNT(*) AS total_available, 0 DUE,0 ONGOING,0 DONE FROM md_society a,md_range e where  a.range_code = e.range_id and  a.functional_status = 'Functional' ${range_con} GROUP BY e.range_name
+    var table_name = `( SELECT e.range_name range_name, COUNT(*) AS total_available, 0 DUE,0 ONGOING,0 DONE FROM md_society a,md_range e where  a.range_code = e.range_id and  a.functional_status = 'Functional' ${range_con} AND  a.cntr_auth_type  = ${cntr_auth_type} GROUP BY e.range_name
                               UNION
                               SELECT e.range_name range_name,
                                   0 total_available,
@@ -1172,6 +1172,8 @@ reportRouter.get("/dnlexcel_group_by_dist_range", async (req, res) => {
                                         GROUP BY e.range_name
                                             )a
                                         group by range_name order by range_name ASC`;
+
+                                        
     }else{
       var range_con =
       req.query.range_dist > 0

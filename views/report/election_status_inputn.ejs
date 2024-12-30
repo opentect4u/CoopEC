@@ -9,7 +9,8 @@
             
               <div class="col-md-3">
                 <div class="form-group">
-                  <% if(cntr_auth_type == 1){ %>
+              
+                  <% if(user.range_id > 0){ %>
                   <label for="exampleInputName1">Range<span class="red">*</span></label>
                   <select name="" class="form-control"  disabled> 
                     <option value="">Please Select</option>
@@ -18,19 +19,19 @@
                     <option value="<%= dt.range_id %>" <%= dt.range_id == range_cd ? 'selected' : '' %> ><%= dt.range_name %></option>
                     <% })  %>
                   </select>
+                  <input type="hidden" name="range_id" value="<%=range_cd%>">
                   <% }else{ %>
-                    <label for="exampleInputName1">District<span class="red">*</span></label>
-                    <select name="" class="form-control"  disabled> 
-                      <option value="">Please Select</option>
-                      <option value="0" >ALL District</option>
-                      <% dist_list.forEach(dt => { %>
-                      <option value="<%= dt.dist_code %>" <%= dt.dist_code == range_cd ? 'selected' : '' %> ><%= dt.dist_name %></option>
-                      <% })  %>
+                    <label for="exampleInputName1">Range<span class="red">*</span></label>
+                    <select name="range_id" class="form-control" required> 
+                      <option value="0"  >ALL Range</option>
+                      <%  range_list.forEach(dt => { %>
+                        <option value="<%= dt.range_id %>" <%= dt.range_id == range_cd ? 'selected' : '' %> ><%= dt.range_name %></option>
+                        <% })  %>
                     </select>
                   <% } %>
                 </div>
               </div>
-               <input type="hidden" name="range_id" value="<%=range_cd%>">
+             
 
               <!-- <div class="col-md-3">
                 <div class="form-group">
