@@ -566,6 +566,63 @@ SocietyRouter.get("/board_memb_del", async (req, res) => {
     res.redirect("dash/dashboard");
   }
 });
+SocietyRouter.get("/socdelet", async (req, res) => {
+  try {
+  
+    var user_id = req.session.user.user_id;
+    var date_ob = moment();
+    var datetime = date_ob.format("YYYY-MM-DD HH:mm:ss");
+    var ipresult = await fetchIpData();
+    var ip = ipresult.ipdata;
+
+  //   *** Code for Insert and Delete Option  //
+    var soc_id = req.query.id;
+    var where = `id = '${soc_id}' `;
+    var get_data = await db_Select("*", "md_society", where, null);
+   var data = get_data.msg[0];
+    var fields = `(cop_soc_name,new_flag,reg_no,reg_date,soc_type,soc_tier,cntr_auth_type,cntr_auth,zone_code,dist_code,range_code,urban_rural_flag,dev_auth_id,ulb_catg,ulb_id,ward_no,block_id,gp_id,vill_id,pin_no,address,mouza,num_of_memb,audit_upto,mgmt_status,officer_type,last_elec_date,tenure_ends_on,elec_due_date,contact_name,contact_designation,contact_number,email,case_id,case_num,functional_status,approve_status,created_by,created_dt,created_ip,deleted_by,deleted_dt,deleted_ip)`;
+    var values = `('${data.reg_no}','${
+      data.new_flag
+    }','${data.reg_no}','${moment(data.reg_date,'YYYY-MM-DD').format('YYYY-MM-DD')}','${data.soc_type}','${
+      data.soc_tier
+    }','${data.cntr_auth_type}','${data.cntr_auth}','${data.zone_code}','${
+      data.dist_code
+    }','${data.range_code}','${data.urban_rural_flag}','${
+      data.dev_auth_id
+    }','${data.ulb_catg}','${data.ulb_id}','${data.ward_no}','${data.block_id}','${data.gp_id}','${
+      data.vill_id
+    }','${data.pin_no}','${data.address}','${data.mouza}','${
+      data.num_of_memb
+    }','${data.audit_upto}','${data.mgmt_status}','${data.officer_type}','${
+      data.last_elec_date
+    }','${data.tenure_ends_on}','${data.elec_due_date}','${
+      data.contact_name
+    }','${data.contact_designation}','${data.contact_number}','${
+      data.email
+    }','${data.case_id}','${data.case_num}','${
+      data.functional_status
+    }','E','${data.created_by}','${data.created_dt}','${
+      data.created_ip
+    }','${user_id}','${datetime}','${ip}')`;
+   
+    var save_data = await db_Insert("md_society_delete", fields, values, null, 0);
+    if(save_data.suc > 0){
+        var res_dt = await db_Delete("md_society", where);
+        if (res_dt.suc > 0) {
+          req.flash("success_msg", "Deleted successful!");
+      
+        } else {
+          req.flash("error_msg", "Something Went Wrong!");
+        }
+    }
+    // res.json(responseData);
+    res.redirect("/dash/dashboard");
+  } catch (error) {
+    // Log the error and send an appropriate response
+    console.error("Error during dashboard rendering:", error);
+    res.redirect("/dash/dashboard");
+  }
+});
 SocietyRouter.get("/regauth", async (req, res) => {
   try {
     // Extract query parameter 'claims'

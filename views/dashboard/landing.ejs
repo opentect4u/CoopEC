@@ -209,6 +209,7 @@
                     <th class="society_th_8">Society Type</th>
                     <th class="society_th_7">Status </th>
                     <th class="society_th_9">Option</th>
+                    <th class="society_th_9">Delete</th>
                   </tr>
                 </thead>
                 <tbody id="item-list">
@@ -237,6 +238,11 @@
                     </td>
                           <td>
                             <a href="/society/edit?id=<%= dt.id %>" class="ti-marker-alt" style="font-size: 1.5em;">
+                            </a>
+                          </td>
+                          <td>
+                           
+                            <a href="/society/socdelet?id=<%= dt.id %>" onclick="confirmDelete(event)" class="ti-trash" style="font-size: 1.5em;color:red">
                             </a>
                           </td>
                       </tr>
@@ -367,6 +373,9 @@
                                     <td>
                                         <a href="/society/edit?id=${dt.id}" class="ti-marker-alt" style="font-size: 1.5em;" ></a>
                                     </td>
+                                    <td>
+                                        <a href="/society/socdelet?id=${dt.id}" onclick="confirmDelete(event)" class="ti-trash" style="font-size: 1.5em;color:red"></a>
+                                    </td>
                                 </tr>`;
                         });
 
@@ -488,6 +497,9 @@
                                     <td>${statusHTML}</td>
                                     <td>
                                         <a href="/society/edit?id=${dt.id}" class="ti-marker-alt" style="font-size: 1.5em;"></a>
+                                    </td>
+                                     <td>
+                                        <a href="/society/socdelet?id=${dt.id}" onclick="confirmDelete(event)" class="ti-trash" style="font-size: 1.5em;color:red"></a>
                                     </td>
                                 </tr>`;
                         });
