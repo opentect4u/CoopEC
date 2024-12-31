@@ -1099,6 +1099,8 @@ reportRouter.post("/election_duen", async (req, res) => {
 reportRouter.get("/dnlexcel_group_by_dist_range", async (req, res) => {
   try {
     var cntr_auth_type = req.query.cntr_auth
+    
+    var cntr_auth_name ='';
     if (cntr_auth_type > 0) {
       const ranzeres = await db_Select(
         "*",
@@ -1174,13 +1176,13 @@ reportRouter.get("/dnlexcel_group_by_dist_range", async (req, res) => {
                                         group by range_name order by range_name ASC`;
 
                                         
-    }else{
+    }else if(cntr_auth_type > 1 ){
       var range_con =
       req.query.range_dist > 0
         ? `AND a.dist_code=${req.query.range_dist} `
         : "";
         var select =
-      "dist_name as range_name,sum(total_available)total,sum(DUE)DUE,sum(ONGOING)ONGOING,sum(DONE)HELD";
+      "dist_name,sum(total_available)total,sum(DUE)DUE,sum(ONGOING)ONGOING,sum(DONE)HELD";
       var table_name = `( SELECT e.dist_name dist_name, COUNT(*) AS total_available, 0 DUE,0 ONGOING,0 DONE FROM md_society a,md_district e where  a.dist_code = e.dist_code and  a.functional_status = 'Functional' ${range_con} AND  a.cntr_auth_type  = ${cntr_auth_type} GROUP BY e.dist_name
                                 UNION
                                 SELECT e.dist_name dist_name,
@@ -1236,28 +1238,180 @@ reportRouter.get("/dnlexcel_group_by_dist_range", async (req, res) => {
                                 GROUP BY e.dist_name
                                     )a
                                 group by dist_name order by dist_name ASC`;
-      }
+    }
                                 
-    const res_dt = await db_Select(select, table_name, null, null);
+    var res_dt = await db_Select(select, table_name, null, null);
 
     // Create a new workbook and worksheet
-    const workbook = new ExcelJS.Workbook();
-    const worksheet = workbook.addWorksheet("Report");
+    var workbook = new ExcelJS.Workbook();
+    var worksheet = workbook.addWorksheet("Report");
 
     var result = res_dt.suc > 0 ? res_dt.msg : [];
+    
     // Initialize totals
     let tot_tot = 0;
     let tot_due = 0;
     let tot_ongoing = 0;
     let tot_held = 0;
-    // const formattedDate = new Date().toLocaleDateString();
-    //   worksheet.addRow([]); // Add an empty row before the title
-    //   worksheet.mergeCells('A1:E1'); // Merging columns A, B, C, and D for the title
-    //   worksheet.getCell('A1').value = `Angewise Election Status Of Co-operative Societies As On: ${formattedDate}`;
+  
 
-    //   // Optionally, style the title (e.g., bold, centered)
-    //   worksheet.getCell('A1').alignment = { horizontal: 'center', vertical: 'middle' };
-    //   worksheet.getCell('A1').font = { bold: true, size: 14 };
+    // Define column headers
+    worksheet.columns = [
+      { header: "Range/District Name", key: "range_name" },
+      { header: "Total", key: "total" },
+      { header: " Due", key: "DUE" },
+      { header: " Ongoing", key: "ONGOING" },
+      { header: " Held", key: "HELD" }, // Make sure the key is 'total_held' instead of 'total-total_due'
+    ];
+
+    // Add rows to the worksheet
+    result.forEach((item) => {
+      console.log('Adding row: ', item);
+      // Add to the totals
+      tot_tot += item.total;
+      tot_due += item.DUE;
+      tot_ongoing += item.ONGOING;
+      tot_held += item.HELD; // Calculate the held value as total - total_due
+
+      // Add the row to the worksheet
+      worksheet.addRow({
+        range_name: item.range_name,
+        total: item.total,
+        DUE: item.DUE,
+        ONGOING: item.ONGOING,
+        HELD: item.HELD, // Dynamically calculated
+      });
+    });
+
+    // Add a final row for the totals
+    worksheet.addRow({
+      range_name: "Total",
+      total: tot_tot,
+      DUE: tot_due,
+      ONGOING: tot_ongoing,
+      HELD: tot_held,
+    });
+    var cntr_auth_name1 = cntr_auth_name.replace(/ /g, "_").replace(/-/g, "_").replace(/,/g, "_");
+    // Set response headers for the Excel file
+    res.setHeader(
+      "Content-Type",
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    );
+    res.setHeader(
+      "Content-Disposition",
+      `attachment; filename=${cntr_auth_name1} rangetype_report.xlsx`
+    );
+
+    // Write the Excel file to the response
+    await workbook.xlsx.write(res);
+    res.end();
+      // try {
+      //   await workbook.xlsx.write(res);
+      //   res.end();
+      // } catch (err) {
+      //   console.error("Error writing to response:", err);
+      //   res.status(500).json({ error: "Failed to generate Excel file." });
+      // }
+  } catch (error) {
+    console.error("Error during Excel generation:", error);
+    res
+      .status(500)
+      .json({ error: "An error occurred while generating the report." });
+  }
+});
+reportRouter.get("/dnlexcel_group_by_dist", async (req, res) => {
+  try {
+    var cntr_auth_type = req.query.cntr_auth
+    // console.log(cntr_auth_type);
+    var cntr_auth_name = '';
+    if (cntr_auth_type > 0) {
+      const ranzeres = await db_Select(
+        "*",
+        "md_controlling_authority_type",
+        `controlling_authority_type_id=${cntr_auth_type}`,
+        null,
+      );
+      cntr_auth_name = ranzeres.msg[0].controlling_authority_type_name;
+    } else {
+      cntr_auth_name = "ALL";
+    }
+    
+            var range_con =
+            req.query.range_dist > 0
+              ? `AND a.dist_code=${req.query.range_dist} `
+              : "";
+              var select =
+            "dist_name as range_name,sum(total_available)total,sum(DUE)DUE,sum(ONGOING)ONGOING,sum(DONE)HELD";
+            var table_name = `( SELECT e.dist_name , COUNT(*) AS total_available, 0 DUE,0 ONGOING,0 DONE FROM md_society a,md_district e where  a.dist_code = e.dist_code and  a.functional_status = 'Functional' ${range_con} AND  a.cntr_auth_type  = ${cntr_auth_type} GROUP BY e.dist_name
+                                        UNION
+                                        SELECT e.dist_name dist_name, 
+                                            0 total_available, 
+                                            count(*) DUE,
+                                            0 ONGOING,
+                                            0 DONE
+                                        FROM md_society a,md_district e
+                                        where  a.dist_code = e.dist_code
+                                        and  a.functional_status = 'Functional'
+                                        and  a.election_status  = 'DUE'
+                                        AND  a.cntr_auth_type  = ${cntr_auth_type}
+                                        ${range_con}
+                                        GROUP BY e.dist_name
+                                        UNION
+                                        SELECT e.dist_name dist_name, 
+                                            0 total_available, 
+                                            count(*) DUE,
+                                            0 ONGOING,
+                                            0 DONE
+                                        FROM md_society a,md_district e
+                                        where a.dist_code = e.dist_code
+                                        and  a.functional_status = 'Functional'
+                                        and  a.election_status = 'DUE'
+                                        AND  a.cntr_auth_type  = ${cntr_auth_type}
+                                        ${range_con}
+                                        GROUP BY e.dist_name
+                                        UNION
+                                        SELECT e.dist_name dist_name, 
+                                            0 total_available, 
+                                            0  DUE,
+                                            count(*) ONGOING,
+                                            0 DONE
+                                        FROM md_society a,md_district e
+                                        where a.dist_code = e.dist_code
+                                        and  a.functional_status = 'Functional'
+                                        and  a.election_status  = 'ONGOING'
+                                        AND  a.cntr_auth_type  = ${cntr_auth_type}
+                                        ${range_con}
+                                        GROUP BY e.dist_name
+                                        UNION
+                                        SELECT e.dist_name dist_name, 
+                                            0 total_available, 
+                                            0  DUE,
+                                            0 ONGOING,
+                                            count(*) HELD
+                                        FROM md_society a,md_district e
+                                        where a.dist_code = e.dist_code
+                                        and  a.functional_status = 'Functional'
+                                        and  a.election_status  = 'DONE'
+                                        AND  a.cntr_auth_type  = ${cntr_auth_type}
+                                        ${range_con}
+                                        GROUP BY e.dist_name
+                                            )a
+                                        group by dist_name order by dist_name ASC`;
+  
+                                        
+     var res_dt = await db_Select(select, table_name, null, null);
+
+     var workbook = new ExcelJS.Workbook();
+    var worksheet = workbook.addWorksheet("Report");
+
+    var result = res_dt.suc > 0 ? res_dt.msg : [];
+    
+    // Initialize totals
+    let tot_tot = 0;
+    let tot_due = 0;
+    let tot_ongoing = 0;
+    let tot_held = 0;
+  
 
     // Define column headers
     worksheet.columns = [
@@ -1294,20 +1448,22 @@ reportRouter.get("/dnlexcel_group_by_dist_range", async (req, res) => {
       ONGOING: tot_ongoing,
       HELD: tot_held,
     });
-
-    // Set response headers for the Excel file
+     
+    var cntr_auth_name1 = cntr_auth_name.replace(/ /g, "_").replace(/-/g, "_").replace(/,/g, "_");
+  
     res.setHeader(
       "Content-Type",
       "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
     );
     res.setHeader(
       "Content-Disposition",
-      `attachment; filename=${cntr_auth_name} rangetype_report.xlsx`
+      `attachment; filename= ${cntr_auth_name1}_report.xlsx`
     );
 
     // Write the Excel file to the response
     await workbook.xlsx.write(res);
     res.end();
+     
   } catch (error) {
     console.error("Error during Excel generation:", error);
     res
@@ -1315,6 +1471,7 @@ reportRouter.get("/dnlexcel_group_by_dist_range", async (req, res) => {
       .json({ error: "An error occurred while generating the report." });
   }
 });
+
 reportRouter.get("/ele_soctype_input", async (req, res) => {
   try {
     // Extract range_id from session
@@ -1353,111 +1510,7 @@ reportRouter.get("/ele_soctype_input", async (req, res) => {
     res.render("report/soctype/election_status_inputn", res_dt);
   }
 });
-reportRouter.post("/ele_soctype_output", async (req, res) => {
-  try {
-    // Extract range_id from session
-    var postdata = req.body;
-    const range_id = req.session.user.range_id;
-    var soc_type = postdata.range_id;
-    var soc_con = "";
-    if (soc_type > 0) {
-      soc_con = `and  a.range_code  = ${soc_type}`;
-    }
-    var title = "Election Due";
-    const select = `soc_type_id,soc_type_name,sum(total_available)total,sum(DUE)DUE,sum(ONGOING)ONGOING,sum(DONE)HELD`;
-    var table_name = `(SELECT b.soc_type_id soc_type_id,b.soc_type_name soc_type_name,COUNT(*) AS total_available, 0 DUE,0 ONGOING,0 DONE FROM md_society a,md_society_type b,md_range e where a.soc_type = b.soc_type_id and  a.range_code = e.range_id and  a.functional_status = 'Functional' ${soc_con} GROUP BY b.soc_type_id,b.soc_type_name 
-                                UNION SELECT b.soc_type_id soc_type_id,
-                                  b.soc_type_name soc_type_name,
-                                0 total_available, 
-                                count(*) DUE,
-                                0 ONGOING,
-                                0 DONE
-                            FROM md_society a,md_society_type b,md_range e
-                            where a.soc_type = b.soc_type_id
-                            and  a.range_code = e.range_id
-                            and  a.functional_status = 'Functional'
-                            and  a.election_status  = 'DUE'
-                            ${soc_con}
-                            GROUP BY b.soc_type_id,b.soc_type_name
-                            UNION
-                            SELECT b.soc_type_id soc_type_id,
-                                  b.soc_type_name soc_type_name,
-                                0 total_available, 
-                                count(*) DUE,
-                                0 ONGOING,
-                                0 DONE
-                            FROM md_society a,md_society_type b,md_range e
-                            where a.soc_type = b.soc_type_id
-                            and  a.range_code = e.range_id
-                            and  a.functional_status = 'Functional'
-                            and  a.election_status = 'DUE'
-                            ${soc_con}
-                            GROUP BY b.soc_type_id,b.soc_type_name
-                            UNION
-                            SELECT b.soc_type_id soc_type_id,
-                                  b.soc_type_name soc_type_name,
-                                0 total_available, 
-                                0  DUE,
-                                count(*) ONGOING,
-                                0 DONE
-                            FROM md_society a,md_society_type b,md_range e
-                            where a.soc_type = b.soc_type_id
-                            and  a.range_code = e.range_id
-                            and  a.functional_status = 'Functional'
-                            and  a.election_status  = 'ONGOING'
-                            ${soc_con}
-                            GROUP BY b.soc_type_id,b.soc_type_name
-                            UNION
-                            SELECT b.soc_type_id soc_type_id,
-                                  b.soc_type_name soc_type_name,
-                                0 total_available, 
-                                0  DUE,
-                                0 ONGOING,
-                                count(*) HELD
-                            FROM md_society a,md_society_type b,md_range e
-                            where a.soc_type = b.soc_type_id
-                            and  a.range_code = e.range_id
-                            and  a.functional_status = 'Functional'
-                            and  a.election_status  = 'DONE'
-                            ${soc_con}
-                            GROUP BY b.soc_type_id,b.soc_type_name
-                                )a
-                            group by soc_type_id,soc_type_name
-                            order by soc_type_id`;
-    const result = await db_Select(select, table_name, null, null);
 
-    // console.log(ranzeres);
-    if (soc_type > 0) {
-      const ranzeres = await db_Select(
-        "*",
-        "md_range",
-        `range_id=${soc_type}`,
-        null,
-      );
-      range_name = ranzeres.msg[0].range_name;
-    } else {
-      range_name = "ALL Range";
-    }
-    // Prepare data for rendering
-    const res_dt = {
-      data: result.suc > 0 ? result.msg : "",
-      page: 1,
-      range: postdata.range_id,
-      soc_type: postdata.soc_type,
-      range_name: range_name,
-      socname: "",
-      title: title,
-      soc_data_status: "",
-    };
-    // Render the view with data
-    res.render("report/soctype/election_result", res_dt);
-  } catch (error) {
-    // Log the error and send an appropriate response
-    console.error("Error during dashboard rendering:", error);
-    //res.status(500).send('An error occurred while loading the dashboard.');
-    res.render("report/soctype/election_result", res_dt);
-  }
-});
 
 reportRouter.get("/dnlexcel_soctype", async (req, res) => {
   try {
