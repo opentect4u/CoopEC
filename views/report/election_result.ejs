@@ -18,7 +18,7 @@
               <!-- <i class="fa fa-file-pdf-o pdf_cus" aria-hidden="true"></i> 
               <i class="fa fa-file-excel-o excel_cus" aria-hidden="true"></i> -->
          
-              <a href='/report/downloadexcel_past?range=<%=range%>&soc_type_id=<%=soc_type%>' ><img src="/images/excel.jpg" alt="excel" class="excel_cus" /></a>
+              <a href='/report/downloadexcel_past?range=<%=range%>&soc_type_id=<%=soc_type%>&cntr_auth=<%=cntr_auth_type%>  ' ><img src="/images/excel.jpg" alt="excel" class="excel_cus" /></a>
             </div>
             
             </h4>
@@ -34,7 +34,7 @@
                     <th class="society_th_8">Society Type</th>
                     <th class="society_th_9">Last Election date</th>
                     <th class="society_th_9">Tenure Ends On</th>
-                    <th class="society_th_9">Election Due Date</th>
+                    <th class="society_th_9 due_class">Election Due Date</th>
                   </tr>
                 </thead>
                 <tbody id="item-list">
@@ -54,7 +54,7 @@
                             <%= new Date(dt.tenure_ends_on).toLocaleDateString('en-IN', { year: 'numeric' , month: 'short' ,
                                   day: 'numeric' }) %>
                           </td>
-                          <td>
+                          <td class="due_class">
                             <%= new Date(dt.elec_due_date).toLocaleDateString('en-IN', { year: 'numeric' , month: 'short' ,
                                   day: 'numeric' }) %>
                           </td>

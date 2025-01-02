@@ -10,29 +10,28 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="exampleInputName1">Controlling Authority<span class="red">*</span></label>
-                  <select name="" class="form-control" disabled> 
+                  <select name="controlling_authority_type" class="form-control" required> 
                     <option value="">Please Select</option>
                     <% 
                     controllingauth.forEach(dt => { %>
-                    <option value="<%= dt.controlling_authority_type_id %>" <%= dt.controlling_authority_type_id == 1 ? 'selected' : '' %> ><%= dt.controlling_authority_type_name %></option>
+                    <option value="<%= dt.controlling_authority_type_id %>"><%= dt.controlling_authority_type_name %></option>
                     <% }) %>
                   </select>
                 </div>
               </div>
-              <input type="hidden" name="controlling_authority_type" value="1">
               <% }else { %>
-                <input type="hidden" name="controlling_authority_type" value="1">
+                <input type="hidden" name="controlling_authority_type" value="<%=user.cntr_auth_type%>">
                 <% } %>
               <% if(user.range_id== 0) { %>
               <div class="col-md-6">
                 <div class="form-group">
-                  <label for="exampleInputName1">Range<span class="red">*</span></label>
+                  <label for="exampleInputName1">District<span class="red">*</span></label>
                   <select name="range_id" class="form-control" required> 
                     <option value="">Please Select</option>
                     <option value="0">ALL Range</option>
                     <% 
                     range_list.forEach(dt => { %>
-                    <option value="<%= dt.range_id %>"><%= dt.range_name %></option>
+                    <option value="<%= dt.dist_code %>"><%= dt.dist_name %></option>
                     <% }) %>
                   </select>
                 </div>
