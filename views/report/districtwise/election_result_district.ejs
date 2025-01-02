@@ -21,11 +21,11 @@
                 <thead>
                   <tr>
                     <th class="society_th_1">SL No</th>
-                    <th class="society_th_2">District Name </th>
+                    <th class="society_th_2">Range Name </th>
                     <th class="society_th_2">Total </th>
-                    <th class="society_th_6"> Due</th>
-                    <th class="society_th_6"> Ongoing</th>
-                    <th class="society_th_8"> Held</th>
+                    <th class="society_th_6 due_class" > Due</th>
+                    <th class="society_th_6 ongoing_class"> Ongoing</th>
+                    <th class="society_th_8 held_class"> Held</th>
                   </tr>
                 </thead>
                 <tbody id="item-list">
@@ -40,11 +40,11 @@
                     %>
                       <tr>
                           <td><%= i++ %></td>
-                          <td><%= dt.dist_name %></td>
+                          <td><%= dt.range_name %></td>
                           <td><%= dt.total %></td>
-                          <td><%= dt.DUE %></td>
-                          <td><%= dt.ONGOING %></td>
-                          <td><%= dt.HELD %></td>
+                          <td class="due_class"><%= dt.DUE %></td>
+                          <td class="ongoing_class"><%= dt.ONGOING %></td>
+                          <td class="held_class"><%= dt.HELD %></td>
                           
                       </tr>
                   <% }) %>
@@ -52,9 +52,9 @@
                         <th></th>
                         <th>Total</th>
                         <th><%= tot_tot %></th>
-                        <th><%= tot_due %></th>
-                        <th><%= tot_ongoing %></th>
-                        <th><%= tot_held %></th>
+                        <th class="due_class"><%= tot_due %></th>
+                        <th class="ongoing_class" ><%= tot_ongoing %></th>
+                        <th class="held_class"><%= tot_held %></th>
                     </tr>
                 </tbody>
               </table>

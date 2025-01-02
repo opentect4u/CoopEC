@@ -677,5 +677,17 @@ h3.noti_title button.read_all {
 .navbar .navbar-brand-wrapper .navbar-brand img {
   height: 52px;
 }
+.due_class{
+   background: #eb5437;
+   text-align:center
+}
+.ongoing_class{
+  background: #EEF2FD;
+  text-align:center
+}
+.held_class{
+  background: #8fa63e;
+  text-align:center
+}
 
 /* ======================= Utsab Roy Start End ======================= */

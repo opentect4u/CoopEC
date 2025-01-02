@@ -88,9 +88,9 @@
             </a>
             <div class="collapse" id="report">
                 <ul class="nav flex-column sub-menu">
-                    <% if( user.cntr_auth_type == '1' ){  %>
+                    <% if( user.cntr_auth_type == '1' || user.user_type == 'S' ){  %>
                     <li class="nav-item"> <a class="nav-link" href="/report/election_due_reqn">Status Report(Range)</a></li>
-                    <% } else if(user.cntr_auth_type > '1') {  %>
+                    <% }  if(user.cntr_auth_type > '1' || user.user_type == 'S' ) {  %>
                     <li class="nav-item"> <a class="nav-link" href="/report/election_due_reqnd">Status Report(District)</a></li>
                     <% } %>
 
