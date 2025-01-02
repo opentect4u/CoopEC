@@ -1,0 +1,75 @@
+<div class="row">
+  <div class="col-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title card_title_cus">Election Detail Input</h4>
+        <form class="forms-sample" action="/report/ele_soctype_output_districtwise" method="post" >
+          <input type="hidden" class="form-control"  name="id" value="" required>
+            <div class="row">
+              <div class="col-md-3">
+                <div class="form-group">
+                  <% if(user.user_type == 'S'){ %>
+                    <label for="exampleInputName1">Controlling Authority<span class="red">*</span></label>
+                    <select name="cntr_auth_type" class="form-control" required> 
+                      <%  crtauthlists.forEach(dt => { %>
+                        <option value="<%= dt.controlling_authority_type_id %>"  ><%= dt.controlling_authority_type_name %></option>
+                        <% })  %>
+                    </select>
+                    <% }else {  %>
+                      <input type="hidden" name="cntr_auth_type" value="<%=ctrauth_type%>">
+                    <% } %>
+
+                  <% if(user.user_type == 'S'){ %>
+                    <label for="exampleInputName1">District<span class="red">*</span></label>
+                    <select name="range_id" class="form-control" required> 
+                      <option value="0"  >ALL District</option>
+                      <%  range_list.forEach(dt => { %>
+                        <option value="<%= dt.dist_code %>" <%= dt.dist_code == range_cd ? 'selected' : '' %> ><%= dt.dist_name %></option>
+                        <% })  %>
+                    </select>
+                    <% }else { %>
+                  <% if(user.range_id > 0){ %>
+                  <label for="exampleInputName1">District<span class="red">*</span></label>
+                  <select name="" class="form-control"  disabled> 
+                    <option value="">Please Select</option>
+                    <option value="0"  >ALL District</option>
+                    <%  range_list.forEach(dt => { %>
+                    <option value="<%= dt.dist_code %>" <%= dt.dist_code == range_cd ? 'selected' : '' %> ><%= dt.dist_name %></option>
+                    <% })  %>
+                  </select>
+                  <input type="hidden" name="range_id" value="<%=range_cd%>">
+                  <% }else{ %>
+                    <label for="exampleInputName1">District<span class="red">*</span></label>
+                    <select name="range_id" class="form-control" required> 
+                      <option value="0"  >ALL District</option>
+                      <%  range_list.forEach(dt => { %>
+                        <option value="<%= dt.dist_code %>" <%= dt.dist_code == range_cd ? 'selected' : '' %> ><%= dt.dist_name %></option>
+                        <% })  %>
+                    </select>
+                  <% }  } %>
+                  
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                    <label for="exampleInputName1">Society Type<span class="red">*</span></label>
+                    <select name="soc_type" class="form-control" required> 
+                      <option value="0"  >ALL Type</option>
+                      <%  socty_list.forEach(dt => { %>
+                        <option value="<%= dt.soc_type_id %>"  ><%= dt.soc_type_name %></option>
+                        <% })  %>
+                    </select>
+                </div>
+              </div>
+               
+            </div>
+            
+          <button type="submit" class="btn btn-primary mr-2" id="submit">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

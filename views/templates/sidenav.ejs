@@ -93,8 +93,11 @@
                     <% }  if(user.cntr_auth_type > '1' || user.user_type == 'S' ) {  %>
                     <li class="nav-item"> <a class="nav-link" href="/report/election_due_reqnd">Status Report(District)</a></li>
                     <% } %>
-
-                    <li class="nav-item"> <a class="nav-link" href="/report/ele_soctype_input">Status Report(Category)</a></li>
+                    <% if( user.cntr_auth_type == '1' || user.user_type == 'S' ){  %>
+                    <li class="nav-item"> <a class="nav-link" href="/report/ele_soctype_input_rangewise">Status Category(Range)</a></li>
+                    <% }  if(user.cntr_auth_type > '1' || user.user_type == 'S' ) {  %>
+                    <li class="nav-item"> <a class="nav-link" href="/report/ele_soctype_input_districtwise">Status Category(District)</a></li>
+                    <% } %>
                     <li class="nav-item"> <a class="nav-link" href="/report/election_due_req">Election Due</a></li>
                     
                     <li class="nav-item"> <a class="nav-link" href="/report/election_upcoming_req">Election Upcoming</a></li>
