@@ -24,7 +24,7 @@
             </div>
           </div>
           <% }else{ %>
-                  <input type="hidden" name="cntr_auth_type" id="cntr_auth_type" value="0">
+                  <input type="hidden" name="cntr_auth_type" id="cntr_auth_type" value="<%=user.cntr_auth_type%>">
             <% } %>
             <% if(user.user_type == 'S' || user.cntr_auth_type == 1 ) { %> 
             <div class="col-md-3">

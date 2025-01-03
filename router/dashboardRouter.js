@@ -161,11 +161,11 @@ DashboardRouter.post("/dashboard", async (req, res) => {
     const range_id = req.session.user.range_id;
     var cntr_auth = req.session.user.cntr_auth_type;
     var range_or_dist = cntr_auth > 1 ? 'dist_code':'range_code';
-    if (range_id == 0) {
-      const user_type = 1;
-    } else {
-      const user_type = 2;
-    }
+    // if (range_id == 0) {
+    //   const user_type = 1;
+    // } else {
+    //   const user_type = 2;
+    // }
     var formdata = req.body;
     const select =
       "a.id,a.cop_soc_name,a.reg_no,a.functional_status,a.approve_status,b.soc_type_name,c.dist_name,d.zone_name,e.range_name,f.soc_tier_name,g.controlling_authority_type_name";
@@ -174,7 +174,7 @@ DashboardRouter.post("/dashboard", async (req, res) => {
     if(range_id > 0){
       var con1 =`AND (cntr_auth_type = "${cntr_auth}" OR cntr_auth_type = 0) `;
     }else{
-      formdata.cntr_auth_type > 0
+      var con1 = formdata.cntr_auth_type > 0
         ? `AND a.cntr_auth_type=${formdata.cntr_auth_type} `
         : "";
     }
@@ -254,8 +254,9 @@ DashboardRouter.post("/dashboard", async (req, res) => {
       var whr = `1 ${maincon} LIMIT 25`;
     }
     const order = null;
-    //   console.log(whr);
-    //   console.log('chack');
+   
+      console.log(maincon);
+      console.log('czCZCzxczccxzcc');
     // Execute database query
     const result = await db_Select(select, table_name, whr, order);
     const select2 = "COUNT(*) as total";
@@ -345,7 +346,7 @@ DashboardRouter.post("/dashboard", async (req, res) => {
     };
 
     // Render the view with data
-    res.render("dashboard/landing", res_dt);
+     res.render("dashboard/landing", res_dt);
   } catch (error) {
     // Log the error and send an appropriate response
     console.error("Error during dashboard rendering:", error);
