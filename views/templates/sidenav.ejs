@@ -103,7 +103,11 @@
                     <% }  if(user.cntr_auth_type > '1' || user.user_type == 'S' ) {  %>
                     <li class="nav-item"> <a class="nav-link" href="/report/election_due_req_dist">Election Due (District)</a></li>
                     <% } %>
+                    <% if( user.cntr_auth_type == '1' || user.user_type == 'S' ){  %>
                     <li class="nav-item"> <a class="nav-link" href="/report/election_upcoming_req">Election Upcoming(Range)</a></li>
+                    <% }  if(user.cntr_auth_type > '1' || user.user_type == 'S' ) {  %>
+                    <li class="nav-item"> <a class="nav-link" href="/report/election_upcoming_dist">Election Upcoming(Dist)</a></li>
+                    <% } %>
                     <!-- <li class="nav-item"> <a class="nav-link" href="/report/society_ur_req">Urban Rural</a></li>
                     <li class="nav-item"> <a class="nav-link" href="/report/society_ele_status_req">Election Status</a></li> -->
                 </ul>

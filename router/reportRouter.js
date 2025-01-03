@@ -281,83 +281,32 @@ reportRouter.get("/election_due_req", async (req, res) => {
     }
   });
 
-  reportRouter.post("/election_upcoming", async (req, res) => {
-    try {
-      // Extract range_id from session
-      var postdata = req.body;
-      const range_id = req.session.user.range_id;
-      var range_code = postdata.range_id;
-      var month_interval = postdata.month_tenure;
-      var title_sufix = "";
-      if (month_interval == 6) {
-        var title_sufix = "Within Six(6) Month";
-      } else if (month_interval == 3) {
-        var title_sufix = "Within Three(3) Month";
-      } else {
-        var title_sufix = "";
-      }
-      var title = "Election Upcoming";
-      const select =
-        "a.id,a.cop_soc_name,a.last_elec_date,a.tenure_ends_on,a.elec_due_date,a.reg_no,b.soc_type_name,c.dist_name,d.zone_name,e.range_name,f.soc_tier_name";
-      if (range_id > 0) {
-        var select_type =
-          postdata.soc_type > 0
-            ? `AND a.range_code = '${postdata.soc_type}'`
-            : "";
-        var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' AND a.approve_status = 'A' ${select_type} AND a.tenure_ends_on >= CURDATE() AND a.tenure_ends_on < DATE_ADD(CURDATE(), INTERVAL ${month_interval} MONTH) AND a.range_code = "${range_id}" `;
-      } else {
-        var select_range =
-          range_code > 0 ? `AND a.range_code = '${range_code}'` : "";
-        var select_type =
-          postdata.soc_type > 0 ? `AND a.soc_type = '${postdata.soc_type}'` : "";
-        var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' ${select_range + select_type} AND a.approve_status = 'A' AND a.tenure_ends_on >= CURDATE() AND a.tenure_ends_on < DATE_ADD(CURDATE(), INTERVAL ${month_interval} MONTH) `;
-      }
-
-      // Execute database query
-      const result = await db_Select(select, table_name, null, null);
-      const ranzeres = await db_Select(
-        "*",
-        "md_range",
-        `range_id=${range_code}`,
-        null,
-      );
-      // console.log(ranzeres);
-      if (range_code > 0) {
-        range_name = ranzeres.msg[0].range_name;
-      } else {
-        range_name = "ALL Range";
-      }
-      // Prepare data for rendering
-      const res_dt = {
-        data: result.suc > 0 ? result.msg : "",
-        page: 1,
-        range_name: range_name,
-        range: postdata.range_id,
-        soc_type: postdata.soc_type,
-        socname: "",
-        title: title,
-        soc_data_status: "",
-        title_sufix: title_sufix,
-      };
-      // Render the view with data
-      res.render("report/election_result_upcoming", res_dt);
-    } catch (error) {
-      // Log the error and send an appropriate response
-      console.error("Error during dashboard rendering:", error);
-      //res.status(500).send('An error occurred while loading the dashboard.');
-      res.render("report/election_result_upcoming", res_dt);
-    }
-  });
+  
   reportRouter.get("/downloadexcel_upcoming", async (req, res) => {
     try {
-      var range =
-        req.query.range_code > 0
-          ? `AND a.range_code=${req.query.range_code} `
-          : "";
+      var range = '';
       var soc_type =
         req.query.soc_type_id > 0
-          ? `AND a.soc_type=${req.query.soc_type_id} `
+          ? ` AND a.soc_type=${req.query.soc_type_id} `
           : "";
+      var controlling_authority_type =
+          req.query.controlling_authority_type > 0
+            ? ` AND a.cntr_auth_type=${req.query.controlling_authority_type} `
+            : "";  
+      var month_interval = req.query.month_interval > 0 ? req.query.month_interval : 2 ;
+      if(req.query.controlling_authority_type == 1 ){
+         range =
+        req.query.range > 0
+          ? ` AND a.range_code=${req.query.range} `
+          : "";
+      }else if(req.query.controlling_authority_type > 1){
+        range =
+        req.query.range > 0
+          ? ` AND a.dist_code=${req.query.range} `
+          : "";
+      }
+      
+                 
       const select =
         "a.cop_soc_name, a.reg_no, a.reg_date, b.soc_type_name, f.soc_tier_name, h.controlling_authority_type_name AS reg_cont_auth, g.controlling_authority_name AS returning_officer, st.state_name, c.dist_name, d.zone_name, e.range_name, a.urban_rural_flag, ulcat.ulb_catg_name, ulb.ulb_name, wa.ward_name, mb.block_name, gp.gp_name, vill.vill_name, a.pin_no, a.address, mms.manage_status_name, mot.officer_type_name, a.num_of_memb, a.audit_upto, a.last_elec_date, a.tenure_ends_on, a.contact_name AS key_person, a.contact_designation AS key_person_desig, a.contact_number, a.email,CASE WHEN a.case_id = 1 THEN 'YES' ELSE 'NO' END AS case_status, a.case_num, a.functional_status";
       const table_name = `md_society a 
@@ -377,9 +326,9 @@ reportRouter.get("/election_due_req", async (req, res) => {
             LEFT JOIN md_zone d ON a.zone_code = d.zone_id 
             LEFT JOIN md_range e ON a.range_code = e.range_id 
             LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id`;
-      var con = `a.functional_status = 'Functional' AND a.approve_status = 'A' AND a.tenure_ends_on >= CURDATE() AND a.tenure_ends_on < DATE_ADD(CURDATE(), INTERVAL 2 MONTH)`;
+      var con = `a.functional_status = 'Functional' AND a.approve_status = 'A' AND a.tenure_ends_on >= CURDATE() AND a.tenure_ends_on < DATE_ADD(CURDATE(), INTERVAL ${month_interval} MONTH)`;
 
-      const where = `${con + range + soc_type}`; // Ensure these variables are properly defined
+      const where = `${con + range + soc_type + controlling_authority_type}`; // Ensure these variables are properly defined
       const res_dt = await db_Select(select, table_name, where, null);
 
       // Create a new workbook and worksheet
@@ -934,6 +883,148 @@ reportRouter.get("/election_upcoming_req", async (req, res) => {
     // Log the error and send an appropriate response
     console.error("Error during dashboard rendering:", error);
     res.render("report/election_upcoming_input", res_dt);
+  }
+});
+  reportRouter.get("/election_upcoming_dist", async (req, res) => {
+    try {
+      // Extract range_id from session
+      const range_id = req.session.user.range_id;
+      var range_code = range_id;
+      var title = "Election Upcoming";
+      const ranzeres = await db_Select(
+        "*",
+        "md_district",
+        `dist_code=${range_code}`,
+        null,
+      );
+      if (range_code > 0) {
+        range_name = ranzeres.msg[0].dist_name;
+      } else {
+        range_name = "ALL Range";
+      }
+      const rangeres = await db_Select("*", "md_district", null, null);
+      const soctyperes = await db_Select("*", "md_society_type", null, null);
+      const controlling_auth = await db_Select("*", "md_controlling_authority_type",`controlling_authority_type_id NOT IN (1)`, null);
+      // Prepare data for rendering
+      const res_dt = {
+        range_list: rangeres.suc > 0 ? rangeres.msg : "",
+        socty_list: soctyperes.suc > 0 ? soctyperes.msg : "",
+        page: 1,
+        range_name: range_name,
+        socname: "",
+        title: title,controllingauth:controlling_auth.suc > 0 ? controlling_auth.msg : "",
+        soc_data_status: "",
+      };
+      // Render the view with data
+      res.render("report/election_upcoming_input_dist", res_dt);
+    } catch (error) {
+      // Log the error and send an appropriate response
+      console.error("Error during dashboard rendering:", error);
+      res.render("report/election_upcoming_input_dist", res_dt);
+    }
+  });
+reportRouter.post("/election_upcoming", async (req, res) => {
+  try {
+    // Extract range_id from session
+    var postdata = req.body;
+    const range_id = req.session.user.range_id;
+    var range_code = postdata.range_id;
+    var month_interval = postdata.month_tenure;
+    var title_sufix = "";
+    if (month_interval == 6) {
+      var title_sufix = "Within Six(6) Month";
+    } else if (month_interval == 3) {
+      var title_sufix = "Within Three(3) Month";
+    } else {
+      var title_sufix = "";
+    }
+    var title = "Election Upcoming";
+    var controlling_auth_type_con = postdata.controlling_authority_type > 0 ? `AND a.cntr_auth_type = '${postdata.controlling_authority_type}'`: "";
+    const select =
+      "a.id,a.cop_soc_name,a.last_elec_date,a.tenure_ends_on,a.elec_due_date,a.reg_no,b.soc_type_name,c.dist_name,d.zone_name,e.range_name,f.soc_tier_name";
+    if(postdata.controlling_authority_type == 1){
+
+
+      if (range_id > 0) {
+        var select_type =
+          postdata.soc_type > 0
+            ? `AND a.soc_type = '${postdata.soc_type}'`
+            : "";
+        var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' AND a.approve_status = 'A' ${select_type} AND a.tenure_ends_on >= CURDATE() AND a.tenure_ends_on < DATE_ADD(CURDATE(), INTERVAL ${month_interval} MONTH) AND a.range_code = "${range_id}" ${controlling_auth_type_con}`;
+      } else {
+        var select_range =
+          range_code > 0 ? `AND a.range_code = '${range_code}'` : "";
+        var select_type =
+          postdata.soc_type > 0 ? `AND a.soc_type = '${postdata.soc_type}'` : "";
+        var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' ${select_range + select_type} AND a.approve_status = 'A' AND a.tenure_ends_on >= CURDATE() AND a.tenure_ends_on < DATE_ADD(CURDATE(), INTERVAL ${month_interval} MONTH) ${controlling_auth_type_con}`;
+      }
+    }else{
+
+      if (range_id > 0) {
+        var select_type =
+          postdata.soc_type > 0
+            ? `AND a.soc_type = '${postdata.soc_type}'`
+            : "";
+        var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' AND a.approve_status = 'A' ${select_type} AND a.tenure_ends_on >= CURDATE() AND a.tenure_ends_on < DATE_ADD(CURDATE(), INTERVAL ${month_interval} MONTH) AND a.dist_code = "${range_id}" ${controlling_auth_type_con}`;
+      } else {
+        var select_range =
+          range_code > 0 ? `AND a.dist_code = '${range_code}'` : "";
+        var select_type =
+          postdata.soc_type > 0 ? `AND a.soc_type = '${postdata.soc_type}'` : "";
+        var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' ${select_range + select_type} AND a.approve_status = 'A' AND a.tenure_ends_on >= CURDATE() AND a.tenure_ends_on < DATE_ADD(CURDATE(), INTERVAL ${month_interval} MONTH) ${controlling_auth_type_con}`;
+      }
+    }
+    
+
+    // Execute database query
+    const result = await db_Select(select, table_name, null, null);
+    var range_name = '';
+    if(postdata.controlling_authority_type == 1){
+    const ranzeres = await db_Select(
+      "*",
+      "md_range",
+      `range_id=${range_code}`,
+      null,
+    );
+    if (range_code > 0) {
+      range_name = ranzeres.msg[0].range_name;
+    } else {
+      range_name = "ALL Range";
+    }
+    }else{
+
+      const ranzeres = await db_Select(
+        "*",
+        "md_district",
+        `dist_code=${range_code}`,
+        null,
+      );
+      if (range_code > 0) {
+        range_name = ranzeres.msg[0].dist_name;
+      } else {
+        range_name = "ALL Range";
+      }
+
+    }
+    // Prepare data for rendering
+    const res_dt = {
+      data: result.suc > 0 ? result.msg : "",
+      page: 1,
+      range_name: range_name,
+      range: postdata.range_id,month_interval:postdata.month_tenure,
+      soc_type: postdata.soc_type,controlling_authority_type:postdata.controlling_authority_type,
+      socname: "",
+      title: title,
+      soc_data_status: "",
+      title_sufix: title_sufix,
+    };
+    // Render the view with data
+    res.render("report/election_result_upcoming", res_dt);
+  } catch (error) {
+    // Log the error and send an appropriate response
+    console.error("Error during dashboard rendering:", error);
+    //res.status(500).send('An error occurred while loading the dashboard.');
+    res.render("report/election_result_upcoming", res_dt);
   }
 });
 
