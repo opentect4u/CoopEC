@@ -6,10 +6,10 @@
         <form class="forms-sample" action="/report/election_due" method="post" >
           <input type="hidden" class="form-control"  name="id" value="" required>
             <div class="row">
-              <% if(user.user_type == 'S') { %>
-              <div class="col-md-6">
+              <div class="col-md-4">
                 <div class="form-group">
                   <label for="exampleInputName1">Controlling Authority<span class="red">*</span></label>
+                  <% if(user.user_type == 'S') { %>
                   <select name="controlling_authority_type" class="form-control" required> 
                     <option value="">Please Select</option>
                     <% 
@@ -17,13 +17,21 @@
                     <option value="<%= dt.controlling_authority_type_id %>"><%= dt.controlling_authority_type_name %></option>
                     <% }) %>
                   </select>
+                  <% }else { %>
+                    <select name="" class="form-control" disabled> 
+                      <option value="">Please Select</option>
+                      <% 
+                      controllingauth.forEach(dt => { %>
+                      <option value="<%= dt.controlling_authority_type_id %>" <%= dt.controlling_authority_type_id == user.cntr_auth_type ? 'selected' : '' %>><%= dt.controlling_authority_type_name %></option>
+                      <% }) %>
+                    </select>
+                    <input type="hidden" name="controlling_authority_type" value="<%=user.cntr_auth_type%>">
+                    <% } %>
                 </div>
               </div>
-              <% }else { %>
-                <input type="hidden" name="controlling_authority_type" value="<%=user.cntr_auth_type%>">
-                <% } %>
+              
               <% if(user.range_id== 0) { %>
-              <div class="col-md-6">
+              <div class="col-md-4">
                 <div class="form-group">
                   <label for="exampleInputName1">District<span class="red">*</span></label>
                   <select name="range_id" class="form-control" required> 
@@ -40,7 +48,7 @@
                <input type="hidden" name="range_id" value="<%=user.range_id%>">
 
                 <% } %>
-              <div class="col-md-6">
+              <div class="col-md-4">
                 <div class="form-group">
                   <label for="exampleInputName1">Society Type<span class="red">*</span></label>
                   <select name="soc_type" class="form-control" required> 
@@ -49,7 +57,6 @@
                     <%  socty_list.forEach(dt => { %>
                     <option value="<%= dt.soc_type_id %>"><%= dt.soc_type_name %></option>
                     <% }) %>
-                    
                   </select>
                 </div>
               </div>

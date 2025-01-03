@@ -6,6 +6,18 @@
         <form class="forms-sample" action="/report/ele_soctype_output_rangewise" method="post" >
           <input type="hidden" class="form-control"  name="id" value="" required>
             <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="exampleInputName1">Controlling Authority<span class="red">*</span></label>
+                  <select name="" class="form-control" disabled> 
+                    <option value="">Please Select</option>
+                    <% 
+                    controllingauth.forEach(dt => { %>
+                    <option value="<%= dt.controlling_authority_type_id %>"  <%= dt.controlling_authority_type_id == 1 ? 'selected' : '' %>><%= dt.controlling_authority_type_name %></option>
+                    <% }) %>
+                  </select>
+                </div>
+              </div>
               <div class="col-md-3">
                 <div class="form-group">
                   <% if(user.range_id > 0){ %>

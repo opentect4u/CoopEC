@@ -114,12 +114,14 @@ reportRouter.get("/election_due_req", async (req, res) => {
       } else {
         range_name = "ALL Range";
       }
+      const ctrauthresult = await db_Select("*","md_controlling_authority_type",`controlling_authority_type_id=${cntr_auth_type}`,null);
+
       // Prepare data for rendering
       const res_dt = {
         data: result.suc > 0 ? result.msg : "",
         page: 1,
         range: postdata.range_id,
-        soc_type: postdata.soc_type,
+        soc_type: postdata.soc_type,cntr_auth_name:ctrauthresult.msg[0].controlling_authority_type_name,
         range_name: range_name,cntr_auth_type:cntr_auth_type,
         socname: "",
         title: title,
@@ -1006,12 +1008,13 @@ reportRouter.post("/election_upcoming", async (req, res) => {
       }
 
     }
+    const ctrauthresult = await db_Select("*","md_controlling_authority_type",`controlling_authority_type_id=${postdata.controlling_authority_type}`,null);
     // Prepare data for rendering
     const res_dt = {
       data: result.suc > 0 ? result.msg : "",
       page: 1,
       range_name: range_name,
-      range: postdata.range_id,month_interval:postdata.month_tenure,
+      range: postdata.range_id,month_interval:postdata.month_tenure,cntr_auth_name:ctrauthresult.msg[0].controlling_authority_type_name,
       soc_type: postdata.soc_type,controlling_authority_type:postdata.controlling_authority_type,
       socname: "",
       title: title,
@@ -1050,6 +1053,7 @@ reportRouter.get("/election_due_reqn", async (req, res) => {
     const rangeres = await db_Select("*", "md_range", null, null);
     var distres = await db_Select("*", "md_district", null, null);
     const soctyperes = await db_Select("*", "md_society_type", null, null);
+    var crt_auth_type_res = await db_Select("*", "md_controlling_authority_type", null, null);
     // Prepare data for rendering
     const res_dt = {
       range_list: rangeres.suc > 0 ? rangeres.msg : "",
@@ -1058,7 +1062,7 @@ reportRouter.get("/election_due_reqn", async (req, res) => {
       page: 1,
       range_name: range_name,
       range_cd: range_code,
-      cntr_auth_type: cntr_auth_type,
+      cntr_auth_type: cntr_auth_type,controllingauth:crt_auth_type_res.suc > 0 ? crt_auth_type_res.msg : "",
       socname: "",
       title: title,
       soc_data_status: "",
@@ -1141,59 +1145,6 @@ reportRouter.post("/election_duen", async (req, res) => {
                                   )a
                               group by range_name order by range_name ASC`;
 
-    // const select = `range_name,sum(total_available)total,sum(DUE)DUE,sum(ONGOING)ONGOING,sum(DONE)HELD`;
-    // var table_name = `( SELECT e.range_name range_name, COUNT(*) AS total_available, 0 DUE,0 ONGOING,0 DONE FROM md_society a,md_range e where  a.range_code = e.range_id and  a.functional_status = 'Functional' ${range_con} GROUP BY e.range_name
-    //                               UNION
-    //                               SELECT e.range_name range_name, 
-    //                                   0 total_available, 
-    //                                   count(*) DUE,
-    //                                   0 ONGOING,
-    //                                   0 DONE
-    //                               FROM md_society a,md_range e
-    //                               where  a.range_code = e.range_id
-    //                               and  a.functional_status = 'Functional'
-    //                               and  a.election_status  = 'DUE'
-    //                               ${range_con}
-    //                               GROUP BY e.range_name
-    //                               UNION
-    //                               SELECT e.range_name range_name, 
-    //                                   0 total_available, 
-    //                                   count(*) DUE,
-    //                                   0 ONGOING,
-    //                                   0 DONE
-    //                               FROM md_society a,md_range e
-    //                               where a.range_code = e.range_id
-    //                               and  a.functional_status = 'Functional'
-    //                               and  a.election_status = 'DUE'
-    //                               ${range_con}
-    //                               GROUP BY e.range_name
-    //                               UNION
-    //                               SELECT e.range_name range_name, 
-    //                                   0 total_available, 
-    //                                   0  DUE,
-    //                                   count(*) ONGOING,
-    //                                   0 DONE
-    //                               FROM md_society a,md_range e
-    //                               where a.range_code = e.range_id
-    //                               and  a.functional_status = 'Functional'
-    //                               and  a.election_status  = 'ONGOING'
-    //                               ${range_con}
-    //                               GROUP BY e.range_name
-    //                               UNION
-    //                               SELECT e.range_name range_name, 
-    //                                   0 total_available, 
-    //                                   0  DUE,
-    //                                   0 ONGOING,
-    //                                   count(*) HELD
-    //                               FROM md_society a,md_range e
-    //                               where a.range_code = e.range_id
-    //                               and  a.functional_status = 'Functional'
-    //                               and  a.election_status  = 'DONE'
-    //                               ${range_con}
-    //                               GROUP BY e.range_name
-    //                                   )a
-    //                               group by range_name order by range_name ASC`;
-    // Execute database query
     const result = await db_Select(select, table_name, null, null);
 
     // console.log(ranzeres);
@@ -1619,11 +1570,6 @@ reportRouter.get("/dnlexcel_group_by_dist", async (req, res) => {
 });
 
 
-
-
-
-
-
    ///  ********** Report District Wise  ****************   //    
 
   reportRouter.get("/election_due_reqnd", async (req, res) => {
@@ -1647,6 +1593,7 @@ reportRouter.get("/dnlexcel_group_by_dist", async (req, res) => {
       const rangeres = await db_Select("*", "md_range", null, null);
       var distres = await db_Select("*", "md_district", null, null);
       const soctyperes = await db_Select("*", "md_society_type", null, null);
+      const crtauthlist = await db_Select("*", "md_controlling_authority_type", `controlling_authority_type_id NOT IN(1)`, null);
       // Prepare data for rendering
       const res_dt = {
         range_list: rangeres.suc > 0 ? rangeres.msg : "",
@@ -1654,7 +1601,7 @@ reportRouter.get("/dnlexcel_group_by_dist", async (req, res) => {
         dist_list: distres.suc > 0 ? distres.msg : "",
         page: 1,
         range_name: range_name,
-        range_cd: range_code,
+        range_cd: range_code,crtauthlists:crtauthlist.suc > 0 ? crtauthlist.msg : "",
         cntr_auth_type: cntr_auth_type,
         socname: "",
         title: title,
@@ -1806,14 +1753,14 @@ reportRouter.get("/dnlexcel_group_by_dist", async (req, res) => {
       }
       const rangeres = await db_Select("*", "md_range", null, null);
       const soctyperes = await db_Select("*", "md_society_type", null, null);
-   
+      const controllingauth = await db_Select("*", "md_controlling_authority_type", null, null);
       // Prepare data for rendering
       const res_dt = {
         range_list: rangeres.suc > 0 ? rangeres.msg : "",
         socty_list: soctyperes.suc > 0 ? soctyperes.msg : "",
         page: 1,
         range_name: range_name,
-        range_cd: range_code,
+        range_cd: range_code,controllingauth:controllingauth.suc > 0 ? controllingauth.msg : "",
         socname: "",
         title: title,
         soc_data_status: "",
@@ -1925,12 +1872,21 @@ reportRouter.get("/dnlexcel_group_by_dist", async (req, res) => {
       } else {
         range_name = "ALL Range";
       }
+
+        const crtaurh = await db_Select(
+          "*",
+          "md_controlling_authority_type",
+          `controlling_authority_type_id=1`,
+          null,
+        );
+        var cntr_auth_name = crtaurh.msg[0].controlling_authority_type_name;
+      
       // Prepare data for rendering
       const res_dt = {
         data: result.suc > 0 ? result.msg : "",
         page: 1,
         range: postdata.range_id,
-        soc_type: postdata.soc_type,
+        soc_type: postdata.soc_type,cntr_auth_name:cntr_auth_name,
         range_name: range_name,
         socname: "",
         title: title,
@@ -2077,6 +2033,13 @@ reportRouter.get("/dnlexcel_group_by_dist", async (req, res) => {
         `dist_code=${range_code}`,
         null,
       );
+
+      const cntr_auth_res = await db_Select(
+        "*",
+        "md_controlling_authority_type",
+        `controlling_authority_type_id=${postdata.cntr_auth_type}`,
+        null,
+      );
       // console.log(ranzeres);
       if (range_code > 0) {
         range_name = ranzeres.msg[0].range_name;
@@ -2088,7 +2051,7 @@ reportRouter.get("/dnlexcel_group_by_dist", async (req, res) => {
         data: result.suc > 0 ? result.msg : "",
         page: 1,
         range: postdata.range_id,
-        soc_type: postdata.soc_type,
+        soc_type: postdata.soc_type,cntr_auth_name:cntr_auth_res.msg[0].controlling_authority_type_name,
         range_name: range_name,cntr_auth_type:cntr_auth_type,
         socname: "",
         title: title,

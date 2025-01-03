@@ -13,17 +13,12 @@
             <h4 class="card-title card_title_cus">List of <%=title %> of Co-operative Societies in <%= range_name %>
               
               <div class="table_title_icon"> 
-                <!-- <img src="/images/pdf.jpg" alt="pdf" class="pdf_cus" />
-                <img src="/images/excel.jpg" alt="excel" class="excel_cus" /> -->
-              <!-- <i class="fa fa-file-pdf-o pdf_cus" aria-hidden="true"></i> 
-              <i class="fa fa-file-excel-o excel_cus" aria-hidden="true"></i> -->
-         
               <a href='/report/downloadexcel_past?range=<%=range%>&soc_type_id=<%=soc_type%>&cntr_auth=<%=cntr_auth_type%>  ' ><img src="/images/excel.jpg" alt="excel" class="excel_cus" /></a>
             </div>
             
             </h4>
             <div class="table-responsive pt-3 custome_table_res">
-           
+              <div><b><%= cntr_auth_name %></b></div>
             <br>
               <table class="table_cus table-striped" style="width:100%">
                 <thead>

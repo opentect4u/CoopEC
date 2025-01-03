@@ -6,7 +6,7 @@
         <form class="forms-sample" action="/report/ele_soctype_output_districtwise" method="post" >
           <input type="hidden" class="form-control"  name="id" value="" required>
             <div class="row">
-              <div class="col-md-3">
+              <div class="col-md-4">
                 <div class="form-group">
                   <% if(user.user_type == 'S'){ %>
                     <label for="exampleInputName1">Controlling Authority<span class="red">*</span></label>
@@ -16,9 +16,18 @@
                         <% })  %>
                     </select>
                     <% }else {  %>
-                      <input type="hidden" name="cntr_auth_type" value="<%=ctrauth_type%>">
+                      <input type="hidden" name="cntr_auth_type" value="<%=user.cntr_auth_type%>">
+                      <label for="exampleInputName1">Controlling Authority<span class="red">*</span></label>
+                      <select name="" class="form-control" disabled> 
+                        <%  crtauthlists.forEach(dt => { %>
+                          <option value="<%= dt.controlling_authority_type_id %>"  <%= dt.controlling_authority_type_id == user.cntr_auth_type ? 'selected' : '' %> ><%= dt.controlling_authority_type_name %></option>
+                          <% })  %>
+                      </select>
                     <% } %>
-
+                  </div>
+                </div>
+                <div class="col-md-4">
+                      <div class="form-group">
                   <% if(user.user_type == 'S'){ %>
                     <label for="exampleInputName1">District<span class="red">*</span></label>
                     <select name="range_id" class="form-control" required> 
@@ -50,7 +59,7 @@
                   
                 </div>
               </div>
-              <div class="col-md-3">
+              <div class="col-md-4">
                 <div class="form-group">
                     <label for="exampleInputName1">Society Type<span class="red">*</span></label>
                     <select name="soc_type" class="form-control" required> 
