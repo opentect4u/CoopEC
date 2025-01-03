@@ -918,6 +918,7 @@ reportRouter.get("/election_upcoming_req", async (req, res) => {
     }
     const rangeres = await db_Select("*", "md_range", null, null);
     const soctyperes = await db_Select("*", "md_society_type", null, null);
+    const controlling_auth = await db_Select("*", "md_controlling_authority_type", null, null);
     // Prepare data for rendering
     const res_dt = {
       range_list: rangeres.suc > 0 ? rangeres.msg : "",
@@ -925,7 +926,7 @@ reportRouter.get("/election_upcoming_req", async (req, res) => {
       page: 1,
       range_name: range_name,
       socname: "",
-      title: title,
+      title: title,controllingauth:controlling_auth.suc > 0 ? controlling_auth.msg : "",
       soc_data_status: "",
     };
     // Render the view with data
