@@ -902,7 +902,6 @@ reportRouter.get("/election_upcoming_req", async (req, res) => {
   try {
     // Extract range_id from session
     const range_id = req.session.user.range_id;
-
     var range_code = range_id;
     var title = "Election Upcoming";
     const ranzeres = await db_Select(
