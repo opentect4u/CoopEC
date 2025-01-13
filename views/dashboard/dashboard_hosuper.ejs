@@ -1,0 +1,733 @@
+<div class="col-sm-12 float-left rightSideSec">
+		  
+  <div class="row">
+  <div class="col-sm-12">
+    <div class="welcome_sec">
+      <div class="welcome_sec_text">
+        <h2>Welcome to Co-operative Election Commission,West Bengal</h2>
+      </div>
+    </div>
+  <div class="welcome_sec">
+    <div class="selectDropdown">
+          <div class="stockPointSecTitle_cus">
+                <!-- <input type="hidden" value="<%= cntr_auth_type %>" name="cntr_auth"  /> -->
+                <label class="lmargin">
+                  <input type="radio" name="dist_range" value="RANGE" id="rangeRadio" checked>
+                  Range
+              </label><br>
+              <label class="lmargin">
+                  <input type="radio" name="dist_range" value="DISTRICT"  id="districtRadio">
+                  District
+              </label><br>
+          </div>
+    </div>
+    <div class="selectDropdown">
+      <div class="stockPointSecTitle_cus">
+           <!-- <% if(user.range_id== 0) { %> -->
+            <div class="selectBoxct">
+              <label>Controlling Authority </label>
+              <select class="form-control" id="cntr_auth" name="cntr_auth" disabled>
+                <option value="0">ALL </option>
+                <% if(ctrauth.length > 0){
+                  var i = 1
+                  ctrauth.forEach(dt => { %>
+                  <option value="<%= dt.controlling_authority_type_id %>" <%= cntr_auth_type == dt.controlling_authority_type_id ? 'selected' : '' %> ><%= dt.controlling_authority_type_name %></option>
+                    <% }) } %>
+              </select>
+            </div>
+           <!-- <%  } %>      -->
+      </div>
+    </div>
+    <div class="selectDropdown"  >
+          <div class="stockPointSecTitle_cus">
+            <div id = 'range_datas' >
+              <% if(user.range_id== 0) { %>
+                <div class="selectBox">
+                  <label>Range </label>
+                  <select class="form-control range_code" id="range_data" name="range_code" >
+                    <option value="0">ALL </option>
+                    <% if(ranzelist.length > 0){
+                      var i = 1
+                      ranzelist.forEach(dt => { %>
+                      <option value="<%= dt.range_id %>" <%= range_code == dt.range_id ? 'selected' : '' %> ><%= dt.range_name %></option>
+                        <% }) } %>
+                  </select>
+                </div>
+              <%  }else{ %>
+                   <input type="hidden" value="<%= user.range_id %>" name="range_code" />
+                <% } %>
+            </div>
+            <div id ='district_data' style="display: none;">
+              <% if(user.range_id== 0) { %>
+                  <div class="selectBox">
+                     <label>District </label>
+                    <select class="form-control" id="dist_code" name="dist_code" >
+                      <option value="0">ALL </option>
+                      <% if(distlist.length > 0){
+                        var i = 1
+                        distlist.forEach(dt => { %>
+                        <option value="<%= dt.dist_code %>" <%= dist_code == dt.dist_code ? 'selected' : '' %> ><%= dt.dist_name %></option>
+                          <% }) } %>
+                    </select>
+                  </div>
+                  <%  } %>
+            </div>
+          </div>
+    </div>
+    <div class="selectDropdown"  id="range_search">
+      <div class="stockPointSecTitle_cus">
+        <button type="button" class="btn btn-primary btn-sm" style="margin-top: 25px;" id="range_action">Search</button>
+      </div>
+    </div>
+    <div class="selectDropdown"  id="district_search" style="display: none;">
+      <div class="stockPointSecTitle_cus">
+        <button type="button" class="btn btn-primary btn-sm" style="margin-top: 25px;" id ="dist_action">Search</button>
+      </div>
+    </div>
+    
+  </div>
+
+  <div class="notification_bar">
+    <div class="alert alert-primary alert_cus" role="alert">
+      <i class="fa fa-info-circle" aria-hidden="true"></i>   Alert — check it out! &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+      <a href="javascript:void(0)" class="showHide accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">Hide</a>
+    </div>
+    <div id="collapseOne" class="accordion-collapse collapse notification_off_on" data-bs-parent="#accordionExample">
+    </div>
+  </div>
+</div>
+  
+  </div>
+  
+    <div class="row">
+      <div class="stockPointSecTitle_cus">
+        <h2>Upcoming  </h2>
+          
+    </div>
+    <div class="threeBoxNewmain">
+      <div class="col-sm-6 float-left">
+        <div class="threeBoxNewSmall">
+          <div class="threeBoxImg">
+            <!-- <div class="bloxkSec bloxkSec_paiChart" style="height: 315px"></div> -->
+            <!-- <img src="/images/icon_d.png" alt=""> -->
+            
+          </div>
+          <div class="threeBoxTxt" style="height: 280px; width: 100%;">
+            <canvas id="pieChart_1"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-6 float-left top_no_padding">
+      <div class="col-sm-6 float-left margin_bot">
+        <div class="threeBoxNewSmall box_col_1">
+          <div class="threeBoxImg" style="height: 315px; width: 100%;">
+            <!-- <div class="bloxkSec bloxkSec_paiChart" style="height: 315px"></div> -->
+            <!-- <img src="/images/icon_d.png" alt=""> -->
+            <canvas id="pieChart_1"></canvas>
+          </div>
+          <div class="threeBoxTxt">
+            <h2> 6 Months</h2>
+            <p class="price">
+      <span class="lit" id="total_6month"></span>
+            </p>
+
+            <div class="button_sape">
+              <form action="/report/election_upcoming" method="post">
+                <input type="hidden" value="0" name="soc_type">
+                <input type="hidden" value="0" name="range_id" class="range_id_data">
+                <input type="hidden" value="RANGE" name="dist_range_name" class="dist_range_name" />
+                <input type="hidden" value="0" name="controlling_authority_type" class="ctrauth_id_data">
+                <input type="hidden" value="6" name="month_tenure">
+                <input type="submit" value="View" class="btn btn-primary btn-sm button_sape_view">
+                </form> 
+
+            </div>
+            
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 margin_bot float-left">
+        <div class="threeBoxNewSmall box_col_2">
+          <div class="threeBoxImg yellowCol"><img src="/images/icon_d.png" alt=""></div>
+          <div class="threeBoxTxt">
+            <h2>3 Months</h2>
+            <p class="price">
+      <span class="lit" id="total_3month"></span>
+            </p>
+            <div class="button_sape">
+            <form action="/report/election_upcoming" method="post">
+              <input type="hidden" value="0" name="soc_type">
+              <input type="hidden" value="0" name="range_id" class="range_id_data">
+              <input type="hidden" value="0" name="controlling_authority_type" class="ctrauth_id_data">
+              <input type="hidden" value="3" name="month_tenure">
+              <input type="submit" value="View" class="btn btn-primary btn-sm button_sape_view">
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+
+      <div class="col-sm-6 margin_bot float-left">
+        <div class="threeBoxNewSmall box_col_3">
+          <div class="threeBoxImg yellowCol"><img src="/images/icon_d.png" alt=""></div>
+          <div class="threeBoxTxt">
+            <h2>Ongoing Elections</h2>
+            <p class="price">
+             <span class="lit" id="total_ongoing"></span>
+            </p>
+            <div class="button_sape">
+            <form action="/report/society_ele_status_result" method="post">
+              <input type="hidden" value="<%= user.range_id %>" name="range_id" class="range_id_data">
+              <input type="hidden" value="<%= cntr_auth_type %>" name="controlling_authority_type" class="ctrauth_id_data" >
+              <input type="hidden" value="ONGOING" name="election_status">
+              <input type="submit" value="View" class="btn btn-primary btn-sm button_sape_view">
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-6 margin_bot float-left">
+        <div class="threeBoxNewSmall box_col_4">
+          <div class="threeBoxImg greenCol"><img src="/images/icon_f.png" alt="">
+          </div>
+          <div class="threeBoxTxt">
+            <h2>Completed Elections</h2>
+            <p class="price">
+              <span class="lit" id="total_completed"></span>
+            </p><br>
+            <div class="button_sape">
+            <form action="/report/society_ele_status_result" method="post">
+              <input type="hidden" value="<%= user.range_id %>" name="range_id" class="range_id_data">
+              <input type="hidden" value="<%= cntr_auth_type %>" name="controlling_authority_type" class="ctrauth_id_data">
+              <input type="hidden" value="DONE" name="election_status">
+              <input type="submit" value="View" class="btn btn-primary btn-sm button_sape_view">
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-6 float-left">
+        <div class="threeBoxNewSmall box_col_5">
+          <div class="threeBoxImg redCol"><img src="/images/icon_e.png" alt=""></div>
+          <div class="threeBoxTxt">
+            <div class="overDate_main">
+              <div class="dot_overDate dot--basic" aria-hidden="true"></div>
+              <!-- <strong>Date Over</strong> -->
+            </div>
+            <h2>Need Action</h2>
+            <p class="price">
+           <span class="lit" id="total_due"></span>
+            </p>
+            <div class="button_sape">
+            <form action="/report/election_due" method="post">
+              <input type="hidden" value="0" name="soc_type">
+              <input type="hidden" value="<%= user.range_id %>" name="range_id" class="range_id_data">
+              <input type="hidden" value="<%= cntr_auth_type %>" name="controlling_authority_type" class="ctrauth_id_data" >
+              <input type="submit" value="View" class="btn btn-primary btn-sm button_sape_view">
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+        <div class="stockPointSecTitle_cus"></div>
+        <div class="threeBoxNewmain">
+          <div class="col-sm-8 float-left">
+            <div class="threeBoxNewSmall_new">
+              <!-- <div class="threeBoxImg redCol"><img src="/images/icon_a.png" alt=""></div> -->
+              <div class="row">
+                <div class="col-sm-5 float-left">
+                  <h2>Functional</h2>
+                  <p class="price"><span class="lit" id="total_functional"></span> </p>
+                  <h2>Non Functional</h2>
+                  <p class="price"><span class="lit" id="total_nonfunctional"></span> </p>
+                  <h2>Total Society</h2>
+                  <p class="price"><span class="lit" id="total_society"></span> </p>
+                  <!-- <p class="descrip">The total number of sessions within the date range. It is the period time a user is actively engaged with your website, page or app, etc</p> -->
+
+                </div>
+                <div class="col-sm-7 float-left">
+                  <h2>Data Edit Status</h2>
+                  <div class="table-responsive mb-3 mb-md-0 mt-3">
+                    <table class="table table-borderless report-table">
+                      <tbody><tr>
+                        <td class="text-muted">Unedited </td>
+                        <td class="w-100 px-0">
+                          <div class="progress progress-md mx-4" id="unedited_progressbar">
+                            
+                          </div>
+                        </td>
+                        <td><h5 class="font-weight-bold mb-0"><span id="total_unapproved"></span></h5></td>
+                      </tr>
+                      <tr>
+                        <td class="text-muted">Edited </td>
+                        <td class="w-100 px-0">
+                          <div class="progress progress-md mx-4" id="edited_progressbar">
+                          
+                          </div>
+                        </td>
+                        <td><h5 class="font-weight-bold mb-0"><span id="total_edited"></span></h5></td>
+                      </tr>
+                      <tr>
+                        <td class="text-muted">Approved </td>
+                        <td class="w-100 px-0">
+                          <div class="progress progress-md mx-4" id="approve_progressbar">
+                            
+                          </div>
+                        </td>
+                        <td><h5 class="font-weight-bold mb-0"><span id="total_approved"></span></h5></td>
+                      </tr>
+                    </tbody></table>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-sm-4 float-left">
+            <div class="threeBoxNewSmall">
+              <!-- <div class="threeBoxImg lightBlue"><img src="/images/boxIcon_b.png" alt=""></div> -->
+              <div class="threeBoxTxt" style="height: 280px; width: 100%;">
+                <canvas id="pieChart_2"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+          
+      <!-- <div class="sectionNew" id="sectionNew"> -->
+      <div class="sectionNew" id="">
+        <div class="col-sm-6 float-left">
+    <div class="stockPointSecTitle_cus_half">
+            <h2></h2>
+      <!-- <a href="#" class="heading_link">Details</a> -->
+        </div>
+    </div>
+  <div class="col-sm-12 class_chart">
+
+  <div class="stockPointSecTitle_cus_half">
+   <h2 >Types of Societies of <span id="divname">ALL Range</span></h2>
+<!--			<a href="#" class="heading_link">Details</a>-->
+  </div>
+  </div>
+    
+   <div class="col-sm-8 float-left">
+    
+      <div class="bloxkSec">
+        <div class="range_1">
+          <div class="bloxkSec_scroll" id="item-list">
+        
+        </div>
+        </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4 float-left">
+          <div class="bloxkSec bloxkSec_paiChart" style="height: 315px">
+          <!-- <div class="bloxkSec"> -->
+            <!-- <div> -->
+            <canvas id="pieChart"></canvas>
+          <!-- </div> -->
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+  <script>
+    $('input[name="dist_range"]').on('change', function() {
+        if ($(this).val() == 'DISTRICT') {
+            $('#district_data').show();  // Show District
+            $('#range_datas').hide(); 
+            $('#district_search').show(); 
+            $('#range_search').hide(); 
+            $('.dist_range_name').val('DIST');
+            $('.ctrauth_id_data').val(0);
+            $('select#cntr_auth').prop('disabled', false); 
+        } else { 
+            $('#range_datas').show();  // Show Range
+            $('#district_data').hide();  // Hide District
+            $('#district_search').hide(); 
+            $('#range_search').show(); 
+            $('.dist_range_name').val('RANGE');
+            $('.ctrauth_id_data').val(1);
+            $('.ctrauth_id_data').val(1);
+            $('select#cntr_auth').val('0').prop('disabled', true); 
+        }
+    });
+   
+      societyelectiondue_monthwise6(1,0,6,'RANGE');
+      societyelectiondue_monthwise3(1,0,3,'RANGE');
+      electionstatus(1,'<%= user.range_id %>','RANGE');
+      societytot(1,'<%= user.range_id %>','RANGE');
+      societymodifiedstatus(1,'<%= user.range_id %>','RANGE');
+      barchartsoctype(1,'<%= user.range_id %>','RANGE');
+      pieChartId(1,'<%= user.range_id %>','RANGE');
+      $('#range_action').click(function() {
+          var range_code = $('#range_data').val();
+          $('.range_id_data').val(range_code);
+          $('.ctrauth_id_data').val(1);
+          societyelectiondue_monthwise6(1,range_code,6,'RANGE');
+          societyelectiondue_monthwise3(1,range_code,3,'RANGE');
+          electionstatus(1,range_code,'RANGE');
+          societytot(1,range_code,'RANGE');
+          societymodifiedstatus(1,range_code,'RANGE');
+          barchartsoctype(1,range_code,'RANGE');
+          pieChartId(1,range_code,'RANGE');
+      });
+    
+      $('#dist_action').click(function() {
+          var distcode = $('#dist_code').val();
+          $('.range_id_data').val(distcode);
+          var ctrauthid = $('#cntr_auth').val();
+          $('.ctrauth_id_data').val(ctrauthid);
+          societyelectiondue_monthwise6(ctrauthid,distcode,6,'DIST');
+          societyelectiondue_monthwise3(ctrauthid,distcode,3,'DIST');
+          electionstatus(ctrauthid,distcode,'DIST');
+          societytot(ctrauthid,distcode,'DIST');
+          societymodifiedstatus(ctrauthid,distcode,'DIST');
+          barchartsoctype(ctrauthid,distcode,'DIST');
+          pieChartId(ctrauthid,distcode,'DIST');
+      })
+    function societyelectiondue_monthwise6(cntr_auth_id,range_code,month_interval,rangedist) {
+      $.ajax({
+        url: '/dashn/get_society_election_due_monthwise',
+        method: 'POST',
+        data: { cntr_auth_id:cntr_auth_id,range_code: range_code,month_interval:month_interval,rangedist:rangedist },
+        beforeSend: function() {
+            // Show a loading indicator if needed
+          // $('#block_id').html('<option value="0">Loading...</option>');
+        },
+        success: function(response) {
+           var soc = response.soctot;
+           var numsoc = soc.month_before ? soc.month_before : 0;
+            $('#total_6month').html(numsoc);
+             var row = `<div class="alert alert-primary alert_cus" role="alert">Election Due is Six Month(${numsoc}) —check it out!   <form action="/report/election_upcoming" method="post" class="notific_dtl">
+                <input type="hidden" value="0" name="soc_type">
+                <input type="hidden" value="<%= user.range_id %>" name="range_id">
+                <input type="hidden" value="<%= cntr_auth_type %>" name="controlling_authority_type">
+                <input type="hidden" value="6" name="month_tenure">
+                <input type="submit" value="View Details" class="readMore">
+                </form><a href="javascript:void(0)" class="crossLink"> <i class="fa fa-times" aria-hidden="true"></i> </a></div>`;
+             if(numsoc > 0){
+           $('#collapseOne').append(row);  
+            }        
+        },
+        error: function(err) {
+            // Handle any errors
+            $('#dist_code').html('<option value="0">Error fetching data. Please try again.</option>');
+            console.error('AJAX Error:', err); // Log error for debugging
+        }
+      });
+    }
+    function societyelectiondue_monthwise3(cntr_auth_id,range_code,month_interval,rangedist) {
+      $.ajax({
+        url: '/dashn/get_society_election_due_monthwise',
+        method: 'POST',
+        data: { cntr_auth_id:cntr_auth_id,range_code: range_code,month_interval:month_interval,rangedist:rangedist },
+        beforeSend: function() {
+            // Show a loading indicator if needed
+          // $('#block_id').html('<option value="0">Loading...</option>');
+        },
+        success: function(response) {
+           var soc = response.soctot;
+           var numsoc = soc.month_before ? soc.month_before : 0;
+            $('#total_3month').html(numsoc);
+            var row = `<div class="alert alert-primary alert_cus" role="alert">Election Due is Three Month(${numsoc}) —check it out!  <form action="/report/election_upcoming" method="post" class="notific_dtl">
+              <input type="hidden" value="0" name="soc_type">
+              <input type="hidden" value="<%= user.range_id %>" name="range_id">
+              <input type="hidden" value="<%= cntr_auth_type %>" name="controlling_authority_type">
+              <input type="hidden" value="3" name="month_tenure">
+              <input type="submit" value="View Details" class="readMore">
+              </form> <a href="javascript:void(0)" class="crossLink"> <i class="fa fa-times" aria-hidden="true"></i> </a></div>`;
+             if(numsoc > 0){
+           $('#collapseOne').append(row); 
+             }
+        },
+        error: function(err) {
+            // Handle any errors
+            $('#dist_code').html('<option value="0">Error fetching data. Please try again.</option>');
+            console.error('AJAX Error:', err); // Log error for debugging
+        }
+      });
+    }
+    function electionstatus(cntr_auth_id,range_code,rangedist) {
+      $.ajax({
+        url: '/dashn/get_election_status',
+        method: 'POST',
+        data: { cntr_auth_id:cntr_auth_id,range_code: range_code,rangedist:rangedist },
+        beforeSend: function() {
+            // Show a loading indicator if needed
+          // $('#block_id').html('<option value="0">Loading...</option>');
+        },
+        success: function(response) {
+           var soc = response.soctot;
+           $('#total_ongoing').html(soc.ongoing_tot ? soc.ongoing_tot : 0);
+           $('#total_completed').html(soc.done_tot?soc.done_tot:0 );
+           $('#total_due').html(soc.due_tot?soc.due_tot:0);
+        },
+        error: function(err) {
+            // Handle any errors
+            $('#dist_code').html('<option value="0">Error fetching data. Please try again.</option>');
+            console.error('AJAX Error:', err); // Log error for debugging
+        }
+      });
+    }
+    function societytot(cntr_auth_id,range_code,rangedist) {
+      $.ajax({
+        url: '/dashn/get_society_tot',
+        method: 'POST',
+        data: { cntr_auth_id:cntr_auth_id,range_code: range_code,rangedist:rangedist },
+        beforeSend: function() {
+            // Show a loading indicator if needed
+          // $('#block_id').html('<option value="0">Loading...</option>');
+        },
+        success: function(response) {
+           var soc = response.soctot;
+           $('#total_society').html(soc.func_tot+soc.liquidation_tot+soc.non_functional);
+           $('#total_functional').html(soc.func_tot ? soc.func_tot : 0);
+           $('#total_nonfunctional').html(soc.liquidation_tot+soc.non_functional);
+        },
+        error: function(err) {
+            // Handle any errors
+            $('#dist_code').html('<option value="0">Error fetching data. Please try again.</option>');
+            console.error('AJAX Error:', err); // Log error for debugging
+        }
+      });
+    }
+    
+    function societymodifiedstatus(cntr_auth_id,range_code,rangedist) {
+      $.ajax({
+        url: '/dashn/get_society_modified_data',
+        method: 'POST',
+        data: { range_code: range_code ,cntr_auth_id:cntr_auth_id,rangedist:rangedist},
+        beforeSend: function() {
+            // Show a loading indicator if needed
+          // $('#block_id').html('<option value="0">Loading...</option>');
+        },
+        success: function(response) {
+           var soc = response.soctot;
+           $('#total_approved').html(soc.appr_tot ? soc.appr_tot : 0);
+           $('#total_edited').html(soc.edited_tot ? soc.edited_tot : 0);
+           $('#total_unapproved').html(soc.unapproved ? soc.unapproved : 0);
+           var prange = 5000 ;
+           var unedited = soc.unapproved ? soc.unapproved : 0;
+           var edited = soc.edited_tot ? soc.edited_tot : 0;
+           var unapproved = soc.appr_tot ? soc.appr_tot : 0;
+           var ctxP_2 = document.getElementById("pieChart_2").getContext('2d');
+           $('#unedited_progressbar').html(`<div class="progress-bar bg-unedit" role="progressbar" style="width: ${((unedited/prange)* 100).toFixed(2)}%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>`);
+           $('#edited_progressbar').html(`<div class="progress-bar bg-unedit" role="progressbar" style="width: ${((edited/prange)* 100).toFixed(2)}%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>`);
+           $('#approve_progressbar').html(`<div class="progress-bar bg-unedit" role="progressbar" style="width: ${((unapproved/prange)* 100).toFixed(2)}%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>`);
+           var myPieChart2 = new Chart(ctxP_2, {
+      // type: 'pie',
+      type: 'doughnut',
+      data: {
+        labels: ["Unedited", "Edited", "Approved"],
+        datasets: [{
+          data: [unedited, edited, unapproved],
+          backgroundColor: ["#9190c1", "#FFC100", "#559d1d"],
+          hoverBackgroundColor: ["#e1e0fd", "#fdd865", "#5eb71a"],
+          borderWidth: 3,
+        }]
+      },
+      options: {
+        responsive: true
+      }
+    });
+         
+        },
+        error: function(err) {
+            // Handle any errors
+            $('#dist_code').html('<option value="0">Error fetching data. Please try again.</option>');
+            console.error('AJAX Error:', err); // Log error for debugging
+        }
+      });
+    }
+    
+  
+    if(document.getElementById('election_link').length){
+    document.getElementById('election_link').addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent the default anchor behavior
+        var range_code= $('#range_code').val();
+        this.href = '/dashn/societyelection?range_code='+range_code; // Change the href attribute
+        window.location.href = this.href; // Redirect to the new URL
+    });
+  }
+    function calculatePercentage(totSocType) {
+    if (typeof totSocType !== 'number' || isNaN(totSocType)) {
+        return 0; // or handle as appropriate
+    }
+    return ((totSocType / 300) * 100).toFixed(2);
+}
+   
+  function barchartsoctype(cntr_auth_id,range_code,rangedist) {
+           
+        $.ajax({
+          url: '/dashn/get_soctype_detail',
+          method: 'POST',
+          data: { range_code: range_code ,cntr_auth_id:cntr_auth_id,rangedist:rangedist},
+          beforeSend: function() {
+            $('#item-list').html('');
+         
+          },
+          success: function(response) {
+            var soctyplist = response.soctype;
+            var divname = response.division_name;
+            let rows = '';
+             if(soctyplist.length > 0){
+                var range = 5000 ;
+              var i = 1
+              var due_per=0;var due_num=0,ongoing_num,ongoing_per =0,held_per,held_num;
+              soctyplist.forEach(dt => { 
+                if(dt.ONGOING > 0){
+                  ongoing_per = (dt.ONGOING/100).toFixed();
+                  ongoing_num = dt.ONGOING;
+                }else{
+                  ongoing_per = 0;
+                  ongoing_num = 0;
+                }
+                if(dt.HELD > 0){
+                  held_per = (dt.HELD/100).toFixed();
+                  held_num = dt.HELD;
+                }else{
+                  held_per = 0;
+                  held_num = 0;
+                }
+                due_per = (100-ongoing_per-held_per).toFixed();
+                
+                due_num = (dt.total) - held_num- ongoing_num;
+                // <span class="count_Cus">10</span>
+                      rows += `<div class="range_row">
+            <label class="range_small"><span class="societies_name">${dt.soc_type_name}</span></label>
+            <label class="range_half">
+              <span class="barChartMapDue" style="width: ${due_per}%; display: inline-block;" data-toggle="tooltip" title="${due_num.toFixed()}-Due">
+                 
+                </span>
+              <span class="barChartMapongoing" style="width: ${ongoing_per}%; display: inline-block;" data-toggle="tooltip" title="${ongoing_num.toFixed()}-Ongoing">
+                
+                </span>
+              <span class="barChartMap" style="width:  ${held_per}%; display: inline-block;" data-toggle="tooltip" title="${(held_num).toFixed()}-Held">
+                 
+                </span>
+                
+                <span class="counter_soc">${dt.total}</span>
+            </label>
+          </div>`
+                
+           } ) }
+
+           $('#item-list').html(rows);
+           $('#divname').html(divname);
+           
+          },
+          error: function(err) {
+              // Handle any errors
+              $('#dist_code').html('<option value="0">Error fetching data. Please try again.</option>');
+              console.error('AJAX Error:', err); // Log error for debugging
+          }
+        });
+      }
+
+ 
+
+function pieChartId(cntr_auth_id,range_code,rangedist) {
+        $.ajax({
+        url: '/dashn/get_rular_urban',
+        method: 'POST',
+        data: { cntr_auth_id:cntr_auth_id,range_code: range_code,rangedist:rangedist },
+        beforeSend: function() {
+            // Show a loading indicator if needed
+          // $('#block_id').html('<option value="0">Loading...</option>');
+        },
+        success: function(response) {
+           var soc = response.soctot;
+           var urban_tot = soc.urban_tot ? soc.urban_tot : 0 
+           var rular_tot = soc.rular_tot ? soc.rular_tot : 0 
+           var devauth_tot = soc.devauth_tot ? soc.devauth_tot : 0  
+           var six_month_data = response.six_month_data.month_before ? response.six_month_data.month_before : 0
+           var three_month_data = response.three_month_data.month_before ? response.three_month_data.month_before : 0 
+           var ongoing_tot = response.election_result_data.ongoing_tot ? response.election_result_data.ongoing_tot : 0;
+           var completed_tot = response.election_result_data.done_tot ? response.election_result_data.done_tot : 0;
+           var due_tot = response.election_result_data.due_tot ? response.election_result_data.due_tot : 0;
+       
+           var ctxP = document.getElementById("pieChart").getContext('2d');
+           var ctxP_1 = document.getElementById("pieChart_1").getContext('2d');
+       
+            var myPieChart = new Chart(ctxP, {
+              // type: 'pie',
+              type: 'doughnut',
+              data: {
+                labels: ["Rural Mapping", "Urban Mapping", "Development Authority"],
+                datasets: [{
+                  data: [rular_tot, urban_tot, devauth_tot],
+                  backgroundColor: ["#4747a1", "#eb5437", "#43a8d9"],
+                  hoverBackgroundColor: ["#4e4ec8", "#ce2a0b", "#23b3f9"]
+                }]
+              },
+              options: {
+                responsive: true
+              }
+            });
+
+           var myPieChart1 = new Chart(ctxP_1, {
+            // type: 'pie',
+            type: 'doughnut',
+            data: {
+            labels: ["6 Months", "3 Months", "Ongoing Elections", "Completed Elections", "Need Action"],
+            datasets: [{
+              data: [six_month_data, three_month_data, ongoing_tot, completed_tot, due_tot],
+              backgroundColor: ["#f2c617", "#FB8A38", "#EDF1FC", "#8FA63E", "#eb5437"],
+              hoverBackgroundColor: ["#f2c617", "#FB8A38", "#EDF1FC", "#8FA63E", "#eb5437"],
+              borderWidth: 3,
+            }]
+          },
+          options: {
+            responsive: true
+          }
+          });
+     },
+    error: function(err) {
+            // Handle any errors
+            $('#dist_code').html('Error fetching data. Please try again');
+            console.error('AJAX Error:', err); // Log error for debugging
+        }
+      });
+    }
+
+
+   //Select all the elements with the class 'crossLink'
+    document.querySelectorAll('.crossLink').forEach(function(closeButton) {
+      // Add a click event listener to each button
+      closeButton.addEventListener('click', function(event) {
+        // Find the parent div of the button (the alert div)
+        var parentDiv = event.target.closest('.alert');
+        // Remove the parent div from the DOM
+        if (parentDiv) {
+          parentDiv.remove();
+        }
+      });
+    });
+    
+  </script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <script>
+ 
+    $(document).ready(function() {
+      $('.crossLink').click(function() {
+        var parentDiv = event.target.closest('.alert');
+        // Remove the parent div from the DOM
+        if (parentDiv) {
+          parentDiv.remove();
+        }
+      });
+    });
+  </script>
+
+

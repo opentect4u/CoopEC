@@ -709,7 +709,12 @@ table.tableCompany tbody tr td {
 .stockPointSecTitle_cus .selectBox {
   max-width: 200px;
   width: 100%;
-  margin: 0;
+  margin: 5px;
+}
+.stockPointSecTitle_cus .selectBoxct {
+  max-width: 450px;
+  width: 100%;
+  margin: 5px;
 }
 .stockPointSecTitle_cus .selectBox select {
   background: #ffffff;
@@ -1113,4 +1118,7 @@ table.tablestockPoint tbody tr td strong {
 .counter_soc {
   font-size: 14px;
   font-weight: bold;
+}
+.lmargin {
+  margin: 0px 8px 0px 8px;
 }
