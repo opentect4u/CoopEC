@@ -504,7 +504,12 @@ DashboardnRouter.get("/dash", async (req, res) => {
     // Extract range_id from session
     const range_id = req.session.user.range_id;
     const user_type = req.session.user.user_type;
-    const cntr_auth_type = req.session.user.cntr_auth_type;
+    if(user_type == 'S'){
+      var cntr_auth_type = 1;
+    }else{
+      var cntr_auth_type = req.session.user.cntr_auth_type;
+    }
+    
     const select =
       "a.id,a.cop_soc_name,a.reg_no,a.functional_status,a.tenure_ends_on,a.elec_due_date,b.soc_type_name,c.dist_name,d.zone_name,e.range_name,f.soc_tier_name";
     if (range_id > 0) {
