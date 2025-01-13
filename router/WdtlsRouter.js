@@ -813,7 +813,7 @@ WdtlsRouter.post("/changepass", async (req, res) => {
         var ip = ipresult.ipdata;
         var values = null;
         var table_name = "md_user";
-        var fields = `password = '${pass}',modified_at=${formattedDate},modified_by='${user.user_id}',modified_ip='${ip}'`;
+        var fields = `password = '${pass}',modified_at='${formattedDate}',modified_by='${user.user_id}',modified_ip='${ip}'`;
         var whr = `user_id = '${user.user_id}'`;
         var save_data = await db_Insert(table_name, fields, values, whr, 1);
         req.flash("success_msg", "Update successful!");

@@ -503,6 +503,7 @@ DashboardRouter.get("/dash", async (req, res) => {
   try {
     // Extract range_id from session
     const range_id = req.session.user.range_id;
+    const cntr_auth_type = req.session.user.cntr_auth_type;
     const select =
       "a.id,a.cop_soc_name,a.reg_no,a.functional_status,a.tenure_ends_on,a.elec_due_date,b.soc_type_name,c.dist_name,d.zone_name,e.range_name,f.soc_tier_name";
     if (range_id > 0) {
@@ -592,7 +593,7 @@ DashboardRouter.get("/dash", async (req, res) => {
       soctietypelist: soctietype.suc > 0 ? soctietype.msg : "",
       zonereslist: zoneres.suc > 0 ? zoneres.msg : "",
       distlist: distres.suc > 0 ? distres.msg : "",
-      cntr_auth_type: 0,
+      cntr_auth_type: cntr_auth_type,
       zone_code: 0,
       dist_code: 0,
       soc_tier: 0,
@@ -624,9 +625,22 @@ DashboardRouter.post("/get_society_tot", async (req, res) => {
     var data = req.body;
     var select = `SUM(CASE WHEN a.functional_status = 'Functional' THEN 1 ELSE 0 END) AS func_tot, SUM(CASE WHEN a.functional_status = 'Under Liquidation' THEN 1 ELSE 0 END) AS liquidation_tot, SUM(CASE WHEN a.functional_status = 'Non-Functional / Dormant' THEN 1 ELSE 0 END) AS non_functional`,
       table_name = `md_society a`,
-      where = data.range_code > 0 ? `a.range_code ='${data.range_code}'` : ``,
       order = null;
-    var res_dt = await db_Select(select, table_name, where, order);
+      var con1 = '';
+      if(data.cntr_auth_id > 1){
+        var range_dist = 'dist_code';
+      }else{
+        var range_dist = 'range_code';
+      }
+      
+     if(data.range_code > 0){
+       con1 = data.cntr_auth_id > 0 ? ` AND a.cntr_auth_type = '${data.cntr_auth_id}'` :  ``;
+     }else{
+       con1 = data.cntr_auth_id > 0 ? ` a.cntr_auth_type = '${data.cntr_auth_id}'` :  ``;
+     }
+     var where = data.range_code > 0 ? `a.${range_dist} ='${data.range_code}'` : ``;
+      
+    var res_dt = await db_Select(select, table_name, where + con1, order);
     const responseData = {
       soctot: res_dt.suc > 0 ? res_dt.msg[0] : "", // Echoing the received claims
     };
@@ -646,9 +660,21 @@ DashboardRouter.post("/get_society_modified_data", async (req, res) => {
     var data = req.body;
     var select = `SUM(CASE WHEN a.approve_status = 'A' THEN 1 ELSE 0 END) AS appr_tot, SUM(CASE WHEN a.approve_status = 'E' THEN 1 ELSE 0 END) AS edited_tot, SUM(CASE WHEN a.approve_status = 'U' THEN 1 ELSE 0 END) AS unapproved`,
       table_name = `md_society a`,
-      where = data.range_code > 0 ? `a.range_code ='${data.range_code}'` : ``,
       order = null;
-    var res_dt = await db_Select(select, table_name, where, order);
+      var con1 = '';
+      if(data.range_code > 0){
+        con1 = data.cntr_auth_id > 0 ? `AND a.cntr_auth_type = '${data.cntr_auth_id}'` :  ``;
+      }else{
+        con1 = data.cntr_auth_id > 0 ? ` a.cntr_auth_type = '${data.cntr_auth_id}'` :  ``;
+      }
+
+      if(data.cntr_auth_id ==1){
+        var where = data.range_code > 0 ? `a.range_code ='${data.range_code}'` : ``;
+      }else {
+        var where = data.range_code > 0 ? `a.dist_code ='${data.range_code}'` : ``;
+      }
+      
+    var res_dt = await db_Select(select, table_name, where+con1, order);
     const responseData = {
       soctot: res_dt.suc > 0 ? res_dt.msg[0] : "", // Echoing the received claims
     };
@@ -666,14 +692,22 @@ DashboardRouter.post("/get_election_status", async (req, res) => {
   try {
     // Extract query parameter 'claims'
     var data = req.body;
+    var con1 = data.cntr_auth_id > 0 ? ` AND cntr_auth_type = '${data.cntr_auth_id}'` :  ``;
+    
+    if(data.cntr_auth_id > 0){
+       var range_dist = 'dist_code';
+    }else{
+      var range_dist = 'range_code';
+    }
+    
     var select = `SUM(CASE WHEN election_status = 'DUE' THEN 1 ELSE 0 END) AS due_tot,SUM(CASE WHEN election_status = 'ONGOING' THEN 1 ELSE 0 END) AS ongoing_tot, SUM(CASE WHEN election_status = 'DONE' THEN 1 ELSE 0 END) AS done_tot`,
       table_name = `md_society`,
       where =
         data.range_code > 0
-          ? `functional_status = 'Functional' AND approve_status = 'A' AND range_code ='${data.range_code}'`
+          ? `functional_status = 'Functional' AND approve_status = 'A' AND ${range_dist} ='${data.range_code}'`
           : `functional_status = 'Functional' AND approve_status = 'A' `,
       order = null;
-    var res_dt = await db_Select(select, table_name, where, order);
+    var res_dt = await db_Select(select, table_name, where+con1, order);
     const responseData = {
       soctot: res_dt.suc > 0 ? res_dt.msg[0] : "", // Echoing the received claims
     };
@@ -876,12 +910,21 @@ DashboardRouter.post("/get_soctype_detail", async (req, res) => {
     // var soctyperes = await db_Select(`a.soc_type,b.soc_type_name,count(a.cop_soc_name)tot_soc_type`, soctype, where, null);
     var soc_type = data.range_code;
     var soc_con = "";
-    if (soc_type > 0) {
-      soc_con = `and  a.range_code  = ${soc_type}`;
+    // if (soc_type > 0) {
+    //   soc_con = `and  a.soc_type  = ${soc_type}`;
+    // }
+    
+    var con1 = data.cntr_auth_id > 0 ? `AND a.cntr_auth_type = '${data.cntr_auth_id}'` :  ``;
+    var con2 = '';
+    if(data.cntr_auth_id == 1){
+       con2 = data.range_code > 0 ? `AND a.range_code = '${data.range_code}'` :  ``;
+    }else if(data.cntr_auth_id > 1){
+       con2 = data.range_code > 0 ? `AND a.dist_code = '${data.range_code}'` :  ``;
     }
+    
     var title = "Election Due";
     const select = `soc_type_id,soc_type_name,sum(total_available)total,sum(DUE)DUE,sum(ONGOING)ONGOING,sum(DONE)HELD`;
-    var table_name = `(SELECT b.soc_type_id soc_type_id,b.soc_type_name soc_type_name,COUNT(*) AS total_available, 0 DUE,0 ONGOING,0 DONE FROM md_society a,md_society_type b,md_range e where a.soc_type = b.soc_type_id and  a.range_code = e.range_id and  a.functional_status = 'Functional' ${soc_con} GROUP BY b.soc_type_id,b.soc_type_name 
+    var table_name = `(SELECT b.soc_type_id soc_type_id,b.soc_type_name soc_type_name,COUNT(*) AS total_available, 0 DUE,0 ONGOING,0 DONE FROM md_society a,md_society_type b,md_range e where a.soc_type = b.soc_type_id and  a.range_code = e.range_id and  a.functional_status = 'Functional' ${soc_con} ${con1} ${con2} GROUP BY b.soc_type_id,b.soc_type_name 
                             UNION SELECT b.soc_type_id soc_type_id,
                               b.soc_type_name soc_type_name,
                             0 total_available, 
@@ -893,7 +936,7 @@ DashboardRouter.post("/get_soctype_detail", async (req, res) => {
                         and  a.range_code = e.range_id
                         and  a.functional_status = 'Functional'
                         and  a.election_status  = 'DUE'
-                        ${soc_con}
+                        ${soc_con} ${con1} ${con2}
                         GROUP BY b.soc_type_id,b.soc_type_name
                         UNION
                         SELECT b.soc_type_id soc_type_id,
@@ -907,7 +950,7 @@ DashboardRouter.post("/get_soctype_detail", async (req, res) => {
                         and  a.range_code = e.range_id
                         and  a.functional_status = 'Functional'
                         and  a.election_status = 'DUE'
-                        ${soc_con}
+                        ${soc_con} ${con1} ${con2}
                         GROUP BY b.soc_type_id,b.soc_type_name
                         UNION
                         SELECT b.soc_type_id soc_type_id,
@@ -921,7 +964,7 @@ DashboardRouter.post("/get_soctype_detail", async (req, res) => {
                         and  a.range_code = e.range_id
                         and  a.functional_status = 'Functional'
                         and  a.election_status  = 'ONGOING'
-                        ${soc_con}
+                        ${soc_con} ${con1} ${con2}
                         GROUP BY b.soc_type_id,b.soc_type_name
                         UNION
                         SELECT b.soc_type_id soc_type_id,
@@ -935,7 +978,7 @@ DashboardRouter.post("/get_soctype_detail", async (req, res) => {
                         and  a.range_code = e.range_id
                         and  a.functional_status = 'Functional'
                         and  a.election_status  = 'DONE'
-                        ${soc_con}
+                        ${soc_con} ${con1} ${con2}
                         GROUP BY b.soc_type_id,b.soc_type_name
                             )a
                         group by soc_type_id,soc_type_name
@@ -959,26 +1002,32 @@ DashboardRouter.post("/get_rular_urban", async (req, res) => {
   try {
     // Extract query parameter 'claims'
     var data = req.body;
+    var con1 = data.cntr_auth_id > 0 ? `AND a.cntr_auth_type = '${data.cntr_auth_id}'` :  ``;
+    var con1s = data.cntr_auth_id > 0 ? `AND cntr_auth_type = '${data.cntr_auth_id}'` :  ``;
+
+    var range_dist = data.cntr_auth_id > 1 ? 'dist_code':'range_code';
+
     var select = `SUM(CASE WHEN urban_rural_flag = 'U' THEN 1 ELSE 0 END) AS urban_tot,SUM(CASE WHEN urban_rural_flag = 'R' THEN 1 ELSE 0 END) AS rular_tot,SUM(CASE WHEN urban_rural_flag = 'D' THEN 1 ELSE 0 END) AS devauth_tot`,
       table_name = `md_society`,
       where =
         data.range_code > 0
-          ? `functional_status = 'Functional' AND range_code ='${data.range_code}'`
+          ? `functional_status = 'Functional' AND ${range_dist} ='${data.range_code}'`
           : `functional_status = 'Functional'`,
       order = null;
-    var res_dt = await db_Select(select, table_name, where, order);
+    var res_dt = await db_Select(select, table_name, where + con1s, order);
+   
 
     const select_election = "count(*) as month_before";
 
     var range_code = data.range_code;
     if (range_code > 0) {
-      var table_name6 = `md_society a WHERE a.functional_status='Functional' AND a.approve_status = 'A' AND a.tenure_ends_on >= CURDATE() AND a.tenure_ends_on < DATE_ADD(CURDATE(), INTERVAL 6 MONTH) AND a.range_code = "${range_code}" `;
-      var table_name3 = `md_society a WHERE a.functional_status='Functional' AND a.approve_status = 'A' AND a.tenure_ends_on >= CURDATE() AND a.tenure_ends_on < DATE_ADD(CURDATE(), INTERVAL 3 MONTH) AND a.range_code = "${range_code}" `;
+      var table_name6 = `md_society a WHERE a.functional_status='Functional' AND a.approve_status = 'A' AND a.tenure_ends_on >= CURDATE() AND a.tenure_ends_on < DATE_ADD(CURDATE(), INTERVAL 6 MONTH) AND a.${range_dist} = "${range_code}" ${con1}`;
+      var table_name3 = `md_society a WHERE a.functional_status='Functional' AND a.approve_status = 'A' AND a.tenure_ends_on >= CURDATE() AND a.tenure_ends_on < DATE_ADD(CURDATE(), INTERVAL 3 MONTH) AND a.${range_dist} = "${range_code}" ${con1}`;
     } else {
       var select_range =
-        range_code > 0 ? `AND a.range_code = '${range_code}'` : "";
-      var table_name6 = `md_society a WHERE a.functional_status='Functional' ${select_range} AND a.approve_status = 'A' AND a.tenure_ends_on >= CURDATE() AND a.tenure_ends_on < DATE_ADD(CURDATE(), INTERVAL 6 MONTH) `;
-      var table_name3 = `md_society a WHERE a.functional_status='Functional' ${select_range} AND a.approve_status = 'A' AND a.tenure_ends_on >= CURDATE() AND a.tenure_ends_on < DATE_ADD(CURDATE(), INTERVAL 3 MONTH) `;
+        range_code > 0 ? `AND a.${range_dist} = '${range_code}'` : "";
+      var table_name6 = `md_society a WHERE a.functional_status='Functional' ${select_range} ${con1} AND a.approve_status = 'A' AND a.tenure_ends_on >= CURDATE() AND a.tenure_ends_on < DATE_ADD(CURDATE(), INTERVAL 6 MONTH) `;
+      var table_name3 = `md_society a WHERE a.functional_status='Functional' ${select_range} ${con1} AND a.approve_status = 'A' AND a.tenure_ends_on >= CURDATE() AND a.tenure_ends_on < DATE_ADD(CURDATE(), INTERVAL 3 MONTH) `;
     }
     var res_dt6 = await db_Select(select_election, table_name6, null, null);
     var res_dt3 = await db_Select(select_election, table_name3, null, null);
@@ -986,9 +1035,9 @@ DashboardRouter.post("/get_rular_urban", async (req, res) => {
     var select_ele = `SUM(CASE WHEN election_status = 'DUE' THEN 1 ELSE 0 END) AS due_tot,SUM(CASE WHEN election_status = 'ONGOING' THEN 1 ELSE 0 END) AS ongoing_tot, SUM(CASE WHEN election_status = 'DONE' THEN 1 ELSE 0 END) AS done_tot`,
       where_ele =
         data.range_code > 0
-          ? `functional_status = 'Functional' AND approve_status = 'A' AND range_code ='${data.range_code}'`
+          ? `functional_status = 'Functional' AND approve_status = 'A' AND ${range_dist} ='${data.range_code}'`
           : `functional_status = 'Functional' AND approve_status = 'A' `;
-    var res_dt_ele = await db_Select(select_ele, `md_society`, where_ele, null);
+    var res_dt_ele = await db_Select(select_ele, `md_society`, where_ele +con1s, null);
 
     const responseData = {
       soctot: res_dt.suc > 0 ? res_dt.msg[0] : "",
@@ -1186,15 +1235,26 @@ DashboardRouter.post(
     try {
       // Extract query parameter 'claims'
       var data = req.body;
+      //var ctr_auth_type = req.session.user.cntr_auth_type;
+      var ctr_auth_type = data.cntr_auth_id;
+       if(ctr_auth_type > 1 ){
+        var range_dist = 'dist_code';
+       }else{
+        var range_dist = 'range_code';
+       }
       var month_interval = data.month_interval;
+      console.log(month_interval);
+      console.log('Thhhhhhhhhhhhhhhhhhhhhhhhhhhhh');
       const select = "count(*) as month_before";
       var range_code = data.range_code;
+      var select_crtauth =
+      ctr_auth_type > 0 ? ` AND a.cntr_auth_type = '${ctr_auth_type}'` : "";
       if (range_code > 0) {
-        var table_name = `md_society a WHERE a.functional_status='Functional' AND a.approve_status = 'A' AND a.tenure_ends_on >= CURDATE() AND a.tenure_ends_on < DATE_ADD(CURDATE(), INTERVAL ${month_interval} MONTH) AND a.range_code = "${range_code}" `;
+        var table_name = `md_society a WHERE a.functional_status='Functional' AND a.approve_status = 'A' AND a.tenure_ends_on >= CURDATE() AND a.tenure_ends_on < DATE_ADD(CURDATE(), INTERVAL ${month_interval} MONTH) AND a.${range_dist} = "${range_code}" ${select_crtauth}`;
       } else {
         var select_range =
-          range_code > 0 ? `AND a.range_code = '${range_code}'` : "";
-        var table_name = `md_society a WHERE a.functional_status='Functional' ${select_range} AND a.approve_status = 'A' AND a.tenure_ends_on >= CURDATE() AND a.tenure_ends_on < DATE_ADD(CURDATE(), INTERVAL ${month_interval} MONTH) `;
+          range_code > 0 ? `AND a.${range_dist} = '${range_code}'` : "";
+        var table_name = `md_society a WHERE a.functional_status='Functional' ${select_range} ${select_crtauth} AND a.approve_status = 'A' AND a.tenure_ends_on >= CURDATE() AND a.tenure_ends_on < DATE_ADD(CURDATE(), INTERVAL ${month_interval} MONTH) `;
       }
       var res_dt = await db_Select(select, table_name, null, null);
       const responseData = {
