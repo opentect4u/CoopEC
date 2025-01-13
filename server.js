@@ -66,6 +66,7 @@ app.use((req, res, next) => {
 });
 
 const { DashboardRouter } = require("./router/dashboardRouter");
+const { DashboardnRouter } = require("./router/dashboardnRouter");
 const { LoginRouter } = require("./router/loginRouter");
 const { SocietyRouter } = require("./router/societyRouter");
 const { WapiRouter } = require("./router/WapiRouter");
@@ -76,6 +77,7 @@ const { rangeRouter } = require("./router/rangeRouter");
 
 app.use("/login", LoginRouter);
 app.use("/dash", DashboardRouter);
+app.use("/dashn", DashboardnRouter);
 app.use("/society", SocietyRouter);
 app.use("/wapi", WapiRouter);
 app.use("/wdtls", WdtlsRouter);
