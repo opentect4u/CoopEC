@@ -39,7 +39,7 @@ LoginRouter.post("/logincheck", async (req, res) => {
           req.session.range_name_for_topbar = "Head Office";
         }
         req.session.user = res_dt.msg[0];
-        res.redirect("/dash/dash");
+        res.redirect("/dashn/dash");
       } else {
         result = {
           suc: 0,
