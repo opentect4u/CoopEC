@@ -266,7 +266,6 @@ DashboardRouter.post("/dashboard", async (req, res) => {
     const order = null;
    
       console.log(maincon);
-      console.log('czCZCzxczccxzcc');
     // Execute database query
     const result = await db_Select(select, table_name, whr, order);
     const select2 = "COUNT(*) as total";
@@ -292,8 +291,12 @@ DashboardRouter.post("/dashboard", async (req, res) => {
     const results = await db_Select("*", "md_range", null, null);
     var blockres;
     if (range_id > 0) {
-      const distcode =
-        ranzeres.msg[0].dist_id > 0 ? ranzeres.msg[0].dist_id : 0;
+        if(cntr_auth == 1){
+        var distcode =
+          ranzeres.msg[0].dist_id > 0 ? ranzeres.msg[0].dist_id : 0;
+        }else{
+          var distcode = range_id;
+        }
       if(cntr_auth == 1 ){
           blockres = await db_Select(
             "*",
