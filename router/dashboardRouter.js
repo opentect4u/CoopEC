@@ -265,8 +265,6 @@ DashboardRouter.post("/dashboard", async (req, res) => {
     }
     const order = null;
    
-      console.log(maincon);
-    // Execute database query
     const result = await db_Select(select, table_name, whr, order);
     const select2 = "COUNT(*) as total";
     const countResult = await db_Select(select2, table_name, whr, order);
@@ -1066,10 +1064,24 @@ DashboardRouter.get("/society_download", async (req, res) => {
     var zone_code = "";
     var range_code_for_name = 0;
      var range_or_dist = cntr_auth_ty > 1 ? 'dist_code':'range_code';
+
+    if(cntr_auth_ty > 1){
+      var cntr_auth_type = `AND (a.cntr_auth_type=${cntr_auth_ty} OR a.cntr_auth_type=0)`;
+    }else{
+      if (range_id > 0) {
+        var cntr_auth_type = `AND (a.cntr_auth_type=${cntr_auth_ty} OR a.cntr_auth_type=0)`;
+      }else{ 
+                ////  **  When Hosuper wil login  **  ///
+        var cntr_auth_type =
+        req.query.cntr_auth_type > 0
+          ? ` AND a.cntr_auth_type=${req.query.cntr_auth_type} `
+          : "";
+      }
+    }
     if (range_id > 0) {
       range_code_for_name = req.session.user.range_id;
       var range =
-        range_id > 0 ? `AND a.${range_or_dist}=${req.session.user.range_id} ` : "";
+        range_id > 0 ? ` AND a.${range_or_dist}=${req.session.user.range_id} ` : "";
     } else {
       range_code_for_name = req.query.range_code > 0 ? req.query.range_code : 0;
       var range =
@@ -1081,20 +1093,7 @@ DashboardRouter.get("/society_download", async (req, res) => {
           ? `AND a.zone_code=${req.query.zone_code} `
           : "";
     }
-    if(cntr_auth_ty > 1){
-      var cntr_auth_type = `AND (a.cntr_auth_type=${cntr_auth_ty} OR a.cntr_auth_type=0)`;
-    }else{
-      if (range_id > 0) {
-        var cntr_auth_type = `AND (a.cntr_auth_type=${cntr_auth_ty} OR a.cntr_auth_type=0)`;
-      }else{
-        var cntr_auth_type =
-        req.query.cntr_auth_type > 0
-          ? `AND a.cntr_auth_type=${req.query.cntr_auth_type} `
-          : "";
-      }
-    }
     
-    // var dist_code = req.query.dist_code > 0 ? `AND a.dist_code=${req.query.dist_code} ` : '';
 
     var soc_tier =
       req.query.soc_tier > 0 ? `AND a.soc_tier=${req.query.soc_tier} ` : "";
@@ -1146,23 +1145,30 @@ DashboardRouter.get("/society_download", async (req, res) => {
 
     const where = `${con + range + cntr_auth_type + zone_code + soc_tier + urban_rural_flag + soc_type_id + soc_data_status + functional_status}`; // Ensure these variables are properly defined
     const res_dt = await db_Select(select, table_name, where, null);
-    if(cntr_auth_ty > 1 ){
-      var res_dt_range = await db_Select(
-        "range_name",
-        "md_range",
-        `range_id = '${range_code_for_name}' `,
-        null,
-      );
+    if(req.session.user.user_type == 'S' || req.session.user.user_type == 'A'){
+        var range_name = 'ALL';
     }else{
-      var res_dt_range = await db_Select(
-        "dist_name as range_name",
-        "md_district",
-        `dist_code = '${range_code_for_name}' `,
-        null,
-      );
+      if(cntr_auth_ty == 1 ){
+        var res_dt_range = await db_Select(
+          "range_name",
+          "md_range",
+          `range_id = '${range_code_for_name}' `,
+          null,
+        );
+      }else{
+        var res_dt_range = await db_Select(
+          "dist_name as range_name",
+          "md_district",
+          `dist_code = '${range_code_for_name}' `,
+          null,
+        );
+      }
+
+      var range_name = res_dt_range.msg[0].range_name;
     }
     
-    var range_name = res_dt_range.msg[0].range_name;
+    
+    
     console.log(res_dt_range);
     //}
     // Create a new workbook and worksheet

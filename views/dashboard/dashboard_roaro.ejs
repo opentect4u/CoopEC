@@ -116,6 +116,11 @@
               <form action="/report/election_upcoming" method="post">
                 <input type="hidden" value="0" name="soc_type">
                 <input type="hidden" value="<%= user.range_id %>" name="range_id" class="range_id_data">
+                <% if(cntr_auth_type == 1 )  { %>  
+                  <input type="hidden" value="RANGE" name="dist_range_name" class="dist_range_name" />
+                  <% }else{ %>
+                    <input type="hidden" value="DIST" name="dist_range_name" class="dist_range_name" />
+                   <% } %> 
                 <input type="hidden" value="<%= user.cntr_auth_type %>" name="controlling_authority_type" class="ctrauth_id_data">
                 <input type="hidden" value="6" name="month_tenure">
                 <input type="submit" value="View" class="btn btn-primary btn-sm button_sape_view">
@@ -138,6 +143,11 @@
             <form action="/report/election_upcoming" method="post">
               <input type="hidden" value="0" name="soc_type">
               <input type="hidden" value="<%= user.range_id %>" name="range_id" class="range_id_data">
+              <% if(cntr_auth_type == 1 )  { %>  
+              <input type="hidden" value="RANGE" name="dist_range_name" class="dist_range_name" />
+              <% }else{ %>
+                <input type="hidden" value="DIST" name="dist_range_name" class="dist_range_name" />
+               <% } %> 
               <input type="hidden" value="<%= user.cntr_auth_type %>" name="controlling_authority_type" class="ctrauth_id_data">
               <input type="hidden" value="3" name="month_tenure">
               <input type="submit" value="View" class="btn btn-primary btn-sm button_sape_view">
@@ -159,6 +169,11 @@
             <div class="button_sape">
             <form action="/report/society_ele_status_result" method="post">
               <input type="hidden" value="<%= user.range_id %>" name="range_id" class="range_id_data">
+              <% if(user.cntr_auth_type == 1 )  { %>  
+                <input type="hidden" value="RANGE" name="dist_range_name" class="dist_range_name" />
+                <% }else{ %>
+                  <input type="hidden" value="DIST" name="dist_range_name" class="dist_range_name" />
+                 <% } %> 
               <input type="hidden" value="<%= user.cntr_auth_type %>" name="controlling_authority_type" class="ctrauth_id_data" >
               <input type="hidden" value="ONGOING" name="election_status">
               <input type="submit" value="View" class="btn btn-primary btn-sm button_sape_view">
@@ -338,15 +353,7 @@
         }
     });
    
-      // societyelectiondue_monthwise6(1,0,6,'RANGE');
-      // societyelectiondue_monthwise3(1,0,3,'RANGE');
-      // electionstatus(1,'<%= user.range_id %>','RANGE');
-      // societytot(1,'<%= user.range_id %>','RANGE');
-      // societymodifiedstatus(1,'<%= user.range_id %>','RANGE');
-      // barchartsoctype(1,'<%= user.range_id %>','RANGE');
-      // pieChartId(1,'<%= user.range_id %>','RANGE');
-
-    //  $('#range_action').click(function() {
+  
       $(document).ready(function() {
         var cntr_auth_ids = '<%= user.cntr_auth_type %>';
         if(cntr_auth_ids == 1){
@@ -373,10 +380,7 @@
         }
       })
           
-     // });
-      // $('#dist_action').click(function() {
-          
-      // })
+    
     function societyelectiondue_monthwise6(cntr_auth_id,range_code,month_interval,rangedist) {
       $.ajax({
         url: '/dashn/get_society_election_due_monthwise',

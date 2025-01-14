@@ -60,7 +60,7 @@ reportRouter.get("/election_due_req", async (req, res) => {
     try {
       // Extract range_id from session
       var postdata = req.body;
-      const range_id = req.session.user.range_id;
+      //const range_id = req.session.user.range_id;
       var range_code = postdata.range_id;
       var title = "Election Due";
       var cntr_auth_type =   postdata.controlling_authority_type;
@@ -68,12 +68,12 @@ reportRouter.get("/election_due_req", async (req, res) => {
         "a.id,a.cop_soc_name,a.last_elec_date,a.tenure_ends_on,a.elec_due_date,a.reg_no,b.soc_type_name,c.dist_name,d.zone_name,e.range_name,f.soc_tier_name";
       
       if(cntr_auth_type == 1){
-          if (range_id > 0) {
+          if (range_code > 0) {
             var select_type =
               postdata.soc_type > 0
                 ? `AND a.soc_type = '${postdata.soc_type}'`
                 : "";
-            var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' AND a.approve_status = 'A' ${select_type} AND a.tenure_ends_on < CURDATE() AND a.cntr_auth_type = "${cntr_auth_type}" AND a.range_code = "${range_id}" `;
+            var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' AND a.approve_status = 'A' ${select_type} AND a.tenure_ends_on < CURDATE() AND a.cntr_auth_type = "${cntr_auth_type}" AND a.range_code = "${range_code}" `;
           } else {
             var select_range =
               range_code > 0 ? `AND a.range_code = '${range_code}'` : "";
@@ -84,12 +84,12 @@ reportRouter.get("/election_due_req", async (req, res) => {
             var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' AND a.approve_status = 'A' ${select_range + select_type} AND a.cntr_auth_type = "${cntr_auth_type}" AND a.tenure_ends_on < CURDATE() `;
           }
       }else{
-        if (range_id > 0) {
+        if (range_code > 0) {
           var select_type =
             postdata.soc_type > 0
               ? `AND a.soc_type = '${postdata.soc_type}'`
               : "";
-          var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' AND a.approve_status = 'A' ${select_type} AND a.tenure_ends_on < CURDATE() AND a.cntr_auth_type = "${cntr_auth_type}" AND a.dist_code = "${range_id}" `;
+          var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' AND a.approve_status = 'A' ${select_type} AND a.tenure_ends_on < CURDATE() AND a.cntr_auth_type = "${cntr_auth_type}" AND a.dist_code = "${range_code}" `;
         } else {
           var select_range =
             range_code > 0 ? `AND a.dist_code = '${range_code}'` : "";
@@ -114,14 +114,20 @@ reportRouter.get("/election_due_req", async (req, res) => {
       } else {
         range_name = "ALL Range";
       }
-      const ctrauthresult = await db_Select("*","md_controlling_authority_type",`controlling_authority_type_id=${cntr_auth_type}`,null);
+      if(cntr_auth_type > 0){
+        var ctrauthresult = await db_Select("*","md_controlling_authority_type",`controlling_authority_type_id=${cntr_auth_type}`,null);
+        var ctrauthresutname = ctrauthresult.msg[0].controlling_authority_type_name;
+      }else{
+        var ctrauthresutname = "ALL";
+      }
+      
 
       // Prepare data for rendering
       const res_dt = {
         data: result.suc > 0 ? result.msg : "",
         page: 1,
         range: postdata.range_id,
-        soc_type: postdata.soc_type,cntr_auth_name:ctrauthresult.msg[0].controlling_authority_type_name,
+        soc_type: postdata.soc_type,cntr_auth_name:ctrauthresutname,
         range_name: range_name,cntr_auth_type:cntr_auth_type,
         socname: "",
         title: title,
@@ -683,7 +689,8 @@ reportRouter.post("/society_ele_status_result", async (req, res) => {
   try {
     // Extract range_id from session
     var postdata = req.body;
-    const range_id = req.session.user.range_id;
+    
+    var cntr_auth_id = postdata.controlling_authority_type;
     var range_code = postdata.range_id;
     if (postdata.election_status == "ONGOING") {
       var title = "ONGOING";
@@ -695,40 +702,70 @@ reportRouter.post("/society_ele_status_result", async (req, res) => {
       var title = "DONE";
       var order = "order by a.last_elec_date DESC";
     }
-
+    var cntr_auth = cntr_auth_id > 0 ? `AND a.cntr_auth_type = '${cntr_auth_id}'` : "";
     const select =
       "a.id,a.cop_soc_name,a.last_elec_date,a.tenure_ends_on,a.elec_due_date,a.reg_no,b.soc_type_name,c.dist_name,d.zone_name,e.range_name,f.soc_tier_name";
-    if (range_id > 0) {
+    if (range_code > 0) {
       var election_status = ` AND a.election_status = '${postdata.election_status}'`;
-      var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' AND a.approve_status = 'A' ${election_status} AND a.range_code = "${range_id}" `;
+      var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' AND a.approve_status = 'A' ${election_status + cntr_auth} AND a.range_code = "${range_code}" `;
     } else {
       var select_range =
         range_code > 0 ? `AND a.range_code = '${range_code}'` : "";
       var election_status = ` AND a.election_status = '${postdata.election_status}'`;
-      var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' AND a.approve_status = 'A' ${select_range + election_status} `;
+      var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' AND a.approve_status = 'A' ${cntr_auth + select_range + election_status} `;
     }
 
     // Execute database query
     const result = await db_Select(select, table_name, null, order);
-    const ranzeres = await db_Select(
-      "*",
-      "md_range",
-      `range_id=${range_code}`,
-      null,
-    );
-    // console.log(ranzeres);
-    if (range_code > 0) {
-      range_name = ranzeres.msg[0].range_name;
+    var range_name = '';
+    if(cntr_auth_id == 0) {
+        const ranzeres = await db_Select(
+          "*",
+          "md_range",
+          `range_id=${range_code}`,
+          null,
+        );
+        if (range_code > 0) {
+          range_name = ranzeres.msg[0].range_name;
+        } else {
+          range_name = "ALL Range";
+        }
+    }else{
+          const ranzeres = await db_Select(
+            "*",
+            "md_district",
+            `dist_code=${range_code}`,
+            null,
+          );
+          if (range_code > 0) {
+            range_name = ranzeres.msg[0].dist_name;
+          } else {
+            range_name = "ALL District";
+          }
+    }
+
+
+
+    var cntr_auth_name = '';
+    // getting Conttolling Authority Name For display
+    if (cntr_auth_id > 0) {
+        const cntrauthres = await db_Select(
+          "*",
+          "md_controlling_authority_type",
+          `controlling_authority_type_id=${cntr_auth_id}`,
+          null,
+        );
+      cntr_auth_name = cntrauthres.msg[0].controlling_authority_type_name;
     } else {
-      range_name = "ALL Range";
+      cntr_auth_name = "ALL";
     }
     // Prepare data for rendering
     const res_dt = {
       data: result.suc > 0 ? result.msg : "",
       page: 1,
       range_name: range_name,
-      range: postdata.range_id,
-      ele_status: postdata.election_status,
+      range: postdata.range_id,ctr_auth_id:cntr_auth_id,
+      ele_status: postdata.election_status,cntr_auth_name:cntr_auth_name,
       socname: "",
       title: title,
       soc_data_status: "",
@@ -744,10 +781,22 @@ reportRouter.post("/society_ele_status_result", async (req, res) => {
 });
 reportRouter.get("/society_ele_status_download", async (req, res) => {
   try {
-    var range =
+  
+    var ctr_auth_id = ` AND a.cntr_auth_type='${req.query.ctr_auth_id}' `;
+     if(ctr_auth_id == 1){
+      var range =
       req.query.range_code > 0
         ? `AND a.range_code=${req.query.range_code} `
         : "";
+     }else{ 
+      var range =
+      req.query.range_code > 0
+        ? `AND a.dist_code=${req.query.range_code} `
+        : "";
+
+     }
+
+    
     var election_status = ` AND a.election_status='${req.query.election_status}' `;
     if (req.query.election_status == "ONGOING") {
       var title = "ONGOING";
@@ -777,7 +826,7 @@ reportRouter.get("/society_ele_status_download", async (req, res) => {
           LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id`;
     var con = `a.functional_status = 'Functional' AND a.approve_status = 'A'  `;
 
-    const where = `${con + range + election_status}`; // Ensure these variables are properly defined
+    const where = `${con + range + election_status + ctr_auth_id }`; // Ensure these variables are properly defined
     const res_dt = await db_Select(select, table_name, where, null);
 
     // Create a new workbook and worksheet
@@ -930,6 +979,7 @@ reportRouter.post("/election_upcoming", async (req, res) => {
     // Extract range_id from session
     var postdata = req.body;
     const range_id = req.session.user.range_id;
+    var dist_range_name = postdata.dist_range_name;
     var range_code = postdata.range_id;
     var month_interval = postdata.month_tenure;
     var title_sufix = "";
@@ -944,9 +994,7 @@ reportRouter.post("/election_upcoming", async (req, res) => {
     var controlling_auth_type_con = postdata.controlling_authority_type > 0 ? `AND a.cntr_auth_type = '${postdata.controlling_authority_type}'`: "";
     const select =
       "a.id,a.cop_soc_name,a.last_elec_date,a.tenure_ends_on,a.elec_due_date,a.reg_no,b.soc_type_name,c.dist_name,d.zone_name,e.range_name,f.soc_tier_name";
-    if(postdata.controlling_authority_type == 1){
-
-
+    if(dist_range_name == 'RANGE'){
       if (range_id > 0) {
         var select_type =
           postdata.soc_type > 0
@@ -961,7 +1009,6 @@ reportRouter.post("/election_upcoming", async (req, res) => {
         var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' ${select_range + select_type} AND a.approve_status = 'A' AND a.tenure_ends_on >= CURDATE() AND a.tenure_ends_on < DATE_ADD(CURDATE(), INTERVAL ${month_interval} MONTH) ${controlling_auth_type_con}`;
       }
     }else{
-
       if (range_id > 0) {
         var select_type =
           postdata.soc_type > 0
@@ -981,7 +1028,7 @@ reportRouter.post("/election_upcoming", async (req, res) => {
     // Execute database query
     const result = await db_Select(select, table_name, null, null);
     var range_name = '';
-    if(postdata.controlling_authority_type == 1){
+    if(dist_range_name == 'RANGE'){
     const ranzeres = await db_Select(
       "*",
       "md_range",
@@ -1004,17 +1051,23 @@ reportRouter.post("/election_upcoming", async (req, res) => {
       if (range_code > 0) {
         range_name = ranzeres.msg[0].dist_name;
       } else {
-        range_name = "ALL Range";
+        range_name = "ALL District";
       }
 
     }
-    const ctrauthresult = await db_Select("*","md_controlling_authority_type",`controlling_authority_type_id=${postdata.controlling_authority_type}`,null);
+    if(postdata.controlling_authority_type > 0){
+      var ctrauthresult = await db_Select("*","md_controlling_authority_type",`controlling_authority_type_id=${postdata.controlling_authority_type}`,null);
+      var ctrauthname = ctrauthresult.msg[0].controlling_authority_type_name;
+    }else{
+      var ctrauthname = '';
+    }
+   
     // Prepare data for rendering
     const res_dt = {
       data: result.suc > 0 ? result.msg : "",
       page: 1,
       range_name: range_name,
-      range: postdata.range_id,month_interval:postdata.month_tenure,cntr_auth_name:ctrauthresult.msg[0].controlling_authority_type_name,
+      range: postdata.range_id,month_interval:postdata.month_tenure,cntr_auth_name:ctrauthname,
       soc_type: postdata.soc_type,controlling_authority_type:postdata.controlling_authority_type,
       socname: "",
       title: title,

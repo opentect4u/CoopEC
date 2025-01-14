@@ -186,10 +186,7 @@
               <div class="table_title_icon">
                  
                 <a href="/dash/society_download"  class="download-link"><img src="/images/excel.jpg" alt="excel" class="excel_cus" /></a>
-                <!-- <img src="/images/pdf.jpg" alt="pdf" class="pdf_cus" />
-                <img src="/images/excel.jpg" alt="excel" class="excel_cus" /> -->
-              <!-- <i class="fa fa-file-pdf-o pdf_cus" aria-hidden="true"></i> 
-              <i class="fa fa-file-excel-o excel_cus" aria-hidden="true"></i> -->
+               
             </div>
             
             </h4>
@@ -772,7 +769,13 @@ document.addEventListener('DOMContentLoaded', function () {
     const soc_type_id = document.getElementById('soc_type_id');
     const soc_data_status = document.getElementById('soc_data_status');
     const downloadLink = document.querySelector('.download-link');
-    var temp_range_code = '<%= range_code %>'
+
+    if(user.user_type == 'S' || user.user_type == 'A'){
+      var temp_range_code = document.getElementById('range_code');
+    }else{
+      var temp_range_code = '<%= range_code %>';
+    }
+    
     // Function to update the href of the download link
     function updateDownloadLink() {
          let functionalStatusValue = '';
@@ -793,14 +796,21 @@ document.addEventListener('DOMContentLoaded', function () {
         const socTierValue = soc_tier.value;
         const socTypeIdValue = soc_type_id.value;
         const socDataStatusValue = soc_data_status.value;
-        
+      
         // Construct the query string with all selected values
         let queryString = '';
-        if(temp_range_code == 0){
+        if(temp_range_code != 0){
           const rangeValue = rangeSelect.value;
-        
+          if(user.user_type == 'S' || user.user_type == 'A'){
         if (rangeValue) queryString += `range_id=${rangeValue}&`;
         if (zoneCodeValue) queryString += `zone_code=${zoneCodeValue}&`;
+          }else{
+             if(user.cntr_auth_type == 1){
+             queryString += `range_id=${temp_range_code}&`;
+             }else{
+              queryString += `dist_code=${temp_range_code}&`;
+             }
+          }
         }
         if (functionalStatusValue) queryString += `functional_status=${functionalStatusValue}&`;
         if (cntrAuthTypeValue) queryString += `cntr_auth_type=${cntrAuthTypeValue}&`;

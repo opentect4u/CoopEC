@@ -681,6 +681,14 @@ h3.noti_title button.read_all {
    background: #eb5437;
    text-align:center
 }
+.due_six_month{
+  background: #f2c617;
+  text-align:center
+}
+.due_three_month{
+  background: #fb8a38;
+  text-align:center
+}
 .ongoing_class{
   background: #EEF2FD;
   text-align:center

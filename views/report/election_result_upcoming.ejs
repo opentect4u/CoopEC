@@ -19,6 +19,10 @@
             <div class="table-responsive pt-3 custome_table_res">
               <div><b><%= cntr_auth_name %></b></div>
             <br>
+            <% 
+            var className ='';
+           className = (month_interval == 6) ? "due_six_month" : (month_interval == 3) ? "due_three_month" : ""; 
+           %>
               <table class="table_cus table-striped" style="width:100%">
                 <thead>
                   <tr>
@@ -28,7 +32,7 @@
                     <th class="society_th_8">Society Type</th>
                     <th class="society_th_9">Last Election date</th>
                     <th class="society_th_9">Tenure Ends On</th>
-                    <th class="society_th_9 due_class">Election Due Date</th>
+                    <th class="society_th_9 <%= className %>">Election Due Date</th>
                   </tr>
                 </thead>
                 <tbody id="item-list">
@@ -48,7 +52,7 @@
                             <%= new Date(dt.tenure_ends_on).toLocaleDateString('en-IN', { year: 'numeric' , month: 'short' ,
                                   day: 'numeric' }) %>
                           </td>
-                          <td class="due_class">
+                          <td class="<%= className %>">
                             <%= new Date(dt.elec_due_date).toLocaleDateString('en-IN', { year: 'numeric' , month: 'short' ,
                                   day: 'numeric' }) %>
                           </td>
@@ -62,8 +66,6 @@
         </div>
       </div>
 </div>
-
-
 <style>
   #pagination a {
       padding: 5px 10px;

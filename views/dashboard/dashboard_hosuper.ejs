@@ -131,19 +131,16 @@
             <p class="price">
       <span class="lit" id="total_6month"></span>
             </p>
-
             <div class="button_sape">
               <form action="/report/election_upcoming" method="post">
                 <input type="hidden" value="0" name="soc_type">
                 <input type="hidden" value="0" name="range_id" class="range_id_data">
                 <input type="hidden" value="RANGE" name="dist_range_name" class="dist_range_name" />
-                <input type="hidden" value="0" name="controlling_authority_type" class="ctrauth_id_data">
+                <input type="hidden" value="1" name="controlling_authority_type" class="ctrauth_id_data">
                 <input type="hidden" value="6" name="month_tenure">
                 <input type="submit" value="View" class="btn btn-primary btn-sm button_sape_view">
-                </form> 
-
+              </form> 
             </div>
-            
           </div>
         </div>
       </div>
@@ -159,6 +156,7 @@
             <form action="/report/election_upcoming" method="post">
               <input type="hidden" value="0" name="soc_type">
               <input type="hidden" value="0" name="range_id" class="range_id_data">
+              <input type="hidden" value="RANGE" name="dist_range_name" class="dist_range_name" />
               <input type="hidden" value="0" name="controlling_authority_type" class="ctrauth_id_data">
               <input type="hidden" value="3" name="month_tenure">
               <input type="submit" value="View" class="btn btn-primary btn-sm button_sape_view">
