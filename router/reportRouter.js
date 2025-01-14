@@ -689,7 +689,7 @@ reportRouter.post("/society_ele_status_result", async (req, res) => {
   try {
     // Extract range_id from session
     var postdata = req.body;
-    
+    var dist_range_name = postdata.dist_range_name;
     var cntr_auth_id = postdata.controlling_authority_type;
     var range_code = postdata.range_id;
     if (postdata.election_status == "ONGOING") {
@@ -716,33 +716,33 @@ reportRouter.post("/society_ele_status_result", async (req, res) => {
     }
 
     // Execute database query
-    const result = await db_Select(select, table_name, null, order);
-    var range_name = '';
-    if(cntr_auth_id == 0) {
-        const ranzeres = await db_Select(
-          "*",
-          "md_range",
-          `range_id=${range_code}`,
-          null,
-        );
-        if (range_code > 0) {
-          range_name = ranzeres.msg[0].range_name;
-        } else {
-          range_name = "ALL Range";
-        }
-    }else{
+      const result = await db_Select(select, table_name, null, order);
+      var range_name = '';
+      if(dist_range_name == 'RANGE'){
           const ranzeres = await db_Select(
             "*",
-            "md_district",
-            `dist_code=${range_code}`,
+            "md_range",
+            `range_id=${range_code}`,
             null,
           );
           if (range_code > 0) {
-            range_name = ranzeres.msg[0].dist_name;
+            range_name = ranzeres.msg[0].range_name;
           } else {
-            range_name = "ALL District";
+            range_name = "ALL Range";
           }
-    }
+      }else{
+            const ranzeres = await db_Select(
+              "*",
+              "md_district",
+              `dist_code=${range_code}`,
+              null,
+            );
+            if (range_code > 0) {
+              range_name = ranzeres.msg[0].dist_name;
+            } else {
+              range_name = "ALL District";
+            }
+      }
 
 
 

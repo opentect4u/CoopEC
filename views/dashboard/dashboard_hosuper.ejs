@@ -10,7 +10,6 @@
   <div class="welcome_sec">
     <div class="selectDropdown">
           <div class="stockPointSecTitle_cus">
-                <!-- <input type="hidden" value="<%= cntr_auth_type %>" name="cntr_auth"  /> -->
                 <label class="lmargin">
                   <input type="radio" name="dist_range" value="RANGE" id="rangeRadio" checked>
                   Range
@@ -23,7 +22,6 @@
     </div>
     <div class="selectDropdown">
       <div class="stockPointSecTitle_cus">
-           <!-- <% if(user.range_id== 0) { %> -->
             <div class="selectBoxct">
               <label>Controlling Authority </label>
               <select class="form-control" id="cntr_auth" name="cntr_auth" disabled>
@@ -35,7 +33,6 @@
                     <% }) } %>
               </select>
             </div>
-           <!-- <%  } %>      -->
       </div>
     </div>
     <div class="selectDropdown"  >
@@ -84,7 +81,6 @@
         <button type="button" class="btn btn-primary btn-sm" style="margin-top: 25px;" id ="dist_action">Search</button>
       </div>
     </div>
-    
   </div>
 
   <div class="notification_bar">
@@ -98,19 +94,14 @@
 </div>
   
   </div>
-  
     <div class="row">
       <div class="stockPointSecTitle_cus">
         <h2>Upcoming  </h2>
-          
     </div>
     <div class="threeBoxNewmain">
       <div class="col-sm-6 float-left">
         <div class="threeBoxNewSmall">
           <div class="threeBoxImg">
-            <!-- <div class="bloxkSec bloxkSec_paiChart" style="height: 315px"></div> -->
-            <!-- <img src="/images/icon_d.png" alt=""> -->
-            
           </div>
           <div class="threeBoxTxt" style="height: 280px; width: 100%;">
             <canvas id="pieChart_1"></canvas>
@@ -122,14 +113,12 @@
       <div class="col-sm-6 float-left margin_bot">
         <div class="threeBoxNewSmall box_col_1">
           <div class="threeBoxImg" style="height: 315px; width: 100%;">
-            <!-- <div class="bloxkSec bloxkSec_paiChart" style="height: 315px"></div> -->
-            <!-- <img src="/images/icon_d.png" alt=""> -->
             <canvas id="pieChart_1"></canvas>
           </div>
           <div class="threeBoxTxt">
             <h2> 6 Months</h2>
             <p class="price">
-      <span class="lit" id="total_6month"></span>
+             <span class="lit" id="total_6month"></span>
             </p>
             <div class="button_sape">
               <form action="/report/election_upcoming" method="post">
@@ -150,14 +139,14 @@
           <div class="threeBoxTxt">
             <h2>3 Months</h2>
             <p class="price">
-      <span class="lit" id="total_3month"></span>
+             <span class="lit" id="total_3month"></span>
             </p>
             <div class="button_sape">
             <form action="/report/election_upcoming" method="post">
               <input type="hidden" value="0" name="soc_type">
               <input type="hidden" value="0" name="range_id" class="range_id_data">
               <input type="hidden" value="RANGE" name="dist_range_name" class="dist_range_name" />
-              <input type="hidden" value="0" name="controlling_authority_type" class="ctrauth_id_data">
+              <input type="hidden" value="1" name="controlling_authority_type" class="ctrauth_id_data">
               <input type="hidden" value="3" name="month_tenure">
               <input type="submit" value="View" class="btn btn-primary btn-sm button_sape_view">
               </form>
@@ -178,7 +167,8 @@
             <div class="button_sape">
             <form action="/report/society_ele_status_result" method="post">
               <input type="hidden" value="<%= user.range_id %>" name="range_id" class="range_id_data">
-              <input type="hidden" value="<%= cntr_auth_type %>" name="controlling_authority_type" class="ctrauth_id_data" >
+              <input type="hidden" value="RANGE" name="dist_range_name" class="dist_range_name" />
+              <input type="hidden" value="1" name="controlling_authority_type" class="ctrauth_id_data" >
               <input type="hidden" value="ONGOING" name="election_status">
               <input type="submit" value="View" class="btn btn-primary btn-sm button_sape_view">
               </form>
@@ -199,7 +189,8 @@
             <div class="button_sape">
             <form action="/report/society_ele_status_result" method="post">
               <input type="hidden" value="<%= user.range_id %>" name="range_id" class="range_id_data">
-              <input type="hidden" value="<%= cntr_auth_type %>" name="controlling_authority_type" class="ctrauth_id_data">
+              <input type="hidden" value="RANGE" name="dist_range_name" class="dist_range_name" />
+              <input type="hidden" value="1" name="controlling_authority_type" class="ctrauth_id_data">
               <input type="hidden" value="DONE" name="election_status">
               <input type="submit" value="View" class="btn btn-primary btn-sm button_sape_view">
               </form>
@@ -224,7 +215,8 @@
             <form action="/report/election_due" method="post">
               <input type="hidden" value="0" name="soc_type">
               <input type="hidden" value="<%= user.range_id %>" name="range_id" class="range_id_data">
-              <input type="hidden" value="<%= cntr_auth_type %>" name="controlling_authority_type" class="ctrauth_id_data" >
+              <input type="hidden" value="RANGE" name="dist_range_name" class="dist_range_name" />
+              <input type="hidden" value="1" name="controlling_authority_type" class="ctrauth_id_data" >
               <input type="submit" value="View" class="btn btn-primary btn-sm button_sape_view">
               </form>
             </div>
@@ -237,7 +229,6 @@
         <div class="threeBoxNewmain">
           <div class="col-sm-8 float-left">
             <div class="threeBoxNewSmall_new">
-              <!-- <div class="threeBoxImg redCol"><img src="/images/icon_a.png" alt=""></div> -->
               <div class="row">
                 <div class="col-sm-5 float-left">
                   <h2>Functional</h2>
@@ -246,8 +237,6 @@
                   <p class="price"><span class="lit" id="total_nonfunctional"></span> </p>
                   <h2>Total Society</h2>
                   <p class="price"><span class="lit" id="total_society"></span> </p>
-                  <!-- <p class="descrip">The total number of sessions within the date range. It is the period time a user is actively engaged with your website, page or app, etc</p> -->
-
                 </div>
                 <div class="col-sm-7 float-left">
                   <h2>Data Edit Status</h2>
@@ -341,12 +330,12 @@
   <script>
     $('input[name="dist_range"]').on('change', function() {
         if ($(this).val() == 'DISTRICT') {
+          var ctrauthid = $('#cntr_auth').val();
             $('#district_data').show();  // Show District
             $('#range_datas').hide(); 
             $('#district_search').show(); 
             $('#range_search').hide(); 
             $('.dist_range_name').val('DIST');
-            $('.ctrauth_id_data').val(0);
             $('select#cntr_auth').prop('disabled', false); 
         } else { 
             $('#range_datas').show();  // Show Range

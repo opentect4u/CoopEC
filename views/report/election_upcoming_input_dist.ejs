@@ -5,6 +5,7 @@
         <h4 class="card-title card_title_cus">Election Upcoming Input</h4>
         <form class="forms-sample" action="/report/election_upcoming" method="post" >
           <input type="hidden" class="form-control"  name="id" value="" required>
+          <input type="hidden" value="DIST" name="dist_range_name" class="dist_range_name">
             <div class="row">
               <% if(user.user_type == 'S') { %>
                 <div class="col-md-4">
