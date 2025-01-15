@@ -573,14 +573,14 @@
               var due_per=0;var due_num=0,ongoing_num,ongoing_per =0,held_per,held_num;
               soctyplist.forEach(dt => { 
                 if(dt.ONGOING > 0){
-                  ongoing_per = (dt.ONGOING/100).toFixed();
+                  ongoing_per = ((dt.ONGOING/dt.total)*100).toFixed();
                   ongoing_num = dt.ONGOING;
                 }else{
                   ongoing_per = 0;
                   ongoing_num = 0;
                 }
                 if(dt.HELD > 0){
-                  held_per = (dt.HELD/100).toFixed();
+                  held_per = ((dt.HELD/dt.total)*100).toFixed();
                   held_num = dt.HELD;
                 }else{
                   held_per = 0;
