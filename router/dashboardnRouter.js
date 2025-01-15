@@ -923,6 +923,14 @@ DashboardnRouter.post("/get_soctype_detail", async (req, res) => {
     var con1 = data.cntr_auth_id > 0 ? ` AND a.cntr_auth_type = '${data.cntr_auth_id}'` :  ``;
     var con2 = '';
     var division_name = ''
+    var ctrauthname = '';
+    if(data.cntr_auth_id > 0){
+      var countResult = await db_Select('controlling_authority_type_name','md_controlling_authority_type',`controlling_authority_type_id='${data.cntr_auth_id}'`,null);
+      ctrauthname = countResult.msg[0].controlling_authority_type_name;
+    }else{
+      ctrauthname = ' ALL Controlling Authority';
+    }
+
     if(data.rangedist == 'RANGE'){
        con2 = data.range_code > 0 ? `AND a.range_code = '${data.range_code}'` :  ``;
        if (data.range_code > 0) {
@@ -936,7 +944,7 @@ DashboardnRouter.post("/get_soctype_detail", async (req, res) => {
        con2 = data.range_code > 0 ? `AND a.dist_code = '${data.range_code}'` :  ``;
        if (data.range_code > 0) {
         var countResult = await db_Select('dist_name','md_district',`dist_code='${data.range_code}'`,null);
-        division_name = countResult.msg[0].dist_name;
+        division_name = countResult.msg[0].dist_name + ' District';
       }else
       {
         division_name = 'ALL District';
@@ -1006,7 +1014,7 @@ DashboardnRouter.post("/get_soctype_detail", async (req, res) => {
                         order by soc_type_id`;
     const soctyperes = await db_Select(select, table_name, null, null);
     const responseData = {
-      soctype: soctyperes.suc > 0 ? soctyperes.msg : "",division_name:division_name // Echoing the received claims
+      soctype: soctyperes.suc > 0 ? soctyperes.msg : "",division_name:division_name,ctrauthname:ctrauthname // Echoing the received claims
     };
     // Send response back to the client
     res.json(responseData);
