@@ -945,7 +945,7 @@ DashboardnRouter.post("/get_soctype_detail", async (req, res) => {
     
     var title = "Election Due";
     const select = `soc_type_id,soc_type_name,sum(total_available)total,sum(DUE)DUE,sum(ONGOING)ONGOING,sum(DONE)HELD`;
-    var table_name = `(SELECT b.soc_type_id soc_type_id,b.soc_type_name soc_type_name,COUNT(*) AS total_available, 0 DUE,0 ONGOING,0 DONE FROM md_society a,md_society_type b,md_range e where a.soc_type = b.soc_type_id and  a.range_code = e.range_id and  a.functional_status = 'Functional' ${soc_con} ${con2} GROUP BY b.soc_type_id,b.soc_type_name 
+    var table_name = `(SELECT b.soc_type_id soc_type_id,b.soc_type_name soc_type_name,COUNT(*) AS total_available, 0 DUE,0 ONGOING,0 DONE FROM md_society a,md_society_type b,md_range e where a.soc_type = b.soc_type_id and  a.range_code = e.range_id and  a.functional_status = 'Functional' ${soc_con} ${con1} ${con2} GROUP BY b.soc_type_id,b.soc_type_name 
                             UNION SELECT b.soc_type_id soc_type_id,
                               b.soc_type_name soc_type_name,
                             0 total_available, 
@@ -957,7 +957,7 @@ DashboardnRouter.post("/get_soctype_detail", async (req, res) => {
                         and  a.range_code = e.range_id
                         and  a.functional_status = 'Functional'
                         and  a.election_status  = 'DUE'
-                        ${soc_con} ${con2}
+                        ${soc_con} ${con1} ${con2}
                         GROUP BY b.soc_type_id,b.soc_type_name
                         UNION
                         SELECT b.soc_type_id soc_type_id,
@@ -971,7 +971,7 @@ DashboardnRouter.post("/get_soctype_detail", async (req, res) => {
                         and  a.range_code = e.range_id
                         and  a.functional_status = 'Functional'
                         and  a.election_status = 'DUE'
-                        ${soc_con} ${con2}
+                        ${soc_con} ${con1} ${con2}
                         GROUP BY b.soc_type_id,b.soc_type_name
                         UNION
                         SELECT b.soc_type_id soc_type_id,
@@ -985,7 +985,7 @@ DashboardnRouter.post("/get_soctype_detail", async (req, res) => {
                         and  a.range_code = e.range_id
                         and  a.functional_status = 'Functional'
                         and  a.election_status  = 'ONGOING'
-                        ${soc_con} ${con2}
+                        ${soc_con} ${con1} ${con2}
                         GROUP BY b.soc_type_id,b.soc_type_name
                         UNION
                         SELECT b.soc_type_id soc_type_id,
@@ -999,7 +999,7 @@ DashboardnRouter.post("/get_soctype_detail", async (req, res) => {
                         and  a.range_code = e.range_id
                         and  a.functional_status = 'Functional'
                         and  a.election_status  = 'DONE'
-                        ${soc_con} ${con2}
+                        ${soc_con} ${con1} ${con2}
                         GROUP BY b.soc_type_id,b.soc_type_name
                             )a
                         group by soc_type_id,soc_type_name
