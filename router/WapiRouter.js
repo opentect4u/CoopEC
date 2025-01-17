@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const axios = require("axios");
 const os = require("os");
@@ -7,7 +8,7 @@ const crypto = require('crypto');
 const { db_Select, db_Insert } = require("../modules/MasterModule");
 WapiRouter = express.Router();
 var moment = require("moment");
-const apiauthtoken = 'c299cf0ae55ac8a2e3932b65fe5f08538962c5114b0f7d5680db8193eb2d3116';
+const apiauthtoken = env.API_AUTH_TOKEN;
 const checkAPIAuth = async (req, res, next) => {
   var auth_key = req.header('auth_key')
   if (auth_key) {
