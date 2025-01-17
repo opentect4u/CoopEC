@@ -8,7 +8,7 @@ const crypto = require('crypto');
 const { db_Select, db_Insert } = require("../modules/MasterModule");
 WapiRouter = express.Router();
 var moment = require("moment");
-const apiauthtoken = env.API_AUTH_TOKEN;
+const apiauthtoken = process.env.API_AUTH_TOKEN;
 const checkAPIAuth = async (req, res, next) => {
   var auth_key = req.header('auth_key')
   if (auth_key) {
