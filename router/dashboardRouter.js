@@ -396,12 +396,21 @@ DashboardRouter.get("/socLimitList", async (req, res) => {
   
   var con6 =
     req.query.soc_tier > 0 ? `AND a.soc_tier=${req.query.soc_tier} ` : "";
-  var con4 =
-    req.query.urban_rural_flag > 0
-      ? `AND a.urban_rural_flag=${req.query.urban_rural_flag} `
-      : "";
+    var con4 = '';
+    if(req.query.urban_rural_flags == 'R'){
+      var con4 = ` AND a.urban_rural_flag='R' `;
+    }else if(req.query.urban_rural_flags == 'U'){
+      var con4 = ` AND a.urban_rural_flag='U' `;
+    }
+      // var con4 =
+      //   req.query.urban_rural_flags > 0
+      //     ? `AND a.urban_rural_flag=${req.query.urban_rural_flags} `
+      //     : "";
+     var block_id =
+      req.query.block_id > 0 ? `AND a.block_id=${req.query.block_id}` : "";
   var con7 =
     req.query.soc_type_id > 0 ? `AND a.soc_type=${req.query.soc_type_id}` : "";
+
   var soc_data_status =
     req.query.soc_data_status.length > 0
       ? `AND a.approve_status= '${req.query.soc_data_status}' `
@@ -411,9 +420,11 @@ DashboardRouter.get("/socLimitList", async (req, res) => {
     req.query.functional_status != ""
       ? ` AND a.functional_status='${req.query.functional_status}'`
       : "";
+     
   var maincon =
     con1 +
     dist_code +
+    block_id +
     zone_code +
     range_code +
     con4 +
