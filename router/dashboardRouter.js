@@ -1060,24 +1060,16 @@ DashboardRouter.post("/get_rular_urban", async (req, res) => {
 DashboardRouter.get("/society_download", async (req, res) => {
   try {
     var range_id = req.session.user.range_id;
-    var cntr_auth_ty = req.session.user.cntr_auth_type;
+    //var cntr_auth_ty = req.session.user.cntr_auth_type;
+    var cntr_auth_ty = req.query.cntr_auth_type;
     var zone_code = "";
     var range_code_for_name = 0;
      var range_or_dist = cntr_auth_ty > 1 ? 'dist_code':'range_code';
-
-    if(cntr_auth_ty > 1){
-      var cntr_auth_type = `AND (a.cntr_auth_type=${cntr_auth_ty} OR a.cntr_auth_type=0)`;
-    }else{
-      if (range_id > 0) {
-        var cntr_auth_type = `AND (a.cntr_auth_type=${cntr_auth_ty} OR a.cntr_auth_type=0)`;
-      }else{ 
-                ////  **  When Hosuper wil login  **  ///
-        var cntr_auth_type =
-        req.query.cntr_auth_type > 0
-          ? ` AND a.cntr_auth_type=${req.query.cntr_auth_type} `
-          : "";
-      }
-    }
+     var cntr_auth_type =
+     req.query.cntr_auth_type > 0
+       ? ` AND a.cntr_auth_type=${req.query.cntr_auth_type} `
+       : "";
+    
     if (range_id > 0) {
       range_code_for_name = req.session.user.range_id;
       var range =
@@ -1093,7 +1085,8 @@ DashboardRouter.get("/society_download", async (req, res) => {
           ? `AND a.zone_code=${req.query.zone_code} `
           : "";
     }
-    
+    var block =
+      req.query.block_id > 0 ? `AND a.block_id=${req.query.block_id} ` : "";
 
     var soc_tier =
       req.query.soc_tier > 0 ? `AND a.soc_tier=${req.query.soc_tier} ` : "";
@@ -1143,7 +1136,7 @@ DashboardRouter.get("/society_download", async (req, res) => {
           LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id`;
     var con = `a.functional_status = 'Functional' `;
 
-    const where = `${con + range + cntr_auth_type + zone_code + soc_tier + urban_rural_flag + soc_type_id + soc_data_status + functional_status}`; // Ensure these variables are properly defined
+    const where = `${con + range + cntr_auth_type + zone_code + soc_tier + urban_rural_flag + block + soc_type_id + soc_data_status + functional_status}`; // Ensure these variables are properly defined
     const res_dt = await db_Select(select, table_name, where, null);
     if(req.session.user.user_type == 'S' || req.session.user.user_type == 'A'){
         var range_name = 'ALL';

@@ -765,10 +765,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const cntr_auth_type = document.getElementById('cntr_auth_type');
     const zone_code = document.getElementById('zone_code');
     const urban_rural_flag = document.getElementById('urban_rural_flag');
+    const block_id = document.getElementById('block_id');
     const soc_tier = document.getElementById('soc_tier');
     const soc_type_id = document.getElementById('soc_type_id');
     const soc_data_status = document.getElementById('soc_data_status');
     const downloadLink = document.querySelector('.download-link');
+    
 
     if(user.user_type == 'S' || user.user_type == 'A'){
       var temp_range_code = document.getElementById('range_code');
@@ -793,6 +795,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const cntrAuthTypeValue = cntr_auth_type.value;
         
         const urbanRuralFlagValue = urban_rural_flag.value;
+        const block_idvalue = block_id.value;
         const socTierValue = soc_tier.value;
         const socTypeIdValue = soc_type_id.value;
         const socDataStatusValue = soc_data_status.value;
@@ -816,6 +819,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (cntrAuthTypeValue) queryString += `cntr_auth_type=${cntrAuthTypeValue}&`;
 
         if (urbanRuralFlagValue) queryString += `urban_rural_flag=${urbanRuralFlagValue}&`;
+        if (block_idvalue) queryString += `block_id=${block_idvalue}&`;
         if (socTierValue) queryString += `soc_tier=${socTierValue}&`;
         if (socTypeIdValue) queryString += `soc_type_id=${socTypeIdValue}&`;
         if (socDataStatusValue) queryString += `soc_data_status=${socDataStatusValue}&`;
@@ -850,6 +854,7 @@ document.addEventListener('DOMContentLoaded', function () {
     cntr_auth_type.addEventListener('change', updateDownloadLink);
     cntr_auth_type.addEventListener('change', updateDownloadLink);
     urban_rural_flag.addEventListener('change', updateDownloadLink);
+    block_id.addEventListener('change', updateDownloadLink);
     soc_tier.addEventListener('change', updateDownloadLink);
    // soc_type_id.addEventListener('change', updateDownloadLink);
     $('#soc_type_id').on('change', function() {

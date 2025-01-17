@@ -45,6 +45,7 @@
                     <th class="society_th_6">Registration Number</th>
                     <th class="society_th_8">Society Type</th>
                     <th class="society_th_9">Option</th>
+                    <th class="society_th_9">Delete</th>
                   </tr>
                 </thead>
                 <tbody id="item-list">
@@ -64,6 +65,11 @@
                           <td><%= dt.soc_type_name %></td>
                           <td>
                             <a href="/society/approve?id=<%= dt.id %>" class="edit_dashboard">Validate</a>
+                          </td>
+                          <td>
+                            <a href="/society/socdelet?id=<%= dt.id %>" onclick="confirmDelete(event)" class="ti-trash" style="font-size: 1.5em;color:red">
+                            </a>
+                          
                           </td>
                       </tr>
                   <% }) %>
