@@ -608,6 +608,7 @@ SocietyRouter.get("/socdelet", async (req, res) => {
     var save_data = await db_Insert("md_society_delete", fields, values, null, 0);
     if(save_data.suc > 0){
         var res_dt = await db_Delete("md_society", where);
+        var res_dt = await db_Delete("td_board_member", `soc_id = '${soc_id}' `);
         if (res_dt.suc > 0) {
           req.flash("success_msg", "Deleted successful!");
       
