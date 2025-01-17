@@ -16,6 +16,9 @@ import { BASE_URL } from '../../routes/config';
 import axios from 'axios';
 import Loader from '../../Components/Loader';
 // import Faq from '../../Components/Faq';
+import useStatisticData from '../../Hooks/API/StatisticData';
+import useGalleryData from '../../Hooks/API/GalleryData';
+import useFaqData from '../../Hooks/API/FaqData';
 
 function Home() {
 
@@ -28,6 +31,10 @@ function Home() {
 	const [getCompletData, setCompletData] = useState('');
 	const [getDueData, setDueData] = useState('');
 	const [getFaqData, setFaqData] = useState([]);
+
+	const { fetchStatistics } = useStatisticData()
+	const { GalleryData_Async } = useGalleryData()
+	const { FaqData_Async } = useFaqData()
 
 	const mapTxtWordCount= 5;
 
@@ -53,196 +60,145 @@ function Home() {
 		}
 	]
 
-	const fetchdata = async ()=>{
+	// const fetchdata_FAQ = async ()=>{
 
-		axios.post(`${BASE_URL}/wapi/faqlist`,
-		  {
-			auth_key:"xxxxx",
-		  }
-		  // ,
-		  // {
-		  //     headers: {
-		  //         Authorization: loginData.token,
-		  //     },
-		  // }
-		  ).then(res => {
+	// 	axios.post(`${BASE_URL}/wapi/faqlist`,
+	// 	  {
+	// 		auth_key:"xxxxx",
+	// 	  }
+	// 	  // ,
+	// 	  // {
+	// 	  //     headers: {
+	// 	  //         Authorization: loginData.token,
+	// 	  //     },
+	// 	  // }
+	// 	  ).then(res => {
 	  
-			if(res.status == '200'){
-			  // console.log('rrrrrr', res?.data?.msg);
-			  if(res.data.suc > 0){
-				setFaqData(res?.data?.msg);
-				setLoading(false)
-				  // setFolderLocation()
-				  console.log('ggggggggggggggggggggggg', res?.data?.msg.length);
+	// 		if(res.status == '200'){
+	// 		  // console.log('rrrrrr', res?.data?.msg);
+	// 		  if(res.data.suc > 0){
+	// 			setFaqData(res?.data?.msg);
+	// 			setLoading(false)
+	// 			  // setFolderLocation()
+	// 			  console.log('ggggggggggggggggggggggg', res?.data?.msg.length);
 	  
-				  // pageDataCheck = res.data.status;
-			  } else {
-				setFaqData([])
-				// pageDataCheck = res.data.status;
-			  }
+	// 			  // pageDataCheck = res.data.status;
+	// 		  } else {
+	// 			setFaqData([])
+	// 			// pageDataCheck = res.data.status;
+	// 		  }
 		
-			  }
+	// 		  }
 	  
-		  }) 
+	// 	  }) 
 	
-	   }
+	//    }
+
+	const fetchStatistics_Call = async ()=>{
+	await fetchStatistics('ONGOING').then((res)=>{
 	
 
-	const fetchGallerydata = ()=>{
-	axios.post(`${BASE_URL}/wapi/gallimglist`,
-	{
-		auth_key:"xxxxx",
+	if(res.suc > 0){
+	setOngoingData(res?.msg)
+	setLoading_statis(false)
+	} else {
+	setOngoingData([])
+	setLoading_statis(false)
 	}
-	// ,
-	// {
-	//     headers: {
-	//         Authorization: loginData.token,
-	//     },
-	// }
-	).then(res => {
 
-		if(res.status == '200'){
+	}).catch((error)=>{
+	console.log(error);
+
+	})
+
+	await fetchStatistics('DUE').then((res)=>{
+
+	if(res.suc > 0){
+	setDueData(res?.msg)
+	setLoading_statis(false)
+	} else {
+	setDueData([])
+	setLoading_statis(false)
+	}
+	
+
+	}).catch((error)=>{
+	console.log(error);
+
+	})
+
+	await fetchStatistics('DONE').then((res)=>{
+	
+
+	if(res.suc > 0){
+	setCompletData(res?.msg)
+	setLoading_statis(false)
+	} else {
+	setCompletData([])
+	setLoading_statis(false)
+	}
 		
-		if(res.data.suc > 0){
-		setGalleryImage(res?.data?.msg);
-		setGalleryFolder(res?.data?.folder);
-		// setPageTitle(res?.data?.title);
-		setLoading(false);
-			// setFolderLocation()
-			console.log(res , 'gggggggg', res?.data?.msg);
 
-			// pageDataCheck = res.data.status;
+	}).catch((error)=>{
+	console.log(error);
+
+	})
+
+	}
+
+	const galleryData_Call = async ()=>{
+	await GalleryData_Async().then((res)=>{
+	
+	if(res.suc > 0){
+	setGalleryImage(res?.msg);
+	setGalleryFolder(res?.folder);
+	setLoading(false);
+	} else {
+	setGalleryImage([])
+
+	}
+
+	}).catch((error)=>{
+	
+	console.log(error);
+
+	})
+
+
+	} 
+
+	const FaqData_Call = async ()=>{
+		await FaqData_Async().then((res)=>{
+		
+		if(res.suc > 0){
+		setFaqData(res?.msg);
+		setLoading(false)
+		console.log(res, 'resresresresresres');
+
 		} else {
-		setGalleryImage([])
-			// pageDataCheck = res.data.status;
+		setFaqData([])
+		setLoading(false)
 		}
-
-		}
-
-	}) 
-
-	}
-
-	const fetchStaticsdata_ongoing = (para)=>{
-
-	axios.post(`${BASE_URL}/wapi/societyelectionstatus`,
-		{
-		auth_key:"xxxxx",
-		election_status: para,
-		}
-		// ,
-		// {
-		//     headers: {
-		//         Authorization: loginData.token,
-		//     },
-		// }
-		).then(res => {
-
-		if(res.status == '200'){
-			console.log(res, 'ffffffff', res?.data?.msg.length);
-			
-			if(res.data.suc > 0){
-				setOngoingData(res?.data?.msg)
-				setLoading_statis(false)
-				console.log(res?.data?.msg, 'jjjjjjjjj');
-
-				// pageDataCheck = res.data.status;
-			} else {
-				setOngoingData([])
-				setLoading_statis(false);
-			// pageDataCheck = res.data.status;
-			}
-
-			}
-
-		}) 
-
-	}
-
-	const fetchStaticsdata_due = (para)=>{
-
-	axios.post(`${BASE_URL}/wapi/societyelectionstatus`,
-	{
-	auth_key:"xxxxx",
-	election_status: para,
-	}
-	// ,
-	// {
-	//     headers: {
-	//         Authorization: loginData.token,
-	//     },
-	// }
-	).then(res => {
-
-	if(res.status == '200'){
-		console.log(res, 'ffffffff', res?.data?.msg.length);
-		
-		if(res.data.suc > 0){
-			setDueData(res?.data?.msg)
-			console.log(res, 'jjjjjjjjj');
-
-			setLoading_statis(false);
-			// pageDataCheck = res.data.status;
-		} else {
-			setDueData([])
-			setLoading_statis(false);
-		// pageDataCheck = res.data.status;
-		}
-
-		}
-
-	}) 
-
-	}
-
-	const fetchStaticsdata_complete = (para)=>{
-
-		axios.post(`${BASE_URL}/wapi/societyelectionstatus`,
-		{
-		auth_key:"xxxxx",
-		election_status: para,
-		}
-		// ,
-		// {
-		//     headers: {
-		//         Authorization: loginData.token,
-		//     },
-		// }
-		).then(res => {
 	
-		if(res.status == '200'){
-			console.log(res, 'ffffffff', res?.data?.msg.length);
-			
-			if(res.data.suc > 0){
-				setCompletData(res?.data?.msg)
-				console.log(res?.data?.msg, 'jjjjjjjjj');
+		}).catch((error)=>{
+		setFaqData([])
+		console.log(error);
 	
-				setLoading_statis(false);
-				// pageDataCheck = res.data.status;
-			} else {
-				setCompletData([])
-				setLoading_statis(false);
-			// pageDataCheck = res.data.status;
-			}
+		})
 	
-			}
 	
-		}) 
-	
-		}
+		} 
+
+
 
 
 		useEffect(()=>{
 
-		fetchStaticsdata_ongoing('ONGOING');
-		fetchStaticsdata_due('DUE');
-		fetchStaticsdata_complete('DONE');
+		fetchStatistics_Call();
+		galleryData_Call();
+		FaqData_Call();
 
-		fetchGallerydata();
-		fetchdata();
-		// console.log(getDueData?.length);
-		console.log(getFaqData?.length, 'gggggggggggggggggggggggffff' );
-		
+		// fetchdata_FAQ();
 		
 	   },[])
 

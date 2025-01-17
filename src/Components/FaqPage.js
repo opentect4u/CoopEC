@@ -7,6 +7,7 @@ import  { CollapseProps } from 'antd';
 import { Collapse, Space } from 'antd';
 import { BASE_URL } from '../routes/config';
 import Loader from './Loader';
+import useFaqData from '../Hooks/API/FaqData';
 
 function FaqPage(
     {iconPosition, faqMax_item, SlNO_need}
@@ -15,50 +16,66 @@ function FaqPage(
 
 const [getFaqData, setFaqData] = useState([]);
 const [loading, setLoading] = useState(true);
+const { FaqData_Async } = useFaqData()
 
+  //   const fetchdata = async ()=>{
 
-
-
-
-
-    const fetchdata = async ()=>{
-
-    axios.post(`${BASE_URL}/wapi/faqlist`,
-      {
-        auth_key:"xxxxx",
-      }
-      // ,
-      // {
-      //     headers: {
-      //         Authorization: loginData.token,
-      //     },
-      // }
-      ).then(res => {
+  //   axios.post(`${BASE_URL}/wapi/faqlist`,
+  //     {
+  //       auth_key:"xxxxx",
+  //     }
+  //     // ,
+  //     // {
+  //     //     headers: {
+  //     //         Authorization: loginData.token,
+  //     //     },
+  //     // }
+  //     ).then(res => {
   
-        if(res.status == '200'){
-          // console.log('rrrrrr', res?.data?.msg);
-          if(res.data.suc > 0){
-            setFaqData(res?.data?.msg);
-            setLoading(false)
-              // setFolderLocation()
-              console.log('rrrrrr', res?.data?.msg);
+  //       if(res.status == '200'){
+  //         // console.log('rrrrrr', res?.data?.msg);
+  //         if(res.data.suc > 0){
+  //           setFaqData(res?.data?.msg);
+  //           setLoading(false)
+  //             // setFolderLocation()
+  //             console.log('rrrrrr', res?.data?.msg);
   
-              // pageDataCheck = res.data.status;
-          } else {
-            setFaqData([])
-            setLoading(false);
-            // pageDataCheck = res.data.status;
-          }
+  //             // pageDataCheck = res.data.status;
+  //         } else {
+  //           setFaqData([])
+  //           setLoading(false);
+  //           // pageDataCheck = res.data.status;
+  //         }
     
-          }
+  //         }
   
-      }) 
+  //     }) 
 
-   }
+  //  }
+
+   const FaqData_Call = async ()=>{
+		await FaqData_Async().then((res)=>{
+
+    if(res.suc > 0){
+    setFaqData(res?.msg);
+    setLoading(false)
+    // console.log(res, 'resresresresresres');
+
+    } else {
+    setFaqData([])
+    setLoading(false)
+    }
+	
+		}).catch((error)=>{
+		
+		console.log(error);
+		})
+
+		}
 
    useEffect(()=>{
-    
-    fetchdata();
+    FaqData_Call();
+    // fetchdata();
    },[])
 
   return (

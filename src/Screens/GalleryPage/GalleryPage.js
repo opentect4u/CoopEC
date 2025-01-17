@@ -19,6 +19,7 @@ import { Image, Space } from 'antd';
 import { BASE_URL } from '../../routes/config';
 import FooterCus from '../../Components/FooterCus';
 import Loader from '../../Components/Loader';
+import useGalleryData from '../../Hooks/API/GalleryData';
 
 const imageList = [
   'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg',
@@ -34,6 +35,8 @@ function GalleryPage() {
     const [getGalleryFolder, setGalleryFolder] = useState('');
     const [getPageTitle, setPageTitle] = useState('');
     const [loading, setLoading] = useState(true);
+
+    const { GalleryData_Async } = useGalleryData()
 
 
 
@@ -73,6 +76,44 @@ function GalleryPage() {
  
     }
 
+    // const galleryData_Call = async ()=>{
+    //   await GalleryData_Async().then((res)=>{
+    //   setGalleryImage(res?.msg);
+    //   setGalleryFolder(res?.folder);
+    //   setPageTitle(res?.title);
+    //   setLoading(false);
+    
+    //   }).catch((error)=>{
+    //   setGalleryImage([])
+    //   console.log(error);
+    
+    //   })
+    
+    
+    //   } 
+
+    const galleryData_Call = async ()=>{
+      await GalleryData_Async().then((res)=>{
+      
+      if(res.suc > 0){
+      setGalleryImage(res?.msg);
+      setGalleryFolder(res?.folder);
+      setPageTitle(res?.title);
+      setLoading(false);
+      } else {
+      setGalleryImage([])
+    
+      }
+    
+      }).catch((error)=>{
+      
+      console.log(error);
+    
+      })
+    
+    
+      } 
+
     const onDownload = () => {
       // const url = getGalleryImage[current];
       const currentImageObj = getGalleryImage[current];
@@ -101,7 +142,8 @@ function GalleryPage() {
     
   
      useEffect(()=>{
-      fetchdata();
+      // fetchdata();
+      galleryData_Call();
      },[])
 
   return (

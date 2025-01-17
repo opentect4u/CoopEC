@@ -4,49 +4,75 @@ import { useEffect } from 'react'
 import DefaultPage from '../../Components/DefaultPage';
 import RightSidebarGlobal from '../../Components/RightSidebarGlobal';
 import FooterCus from '../../Components/FooterCus';
+import RangeList from '../../Hooks/API/RangeList';
+import Loader from '../../Components/Loader';
 
 function ContactUs() {
 
-    const [getPageData, setPageData] = useState([]);
+    // const [getPageData, setPageData] = useState([]);
+    const [getRangeList, setRangeList] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const { RangeList_Async } = RangeList()
 
-  let pageDataStore = [];
+  // let pageDataStore = [];
 
-  const pageContentData = {
-      pageTitle: 'Contact Us',
-      pageContent: getPageData?.body
-    }
+  // const pageContentData = {
+  //     pageTitle: 'Contact Us',
+  //     pageContent: getPageData?.body
+  //   }
  
 
-  const fetchdata = ()=>{
-    return new Promise((resolve, reject) => {
-    axios.get('https://jsonplaceholder.typicode.com/posts/1',
-    // {},
-    // {
-    //     headers: {
-    //         Authorization: loginData.token,
-    //     },
-    // }
-    ).then(res => {
+  // const fetchdata = ()=>{
+  //   return new Promise((resolve, reject) => {
+  //   axios.get('https://jsonplaceholder.typicode.com/posts/1',
+  //   // {},
+  //   // {
+  //   //     headers: {
+  //   //         Authorization: loginData.token,
+  //   //     },
+  //   // }
+  //   ).then(res => {
 
-    if(res.status == '200'){
-    pageDataStore = res.data
-    setPageData(pageDataStore)
-    resolve(res.data);
-    console.log(pageDataStore.title, 'ddddddd' , res);
+  //   if(res.status == '200'){
+  //   pageDataStore = res.data
+  //   setPageData(pageDataStore)
+  //   resolve(res.data);
+  //   console.log(pageDataStore.title, 'ddddddd' , res);
+  //   }
+  //   }).then(() =>{
+  //   pageDataStore = []
+  //   }).catch(err => {
+  //   console.log(err);
+  //   reject(err); 
+  //   });
+  //   });
+  //  }
+
+   const RangeList_Call = async ()=>{
+		await RangeList_Async().then((res)=>{
+
+    if(res.suc > 0){
+    setRangeList(res?.msg);
+    setLoading(false)
+    console.log(res?.msg, 'resresresresresres');
+
+    } else {
+    setRangeList([])
+    setLoading(false)
     }
-    }).then(() =>{
-    pageDataStore = []
-    }).catch(err => {
-    console.log(err);
-    reject(err); 
-    });
-    });
-   }
+	
+		}).catch((error)=>{
+		
+		console.log(error);
+		})
+
+		}
 
   
 
    useEffect(()=>{
-    fetchdata();
+    RangeList_Call();
+    // fetchdata();
    },[])
 
   return (
@@ -85,6 +111,28 @@ function ContactUs() {
 
     </div>
     </div>
+
+    {/* <div className='row'>
+    <div className='range_address_main'>
+
+    {loading ?(
+    <Loader align = {'center'} gap = {'middle'} size = {'large'} />
+    ):(
+    <>
+    {getRangeList.map((item, index)=>(
+
+    <div class="col-sm-4 float-left left_sec" key={index}>
+      <div className='range_address'>
+      {item?.address}
+      </div>
+    </div>
+
+    ))}
+    </>
+    )}
+    
+    </div>
+    </div> */}
 
     </div>
     {/* <div class="col-sm-4 float-left">
