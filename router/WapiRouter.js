@@ -2,13 +2,31 @@ const express = require("express");
 const axios = require("axios");
 const os = require("os");
 const path = require("path");
+const crypto = require('crypto');
 //const jwt = require('jsonwebtoken');
 const { db_Select, db_Insert } = require("../modules/MasterModule");
 WapiRouter = express.Router();
 var moment = require("moment");
+const apiauthtoken = 'c299cf0ae55ac8a2e3932b65fe5f08538962c5114b0f7d5680db8193eb2d3116';
+const checkAPIAuth = async (req, res, next) => {
+  var auth_key = req.header('auth_key')
+  if (auth_key) {
+      try{
+          if(auth_key == apiauthtoken)
+          next()
+      }catch(err){
+          // console.log(err);
+          res.send({suc: 201, msg: 'Please enter current auth token'})
+      }
+  } else {
+      res.send({suc: 201, msg: 'Please enter current auth token'})
+  }
+}
+
 
 //   ****    Get District list   ***  //
 WapiRouter.post("/distlist", async (req, res) => {
+  
   var select = "*",
     table_name = "md_district",
     where = null,
@@ -26,55 +44,26 @@ WapiRouter.post("/distlist", async (req, res) => {
     res.send(result);
   }
 });
-// WapiRouter.get('/get_json_web_token', async(req, res) => {
-//   let jwtSecretKey = 'T%&#$%*J(^9$&';
-//   let data = {
-//       _tokenid: 'HUY2*$45',
-//   }
-//   const token = jwt.sign(data, jwtSecretKey);
-//   result = { token_: token };
-//   res.send(token);
-// });
-//   WapiRouter.post("/validateToken", (req, res) => {
-//     // Tokens are generally passed in header of request
-//     // Due to security reasons.
-//     var data = req.body;
-//     let jwtSecretKey = 'T%&#$%*J(^9$&';
-//     try {
-//         const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfdG9rZW5pZCI6IkhVWTIqJDQ1IiwiaWF0IjoxNzMyMDk0NDk0fQ.pevrFtmB-mdzG8pBJD-foS4PhUDa03XeumcRiPT7XLs';
-//         const verified = jwt.verify(token, jwtSecretKey);
-//         if (verified) {
-//             res.send("Successfully Verified");
-//         } else {
-//             // Access Denied
-//             res.send("Access Denied");
-//         }
-//     } catch (error) {
-//         // Access Denied
-//         res.send("Access Denied");
-//     }
-// });
 
 //   ****    Get Range list using District id   ***  //
-WapiRouter.post("/rangelist", async (req, res) => {
-  var data = req.body;
-  var select = "range_id,range_name",
-    table_name = "md_range",
-    where = `dist_id='${data.dist_id}' `,
-    order = null;
-  var res_dt = await db_Select(select, table_name, where, order);
-
-  if (res_dt.suc > 0) {
-    if (res_dt.msg.length > 0) {
-      res.send({ suc: 1, status: "Data found", msg: res_dt.msg });
-    } else {
-      result = { suc: 0, status: "Data no found", msg: res_dt, data: req.body };
-      res.send(result);
-    }
-  } else {
-    result = { suc: 0, status: "Fail", msg: req.body };
-    res.send(result);
-  }
+WapiRouter.post("/rangelist",checkAPIAuth, async (req, res) => {
+      var data = req.body;
+      var select = "range_id,range_name",
+        table_name = "md_range",
+        order = null;
+         //where = `dist_id='${data.dist_id}' `,
+        var res_dt = await db_Select(select, table_name, null, order);
+      if (res_dt.suc > 0) {
+        if (res_dt.msg.length > 0) {
+          res.send({ suc: 1, status: "Data found", msg: res_dt.msg });
+        } else {
+          result = { suc: 0, status: "Data no found", msg: res_dt, data: req.body };
+          res.send(result);
+        }
+      } else {
+        result = { suc: 0, status: "Fail", msg: req.body };
+        res.send(result);
+      }
 });
 
 //   ****    Get Soc Type list using   ***  //
@@ -98,7 +87,7 @@ WapiRouter.post("/sotypelist", async (req, res) => {
   }
 });
 
-WapiRouter.post("/societysearch", async (req, res) => {
+WapiRouter.post("/societysearch",checkAPIAuth,async (req, res) => {
   try {
     var formdata = req.body;
     const select =
