@@ -295,16 +295,19 @@
       <!-- <a href="#" class="heading_link">Details</a> -->
         </div>
     </div>
-  <div class="col-sm-12 class_chart">
+  <!-- <div class="col-sm-12 class_chart">
 
   <div class="stockPointSecTitle_cus_half">
-   <h2 >Types of Societies in <span id="divname" >ALL Range</span> For <span id="crtauthname" > REGISTRAR OF CO-OPERATIVE SOCIETIES</span> </h2>
+   <h2 >Types of Societies in <span id="divname" >ALL Range</span> For <span id="crtauthname" > REGISTRAR OF CO-OPERATIVE SOCIETIES</span> </h2> -->
 <!--			<a href="#" class="heading_link">Details</a>-->
-  </div>
-  </div>
+  <!-- </div>
+  </div> -->
     
    <div class="col-sm-8 float-left">
-    
+    <div class="stockPointSecTitle_cus_half">
+      <h2 >Types of Societies in <span id="divname" >ALL Range</span> For <span id="crtauthname" > REGISTRAR OF CO-OPERATIVE SOCIETIES</span> </h2>
+   <!--			<a href="#" class="heading_link">Details</a>-->
+     </div>
       <div class="bloxkSec">
         <div class="range_1">
           <div class="bloxkSec_scroll" id="item-list">
@@ -315,9 +318,14 @@
         </div>
 
         <div class="col-sm-4 float-left">
+          <div class="stockPointSecTitle_cus_half">
+            <h2 style="height: 20px;"><span id="soc_type_name" > </span></h2>
+         <!--			<a href="#" class="heading_link">Details</a>-->
+           </div>
           <div class="bloxkSec bloxkSec_paiChart" style="height: 315px">
           <!-- <div class="bloxkSec"> -->
             <!-- <div> -->
+              
             <canvas id="pieChart"></canvas>
           <!-- </div> -->
           </div>
@@ -328,6 +336,9 @@
     </div>
   </div>
   <script>
+
+
+
     $('input[name="dist_range"]').on('change', function() {
         if ($(this).val() == 'DISTRICT') {
           var ctrauthid = $('#cntr_auth').val();
@@ -538,21 +549,27 @@
     
   
     if(document.getElementById('election_link').length){
-    document.getElementById('election_link').addEventListener('click', function(event) {
+      document.getElementById('election_link').addEventListener('click', function(event) {
         event.preventDefault(); // Prevent the default anchor behavior
         var range_code= $('#range_code').val();
         this.href = '/dashn/societyelection?range_code='+range_code; // Change the href attribute
         window.location.href = this.href; // Redirect to the new URL
-    });
-  }
-    function calculatePercentage(totSocType) {
-    if (typeof totSocType !== 'number' || isNaN(totSocType)) {
-        return 0; // or handle as appropriate
+      });
     }
-    return ((totSocType / 300) * 100).toFixed(2);
-}
+    function calculatePercentage(totSocType) {
+      if (typeof totSocType !== 'number' || isNaN(totSocType)) {
+          return 0; // or handle as appropriate
+      }
+      return ((totSocType / 300) * 100).toFixed(2);
+    }
+
+    function handleRowClick(due_num, ongoing_num, held_num, soc_type_name) {
+    soc_type_name = soc_type_name
+    pieChartId_click(due_num, ongoing_num, held_num, soc_type_name)
+    }
+
    
-  function barchartsoctype(cntr_auth_id,range_code,rangedist) {
+  function barchartsoctype(cntr_auth_id, range_code,rangedist) {
            
         $.ajax({
           url: '/dashn/get_soctype_detail',
@@ -560,9 +577,11 @@
           data: { range_code: range_code ,cntr_auth_id:cntr_auth_id,rangedist:rangedist},
           beforeSend: function() {
             $('#item-list').html('');
-         
           },
           success: function(response) {
+
+            //pieChartId_click(response.soctype[0].DUE, response.soctype[0].ONGOING, response.soctype[0].HELD, response.soctype[0].soc_type_name);
+
             var soctyplist = response.soctype;
             var divname = response.division_name;
             var ctrauthname = response.ctrauthname;
@@ -590,7 +609,7 @@
                 
                 due_num = (dt.total) - held_num- ongoing_num;
                 // <span class="count_Cus">10</span>
-                      rows += `<div class="range_row">
+                      rows += `<div class="range_row" onclick="handleRowClick(${due_num.toFixed()}, ${ongoing_num.toFixed()}, ${(held_num).toFixed()}, '${dt.soc_type_name}')">
             <label class="range_small"><span class="societies_name">${dt.soc_type_name}</span></label>
             <label class="range_half">
               <span class="barChartMapDue" style="width: ${due_per}%; display: inline-block;" data-toggle="tooltip" title="${due_num.toFixed()}-Due">
@@ -636,33 +655,32 @@ function pieChartId(cntr_auth_id,range_code,rangedist) {
         },
         success: function(response) {
            var soc = response.soctot;
-           var urban_tot = soc.urban_tot ? soc.urban_tot : 0 
-           var rular_tot = soc.rular_tot ? soc.rular_tot : 0 
-           var devauth_tot = soc.devauth_tot ? soc.devauth_tot : 0  
+          //  var urban_tot = soc.urban_tot ? soc.urban_tot : 0 
+          //  var rular_tot = soc.rular_tot ? soc.rular_tot : 0 
+          //  var devauth_tot = soc.devauth_tot ? soc.devauth_tot : 0  
            var six_month_data = response.six_month_data.month_before ? response.six_month_data.month_before : 0
            var three_month_data = response.three_month_data.month_before ? response.three_month_data.month_before : 0 
            var ongoing_tot = response.election_result_data.ongoing_tot ? response.election_result_data.ongoing_tot : 0;
            var completed_tot = response.election_result_data.done_tot ? response.election_result_data.done_tot : 0;
            var due_tot = response.election_result_data.due_tot ? response.election_result_data.due_tot : 0;
        
-           var ctxP = document.getElementById("pieChart").getContext('2d');
+          //  var ctxP = document.getElementById("pieChart").getContext('2d');
            var ctxP_1 = document.getElementById("pieChart_1").getContext('2d');
        
-            var myPieChart = new Chart(ctxP, {
-              // type: 'pie',
-              type: 'doughnut',
-              data: {
-                labels: ["Rural Mapping", "Urban Mapping", "Development Authority"],
-                datasets: [{
-                  data: [rular_tot, urban_tot, devauth_tot],
-                  backgroundColor: ["#4747a1", "#eb5437", "#43a8d9"],
-                  hoverBackgroundColor: ["#4e4ec8", "#ce2a0b", "#23b3f9"]
-                }]
-              },
-              options: {
-                responsive: true
-              }
-            });
+            // var myPieChart = new Chart(ctxP, {
+            //   type: 'doughnut',
+            //   data: {
+            //     labels: ["Rural Mapping", "Urban Mapping", "Development Authority"],
+            //     datasets: [{
+            //       data: [rular_tot, urban_tot, devauth_tot],
+            //       backgroundColor: ["#4747a1", "#eb5437", "#43a8d9"],
+            //       hoverBackgroundColor: ["#4e4ec8", "#ce2a0b", "#23b3f9"]
+            //     }]
+            //   },
+            //   options: {
+            //     responsive: true
+            //   }
+            // });
 
            var myPieChart1 = new Chart(ctxP_1, {
             // type: 'pie',
@@ -689,6 +707,34 @@ function pieChartId(cntr_auth_id,range_code,rangedist) {
       });
     }
 
+    function pieChartId_click(due_num, ongoing_num, held_num, soc_type_name) {
+
+    var due_num_ = 0;
+    var ongoing_num_ = 0;
+    var held_num_ = 0;
+
+    due_num_ = due_num
+    ongoing_num_ = ongoing_num
+    held_num_ = held_num
+
+    $('#soc_type_name').html('Societies Data Of ' + soc_type_name);
+    var ctxP = document.getElementById("pieChart").getContext('2d');
+    var myPieChart = new Chart(ctxP, {
+      type: 'doughnut',
+      data: {
+        labels: ["Due " +'('+ due_num_+')', "Ongoing " +'('+ ongoing_num_+')', "Held " +'('+ held_num_+')'],
+        datasets: [{
+          data: [due_num_, ongoing_num_, held_num_],
+          backgroundColor: ["#EF190D", "#F2C617", "#8FA63E"],
+          hoverBackgroundColor: ["#df554e", "#dfc14a", "#aec853"]
+        }]
+      },
+      options: {
+        responsive: true,
+      }
+    });
+    console.log(myPieChart.config.data.datasets[0].data, 'xxxxxxxxxxxx');
+  }
 
    //Select all the elements with the class 'crossLink'
     document.querySelectorAll('.crossLink').forEach(function(closeButton) {
@@ -702,11 +748,18 @@ function pieChartId(cntr_auth_id,range_code,rangedist) {
         }
       });
     });
+
+
     
   </script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
   <script>
+
+// window.addEventListener('load', function () {
+//   console.log(new_soctypeAray, 'xxxxxxxxxxxx');
+//   // pieChartId_click(150, 250, 320)
+// });
  
     $(document).ready(function() {
       $('.crossLink').click(function() {

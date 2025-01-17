@@ -302,16 +302,19 @@
       <!-- <a href="#" class="heading_link">Details</a> -->
         </div>
     </div>
-  <div class="col-sm-12 class_chart">
-
-  <div class="stockPointSecTitle_cus_half">
-   <h2 >Types of Societies of <span id="divname">ALL Range</span></h2>
-<!--			<a href="#" class="heading_link">Details</a>-->
-  </div>
-  </div>
+    <div class="col-sm-8 class_chart">
+        <div class="stockPointSecTitle_cus_half">
+          <h2 >Types of Societies of <span id="divname">ALL Range</span></h2>
+        </div>
+    </div>
+    <div class="col-sm-3 class_chart">
+      <div class="stockPointSecTitle_cus_half">
+        <h2><span id="soc_type_name" > </span></h2>
+      </div>
+     </div>
+    
     
    <div class="col-sm-8 float-left">
-    
       <div class="bloxkSec">
         <div class="range_1">
           <div class="bloxkSec_scroll" id="item-list">
@@ -322,11 +325,9 @@
         </div>
 
         <div class="col-sm-4 float-left">
+          <!-- <h2 ><span id="soc_type_name" > </span></h2> -->
           <div class="bloxkSec bloxkSec_paiChart" style="height: 315px">
-          <!-- <div class="bloxkSec"> -->
-            <!-- <div> -->
             <canvas id="pieChart"></canvas>
-          <!-- </div> -->
           </div>
         </div>
 
@@ -551,7 +552,38 @@
     }
     return ((totSocType / 300) * 100).toFixed(2);
 }
-   
+  function handleRowClick(due_num, ongoing_num, held_num, soc_type_name) {
+    soc_type_name = soc_type_name
+    pieChartId_click(due_num, ongoing_num, held_num, soc_type_name)
+  }
+  function pieChartId_click(due_num, ongoing_num, held_num, soc_type_name) {
+
+  var due_num_ = 0;
+  var ongoing_num_ = 0;
+  var held_num_ = 0;
+
+  due_num_ = due_num
+  ongoing_num_ = ongoing_num
+  held_num_ = held_num
+
+  $('#soc_type_name').html('Societies Data Of ' + soc_type_name);
+  var ctxP = document.getElementById("pieChart").getContext('2d');
+  var myPieChart = new Chart(ctxP, {
+    type: 'doughnut',
+    data: {
+      labels: ["Due " +'('+ due_num_+')', "Ongoing " +'('+ ongoing_num_+')', "Held " +'('+ held_num_+')'],
+      datasets: [{
+        data: [due_num_, ongoing_num_, held_num_],
+        backgroundColor: ["#EF190D", "#F2C617", "#8FA63E"],
+        hoverBackgroundColor: ["#df554e", "#dfc14a", "#aec853"]
+      }]
+    },
+    options: {
+      responsive: true,
+    }
+  });
+  console.log(myPieChart.config.data.datasets[0].data, 'xxxxxxxxxxxx');
+  }
   function barchartsoctype(cntr_auth_id,range_code,rangedist) {
            
         $.ajax({
@@ -567,19 +599,19 @@
             var divname = response.division_name;
             let rows = '';
              if(soctyplist.length > 0){
-                var range = 5000 ;
+                var range = 4000 ;
               var i = 1
               var due_per=0;var due_num=0,ongoing_num,ongoing_per =0,held_per,held_num;
               soctyplist.forEach(dt => { 
                 if(dt.ONGOING > 0){
-                  ongoing_per = (dt.ONGOING/100).toFixed();
+                  ongoing_per = ((dt.ONGOING/dt.total)*100).toFixed();
                   ongoing_num = dt.ONGOING;
                 }else{
                   ongoing_per = 0;
                   ongoing_num = 0;
                 }
                 if(dt.HELD > 0){
-                  held_per = (dt.HELD/100).toFixed();
+                  held_per = ((dt.HELD/dt.total)*100).toFixed();
                   held_num = dt.HELD;
                 }else{
                   held_per = 0;
@@ -589,7 +621,7 @@
                 
                 due_num = (dt.total) - held_num- ongoing_num;
                 // <span class="count_Cus">10</span>
-                      rows += `<div class="range_row">
+                      rows += `<div class="range_row" onclick="handleRowClick(${due_num.toFixed()}, ${ongoing_num.toFixed()}, ${(held_num).toFixed()}, '${dt.soc_type_name}')">
             <label class="range_small"><span class="societies_name">${dt.soc_type_name}</span></label>
             <label class="range_half">
               <span class="barChartMapDue" style="width: ${due_per}%; display: inline-block;" data-toggle="tooltip" title="${due_num.toFixed()}-Due">
@@ -633,34 +665,33 @@ function pieChartId(cntr_auth_id,range_code,rangedist) {
         },
         success: function(response) {
            var soc = response.soctot;
-           var urban_tot = soc.urban_tot ? soc.urban_tot : 0 
-           var rular_tot = soc.rular_tot ? soc.rular_tot : 0 
-           var devauth_tot = soc.devauth_tot ? soc.devauth_tot : 0  
+         //  var urban_tot = soc.urban_tot ? soc.urban_tot : 0 
+          // var rular_tot = soc.rular_tot ? soc.rular_tot : 0 
+          // var devauth_tot = soc.devauth_tot ? soc.devauth_tot : 0  
            var six_month_data = response.six_month_data.month_before ? response.six_month_data.month_before : 0
            var three_month_data = response.three_month_data.month_before ? response.three_month_data.month_before : 0 
            var ongoing_tot = response.election_result_data.ongoing_tot ? response.election_result_data.ongoing_tot : 0;
            var completed_tot = response.election_result_data.done_tot ? response.election_result_data.done_tot : 0;
            var due_tot = response.election_result_data.due_tot ? response.election_result_data.due_tot : 0;
        
-           var ctxP = document.getElementById("pieChart").getContext('2d');
+          // var ctxP = document.getElementById("pieChart").getContext('2d');
            var ctxP_1 = document.getElementById("pieChart_1").getContext('2d');
        
-            var myPieChart = new Chart(ctxP, {
-              // type: 'pie',
-              type: 'doughnut',
-              data: {
-                labels: ["Rural Mapping", "Urban Mapping", "Development Authority"],
-                datasets: [{
-                  data: [rular_tot, urban_tot, devauth_tot],
-                  backgroundColor: ["#4747a1", "#eb5437", "#43a8d9"],
-                  hoverBackgroundColor: ["#4e4ec8", "#ce2a0b", "#23b3f9"]
-                }]
-              },
-              options: {
-                responsive: true
-              }
-            });
-
+            // var myPieChart = new Chart(ctxP, {
+            //   // type: 'pie',
+            //   type: 'doughnut',
+            //   data: {
+            //     labels: ["Rural Mapping", "Urban Mapping", "Development Authority"],
+            //     datasets: [{
+            //       data: [rular_tot, urban_tot, devauth_tot],
+            //       backgroundColor: ["#4747a1", "#eb5437", "#43a8d9"],
+            //       hoverBackgroundColor: ["#4e4ec8", "#ce2a0b", "#23b3f9"]
+            //     }]
+            //   },
+            //   options: {
+            //     responsive: true
+            //   }
+            // });
            var myPieChart1 = new Chart(ctxP_1, {
             // type: 'pie',
             type: 'doughnut',
