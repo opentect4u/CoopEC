@@ -4,7 +4,6 @@ import "./Assets/css/bootstrap.css"
 import "./Assets/css/font-awesome.css"
 import "./Assets/css/res.css"
 // import "./Assets/js/bootstrap.min.js"
-
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
