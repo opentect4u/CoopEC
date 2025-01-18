@@ -41,7 +41,7 @@ const [getFormattedDate, setFormattedDate] = useState([]);
 
 const search = window.location.search;
 const params = new URLSearchParams(search);
-console.log(params)
+console.log(params.get('select_range'), 'params', search)
 
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
@@ -274,7 +274,7 @@ console.log(params)
 console.log(location.state)
 const searchData = location.state? location.state:{select_district:params.get('select_district'),select_range:params.get('select_range'), soc_type_id: 0, socname: ''};
 
-console.log(searchData);
+console.log(searchData, 'searchData');
 
 
 // soc_type_id: searchData.select_type == '' ? 0 : searchData.select_type,
@@ -311,14 +311,14 @@ const districtList = async()=>{
   await axios.post(`${BASE_URL}/wapi/rangelist`,
     {
       auth_key:"xxxxx",
-      dist_id: districValue
+      // dist_id: districValue
     }
-    // ,
-    // {
-    //     headers: {
-    //         Authorization: loginData.token,
-    //     },
-    // }
+    ,
+      {
+          headers: {
+            auth_key: 'c299cf0ae55ac8a2e3932b65fe5f08538962c5114b0f7d5680db8193eb2d3116',
+          },
+      }
     ).then(res => {
 
     if(res.status == '200'){
@@ -336,24 +336,43 @@ const districtList = async()=>{
 
  const searchDataFn = ()=>{
 
+  console.log({
+    auth_key:"xxxxx",
+    dist_id: searchData.select_district,
+    range_code: searchData.select_range,
+    soc_type_id: searchData.select_type == '' ? 0 : searchData.select_type,
+    socname: searchData.society_Name == '' ? '' : searchData.society_Name,
+    div_type: searchData?.filterOption
+  }, 'searchData');
+
   axios.post(`${BASE_URL}/wapi/societysearch`,
     {
       auth_key:"xxxxx",
       dist_id: searchData.select_district,
       range_code: searchData.select_range,
       soc_type_id: searchData.select_type == '' ? 0 : searchData.select_type,
-      socname: searchData.society_Name == '' ? '' : searchData.society_Name
+      socname: searchData.society_Name == '' ? '' : searchData.society_Name,
+      div_type: searchData?.filterOption
     }
-    // ,
+
     // {
-    //     headers: {
-    //         Authorization: loginData.token,
-    //     },
-    // }
+    //   "auth_key":"xxxxx",
+    //   "dist_id":"0",
+    //   "range_code":"0",
+    //   "soc_type_id":"0",
+    //   "socname":"",
+    //   "div_type":"dist/range"
+    //   }
+    ,
+    {
+        headers: {
+          auth_key: "c299cf0ae55ac8a2e3932b65fe5f08538962c5114b0f7d5680db8193eb2d3116",
+        },
+    }
     ).then(res => {
 
       if(res.status == '200'){
-        console.log(res, 'ffffffff', res?.data?.msg.length);
+        console.log(res, 'searchData', res?.data?.msg.length);
         
         if(res.data.suc > 0){
             setPageData(res?.data?.msg)
@@ -451,7 +470,7 @@ const districtList = async()=>{
     <div className="wrapper">
     <div className="inner_page_Sec">
     <div className='col-sm-12 searchPageTop'>
-    <SearchBox district_def_Valu = {searchData.select_district}  range_def_Valu = {searchData.select_range} type_def_Valu = {searchData.select_type} soci_Name_def_Valu = {searchData.society_Name} />
+    <SearchBox district_def_Valu = {searchData.select_district}  range_def_Valu = {searchData.select_range} type_def_Valu = {searchData.select_type} soci_Name_def_Valu = {searchData.society_Name} radioBtn_Valu = {searchData.filterOption}/>
     </div>
     <div className="col-sm-12 left_sec search_data_table">
 
