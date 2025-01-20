@@ -11,6 +11,7 @@
               <% if(user.user_type == 'S'){ %>
                 <label for="exampleInputName1">Controlling Authority<span class="red">*</span></label>
                 <select name="cntr_auth_type" class="form-control" required> 
+                  <option value="0">All</option>
                   <%  crtauthlists.forEach(dt => { %>
                     <option value="<%= dt.controlling_authority_type_id %>"  ><%= dt.controlling_authority_type_name %></option>
                     <% })  %>
