@@ -379,7 +379,7 @@ DashboardRouter.get("/socLimitList", async (req, res) => {
     req.query.zone_code > 0 ? ` AND a.zone_code=${req.query.zone_code} ` : "";
   if(req.session.user.user_type == 'S'){
         var range_code = '';
-        var con1 =``;
+        var con1 =req.query.cntr_auth_type > 0 ? ` AND a.cntr_auth_type=${req.query.cntr_auth_type} ` : "";
   }else {
     if(cntr_auth_type == 1){
       var range_code =
