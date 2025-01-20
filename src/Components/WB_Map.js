@@ -63,6 +63,7 @@ const navigation = useNavigate();
 
 const onSubmit = (values, rangeName) => {
 
+  
   // district_def_value = formik.values.select_district; 
   // range_def_value = formik.values.select_range; 
   // type_def_value = formik.values.select_type;
@@ -89,24 +90,25 @@ console.log(mapViewData,'mapdata')
 
     console.log(districValue, 'kkkkkkkkkkkkkkkk');
     
-    await axios.post(`${BASE_URL}/wapi/getsoctypegrouplist`,
+    // await axios.post(`${BASE_URL}/wapi/getsoctypegrouplist`,
+    await axios.post(`${BASE_URL}/wapi/getsoctypegrlistdistwise`,  
       {
         auth_key:"xxxxx",
         dist_id: districValue
       }
-      // ,
-      // {
-      //     headers: {
-      //         Authorization: loginData.token,
-      //     },
-      // }
+      ,
+      {
+          headers: {
+            auth_key: "c299cf0ae55ac8a2e3932b65fe5f08538962c5114b0f7d5680db8193eb2d3116",
+          },
+      }
       ).then(res => {
   
       if(res.status == '200'){
       if(res.data.suc > 0){
         setDistDataStore(res?.data?.msg)
         setLoading_Map(false);
-        console.log('getRangeList', res?.data);
+        console.log('getRangeList__________________', res?.data?.msg);
       }
   
       }
@@ -139,10 +141,6 @@ console.log(mapViewData,'mapdata')
         setDistricContent(district)
         // console.log(district, 'jjjjj', event, 'ggg', event.target.id);
         getDistrictData(district.dist_code)
-
-        
-        
-        
       }
       
     });
@@ -534,24 +532,33 @@ console.log(mapViewData,'mapdata')
 {/* <pre>{JSON.stringify(getDistricContent, null, 2)} oooooooo () </pre>
 dddddddddddd
 <pre>{JSON.stringify(getDistDataStore.length, null, 2)} oooooooo () </pre> */}
-      {getDistDataStore.length != 0 ? (
+
+      {getDistDataStore?.soccdata?.dist_data?.length != 0 ? (
         <>
         <h4>{getDistricContent?.dist_name}</h4>
         
         <div className="range_group">
 
-        <Tabs defaultActiveKey="1" animated>
-          {getDistDataStore?.range1?.range_data.length > 0 && (
-            <TabPane tab={
-              <>{getDistDataStore?.range1?.range_name} 
-                <strong> ({getDistDataStore?.range1?.range_tot})</strong>
-              </>
-            } key="1"> 
+        {/* <Tabs defaultActiveKey="1" animated> */}
+          
+        {/* <pre>{JSON.stringify(getDistDataStore?.soccdata?.dist_data[0], null, 2)} oooooooo () </pre> */}
+
+        {/* <pre>{JSON.stringify(getDistDataStore?.soccdata?.dist_data.length, null, 2)} oooooooo () </pre> */}
+          {/* {getDistDataStore?.soccdata?.dist_data.length > 0 && ( */}
+            {/* // <TabPane tab={
+            //   <>
+            //   {getDistDataStore?.range1?.range_name} 
+            //     <strong> ({getDistDataStore?.range1?.range_tot})</strong>
+            //   </>
+            // } key="1">  */}
+
+            {/* <TabPane key="1" tab=""> */}
               <div className="range_1">
+                
                 {/* <label className="rangeName">
                   {getDistDataStore?.range1?.range_name} <strong>({getDistDataStore?.range1?.range_tot})</strong>
                 </label> */}
-                {getDistDataStore?.range1?.range_data.map((item, index) => (
+                {getDistDataStore?.soccdata?.dist_data.map((item, index) => (
                   <div className="range_row" key={index}>
                     <label className="range_small">
                       <span className="societies_name">{item?.soc_type_name}</span>
@@ -573,24 +580,22 @@ dddddddddddd
                   </div>
                 ))}
                 <Link 
-                  onClick={() => onSubmit(getDistricContent?.dist_code, getDistDataStore?.range1?.range_code)} 
+                  onClick={() => onSubmit(getDistricContent?.dist_code, getDistricContent?.dist_name)} 
                   style={{ cursor: "pointer", color: "blue", textDecoration: "underline" }}
                 >
                   View 
                   {/* {getDistricContent.dist_code} {getDistDataStore?.range1?.range_code} */}
                 </Link>
               </div>
-            </TabPane>
-          )}
+            {/* </TabPane> */}
+          {/* // )} */}
         
-          {getDistDataStore?.range2?.range_data.length > 0 && (
+          {/* {getDistDataStore?.range2?.range_data.length > 0 && (
             <TabPane tab={<>
             {getDistDataStore?.range2?.range_name} <strong>({getDistDataStore?.range2?.range_tot})</strong>
             </>} key="2">
               <div className="range_2">
-                {/* <label>
-                  {getDistDataStore?.range2?.range_name} <strong>({getDistDataStore?.range2?.range_tot})</strong>
-                </label> */}
+             
                 {getDistDataStore?.range2?.range_data.map((item, index) => (
                   <div className="range_row" key={index}>
                     <label className="range_small">
@@ -617,12 +622,11 @@ dddddddddddd
                   style={{ cursor: "pointer", color: "blue", textDecoration: "underline" }}
                 >
                   View 
-                  {/* {getDistricContent.dist_code} {getDistDataStore?.range2?.range_code} */}
                 </Link>
               </div>
             </TabPane>
-          )}
-        </Tabs>
+          )} */}
+        {/* </Tabs> */}
         </div>
         </>
       ) : (

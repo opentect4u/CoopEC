@@ -199,7 +199,7 @@ width: 100%; padding:0;}
   font-size: 11px;
   position: absolute;
   left: 0;
-  top: -19px;
+  top: -22px;
   font-weight: 700;}
 .search_box label.btn{width: 100%; display: block; margin-bottom: 0; padding: 0;}
 .search_box label select{background: #fff; font-size: 13px; color: #343535; border: none; padding:13px 12px; width: 100%;}
@@ -1471,7 +1471,7 @@ border-radius: 6px;}
   box-shadow: 0px 0px 10px 2px #ccc;}
 
   .radio_button_ranDis{display: flex; align-items: center; color: #fff;}
-  .radio_button_ranDis label{margin-bottom: 10px; display: flex;}
+  .radio_button_ranDis label{margin-bottom: 24px; display: flex;}
   .radio_button_ranDis label input{margin-right: 6px; width: 30px;}
 
 

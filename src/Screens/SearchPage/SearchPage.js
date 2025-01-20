@@ -41,7 +41,7 @@ const [getFormattedDate, setFormattedDate] = useState([]);
 
 const search = window.location.search;
 const params = new URLSearchParams(search);
-console.log(params.get('select_range'), 'params', search)
+console.log(params.get('select_range'), 'paramsuuuuuuuuuuuuuuuuuuuuuuu', search)
 
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
@@ -274,7 +274,8 @@ console.log(params.get('select_range'), 'params', search)
 console.log(location.state)
 const searchData = location.state? location.state:{select_district:params.get('select_district'),select_range:params.get('select_range'), soc_type_id: 0, socname: ''};
 
-console.log(searchData, 'searchData');
+// console.log(searchData, 'searchDataoooooooooooooooooooooooooooo');
+console.log('dododododod', searchData);
 
 
 // soc_type_id: searchData.select_type == '' ? 0 : searchData.select_type,
@@ -296,6 +297,8 @@ const districtList = async()=>{
     if(res.status == '200'){
     if(res.data.suc > 0){
       setDistrictList(res?.data?.msg)
+      console.log(res?.data?.msg, 'dododododod');
+      
     }
 
     }
@@ -474,7 +477,10 @@ const districtList = async()=>{
     </div>
     <div className="col-sm-12 left_sec search_data_table">
 
-    <h1 className='search_page'>List of Cooperative Societies in {getRangeList} &nbsp; <strong> ({getPageData.length})</strong>
+    <h1 className='search_page'>List of Cooperative Societies in 
+      {/* {getRangeList} */}
+      &nbsp;{ getPageData[0]?.dist_name}
+       &nbsp; <strong> ({getPageData.length})</strong>
       <button onClick={exportPdfHandler} className='excelDownload'><img src={`${excel}`} alt="" /></button>
     </h1>
 

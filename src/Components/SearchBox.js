@@ -19,22 +19,32 @@ const initialValues = {
 };
 
 const validationSchema = Yup.object({
-  // select_district: Yup.string().required('Required'),
-  // filterOption: Yup.string().required('Please select either District or Range'),
-  // select_district: Yup.string().when('filterOption', {
-  //   is: 'range', // If filterOption is 'range'
-  //   then: Yup.string().required('Select District is required when Range is selected'),
-  //   otherwise: Yup.string(), // Not required otherwise
+  filterOption: Yup.string().required('Please select either District or Range'),
+  select_district: Yup.string().when('filterOption', {
+    is: 'district', // If filterOption is 'range'
+    then: () => Yup.string().required('Select District is Required'),
+    otherwise: () => Yup.string(), // Not required otherwise
+  }),
+  select_range: Yup.string().when('filterOption', {
+    is: 'range', // If filterOption is 'district'
+    then: () => Yup.string().required('Select Range is Required'),
+    otherwise: () => Yup.string(), // Not required otherwise
+  }),
+
+  // packing_forwarding_extra: Yup.string().when("packing_forwarding_val", {
+  //   is: "E",
+  //   then: () =>
+  //     Yup.number()
+  //       .required("Extra is required!")
+  //       .min(0.0000000000000001, "Please enter a non-zero positive input!"),
+  //   otherwise: () => Yup.string(),
   // }),
-  // select_range: Yup.string().when('filterOption', {
-  //   is: 'district', // If filterOption is 'district'
-  //   then: Yup.string().required('Select Range is required when District is selected'),
-  //   otherwise: Yup.string(), // Not required otherwise
-  // }),
-  select_district: Yup.string(),
-  select_range: Yup.string(),
-  select_type: Yup.string(),
-  society_Name: Yup.string(),
+
+  // select_district: Yup.string().required('ddddddddd'),
+  // select_district: Yup.string(),
+  // select_range: Yup.string(),
+  // select_type: Yup.string(),
+  // society_Name: Yup.string(),
 });
 
 
@@ -145,15 +155,17 @@ function SearchBox({district_def_Valu, range_def_Valu, type_def_Valu, soci_Name_
 const navigation = useNavigate();
 
 const onSubmit = (values) => {
+  console.log(values, 'valuesvaluesvaluesvaluesvalues');
+  
   navigation('/search', { state: values});
   // alert('go')
 };
 
 useEffect(()=>{
   if(getRadioValue == 'range'){
-    formik.setFieldValue("select_district", "0");
+    formik.setFieldValue("select_district", "");
   } else if (getRadioValue == 'district'){
-    formik.setFieldValue("select_range", "0");
+    formik.setFieldValue("select_range", "");
   }
           // setRadioValue(e.target.value)
 }, [getRadioValue])
@@ -213,6 +225,7 @@ useEffect(()=>{
         }}
   
       />
+      {/* <div className="required">{formik.values.filterOption}</div> */}
       <span class="checkmark"></span>
       District
     </label>
@@ -248,7 +261,7 @@ useEffect(()=>{
       // value={district_def_Valu && formik.values.select_district === '' ? district_def_Valu : formik.values.select_district}
     >
       
-      <option value='0'>Select District  </option>
+      <option value=''>Select District  </option>
       {getDistrictList?.map((option) => ( 
         <option key={option.dist_name} value={option.dist_code}>
           {option.dist_name}
@@ -282,10 +295,10 @@ useEffect(()=>{
       >
 
       {getRangeList.length < 1 ? (
-          <option value='0'>No ranges available </option>
+          <option value=''>No ranges available </option>
         ) : (
           <>
-          <option value='0'>Select Range </option>
+          <option value=''>Select Range </option>
           <Loader align = {'center'} gap = {'middle'} size = {'small'} />
             {getRangeList.map((option) => (
               <option key={option.range_name} value={option.range_id}>
@@ -300,7 +313,10 @@ useEffect(()=>{
 
       
       {formik.errors.select_range && formik.touched.select_range && (
-        <div className="required">{formik.errors.select_range}</div>
+        <div className="required">{formik.errors.select_range}
+        
+        
+        </div>
       )}
 
 
@@ -386,7 +402,7 @@ useEffect(()=>{
             value= {formik.values.select_type}
             // value={type_def_Valu && formik.values.select_type === '' ? type_def_Valu : formik.values.select_type}
           >
-            <option value='0'>Select Society Type</option>
+            <option value=''>Select Society Type</option>
             {getSocietyType.map((option) => (
               <option key={option.soc_type_name} value={option.soc_type_id}>
                 {option.soc_type_name}
