@@ -46,105 +46,157 @@ WapiRouter.post("/distlist", async (req, res) => {
   }
 });
 
-//   ****    Get Range list using District id   ***  //
-WapiRouter.post("/rangelist",checkAPIAuth, async (req, res) => {
-      var data = req.body;
-      var select = "range_id,range_name",
-        table_name = "md_range",
-        order = null;
-         //where = `dist_id='${data.dist_id}' `,
-        var res_dt = await db_Select(select, table_name, null, order);
-      if (res_dt.suc > 0) {
-        if (res_dt.msg.length > 0) {
-          res.send({ suc: 1, status: "Data found", msg: res_dt.msg });
+  //   ****    Get Range list using District id   ***  //
+  WapiRouter.post("/rangelist",checkAPIAuth, async (req, res) => {
+        var data = req.body;
+        var select = "range_id,range_name",
+          table_name = "md_range",
+          order = null;
+          //where = `dist_id='${data.dist_id}' `,
+          var res_dt = await db_Select(select, table_name, null, order);
+        if (res_dt.suc > 0) {
+          if (res_dt.msg.length > 0) {
+            res.send({ suc: 1, status: "Data found", msg: res_dt.msg });
+          } else {
+            result = { suc: 0, status: "Data no found", msg: res_dt, data: req.body };
+            res.send(result);
+          }
         } else {
-          result = { suc: 0, status: "Data no found", msg: res_dt, data: req.body };
+          result = { suc: 0, status: "Fail", msg: req.body };
           res.send(result);
         }
-      } else {
-        result = { suc: 0, status: "Fail", msg: req.body };
-        res.send(result);
-      }
-});
+  });
 
-//   ****    Get Soc Type list using   ***  //
-WapiRouter.post("/sotypelist", async (req, res) => {
-  var select = "*",
-    table_name = "md_society_type",
-    where = null,
-    order = null;
-  var res_dt = await db_Select(select, table_name, where, order);
+  //   ****    Get Soc Type list using   ***  //
+  WapiRouter.post("/sotypelist", async (req, res) => {
+    var select = "*",
+      table_name = "md_society_type",
+      where = null,
+      order = null;
+    var res_dt = await db_Select(select, table_name, where, order);
 
-  if (res_dt.suc > 0) {
-    if (res_dt.msg.length > 0) {
-      res.send({ suc: 1, status: "Data found", msg: res_dt.msg });
-    } else {
-      result = { suc: 0, status: "Data no found", msg: res_dt, data: req.body };
-      res.send(result);
-    }
-  } else {
-    result = { suc: 0, status: "Fail", msg: req.body };
-    res.send(result);
-  }
-});
-
-WapiRouter.post("/societysearch",checkAPIAuth,async (req, res) => {
-  try {
-    var formdata = req.body;
-    const select =
-      "a.id,a.cop_soc_name,a.last_elec_date,a.tenure_ends_on,a.contact_name,a.contact_designation,a.contact_number,a.email,a.reg_no,a.functional_status,b.soc_type_name,c.dist_name,d.zone_name,e.range_name,f.soc_tier_name";
-    var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id `;
-    var dist =
-      formdata.dist_id > 0 ? `AND a.dist_code=${formdata.dist_id} ` : "";
-    var range =
-      formdata.range_code > 0 ? `AND a.range_code=${formdata.range_code} ` : "";
-    var soc_type =
-      formdata.soc_type_id > 0 ? `AND a.soc_type=${formdata.soc_type_id} ` : "";
-    if (formdata.socname && formdata.socname.trim() !== "") {
-      var socname = `AND a.cop_soc_name LIKE '%${formdata.socname.split("'").join("\\'")}%' `;
-    } else {
-      var socname = "";
-    }
-    //soc_data_status = `AND a.approve_status='A' `;
-
-    var maincon = dist + range + soc_type + socname;
-    var whr = `a.functional_status = 'Functional' AND a.approve_status = 'A' ${maincon}`;
-
-    const order = null;
-    const res_dt = await db_Select(select, table_name, whr, order);
-    const select2 = "COUNT(*) as total";
-    const countResult = await db_Select(select2, table_name, whr, order);
-    var total = countResult.msg[0].total;
-    // const totalPages = Math.ceil(total / 25);
-
-    // Prepare data for rendering
-    // const res_dt = {
-    //   data: result.suc > 0 ? result.msg : '',page: 1,totalPages:totalPages,
-    // };
     if (res_dt.suc > 0) {
       if (res_dt.msg.length > 0) {
-        res.send({
-          suc: 1,
-          status: "Data found",
-          total_soc: total,
-          msg: res_dt.msg,
-        });
+        res.send({ suc: 1, status: "Data found", msg: res_dt.msg });
       } else {
-        result = { suc: 0, status: "Data no found", msg: "" };
+        result = { suc: 0, status: "Data no found", msg: res_dt, data: req.body };
         res.send(result);
       }
     } else {
       result = { suc: 0, status: "Fail", msg: req.body };
       res.send(result);
     }
-  } catch (error) {
-    // Log the error and send an appropriate response
-    console.error("Error during dashboard rendering:", error);
-    //res.status(500).send('An error occurred while loading the dashboard.');
-    result = { suc: 0, status: "Fail", msg: req.body };
-    res.send(result);
-  }
-});
+  });
+
+  WapiRouter.post("/societysearch",checkAPIAuth,async (req, res) => {
+    try {
+      var formdata = req.body;
+      const select =
+        "a.id,a.cop_soc_name,a.last_elec_date,a.tenure_ends_on,a.contact_name,a.contact_designation,a.contact_number,a.email,a.reg_no,a.functional_status,b.soc_type_name,c.dist_name,d.zone_name,e.range_name,f.soc_tier_name";
+      var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id `;
+      var dist =
+        formdata.dist_id > 0 ? `AND a.dist_code=${formdata.dist_id} ` : "";
+      var range =
+        formdata.range_code > 0 ? `AND a.range_code=${formdata.range_code} ` : "";
+      var soc_type =
+        formdata.soc_type_id > 0 ? `AND a.soc_type=${formdata.soc_type_id} ` : "";
+      if (formdata.socname && formdata.socname.trim() !== "") {
+        var socname = `AND a.cop_soc_name LIKE '%${formdata.socname.split("'").join("\\'")}%' `;
+      } else {
+        var socname = "";
+      }
+      //soc_data_status = `AND a.approve_status='A' `;
+
+      var maincon = dist + range + soc_type + socname;
+      var whr = `a.functional_status = 'Functional' AND a.approve_status = 'A' ${maincon}`;
+
+      const order = null;
+      const res_dt = await db_Select(select, table_name, whr, order);
+      const select2 = "COUNT(*) as total";
+      const countResult = await db_Select(select2, table_name, whr, order);
+      var total = countResult.msg[0].total;
+      // const totalPages = Math.ceil(total / 25);
+
+      // Prepare data for rendering
+      // const res_dt = {
+      //   data: result.suc > 0 ? result.msg : '',page: 1,totalPages:totalPages,
+      // };
+      if (res_dt.suc > 0) {
+        if (res_dt.msg.length > 0) {
+          res.send({
+            suc: 1,
+            status: "Data found",
+            total_soc: total,
+            msg: res_dt.msg,
+          });
+        } else {
+          result = { suc: 0, status: "Data no found", msg: "" };
+          res.send(result);
+        }
+      } else {
+        result = { suc: 0, status: "Fail", msg: req.body };
+        res.send(result);
+      }
+    } catch (error) {
+      // Log the error and send an appropriate response
+      console.error("Error during dashboard rendering:", error);
+      //res.status(500).send('An error occurred while loading the dashboard.');
+      result = { suc: 0, status: "Fail", msg: req.body };
+      res.send(result);
+    }
+  });
+
+  WapiRouter.post("/getsoctypegrlistdistwise", checkAPIAuth,async (req, res) => {
+    var formdata = req.body;
+    if(formdata.dist_id > 0){
+      var dist_dtls = await db_Select(
+        "dist_code,dist_name",
+        "md_district",
+        `dist_code = '${formdata.dist_id}' `,
+        null,
+      );
+      var data = {};
+      var order = `order by soc_type_id ASC`;
+        var dist_name = dist_dtls.msg[0].dist_name;
+        var select = `a.range_code,a.soc_type,b.soc_type_name,count(a.cop_soc_name)tot_soc_type,REPLACE(c.dist_name, ' ', '')dist_name`,
+          table_name1 = `md_society a,md_society_type b,md_district c
+        WHERE a.soc_type = b.soc_type_id AND a.dist_code = c.dist_code
+        and a.dist_code = '${formdata.dist_id}' AND a.functional_status = 'Functional' AND a.approve_status = 'A' group by a.range_code,a.soc_type`,
+          where = null;
+        var res_dt1 = await db_Select(select, table_name1, where, order);
+        table_name1_for_tot = `md_society a,md_society_type b,md_district c
+            WHERE a.soc_type = b.soc_type_id AND a.dist_code = c.dist_code AND a.functional_status = 'Functional' AND a.approve_status = 'A'
+            and a.dist_code = '${formdata.dist_id}' `;
+        var dist_tot = await db_Select(
+          `count(*) as tot`,
+          table_name1_for_tot,
+          where,
+          null,
+        );
+        var soccdata = {
+          dist_name: dist_name,
+          dist_code: formdata.dist_id,
+          dist_tot: dist_tot.msg[0].tot,
+          dist_data: res_dt1.msg,
+        };
+        data = { soccdata: soccdata };
+      
+      if (dist_dtls.suc > 0) {
+        if (dist_dtls.msg.length > 0) {
+          res.send({ suc: 1, status: "Data found", msg: data });
+        } else {
+          result = { suc: 0, status: "Data no found", msg: {} };
+          res.send(result);
+        }
+      } else {
+        result = { suc: 0, status: "Fail", msg: req.body };
+        res.send(result);
+      }
+    }else{
+      result = { suc: 0, status: "Fail", msg: 'Send valid District Code' };
+      res.send(result);
+    }
+  });
 
 WapiRouter.post("/getsocgrouplist", async (req, res) => {
   var select = `a.dist_code,b.dist_name,REPLACE(b.dist_name, ' ', '') AS id, SUM(CASE WHEN a.functional_status = 'Functional' THEN 1 ELSE 0 END) AS func_tot, SUM(CASE WHEN a.functional_status = 'Under Liquidation' THEN 1 ELSE 0 END) AS liquidation_tot, SUM(CASE WHEN a.functional_status = 'Non-Functional / Dormant' THEN 1 ELSE 0 END) AS nonfunction_tot`,
@@ -264,6 +316,8 @@ WapiRouter.post("/getsoctypegrouplist", async (req, res) => {
     res.send(result);
   }
 });
+
+
 WapiRouter.post("/getdoclist", async (req, res) => {
   var formdata = req.body;
   var select = `doc_type,doc_title,document`,
