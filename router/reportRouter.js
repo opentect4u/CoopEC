@@ -783,7 +783,7 @@ reportRouter.get("/society_ele_status_download", async (req, res) => {
   try {
   
     var ctr_auth_id = ` AND a.cntr_auth_type='${req.query.ctr_auth_id}' `;
-     if(ctr_auth_id == 1){
+     if(req.query.ctr_auth_id == 1){
       var range =
       req.query.range_code > 0
         ? `AND a.range_code=${req.query.range_code} `
