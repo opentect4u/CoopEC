@@ -709,8 +709,13 @@ reportRouter.post("/society_ele_status_result", async (req, res) => {
       var election_status = ` AND a.election_status = '${postdata.election_status}'`;
       var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' AND a.approve_status = 'A' ${election_status + cntr_auth} AND a.range_code = "${range_code}" `;
     } else {
+      if(cntr_auth_id == 1){
       var select_range =
         range_code > 0 ? `AND a.range_code = '${range_code}'` : "";
+      }else{
+        var select_range =
+        range_code > 0 ? `AND a.dist_code = '${range_code}'` : "";
+      }
       var election_status = ` AND a.election_status = '${postdata.election_status}'`;
       var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id WHERE a.functional_status='Functional' AND a.approve_status = 'A' ${cntr_auth + select_range + election_status} `;
     }
