@@ -112,7 +112,7 @@ reportRouter.get("/election_due_req", async (req, res) => {
       if (range_code > 0) {
         range_name = ranzeres.msg.length > 0 ? ranzeres.msg[0].range_name : '';
       } else {
-        range_name = "ALL Range";
+        range_name = "ALL ";
       }
       if(cntr_auth_type > 0){
         var ctrauthresult = await db_Select("*","md_controlling_authority_type",`controlling_authority_type_id=${cntr_auth_type}`,null);
@@ -167,7 +167,7 @@ reportRouter.get("/election_due_req", async (req, res) => {
 
       const rangeres = await db_Select("*", "md_district", null, null);
       const soctyperes = await db_Select("*", "md_society_type", null, null);
-      var controllingauth = await db_Select("*", "md_controlling_authority_type", `controlling_authority_type_id NOT IN('1')`, null);
+      var controllingauth = await db_Select("*", "md_controlling_authority_type", null, null);
       // Prepare data for rendering
       const res_dt = {
         range_list: rangeres.suc > 0 ? rangeres.msg : "",
@@ -210,7 +210,7 @@ reportRouter.get("/election_due_req", async (req, res) => {
               LEFT JOIN md_controlling_authority g ON a.cntr_auth = g.controlling_authority_id 
               LEFT JOIN md_state st ON a.state_code = st.state_id 
               LEFT JOIN md_ulb_catg ulcat ON a.ulb_catg = ulcat.ulb_catg_id 
-              LEFT JOIN md_ulb ulb ON a.ulb_id = ulb.ulb_catg_id 
+              LEFT JOIN md_ulb ulb ON a.ulb_id = ulb.ulb_id 
               LEFT JOIN md_ward wa ON a.ward_no = wa.ward_id 
               LEFT JOIN md_block mb ON a.block_id = mb.block_id 
               LEFT JOIN md_gp gp ON a.gp_id = gp.gp_id 
@@ -220,7 +220,7 @@ reportRouter.get("/election_due_req", async (req, res) => {
               LEFT JOIN md_zone d ON a.zone_code = d.zone_id 
               LEFT JOIN md_range e ON a.range_code = e.range_id 
               LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id`;
-      var con = `a.functional_status = 'Functional' AND a.approve_status = 'A' AND a.election_status ='DUE'`;
+      var con = `a.functional_status = 'Functional' AND a.approve_status = 'A' AND a.election_status ='DUE' `;
 
       const where = `${con + range + soc_type + cntr_auth_type }`; // Ensure these variables are properly defined
       const res_dt = await db_Select(select, table_name, where, null);
@@ -324,7 +324,7 @@ reportRouter.get("/election_due_req", async (req, res) => {
             LEFT JOIN md_controlling_authority g ON a.cntr_auth = g.controlling_authority_id 
             LEFT JOIN md_state st ON a.state_code = st.state_id 
             LEFT JOIN md_ulb_catg ulcat ON a.ulb_catg = ulcat.ulb_catg_id 
-            LEFT JOIN md_ulb ulb ON a.ulb_id = ulb.ulb_catg_id 
+            LEFT JOIN md_ulb ulb ON a.ulb_id = ulb.ulb_id 
             LEFT JOIN md_ward wa ON a.ward_no = wa.ward_id 
             LEFT JOIN md_block mb ON a.block_id = mb.block_id 
             LEFT JOIN md_gp gp ON a.gp_id = gp.gp_id 
@@ -567,7 +567,7 @@ reportRouter.get("/society_ur_download", async (req, res) => {
           LEFT JOIN md_controlling_authority g ON a.cntr_auth = g.controlling_authority_id 
           LEFT JOIN md_state st ON a.state_code = st.state_id 
           LEFT JOIN md_ulb_catg ulcat ON a.ulb_catg = ulcat.ulb_catg_id 
-          LEFT JOIN md_ulb ulb ON a.ulb_id = ulb.ulb_catg_id 
+          LEFT JOIN md_ulb ulb ON a.ulb_id = ulb.ulb_id 
           LEFT JOIN md_ward wa ON a.ward_no = wa.ward_id 
           LEFT JOIN md_block mb ON a.block_id = mb.block_id 
           LEFT JOIN md_gp gp ON a.gp_id = gp.gp_id 
@@ -814,7 +814,7 @@ reportRouter.get("/society_ele_status_download", async (req, res) => {
           LEFT JOIN md_controlling_authority g ON a.cntr_auth = g.controlling_authority_id 
           LEFT JOIN md_state st ON a.state_code = st.state_id 
           LEFT JOIN md_ulb_catg ulcat ON a.ulb_catg = ulcat.ulb_catg_id 
-          LEFT JOIN md_ulb ulb ON a.ulb_id = ulb.ulb_catg_id 
+          LEFT JOIN md_ulb ulb ON a.ulb_id = ulb.ulb_id
           LEFT JOIN md_ward wa ON a.ward_no = wa.ward_id 
           LEFT JOIN md_block mb ON a.block_id = mb.block_id 
           LEFT JOIN md_gp gp ON a.gp_id = gp.gp_id 
@@ -1878,6 +1878,7 @@ reportRouter.get("/dnlexcel_group_by_dist", async (req, res) => {
                               and  a.range_code = e.range_id
                               and  a.functional_status = 'Functional'
                               and  a.election_status  = 'DUE'
+                              and  a.approve_status  = 'A'
                               ${range_con}
                               AND a.cntr_auth_type  = ${cntr_auth_type}
                               ${soc_type_id}
@@ -1894,6 +1895,7 @@ reportRouter.get("/dnlexcel_group_by_dist", async (req, res) => {
                               and  a.range_code = e.range_id
                               and  a.functional_status = 'Functional'
                               and  a.election_status = 'DUE'
+                              and  a.approve_status  = 'A'
                               ${range_con}
                               AND a.cntr_auth_type  = ${cntr_auth_type}
                               ${soc_type_id}
@@ -1910,6 +1912,7 @@ reportRouter.get("/dnlexcel_group_by_dist", async (req, res) => {
                               and  a.range_code = e.range_id
                               and  a.functional_status = 'Functional'
                               and  a.election_status  = 'ONGOING'
+                              and  a.approve_status  = 'A'
                               ${range_con}
                               AND a.cntr_auth_type  = ${cntr_auth_type}
                               ${soc_type_id}
@@ -1926,6 +1929,7 @@ reportRouter.get("/dnlexcel_group_by_dist", async (req, res) => {
                               and  a.range_code = e.range_id
                               and  a.functional_status = 'Functional'
                               and  a.election_status  = 'DONE'
+                              and  a.approve_status  = 'A'
                               ${range_con}
                               AND a.cntr_auth_type  = ${cntr_auth_type}
                               ${soc_type_id}
@@ -1995,7 +1999,7 @@ reportRouter.get("/dnlexcel_group_by_dist", async (req, res) => {
       }
       const rangeres = await db_Select("*", "md_district", null, null);
       const soctyperes = await db_Select("*", "md_society_type", null, null);
-      var crtauthlist = await db_Select("*", "md_controlling_authority_type", `controlling_authority_type_id NOT IN(1)`, null);
+      var crtauthlist = await db_Select("*", "md_controlling_authority_type", null, null);
       // Prepare data for rendering
       var res_dt = {
         range_list: rangeres.suc > 0 ? rangeres.msg : "",
@@ -2030,10 +2034,10 @@ reportRouter.get("/dnlexcel_group_by_dist", async (req, res) => {
         var range_con =`AND a.dist_code=${range_code} `;
       }
       var soc_type_id = postdata.soc_type > 0 ? `AND a.soc_type=${postdata.soc_type} ` : "";
-      
+      var cntr_auth_con =cntr_auth_type > 0 ? `AND a.cntr_auth_type=${cntr_auth_type} `: "";
       const select =
         "soc_type_id,soc_type_name,sum(total_available)total,sum(DUE)DUE,sum(ONGOING)ONGOING,sum(DONE)HELD";
-      const table_name = `(SELECT b.soc_type_id soc_type_id,b.soc_type_name soc_type_name,COUNT(*) AS total_available, 0 DUE,0 ONGOING,0 DONE FROM md_society a,md_society_type b,md_range e where a.soc_type = b.soc_type_id and  a.range_code = e.range_id and  a.functional_status = 'Functional' ${range_con} AND a.cntr_auth_type  = ${cntr_auth_type}  ${soc_type_id} GROUP BY b.soc_type_id,b.soc_type_name 
+      const table_name = `(SELECT b.soc_type_id soc_type_id,b.soc_type_name soc_type_name,COUNT(*) AS total_available, 0 DUE,0 ONGOING,0 DONE FROM md_society a,md_society_type b,md_range e where a.soc_type = b.soc_type_id and  a.range_code = e.range_id and  a.functional_status = 'Functional' ${range_con} ${cntr_auth_con}  ${soc_type_id} GROUP BY b.soc_type_id,b.soc_type_name 
                                   UNION SELECT b.soc_type_id soc_type_id,
                                     b.soc_type_name soc_type_name,
                                   0 total_available, 
@@ -2045,8 +2049,9 @@ reportRouter.get("/dnlexcel_group_by_dist", async (req, res) => {
                               and  a.range_code = e.range_id
                               and  a.functional_status = 'Functional'
                               and  a.election_status  = 'DUE'
+                              and a.approve_status  = 'A'
                               ${range_con}
-                              AND a.cntr_auth_type  = ${cntr_auth_type}
+                              ${cntr_auth_con}
                               ${soc_type_id}
                               GROUP BY b.soc_type_id,b.soc_type_name
                               UNION
@@ -2061,8 +2066,9 @@ reportRouter.get("/dnlexcel_group_by_dist", async (req, res) => {
                               and  a.range_code = e.range_id
                               and  a.functional_status = 'Functional'
                               and  a.election_status = 'DUE'
+                               and a.approve_status  = 'A'
                               ${range_con}
-                              AND a.cntr_auth_type  = ${cntr_auth_type}
+                              ${cntr_auth_con}
                               ${soc_type_id}
                               GROUP BY b.soc_type_id,b.soc_type_name
                               UNION
@@ -2077,8 +2083,9 @@ reportRouter.get("/dnlexcel_group_by_dist", async (req, res) => {
                               and  a.range_code = e.range_id
                               and  a.functional_status = 'Functional'
                               and  a.election_status  = 'ONGOING'
+                               and a.approve_status  = 'A'
                               ${range_con}
-                              AND a.cntr_auth_type  = ${cntr_auth_type}
+                              ${cntr_auth_con}
                               ${soc_type_id}
                               GROUP BY b.soc_type_id,b.soc_type_name
                               UNION
@@ -2093,8 +2100,9 @@ reportRouter.get("/dnlexcel_group_by_dist", async (req, res) => {
                               and  a.range_code = e.range_id
                               and  a.functional_status = 'Functional'
                               and  a.election_status  = 'DONE'
+                              and a.approve_status  = 'A'
                               ${range_con}
-                              AND a.cntr_auth_type  = ${cntr_auth_type}
+                              ${cntr_auth_con}
                               ${soc_type_id}
                               GROUP BY b.soc_type_id,b.soc_type_name
                                   )a
@@ -2120,12 +2128,18 @@ reportRouter.get("/dnlexcel_group_by_dist", async (req, res) => {
       } else {
         range_name = "ALL District";
       }
+      var controlling_authority_type_name = '';
+      if (postdata.cntr_auth_type > 0) {
+        controlling_authority_type_name = cntr_auth_res.msg[0].controlling_authority_type_name;
+      }else{
+        controlling_authority_type_name = "ALL";
+      }
       // Prepare data for rendering
       const res_dt = {
         data: result.suc > 0 ? result.msg : "",
         page: 1,
         range: postdata.range_id,
-        soc_type: postdata.soc_type,cntr_auth_name:cntr_auth_res.msg[0].controlling_authority_type_name,
+        soc_type: postdata.soc_type,cntr_auth_name:controlling_authority_type_name,
         range_name: range_name,cntr_auth_type:cntr_auth_type,
         socname: "",
         title: title,
@@ -2170,6 +2184,7 @@ reportRouter.get("/dnlexcel_group_by_dist", async (req, res) => {
                               and  a.range_code = e.range_id
                               and  a.functional_status = 'Functional'
                               and  a.election_status  = 'DUE'
+                              and  a.approve_status  = 'A'
                               ${range_con}
                               ${cntr_auth_con}
                               ${soc_type_id}
@@ -2186,6 +2201,7 @@ reportRouter.get("/dnlexcel_group_by_dist", async (req, res) => {
                               and  a.range_code = e.range_id
                               and  a.functional_status = 'Functional'
                               and  a.election_status = 'DUE'
+                              and  a.approve_status  = 'A'
                               ${range_con}
                               ${cntr_auth_con}
                               ${soc_type_id}
@@ -2202,6 +2218,7 @@ reportRouter.get("/dnlexcel_group_by_dist", async (req, res) => {
                               and  a.range_code = e.range_id
                               and  a.functional_status = 'Functional'
                               and  a.election_status  = 'ONGOING'
+                              and  a.approve_status  = 'A'
                               ${range_con}
                               ${cntr_auth_con}
                               ${soc_type_id}
@@ -2218,6 +2235,7 @@ reportRouter.get("/dnlexcel_group_by_dist", async (req, res) => {
                               and  a.range_code = e.range_id
                               and  a.functional_status = 'Functional'
                               and  a.election_status  = 'DONE'
+                              and  a.approve_status  = 'A'
                               ${range_con}
                               ${cntr_auth_con}
                               ${soc_type_id}
@@ -2288,13 +2306,17 @@ reportRouter.get("/dnlexcel_group_by_dist", async (req, res) => {
         range_names = "ALL Range";
       }
      }else{
-      const ranzeres = await db_Select(
-        "*",
-        "md_district",
-        `dist_code=${req.query.range}`,
-        null,
-      );
-      range_names = ranzeres.msg[0].dist_name;
+        const ranzeres = await db_Select(
+          "*",
+          "md_district",
+          `dist_code=${req.query.range}`,
+          null,
+        );
+        if(req.query.range > 0){
+        range_names = ranzeres.msg[0].dist_name;
+        }else{
+          range_names = 'ALL District';
+        }
      }
       // Set response headers for the Excel file
       res.setHeader(

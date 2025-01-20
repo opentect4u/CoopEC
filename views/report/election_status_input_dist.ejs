@@ -12,6 +12,7 @@
                   <% if(user.user_type == 'S') { %>
                   <select name="controlling_authority_type" class="form-control" required> 
                     <option value="">Please Select</option>
+                    <option value="0">ALL</option>
                     <% 
                     controllingauth.forEach(dt => { %>
                     <option value="<%= dt.controlling_authority_type_id %>"><%= dt.controlling_authority_type_name %></option>
@@ -36,7 +37,7 @@
                   <label for="exampleInputName1">District<span class="red">*</span></label>
                   <select name="range_id" class="form-control" required> 
                     <option value="">Please Select</option>
-                    <option value="0">ALL Range</option>
+                    <option value="0">ALL District</option>
                     <% 
                     range_list.forEach(dt => { %>
                     <option value="<%= dt.dist_code %>"><%= dt.dist_name %></option>
