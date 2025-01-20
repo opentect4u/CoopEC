@@ -113,7 +113,7 @@
       <div class="col-sm-6 float-left margin_bot">
         <div class="threeBoxNewSmall box_col_1">
           <div class="threeBoxImg" style="height: 315px; width: 100%;">
-            <canvas id="pieChart_1"></canvas>
+            <!-- <canvas id="pieChart_1"></canvas> -->
           </div>
           <div class="threeBoxTxt">
             <h2> 6 Months</h2>
@@ -320,8 +320,7 @@
         <div class="col-sm-4 float-left">
           <div class="stockPointSecTitle_cus_half">
             <h2 style="height: 20px;"><span id="soc_type_name" > </span></h2>
-         <!--			<a href="#" class="heading_link">Details</a>-->
-           </div>
+          </div>
           <div class="bloxkSec bloxkSec_paiChart" style="height: 315px">
           <!-- <div class="bloxkSec"> -->
             <!-- <div> -->
@@ -686,7 +685,7 @@ function pieChartId(cntr_auth_id,range_code,rangedist) {
             // type: 'pie',
             type: 'doughnut',
             data: {
-            labels: ["6 Months", "3 Months", "Ongoing Elections", "Completed Elections", "Need Action"],
+            labels: ["6 Months ("+ six_month_data+")", "3 Months ("+ three_month_data +")", "Ongoing Elections ("+ ongoing_tot +")", "Completed Elections ("+ completed_tot +")", "Need Action ("+ due_tot +")"],
             datasets: [{
               data: [six_month_data, three_month_data, ongoing_tot, completed_tot, due_tot],
               backgroundColor: ["#f2c617", "#FB8A38", "#EDF1FC", "#8FA63E", "#eb5437"],
@@ -695,8 +694,17 @@ function pieChartId(cntr_auth_id,range_code,rangedist) {
             }]
           },
           options: {
-            responsive: true
-          }
+    responsive: true,
+    plugins: {
+      tooltip: {
+        enabled: false // Completely disable tooltips
+      }
+    },
+    hover: {
+      mode: null // Disable hover mode
+    },
+    events: [] // Disable all mouse events, including hover
+  }
           });
      },
     error: function(err) {
@@ -730,8 +738,17 @@ function pieChartId(cntr_auth_id,range_code,rangedist) {
         }]
       },
       options: {
-        responsive: true,
+    responsive: true,
+    plugins: {
+      tooltip: {
+        enabled: false // Completely disable tooltips
       }
+    },
+    hover: {
+      mode: null // Disable hover mode
+    },
+    events: [] // Disable all mouse events, including hover
+  }
     });
     console.log(myPieChart.config.data.datasets[0].data, 'xxxxxxxxxxxx');
   }
