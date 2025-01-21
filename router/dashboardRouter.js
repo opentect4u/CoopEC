@@ -1097,22 +1097,22 @@ DashboardRouter.get("/society_download", async (req, res) => {
           : "";
     }
     var block =
-      req.query.block_id > 0 ? `AND a.block_id=${req.query.block_id} ` : "";
+      req.query.block_id > 0 ? ` AND a.block_id=${req.query.block_id} ` : "";
 
     var soc_tier =
-      req.query.soc_tier > 0 ? `AND a.soc_tier=${req.query.soc_tier} ` : "";
+      req.query.soc_tier > 0 ? ` AND a.soc_tier=${req.query.soc_tier} ` : "";
     var urban_rural_flag =
       req.query.urban_rural_flag > 0
-        ? `AND a.urban_rural_flag=${req.query.urban_rural_flag} `
+        ? ` AND a.urban_rural_flag=${req.query.urban_rural_flag} `
         : "";
     var soc_type_id =
       req.query.soc_type_id > 0
-        ? `AND a.soc_type=${req.query.soc_type_id}`
+        ? ` AND a.soc_type=${req.query.soc_type_id}`
         : "";
     if (req.query.soc_data_status) {
       var soc_data_status =
         req.query.soc_data_status.length > 0
-          ? `AND a.approve_status= '${req.query.soc_data_status}' `
+          ? ` AND a.approve_status= '${req.query.soc_data_status}' `
           : "";
     } else {
       var soc_data_status = "";
