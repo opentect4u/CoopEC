@@ -843,6 +843,16 @@ SocietyRouter.get("/getsuggestions", async (req, res) => {
           );
         }
     }else{
+          if(req.session.user.user_type == 'S'){
+          var datahres = await db_Select(
+            "cop_soc_name",
+            "md_society",
+            `cop_soc_name LIKE '%${sugname
+              .split("'")
+              .join("\\'")}%'`,
+            null,
+          );
+        }else{
           var datahres = await db_Select(
             "cop_soc_name",
             "md_society",
@@ -851,6 +861,7 @@ SocietyRouter.get("/getsuggestions", async (req, res) => {
               .join("\\'")}%'`,
             null,
           );
+        }
     }
     
 
