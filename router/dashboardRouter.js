@@ -128,6 +128,7 @@ DashboardRouter.get("/dashboard", async (req, res) => {
     const ulbcatgres = await db_Select("*", "md_ulb_catg", null, null);
     const soctierres = await db_Select("*", "md_soc_tier", null, null);
     const soctietype = await db_Select("*", "md_society_type", null, null);
+    const mng_status_list = await db_Select("*", "md_management_status", null, null);
     
     const res_dt = {
       data: result.suc > 0 ? result.msg : "",
@@ -141,6 +142,8 @@ DashboardRouter.get("/dashboard", async (req, res) => {
       soctietypelist: soctietype.suc > 0 ? soctietype.msg : "",
       zonereslist: zoneres.suc > 0 ? zoneres.msg : "",
       distlist: distres.suc > 0 ? distres.msg : "",
+      mng_status_list: mng_status_list.suc > 0 ? mng_status_list.msg : "",
+      manage_status_id: 0,
       cntr_auth_type: 0,
       zone_code: 0,
       dist_code: 0,
@@ -171,11 +174,7 @@ DashboardRouter.post("/dashboard", async (req, res) => {
     const range_id = req.session.user.range_id;
     var cntr_auth = req.session.user.cntr_auth_type;
     var range_or_dist = cntr_auth > 1 ? 'dist_code':'range_code';
-    // if (range_id == 0) {
-    //   const user_type = 1;
-    // } else {
-    //   const user_type = 2;
-    // }
+   
     var formdata = req.body;
     const select =
       "a.id,a.cop_soc_name,a.reg_no,a.functional_status,a.approve_status,b.soc_type_name,c.dist_name,d.zone_name,e.range_name,f.soc_tier_name,g.controlling_authority_type_name";
@@ -236,6 +235,8 @@ DashboardRouter.post("/dashboard", async (req, res) => {
     } else {
       var con10 = "";
     }
+    var management_status =
+    formdata.manage_status_id > 0 ? ` AND a.mgmt_status=${formdata.manage_status_id} ` : "";
     let soc_data_status = "";
 
     if (
@@ -257,6 +258,7 @@ DashboardRouter.post("/dashboard", async (req, res) => {
       con8 +
       con9 +
       con10 +
+      management_status+
       soc_data_status;
     if (range_id > 0) {
       var whr = ` a.${range_or_dist}='${range_id}' ${maincon} order by g.controlling_authority_type_name DESC LIMIT 25`;
@@ -318,6 +320,7 @@ DashboardRouter.post("/dashboard", async (req, res) => {
     const distres = await db_Select("*", "md_district", null, null);
     const soctierres = await db_Select("*", "md_soc_tier", null, null);
     const soctietype = await db_Select("*", "md_society_type", null, null);
+    const mng_status_list = await db_Select("*", "md_management_status", null, null);
     var urban_rural_flag; // Declare the variable first
 
     if (formdata.urban_rural_flag === "U") {
@@ -340,6 +343,8 @@ DashboardRouter.post("/dashboard", async (req, res) => {
       distlist: distres.suc > 0 ? distres.msg : "",
       soctierlist: soctierres.suc > 0 ? soctierres.msg : "",
       soctietypelist: soctietype.suc > 0 ? soctietype.msg : "",
+      mng_status_list: mng_status_list.suc > 0 ? mng_status_list.msg : "",
+      manage_status_id: formdata.manage_status_id > 0 ? formdata.manage_status_id : 0,
       cntr_auth_type: formdata.cntr_auth_type > 0 ? formdata.cntr_auth_type : 0,
       zone_code: formdata.zone_code > 0 ? formdata.zone_code : 0,
       range_code: formdata.range_code > 0 ? formdata.range_code : 0,
@@ -354,6 +359,7 @@ DashboardRouter.post("/dashboard", async (req, res) => {
       block_id: formdata.block_id > 0 ? formdata.block_id : 0,
       total: total,
       socname: formdata.socname.trim(),
+      
     };
 
     // Render the view with data
@@ -402,10 +408,7 @@ DashboardRouter.get("/socLimitList", async (req, res) => {
     }else if(req.query.urban_rural_flags == 'U'){
       var con4 = ` AND a.urban_rural_flag='U' `;
     }
-      // var con4 =
-      //   req.query.urban_rural_flags > 0
-      //     ? `AND a.urban_rural_flag=${req.query.urban_rural_flags} `
-      //     : "";
+
      var block_id =
       req.query.block_id > 0 ? `AND a.block_id=${req.query.block_id}` : "";
   var con7 =
@@ -415,7 +418,7 @@ DashboardRouter.get("/socLimitList", async (req, res) => {
     req.query.soc_data_status.length > 0
       ? `AND a.approve_status= '${req.query.soc_data_status}' `
       : "";
-
+  var manage_status_id =  req.query.manage_status_id > 0 ? ` AND a.mgmt_status=${req.query.manage_status_id} ` : "";
   var functional_status =
     req.query.functional_status != ""
       ? ` AND a.functional_status='${req.query.functional_status}'`
@@ -431,6 +434,7 @@ DashboardRouter.get("/socLimitList", async (req, res) => {
     con6 +
     con7 +
     functional_status +
+    manage_status_id +
     soc_data_status;
   const range_id = req.session.user.range_id;
   const select =
@@ -1126,6 +1130,9 @@ DashboardRouter.get("/society_download", async (req, res) => {
       var functional_status = "";
     }
 
+    var manage_status_id =
+    req.query.manage_status_id > 0 ? ` AND a.mgmt_status=${req.query.manage_status_id} ` : "";
+
     const select =
       "a.cop_soc_name, a.reg_no, a.reg_date, b.soc_type_name, f.soc_tier_name, h.controlling_authority_type_name AS reg_cont_auth, g.controlling_authority_name AS returning_officer, st.state_name, c.dist_name, d.zone_name, e.range_name, a.urban_rural_flag, ulcat.ulb_catg_name, ulb.ulb_name, wa.ward_name, mb.block_name, gp.gp_name, vill.vill_name, a.pin_no, a.address, mms.manage_status_name, mot.officer_type_name, a.num_of_memb, a.audit_upto, a.last_elec_date, a.tenure_ends_on, a.contact_name AS key_person, a.contact_designation AS key_person_desig, a.contact_number, a.email, a.case_id, a.case_num, a.functional_status";
     const table_name = `md_society a 
@@ -1147,7 +1154,7 @@ DashboardRouter.get("/society_download", async (req, res) => {
           LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id`;
     var con = `a.functional_status = 'Functional' `;
 
-    const where = `${con + range + cntr_auth_type + zone_code + soc_tier + urban_rural_flag + block + soc_type_id + soc_data_status + functional_status}`; // Ensure these variables are properly defined
+    const where = `${con + range + cntr_auth_type + zone_code + soc_tier + urban_rural_flag + block + soc_type_id + soc_data_status + functional_status + manage_status_id}`; // Ensure these variables are properly defined
     const res_dt = await db_Select(select, table_name, where, null);
     if(req.session.user.user_type == 'S' || req.session.user.user_type == 'A'){
         var range_name = 'ALL';

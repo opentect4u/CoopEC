@@ -157,6 +157,19 @@
               </select>
             </div>
           </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label for="exampleInputName1">Management Status</label>
+              <select class="form-control select2" id="manage_status_id" name="manage_status_id" >
+                <option value="0">Please Select</option>
+                <% if(mng_status_list.length > 0){
+                  var i = 1
+                  mng_status_list.forEach(dt => { %>
+                  <option value="<%= dt.manage_status_id %>" <%=  manage_status_id == dt.manage_status_id ? 'selected' : '' %> ><%= dt.manage_status_name %></option>
+                    <% }) } %>
+              </select>
+            </div>
+          </div>
           <div class="col-md-6">
             <div class="form-group">
               <label for="exampleInputName1">Name</label>
@@ -315,6 +328,7 @@
                 var range_code = $('#range_code').val();
                 var urban_rural_flags = $('#urban_rural_flag').val();
                 var soc_data_status = $('#soc_data_status').val();
+                var manage_status_id = $('#manage_status_id').val();
                 var ulb_catg,block_id;
                 if(urban_rural_flags == 'U'){
                  ulb_catg = $('#ulb_catg').val();
@@ -328,18 +342,17 @@
                 //var functional_status = $('#functional_status').val();
                 var functional_status = $('input[name="functional_status"]:checked').val();
 
-
                 $.ajax({
                     url: '/dash/socLimitList',
                     type: 'GET',
-                    data: { page,cntr_auth_type,dist_code,zone_code,range_code,urban_rural_flags,ulb_catg,block_id,soc_type_id,soc_tier,functional_status,soc_data_status },
+                    data: { page,cntr_auth_type,dist_code,zone_code,range_code,urban_rural_flags,ulb_catg,block_id,soc_type_id,soc_tier,functional_status,soc_data_status,manage_status_id },
                     success: function(response) {
                         const data = response.data;
                         const totalPages = response.totalPages;
                         const currentPage = page;
-                     const itemsPerPage =25; // Number of items per page
+                        const itemsPerPage =25; // Number of items per page
                   
-// Calculate the starting index for the current page
+                        // Calculate the starting index for the current page
                         let startIndex = (currentPage - 1) * itemsPerPage + 1;
                         let startIndexofrcnt = (currentPage - 1) * itemsPerPage + 1;
                         let rows = '';
@@ -409,7 +422,6 @@
                     </li>`;
                 }
                 
-
                 pagination += `<li class="page-item ${page === totalPages ? 'disabled' : ''}">
                     <a class="page-link" href="#" data-page="${page + 1}" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
@@ -418,8 +430,6 @@
 
                 $('#pagination').html(pagination);
                 $('#pagination_count').html(paginationcntsec);
-                
-
                         // If no more items, hide the button
                         // if (data.length < 10) {
                         //     button.hide();
@@ -434,7 +444,7 @@
             $(document).on('change', '.functional_status', function(event) {
               event.preventDefault(); // Prevent default anchor behavior
              $('#item-list').html('');
-               // const page = $(this).val();
+          
                 const page = 0;
                 var cntr_auth_type = $('#cntr_auth_type').val();
                 var dist_code = $('#dist_code').val();
@@ -442,6 +452,7 @@
                 var range_code = $('#range_code').val();
                 var urban_rural_flags = $('#urban_rural_flag').val();
                 var soc_data_status = $('#soc_data_status').val();
+                var manage_status_id = $('#manage_status_id').val();
                 var ulb_catg,block_id;
                 if(urban_rural_flags == 'U'){
                  ulb_catg = $('#ulb_catg').val();
@@ -452,13 +463,12 @@
                 }
                 var soc_tier = $('#soc_tier').val();
                 var soc_type_id = $('#soc_type_id').val();
-                //var functional_status = $('#functional_status').val();
                 var functional_status = $('input[name="functional_status"]:checked').val();
 
                 $.ajax({
                     url: '/dash/socLimitList',
                     type: 'GET',
-                    data: { page,cntr_auth_type,dist_code,zone_code,range_code,urban_rural_flags,ulb_catg,block_id,soc_type_id,soc_tier,functional_status,soc_data_status },
+                    data: { page,cntr_auth_type,dist_code,zone_code,range_code,urban_rural_flags,ulb_catg,block_id,soc_type_id,soc_tier,functional_status,soc_data_status,manage_status_id },
                     success: function(response) {
                         const data = response.data;
                         const totalPages = response.totalPages;
@@ -534,7 +544,6 @@
                     </li>`;
                 }
                 
-
                 pagination += `<li class="page-item ${page === totalPages ? 'disabled' : ''}">
                     <a class="page-link" href="#" data-page="${page + 1}" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
@@ -544,7 +553,6 @@
                 $('#pagination').html(pagination);
                 $('#pagination_count').html(paginationcntsec);
                 $('#filtot').html(response.total);
-                
                 
                     },
                     error: function() {
@@ -768,6 +776,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const block_id = document.getElementById('block_id');
     const soc_tier = document.getElementById('soc_tier');
     const soc_type_id = document.getElementById('soc_type_id');
+    const manage_status_id = document.getElementById('manage_status_id');
     const soc_data_status = document.getElementById('soc_data_status');
     const downloadLink = document.querySelector('.download-link');
     
@@ -799,6 +808,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const socTierValue = soc_tier.value;
         const socTypeIdValue = soc_type_id.value;
         const socDataStatusValue = soc_data_status.value;
+        const manage_status_idValue = manage_status_id.value;
       
         // Construct the query string with all selected values
         let queryString = '';
@@ -823,6 +833,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (socTierValue) queryString += `soc_tier=${socTierValue}&`;
         if (socTypeIdValue) queryString += `soc_type_id=${socTypeIdValue}&`;
         if (socDataStatusValue) queryString += `soc_data_status=${socDataStatusValue}&`;
+        if (manage_status_idValue) queryString += `manage_status_id=${manage_status_idValue}&`;
 
         // Remove the last '&' if present
         queryString = queryString.slice(0, -1);
@@ -856,7 +867,8 @@ document.addEventListener('DOMContentLoaded', function () {
     urban_rural_flag.addEventListener('change', updateDownloadLink);
     block_id.addEventListener('change', updateDownloadLink);
     soc_tier.addEventListener('change', updateDownloadLink);
-   // soc_type_id.addEventListener('change', updateDownloadLink);
+    manage_status_id.addEventListener('change', updateDownloadLink);
+   
     $('#soc_type_id').on('change', function() {
           const selectedValue = $(this).val();
           updateDownloadLink();
