@@ -1,12 +1,12 @@
 {
   "files": {
-    "main.css": "/static/css/main.d61f6b4a.css",
+    "main.css": "/static/css/main.ec06434a.css",
     "main.js": "/static/js/main.25c49f0d.js",
     "static/js/453.9e4d9107.chunk.js": "/static/js/453.9e4d9107.chunk.js",
     "static/js/239.894addd9.chunk.js": "/static/js/239.894addd9.chunk.js",
     "static/js/213.c92755c2.chunk.js": "/static/js/213.c92755c2.chunk.js",
     "static/js/667.b4238747.chunk.js": "/static/js/667.b4238747.chunk.js",
-    "static/media/banner_img_2.jpg": "/static/media/banner_img_2.a2887a230437bdb0ff5c.jpg",
+    "static/media/banner_img_2.jpg": "/static/media/banner_img_2.f417d8ef31b3767f5e0d.jpg",
     "static/media/fontawesome-webfont.svg?v=4.7.0": "/static/media/fontawesome-webfont.6878d55e3615ccf40c38.svg",
     "static/media/gallery_ben.png": "/static/media/gallery_ben.5c24764993ea1916d9d2.png",
     "static/media/fontawesome-webfont.eot": "/static/media/fontawesome-webfont.8b43027f47b20503057d.eot",
@@ -18,7 +18,7 @@
     "static/media/logo.png": "/static/media/logo.6520bcea0d4380cdfe46.png",
     "static/media/logo.svg": "/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
     "index.html": "/index.html",
-    "main.d61f6b4a.css.map": "/static/css/main.d61f6b4a.css.map",
+    "main.ec06434a.css.map": "/static/css/main.ec06434a.css.map",
     "main.25c49f0d.js.map": "/static/js/main.25c49f0d.js.map",
     "453.9e4d9107.chunk.js.map": "/static/js/453.9e4d9107.chunk.js.map",
     "239.894addd9.chunk.js.map": "/static/js/239.894addd9.chunk.js.map",
@@ -26,7 +26,7 @@
     "667.b4238747.chunk.js.map": "/static/js/667.b4238747.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.d61f6b4a.css",
+    "static/css/main.ec06434a.css",
     "static/js/main.25c49f0d.js"
   ]
 }
