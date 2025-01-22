@@ -41,7 +41,7 @@ const [getFormattedDate, setFormattedDate] = useState([]);
 
 const search = window.location.search;
 const params = new URLSearchParams(search);
-console.log(params.get('select_range'), 'paramsuuuuuuuuuuuuuuuuuuuuuuu', search)
+console.log(params.get('district_name'), 'paramsuuuuuuuuuuuuuuuuuuuuuuu uuuuuuuuuu', search)
 
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
@@ -272,10 +272,10 @@ console.log(params.get('select_range'), 'paramsuuuuuuuuuuuuuuuuuuuuuuu', search)
 
 // const searchData = location.state || {select_district:params.select_district,select_range:params.select_range, soc_type_id: 0, socname: ''};
 console.log(location.state)
-const searchData = location.state? location.state:{select_district:params.get('select_district'),select_range:params.get('select_range'), soc_type_id: 0, socname: ''};
+const searchData = location.state? location.state:{select_district:params.get('select_district'),select_range:params.get('select_range'), soc_type_id: 0, socname: '', filterOption: params.get('district_name')};
 
 // console.log(searchData, 'searchDataoooooooooooooooooooooooooooo');
-console.log('dododododod', searchData);
+console.log('dodododododddddddddddddddddd', searchData);
 
 
 // soc_type_id: searchData.select_type == '' ? 0 : searchData.select_type,
@@ -479,7 +479,8 @@ const districtList = async()=>{
 
     <h1 className='search_page'>List of Cooperative Societies in 
       {/* {getRangeList} */}
-      &nbsp;{ getPageData[0]?.dist_name}
+      &nbsp; {searchData?.filterOption == "district" ? getPageData[0]?.dist_name : getPageData[0]?.range_name }
+      {/* &nbsp;{ getPageData[0]?.dist_name} */}
        &nbsp; <strong> ({getPageData.length})</strong>
       <button onClick={exportPdfHandler} className='excelDownload'><img src={`${excel}`} alt="" /></button>
     </h1>

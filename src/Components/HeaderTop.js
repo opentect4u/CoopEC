@@ -100,7 +100,7 @@ const defaiultFontSize = () => {
 	<div className="rightNav">
 	<div className="language">
 	<ul>
-	<li className='scrnn_page'><a href="#">Screen Reader Access</a></li> 	
+	{/*<li className='scrnn_page'><a href="#">Screen Reader Access</a></li> */}	
 	<li className='skip_btn'><a href="#main_info_content">Skip to Main Content</a></li> 
     
 	<li className='fontResize'>
@@ -116,7 +116,7 @@ const defaiultFontSize = () => {
     </div>
     <span className="text" style={{display: 'none'}}>FF</span>
 		</li>
-    <li className='topLogin_'><Link to={`${BASE_URL}/login`} target="_blank">Login</Link></li>
+    {/* <li className='topLogin_'><Link to={`${BASE_URL}/login`} target="_blank">Login</Link></li> */}
 	</ul>
 	</div>
 	</div>

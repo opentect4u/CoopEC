@@ -73,13 +73,13 @@ const onSubmit = (values, rangeName) => {
   select_district: values,
   select_range: rangeName,
   select_type: 0,
-  society_Name: ''
+  society_Name: '',
 }
 
-console.log(mapViewData,'mapdata')
+console.log(mapViewData,'paramsuuuuuuuuuuuuuuuuuuuuuuu')
   
   
-  navigation(`/search?select_district=${values}&select_range=${rangeName}`, { state: {mapViewData}} );
+  navigation(`/search?select_district=${values}&select_range=${rangeName}&filterOption=${'district'}`, { state: {mapViewData}} );
   // navigation('/search', { state: values});
 
 };

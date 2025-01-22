@@ -178,7 +178,10 @@ width: 100%; padding:0;}
 	color: #828183; border: none; width: 100%; border-radius: 8px; height: 32px;}
 
 
-.bannerSliderMain{width:100%; margin:0; position:relative; background: #d9c8b8 url("../images/banner_main.png") no-repeat right top; display: inline-block;}
+.bannerSliderMain{width:100%; margin:0; position:relative; 
+  /* background: #d9c8b8 url("../images/banner_main.png") no-repeat right top; display: inline-block; */
+  background: #d9c8b8 url("../images/banner_img_2.jpg") no-repeat right top; background-size: cover; display: inline-block;
+}
 
 .left_search_sec{padding-top: 38px; padding-bottom: 38px;}
 .search_box{background: #01131f; padding:30px 15px 10px 15px; border-radius: 20px; width: 100%; border: #fff solid 3px; display: inline-block;}
@@ -245,9 +248,28 @@ width: 100%; padding:0;}
 .search_box label.resetSec button[type="reset"]{font-size: 16px; color: #fff; background:#fd8e18; border: none; padding:10px 12px; width: 100%;
     font-weight: 700;}
 
-.slider_sec{background: url("../images/dot_top.png") no-repeat left top;}
-.slider_sec_sub{padding-top: 110px; padding-bottom: 38px; background: url("../images/dot_bot.png") no-repeat left bottom; min-height: 460px;}
-.slider_sec_sub h2{font-size: 36px; color: #ffffff; margin-bottom: 15px; font-weight: 700;}
+.slider_sec{
+  /* background: url("../images/dot_top.png") no-repeat left top; */
+}
+.slider_sec_sub{
+  padding-top: 110px; 
+  padding-bottom: 38px; 
+  /* background: url("../images/dot_bot.png") no-repeat left bottom;  */
+  /* min-height: 460px; */
+}
+/* .slider_sec_sub h2{font-size: 36px; color: #ffffff; margin-bottom: 15px; font-weight: 700;} */
+.slider_sec_sub h2{font-size: 36px;
+  color: #ffffff;
+  margin-bottom: 15px;
+  font-weight: 700;
+  background: #AA8751;
+  padding: 18px;
+  margin-top: 90px;
+  border-radius: 10px;
+  display: inline-block;
+  transform: skew(-10deg); border: solid 1px #756956;}
+.slider_sec_sub h2 span{color: #382616; display: block;}
+
 .slider_sec_sub h2 span{color: #382616; display: block;}
 .slider_sec_sub p{color: #565656; max-width: 605px;}
 
