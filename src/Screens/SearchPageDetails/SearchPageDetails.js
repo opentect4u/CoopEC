@@ -14,25 +14,46 @@ import { saveAs } from 'file-saver';
 import { BASE_URL } from '../../routes/config';
 import FooterCus from '../../Components/FooterCus';
 
+import { DataTable } from 'primereact/datatable';
+import { Column } from 'primereact/column';
+import 'primereact/resources/themes/saga-blue/theme.css'; // Or any other theme
+
 function SearchPageDetails() {
 
 const [getPageData, setPageData] = useState([]);
+const [getBoardmember, setBoardmember] = useState([]);
 // const [getFormattedDate, setFormattedDate] = useState([]);
 const [loading, setLoading] = useState(true);
-
 const location = useLocation();
 const searchID = location.state || {};
 
-
 const dataFunc = (date_Value)=>{
-console.log(date_Value, 'date_Valuedate_Valuedate_Value');
-
 const date = new Date(date_Value);
-
 // Format the date and time
 return date.toLocaleDateString();
-
 }
+const [useData, setSetData] = useState([{
+        "transaction_date": "2024-12-03T18:30:00.000Z",
+        "credit_amt": 5300,
+        "group_code": 1202364549,
+        "tot_emi": "5300.00",
+        "created_code": "10228",
+        "group_name": "MONDAY",
+        "created_by": "BABAI DAS",
+        "outstanding": 98050,
+        "id": 1,
+      }, 
+      {
+        "transaction_date": "2024-12-03T18:30:00.000Z",
+        "credit_amt": 5300,
+        "group_code": 12023649,
+        "tot_emi": "5300.00",
+        "created_code": "10228",
+        "group_name": "MONDAY",
+        "created_by": "BABAI DAS",
+        "outstanding": 98050,
+        "id": 2,
+      }])
 
 
 
@@ -50,22 +71,23 @@ if(searchID)
       auth_key:"xxxxx",
       soc_id: searchID
     }
-    // ,
-    // {
-    //     headers: {
-    //         Authorization: loginData.token,
-    //     },
-    // }
+    ,
+    {
+        headers: {
+            auth_key: 'c299cf0ae55ac8a2e3932b65fe5f08538962c5114b0f7d5680db8193eb2d3116',
+        },
+    }
     ).then(res => {
 
       if(res.status == '200'){
-        console.log(res, 'ffffffff', res.data.suc);
+        console.log(res?.data?.msg[0], 'ffffffff', res.data.suc);
         
         if(res.data.suc > 0){
 
             setPageData(res?.data?.msg[0])
+            setBoardmember(res?.data?.board_member)
             // setFormattedDate(getPageData.reg_date)
-            console.log(res?.data?.msg[0], 'kkkkkkkkk');
+            console.log(res?.data, 'kkkkkkkkrrrrrrrrrrrrrrk');
             
             setLoading(false)
 
@@ -448,6 +470,41 @@ const exportToExcel = () => {
     </div>
     </div> */}
 </div>
+
+
+{getBoardmember.length > 0 && (
+    <div className="row">
+    <div className="col-md-12">
+    <div className="form-group member_list">
+    <label className='title'>Board Member List</label>
+    <DataTable value={getBoardmember?.map((item, i) => ([{ ...item, id: i }])).flat()} responsiveLayout="scroll">
+    <Column header="Sl No." body={(rowData) => <span style={{ fontWeight: "bold" }}>{rowData?.id + 1}</span>}></Column>
+    
+    <Column field="board_memb_name" header="Name" 
+    // sortable
+    ></Column>
+
+    <Column field="board_memb_desig" header="Designation" 
+    // sortable
+    ></Column>
+
+    <Column field="board_memb_email" header="Email"  body={(rowData) => rowData.board_memb_email == null ? '--' : rowData.board_memb_email}
+    // sortable
+    ></Column>
+
+    </DataTable>
+    </div>
+    </div>
+
+</div>
+)}
+
+
+
+
+
+
+
 
 
     </div>

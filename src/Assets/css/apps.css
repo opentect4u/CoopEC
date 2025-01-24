@@ -1570,8 +1570,19 @@ border-radius: 6px;}
     background: white;
   }
 
+.member_list table.p-datatable-table thead tr th{padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: 14px;
+  background: #242424;
+  color: #fff;}
+.member_list table.p-datatable-table thead tr th svg{color: #fff;}
 
-
+.member_list table.p-datatable-table tbody tr td{padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: 14px;}
+.member_list table.p-datatable-table tbody tr:nth-child(odd){background-color:#eaeaea;}
+.member_list table.p-datatable-table tbody tr:nth-child(even){background-color:#d3d3d3;}
+.member_list table.p-datatable-table tbody tr td{color: #000; font-size: 14px;}
 
 
 
