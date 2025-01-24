@@ -426,7 +426,7 @@ WapiRouter.get("/docdownloads/:filename", async (req, res) => {
     }
   });
 });
-WapiRouter.post("/getsocdetail", async (req, res) => {
+WapiRouter.post("/getsocdetail",checkAPIAuth, async (req, res) => {
   var formdata = req.body;
   var select =
       "a.cop_soc_name,a.reg_no,a.reg_date,b.soc_type_name,f.soc_tier_name,h.controlling_authority_type_name as reg_cont_auth,g.controlling_authority_name as returning_officer,st.state_name,c.dist_name,d.zone_name,e.range_name,a.urban_rural_flag,ulcat.ulb_catg_name,ulb.ulb_name,wa.ward_name,mb.block_name,gp.gp_name,vill.vill_name,a.pin_no,a.address,mms.manage_status_name,mot.officer_type_name,a.num_of_memb,a.audit_upto,a.last_elec_date,a.tenure_ends_on,a.contact_name as key_person,a.contact_designation as key_person_desig,a.contact_number,a.email,a.case_id,a.case_num,a.functional_status",
@@ -448,7 +448,7 @@ WapiRouter.post("/getsocdetail", async (req, res) => {
   var res_dt = await db_Select(select, table_name, where, order);
   var where1 = `soc_id = '${formdata.soc_id}'`;
   var bord_member_detail = await db_Select(
-    "board_memb_name,board_memb_desig,bm_contact_no",
+    "board_memb_name,board_memb_desig,board_memb_email",
     `td_board_member`,
     where1,
     order,

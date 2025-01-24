@@ -94,12 +94,17 @@ SocietyRouter.get("/edit", async (req, res) => {
     const distres = await db_Select("*", "md_district", null, null);
     const distcode = result.msg[0].dist_code > 0 ? result.msg[0].dist_code : 0;
     const zone_id = result.msg[0].zone_code > 0 ? result.msg[0].zone_code : 0;
-    const ranzeres = await db_Select(
+    var ranzeres = await db_Select(
       "*",
       "md_range",
       `dist_id='${distcode}'`,
       null,
     );
+    var mergranzeres = ranzeres.msg;
+    
+    if(distcode == 15 || distcode ==  21 ){
+      mergranzeres.push({ range_id: 28, range_name: 'Kolkata Metropolitan Area Housing' });
+    }
     const ulbcatgres = await db_Select("*", "md_ulb_catg", null, null);
     const ulbres = await db_Select("*", "md_ulb", null, null);
     const managementres = await db_Select(
@@ -153,7 +158,7 @@ SocietyRouter.get("/edit", async (req, res) => {
       moment: moment,cntr_auth_id:cntr_auth_type,
       zonelist: zoneres.suc > 0 ? zoneres.msg : "",
       districtlist: distres.suc > 0 ? distres.msg : "",
-      ranzelist: ranzeres.suc > 0 ? ranzeres.msg : "",
+      ranzelist: ranzeres.suc > 0 ? mergranzeres : "",
       ulbcatglist: ulbcatgres.suc > 0 ? ulbcatgres.msg : "",
       ulblist: ulbres.suc > 0 ? ulbres.msg : "",
       managementlist: managementres.suc > 0 ? managementres.msg : "",
@@ -249,14 +254,14 @@ SocietyRouter.post("/socedit", async (req, res) => {
     const board_memb_name = data["board_memb_name[]"];
     const board_memb_desig = data["board_memb_desig[]"];
     const bm_contact_no = data["bm_contact_no[]"];
+    const board_memb_father = data["board_memb_father[]"];
+    const board_memb_email  = data["board_memb_email[]"];
 
     for (let i = 0; i < board_memb_name.length; i++) {
       // Only process if board_memb_name is not empty
       if (board_memb_name[i].length > 0) {
         // Construct the values string for insertion
-        const values = `('${data.id}', '${board_memb_name[i]}', '${
-          board_memb_desig[i]
-        }','${bm_contact_no[i]}','${
+        const values = `('${data.id}', '${board_memb_name[i]}','${board_memb_desig[i]}','${board_memb_father[i]}','${board_memb_email[i]}','${bm_contact_no[i]}','${
           data.tenure_ends_on
         }','${user_id}','${moment().format("YYYY-MM-DD HH:mm:ss")}','${ip}')`;
         console.log(board_memb_name[i]);
@@ -268,7 +273,7 @@ SocietyRouter.post("/socedit", async (req, res) => {
             bm_contact_no[i]
           }',tenure_ends_on ='${
             data.tenure_ends_on
-          }', modified_by = '${user_id}', modified_at = '${moment().format(
+          }',board_memb_father ='${board_memb_father[i]}',board_memb_email ='${board_memb_email[i]}', modified_by = '${user_id}', modified_at = '${moment().format(
             "YYYY-MM-DD HH:mm:ss",
           )}',created_ip='${ip}'`;
           await db_Insert(
@@ -281,7 +286,7 @@ SocietyRouter.post("/socedit", async (req, res) => {
         } else {
           // Insert new record
           const fields =
-            "(`soc_id`, `board_memb_name`, `board_memb_desig`,`bm_contact_no`,`tenure_ends_on`,`created_by`, `created_dt`,`created_ip`)";
+            "(`soc_id`, `board_memb_name`, `board_memb_desig`,`board_memb_father`,`board_memb_email`,`bm_contact_no`,`tenure_ends_on`,`created_by`, `created_dt`,`created_ip`)";
           await db_Insert("td_board_member", fields, values, null, false);
         }
       }
@@ -495,24 +500,21 @@ SocietyRouter.post("/socadddata", async (req, res) => {
     const board_memb_name = data["board_memb_name[]"];
     const board_memb_desig = data["board_memb_desig[]"];
     const bm_contact_no = data["bm_contact_no[]"];
+    const board_memb_father = data["board_memb_father[]"];
+    const board_memb_email = data["board_memb_email[]"];
 
     for (let i = 0; i < board_memb_name.length; i++) {
       // Only process if board_memb_name is not empty
       if (board_memb_name[i].length > 0) {
         // Construct the values string for insertion
-        const values = `('${soc_id}', '${board_memb_name[i]}', '${
-          board_memb_desig[i]
-        }','${bm_contact_no[i]}','${user_id}', '${moment().format(
-          "YYYY-MM-DD HH:mm:ss",
-        )}','${ip}')`;
+        const values = `('${soc_id}', '${board_memb_name[i]}', '${board_memb_desig[i]}','${board_memb_father[i]}','${board_memb_email[i]}','${bm_contact_no[i]}','${user_id}','${moment().format("YYYY-MM-DD HH:mm:ss")}','${ip}')`;
 
         if (board_memb_id[i] > 0) {
           // Update existing record
           const fields = `board_memb_name = '${
             board_memb_name[i]
-          }', board_memb_desig = '${board_memb_desig[i]}',bm_contact_no = '${
-            bm_contact_no[i]
-          }', modified_by = '${user_id}', modified_at = '${moment().format(
+          }', board_memb_desig = '${board_memb_desig[i]}',board_memb_father = '${board_memb_father[i]}',
+           board_memb_email = '${board_memb_email[i]}',bm_contact_no = '${bm_contact_no[i]}', modified_by = '${user_id}', modified_at = '${moment().format(
             "YYYY-MM-DD HH:mm:ss",
           )}',modified_id='${ip}' `;
           await db_Insert(
@@ -525,7 +527,7 @@ SocietyRouter.post("/socadddata", async (req, res) => {
         } else {
           // Insert new record
           const fields =
-            "(`soc_id`, `board_memb_name`, `board_memb_desig`,`bm_contact_no`, `created_by`, `created_dt`,`created_ip`)";
+            "(`soc_id`, `board_memb_name`, `board_memb_desig`,`board_memb_father`,`board_memb_email`,`bm_contact_no`, `created_by`, `created_dt`,`created_ip`)";
           await db_Insert("td_board_member", fields, values, null, false);
         }
       }
@@ -805,9 +807,17 @@ SocietyRouter.get("/rangelist", async (req, res) => {
       `dist_id='${dist_code}' AND range_id != 0 `,
       null,
     );
+    var mergedat = datahres.msg;
+    
+      if(dist_code == 15 || dist_code ==  21 ){
+        mergedat.push({ range_id: 28, range_name: 'Kolkata Metropolitan Area Housing' });
+      }
+     
     const responseData = {
-      datahlist: datahres.suc > 0 ? datahres.msg : "", // Echoing the received claims
+      datahlist: datahres.suc > 0 ? mergedat : "", // Echoing the received claims
     };
+
+    console.log(mergedat);
     // Send response back to the client
     res.json(responseData);
   } catch (err) {
