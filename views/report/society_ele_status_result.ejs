@@ -13,7 +13,9 @@
             <h4 class="card-title card_title_cus">List of <%=title %> Co-operative Societies in <%= range_name %>
               
               <div class="table_title_icon"> 
+                <% if(data_count>0) { %>
               <a href='/report/society_ele_status_download?range_code=<%=range%>&election_status=<%=ele_status%>&ctr_auth_id=<%=ctr_auth_id%>' ><img src="/images/excel.jpg" alt="excel" class="excel_cus" /></a>
+                <% } %>
             </div>
             
             </h4>
@@ -42,16 +44,43 @@
                           <td><%= dt.reg_no %></td>
                           <td><%= dt.soc_type_name %></td>
                           <td>
-                            <%= new Date(dt.last_elec_date).toLocaleDateString('en-IN', { year: 'numeric' , month: 'short' ,
-                                  day: 'numeric' }) %>
+                            <%= 
+                            (function() {
+                              let date = new Date(dt.last_elec_date);
+                              // If the date is invalid (NaN), return an empty string
+                              if (isNaN(date.getTime())) {
+                                return '';
+                              }
+                              // If the date is a valid Date object, format it
+                              return date.toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' });
+                            })()
+                            %>
                           </td>
                           <td>
-                            <%= new Date(dt.tenure_ends_on).toLocaleDateString('en-IN', { year: 'numeric' , month: 'short' ,
-                                  day: 'numeric' }) %>
+                            <%= 
+                            (function() {
+                              let date = new Date(dt.tenure_ends_on);
+                              // If the date is invalid (NaN), return an empty string
+                              if (isNaN(date.getTime())) {
+                                return '';
+                              }
+                              // If the date is a valid Date object, format it
+                              return date.toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' });
+                            })()
+                          %>
                           </td>
                           <td>
-                            <%= new Date(dt.elec_due_date).toLocaleDateString('en-IN', { year: 'numeric' , month: 'short' ,
-                                  day: 'numeric' }) %>
+                            <%= 
+                            (function() {
+                              let date = new Date(dt.elec_due_date);
+                              // If the date is invalid (NaN), return an empty string
+                              if (isNaN(date.getTime())) {
+                                return '';
+                              }
+                              // If the date is a valid Date object, format it
+                              return date.toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' });
+                            })()
+                            %>
                           </td>
                       </tr>
                   <% }) %>

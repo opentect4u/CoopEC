@@ -132,6 +132,7 @@ DashboardRouter.get("/dashboard", async (req, res) => {
     
     const res_dt = {
       data: result.suc > 0 ? result.msg : "",
+      data_count: result.suc > 0 ? result.msg.length : 0,
       page: 1,
       totalPages: totalPages,
       regauthtypelist: regauttypehres.suc > 0 ? regauttypehres.msg : "",
@@ -333,6 +334,7 @@ DashboardRouter.post("/dashboard", async (req, res) => {
     // Prepare data for rendering
     const res_dt = {
       data: result.suc > 0 ? result.msg : "",
+      data_count: result.suc > 0 ? result.msg.length : 0,
       page: 1,
       totalPages: totalPages,
       regauthtypelist: regauttypehres.suc > 0 ? regauttypehres.msg : "",

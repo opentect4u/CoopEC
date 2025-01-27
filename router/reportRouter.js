@@ -125,6 +125,7 @@ reportRouter.get("/election_due_req", async (req, res) => {
       // Prepare data for rendering
       const res_dt = {
         data: result.suc > 0 ? result.msg : "",
+        data_count: result.suc > 0 ? result.msg.length : 0,
         page: 1,
         range: postdata.range_id,
         soc_type: postdata.soc_type,cntr_auth_name:ctrauthresutname,
@@ -715,6 +716,7 @@ reportRouter.post("/society_ele_held_result", async (req, res) => {
     // Prepare data for rendering
     const res_dt = {
       data: result.suc > 0 ? result.msg : "",
+      data_count: result.suc > 0 ? result.msg.length : 0,
       range_name: "",from_date:from_date,to_date:to_date,
       range: 0,cntr_auth_id:cntr_auth_id,
       ele_status: postdata.election_status,cntr_auth_name:'ALL',
@@ -892,6 +894,7 @@ reportRouter.post("/society_ele_status_result", async (req, res) => {
     // Prepare data for rendering
     const res_dt = {
       data: result.suc > 0 ? result.msg : "",
+      data_count: result.suc > 0 ? result.msg.length : 0,
       page: 1,
       range_name: range_name,
       range: postdata.range_id,ctr_auth_id:cntr_auth_id,
@@ -1195,6 +1198,7 @@ reportRouter.post("/election_upcoming", async (req, res) => {
     // Prepare data for rendering
     const res_dt = {
       data: result.suc > 0 ? result.msg : "",
+      data_count: result.suc > 0 ? result.msg.length : 0,
       page: 1,
       range_name: range_name,
       range: postdata.range_id,month_interval:postdata.month_tenure,cntr_auth_name:ctrauthname,
