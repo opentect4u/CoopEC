@@ -12,8 +12,9 @@
           <div class="card-body">
             <h4 class="card-title card_title_cus">List of <%=title %> of Co-operative Societies in <%= range_name %> <%= title_sufix %>
               <div class="table_title_icon"> 
-              
+                <% if( data_count>0 ) {  %>
               <a href='/report/downloadexcel_upcoming?range=<%=range%>&soc_type_id=<%=soc_type%>&controlling_authority_type=<%=controlling_authority_type%>&month_interval=<%=month_interval%>' ><img src="/images/excel.jpg" alt="excel" class="excel_cus" /></a>
+              <% } %>
             </div>
             </h4>
             <div class="table-responsive pt-3 custome_table_res">
@@ -45,16 +46,43 @@
                           <td><%= dt.reg_no %></td>
                           <td><%= dt.soc_type_name %></td>
                           <td>
-                            <%= new Date(dt.last_elec_date).toLocaleDateString('en-IN', { year: 'numeric' , month: 'short' ,
-                                  day: 'numeric' }) %>
+                            <%= 
+                                (function() {
+                                  let date = new Date(dt.last_elec_date);
+                                  // If the date is invalid (NaN), return an empty string
+                                  if (isNaN(date.getTime())) {
+                                    return '';
+                                  }
+                                  // If the date is a valid Date object, format it
+                                  return date.toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' });
+                                })()
+                              %>
                           </td>
                           <td>
-                            <%= new Date(dt.tenure_ends_on).toLocaleDateString('en-IN', { year: 'numeric' , month: 'short' ,
-                                  day: 'numeric' }) %>
+                            <%= 
+                                (function() {
+                                  let date = new Date(dt.tenure_ends_on);
+                                  // If the date is invalid (NaN), return an empty string
+                                  if (isNaN(date.getTime())) {
+                                    return '';
+                                  }
+                                  // If the date is a valid Date object, format it
+                                  return date.toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' });
+                                })()
+                              %>
                           </td>
                           <td class="<%= className %>">
-                            <%= new Date(dt.elec_due_date).toLocaleDateString('en-IN', { year: 'numeric' , month: 'short' ,
-                                  day: 'numeric' }) %>
+                            <%= 
+                                (function() {
+                                  let date = new Date(dt.elec_due_date);
+                                  // If the date is invalid (NaN), return an empty string
+                                  if (isNaN(date.getTime())) {
+                                    return '';
+                                  }
+                                  // If the date is a valid Date object, format it
+                                  return date.toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' });
+                                })()
+                              %>
                           </td>
                       </tr>
                   <% }) %>
