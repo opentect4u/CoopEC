@@ -348,7 +348,11 @@ SocietyRouter.get("/socadd", async (req, res) => {
     );
     const zoneres = await db_Select("*", "md_zone", null, null);
     const distres = await db_Select("*", "md_district", null, null);
-    if (range_id > 0) {
+    if(req.session.user.user_type == 'S'){
+        var ranzeres = await db_Select("*", "md_range", null, null);
+        var distcode = 0;
+    }else{
+    if (req.session.user.cntr_auth_type == 1) {
       var ranzeres = await db_Select(
         "*",
         "md_range",
@@ -358,8 +362,9 @@ SocietyRouter.get("/socadd", async (req, res) => {
       var distcode = ranzeres.msg[0].dist_id > 0 ? ranzeres.msg[0].dist_id : 0;
     } else {
       var ranzeres = await db_Select("*", "md_range", null, null);
-      var distcode = 0;
+      var distcode = range_id;
     }
+   }
     if (range_id > 0) {
       var devauth_name = await db_Select(
         "*",
