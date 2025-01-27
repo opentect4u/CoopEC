@@ -159,11 +159,51 @@ const exportToExcel = () => {
         { 'Label': 'Status', 'Value': getPageData.functional_status || '--' }
     ];
 
+    const boardMemberData = getBoardmember.map((item, index) => ({
+        'Sl No.': index + 1,
+        'Name': item.board_memb_name || '--',
+        'Designation': item.board_memb_desig || '--',
+        'Email': item.board_memb_email || '--'
+    }));
+
+    // Combine Society and Board Member Data into a single worksheet
+    // const combinedData = [
+    //     ...data,
+    //     { 'Label': '', 'Value': '' }, // Blank Row for separation
+    //     { 'Label': 'Board Member List', 'Value': '' },
+    //     ...boardMemberData.map((item, index) => ({
+    //         'Label': `Member ${index + 1}`,
+    //         // 'Value': JSON.stringify(item, null, 2)
+    //         'Value': JSON.stringify(item, null, 2)
+    //     }))
+    // ];
+    // { 'Label': 'Mapping', 'Value': getPageData.urban_rural_flag == "U" ? 'Urban Mapping' : 'Rural Mapping' },
+
+    const boardMemberSection = boardMemberData.length > 0
+        ? [
+            { 'Label': '', 'Value': '' }, // Blank Row for separation
+            { 'Label': 'Board Member List', 'Value': '' },
+            ...boardMemberData.map((item, index) => ({
+                'Label': `Member ${index + 1}`,
+                // 'Value': JSON.stringify(item, null, 2)
+                'Value': `Sl No.: ${item["Sl No."]}, Name: ${item["Name"]}, Designation: ${item["Designation"]}, Email: ${item["Email"]}`
+
+            }))
+        ]
+        : [];
+
+        
+
+        const combinedData = [
+            ...data,
+            ...boardMemberSection
+        ];
+
     // Create a new workbook
     const workbook = XLSX.utils.book_new();
 
     // Convert the data to a worksheet
-    const worksheet = XLSX.utils.json_to_sheet(data);
+    const worksheet = XLSX.utils.json_to_sheet(combinedData);
 
     // Append the worksheet to the workbook
     XLSX.utils.book_append_sheet(workbook, worksheet, 'Society Details Data');
