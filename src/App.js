@@ -70,12 +70,14 @@ function App() {
       {/* <Outlet/> */}
       <HeaderTop/>
 
-    <Online>
+      <Outlet/>
+
+    {/* <Online>
       <Outlet />
     </Online>
     <Offline>
       <NoConnection/>
-    </Offline>
+    </Offline> */}
    
       </ConfigProvider>
 

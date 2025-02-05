@@ -103,12 +103,12 @@ console.log(mapViewData,'paramsuuuuuuuuuuuuuuuuuuuuuuu')
           },
       }
       ).then(res => {
-  
+        console.log('getRangeList__________________', res?.data);
       if(res.status == '200'){
       if(res.data.suc > 0){
         setDistDataStore(res?.data?.msg)
         setLoading_Map(false);
-        console.log('getRangeList__________________', res?.data?.msg);
+        console.log('getRangeList__________________', res?.data);
       }
   
       }

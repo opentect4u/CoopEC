@@ -15,34 +15,34 @@ function ActRules() {
       }
    
   
-    const fetchdata = ()=>{
-      return new Promise((resolve, reject) => {
-      axios.get('https://jsonplaceholder.typicode.com/posts/1',
-      // {},
-      // {
-      //     headers: {
-      //         Authorization: loginData.token,
-      //     },
-      // }
-      ).then(res => {
+    // const fetchdata = ()=>{
+    //   return new Promise((resolve, reject) => {
+    //   axios.get('https://jsonplaceholder.typicode.com/posts/1',
+    //   // {},
+    //   // {
+    //   //     headers: {
+    //   //         Authorization: loginData.token,
+    //   //     },
+    //   // }
+    //   ).then(res => {
   
-      if(res.status == '200'){
-      pageDataStore = res.data
-      setPageData(pageDataStore)
-      resolve(res.data);
-      console.log(pageDataStore.title, 'ddddddd' , res);
-      }
-      }).then(() =>{
-      pageDataStore = []
-      }).catch(err => {
-      console.log(err);
-      reject(err); 
-      });
-      });
-     }
+    //   if(res.status == '200'){
+    //   pageDataStore = res.data
+    //   setPageData(pageDataStore)
+    //   resolve(res.data);
+    //   console.log(pageDataStore.title, 'ddddddd' , res);
+    //   }
+    //   }).then(() =>{
+    //   pageDataStore = []
+    //   }).catch(err => {
+    //   console.log(err);
+    //   reject(err); 
+    //   });
+    //   });
+    //  }
   
      useEffect(()=>{
-      fetchdata();
+      // fetchdata();
      },[])
 
   return (
