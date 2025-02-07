@@ -8,6 +8,7 @@ const express = require("express"),
   cors = require("cors"),
   port = process.env.PORT || 3013;
 const flash = require("connect-flash");
+//const svgCaptcha = require('svg-captcha');
 const socketIo = require("socket.io");
 // parse requests of content-type - application/json
 app.use(express.json());
@@ -85,9 +86,22 @@ app.use("/report", reportRouter);
 app.use("/crn", Cronjobrouter);
 app.use("/rangeR", rangeRouter);
 
-app.get("/", async (req, res) => {
-  res.redirect("/login");
-});
+// app.get("/", async (req, res) => {
+//   const captcha = svgCaptcha.create();
+//   // Store the CAPTCHA text in a session or a temporary store for verification later
+//   req.session.captcha = captcha.text; 
+//   res.type('svg');
+  
+//   const res_dt = {captcha : captcha.data}
+//   res.redirect("/login",res_dt);
+// });
+// app.get('/captcha', (req, res) => {
+//   const captcha = svgCaptcha.create();
+//   // Store the CAPTCHA text in a session or a temporary store for verification later
+//   req.session.captcha = captcha.text; 
+//   res.type('svg');
+//   res.send(captcha.data);
+// });
 app.get("/dashboard", async (req, res) => {
   var res_dt = {
     user_data: req.session.user,
@@ -101,8 +115,49 @@ app.get("/dashboard", async (req, res) => {
     res.redirect("/login");
   }
 });
+// app.get("/login", (req, res) => {
+//   const captcha = svgCaptcha.create();
+//   // Store the CAPTCHA text in a session or a temporary store for verification later
+//   req.session.captcha = captcha.text; 
+//   res.type('svg');
+  
+//   const res_dt = {captcha : captcha.data}
+//   res.render("login/login",res_dt);
+// });
+function generateCaptcha() {
+  const length = 5;  // Length of CAPTCHA
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'; // Letters and Numbers
+  let captcha = '';
+
+  // Ensure that the CAPTCHA has at least one letter
+  let hasLetter = false;
+
+  // Generate the CAPTCHA
+  for (let i = 0; i < length; i++) {
+    const randomChar = characters.charAt(Math.floor(Math.random() * characters.length));
+    captcha += randomChar;
+
+    if (/[a-zA-Z]/.test(randomChar)) { // Check if the character is a letter
+      hasLetter = true;
+    }
+  }
+
+  // If there is no letter, replace one character with a random letter
+  if (!hasLetter) {
+    const randomLetter = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.charAt(Math.floor(Math.random() * 52));
+    captcha = captcha.substring(0, Math.floor(Math.random() * length)) + randomLetter + captcha.substring(Math.floor(Math.random() * length) + 1);
+  }
+
+  return captcha;
+}
 app.get("/login", (req, res) => {
-  res.render("login/login");
+  
+  //const captchaNumber = Math.floor(1000 + Math.random() * 9000);
+  const captchaNumber = generateCaptcha();
+  // Store the CAPTCHA number in the session for later validation
+  req.session.captcha = captchaNumber;
+  // Render the login page and pass the CAPTCHA image data to the view
+  res.render("login/login", { captcha: captchaNumber });
 });
 app.get("/logout", (req, res) => {
   req.session.destroy();
