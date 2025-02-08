@@ -543,7 +543,7 @@ SocietyRouter.post("/socadddata", async (req, res) => {
     // Log the error and send an appropriate response
     console.error("Error during dashboard rendering:", error);
     //res.status(500).send('An error occurred while loading the dashboard.');
-    res.render("dashboard/edit", res_dt);
+    res.redirect("/dash/dashboard");
   }
 });
 

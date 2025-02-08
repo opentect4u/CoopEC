@@ -25,13 +25,13 @@ const db_Select_using_param = (select, table_name, whr, order, params = []) => {
   });
 };
 
-const db_Select = (select, table_name, whr, order) => {
+const db_Select = (select, table_name, whr, order, params = []) => {
   var tb_whr = whr ? `WHERE ${whr}` : "";
   var tb_order = order ? order : "";
   let sql = `SELECT ${select} FROM ${table_name} ${tb_whr} ${tb_order}`;
   console.log(sql);
   return new Promise((resolve, reject) => {
-    db.query(sql, (err, result) => {
+    db.query(sql,params, (err, result) => {
       if (err) {
         console.log(err);
         data = { suc: 0, msg: JSON.stringify(err) };

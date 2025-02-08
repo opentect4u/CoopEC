@@ -3,6 +3,7 @@ const moment = require("moment");
 const multer = require("multer");
 const path = require("path");
 const axios = require("axios");
+mime = require("mime-types");
 //bcrypt = require("bcrypt");
 const bcrypt = require("bcrypt");
 const fs = require("fs");
@@ -12,6 +13,7 @@ const {
   db_Delete,
   SendNotification,
 } = require("../modules/MasterModule");
+const { chkUserIputFunc } = require("../middleware/chekUserInputMiddleware");
 WdtlsRouter.use((req, res, next) => {
   var user = req.session.user;
   if (!user) {
@@ -243,8 +245,11 @@ const upload = multer({ storage: storage });
 // File upload route
 WdtlsRouter.post("/uploaddoc", upload.single("document"), async (req, res) => {
   var user = req.session.user;
-  var date_ob = moment();
   var range_id_ = req.session.user.range_id;
+  var cheuserinput = await chkUserIputFunc(req.body);
+  if(cheuserinput > 0){
+  var date_ob = moment();
+ 
   // Format it as YYYY-MM-DD HH:mm:ss
   var formattedDate = date_ob.format("YYYY-MM-DD HH:mm:ss");
   //   ********   Code For Getting Ip   *********   //
@@ -287,6 +292,13 @@ WdtlsRouter.post("/uploaddoc", upload.single("document"), async (req, res) => {
   } else {
     res.redirect("/wdtls/announcelist");
   }
+ }else{
+    if (user.user_type == "S") {
+      res.redirect("/wdtls/adddoc");
+    } else {
+      res.redirect("/wdtls/announcelist");
+    }
+ }
 });
 
 WdtlsRouter.get("/announcelist", async (req, res) => {
@@ -362,9 +374,20 @@ const storage_gallery = multer.diskStorage({
     );
   },
 });
+const hasMultipleExtensions = (filename) => {
+  const extCount = filename.split('.').length - 1;
+  return extCount > 1; // If more than one dot, it's suspicious
+};
 
+const hasMaliciousCodeInFile = (buffer) => {
+  const content = buffer.toString("utf8");
+  const forbiddenPatterns = [/<\?php/i, /<script>/i, /eval\(/i, /base64_decode/i];
+  
+  return forbiddenPatterns.some(pattern => pattern.test(content));
+};
 // Initialize multer
 const upload_gall = multer({
+ 
   storage: storage_gallery,
   limits: { fileSize: 1000000 }, // Limit file size to 1MB
   fileFilter: (req, file, cb) => {
@@ -373,8 +396,9 @@ const upload_gall = multer({
       path.extname(file.originalname).toLowerCase(),
     );
     const mimetype = filetypes.test(file.mimetype);
+    console.log(file);
+    if (mimetype && extname && !hasMultipleExtensions(file.originalname) ) {
 
-    if (mimetype && extname) {
       return cb(null, true);
     } else {
       cb("Error: Images Only!");
@@ -797,6 +821,7 @@ WdtlsRouter.post("/changepass", async (req, res) => {
     var user = req.session.user;
     var data = req.body,
       result;
+      if(data.old_pass != data.pass){
     var select = "*",
       table_name = "md_user",
       whr = `user_id='${user.user_id}' AND user_status='A'`,
@@ -817,7 +842,7 @@ WdtlsRouter.post("/changepass", async (req, res) => {
         var whr = `user_id = '${user.user_id}'`;
         var save_data = await db_Insert(table_name, fields, values, whr, 1);
         req.flash("success_msg", "Update successful!");
-        res.redirect("/dash/dashboard");
+        res.redirect("/logout");
       } else {
         result = {
           suc: 0,
@@ -831,6 +856,10 @@ WdtlsRouter.post("/changepass", async (req, res) => {
       result = { suc: 0, msg: "No data found", dt: res_dt };
       res.redirect("/wdtls/changepass");
     }
+     }else{
+        req.flash("error_msg", "Old Password And New Password is Same!");
+        res.redirect("/wdtls/changepass");
+     }
   } catch (error) {
     // Log the error and send an appropriate response
     console.error("Error during dashboard rendering:", error);

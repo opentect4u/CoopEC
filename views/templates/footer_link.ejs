@@ -183,6 +183,83 @@ $('#example').DataTable();
         $('#suggestionsh').hide();
     });
 });
+
+
+</script>
+
+<script>
+    $(document).ready(function() {
+        var sub_btn = false;
+      const passwordInput = $('#newPass') || '';      
+      const popoverTemplate = `
+        <div class="popover" role="tooltip" id="password-popover">
+          <div class="popover-body"><b>Password</b></div>
+        </div>
+      `;
+
+      passwordInput.popover({
+        trigger: 'manual',
+        placement: 'right',
+        html: true,
+        content: '',
+        template: popoverTemplate
+      });
+
+      passwordInput.on('focus', function() {
+        const password = $(this).val() || '';
+        let strength = 'Password must contain:\n';
+        strength += `<ul>
+              <li id="lowercase" class="cross">At least one lowercase letter</li>
+              <li id="uppercase" class="cross">At least one uppercase letter</li>
+              <li id="number" class="cross">At least one number</li>
+              <li id="special" class="cross">At least one special character</li>
+              <li id="length" class="cross">Minimum length of 8 characters</li>
+            </ul>`
+          passwordInput.attr('data-bs-content', strength);
+          passwordInput.popover('show');
+
+          if(password != ''){
+            updatePopoverItem(password, /[a-z]/, '#lowercase');
+            updatePopoverItem(password, /[A-Z]/, '#uppercase');
+            updatePopoverItem(password, /[0-9]/, '#number');
+            updatePopoverItem(password, /[!@#$%^&*(),.?":{}|<>]/, '#special');
+            updatePopoverItem(password, /.{8,}/, '#length');
+          }
+      });
+
+      passwordInput.on('input', function() {
+        const password = $(this).val();
+        // Validate password and update list items
+        updatePopoverItem(password, /[a-z]/, '#lowercase');
+        updatePopoverItem(password, /[A-Z]/, '#uppercase');
+        updatePopoverItem(password, /[0-9]/, '#number');
+        updatePopoverItem(password, /[!@#$%^&*(),.?":{}|<>]/, '#special');
+        updatePopoverItem(password, /.{8,}/, '#length');
+
+        if(/[a-z]/.test(password) && /[A-Z]/.test(password) && /[0-9]/.test(password) && /[!@#$%^&*(),.?":{}|<>]/.test(password) && /.{8,}/.test(password)){
+            sub_btn = true
+        }else{
+            sub_btn = false
+        }
+      })
+
+      passwordInput.on('blur', function() {
+        passwordInput.popover('hide');
+        if(sub_btn){
+            $('#subBtnFrPass').removeAttr('disabled')
+        }else{
+            $('#subBtnFrPass').attr('disabled', true)
+        }
+      });
+
+      function updatePopoverItem(password, regex, elementId) {
+        if (regex.test(password)) {
+          $(elementId).removeClass('cross').addClass('tick');
+        } else {
+          $(elementId).removeClass('tick').addClass('cross');
+        }
+      }
+    });
 </script>
 
 

@@ -55,3 +55,41 @@ $(document).ready(function(){
 
 </script>
 
+<script>
+    $(document).ready(function () {
+        $("input[type='text'], input[type='number'], textarea").on("input", function () {
+            let unsafePattern = /<script.*?>.*?<\/script>|<iframe.*?>.*?<\/iframe>|<.*?on\w+=".*?".*?>|<style.*?>.*?<\/style>/gi;
+            let htmlPattern = /<[^>]*>/gi; // Detects any HTML tags
+            let inputValue = $(this).val();
+
+            if (unsafePattern.test(inputValue)) {
+                alert("Malicious content detected! Clearing the textarea.");
+                $(this).val(''); // Clear the textarea
+            }
+
+            if (htmlPattern.test(inputValue)) {
+                alert("HTML tags are not allowed! Clearing input.");
+                $(this).val('');  // Clear the input field
+            }
+        });
+    });
+
+    $(document).ready(function () {
+        $("input[type='text'], input[type='number'], textarea").on("paste", function (event) {
+            let pastedText = (event.originalEvent || event).clipboardData.getData("text");
+            let unsafePattern = /<script.*?>.*?<\/script>|<iframe.*?>.*?<\/iframe>|<.*?on\w+=".*?".*?>|<style.*?>.*?<\/style>/gi;
+            let htmlPattern = /<[^>]*>/gi; // Detects any HTML tags
+
+            if (unsafePattern.test(pastedText)) {
+                alert("Malicious content detected! Clearing the input.");
+                $(this).val(''); // Clear the textarea
+            }
+
+            if (htmlPattern.test(pastedText)) {
+                alert("HTML tags are not allowed! Clearing input.");
+                $(this).val('');  // Clear the input field
+            }
+        });
+    });
+</script>
+

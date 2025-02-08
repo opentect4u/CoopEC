@@ -10,12 +10,16 @@ const express = require("express"),
 const flash = require("connect-flash");
 //const svgCaptcha = require('svg-captcha');
 const socketIo = require("socket.io");
+const { db_Select,db_Insert } = require("./modules/MasterModule");
 // parse requests of content-type - application/json
 app.use(express.json());
 
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: false }));
-app.use(cors());
+var corsOptions = {
+  origin: 'http://localhost',
+}
+//app.use(cors());
 
 // SET VIEW ENGINE AND PATH //
 app.set("view engine", "ejs");
@@ -76,15 +80,20 @@ const { reportRouter } = require("./router/reportRouter");
 const { Cronjobrouter } = require("./router/cronjobrouter");
 const { rangeRouter } = require("./router/rangeRouter");
 
+const { validateSession } = require("./middleware/authMiddleware");
+const { checkUserInput } = require("./middleware/chekUserInputMiddleware");
+
+
 app.use("/login", LoginRouter);
-app.use("/dash", DashboardRouter);
-app.use("/dashn", DashboardnRouter);
-app.use("/society", SocietyRouter);
-app.use("/wapi", WapiRouter);
-app.use("/wdtls", WdtlsRouter);
-app.use("/report", reportRouter);
+app.use("/dash", validateSession,checkUserInput, DashboardRouter);
+app.use("/dashn", validateSession,checkUserInput, DashboardnRouter);
+app.use("/society",validateSession,checkUserInput, SocietyRouter);
+app.use("/wdtls",validateSession,checkUserInput, WdtlsRouter);
+app.use("/report",validateSession,checkUserInput, reportRouter);
 app.use("/crn", Cronjobrouter);
-app.use("/rangeR", rangeRouter);
+app.use("/rangeR", validateSession,checkUserInput, rangeRouter);
+
+app.use("/wapi",cors(corsOptions) ,WapiRouter);
 
 // app.get("/", async (req, res) => {
 //   const captcha = svgCaptcha.create();
@@ -95,13 +104,7 @@ app.use("/rangeR", rangeRouter);
 //   const res_dt = {captcha : captcha.data}
 //   res.redirect("/login",res_dt);
 // });
-// app.get('/captcha', (req, res) => {
-//   const captcha = svgCaptcha.create();
-//   // Store the CAPTCHA text in a session or a temporary store for verification later
-//   req.session.captcha = captcha.text; 
-//   res.type('svg');
-//   res.send(captcha.data);
-// });
+
 app.get("/dashboard", async (req, res) => {
   var res_dt = {
     user_data: req.session.user,
@@ -136,7 +139,6 @@ function generateCaptcha() {
   for (let i = 0; i < length; i++) {
     const randomChar = characters.charAt(Math.floor(Math.random() * characters.length));
     captcha += randomChar;
-
     if (/[a-zA-Z]/.test(randomChar)) { // Check if the character is a letter
       hasLetter = true;
     }
@@ -159,7 +161,9 @@ app.get("/login", (req, res) => {
   // Render the login page and pass the CAPTCHA image data to the view
   res.render("login/login", { captcha: captchaNumber });
 });
-app.get("/logout", (req, res) => {
+app.get("/logout", async (req, res) => {
+  var user_id = req.session.user.user_id;
+  var save_data = await db_Insert("md_user", `session_version_id='NULL'`, null, `user_id ='${user_id}'`, 1);
   req.session.destroy();
   res.redirect("/login");
 });
