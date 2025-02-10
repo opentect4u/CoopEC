@@ -3,7 +3,8 @@ const moment = require("moment");
 const multer = require("multer");
 const path = require("path");
 const axios = require("axios");
-mime = require("mime-types");
+// mime = require("mime-types");
+
 //bcrypt = require("bcrypt");
 const bcrypt = require("bcrypt");
 const fs = require("fs");
@@ -89,6 +90,8 @@ WdtlsRouter.get("/adddoc", async (req, res) => {
     var res_dt = {
       doctypelist: doctyperes.suc > 0 ? doctyperes.msg : "",
     };
+    const rootDirectory = path.join(__dirname, '..', 'uploads');
+    console.log(rootDirectory);
     // Render the view with data
     res.render("websitedtls/doc/add_doc", res_dt);
   } catch (error) {
@@ -218,87 +221,166 @@ WdtlsRouter.post("/approve_document", async (req, res) => {
   }
 });
 
-// Set up storage and multer
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    const typeId = req.body.doc_type; // Get typeId from the request body
-    if (typeId == 1) {
-      var uploadDir = path.join(__dirname, "..", "uploads/notifications/");
-    } else if (typeId == 2) {
-      var uploadDir = path.join(__dirname, "..", "uploads/tenders/");
-    } else if (typeId == 3) {
-      var uploadDir = path.join(__dirname, "..", "uploads/announcement/");
-    } else {
-      var uploadDir = path.join(__dirname, "..", "uploads/downloads/");
-    }
-    // Create the directory if it doesn't exist
 
-    cb(null, uploadDir); // Use the directory based on typeId
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname)); // Use timestamp for file name
-  },
-});
+// const storages = multer.memoryStorage({
+//   destination: (req, file, cb) => {
+//     const typeId = req.body.doc_type; // Get typeId from the request body
+//     let uploadDir;
+//     // Based on doc_type, set the upload directory path
+//     if (typeId == 1) {
+//       uploadDir = path.join(__dirname, "..", "uploads/notifications/");
+//     } else if (typeId == 2) {
+//       uploadDir = path.join(__dirname, "..", "uploads/tenders/");
+//     } else if (typeId == 3) {
+//       uploadDir = path.join(__dirname, "..", "uploads/announcement/");
+//     } else {
+//       uploadDir = path.join(__dirname, "..", "uploads/downloads/");
+//     }
 
-const upload = multer({ storage: storage });
-
-// File upload route
-WdtlsRouter.post("/uploaddoc", upload.single("document"), async (req, res) => {
-  var user = req.session.user;
-  var range_id_ = req.session.user.range_id;
-  var cheuserinput = await chkUserIputFunc(req.body);
-  if(cheuserinput > 0){
-  var date_ob = moment();
+//     // Create the directory if it doesn't exist
+//     cb(null, uploadDir);
+//   },
  
-  // Format it as YYYY-MM-DD HH:mm:ss
-  var formattedDate = date_ob.format("YYYY-MM-DD HH:mm:ss");
-  //   ********   Code For Getting Ip   *********   //
-  var ipresult = await fetchIpData();
-  var ip = ipresult.ipdata;
-  //   ********   Code For Getting Ip   *********  //
+//   filename: (req, file, cb) => {
+//     const newFilename = Date.now() + path.extname(file.originalname);
+//     console.log('hhhhhhhhh Filename');
+//     console.log('Generated Filename:', newFilename); // Log generated filename
+//     console.log('hhhhhhhhh Filename');
+//     cb(null, newFilename);
+//   }
+// });
 
+const storages = multer.memoryStorage();
+
+// Multer upload setup with memory storage
+const upload_pdf = multer({ storage: storages });
+
+// Custom middleware to check for malicious content in the file buffer
+const checkForMaliciousContent = (req, res, next) => {
+  const file = req.file;
+  console.log('hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh');
+  console.log(file.originalname); // Log original file name
+  console.log(file.mimetype); // Log MIME type
+  console.log('hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh');
+  if (!file) {
+    return next();
+  }
+
+  if (hasMultipleExtensions(file.originalname)) {
+    return res.status(400).send('Suspicious file name detected (multiple extensions)');
+  }
+
+  const fileTypes = /pdf/;
+  const extname = fileTypes.test(path.extname(file.originalname).toLowerCase());
+  const mimetype = fileTypes.test(file.mimetype);
+
+  if (extname && mimetype) {
+    // Check for PDF header (%PDF)
+    const pdfHeader = file.buffer.toString('utf8', 0, 4); // Read first 4 bytes for PDF header
+    if (pdfHeader !== '%PDF') {
+      return res.status(400).send('Invalid PDF file');
+    }
+
+    // Check for forbidden patterns in file content (malicious content)
+    const forbiddenPatterns = [
+      /<\?php/i,        // PHP opening tag
+      /<script>/i,      // Script tags
+      /eval\(/i,        // eval() function
+      /base64_decode/i  // base64_decode function
+    ];
+
+    for (const pattern of forbiddenPatterns) {
+      if (pattern.test(file.buffer.toString('utf8'))) {
+        return res.status(400).send('Malicious content detected');
+      }
+    }
+  } else {
+    return res.status(400).send('Only PDF files are allowed');
+  }
+
+  next(); // Proceed to the next middleware (your upload route)
+};
+
+
+
+WdtlsRouter.post("/uploaddoc", upload_pdf.single("document"), checkForMaliciousContent, async (req, res) => {
   if (!req.file) {
     return res.status(400).send("No file uploaded.");
   }
-  const newFile = {
-    filename: req.file.filename,
-  };
-  var data = req.body;
-  var table_name = "td_document_upload";
-  var fields = `(doc_type,doc_title,document,folder_name,created_at,created_by,created_ip)`;
-  var values = `('${data.doc_type}','${data.doc_title.split("'").join("\\'")}','${newFile.filename}','','${formattedDate}','${user.user_id}','${ip}')`;
-  var whr = null;
-  var sa_data = await db_Insert(table_name, fields, values, whr, 0);
-  var message = `Document uploaded by ${user.user_id}.`;
-  var noti_fields = `(type,message,wrk_releated_id,user_type,view_status,range_id,created_by,created_at,created_ip)`;
-  var noti_values = `('D','${message}','${sa_data.lastId.insertId}','S','1','${range_id_}','${user.user_id}','${formattedDate}','${ip}')`;
-  var res_dt = await db_Insert(
-    "td_notification",
-    noti_fields,
-    noti_values,
-    null,
-    false,
-  );
-  if (res_dt) {
-    if (res_dt.suc > 0) {
-      console.log("Event is emmititng");
-      var notification_dtls = await SendNotification();
+
+  const user = req.session.user;
+  const range_id_ = req.session.user.range_id;
+  const cheuserinput = await chkUserIputFunc(req.body);
+
+  if (cheuserinput > 0) {
+    const date_ob = moment();
+    const formattedDate = date_ob.format("YYYY-MM-DD HH:mm:ss");
+
+    // Get client IP address
+    const ipresult = await fetchIpData();
+    const ip = ipresult.ipdata;
+    const rootDirectory = path.join(__dirname, '..');
+      const typeId = req.body.doc_type;  // Assuming doc_type is coming from the body
+      let uploadDir;
+      if (typeId == 1) {
+        uploadDir = path.join(rootDirectory, 'uploads/notifications/');
+      } else if (typeId == 2) {
+        uploadDir = path.join(rootDirectory, 'uploads/tenders/');
+      } else if (typeId == 3) {
+        uploadDir = path.join(rootDirectory, 'uploads/announcement/');
+      } else {
+        uploadDir = path.join(rootDirectory, 'uploads/downloads/');
+      }
+      console.log(rootDirectory);
+      // Create the directory if it doesn't exist
+      if (!fs.existsSync(uploadDir)) {
+        fs.mkdirSync(uploadDir, { recursive: true });
+      }
+      
+    const newFilename = Date.now() + path.extname(req.file.originalname);
+    const filePath = path.join(uploadDir, newFilename);
+    console.log(filePath);
+    fs.writeFile(filePath, req.file.buffer, (err) => {
+      if (err) {
+        console.error('Error saving file:', err); // Log the actual error message to the console
+        return res.status(500).send('Error saving the file.');
+      }
+      console.log('File saved successfully!');
+      // Optionally respond with success (you can uncomment the response if needed)
+      // res.send('File uploaded successfully with filename: ' + newFilename);
+    });
+    
+   
+    const data = req.body;
+    const table_name = "td_document_upload";
+    const fields = `(doc_type, doc_title, document, folder_name, created_at, created_by, created_ip)`;
+    const values = `('${data.doc_type}', '${data.doc_title.split("'").join("\\'")}', '${newFilename}', '', '${formattedDate}', '${user.user_id}', '${ip}')`;
+
+    const sa_data = await db_Insert(table_name, fields, values, null, 0);
+    const message = `Document uploaded by ${user.user_id}.`;
+
+    const noti_fields = `(type, message, wrk_releated_id, user_type, view_status, range_id, created_by, created_at, created_ip)`;
+    const noti_values = `('D', '${message}', '${sa_data.lastId.insertId}', 'S', '1', '${range_id_}', '${user.user_id}', '${formattedDate}', '${ip}')`;
+
+    const res_dt = await db_Insert("td_notification", noti_fields, noti_values, null, false);
+
+    if (res_dt && res_dt.suc > 0) {
+      const notification_dtls = await SendNotification();
       req.io.emit("notification", { message: notification_dtls.msg });
     }
-  }
 
-  if (user.user_type == "S") {
-    res.redirect("/wdtls/adddoc");
-  } else {
-    res.redirect("/wdtls/announcelist");
-  }
- }else{
     if (user.user_type == "S") {
       res.redirect("/wdtls/adddoc");
     } else {
       res.redirect("/wdtls/announcelist");
     }
- }
+  } else {
+    if (user.user_type == "S") {
+      res.redirect("/wdtls/adddoc");
+    } else {
+      res.redirect("/wdtls/announcelist");
+    }
+  }
 });
 
 WdtlsRouter.get("/announcelist", async (req, res) => {
@@ -365,7 +447,7 @@ WdtlsRouter.get("/addgallery", async (req, res) => {
 // Set storage engine
 
 // Set storage engine
-const storage_gallery = multer.diskStorage({
+const storage_gallery = multer.memoryStorage({
   destination: "./assets/gallery/",
   filename: (req, file, cb) => {
     cb(
@@ -379,35 +461,53 @@ const hasMultipleExtensions = (filename) => {
   return extCount > 1; // If more than one dot, it's suspicious
 };
 
-const hasMaliciousCodeInFile = (buffer) => {
-  const content = buffer.toString("utf8");
-  const forbiddenPatterns = [/<\?php/i, /<script>/i, /eval\(/i, /base64_decode/i];
-  
-  return forbiddenPatterns.some(pattern => pattern.test(content));
-};
 // Initialize multer
 const upload_gall = multer({
- 
-  storage: storage_gallery,
-  limits: { fileSize: 1000000 }, // Limit file size to 1MB
-  fileFilter: (req, file, cb) => {
-    const filetypes = /jpeg|jpg|png|gif/;
-    const extname = filetypes.test(
-      path.extname(file.originalname).toLowerCase(),
-    );
-    const mimetype = filetypes.test(file.mimetype);
-    console.log(file);
-    if (mimetype && extname && !hasMultipleExtensions(file.originalname) ) {
-
-      return cb(null, true);
-    } else {
-      cb("Error: Images Only!");
-    }
-  },
+  storage: multer.memoryStorage(),
 }).single("gall_img"); // 'gall_img' is the name of the input field in the form
+const checkForMaliciousContentforimage = (req, res, next) => {
+  const file = req.file;
 
+  // If no file exists, skip the validation
+  if (!file) {
+    return next();
+  }
+
+  // Check if filename has multiple extensions (suspicious file)
+  if (hasMultipleExtensions(file.originalname)) {
+    return res.status(400).send('Suspicious file name detected (multiple extensions)');
+  }
+
+  // Define forbidden patterns for all file types (image, pdf, etc.)
+  const forbiddenPatterns = [
+    /<\?php/i,        // PHP opening tag
+    /<script>/i,      // Script tags
+    /eval\(/i,        // eval() function
+    /base64_decode/i, // base64_decode function
+    /<iframe>/i,      // Malicious iframe
+    /<object>/i,      // Object injection
+  ];
+
+  // Check for forbidden patterns in the content of the file (malicious content)
+  // For images (JPEG/PNG), content is binary and will not have human-readable content
+  try {
+    // For non-image files, we will try to read the buffer as a string.
+    const content = file.buffer.toString("utf8");
+
+    // Check forbidden patterns in content
+    if (forbiddenPatterns.some(pattern => pattern.test(content))) {
+      return res.status(400).send('Malicious content detected');
+    }
+  } catch (err) {
+    // If we cannot read the file as text (e.g., it's a binary file like image), we skip the content check.
+    console.log('Non-text file, skipping content check:', file.originalname);
+  }
+
+  // Continue to the next middleware if no malicious content was detected
+  return next();
+};
 // File upload route
-WdtlsRouter.post("/uploadgall", upload_gall, async (req, res) => {
+WdtlsRouter.post("/uploadgall", upload_gall, checkForMaliciousContentforimage, async (req, res) => {
   try {
     var user = req.session.user;
     if (!req.file) {
@@ -418,13 +518,32 @@ WdtlsRouter.post("/uploadgall", upload_gall, async (req, res) => {
     var ipresult = await fetchIpData();
     var ip = ipresult.ipdata;
 
-    const newFile = {
-      filename: req.file.filename,
-    };
+    const rootDirectory = path.join(__dirname, '..');
+    const typeId = req.body.doc_type;  // Assuming doc_type is coming from the body
+    let uploadDir;
+      uploadDir = path.join(rootDirectory, 'assets/gallery/');
+  
+    console.log(rootDirectory);
+    // Create the directory if it doesn't exist
+    if (!fs.existsSync(uploadDir)) {
+      fs.mkdirSync(uploadDir, { recursive: true });
+    }
+    const newFilename = Date.now() + path.extname(req.file.originalname);
+    const filePath = path.join(uploadDir, newFilename);
+    console.log(filePath);
+    fs.writeFile(filePath, req.file.buffer, (err) => {
+      if (err) {
+        console.error('Error saving file:', err); // Log the actual error message to the console
+        return res.status(500).send('Error saving the file.');
+      }
+      console.log('File saved successfully!');
+      // Optionally respond with success (you can uncomment the response if needed)
+      // res.send('File uploaded successfully with filename: ' + newFilename);
+    });
     var data = req.body;
     var table_name = "td_gallery";
     var fields = `(title, gal_img,created_at,created_by,created_ip)`;
-    var values = `('${data.title.split("'").join("\\'")}','${newFile.filename}','${formattedDate}','${user.user_id}','${ip}')`;
+    var values = `('${data.title.split("'").join("\\'")}','${newFilename}','${formattedDate}','${user.user_id}','${ip}')`;
     var save_data = await db_Insert(table_name, fields, values, null, 0);
     var range_id_ = req.session.user.range_id;
     var message = `Image  Uploaded by ${user.user_id}.`;

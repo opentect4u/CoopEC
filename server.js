@@ -66,7 +66,7 @@ app.use((req, res, next) => {
   res.locals.error_msg = req.flash("error_msg");
   req.io = io;
   delete req.session.message;
-
+  res.set('Cache-Control', 'no-store');
   next();
 });
 
@@ -95,15 +95,7 @@ app.use("/rangeR", validateSession,checkUserInput, rangeRouter);
 
 app.use("/wapi",cors(corsOptions) ,WapiRouter);
 
-// app.get("/", async (req, res) => {
-//   const captcha = svgCaptcha.create();
-//   // Store the CAPTCHA text in a session or a temporary store for verification later
-//   req.session.captcha = captcha.text; 
-//   res.type('svg');
-  
-//   const res_dt = {captcha : captcha.data}
-//   res.redirect("/login",res_dt);
-// });
+
 
 app.get("/dashboard", async (req, res) => {
   var res_dt = {
@@ -118,15 +110,7 @@ app.get("/dashboard", async (req, res) => {
     res.redirect("/login");
   }
 });
-// app.get("/login", (req, res) => {
-//   const captcha = svgCaptcha.create();
-//   // Store the CAPTCHA text in a session or a temporary store for verification later
-//   req.session.captcha = captcha.text; 
-//   res.type('svg');
-  
-//   const res_dt = {captcha : captcha.data}
-//   res.render("login/login",res_dt);
-// });
+
 function generateCaptcha() {
   const length = 5;  // Length of CAPTCHA
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'; // Letters and Numbers

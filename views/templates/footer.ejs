@@ -91,5 +91,119 @@ $(document).ready(function(){
             }
         });
     });
+
+    const allowedExtensions = ["jpg", "jpeg", "png"];
+  const maxFileSize = 5 * 1024 * 1024; // 5MB
+
+  $('#gall_img').on('change', function () {
+    const file = this.files[0];
+    currImgInd = $(this).data('index');
+    selImgId = $(this).attr('id')
+    if (file) {
+      const fileExt = file.name.split(".").pop().toLowerCase();
+      const mimeType = file.type;
+
+      // Validate File Type
+      if (!allowedExtensions.includes(fileExt) || !mimeType.startsWith("image/")) {
+        $(this).val('');
+        alert("Invalid file type. Only images (JPG, PNG, JPEG) are allowed.");
+        return;
+      }
+      // Validate File Size
+      if (file.size > maxFileSize) {
+        $(this).val('');
+        alert("File size exceeds the 5MB limit.");
+        return;
+      }}
+    })
+    const allowedExtensions_fordoc = ["pdf"];
+    $('#document_id').on('change', function () {
+    const file = this.files[0];
+    currImgInd = $(this).data('index');
+    selImgId = $(this).attr('id')
+    if (file) {
+      const fileExt = file.name.split(".").pop().toLowerCase();
+      const mimeType = file.type;
+
+      // Validate File Type
+      if (!allowedExtensions_fordoc.includes(fileExt) ) {
+        $(this).val('');
+        alert("Invalid file type. Only PDF are allowed.");
+        return;
+      }
+      // Validate File Size
+      if (file.size > maxFileSize) {
+        $(this).val('');
+        alert("File size exceeds the 5MB limit.");
+        return;
+      }}
+    })
+
+
+
+
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+    // Select all navigation links
+    const navLinks = document.querySelectorAll(".nav-link[data-toggle='collapse']");
+    // const navLinks_top = document.querySelector(".nav-link.dropdown-toggle");
+    // const profil_link = document.querySelectorAll(".nav-link[data-toggle='dropdown']");
+
+    navLinks.forEach(link => {
+        link.addEventListener("click", function (event) {
+            event.preventDefault(); // Prevent default link behavior
+
+            const targetId = this.getAttribute("href").substring(1); // Remove "#" from href
+            const targetCollapse = document.getElementById(targetId);
+
+            if (targetCollapse) {
+                const isOpen = targetCollapse.classList.contains("show");
+                // Remove 'show' class from all collapse elements
+                // aria-expanded="true"
+                document.querySelectorAll(".collapse").forEach(collapse => {
+                    if (collapse !== targetCollapse) {
+                        collapse.classList.remove("show");
+                        collapse.previousElementSibling.setAttribute("aria-expanded", "false");
+                    }
+                });
+
+                // Toggle 'show' class on clicked item
+                targetCollapse.classList.toggle("show");
+
+                if (!isOpen) {
+                    targetCollapse.classList.add("show");
+                    this.setAttribute("aria-expanded", "true");
+                } else {
+                    targetCollapse.classList.remove("show");
+                    this.setAttribute("aria-expanded", "false");
+                }
+            }
+        });
+    });
+
+
+    const profileDropdown = document.getElementById("profileDropdown");
+    const dropdownMenu = document.querySelector(".dropdown-menu.dropdown-menu-right.navbar-dropdown.preview-list");
+
+    if (profileDropdown && dropdownMenu) {
+        profileDropdown.addEventListener("click", function (event) {
+            event.preventDefault(); // Prevent default link behavior
+            
+            // Toggle the "show" class on the dropdown menu
+            dropdownMenu.classList.toggle("show");
+
+            // Close dropdown when clicking outside
+            document.addEventListener("click", function closeDropdown(e) {
+                if (!profileDropdown.contains(e.target) && !dropdownMenu.contains(e.target)) {
+                    dropdownMenu.classList.remove("show");
+                    document.removeEventListener("click", closeDropdown);
+                }
+            });
+        });
+    }
+   
+
+});
 </script>
 
