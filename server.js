@@ -151,8 +151,8 @@ app.get("/logout", async (req, res) => {
   req.session.destroy();
   res.redirect("/login");
 });
-app.get("/404", (req, res) => {
-  res.render("pages/404");
+app.get("/", (req, res) => {
+  res.redirect("/login");
 });
 
 app.get("*", function (req, res) {
