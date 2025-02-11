@@ -10,6 +10,7 @@ const express = require("express"),
 const flash = require("connect-flash");
 //const svgCaptcha = require('svg-captcha');
 const socketIo = require("socket.io");
+const MemoryStore = require('express-session').MemoryStore;
 const { db_Select,db_Insert } = require("./modules/MasterModule");
 // parse requests of content-type - application/json
 app.use(express.json());
@@ -112,8 +113,9 @@ app.get("/dashboard", async (req, res) => {
 });
 
 function generateCaptcha() {
-  const length = 5;  // Length of CAPTCHA
-  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'; // Letters and Numbers
+  const length = 4;  // Length of CAPTCHA
+  //const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'; // Letters and Numbers
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
   let captcha = '';
 
   // Ensure that the CAPTCHA has at least one letter
@@ -129,10 +131,10 @@ function generateCaptcha() {
   }
 
   // If there is no letter, replace one character with a random letter
-  if (!hasLetter) {
-    const randomLetter = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.charAt(Math.floor(Math.random() * 52));
-    captcha = captcha.substring(0, Math.floor(Math.random() * length)) + randomLetter + captcha.substring(Math.floor(Math.random() * length) + 1);
-  }
+  // if (!hasLetter) {
+  //   const randomLetter = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.charAt(Math.floor(Math.random() * 52));
+  //   captcha = captcha.substring(0, Math.floor(Math.random() * length)) + randomLetter + captcha.substring(Math.floor(Math.random() * length) + 1);
+  // }
 
   return captcha;
 }
@@ -146,8 +148,11 @@ app.get("/login", (req, res) => {
   res.render("login/login", { captcha: captchaNumber });
 });
 app.get("/logout", async (req, res) => {
+  
+  if (req.session.user) {
   var user_id = req.session.user.user_id;
   var save_data = await db_Insert("md_user", `session_version_id='NULL'`, null, `user_id ='${user_id}'`, 1);
+  }
   req.session.destroy();
   res.redirect("/login");
 });
@@ -158,9 +163,18 @@ app.get("/", (req, res) => {
 app.get("*", function (req, res) {
   res.redirect("404");
 });
-
+io.use((socket, next) => {
+  const sessionID = socket.handshake.headers['cookie']; // Assuming cookie contains sessionID
+  if (sessionID) {
+    // Get session object from the store using sessionID
+    const session = socket.request.session;
+    socket.session = session; // Attach session to the socket object
+  }
+  next();
+});
 io.on("connection", (socket) => {
   console.log(`Connected socket ID: ${socket.id}`);
+
   socket.on("notification-request", async (data) => {
     const range_id = data.range_code;
     const user_type = data.user_type;
@@ -193,13 +207,17 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {
 
     console.log("A user disconnected");
-    socket.session.destroy((err) => {
-      if (err) {
-        console.log('Error destroying session:', err);
-      } else {
-        console.log('Session destroyed due to disconnect');
-      }
-    });
+    if (socket.session) {
+      socket.session.destroy((err) => {
+        if (err) {
+          console.error("Error destroying session:", err);
+        } else {
+          console.log("Session destroyed");
+        }
+      });
+    } else {
+      console.log("Session not found");
+    }
   });
 });
 

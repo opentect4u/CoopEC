@@ -24,6 +24,7 @@ LoginRouter.post("/logincheck", async (req, res) => {
     params,
   );
   var captchaInput = req.body.captchaInput
+  console.log(captchaInput,req.session.captcha);
   // Pass user_id and 'A' (for active status) as parameters to bind to the placeholders
   if (captchaInput == req.session.captcha) {
  
