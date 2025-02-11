@@ -260,6 +260,23 @@ $('#example').DataTable();
         }
       }
     });
+
+    
+</script>
+<script>
+    // Check if the user is offline
+    function checkConnectivity() {
+      if (!navigator.onLine) {
+        // Redirect to login page if offline
+        window.location.href = '/logout'; // Replace with your login page route
+      }
+    }
+    // Listen for online and offline events
+    window.addEventListener('offline', checkConnectivity);
+    window.addEventListener('online', checkConnectivity);
+  
+    // Run on page load to check initial connectivity
+    checkConnectivity();
 </script>
 
 
