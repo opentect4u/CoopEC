@@ -40,7 +40,7 @@ app.use(
     resave: false,
     saveUninitialized: true,
     cookie: {
-      maxAge: 3600000,
+      maxAge: 30 * 60 * 1000,
     },
   }),
 );
@@ -191,7 +191,15 @@ io.on("connection", (socket) => {
   // socket.emit('notification-request', {});
   // Handle client disconnecting
   socket.on("disconnect", () => {
+
     console.log("A user disconnected");
+    socket.session.destroy((err) => {
+      if (err) {
+        console.log('Error destroying session:', err);
+      } else {
+        console.log('Session destroyed due to disconnect');
+      }
+    });
   });
 });
 
