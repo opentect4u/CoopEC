@@ -96,8 +96,6 @@ app.use("/rangeR", validateSession,checkUserInput, rangeRouter);
 
 app.use("/wapi",cors(corsOptions) ,WapiRouter);
 
-
-
 app.get("/dashboard", async (req, res) => {
   var res_dt = {
     user_data: req.session.user,
@@ -105,7 +103,6 @@ app.get("/dashboard", async (req, res) => {
   var user = req.session.user;
 
   if (user) {
-    // res.render("dashboard/landing",res_dt);
     res.redirect("dash/dashboard");
   } else {
     res.redirect("/login");
@@ -117,10 +114,8 @@ function generateCaptcha() {
   //const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'; // Letters and Numbers
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
   let captcha = '';
-
   // Ensure that the CAPTCHA has at least one letter
   let hasLetter = false;
-
   // Generate the CAPTCHA
   for (let i = 0; i < length; i++) {
     const randomChar = characters.charAt(Math.floor(Math.random() * characters.length));
@@ -135,11 +130,9 @@ function generateCaptcha() {
   //   const randomLetter = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.charAt(Math.floor(Math.random() * 52));
   //   captcha = captcha.substring(0, Math.floor(Math.random() * length)) + randomLetter + captcha.substring(Math.floor(Math.random() * length) + 1);
   // }
-
   return captcha;
 }
 app.get("/login", (req, res) => {
-  
   //const captchaNumber = Math.floor(1000 + Math.random() * 9000);
   const captchaNumber = generateCaptcha();
   // Store the CAPTCHA number in the session for later validation
