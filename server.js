@@ -40,7 +40,9 @@ app.use(
     secret: "WB_CB_ELE_COMM", // Change this to a secure random string
     resave: false,
     saveUninitialized: true,
-    cookie: { maxAge: 30 * 60 * 1000,secure: true, httpOnly: true, sameSite: "Strict" }
+    cookie: { maxAge: 30 * 60 * 1000 , secure: true,            // Only send over HTTPS
+      httpOnly: true,          // Prevent JavaScript access
+      sameSite: "Lax" }
   }),
 );
 var server = https.createServer(app);
@@ -135,6 +137,7 @@ app.get("/login", (req, res) => {
   const captchaNumber = generateCaptcha();
   // Store the CAPTCHA number in the session for later validation
   req.session.captcha = captchaNumber;
+  console.log(req.session.captcha);
   // Render the login page and pass the CAPTCHA image data to the view
   res.render("login/login", { captcha: captchaNumber });
 });
@@ -154,15 +157,15 @@ app.get("/", (req, res) => {
 app.get("*", function (req, res) {
   res.redirect("404");
 });
-io.use((socket, next) => {
-  const sessionID = socket.handshake.headers['cookie']; // Assuming cookie contains sessionID
-  if (sessionID) {
-    // Get session object from the store using sessionID
-    const session = socket.request.session;
-    socket.session = session; // Attach session to the socket object
-  }
-  next();
-});
+// io.use((socket, next) => {
+//   const sessionID = socket.handshake.headers['cookie']; // Assuming cookie contains sessionID
+//   if (sessionID) {
+//     // Get session object from the store using sessionID
+//     const session = socket.request.session;
+//     socket.session = session; // Attach session to the socket object
+//   }
+//   next();
+// });
 io.on("connection", (socket) => {
   console.log(`Connected socket ID: ${socket.id}`);
 
