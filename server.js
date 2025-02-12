@@ -40,7 +40,7 @@ app.use(
     secret: "WB_CB_ELE_COMM", // Change this to a secure random string
     resave: false,
     saveUninitialized: true,
-    cookie: { maxAge: 30 * 60 * 1000 ,        // Only send over HTTPS
+    cookie: { maxAge: 30 * 60 * 1000 , secure: true,        // Only send over HTTPS
       httpOnly: true,          // Prevent JavaScript access
       sameSite: "Lax" }
   }),
@@ -135,8 +135,8 @@ function generateCaptcha() {
 app.get("/login", (req, res) => {
   //const captchaNumber = Math.floor(1000 + Math.random() * 9000);
   const captchaNumber = generateCaptcha();
-  // Store the CAPTCHA number in the session for later validation
-  req.session.captcha = captchaNumber;
+ 
+  //req.session.captcha = captchaNumber;
   console.log(req.session.captcha);
   // Render the login page and pass the CAPTCHA image data to the view
   res.render("login/login", { captcha: captchaNumber });

@@ -22,6 +22,7 @@
                       <div class="row">
                           <div class="col-md-4"><label>Captcha: <strong><%= captcha %></strong></label></div>
                           <div class="col-md-4"> 
+                            <input type="hidden" name="captchaStored" value="<%= captcha %>" />
                             <input type="text" id="captchaInput" name="captchaInput" class="form-control"  autocomplete="off" required></div>
                       </div>
               </div>
