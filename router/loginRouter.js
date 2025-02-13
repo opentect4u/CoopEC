@@ -30,7 +30,7 @@ LoginRouter.post("/logincheck", async (req, res) => {
       // console.log(captchaInput,captchaSto)
        //console.log('dhdhdhdhhd');
   // Pass user_id and 'A' (for active status) as parameters to bind to the placeholders
- // if (captchaInput == captchaSto) {
+  if (captchaInput == req.session.captcha) {
  
   if (res_dt.suc > 0) {
         if (res_dt.msg.length > 0) {
@@ -75,9 +75,9 @@ LoginRouter.post("/logincheck", async (req, res) => {
         req.session.errorMsg = "Please check your userid or password";
         res.redirect("/login?error=true&msg=Please check your userid or password");
       }
-    // }else {
-    //   res.redirect("/login?error=true&msg=CAPTCHA verification failed");
-    // }
+    }else {
+      res.redirect("/login?error=true&msg=CAPTCHA verification failed");
+    }
   
 });
 

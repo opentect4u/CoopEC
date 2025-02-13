@@ -33,7 +33,7 @@ app.set("layout", "templates/layout");
 // SET ASSETS AS A STATIC PATH //
 app.use(express.static(path.join(__dirname, "assets/")));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
-app.set("trust proxy", 1);
+//app.set("trust proxy", 1);
 // Set up the session middleware
 app.use(
   session({
@@ -41,9 +41,7 @@ app.use(
     resave: false,
     saveUninitialized: true,
     cookie: { maxAge: 30 * 60 * 1000 ,          // Only send over HTTPS
-    secure: true,            // Ensures cookies are only sent over HTTPS
-    httpOnly: true,          // Prevents JavaScript access (Mitigates XSS)
-    sameSite: "Lax"       // Prevent JavaScript access
+   
      }
   }),
 );
