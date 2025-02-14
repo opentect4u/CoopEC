@@ -94,7 +94,8 @@ app.use("/report",validateSession,checkUserInput, reportRouter);
 app.use("/crn", Cronjobrouter);
 app.use("/rangeR", validateSession,checkUserInput, rangeRouter);
 
-app.use("/wapi",cors(corsOptions) ,WapiRouter);
+//app.use("/wapi",cors(corsOptions) ,WapiRouter);
+app.use("/wapi" ,WapiRouter);
 
 app.get("/dashboard", async (req, res) => {
   var res_dt = {
