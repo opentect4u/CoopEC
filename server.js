@@ -18,9 +18,9 @@ app.use(express.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: false }));
 var corsOptions = {
-  origin: 'https://cecwb.opentech4u.co.in/',
+  origin: 'https://cecwb.opentech4u.co.in',
 }
-//app.use(cors());
+app.use(cors());
 
 // SET VIEW ENGINE AND PATH //
 app.set("view engine", "ejs");
@@ -94,8 +94,8 @@ app.use("/report",validateSession,checkUserInput, reportRouter);
 app.use("/crn", Cronjobrouter);
 app.use("/rangeR", validateSession,checkUserInput, rangeRouter);
 
-//app.use("/wapi",cors(corsOptions) ,WapiRouter);
-app.use("/wapi" ,WapiRouter);
+app.use("/wapi",cors(corsOptions) ,WapiRouter);
+
 
 app.get("/dashboard", async (req, res) => {
   var res_dt = {
