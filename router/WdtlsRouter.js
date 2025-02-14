@@ -948,27 +948,36 @@ WdtlsRouter.post("/changepass", async (req, res) => {
     var res_dt = await db_Select(select, table_name, whr, order);
 
     if (res_dt.msg.length > 0) {
-      if (await bcrypt.compare(data.old_pass, res_dt.msg[0].password)) {
-        var pass = bcrypt.hashSync(data.pass, 10);
-
-        var date_ob = moment();
-        var formattedDate = date_ob.format("YYYY-MM-DD HH:mm:ss");
-        var ipresult = await fetchIpData();
-        var ip = ipresult.ipdata;
-        var values = null;
-        var table_name = "md_user";
-        var fields = `password = '${pass}',modified_at='${formattedDate}',modified_by='${user.user_id}',modified_ip='${ip}'`;
-        var whr = `user_id = '${user.user_id}'`;
-        var save_data = await db_Insert(table_name, fields, values, whr, 1);
-        req.flash("success_msg", "Update successful!");
-        res.redirect("/logout");
-      } else {
-        result = {
-          suc: 0,
-          msg: "Please check your userid or password",
-          dt: res_dt,
-        };
-        req.flash("error_msg", "Old Password Is Wrong!");
+      const hasLowercase = /[a-z]/.test(data.pass);
+      const hasUppercase = /[A-Z]/.test(data.pass);
+      const hasNumber = /[0-9]/.test(data.pass);
+      const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(data.pass);
+      const hasMinLength = data.pass.length >= 8;
+      if (hasLowercase && hasUppercase && hasNumber && hasSpecialChar && hasMinLength) {
+        if (await bcrypt.compare(data.old_pass, res_dt.msg[0].password)) {
+          var pass = bcrypt.hashSync(data.pass, 10);
+          var date_ob = moment();
+          var formattedDate = date_ob.format("YYYY-MM-DD HH:mm:ss");
+          var ipresult = await fetchIpData();
+          var ip = ipresult.ipdata;
+          var values = null;
+          var table_name = "md_user";
+          var fields = `password = '${pass}',modified_at='${formattedDate}',modified_by='${user.user_id}',modified_ip='${ip}'`;
+          var whr = `user_id = '${user.user_id}'`;
+          var save_data = await db_Insert(table_name, fields, values, whr, 1);
+          req.flash("success_msg", "Update successful!");
+          res.redirect("/logout");
+        } else {
+          result = {
+            suc: 0,
+            msg: "Please check your userid or password",
+            dt: res_dt,
+          };
+          req.flash("error_msg", "Old Password Is Wrong!");
+          res.redirect("/wdtls/changepass");
+        }
+      }else{
+        req.flash("error_msg", "Password does not meet the requirements");
         res.redirect("/wdtls/changepass");
       }
     } else {

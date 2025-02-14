@@ -18,7 +18,7 @@ app.use(express.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: false }));
 var corsOptions = {
-  origin: 'http://localhost',
+  origin: 'https://cecwb.opentech4u.co.in/',
 }
 //app.use(cors());
 
