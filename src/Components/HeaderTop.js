@@ -93,7 +93,7 @@ const defaiultFontSize = () => {
 	<div className="wrapper">
 	<div className="leftNav">
 	<ul>
-	<li><i className="fa fa-phone" aria-hidden="true"></i> <a href="tel:+91 33 2441 4366">+91 33 4444 6666</a></li>
+	{/* <li><i className="fa fa-phone" aria-hidden="true"></i> <a href="tel:+91 33 2441 4366">+91 33 4444 6666</a></li> */}
 	<li><i className="fa fa-envelope" aria-hidden="true"></i> <a href="mailto:cecwestbengal2@gmail.com">cecwestbengal2@gmail.com</a></li>
 	</ul>
 	</div>

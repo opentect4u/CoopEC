@@ -170,6 +170,7 @@ console.log(params.get('district_name'), 'paramsuuuuuuuuuuuuuuuuuuuuuuu uuuuuuuu
     sortDirections: ['descend', 'ascend'],
     render: (text, record) => (
     <>
+    {/* {JSON.stringify(record, null, 2)} */}
     <span className="address_td">{record.cop_soc_name == null ? "--" : record.cop_soc_name} </span>{' '}
     <span className={record.functional_status === 'Functional' ? 'green_Fnc' : 'red_Fnc'}>
     {record.functional_status == null ? "--" : record.functional_status}
@@ -198,7 +199,7 @@ console.log(params.get('district_name'), 'paramsuuuuuuuuuuuuuuuuuuuuuuu uuuuuuuu
       width: '13%',
       // ...getColumnSearchProps('last_elec_date'),
       // render: (text, record) => `${record.last_elec_date}`,
-      render: (date) => date ? new Date(date).toLocaleDateString('en-GB') : '--',
+      render: (date) => date == '0000-00-00' ? '--' : new Date(date).toLocaleDateString('en-GB'),
       
     },
     {
@@ -208,7 +209,8 @@ console.log(params.get('district_name'), 'paramsuuuuuuuuuuuuuuuuuuuuuuu uuuuuuuu
       width: '13%',
       // ...getColumnSearchProps('tenure_ends_on'),
       // render: (text, record) => `${record.tenure_ends_on}`,
-      render: (date) => date ? new Date(date).toLocaleDateString('en-GB') : '--',
+      // render: (date) => date ? new Date(date).toLocaleDateString('en-GB') : '--',
+      render: (date) => date == '0000-00-00' ? '--' : new Date(date).toLocaleDateString('en-GB'),
     },
     {
       title: 'Key Person Details',

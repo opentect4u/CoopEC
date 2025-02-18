@@ -6,6 +6,7 @@ import RightSidebarGlobal from '../../Components/RightSidebarGlobal';
 import FooterCus from '../../Components/FooterCus';
 import RangeList from '../../Hooks/API/RangeList';
 import Loader from '../../Components/Loader';
+import contactImg from "../../Assets/images/contact_img.jpg";
 
 function ContactUs() {
 
@@ -85,7 +86,7 @@ function ContactUs() {
     <h1>Contact Us</h1>
 <div className='row'>
     <div className='col-sm-8 float-left contact_left'>
-    <iframe
+    {/* <iframe
       src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3684.252739823028!2d88.34100661435752!3d22.569648685184315!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a0277a200f6df61%3A0xca19a1b2688346e!2sNew%20Secretariat%20Building!5e0!3m2!1sen!2sin!4v1669789685511!5m2!1sen!2sin"
       width="100%"
       height="420"
@@ -94,28 +95,55 @@ function ContactUs() {
       loading="lazy"
       referrerPolicy="no-referrer-when-downgrade"
       title="Google Maps Embed"
-    ></iframe>
+    ></iframe> */}
+    <img src={`${contactImg}`} alt=""/>
     </div>
 
     <div className='col-sm-4 float-left'>
       <div className='address_1'>
       <h2>Address</h2>
       <p>New Secretariat Building, Block - A, 4th Floor, 1, Kiran Sankar Roy Road Kolkata:700001</p>
-      </div>
-
-      <div className='address_2'>
-      <h2>Phone & Email</h2>
+      <h2>Email</h2>
       <p>Email: cecwestbengal2@gmail.com</p>
-      <p>Phone: +91 33 4444 6666/77</p>
       </div>
 
+      {/* <div className='address_2'> */}
+      {/* <h2>Co-operative Election Commissioner </h2> */}
+      {/* <p>
+      <strong>Dr. Krishna Gupta, IAS</strong>
+Additional Chief Secretary, Cooperation Department 
+New Secretariat Building Block - A, 4th Floor 1,
+Kiran Sankar Roy Road
+Kolkata - 700 001<br/>
+<strong>Tel :</strong> (033) 2262-7023 (033) 2214-3488  <br/>
+<strong> E-Mail :</strong> prsecy.cooperation@gmail.com 
+      </p> */}
+      {/* <p>Phone: +91 33 4444 6666/77</p> */}
+      {/* </div> */}
+
     </div>
     </div>
 
-    {/* <div className='row'>
+    <div className='row'>
     <div className='range_address_main'>
+    <div className='col-sm-12 contactDetails'>
+      {/* <div className='address_cus'>
+      <h3>Co-operative Election Commissioner </h3>
+      <p>
+      <strong>Dr. Krishna Gupta, IAS</strong>
+Additional Chief Secretary, Cooperation Department 
+New Secretariat Building Block - A, 4th Floor 1,
+Kiran Sankar Roy Road
+Kolkata - 700 001<br/>
+<strong>Tel :</strong> (033) 2262-7023 (033) 2214-3488  
+<strong> E-Mail :</strong> prsecy.cooperation@gmail.com 
+      </p>
+      </div> */}
 
-    {loading ?(
+    
+    
+    </div>
+    {/* {loading ?(
     <Loader align = {'center'} gap = {'middle'} size = {'large'} />
     ):(
     <>
@@ -129,10 +157,10 @@ function ContactUs() {
 
     ))}
     </>
-    )}
+    )} */}
     
     </div>
-    </div> */}
+    </div>
 
     </div>
     {/* <div class="col-sm-4 float-left">

@@ -115,14 +115,14 @@ useEffect(() => {
     <li class="addresList">
     New Secretariat Building, Block - A, 4th Floor, 1, Kiran Sankar Roy Road Kolkata:700001</li>
     <li class="emailList"><a href="mailto:cecwestbengal2@gmail.com">cecwestbengal2@gmail.com</a></li>
-    <li class="phonList"> +91 33 4444 6666/77</li>
+    {/* <li class="phonList"> +91 33 4444 6666/77</li> */}
     </ul>
 
     </div>
     </div>
 </div>
 	
-<div class="footerWhite">Copyright © 2024 Co-operative Election Commission, West Bengal. All rights reserved.</div>
+<div class="footerWhite">Copyright © Co-operative Election Commission, West Bengal. All rights reserved. <strong>Powered by WTL</strong></div>
 
 
 

@@ -512,11 +512,12 @@ const exportToExcel = () => {
 </div>
 
 
-{getBoardmember.length > 0 && (
+
     <div className="row">
     <div className="col-md-12">
     <div className="form-group member_list">
     <label className='title'>Board Member List</label>
+    {getBoardmember.length > 0 ? (
     <DataTable value={getBoardmember?.map((item, i) => ([{ ...item, id: i }])).flat()} responsiveLayout="scroll">
     <Column header="Sl No." body={(rowData) => <span style={{ fontWeight: "bold" }}>{rowData?.id + 1}</span>}></Column>
     
@@ -533,11 +534,27 @@ const exportToExcel = () => {
     ></Column>
 
     </DataTable>
+    ) : (
+    <>
+    {/* <DataTable value={[]}> 
+    <Column 
+    header="Name"  
+    body={() => <span style={{ fontWeight: "bold", color: "red" }}>No record found.</span>} 
+    ></Column>
+    <Column header="Designation" body={() => <span style={{ fontWeight: "bold", color: "red" }}>No record found.</span>}></Column>
+    <Column header="Email"></Column>
+    </DataTable> */}
+    <p style={{ textAlign: "left", fontSize: 14, fontWeight: "bold", color: "red" }}>
+        No record found.
+    </p>
+    
+    </>
+    )}
     </div>
     </div>
 
 </div>
-)}
+
 
 
 

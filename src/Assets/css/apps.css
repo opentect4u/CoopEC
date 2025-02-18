@@ -721,9 +721,21 @@ width: 100%; padding:0;}
 
 /* =================================== Inner Page Style Start ======================================= */
 
-
+.address_cus{background: #e4e4e4;
+  padding: 15px;
+  border-radius: 10px;
+  border: #c6c6c6 solid 1px;}
+.address_cus p{padding: 0; margin: 0 !important;}
 
 .inner_page_Sec{padding-top: 59px; padding-bottom: 50px; display: inline-block; width: 100%;}
+
+.inner_page_Sec .contactDetails h3 {
+  font-size: 20px;
+  color: #000;
+  font-weight: 700;
+  margin-bottom: 10px;
+  text-transform: capitalize;
+}
 
 .left_sec h1 {
   font-size: 20px;
@@ -1353,20 +1365,36 @@ border-radius: 6px;}
   object-fit: cover; border: #17b0fd solid 3px;}
 
 .address_1{position: relative;
-  padding: 30px 22px;
+  padding:15px;
   background-color: #1b57b0; margin-bottom:80px;
 }
 
-.address_1 h2{color: #fff; font-size: 23px; margin: 0 0 12px 0; padding: 0;}
-.address_1 p{color: #fff; font-size: 15px; margin: 0;}
+.address_1 h2{color: #fff;
+  font-size: 18px;
+  margin: 0 0 2px 0;
+  padding: 0;
+  font-weight: 600;}
+.address_1 p{color: #fff;
+  font-size: 14px;
+  margin: 0;
+  line-height: 22px;
+  padding-bottom: 10px;}
 
 .address_2{position: relative;
-  padding: 30px 22px;
+  padding: 15px;
   background-color: #1b57b0;
 }
 .address_2{margin-bottom: 20px;}
-.address_2 h2{color: #fff; font-size: 23px; margin: 0 0 12px 0; padding: 0;}
-.address_2 p{color: #fff; font-size: 15px; margin: 0;}
+.address_2 h2{color: #fff;
+  font-size: 18px;
+  margin: 0 0 2px 0;
+  padding: 0;
+  font-weight: 600;}
+.address_2 p{color: #fff;
+  font-size: 14px;
+  margin: 0;
+  line-height: 22px;
+  padding-bottom: 10px;}
 
 
 .radio_Btn__{margin-bottom: 15px; width: 100%;}
@@ -1489,7 +1517,7 @@ border-radius: 6px;}
 }
 
 
-.range_address_main{margin-top: 20px;}
+.range_address_main{margin-top: 20px; width: 100%;}
 .range_address{order: #ccc solid 1px;
   height: 110px;
   padding: 12px;
