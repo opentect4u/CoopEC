@@ -50,13 +50,19 @@ function StatisticsDetails() {
         auth_key:"xxxxx",
         soc_id: searchID
       }
-      // ,
-      // {
-      //     headers: {
-      //         Authorization: loginData.token,
-      //     },
-      // }
+      ,
+    {
+        headers: {
+            auth_key: 'c299cf0ae55ac8a2e3932b65fe5f08538962c5114b0f7d5680db8193eb2d3116',
+        },
+    }
       ).then(res => {
+
+        console.log({
+            auth_key:"xxxxx",
+            soc_id: searchID
+          }, 'kkkkkkkkk');
+        
   
         if(res.status == '200'){
           console.log(res, 'ffffffff', res.data.suc);
@@ -82,75 +88,7 @@ function StatisticsDetails() {
   }, [searchID])
   
   
-  // const exportToExcel = () => {
-  //     const data = [
-  //         { 'Label': 'Society Name', 'Value': getPageData.cop_soc_name || '--' },
-  //         { 'Label': 'Registration Number', 'Value': getPageData.reg_no || '--' },
-  //         { 'Label': 'Date of Registration', 'Value': getPageData.reg_date ? dataFunc(getPageData.reg_date) : '--' },
-  //         { 'Label': 'Type of Society', 'Value': getPageData.soc_type_name || '--' },
-  //         { 'Label': 'Tier of Society', 'Value': getPageData.soc_tier_name || '--' },
-  //         { 'Label': 'Registration & Controlling Authority', 'Value': getPageData.reg_cont_auth || '--' },
-  //         { 'Label': 'Returning Officer of Society', 'Value': getPageData.returning_officer || '--' },
-  //         { 'Label': 'State', 'Value': getPageData.state_name || '--' },
-  //         { 'Label': 'District', 'Value': getPageData.dist_name || '--' },
-  //         { 'Label': 'Zone', 'Value': getPageData.zone_name || '--' },
-  //         { 'Label': 'Range', 'Value': getPageData.range_name || '--' },
-  //         { 'Label': 'Mapping', 'Value': getPageData.urban_rural_flag == "U" ? 'Urban Mapping' : 'Rural Mapping' },
   
-  
-  //         // { 'Label': 'Block', 'Value': getPageData.block_name || '--' },
-  //         // { 'Label': 'Gram Panchayat', 'Value': getPageData.gp_name || '--' },
-  //         // { 'Label': 'Village', 'Value': getPageData.vill_name || '--' },
-  //         // { 'Label': 'Pin Code', 'Value': getPageData.pin_no || '--' },
-  
-  //         // { 'Label': 'Category of Urban Local Body', 'Value': getPageData.ulb_catg_name || '--' },
-  //         // { 'Label': 'Urban Local Body', 'Value': getPageData.ulb_name || '--' },
-  //         // { 'Label': 'Locality or Ward', 'Value': getPageData.ward_name || '--' },
-  
-  //         // Conditionally show Urban or Rural fields
-  //         ...(getPageData.urban_rural_flag === "R" ? [
-  //             { 'Label': 'Block', 'Value': getPageData.block_name || '--' },
-  //             { 'Label': 'Gram Panchayat', 'Value': getPageData.gp_name || '--' },
-  //             { 'Label': 'Village', 'Value': getPageData.vill_name || '--' },
-  //             { 'Label': 'Pin Code', 'Value': getPageData.pin_no == null ? "--" : getPageData.pin_no}
-  //         ] : [
-  //             { 'Label': 'Category of Urban Local Body', 'Value': getPageData.ulb_catg_name || '--' },
-  //             { 'Label': 'Urban Local Body', 'Value': getPageData.ulb_name || '--' },
-  //             { 'Label': 'Locality or Ward', 'Value': getPageData.ward_name || '--' },
-  //             { 'Label': 'Pin Code', 'Value': getPageData.pin_no || '--' }
-  //         ]),
-  
-  
-  //         { 'Label': 'Address', 'Value': getPageData.address || '--' },
-  //         { 'Label': 'Management Status', 'Value': getPageData.manage_status_name || '--' },
-  //         { 'Label': 'Type of Special Officer', 'Value': getPageData.officer_type_name || '--' },
-  //         { 'Label': 'Number Of Members', 'Value': getPageData.num_of_memb || '--' },
-  //         { 'Label': 'Audit Completed upto', 'Value': getPageData.audit_upto || '--' },
-  //         { 'Label': 'Last Election of BOD held on', 'Value': getPageData.last_elec_date ? dataFunc(getPageData.last_elec_date) : '--' },
-  //         { 'Label': 'Tenure Ends On', 'Value': getPageData.tenure_ends_on ? dataFunc(getPageData.tenure_ends_on) : '--' },
-  //         { 'Label': 'Name of Key Person', 'Value': getPageData.key_person || '--' },
-  //         { 'Label': 'Designation of Key Person', 'Value': getPageData.key_person_desig || '--' },
-  //         { 'Label': 'Contact Number', 'Value': getPageData.contact_number || '--' },
-  //         { 'Label': 'Email', 'Value': getPageData.email || '--' },
-  //         { 'Label': 'Case Involved', 'Value': getPageData.case_id == 1 ? 'Yes' : 'No' },
-  //         { 'Label': 'Case Number', 'Value': getPageData.case_num || '--' },
-  //         { 'Label': 'Status', 'Value': getPageData.functional_status || '--' }
-  //     ];
-  
-  //     // Create a new workbook
-  //     const workbook = XLSX.utils.book_new();
-  
-  //     // Convert the data to a worksheet
-  //     const worksheet = XLSX.utils.json_to_sheet(data);
-  
-  //     // Append the worksheet to the workbook
-  //     XLSX.utils.book_append_sheet(workbook, worksheet, 'Society Details Data');
-  
-  //     // Generate Excel file and trigger download
-  //     const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
-  //     const blob = new Blob([excelBuffer], { type: 'application/octet-stream' });
-  //     saveAs(blob, 'Society_Details_Data.xlsx');
-  // };
   
 
   return (

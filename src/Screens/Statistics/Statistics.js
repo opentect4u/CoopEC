@@ -190,7 +190,8 @@ function Statistics() {
           dataIndex: 'last_elec_date',
           key: 'last_elec_date',
           width: '13%',
-          render: (date) => date ? new Date(date).toLocaleDateString('en-GB') : '--',
+          // render: (date) => date ? new Date(date).toLocaleDateString('en-GB') : '--',
+          render: (date) => date == '0000-00-00' ? '--' : new Date(date).toLocaleDateString('en-GB'),
           
         },
         {
@@ -198,7 +199,8 @@ function Statistics() {
           dataIndex: 'tenure_ends_on',
           key: 'tenure_ends_on',
           width: '13%',
-          render: (date) => date ? new Date(date).toLocaleDateString('en-GB') : '--',
+          // render: (date) => date ? new Date(date).toLocaleDateString('en-GB') : '--',
+          render: (date) => date == '0000-00-00' ? '--' : new Date(date).toLocaleDateString('en-GB'),
         },
         {
           title: 'Key Person Details',
