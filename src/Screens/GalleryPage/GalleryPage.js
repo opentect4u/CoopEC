@@ -96,7 +96,9 @@ function GalleryPage() {
       await GalleryData_Async().then((res)=>{
       
       if(res.suc > 0){
-      setGalleryImage(res?.msg);
+      var array__ = res?.msg.reverse()
+      console.log(res?.msg, 'gallery______________');
+      setGalleryImage(array__);
       setGalleryFolder(res?.folder);
       setPageTitle(res?.title);
       setLoading(false);

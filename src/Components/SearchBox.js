@@ -31,20 +31,7 @@ const validationSchema = Yup.object({
     otherwise: () => Yup.string(), // Not required otherwise
   }),
 
-  // packing_forwarding_extra: Yup.string().when("packing_forwarding_val", {
-  //   is: "E",
-  //   then: () =>
-  //     Yup.number()
-  //       .required("Extra is required!")
-  //       .min(0.0000000000000001, "Please enter a non-zero positive input!"),
-  //   otherwise: () => Yup.string(),
-  // }),
-
-  // select_district: Yup.string().required('ddddddddd'),
-  // select_district: Yup.string(),
-  // select_range: Yup.string(),
-  // select_type: Yup.string(),
-  // society_Name: Yup.string(),
+  
 });
 
 
@@ -194,6 +181,8 @@ useEffect(()=>{
   }, [formik.values.select_district])
 
  useEffect(()=>{
+  console.log(formValues, 'soci_Name_def_Valu');
+  
   setFormValues({
     select_district: district_def_Valu,
     select_range: range_def_Valu,
@@ -323,74 +312,8 @@ useEffect(()=>{
     </label>
   )}
 
-        {/* <label>
-          
-          <select
-            id="select_district"
-            name="select_district"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.select_district}
-            // value={district_def_Valu && formik.values.select_district === '' ? district_def_Valu : formik.values.select_district}
-          >
-            
-            <option value='0'>Select District * </option>
-            {getDistrictList?.map((option) => ( 
-              <option key={option.dist_name} value={option.dist_code}>
-                {option.dist_name}
-              </option>
-            ))}
-          </select>
+       
 
-          {formik.errors.select_district && formik.touched.select_district && (
-            <div className="required">{formik.errors.select_district}</div>
-          )}
-        </label> */}
-
-
-{/* {JSON.stringify({ getLoading_range }, null, 2)} */}
-
-    
-        {/* Select Range */}
-        {/* <label className="range_dropdown_cu">
-
-        {getLoading_range ?(
-        <Loader align = {'center'} gap = {'middle'} size = {'small'} />
-        ):(
-        <>
-        </>
-        )}
-
-          <select
-          id="select_range"
-          name="select_range"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value= {formik.values.select_range}
-          >
-
-          {getRangeList.length < 1 ? (
-              <option value='0'>No ranges available *</option>
-            ) : (
-              <>
-              <option value='0'>Select Range * </option>
-              <Loader align = {'center'} gap = {'middle'} size = {'small'} />
-                {getRangeList.map((option) => (
-                  <option key={option.range_name} value={option.range_id}>
-                    {option.range_name} 
-                  </option>
-                ))}
-              </>
-            )}
-
-          </select>
-
-
-          
-          {formik.errors.select_range && formik.touched.select_range && (
-            <div className="required">{formik.errors.select_range}</div>
-          )}
-        </label> */}
 
         {/* Select Type */}
         <label>
@@ -433,7 +356,10 @@ useEffect(()=>{
 
         {/* Submit Button */}
 		<label className="searchSec"><button type="submit">Search</button></label>
-    <label className="resetSec"><button type="reset">Reset</button></label>
+    <label className="resetSec"><button type="reset" onClick={() => {
+      formik.resetForm();
+      setFormValues(initialValues); // Reset state too
+    }}>Reset</button></label>
 
         
       </form>

@@ -9,7 +9,7 @@ import FooterCus from '../../Components/FooterCus';
 
 // import React, { useRef, useState } from 'react';
 import { SearchOutlined } from '@ant-design/icons';
-import { Button, Input, Space, Table } from 'antd';
+import { Button, Input, Space, Spin, Table } from 'antd';
 import Highlighter from 'react-highlight-words';
 import { Radio } from 'antd';
 
@@ -30,13 +30,15 @@ function Statistics() {
     const location = useLocation();
     const [getPageData, setPageData] = useState([]);
     const [getDistrictList, setDistrictList] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
+    const [loadingg_Fn, setLoading_Fn] = useState(true);
     
     const [searchText, setSearchText] = useState('');
     const [searchedColumn, setSearchedColumn] = useState('');
     const searchInput = useRef(null);
     const [getFormattedDate, setFormattedDate] = useState([]);
     const [selectedOption, setSelectedOption] = useState(1);
+    
     
     
       const handleSearch = (selectedKeys, confirm, dataIndex) => {
@@ -143,7 +145,7 @@ function Statistics() {
           ),
       });
     
-      const filteredData = getPageData.filter(record => 
+      const filteredData = getPageData.filter((record) => 
         record.cop_soc_name
       );
       
@@ -239,71 +241,108 @@ function Statistics() {
     
     
     
-     const searchDataFn = (para)=>{
+    //  const searchDataFn = async (para)=>{
+    //   // alert('enter')
+    //   setLoading(true);
+    //   await axios.post(`${BASE_URL}/wapi/societyelectionstatus`,
+    //     {
+    //       auth_key:"xxxxx",
+    //       election_status: para,
+    //     }
+    //     // ,
+    //     // {
+    //     //     headers: {
+    //     //         Authorization: loginData.token,
+    //     //     },
+    //     // }
+    //     ).then(res => {
     
-      axios.post(`${BASE_URL}/wapi/societyelectionstatus`,
-        {
-          auth_key:"xxxxx",
-          election_status: para,
-        }
-        // ,
-        // {
-        //     headers: {
-        //         Authorization: loginData.token,
-        //     },
-        // }
-        ).then(res => {
-    
-          if(res.status == '200'){
-            console.log(res, 'ffffffff', res?.data?.msg.length);
+    //       if(res.status == '200'){
+    //         console.log(res, 'ffffffff', res?.data?.msg.length);
             
-            if(res.data.suc > 0){
-                setPageData(res?.data?.msg)
-                console.log(res?.data?.msg, 'jjjjjjjjj');
+    //         if(res.data.suc > 0){
+    //             setPageData(res?.data?.msg)
+    //             console.log(res?.data?.msg, 'jjjjjjjjj');
     
-                setLoading(false);
-                // pageDataCheck = res.data.status;
-            } else {
-              setPageData([])
-              setLoading(false);
-              // pageDataCheck = res.data.status;
-            }
+    //             // setLoading(false);
+    //             // pageDataCheck = res.data.status;
+    //         } else {
+    //           setPageData([])
+    //           // setLoading(false);
+    //           // pageDataCheck = res.data.status;
+    //         }
       
-            }
+    //         }
+     
+    //     }) 
+    //     setLoading(false);
     
-        }) 
+    //  }
+
+    const searchDataFn = async (para) => {
+      setLoading(true); // Ensure loading starts before API call
     
-     }
+      try {
+        const res = await axios.post(`${BASE_URL}/wapi/societyelectionstatus`, {
+          auth_key: "xxxxx",
+          election_status: para,
+        });
+    
+        if (res.status === 200) {
+          console.log(res, "ffffffff", res?.data?.msg.length);
+    
+          if (res.data.suc > 0) {
+            setPageData(res?.data?.msg);
+            console.log(res?.data?.msg, "jjjjjjjjj");
+          } else {
+            setPageData([]);
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setPageData([]);
+      } finally {
+        setLoading(false); // Ensure loading stops after API call completes
+      }
+    };
     
     
-    //  useEffect(()=>{
-    // //   districtList();
-    //   // [searchData]
-    //   },[])
     
+
+    useEffect(() => {
+      console.log("checkvalue", selectedOption);
     
-      useEffect(()=>{
-    
-        searchDataFn('ONGOING');
-          
-        }, [])
+      if (selectedOption === 1) {
+        searchDataFn("ONGOING");
+      }
+      if (selectedOption === 2) {
+        searchDataFn("DUE");
+      }
+      if (selectedOption === 3) {
+        searchDataFn("DONE");
+      }
+    }, [selectedOption]);
 
 
 
   const handleOptionChange = (e) => {
     const option = e.target.value;
     setSelectedOption(option);
+    
 
     if (option === 1) {
-      console.log('On Going Elections selected');
+      // setLoading(true);
+      console.log('On Going Elections selected', selectedOption);
       searchDataFn('ONGOING');
       // Logic for "On Going Elections"
     } else if (option === 2) {
-      console.log('Completed Elections selected');
+      // setLoading(true);
+      console.log('Completed Elections selected', selectedOption);
       searchDataFn('DUE');
       // Logic for "Completed Elections"
     } else if (option === 3) {
-      console.log('Due selected');
+      // setLoading(true);
+      console.log('Due selected', selectedOption);
       searchDataFn('DONE');
       // Logic for "Due"
     }
@@ -354,16 +393,19 @@ function Statistics() {
     <div className="inner_page_Sec">
    
     <div className="col-sm-12 left_sec search_data_table">
-
+    
     <h1 className='search_page'>Statistics Data &nbsp; <strong> ({getPageData.length})</strong>
       <button onClick={exportPdfHandler} className='excelDownload'><img src={`${excel}`} alt="" /></button>
+
     </h1>
+   
 
     <div className="radio_Btn__">
 
     <Radio.Group
       name="radiogroup"
-      onChange={handleOptionChange}
+      // onChange={handleOptionChange}
+      onChange={(e) => setSelectedOption(e.target.value)} // Directly updating state
       value={selectedOption}
     >
       <Radio value={1}>On Going Elections</Radio>
@@ -374,10 +416,19 @@ function Statistics() {
     </div>
 
 
+    {loading ?(
+    <Loader align = {'center'} gap = {'middle'} size = {'small'} />
+    // <Spin spinning={loading}> </Spin>
+    ):(
+    <>
+    <Table columns={columns} loading={{ spinning: loading, tip: 'Loading data, please wait...' }} dataSource={filteredData} id="dataTable_search" />
+    </>
+    )}
 
+    {/* <Spin spinning={loading}> </Spin> */}
 
-  <Table columns={columns} loading={{ spinning: loading, tip: 'Loading data, please wait...' }} dataSource={filteredData} id='dataTable_search' />
-
+  {/* <Table columns={columns} loading={{ spinning: loading, tip: 'Loading data, please wait...' }} dataSource={filteredData} id='dataTable_search' /> */}
+  
     </div>
 
     </div>

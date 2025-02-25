@@ -104,16 +104,35 @@
 
 @media only screen and (max-width: 690px) {	
 .anouncement .title i {display: none;}
-}
 
-@media only screen and (max-width: 690px) {	
 
 .inner_page_Sec .col-sm-8{max-width: 100%;}
 .inner_page_Sec .col-sm-4{max-width: 100%; margin-top: 25px;}
 
 
+.searchPageTop .search_box {padding: 14px;}
+.searchPageTop .search_box .radio_button_ranDis {
+  width: 100%;
+  float: left;
+  margin: 0 0 12px 0;
+  color: #000;}
+
+.searchPageTop .search_box label {width: 33%; margin: 0; padding-right: 8px;}
+.searchPageTop .search_box h2 {margin: 0 0 18px 0;}
+.searchPageTop .search_box label.searchSec{margin: 10px 0 0 0; padding: 0 10px 0 0; width: 50%;} 
+.searchPageTop .search_box label.resetSec {margin: 10px 0 0 0; padding: 0 10px 0 0; width: 50%;}
 
 }
+
+@media only screen and (max-width: 575px) {	
+  .map_left_sec .btn_sec {
+    text-align: center;
+    display: grid;
+    width: 100%;
+    margin-bottom: 25px;}
+
+}
+
 
 @media only screen and (max-width: 550px) {	
 .login ul li.fontResize a img{max-width: 20px; height: 20px;}
@@ -136,7 +155,8 @@ a.docDownload {font-size: 11px;}
 
 
 @media only screen and (max-width:488px) {
-.login{display: none;}	
+.login ul li.fontResize{display: none;}	
+.login ul li.colorTogle{display: none;}	
 .rightNav {display: block; margin: 0 auto;}	
 
 .rightNav ul li.topLogin_ a {
@@ -174,11 +194,23 @@ a.docDownload {font-size: 11px;}
 .searchPageTop .search_box label.searchSec {margin: 0 1% 0 1%; padding: 0; width: 48%; float: left;}
 .searchPageTop .search_box label.resetSec {margin: 0 1% 0 1%; padding: 0; width: 48%; float: left;}
 
+
+.searchPageTop .search_box label {
+  width: 100%;
+  margin: 0 0 10px 0;
+  padding: 0;
+}
+
+.searchPageTop .search_box .radio_button_ranDis label {padding-left: 29px; margin: 0;}
+
+
 }
 
 
-@media only screen and (max-width:400px) {
-
+@media only screen and (max-width:380px) {
+  .logoArea img {
+    max-width: 217px;
+  }
   
   }
 

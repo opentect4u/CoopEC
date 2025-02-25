@@ -17,7 +17,7 @@ function RightSidebarGlobal() {
     <>
     <div class="right_sec">
         {/* <QuickLinkRight/> */}
-        <SearchBox/>
+        
 
         <div className="scroll_sec_ben">
 			<h2>Announcement</h2>
@@ -32,6 +32,9 @@ function RightSidebarGlobal() {
 
       <Link to="/importantannouncement" className="view-all-link"> View All </Link>
 		</div>
+
+    <SearchBox/>
+    
     </div>
     </>
   )

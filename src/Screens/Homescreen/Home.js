@@ -150,7 +150,8 @@ function Home() {
 	await GalleryData_Async().then((res)=>{
 	
 	if(res.suc > 0){
-	setGalleryImage(res?.msg);
+	var array__ = res?.msg.reverse()
+	setGalleryImage(array__);
 	setGalleryFolder(res?.folder);
 	setLoading(false);
 	} else {

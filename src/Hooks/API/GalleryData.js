@@ -10,7 +10,7 @@ export default function GalleryData(){
               auth_key:"xxxxx",
               })
             .then(res => {
-            //   console.log(res?.data, 'gggggggggggggggggggggggffff', 'jjjjjj');
+              console.log(res?.data, 'gallery');
               
               resolve(res?.data)
             })
