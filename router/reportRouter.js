@@ -268,9 +268,46 @@ reportRouter.get("/election_due_req", async (req, res) => {
       ];
       var result = res_dt.suc > 0 ? res_dt.msg : "";
       // Add rows to the worksheet
+      // result.forEach((item) => {
+      //   worksheet.addRow(item);
+      // });
       result.forEach((item) => {
-        worksheet.addRow(item);
-      });
+        worksheet.addRow({
+            cop_soc_name: item.cop_soc_name,
+            reg_no: item.reg_no,
+            reg_date: item.reg_date ? moment(item.reg_date).format('YYYY-MM-DD') : "", // Fix for date shift
+            soc_type_name: item.soc_type_name,
+            soc_tier_name: item.soc_tier_name,
+            reg_cont_auth: item.reg_cont_auth,
+            returning_officer: item.returning_officer,
+            state_name: item.state_name,
+            dist_name: item.dist_name,
+            zone_name: item.zone_name,
+            range_name: item.range_name,
+            urban_rural_flag: item.urban_rural_flag,
+            ulb_catg_name: item.ulb_catg_name,
+            ulb_name: item.ulb_name,
+            ward_name: item.ward_name,
+            block_name: item.block_name,
+            gp_name: item.gp_name,
+            vill_name: item.vill_name,
+            pin_no: item.pin_no,
+            address: item.address,
+            manage_status_name: item.manage_status_name,
+            officer_type_name: item.officer_type_name,
+            num_of_memb: item.num_of_memb,
+            audit_upto: item.audit_upto ? moment(item.audit_upto).format('YYYY-MM-DD') : "",
+            last_elec_date: item.last_elec_date ? moment(item.last_elec_date).format('YYYY-MM-DD') : "",
+            tenure_ends_on: item.tenure_ends_on ? moment(item.tenure_ends_on).format('YYYY-MM-DD') : "",
+            key_person: item.key_person,
+            key_person_desig: item.key_person_desig,
+            contact_number: item.contact_number,
+            email: item.email,
+            case_status: item.case_status,
+            case_num: item.case_num,
+            functional_status: item.functional_status
+        });
+    });
 
       // Set response headers for the Excel file
       res.setHeader(
@@ -382,9 +419,47 @@ reportRouter.get("/election_due_req", async (req, res) => {
       ];
       var result = res_dt.suc > 0 ? res_dt.msg : "";
       // Add rows to the worksheet
+      // result.forEach((item) => {
+      //   worksheet.addRow(item);
+      // });
+
       result.forEach((item) => {
-        worksheet.addRow(item);
-      });
+        worksheet.addRow({
+            cop_soc_name: item.cop_soc_name,
+            reg_no: item.reg_no,
+            reg_date: item.reg_date ? moment(item.reg_date).format('YYYY-MM-DD') : "", // Convert to string
+            soc_type_name: item.soc_type_name,
+            soc_tier_name: item.soc_tier_name,
+            reg_cont_auth: item.reg_cont_auth,
+            returning_officer: item.returning_officer,
+            state_name: item.state_name,
+            dist_name: item.dist_name,
+            zone_name: item.zone_name,
+            range_name: item.range_name,
+            urban_rural_flag: item.urban_rural_flag,
+            ulb_catg_name: item.ulb_catg_name,
+            ulb_name: item.ulb_name,
+            ward_name: item.ward_name,
+            block_name: item.block_name,
+            gp_name: item.gp_name,
+            vill_name: item.vill_name,
+            pin_no: item.pin_no,
+            address: item.address,
+            manage_status_name: item.manage_status_name,
+            officer_type_name: item.officer_type_name,
+            num_of_memb: item.num_of_memb,
+            audit_upto: item.audit_upto ? moment(item.audit_upto).format('YYYY-MM-DD') : "",
+            last_elec_date: item.last_elec_date ? moment(item.last_elec_date).format('YYYY-MM-DD') : "",
+            tenure_ends_on: item.tenure_ends_on ? moment(item.tenure_ends_on).format('YYYY-MM-DD') : "",
+            key_person: item.key_person,
+            key_person_desig: item.key_person_desig,
+            contact_number: item.contact_number,
+            email: item.email,
+            case_status: item.case_status,
+            case_num: item.case_num,
+            functional_status: item.functional_status
+        });
+    });
 
       // Set response headers for the Excel file
       res.setHeader(
@@ -797,9 +872,23 @@ reportRouter.post("/society_ele_held_result", async (req, res) => {
       ];
       var result = res_dt.suc > 0 ? res_dt.msg : "";
       // Add rows to the worksheet
+      // result.forEach((item) => {
+      //   worksheet.addRow(item);
+      // });
       result.forEach((item) => {
-        worksheet.addRow(item);
-      });
+        worksheet.addRow({
+            cop_soc_name: item.cop_soc_name,
+            soc_type_name: item.soc_type_name,
+            dist_name: item.dist_name,
+            reg_cont_auth: item.reg_cont_auth,
+            reg_no: item.reg_no,
+            reg_date: item.reg_date ? moment(item.reg_date).format('YYYY-MM-DD') : "", // Fix for date shift
+            num_of_memb: item.num_of_memb,
+            last_elec_date: item.last_elec_date ? moment(item.last_elec_date).format('YYYY-MM-DD') : "",
+            tenure_ends_on: item.tenure_ends_on ? moment(item.tenure_ends_on).format('YYYY-MM-DD') : "",
+            elec_due_date: item.elec_due_date ? moment(item.elec_due_date).format('YYYY-MM-DD') : ""
+        });
+    });
 
       // Set response headers for the Excel file
       res.setHeader(
