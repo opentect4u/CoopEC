@@ -774,6 +774,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const zone_code = document.getElementById('zone_code');
     const urban_rural_flag = document.getElementById('urban_rural_flag');
     const block_id = document.getElementById('block_id');
+    const dist_code = document.getElementById('dist_code');
     const soc_tier = document.getElementById('soc_tier');
     const soc_type_id = document.getElementById('soc_type_id');
     const manage_status_id = document.getElementById('manage_status_id');
@@ -790,7 +791,6 @@ document.addEventListener('DOMContentLoaded', function () {
     // Function to update the href of the download link
     function updateDownloadLink() {
          let functionalStatusValue = '';
-        // let rangeSelect = '';
          let zoneCodeValue = '';
           if (zone_code) {
               zoneCodeValue = zone_code.value;
@@ -809,11 +809,11 @@ document.addEventListener('DOMContentLoaded', function () {
         const socTypeIdValue = soc_type_id.value;
         const socDataStatusValue = soc_data_status.value;
         const manage_status_idValue = manage_status_id.value;
-      
+        const dist_idvalue = dist_code.value;
+        const rangeValue = rangeSelect.value;
         // Construct the query string with all selected values
         let queryString = '';
         if(temp_range_code != 0){
-          const rangeValue = rangeSelect.value;
           if(user.user_type == 'S' || user.user_type == 'A'){
         if (rangeValue) queryString += `range_id=${rangeValue}&`;
         if (zoneCodeValue) queryString += `zone_code=${zoneCodeValue}&`;
@@ -824,7 +824,11 @@ document.addEventListener('DOMContentLoaded', function () {
               queryString += `dist_code=${temp_range_code}&`;
              }
           }
+        }else{
+         
+          if (dist_idvalue) queryString += `dist_code=${dist_idvalue}&`;
         }
+        if(rangeValue) queryString += `range_id=${rangeValue}&`;
         if (functionalStatusValue) queryString += `functional_status=${functionalStatusValue}&`;
         if (cntrAuthTypeValue) queryString += `cntr_auth_type=${cntrAuthTypeValue}&`;
 
@@ -863,7 +867,7 @@ document.addEventListener('DOMContentLoaded', function () {
         radio.addEventListener('change', updateDownloadLink);
     });
     cntr_auth_type.addEventListener('change', updateDownloadLink);
-    cntr_auth_type.addEventListener('change', updateDownloadLink);
+    rangeSelect.addEventListener('change', updateDownloadLink);
     urban_rural_flag.addEventListener('change', updateDownloadLink);
     block_id.addEventListener('change', updateDownloadLink);
     soc_tier.addEventListener('change', updateDownloadLink);
