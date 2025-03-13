@@ -202,9 +202,13 @@ SocietyRouter.post("/socedit", async (req, res) => {
     var block_id = data.block_id || 0;
     var gp_id = data.gp_id || 0;
     var ulb_catg = data.ulb_catg || 0;
-    var officer_type = data.officer_type || "";
+    var officer_type = data.officer_type || 0;
     var ulb_id = data.ulb_id || 0;
     var dev_auth_id = data.dev_auth_id || 0;
+    var num_of_memb = data.num_of_memb != '' ? `${data.num_of_memb}` : 0;
+    var last_elec_date = data.last_elec_date != "" ? `'${data.last_elec_date}'` : "NULL";
+    var elec_due_date = data.elec_due_date != "" ? `'${data.elec_due_date}'` : "NULL";
+    var tenure_ends_on = data.tenure_ends_on != "" ? `'${data.tenure_ends_on}'` : "NULL";
     var fields = `cop_soc_name = '${data.cop_soc_name
       .split("'")
       .join("\\'")}',new_flag='${data.new_flag}',reg_no = '${
@@ -216,24 +220,20 @@ SocietyRouter.post("/socedit", async (req, res) => {
       ulb_catg = '${ulb_catg}',ulb_id = '${ulb_id}',ward_no = '${
         data.ward_no
       }',pin_no = '${data.pin_no}',range_code = '${data.range_code}',
-      urban_rural_flag ='${data.urban_rural_flag}',dev_auth_id ='${
-        data.dev_auth_id
-      }',
-      block_id = '${block_id}',gp_id = '${gp_id}',vill_id = '${
+      urban_rural_flag ='${data.urban_rural_flag}',dev_auth_id =${
+        dev_auth_id
+      },
+      block_id = ${block_id},gp_id = ${gp_id},vill_id = ${
         data.vill_id
-      }',mouza = '${data.mouza}',address='${data.address
+      },mouza = '${data.mouza}',address='${data.address
         .split("'")
-        .join("\\'")}',num_of_memb='${data.num_of_memb}',audit_upto='${
+        .join("\\'")}',num_of_memb=${num_of_memb},audit_upto='${
         data.audit_upto
       }',
       mgmt_status = '${
         data.mgmt_status
-      }',officer_type = '${officer_type}',last_elec_date = '${
-        data.last_elec_date
-      }',
-      tenure_ends_on = '${data.tenure_ends_on}',elec_due_date = '${
-        data.elec_due_date
-      }',contact_name='${data.contact_name}',contact_designation='${
+      }',officer_type = ${officer_type},last_elec_date = ${last_elec_date},
+      tenure_ends_on = ${tenure_ends_on},elec_due_date = ${elec_due_date},contact_name='${data.contact_name}',contact_designation='${
         data.contact_designation
       }',
       contact_number = '${data.contact_number}',email = '${
@@ -296,26 +296,25 @@ SocietyRouter.post("/socedit", async (req, res) => {
       .join("\\'")} Updated by ${user_id}.`;
     var noti_fields = `(type,message,wrk_releated_id,user_type,view_status,range_id,created_by,created_at,created_ip)`;
     var noti_values = `('S','${message}','${data.id}','M','1','${data.range_code}','${user_id}','${formattedDate}','${ip}')`;
-    var sa_data = await db_Insert(
-      "td_notification",
-      noti_fields,
-      noti_values,
-      null,
-      false,
-    );
-    if (sa_data.suc > 0) {
-      console.log("Event is emmititng");
-      var notification_dtls = await SendNotification(range_id_);
-      req.io.emit("notification", { message: notification_dtls.msg });
-    }
+    // var sa_data = await db_Insert(
+    //   "td_notification",
+    //   noti_fields,
+    //   noti_values,
+    //   null,
+    //   false,
+    // );
+    // if (sa_data.suc > 0) {
+    //   console.log("Event is emmititng");
+    //   var notification_dtls = await SendNotification(range_id_);
+    //   req.io.emit("notification", { message: notification_dtls.msg });
+    // }
 
     req.flash("success_msg", "Update successful!");
     res.redirect("/dash/dashboard");
   } catch (error) {
     // Log the error and send an appropriate response
-    console.error("Error during dashboard rendering:", error);
-    //res.status(500).send('An error occurred while loading the dashboard.');
-    res.render("dashboard/edit", res_dt);
+    req.flash("error_msg", "Some Thing went wrong !");
+    res.render("/dash/dashboard");
   }
 });
 
@@ -328,7 +327,6 @@ SocietyRouter.get("/socadd", async (req, res) => {
     const table_name = "md_society";
     const whr = `id='${soc_id}' `;
     const order = null;
-
     //   var where_dist_con = `b.dist_id = a.dist_code AND b.range_id = '${range_id}'`;
     // Execute database query
     // const result = await db_Select(select, table_name, whr, order);
@@ -462,23 +460,22 @@ SocietyRouter.post("/socadddata", async (req, res) => {
     var ulb_catg = data.ulb_catg || 0;
     var ulb_id = data.ulb_id || 0;
     var dev_auth_id = data.dev_auth_id || 0;
-    var officer_type = data.officer_type || "";
-    var fields = `(cop_soc_name,new_flag,reg_no,reg_date,soc_type,soc_tier,cntr_auth_type,cntr_auth,zone_code,dist_code,range_code,urban_rural_flag,dev_auth_id,ulb_catg,ulb_id,ward_no,block_id,gp_id,vill_id,pin_no,address,mouza,num_of_memb,audit_upto,mgmt_status,officer_type,last_elec_date,tenure_ends_on,elec_due_date,contact_name,contact_designation,contact_number,email,case_id,case_num,functional_status,approve_status,created_by,created_dt,created_ip)`;
+    var officer_type = data.officer_type || 0;
+    var last_elec_date = data.last_elec_date != "" ? `'${data.last_elec_date}'` : "NULL";
+    var elec_due_date = data.elec_due_date != "" ? `'${data.elec_due_date}'` : "NULL";
+    var tenure_ends_on = data.tenure_ends_on != "" ? `'${data.tenure_ends_on}'` : "NULL";
+    var fields = `(cop_soc_name,new_flag,reg_no,reg_date,soc_type,soc_tier,cntr_auth_type,cntr_auth,state_code,zone_code,dist_code,range_code,urban_rural_flag,dev_auth_id,ulb_catg,ulb_id,ward_no,block_id,gp_id,vill_id,pin_no,address,mouza,num_of_memb,audit_upto,mgmt_status,officer_type,last_elec_date,tenure_ends_on,elec_due_date,contact_name,contact_designation,contact_number,email,case_id,case_num,functional_status,approve_status,created_by,created_dt,created_ip)`;
     var values = `('${data.cop_soc_name.split("'").join("\\'")}','${
       data.new_flag
     }','${data.reg_no}','${data.reg_date}','${data.soc_type}','${
       data.soc_tier
-    }','${data.cntr_auth_type}','${data.cntr_auth}','${data.zone_code}','${
+    }','${data.cntr_auth_type}','${data.cntr_auth}',19,'${data.zone_code}','${
       data.dist_code
-    }','${data.range_code}','${data.urban_rural_flag}','${
-      data.dev_auth_id
-    }','${ulb_catg}','${ulb_id}','${data.ward_no}','${block_id}','${gp_id}','${
+    }','${data.range_code}','${data.urban_rural_flag}',${dev_auth_id},'${ulb_catg}','${ulb_id}','${data.ward_no}','${block_id}','${gp_id}','${
       data.vill_id
     }','${data.pin_no}','${data.address}','${data.mouza}','${
       data.num_of_memb
-    }','${data.audit_upto}','${data.mgmt_status}','${data.officer_type}','${
-      data.last_elec_date
-    }','${data.tenure_ends_on}','${data.elec_due_date}','${
+    }','${data.audit_upto}','${data.mgmt_status}',${officer_type},${last_elec_date},${tenure_ends_on},${elec_due_date},'${
       data.contact_name
     }','${data.contact_designation}','${data.contact_number}','${
       data.email
@@ -587,12 +584,16 @@ SocietyRouter.get("/socdelet", async (req, res) => {
     var where = `id = '${soc_id}' `;
     var get_data = await db_Select("*", "md_society", where, null);
    var data = get_data.msg[0];
-    var fields = `(cop_soc_name,new_flag,reg_no,reg_date,soc_type,soc_tier,cntr_auth_type,cntr_auth,zone_code,dist_code,range_code,urban_rural_flag,dev_auth_id,ulb_catg,ulb_id,ward_no,block_id,gp_id,vill_id,pin_no,address,mouza,num_of_memb,audit_upto,mgmt_status,officer_type,last_elec_date,tenure_ends_on,elec_due_date,contact_name,contact_designation,contact_number,email,case_id,case_num,functional_status,approve_status,created_by,created_dt,created_ip,deleted_by,deleted_dt,deleted_ip)`;
+
+   var created_dt = moment(data.created_dt, 'YYYY-MM-DD', true).isValid() 
+    ? moment(data.created_dt).format('YYYY-MM-DD') 
+    : '0000-00-00 00:00:00';
+    var fields = `(cop_soc_name,new_flag,reg_no,reg_date,soc_type,soc_tier,cntr_auth_type,cntr_auth,state_code,zone_code,dist_code,range_code,urban_rural_flag,dev_auth_id,ulb_catg,ulb_id,ward_no,block_id,gp_id,vill_id,pin_no,address,mouza,num_of_memb,audit_upto,mgmt_status,officer_type,last_elec_date,tenure_ends_on,elec_due_date,contact_name,contact_designation,contact_number,email,case_id,case_num,functional_status,approve_status,created_by,created_dt,created_ip,deleted_by,deleted_dt,deleted_ip)`;
     var values = `('${data.cop_soc_name.split("'").join("\\'")}','${
       data.new_flag
     }','${data.reg_no}','${moment(data.reg_date,'YYYY-MM-DD').format('YYYY-MM-DD')}','${data.soc_type}','${
       data.soc_tier
-    }','${data.cntr_auth_type}','${data.cntr_auth}','${data.zone_code}','${
+    }','${data.cntr_auth_type}','${data.cntr_auth}',0,'${data.zone_code}','${
       data.dist_code
     }','${data.range_code}','${data.urban_rural_flag}','${
       data.dev_auth_id
@@ -600,15 +601,13 @@ SocietyRouter.get("/socdelet", async (req, res) => {
       data.vill_id
     }','${data.pin_no}','${data.address}','${data.mouza}','${
       data.num_of_memb
-    }','${data.audit_upto}','${data.mgmt_status}','${data.officer_type}','${
-      data.last_elec_date
-    }','${data.tenure_ends_on}','${data.elec_due_date}','${
+    }','${data.audit_upto}','${data.mgmt_status}','${data.officer_type}','${datetime}','${datetime}','${datetime}','${
       data.contact_name
     }','${data.contact_designation}','${data.contact_number}','${
       data.email
     }','${data.case_id}','${data.case_num}','${
       data.functional_status
-    }','E','${data.created_by}','${data.created_dt}','${
+    }','E','${data.created_by}','${datetime}','${
       data.created_ip
     }','${user_id}','${datetime}','${ip}')`;
    

@@ -678,7 +678,7 @@ h3.noti_title button.read_all {
   height: 52px;
 }
 .due_class{
-   background: #eb5437;
+   background: #aa8751;
    text-align:center
 }
 .due_six_month{
@@ -686,7 +686,7 @@ h3.noti_title button.read_all {
   text-align:center
 }
 .due_three_month{
-  background: #fb8a38;
+  background: #977a65;
   text-align:center
 }
 .ongoing_class{
@@ -694,7 +694,7 @@ h3.noti_title button.read_all {
   text-align:center
 }
 .held_class{
-  background: #8fa63e;
+  background: #486e57;
   text-align:center
 }
 

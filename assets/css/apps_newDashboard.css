@@ -328,19 +328,18 @@ html {
 }
 
 .box_col_2 .threeBoxTxt {
-  background: #fb8a38;
+  background: #977a65;
   /* background: rgb(255,195,195);
   background: linear-gradient(30deg, rgb(255, 194, 150) 0%, rgba(255,255,255,1) 100%); */
 }
-.box_col_4 .threeBoxTxt {
-  background: #8fa63e;
-  /* background: rgb(255,195,195);
-  background: linear-gradient(30deg, rgb(194, 215, 149) 0%, rgba(255,255,255,1) 100%); */
+.box_col_4 .threeBoxTxt {   
+  background: #486e57;
+   /* background: #8fa63e  */;
+
 }
 .box_col_5 {
-  background: #ef190d;
-  /* background: rgb(255,195,195);
-    background: linear-gradient(30deg, rgb(194, 215, 149) 0%, rgba(255,255,255,1) 100%); */
+   /* background: #ef190d; */
+   background: #aa8751;
 }
 
 .box_col_1 h2,
@@ -1044,7 +1043,7 @@ table.tablestockPoint tbody tr td strong {
 }
 
 .range_1 .barChartMap {
-  background: #8fa63e;
+  background: #486e57;
   height: 15px;
   width: 100%;
   display: inline-block;
@@ -1054,11 +1053,10 @@ table.tablestockPoint tbody tr td strong {
 }
 
 .range_1 .barChartMapDue {
-  background: #ef190d;
+  background: #aa8751;
   height: 15px;
   width: 100%;
   display: inline-block;
-  /* border-radius: 0 4px 4px 0; */
   border-radius: 0;
   cursor: pointer;
 }

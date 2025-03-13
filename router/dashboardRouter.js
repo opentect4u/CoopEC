@@ -1,4 +1,5 @@
 const DashboardRouter = require("express").Router();
+const moment = require('moment');
 const ExcelJS = require("exceljs");
 const requestIp = require("request-ip");
 const { db_Select, db_Insert } = require("../modules/MasterModule");
@@ -1080,6 +1081,8 @@ DashboardRouter.get("/society_download", async (req, res) => {
     //var cntr_auth_ty = req.session.user.cntr_auth_type;
     var cntr_auth_ty = req.query.cntr_auth_type;
     var zone_code = "";
+    var dist_code = "";
+    var range_code = "";
     var range_code_for_name = 0;
      var range_or_dist = cntr_auth_ty > 1 ? 'dist_code':'range_code';
      var cntr_auth_type =
@@ -1094,14 +1097,21 @@ DashboardRouter.get("/society_download", async (req, res) => {
     } else {
       range_code_for_name = req.query.range_code > 0 ? req.query.range_code : 0;
       var range =
-        req.query.range_code > 0
-          ? `AND a.${range_or_dist}=${req.query.range_code} `
+        req.query.range_id > 0
+          ? `AND a.range_code=${req.query.range_id} `
           : "";
+        if(req.query.range_id == 0)  {
+         dist_code =
+          req.query.dist_code > 0
+            ? `AND a.dist_code=${req.query.dist_code} `
+            : "";
+         }
       zone_code =
         req.query.zone_code > 0
           ? `AND a.zone_code=${req.query.zone_code} `
           : "";
     }
+   
     var block =
       req.query.block_id > 0 ? ` AND a.block_id=${req.query.block_id} ` : "";
 
@@ -1154,9 +1164,10 @@ DashboardRouter.get("/society_download", async (req, res) => {
           LEFT JOIN md_zone d ON a.zone_code = d.zone_id 
           LEFT JOIN md_range e ON a.range_code = e.range_id 
           LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id`;
-    var con = `a.functional_status = 'Functional' `;
+   // var con = `a.functional_status = 'Functional' `;
+      var con = `1 `;
 
-    const where = `${con + range + cntr_auth_type + zone_code + soc_tier + urban_rural_flag + block + soc_type_id + soc_data_status + functional_status + manage_status_id}`; // Ensure these variables are properly defined
+    const where = `${con + range + dist_code + cntr_auth_type + zone_code + soc_tier + urban_rural_flag + block + soc_type_id + soc_data_status + functional_status + manage_status_id}`; // Ensure these variables are properly defined
     const res_dt = await db_Select(select, table_name, where, null);
     if(req.session.user.user_type == 'S' || req.session.user.user_type == 'A'){
         var range_name = 'ALL';
@@ -1215,7 +1226,7 @@ DashboardRouter.get("/society_download", async (req, res) => {
       { header: "Number of Members", key: "num_of_memb" },
       { header: "Audit Up To", key: "audit_upto" },
       { header: "Last Election Date", key: "last_elec_date" },
-      { header: "Tenure Ends On", key: "tenure_ends_on" },
+      { header: "Tenure Ends On", key: "tenure_ends_on", width: 15 },
       { header: "Key Person", key: "key_person" },
       { header: "Designation", key: "key_person_desig" },
       { header: "Contact Number", key: "contact_number" },
@@ -1226,9 +1237,46 @@ DashboardRouter.get("/society_download", async (req, res) => {
     ];
     var result = res_dt.suc > 0 ? res_dt.msg : "";
     // Add rows to the worksheet
+    // result.forEach((item) => {
+    //   worksheet.addRow(item);
+    // });
     result.forEach((item) => {
-      worksheet.addRow(item);
-    });
+      worksheet.addRow({
+          cop_soc_name: item.cop_soc_name,
+          reg_no: item.reg_no,
+          reg_date: item.reg_date ? moment(item.reg_date).format('YYYY-MM-DD') : "", // Convert date
+          soc_type_name: item.soc_type_name,
+          soc_tier_name: item.soc_tier_name,
+          reg_cont_auth: item.reg_cont_auth,
+          returning_officer: item.returning_officer,
+          state_name: item.state_name,
+          dist_name: item.dist_name,
+          zone_name: item.zone_name,
+          range_name: item.range_name,
+          urban_rural_flag: item.urban_rural_flag,
+          ulb_catg_name: item.ulb_catg_name,
+          ulb_name: item.ulb_name,
+          ward_name: item.ward_name,
+          block_name: item.block_name,
+          gp_name: item.gp_name,
+          vill_name: item.vill_name,
+          pin_no: item.pin_no,
+          address: item.address,
+          manage_status_name: item.manage_status_name,
+          officer_type_name: item.officer_type_name,
+          num_of_memb: item.num_of_memb,
+          audit_upto: item.audit_upto ? moment(item.audit_upto).format('YYYY-MM-DD') : "", // Convert date
+          last_elec_date: item.last_elec_date ? moment(item.last_elec_date).format('YYYY-MM-DD') : "", // Convert date
+          tenure_ends_on: item.tenure_ends_on ? moment(item.tenure_ends_on).format('YYYY-MM-DD') : "", // Convert date
+          key_person: item.key_person,
+          key_person_desig: item.key_person_desig,
+          contact_number: item.contact_number,
+          email: item.email,
+          case_id: item.case_id,
+          case_num: item.case_num,
+          functional_status: item.functional_status
+      });
+  });
 
     // Set response headers for the Excel file
     res.setHeader(

@@ -40,7 +40,7 @@ app.use(
     secret: "WB_CB_ELE_COMM", // Change this to a secure random string
     resave: false,
     saveUninitialized: true,
-    cookie: { maxAge: 30 * 60 * 1000 ,          // Only send over HTTPS
+    cookie: { maxAge: 30 * 60 * 1000         // Only send over HTTPS
    
      }
   }),
