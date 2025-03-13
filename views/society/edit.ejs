@@ -435,11 +435,18 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-md-12">
+              <div class="col-md-8">
                 <div class="form-group">
                 <b>Board Member Detail</b>
                 </div>
               </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                  <b> <% if(boardmembdlist.length > 0) { %> Download
+                    <a href="/dash/boardmember_download?soc_id=<%= soc.id %>"  class="download-link"><img src="/images/excel.jpg" alt="excel" class="excel_cus" /></a>
+                    <% } %> </b>
+                  </div>
+                </div>
               <div class="col-md-12">
                 <div class="form-group">
                 <table style="width:100%" id="main_dtl">
@@ -492,9 +499,9 @@
                 </div>
               </div>
             </div>
-          <% if(soc.cntr_auth_type == 0 || soc.cntr_auth_type == cntr_auth_id){  %> 
+         
           <button type="submit" id="submit" class="btn btn-primary mr-2" <%= soc.soc_type == "31" ? '' : '' %> >Submit </button>
-          <% }  %> 
+      
         </form>
       </div>
     </div>
