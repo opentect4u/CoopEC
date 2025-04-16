@@ -1,5 +1,6 @@
 const Cronjobrouter = require("express").Router();
 const moment = require("moment");
+var request = require('request');
 const { db_Select, db_Insert } = require("../modules/MasterModule");
 
 Cronjobrouter.get("/get_society_ele_due_monthwise", async (req, res) => {
@@ -72,5 +73,55 @@ Cronjobrouter.get("/get_society_ele_due_monthwise", async (req, res) => {
     });
   }
 });
+
+Cronjobrouter.get("/send_otp", async (req, res) => {
+  // var month_interval = 6;
+  // var ctr_auth_type = 1;
+   var month_interval = req.query.month_interval;
+   var ctr_auth_type = req.query.ctr_auth_type;
+  
+  const select = "cop_soc_name,range_code,tenure_ends_on,user_mobile";
+  var table_name = `md_society a  JOIN md_user b ON a.range_code = b.range_id WHERE a.functional_status ='Functional' AND a.approve_status = 'A' AND a.approve_status = 'A' AND a.cntr_auth_type = b.cntr_auth_type AND b.cntr_auth_type = ${ctr_auth_type} AND b.user_type = 'M' AND b.user_status ='A' AND a.tenure_ends_on = DATE_ADD(CURDATE(), INTERVAL ${month_interval} MONTH) `;
+  var res_dt = await db_Select(select, table_name, null, null);
+  const data = res_dt.msg; //  this is your actual result array
+
+  if (!Array.isArray(data) || data.length === 0) {
+    return res.send({ suc: 0, msg: 'No records found' });
+  }
+  let sentResults = [];
+  for (const row of data) {
+    let to = row.user_mobile.toString();
+      to = to.length > 10 ? to.slice(-10) : to
+      var otp = Math.floor(1000 + Math.random() * 9000);
+      const cop_name = row.cop_soc_name.slice(0, 30);
+      const exp_date = moment(row.tenure_ends_on).format('YYYY-MM-DD');
+       if(to.length == 10) {
+            var text = `Due date of election of ${cop_name} Coop. Society will be expired on ${exp_date}. Necessary measures be taken. -Cooperation Department Govt. Of WB (CEC).`;
+            
+          //console.log('Election OTP: ', to, otp,text);
+              var options = {
+                'method': 'GET',
+                'url': `http://sms.synergicapi.in/api.php?username=COOPWB&apikey=InkZ4tA7r4ve&senderid=COOPWB&route=OTP&mobile=${to.split(' ').join('')}&text=${text}`,
+                'headers': {
+                }
+              };
+              //res.send({ suc: 1, msg: 'Otp Not Sent', otp })
+            request(options, function (error, response) {
+              if (error) {
+                console.log(err);
+                //res.send({ suc: 0, msg: 'Otp Not Sent', otp })
+                sentResults.push({ to, status: 'failed', otp });
+              }
+              else {
+                console.log('OTP Console', response.body, otp);
+              //  res.send({ suc: 1, msg: 'Otp Sent', otp })
+                sentResults.push({ to, status: 'sent', otp });
+              }
+            });
+         }
+    };
+    res.send({ suc: 1, msg: 'SMS sending completed', results: sentResults });
+
+})
 
 module.exports = { Cronjobrouter };

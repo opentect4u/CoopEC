@@ -14,16 +14,22 @@
             </div>
           </div>
             <div class="row">
-              <div class="col-md-6">
+              <div class="col-md-4">
                 <div class="form-group">
-                  <label for="exampleInputName1">User Mobile (user ID)<span class="red">*</span></label>
+                  <label for="exampleInputName1">user ID<span class="red">*</span></label>
                   <input type="number" class="form-control"  name="user_id" value="" required>
                 </div>
               </div>
-              <div class="col-md-6">
+              <div class="col-md-4">
                 <div class="form-group">
                   <label for="exampleInputName1">User Email</label>
                   <input type="text" class="form-control"  name="user_email" value="" >
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="exampleInputName1">Mobile No(Must be 10 digit)</label>
+                  <input type="number" class="form-control"  name="user_mobile" value="" required max="10" min="10">
                 </div>
               </div>
             </div>
@@ -37,7 +43,6 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="exampleInputName1">User Type<span class="red">*</span></label>
-                  
                   <select name="user_type" class="form-control" required> 
                     <option value="">Please Select</option>
                     <% if(user.user_type == 'S'){  %>

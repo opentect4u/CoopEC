@@ -25,6 +25,7 @@
                     <th>Registration & Controlling Authority</th>
                     <th class="society_th_6">Name</th>
                     <th class="society_th_9">User Type</th>
+                    <th class="society_th_9">Mobile NO.</th>
                     <th class="society_th_9">Range / District</th>
                     <th class="society_th_9">Option</th>
                   </tr>
@@ -45,6 +46,7 @@
                           <% } else { %>
                             ARO
                         <% } %></td>
+                          <td><%= dt.user_mobile %></td>
                           <td><%= dt.range_name %></td>
                           <td><a href="/wdtls/edituser?id=<%= dt.id %>" class="btn btn-primary btn-sm"  >Edit</a>
                             <a href="/wdtls/deluser?id=<%= dt.user_id %>" class="" onclick="confirmDelete(event)" ><span class="ti-trash"  style="font-size:15px"></span></a>
