@@ -4,14 +4,17 @@ var request = require('request');
 const { db_Select, db_Insert } = require("../modules/MasterModule");
 const cron = require('node-cron');
 
-cron.schedule('0 18 * * *', async () => {
-  await sendElectionOTPs(6, 1); // example: every day at 10:00 AM
-});
+// cron.schedule('* * * * *', async () => {
+//   await sendElectionOTPs(6, 1); // example: every day at 10:00 AM
+// });
 
-cron.schedule('0 18 * * *', () => {
-  console.log('🔔 Running job at 6:00 PM IST');
-  // Your function call here
-});
+// cron.schedule('0 18 * * *', () => {
+//   console.log('🔔 Running job at 6:00 PM IST');
+//   // Your function call here
+// });
+// cron.schedule('* * * * *', () => {
+//   console.log('⏱ Running every minute (for testing)');
+// });
 
 Cronjobrouter.get("/get_society_ele_due_monthwise", async (req, res) => {
   var date_ob = moment();
