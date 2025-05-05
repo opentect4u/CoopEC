@@ -251,7 +251,6 @@
                             </a>
                           </td>
                           <td>
-                           
                             <a href="/society/socdelet?id=<%= dt.id %>" onclick="confirmDelete(event)" class="ti-trash" style="font-size: 1.5em;color:red">
                             </a>
                           </td>
@@ -309,8 +308,7 @@
 
 <script>
           $(document).ready(function() {
-           // alert(<%= range_code %>)
-            console.log('');
+
                 '<% if (success_msg.length > 0) { %>'
                     toastr.success('<%= success_msg %>');
             '<% } %>'
@@ -611,7 +609,7 @@
         }
     });
   }
- // populatezone('<%= dist_code %>','<%= zone_code %>');
+ 
   populateranze('<%= dist_code %>','<%= range_code %>');
   $('#dist_code').change(function() {
         var selectedValue = $(this).val();
@@ -780,9 +778,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const manage_status_id = document.getElementById('manage_status_id');
     const soc_data_status = document.getElementById('soc_data_status');
     const downloadLink = document.querySelector('.download-link');
-    
+    const user_type = '<%= user.user_type %>';
 
-    if(user.user_type == 'S' || user.user_type == 'A'){
+    if(user_type == 'S' || user_type == 'A'){
       var temp_range_code = document.getElementById('range_code');
     }else{
       var temp_range_code = '<%= range_code %>';
@@ -809,14 +807,20 @@ document.addEventListener('DOMContentLoaded', function () {
         const socTypeIdValue = soc_type_id.value;
         const socDataStatusValue = soc_data_status.value;
         const manage_status_idValue = manage_status_id.value;
-        const dist_idvalue = dist_code.value;
+        var dist_idvalue = 0;
+        if(user_type == 'S'|| user_type == 'A'){
+         dist_idvalue = dist_code.value;
+        console.log(dist_idvalue,'in');
+        }
+        console.log(dist_idvalue,'out');
         const rangeValue = rangeSelect.value;
         // Construct the query string with all selected values
         let queryString = '';
         if(temp_range_code != 0){
-          if(user.user_type == 'S' || user.user_type == 'A'){
-        if (rangeValue) queryString += `range_id=${rangeValue}&`;
-        if (zoneCodeValue) queryString += `zone_code=${zoneCodeValue}&`;
+          if(user_type == 'S' || user_type == 'A'){
+            if (rangeValue) queryString += `range_id=${rangeValue}&`;
+            if (zoneCodeValue) queryString += `zone_code=${zoneCodeValue}&`;
+            if (dist_idvalue) queryString += `dist_code=${dist_idvalue}&`;
           }else{
              if(user.cntr_auth_type == 1){
              queryString += `range_id=${temp_range_code}&`;
@@ -828,7 +832,9 @@ document.addEventListener('DOMContentLoaded', function () {
          
           if (dist_idvalue) queryString += `dist_code=${dist_idvalue}&`;
         }
+        if(user_type == 'U'){
         if(rangeValue) queryString += `range_id=${rangeValue}&`;
+        }
         if (functionalStatusValue) queryString += `functional_status=${functionalStatusValue}&`;
         if (cntrAuthTypeValue) queryString += `cntr_auth_type=${cntrAuthTypeValue}&`;
 
@@ -845,7 +851,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // Construct the final URL
         const baseUrl = '/dash/society_download';
         const updatedUrl = queryString ? `${baseUrl}?${queryString}` : baseUrl;
-
+       
         // Update the href of the download link
         downloadLink.setAttribute('href', updatedUrl);
     }

@@ -93,7 +93,6 @@ app.use("/wdtls",validateSession,checkUserInput, WdtlsRouter);
 app.use("/report",validateSession,checkUserInput, reportRouter);
 app.use("/crn", Cronjobrouter);
 app.use("/rangeR", validateSession,checkUserInput, rangeRouter);
-
 app.use("/wapi",cors(corsOptions) ,WapiRouter);
 
 

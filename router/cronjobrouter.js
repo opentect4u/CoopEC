@@ -5,8 +5,15 @@ const { db_Select, db_Insert } = require("../modules/MasterModule");
 const cron = require('node-cron');
 
 // cron.schedule('* * * * *', async () => {
-//   await sendElectionOTPs(6, 1); // example: every day at 10:00 AM
+//   console.log('test');
+//  await sendElectionOTPs(3, 1); // Adjust parameters if needed
+ 
 // });
+cron.schedule('0 6 1 * *', async () => {
+  await sendElectionOTPs(3, 1); // Adjust parameters if needed
+});
+
+
 
 // cron.schedule('0 18 * * *', () => {
 //   console.log('🔔 Running job at 6:00 PM IST');
@@ -106,8 +113,10 @@ Cronjobrouter.get("/send_otp", async (req, res) => {
     let to = row.user_mobile.toString();
       to = to.length > 10 ? to.slice(-10) : to
       var otp = Math.floor(1000 + Math.random() * 9000);
-      const cop_name = row.cop_soc_name.slice(0, 30);
-      const exp_date = moment(row.tenure_ends_on).format('YYYY-MM-DD');
+     // const cop_name = row.cop_soc_name.slice(0, 30);
+      const cop_name = 'KOLKATA';
+     // const exp_date = moment(row.tenure_ends_on).format('YYYY-MM-DD');
+      const exp_date = '2025-04-21';
        if(to.length == 10) {
             var text = `Due date of election of ${cop_name} Coop. Society will be expired on ${exp_date}. Necessary measures be taken. -Cooperation Department Govt. Of WB (CEC).`;
             
@@ -118,7 +127,7 @@ Cronjobrouter.get("/send_otp", async (req, res) => {
                 'headers': {
                 }
               };
-              //res.send({ suc: 1, msg: 'Otp Not Sent', otp })
+              res.send({ suc: 1, msg: 'Otp Not Sent', otp })
             request(options, function (error, response) {
               if (error) {
                 console.log(err);
@@ -138,23 +147,36 @@ Cronjobrouter.get("/send_otp", async (req, res) => {
 })
 
 async function sendElectionOTPs(month_interval, ctr_auth_type) {
-  const select = "cop_soc_name,range_code,tenure_ends_on,user_mobile";
-  const table_name = `
+  const select = "a.cop_soc_name,a.range_code,a.tenure_ends_on,b.user_mobile";
+  // const table_name = `
+  //   md_society a 
+  //   JOIN md_user b ON a.range_code = b.range_id 
+  //   WHERE 
+  //     a.functional_status = 'Functional' AND 
+  //     a.approve_status = 'A' AND 
+  //     a.cntr_auth_type = b.cntr_auth_type AND 
+  //     b.cntr_auth_type = ${ctr_auth_type} AND 
+  //     b.user_type = 'M' AND 
+  //     b.user_status = 'A' AND 
+  //     a.tenure_ends_on = DATE_ADD(CURDATE(), INTERVAL ${month_interval} MONTH)
+  // `;
+    const table_name = `
     md_society a 
     JOIN md_user b ON a.range_code = b.range_id 
     WHERE 
       a.functional_status = 'Functional' AND 
       a.approve_status = 'A' AND 
       a.cntr_auth_type = b.cntr_auth_type AND 
-      b.cntr_auth_type = ${ctr_auth_type} AND 
       b.user_type = 'M' AND 
-      b.user_status = 'A' AND 
-      a.tenure_ends_on = DATE_ADD(CURDATE(), INTERVAL ${month_interval} MONTH)
-  `;
+      b.user_status = 'A' AND
+      b.user_mobile IS NOT NULL AND 
+      a.tenure_ends_on BETWEEN DATE_ADD(CURDATE(), INTERVAL 1 MONTH) AND DATE_ADD(CURDATE(), INTERVAL 6 MONTH)
+      ORDER BY a.tenure_ends_on`;
 
+  
   const res_dt = await db_Select(select, table_name, null, null);
   const data = res_dt.msg;
-
+ 
   if (!Array.isArray(data) || data.length === 0) {
     return { suc: 0, msg: 'No records found', results: [] };
   }
@@ -163,11 +185,13 @@ async function sendElectionOTPs(month_interval, ctr_auth_type) {
 
   for (const row of data) {
     let to = row.user_mobile.toString().slice(-10);
+    //let to = '7596067176';
     let otp = Math.floor(1000 + Math.random() * 9000);
     const cop_name = row.cop_soc_name.slice(0, 30);
     const exp_date = moment(row.tenure_ends_on).format('YYYY-MM-DD');
-
-    if (to.length === 10) {
+    //console.log('loop');
+    if (to.length == 10) {
+     // console.log('ok');
       const text = `Due date of election of ${cop_name} Coop. Society will be expired on ${exp_date}. Necessary measures be taken. -Cooperation Department Govt. Of WB (CEC).`;
 
       const options = {
@@ -175,7 +199,67 @@ async function sendElectionOTPs(month_interval, ctr_auth_type) {
         url: `http://sms.synergicapi.in/api.php?username=COOPWB&apikey=InkZ4tA7r4ve&senderid=COOPWB&route=OTP&mobile=${to}&text=${text}`,
         headers: {}
       };
+      //console.log(options);
+      await new Promise((resolve) => {
+        request(options, function (error, response) {
+          if (error) {
+            console.log('SMS Error:', error);
+            sentResults.push({ to, status: 'failed', otp });
+          } else {
+            console.log('SMS Sent:', response.body);
+            sentResults.push({ to, status: 'sent', otp });
+          }
+          resolve();
+        });
+      });
+    }
+  }
 
+  return { suc: 1, msg: 'SMS sending completed', results: sentResults };
+}
+
+async function sendPassedElectionOTPs() {
+  const select = "a.cop_soc_name,a.range_code,a.tenure_ends_on,b.user_mobile";
+  
+    const table_name = `
+    md_society a 
+    JOIN md_user b ON a.range_code = b.range_id 
+    WHERE 
+      a.functional_status = 'Functional' AND 
+      a.approve_status = 'A' AND 
+      a.cntr_auth_type = b.cntr_auth_type AND 
+      b.user_type = 'M' AND 
+      b.user_status = 'A' AND
+      b.user_mobile IS NOT NULL AND 
+      a.tenure_ends_on BETWEEN DATE_ADD(CURDATE(), INTERVAL 1 MONTH) AND DATE_ADD(CURDATE(), INTERVAL 6 MONTH)
+      ORDER BY a.tenure_ends_on`;
+  
+  const res_dt = await db_Select(select, table_name, null, null);
+  const data = res_dt.msg;
+ 
+  if (!Array.isArray(data) || data.length === 0) {
+    return { suc: 0, msg: 'No records found', results: [] };
+  }
+
+  let sentResults = [];
+
+  for (const row of data) {
+    let to = row.user_mobile.toString().slice(-10);
+    //let to = '7596067176';
+    let otp = Math.floor(1000 + Math.random() * 9000);
+    const cop_name = row.cop_soc_name.slice(0, 30);
+    const exp_date = moment(row.tenure_ends_on).format('YYYY-MM-DD');
+    //console.log('loop');
+    if (to.length == 10) {
+     // console.log('ok');
+      const text = `Due date of election of ${cop_name} Coop. Society will be expired on ${exp_date}. Necessary measures be taken. -Cooperation Department Govt. Of WB (CEC).`;
+
+      const options = {
+        method: 'GET',
+        url: `http://sms.synergicapi.in/api.php?username=COOPWB&apikey=InkZ4tA7r4ve&senderid=COOPWB&route=OTP&mobile=${to}&text=${text}`,
+        headers: {}
+      };
+      //console.log(options);
       await new Promise((resolve) => {
         request(options, function (error, response) {
           if (error) {
