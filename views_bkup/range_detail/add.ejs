@@ -1,0 +1,54 @@
+<div class="row">
+  <div class="col-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title card_title_cus">Add user</h4>
+        <form class="forms-sample" action="/wdtls/saveuser" method="post" >
+          <input type="hidden" class="form-control"  name="id" value="" required>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="exampleInputName1">Address<span class="red">*</span></label>
+                <textarea name="address" rows="10" cols="5" class="form-control" required></textarea>
+               
+              </div>
+            </div>
+          </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputName1">Contact No<span class="red">*</span></label>
+                  <input type="number" class="form-control"  name="contact_no" value="" required>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputName1">Email</label>
+                  <input type="text" class="form-control"  name="range_email" value="" >
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputName1">Ro Name<span class="red">*</span></label>
+                  <input type="text" class="form-control"  name="ro_name" value="" required>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputName1">Ro Contact No<span class="red">*</span></label>
+                  <input type="text" class="form-control"  name="ro_name" value="" required>
+                </div>
+              </div>
+            </div>
+            
+          <button type="submit" class="btn btn-primary mr-2" id="submit">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

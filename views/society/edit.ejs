@@ -62,7 +62,7 @@
                 <div class="form-group">
                   <label for="exampleInputName1">Tier of the Society <span class="red">*</span></label>
                   <select class="form-control" id="soc_tier" name="soc_tier" >
-                    <option value=""  >Select Tier</option>
+                    <option value="0">Select Tier</option>
                     <% if(soctierlist.length > 0){
                       var i = 1
                       soctierlist.forEach(dt => { %>
@@ -281,7 +281,7 @@
                 <div class="form-group">
                   <label for="exampleInputName1">Management Status  <span class="red">*</span></label>
                   <select class="form-control" id="mgmt_status" name="mgmt_status">
-                    <option value="">Select mgmt status </option>
+                    <option value="0">Select mgmt status </option>
                     <% if(managementlist.length > 0){
                       var i = 1
                       managementlist.forEach(dt => { %>
@@ -329,7 +329,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="exampleInputName1">Last election of BoD held on  </label>
-                  <input type="date" class="form-control"  name="last_elec_date" id="last_elec_date" value="<%= moment(soc.last_elec_date).format('yyyy-MM-DD')  %>" >
+                  <input type="date" class="form-control"  name="last_elec_date" id="last_elec_date" value="<%= moment(soc.last_elec_date).format('yyyy-MM-DD')  %>" required>
                 </div>
               </div>
               <div class="col-md-6">
@@ -358,7 +358,7 @@
                 %>
                 <div class="form-group">
                   <label for="exampleInputName1">Tenure Ends On <span class="red">*</span> </label>
-                  <input type="date" class="form-control"  style="<%= color_class %>" name="tenure_ends_on" id="tenure_ends_on" value="<%= moment(soc.tenure_ends_on).format('yyyy-MM-DD')  %>" >
+                  <input type="date" class="form-control"  style="<%= color_class %>" name="tenure_ends_on" id="tenure_ends_on" value="<%= moment(soc.tenure_ends_on).format('yyyy-MM-DD')  %>" required>
                 </div>
               </div>
               <div class="col-md-6" style="display: none;">
@@ -435,18 +435,11 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-md-8">
+              <div class="col-md-12">
                 <div class="form-group">
                 <b>Board Member Detail</b>
                 </div>
               </div>
-                <div class="col-md-4">
-                  <div class="form-group">
-                  <b> <% if(boardmembdlist.length > 0) { %> Download
-                    <a href="/dash/boardmember_download?soc_id=<%= soc.id %>"  class="download-link"><img src="/images/excel.jpg" alt="excel" class="excel_cus" /></a>
-                    <% } %> </b>
-                  </div>
-                </div>
               <div class="col-md-12">
                 <div class="form-group">
                 <table style="width:100%" id="main_dtl">
@@ -499,9 +492,9 @@
                 </div>
               </div>
             </div>
-         
+          
           <button type="submit" id="submit" class="btn btn-primary mr-2" <%= soc.soc_type == "31" ? '' : '' %> >Submit </button>
-      
+        
         </form>
       </div>
     </div>

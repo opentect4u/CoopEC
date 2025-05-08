@@ -1,0 +1,95 @@
+<div class="row">
+  <div class="col-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title card_title_cus">Society Type Urban rular</h4>
+        <form class="forms-sample" action="/report/society_ur_result" method="post" >
+          <input type="hidden" class="form-control"  name="id" value="" required>
+            <div class="row">
+              <% if(user.range_id== 0) { %>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="exampleInputName1">Range<span class="red">*</span></label>
+                  <select name="range_id" class="form-control" required> 
+                    <option value="">Please Select</option>
+                    <option value="0">ALL Range</option>
+                    <% 
+                    range_list.forEach(dt => { %>
+                    <option value="<%= dt.range_id %>"><%= dt.range_name %></option>
+                    <% }) %>
+                  </select>
+                </div>
+              </div>
+              <% }else{ %>
+               <input type="hidden" name="range_id" value="<%=user.range_id%>">
+
+                <% } %>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="exampleInputName1">Urban Rural Type<span class="red">*</span></label>
+                  <select name="ur_type" class="form-control" id="urban_rural_flag" required> 
+                    <option value="">Please Select</option>
+                    <option value="0">ALL </option>
+                    <option value="U">URBAN</option>
+                    <option value="R">RURAL</option>
+                    
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-4" id="rural_sec">
+                <div class="form-group">
+                  <label for="exampleInputName1">Block</label><br>
+                  <select class="form-control select2" id="block_id" name="block_id">
+                    <option value="0">All Block </option>
+                    <% if(blocklist.length > 0){
+                      var i = 1
+                      blocklist.forEach(dt => { %>
+                      <option value="<%= dt.block_id %>" ><%= dt.block_name %></option>
+                        <% }) } %>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-4" id="urban_sec">
+                <div class="form-group">
+                  <label for="exampleInputName1">Category of Urban Local Body</label>
+                  <select class="form-control" id="ulb_catg" name="ulb_catg" >
+                    <option value="0">Select Urban Local Body </option>
+                    <% if(ulbcatglist.length > 0){
+                      var i = 1
+                      ulbcatglist.forEach(dt => { %>
+                      <option value="<%= dt.ulb_catg_id %>" ><%= dt.ulb_catg_name %></option>
+                        <% }) } %>
+                  </select>
+                </div>
+              </div>
+            </div>
+            
+          <button type="submit" class="btn btn-primary mr-2" id="submit">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function() {
+    $('#block_id').select2({
+        width: '100%' // or 'style' to maintain Bootstrap styles
+    });
+});
+
+  $('#rural_sec').hide();$('#urban_sec').hide();
+  $('#urban_rural_flag').change(function() {
+          if ($(this).val() == 'U') {
+            $('#urban_sec').show();
+            $('#rural_sec').hide();
+          } else if ($(this).val() == 'R') {
+              $('#rural_sec').show();
+              $('#urban_sec').hide();
+              
+          }
+      });
+</script>
+
+
+

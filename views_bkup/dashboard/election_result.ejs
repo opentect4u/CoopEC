@@ -1,0 +1,545 @@
+<style>
+  #suggestions {
+      position: absolute;
+      z-index: 1000; /* Ensure it appears above other elements */
+    
+  }
+</style>
+
+<div class="row">
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title card_title_cus">List Co-operative Societies in <%= range_name %> (<span id="filtot"><%= total %></span>) 
+              
+              <div class="table_title_icon"> 
+                <!-- <img src="/images/pdf.jpg" alt="pdf" class="pdf_cus" />
+                <img src="/images/excel.jpg" alt="excel" class="excel_cus" /> -->
+              <!-- <i class="fa fa-file-pdf-o pdf_cus" aria-hidden="true"></i> 
+              <i class="fa fa-file-excel-o excel_cus" aria-hidden="true"></i> -->
+            </div>
+            
+            </h4>
+            <div class="table-responsive pt-3 custome_table_res">
+            <label> <input type="radio" class="election_status" name="election_status" value="ONGOING"  checked > ONGOING </label>
+            <label> <input type="radio" class="election_status" name="election_status" value="DONE"   > COMPLETED </label>
+            <label> <input type="radio" class="election_status" name="election_status" value="DUE">DUE</label>
+            <br>
+              <table class="table_cus table-striped" style="width:100%">
+              <!-- <table class="table table-striped"  id=""  style="width:100%"> -->
+                <thead>
+                  <tr>
+                    <th class="society_th_1">SL No</th>
+                    <th class="society_th_2">Society Name</th>
+                    <!-- <th class="society_th_5">District</th>
+                    <th class="society_th_4">Zone</th> -->
+                    <!-- <th class="society_th_3">Range</th> -->
+                    <th class="society_th_6">Registration Number</th>
+                    <!-- <th class="society_th_7">Tier </th> -->
+                    <th class="society_th_8">Society Type</th>
+                    <th class="society_th_9">Option</th>
+                  </tr>
+                </thead>
+                <tbody id="item-list">
+                  <% 
+                  var i = (page - 1) * 10 + 1; // Calculate starting index for page
+                  data.forEach(dt => { %>
+                      <tr>
+                          <td><%= i++ %></td>
+                          <td><%= dt.cop_soc_name %></br>
+                          <% if (dt.functional_status == 'Functional'){ %>
+                              <span class="green">Functional</span>
+                          <% } else { %>
+                              <span style="background-color: red;"><%= dt.functional_status %></span>
+                          <% } %>
+                          </td>
+                          <!-- <td><%= dt.dist_name %></td>
+                          <td><%= dt.zone_name %></td> -->
+                          <!-- <td><%= dt.range_name %></td> -->
+                          <td><%= dt.reg_no %></td>
+                          <!-- <td><%= dt.soc_tier_name %></td> -->
+                          <td><%= dt.soc_type_name %></td>
+                          <td>
+                            <a href="/society/edit?id=<%= dt.id %>" class="edit_dashboard">Edit</a>
+                          </td>
+                      </tr>
+                  <% }) %>
+                </tbody>
+              </table>
+        
+            </div>
+
+          <nav aria-label="Page navigation" class="pagination_cus">
+            <ul  style="float: left;" id="pagination_count">
+              Showing 1 to <%= i-1 %> of, <%= total %> entries
+            </ul>
+            <ul class="pagination" id="pagination">
+                <li class="page-item <%= page === 1 ? 'disabled' : '' %>">
+                    <a class="page-link" href="#" data-page="<%= page - 1 %>" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                
+                <% 
+                // Calculate start and end page numbers
+                let startPage = Math.max(1, page - 4);
+                let endPage = Math.min(totalPages, page + 5);
+        
+                // Adjust start page if there aren't enough pages before the current page
+                if (endPage - startPage < 9) {
+                    startPage = Math.max(1, endPage - 9);
+                }
+        
+                // Adjust end page if there aren't enough pages after the current page
+                if (endPage - startPage < 9) {
+                    endPage = Math.min(totalPages, startPage + 9);
+                }
+        
+                // Display page numbers
+                for (let p = startPage; p <= endPage; p++) { %>
+                    <li class="page-item <%= p == page ? 'active' : '' %>">
+                        <a class="page-link" href="#" data-page="<%= p %>"><%= p %></a>
+                    </li>
+                <% } %>
+        
+                <li class="page-item <%= page === totalPages ? 'disabled' : '' %>">
+                    <a class="page-link" href="#" data-page="<%= page + 1 %>" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        
+          </div>
+        </div>
+      </div>
+</div>
+
+<script>
+
+    $(document).ready(function() {
+      //$('#pagination span').click(function(event) {
+        $(document).on('click', '.page-link', function(event) {
+        event.preventDefault(); // Prevent default anchor behavior
+             $('#item-list').html('');
+               // const page = $(this).val();
+                const page = $(this).data('page');
+           
+                var cntr_auth_type = $('#cntr_auth_type').val();
+                var dist_code = $('#dist_code').val();
+                var zone_code = $('#zone_code').val();
+                var range_code = $('#range_code').val();
+                var urban_rural_flags = $('#urban_rural_flag').val();
+                var ulb_catg,block_id;
+                if(urban_rural_flags == 'U'){
+                 ulb_catg = $('#ulb_catg').val();
+                 block_id = 0;
+                }else if(urban_rural_flags == 'R'){
+                  ulb_catg = 0;
+                  block_id = $('#block_id').val();
+                }
+                var soc_tier = $('#soc_tier').val();
+                var soc_type_id = $('#soc_type_id').val();
+              
+                var election_status = $('input[name="election_status"]:checked').val();
+
+
+                $.ajax({
+                    url: '/dash/socLimitListfor_election_status',
+                    type: 'GET',
+                    data: { page,cntr_auth_type,dist_code,zone_code,range_code,urban_rural_flags,ulb_catg,block_id,soc_type_id,soc_tier,election_status },
+                    success: function(response) {
+                        const data = response.data;
+                        const totalPages = response.totalPages;
+                        const currentPage = page;
+                     const itemsPerPage =25; // Number of items per page
+                  
+// Calculate the starting index for the current page
+                        let startIndex = (currentPage - 1) * itemsPerPage + 1;
+                        let startIndexofrcnt = (currentPage - 1) * itemsPerPage + 1;
+                        let rows = '';
+                        let i = $('#item-list tr').length + 1; // Start from the next index
+
+                        data.forEach(dt => {
+                            rows += `
+                                 <tr>
+                                    <td>${startIndex++}</td>
+                                    <td>${dt.cop_soc_name}</br>
+                                        ${dt.functional_status === 'Functional' 
+                                            ? '<span class="green">Functional</span>' 
+                                            : `<span style="background-color: red;">${dt.functional_status}</span>`}
+                                    </td>
+                                    <td>${dt.reg_no}</td> 
+                                    <td>${dt.soc_type_name}</td> 
+                                    <td>
+                                        <a href="/society/edit?id=${dt.id}" class="edit_dashboard">Edit</a>
+                                    </td>
+                                </tr>`;
+                        });
+
+                        $('#item-list').append(rows); // Append new rows
+                     
+                        // Update pagination
+                let pagination = '';
+                let paginationcntsec = '';
+
+                paginationcntsec +=`Showing ${startIndexofrcnt} to ${startIndex-1} of, ${response.total} entries`;
+                
+                pagination += `<li class="page-item ${page === 1 ? 'disabled' : ''}">
+                    <a class="page-link" href="#" data-page="${page - 1}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>`;
+
+                let startPage = Math.max(1, page - 4);
+                let endPage = Math.min(totalPages, page + 5);
+        
+                // Adjust start page if there aren't enough pages before the current page
+                if (endPage - startPage < 9) {
+                    startPage = Math.max(1, endPage - 9);
+                }
+        
+                // Adjust end page if there aren't enough pages after the current page
+                if (endPage - startPage < 9) {
+                    endPage = Math.min(totalPages, startPage + 9);
+                }
+               
+                  for (let p = startPage; p <= endPage; p++) {
+                    pagination += `<li class="page-item ${p === page ? 'active' : ''}">
+                        <a class="page-link" href="#" data-page="${p}">${p}</a>
+                    </li>`;
+                }
+                
+
+                pagination += `<li class="page-item ${page === totalPages ? 'disabled' : ''}">
+                    <a class="page-link" href="#" data-page="${page + 1}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>`;
+
+                $('#pagination').html(pagination);
+                $('#pagination_count').html(paginationcntsec);
+                
+
+                        // If no more items, hide the button
+                        // if (data.length < 10) {
+                        //     button.hide();
+                        // }
+                    },
+                    error: function() {
+                        alert('Error loading items.');
+                    }
+                });
+            });
+
+            $(document).on('change', '.election_status', function(event) {
+              event.preventDefault(); // Prevent default anchor behavior
+             $('#item-list').html('');
+               // const page = $(this).val();
+                const page = 0;
+           
+                var cntr_auth_type = $('#cntr_auth_type').val();
+                var dist_code = $('#dist_code').val();
+                var zone_code = $('#zone_code').val();
+                var range_code = $('#range_code').val();
+                var urban_rural_flags = $('#urban_rural_flag').val();
+                var ulb_catg,block_id;
+                if(urban_rural_flags == 'U'){
+                 ulb_catg = $('#ulb_catg').val();
+                 block_id = 0;
+                }else if(urban_rural_flags == 'R'){
+                  ulb_catg = 0;
+                  block_id = $('#block_id').val();
+                }
+                var soc_tier = $('#soc_tier').val();
+                var soc_type_id = $('#soc_type_id').val();
+                //var functional_status = $('#functional_status').val();
+                var election_status = $('input[name="election_status"]:checked').val();
+                $.ajax({
+                    url: '/dash/socLimitListfor_election_status',
+                    type: 'GET',
+                    data: { page,cntr_auth_type,dist_code,zone_code,range_code,urban_rural_flags,ulb_catg,block_id,soc_type_id,soc_tier,election_status },
+                    success: function(response) {
+                        const data = response.data;
+                        const totalPages = response.totalPages;
+                        const currentPage = 0;
+                     const itemsPerPage =25; // Number of items per page
+
+                        let startIndex = 1;
+                        let startIndexofrcnt = 1;
+                        let rows = '';
+                        let i = $('#item-list tr').length + 1; // Start from the next index
+
+                        data.forEach(dt => {
+                            rows += `
+                                 <tr>
+                                    <td>${startIndex++}</td>
+                                    <td>${dt.cop_soc_name}</br>
+                                        ${dt.functional_status === 'Functional' 
+                                            ? '<span class="green">Functional</span>' 
+                                            : `<span style="background-color: red;">${dt.functional_status}</span>`}
+                                    </td>
+                                    <td>${dt.reg_no}</td> 
+                                    <td>${dt.soc_type_name}</td> 
+                                    <td>
+                                        <a href="/society/edit?id=${dt.id}" class="edit_dashboard">Edit</a>
+                                    </td>
+                                </tr>`;
+                        });
+
+                        $('#item-list').append(rows); // Append new rows
+                     
+                        // Update pagination
+                let pagination = '';
+                let paginationcntsec = '';
+
+                paginationcntsec +=`Showing ${startIndexofrcnt} to ${startIndex-1} of, ${response.total} entries`;
+                
+                pagination += `<li class="page-item ${page === 1 ? 'disabled' : ''}">
+                    <a class="page-link" href="#" data-page="${page - 1}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>`;
+
+                let startPage = Math.max(1, page - 4);
+                let endPage = Math.min(totalPages, page + 5);
+        
+                // Adjust start page if there aren't enough pages before the current page
+                if (endPage - startPage < 9) {
+                    startPage = Math.max(1, endPage - 9);
+                }
+        
+                // Adjust end page if there aren't enough pages after the current page
+                if (endPage - startPage < 9) {
+                    endPage = Math.min(totalPages, startPage + 9);
+                }
+               
+                  for (let p = startPage; p <= endPage; p++) {
+                    pagination += `<li class="page-item ${p === page ? 'active' : ''}">
+                        <a class="page-link" href="#" data-page="${p}">${p}</a>
+                    </li>`;
+                }
+                
+
+                pagination += `<li class="page-item ${page === totalPages ? 'disabled' : ''}">
+                    <a class="page-link" href="#" data-page="${page + 1}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>`;
+
+                $('#pagination').html(pagination);
+                $('#pagination_count').html(paginationcntsec);
+                $('#filtot').html(response.total);
+                
+                
+                    },
+                    error: function() {
+                        alert('Error loading items.');
+                    }
+                });
+            });
+        });
+        var urban_rural_flag_dt = '<%= urban_rural_flag %>'
+       console.log(urban_rural_flag_dt);
+        if(urban_rural_flag_dt == "U"){
+          $('#rural_sec').hide();
+          $('#urban_sec').show();
+        }else if(urban_rural_flag_dt == "R"){
+          $('#urban_sec').hide();
+          $('#rural_sec').show();
+        }else{
+          $('#urban_sec').hide();
+          $('#rural_sec').hide();
+        }
+        
+        $('#urban_rural_flag').change(function() {
+          if ($(this).val() == 'U') {
+            $('#urban_sec').show();
+            $('#rural_sec').hide();
+          } else if ($(this).val() == 'R') {
+              $('#rural_sec').show();
+              $('#urban_sec').hide();
+              
+          }
+      });
+  function populateblock(dist_code) {
+    $.ajax({
+        url: '/society/blocklist',
+        method: 'GET',
+        data: { dist_code: dist_code },
+        beforeSend: function() {
+            // Show a loading indicator if needed
+           // $('#block_id').html('<option value="0">Loading...</option>');
+        },
+        success: function(response) {
+            var datahlists = response.datahlist;
+            var $select = $('#block_id');
+            // Clear existing options
+            $select.empty();
+            // Add a default "Select" option
+            $select.append('<option value="0">Select Block</option>');
+            // Append new options from the response data
+            datahlists.forEach(function(item) {
+                $select.append(`<option value="${item.block_id}"  >${item.block_name}</option>`);
+            });
+        },
+        error: function(err) {
+            // Handle any errors
+            $('#gp_id').html('<option value="0">Error fetching data. Please try again.</option>');
+            console.error('AJAX Error:', err); // Log error for debugging
+        }
+    });
+  }
+ // populatezone('<%= dist_code %>','<%= zone_code %>');
+  populateranze('<%= dist_code %>','<%= range_code %>');
+  $('#dist_code').change(function() {
+        var selectedValue = $(this).val();
+        populateblock(selectedValue);
+     //   populatezone(selectedValue,0);
+        populateranze(selectedValue,0);
+    });
+    populatedist('<%= zone_code %>','<%= dist_code %>')
+    $('#zone_code').change(function() {
+        var zone_code = $(this).val();
+        populatedist(zone_code,0);
+    });
+    function populatezone(dist_code,zone_id) {
+      $.ajax({
+        url: '/society/zonelist',
+        method: 'GET',
+        data: { dist_code: dist_code },
+        beforeSend: function() {
+            // Show a loading indicator if needed
+           // $('#block_id').html('<option value="0">Loading...</option>');
+        },
+        success: function(response) {
+            var datahlists = response.datahlist;
+            var $select = $('#zone_code');
+            // Clear existing options
+            $select.empty();
+            // Add a default "Select" option
+            $select.append('<option value="0">Select Zone</option>');
+            // Append new options from the response data
+            datahlists.forEach(function(item) {
+                $select.append(`<option value="${item.zone_id}" ${(item.zone_id == zone_id) ? 'selected' : ''} >${item.zone_name}</option>`);
+            });
+        },
+        error: function(err) {
+            // Handle any errors
+            $('#zone_code').html('<option value="0">Error fetching data. Please try again.</option>');
+            console.error('AJAX Error:', err); // Log error for debugging
+        }
+    });
+    }
+
+    function populateranze(dist_code,range_id) {
+      $.ajax({
+        url: '/society/rangelist',
+        method: 'GET',
+        data: { dist_code: dist_code },
+        beforeSend: function() {
+            // Show a loading indicator if needed
+           // $('#block_id').html('<option value="0">Loading...</option>');
+        },
+        success: function(response) {
+            var datahlists = response.datahlist;
+            var $select = $('#range_code');
+            // Clear existing options
+            $select.empty();
+            // Add a default "Select" option
+            $select.append('<option value="0">Select Range</option>');
+            // Append new options from the response data
+            datahlists.forEach(function(item) {
+                $select.append(`<option value="${item.range_id}" ${(item.range_id == range_id) ? 'selected' : ''} >${item.range_name}</option>`);
+            });
+        },
+        error: function(err) {
+            // Handle any errors
+            $('#range_code').html('<option value="0">Error fetching data. Please try again.</option>');
+            console.error('AJAX Error:', err); // Log error for debugging
+        }
+       });
+    }
+    function populatedist(zone_code,dist_code) {
+      $.ajax({
+        url: '/society/distlist',
+        method: 'GET',
+        data: { zone_code: zone_code },
+        beforeSend: function() {
+            // Show a loading indicator if needed
+           // $('#block_id').html('<option value="0">Loading...</option>');
+        },
+        success: function(response) {
+            var datahlists = response.datahlist;
+            var $select = $('#dist_code');
+            // Clear existing options
+            $select.empty();
+            // Add a default "Select" option
+            $select.append('<option value="0">Select Dist</option>');
+            // Append new options from the response data
+            datahlists.forEach(function(item) {
+                $select.append(`<option value="${item.dist_code}" ${(item.dist_code == dist_code) ? 'selected' : ''} >${item.dist_name}</option>`);
+            });
+        },
+        error: function(err) {
+            // Handle any errors
+            $('#dist_code').html('<option value="0">Error fetching data. Please try again.</option>');
+            console.error('AJAX Error:', err); // Log error for debugging
+        }
+       });
+    }
+</script>
+<style>
+  #pagination a {
+      padding: 5px 10px;
+      margin: 0 2px;
+      text-decoration: none;
+      color: #007bff;
+  }
+  #pagination a.active {
+      font-weight: bold;
+      color: #000;
+  }
+  #pagination a:hover {
+      text-decoration: underline;
+  }
+</style>
+<script>
+ $(document).ready(function() {
+    $('#socname').on('input', function() {
+        let query = $(this).val();
+        if (query.length > 3) {
+            $('#loader').show(); // Show loader
+
+            $.ajax({
+                url: '/society/getsuggestions', // Your server endpoint
+                method: 'GET',
+                data: { name: query },
+                success: function(data) {
+                    var datahlist = data.datahlist;
+                    $('#suggestions').empty().show();
+                    datahlist.forEach(function(item) {
+                        $('#suggestions').append(`<li class="list-group-item">${item.cop_soc_name}</li>`);
+                    });
+                },
+                error: function() {
+                    console.error('Error fetching suggestions.');
+                },
+                complete: function() {
+                    $('#loader').hide(); // Hide loader after the request is complete
+                }
+            });
+        } else {
+            $('#suggestions').hide();
+            $('#loader').hide(); // Hide loader if query is too short
+        }
+    });
+
+    $(document).on('click', '.list-group-item', function() {
+        $('#socname').val($(this).text());
+        $('#suggestions').hide();
+    });
+});
+
+</script>
+

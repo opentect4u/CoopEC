@@ -31,100 +31,98 @@ $('#example').DataTable();
 <script>
     // Connect to the server
    // Ensure that socket.io connects after the page has loaded
-   window.onload = function() {
-            const socket = io(); 
-            var range_code = '<%=user.range_id %>'
-            var user_type = '<%=user.user_type %>' // Connect to the server
-            // Listen for the 'notification' event
-            socket.emit('notification-request', {range_code:range_code,user_type:user_type });
-            // Listen for the 'notification' event from the server
-            socket.on('notification', (data) => {
-                //$('#count').html(data.message.length > 0 ? data.message.length : 0);
-                if(data.message.length > 0 ){
-                    let html = '';  // Start with an empty string to accumulate the HTML
-                    var tot_view_count = 0;
-                    data.message.forEach((msg) => {
-                            if(msg.type == 'S' || msg.type == 'D' || msg.type == 'V'){
-                                var slug =msg.slug+msg.wrk_releated_id
-                            }else{
-                                var slug =msg.slug
-                            }
-                            if(msg.view_status == 1){
-                                tot_view_count +=1;
-                            }
-                        // For each message, create a dropdown item
-                        html += `
-                            <button class="myButton myButton_cus dropdown-item preview-item ${msg.view_status ==1 ? 'unreadmessage' : 'readmessage'}" value="${slug}"  data-id="${msg.id}" >
-                                <div class="preview-item-content">
-                                    <h6 class="preview-subject font-weight-normal">${msg.message || 'No subject'}</h6>
-                                    <p class="date_cus font-weight-light small-text mb-0 text-muted">${new Date(msg.created_at).toLocaleDateString('en-IN', { year: 'numeric' , month: 'short' ,day: 'numeric' }) || 'Just now'}</p>
-                                </div>
-                            </button>
-                        `;
-                    });
-                    // Append the generated HTML to the dropdown container
-                    $('#notification_list').html(html) ;
-                    if(tot_view_count == 0){
-                        var spanElement = document.getElementById('count_lid');
-                       // spanElement.classList.remove('count');
-                        spanElement.classList.add('uncount');
-                    }else{
-                        var spanElement = document.getElementById('count_lid');
-                        spanElement.classList.add('count');
-                    }
-                }
-            });
-        };
-         $('#markasread').on('click', function() {
-                const socket = io(); 
-                var range_code = '<%=user.range_id %>'
-                var user_type = '<%=user.user_type %>' // Connect to the server
-                // Listen for the 'notification' event
-                socket.emit('markassread', {range_code:range_code,user_type:user_type });
-                var spanElement = document.getElementById('count_lid');
-                        spanElement.classList.remove('count');
-                        spanElement.classList.add('uncount');
-                socket.on('notification', (data) => {
-                 //   alert('test');
-                $('#notification_list').html('') ;
-                var tot_view_count = 0;
-               // $('#count').html(data.message.length > 0 ? data.message.length : 0);
-                if(data.message.length > 0 ){
-                    let html = '';  // Start with an empty string to accumulate the HTML
-                    data.message.forEach((msg) => {
-                            if(msg.type == 'S' || msg.type == 'D' || msg.type == 'V'){
-                                var slug =msg.slug+msg.wrk_releated_id
-                            }else{
-                                var slug =msg.slug
-                            }
-                            if(msg.view_status ==1){
-                                tot_view_count +=1;
-                            }
-                        // For each message, create a dropdown item
-                        html += `
-                            <button class="myButton dropdown-item preview-item ${msg.view_status ==1 ? 'unreadmessage' : ''}" value="${slug}"  data-id="${msg.id}" >
-                                <div class="preview-item-content">
-                                    <h6 class="preview-subject font-weight-normal">${msg.message || 'No subject'}</h6>
-                                    <p class="font-weight-light small-text mb-0 text-muted">${new Date(msg.created_at).toLocaleDateString('en-IN', { year: 'numeric' , month: 'short' ,day: 'numeric' }) || 'Just now'}</p>
-                                </div>
-                            </button>
-                        `;
-                    });
-                    // Append the generated HTML to the dropdown container
-                    $('#notification_list').html(html) ;
-                    if(tot_view_count == 0){
-                        var spanElement = document.getElementById('count_lid');
-                       // spanElement.classList.remove('count');
-                        spanElement.classList.add('uncount');
-                    }else{
-                        var spanElement = document.getElementById('count_lid');
-                        spanElement.classList.add('count');
-                    }
-                }
-            });
+//    window.onload = function() {
+//             const socket = io(); 
+//             var range_code = '<%=user.range_id %>'
+//             var user_type = '<%=user.user_type %>' // Connect to the server
+//             // Listen for the 'notification' event
+//             socket.emit('notification-request', {range_code:range_code,user_type:user_type });
+//             // Listen for the 'notification' event from the server
+//             socket.on('notification', (data) => {
+//                 //$('#count').html(data.message.length > 0 ? data.message.length : 0);
+//                 if(data.message.length > 0 ){
+//                     let html = '';  // Start with an empty string to accumulate the HTML
+//                     var tot_view_count = 0;
+//                     data.message.forEach((msg) => {
+//                             if(msg.type == 'S' || msg.type == 'D' || msg.type == 'V'){
+//                                 var slug =msg.slug+msg.wrk_releated_id
+//                             }else{
+//                                 var slug =msg.slug
+//                             }
+//                             if(msg.view_status == 1){
+//                                 tot_view_count +=1;
+//                             }
+//                         // For each message, create a dropdown item
+//                         html += `
+//                             <button class="myButton myButton_cus dropdown-item preview-item ${msg.view_status ==1 ? 'unreadmessage' : 'readmessage'}" value="${slug}"  data-id="${msg.id}" >
+//                                 <div class="preview-item-content">
+//                                     <h6 class="preview-subject font-weight-normal">${msg.message || 'No subject'}</h6>
+//                                     <p class="date_cus font-weight-light small-text mb-0 text-muted">${new Date(msg.created_at).toLocaleDateString('en-IN', { year: 'numeric' , month: 'short' ,day: 'numeric' }) || 'Just now'}</p>
+//                                 </div>
+//                             </button>
+//                         `;
+//                     });
+//                     // Append the generated HTML to the dropdown container
+//                     $('#notification_list').html(html) ;
+//                     if(tot_view_count == 0){
+//                         var spanElement = document.getElementById('count_lid');
+//                        // spanElement.classList.remove('count');
+//                         spanElement.classList.add('uncount');
+//                     }else{
+//                         var spanElement = document.getElementById('count_lid');
+//                         spanElement.classList.add('count');
+//                     }
+//                 }
+//             });
+//         };
+        //  $('#markasread').on('click', function() {
+        //         const socket = io(); 
+        //         var range_code = '<%=user.range_id %>'
+        //         var user_type = '<%=user.user_type %>' // Connect to the server
+        //         // Listen for the 'notification' event
+        //         socket.emit('markassread', {range_code:range_code,user_type:user_type });
+        //         var spanElement = document.getElementById('count_lid');
+        //                 spanElement.classList.remove('count');
+        //                 spanElement.classList.add('uncount');
+        //         socket.on('notification', (data) => {
+        //         $('#notification_list').html('') ;
+        //         var tot_view_count = 0;
+        //         if(data.message.length > 0 ){
+        //             let html = '';  // Start with an empty string to accumulate the HTML
+        //             data.message.forEach((msg) => {
+        //                     if(msg.type == 'S' || msg.type == 'D' || msg.type == 'V'){
+        //                         var slug =msg.slug+msg.wrk_releated_id
+        //                     }else{
+        //                         var slug =msg.slug
+        //                     }
+        //                     if(msg.view_status ==1){
+        //                         tot_view_count +=1;
+        //                     }
+                       
+        //                 html += `
+        //                     <button class="myButton dropdown-item preview-item ${msg.view_status ==1 ? 'unreadmessage' : ''}" value="${slug}"  data-id="${msg.id}" >
+        //                         <div class="preview-item-content">
+        //                             <h6 class="preview-subject font-weight-normal">${msg.message || 'No subject'}</h6>
+        //                             <p class="font-weight-light small-text mb-0 text-muted">${new Date(msg.created_at).toLocaleDateString('en-IN', { year: 'numeric' , month: 'short' ,day: 'numeric' }) || 'Just now'}</p>
+        //                         </div>
+        //                     </button>
+        //                 `;
+        //             });
+        //             // Append the generated HTML to the dropdown container
+        //             $('#notification_list').html(html) ;
+        //             if(tot_view_count == 0){
+        //                 var spanElement = document.getElementById('count_lid');
+        //                // spanElement.classList.remove('count');
+        //                 spanElement.classList.add('uncount');
+        //             }else{
+        //                 var spanElement = document.getElementById('count_lid');
+        //                 spanElement.classList.add('count');
+        //             }
+        //         }
+        //     });
     
-          });
-          $(document).ready(function() {
+        //   });
+        $(document).ready(function() {
         // Use event delegation to attach the click event handler to the parent container
         $('#notification_list').on('click', '.myButton', function() {
             // Extract the 'value' attribute for the URL redirection
@@ -276,6 +274,18 @@ $('#example').DataTable();
   
     // Run on page load to check initial connectivity
     checkConnectivity();
-</script>
 
+    
+</script>
+<script>
+    window.onload = function() {
+        document.querySelectorAll("form").forEach(form => {
+            form.setAttribute("autocomplete", "off");
+        });
+
+        document.querySelectorAll("input").forEach(input => {
+            input.setAttribute("autocomplete", "off");
+        });
+    };
+</script>
 

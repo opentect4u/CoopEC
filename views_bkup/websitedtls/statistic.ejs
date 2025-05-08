@@ -1,0 +1,69 @@
+<!-- <style>
+  input {
+      width: 30px; /* Set width for each input */
+      text-align: center; /* Center the text */
+      margin: 5px; /* Space between inputs */
+  }
+  input:invalid {
+      border-color: red;
+  }
+</style> -->
+<div class="row">
+  <div class="col-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title card_title_cus">Statistic</h4>
+        <form class="forms-sample" action="/wdtls/update_statistic" method="post">
+          <input type="hidden" name="id" value="<%= datas.id %>">
+            
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputName1">Text 1 <span class="red">*</span></label>
+                  <input type="text" class="form-control"  name="title1" value="<%= datas.title1 %>" required>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputName1">Number 1 <span class="red">*</span> </label>
+                  <input type="number" class="form-control"  name="num1" value="<%= datas.num1 %>" required>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputName1">Text 2 <span class="red">*</span></label>
+                  <input type="text" class="form-control"  name="title2" value="<%= datas.title2 %>" required>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputName1">Number 2  <span class="red">*</span> </label>
+                  <input type="number" class="form-control"  name="num2" value="<%= datas.num2 %>" required>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputName1">Text 3 <span class="red">*</span></label>
+                  <input type="text" class="form-control"  name="title3" value="<%= datas.title3 %>" required>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputName1">Number 3  <span class="red">*</span> </label>
+                  <input type="number" class="form-control"  name="num3" value="<%= datas.num3 %>" required>
+                </div>
+              </div>
+            </div>
+           
+          <button type="submit" id="submit" class="btn btn-primary mr-2"  >Submit</button>
+          <!-- <button class="btn btn-light">Cancel</button> -->
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+

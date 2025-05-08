@@ -1,0 +1,259 @@
+<div class="row">
+  <div class="col-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title card_title_cus"> <a href="/society/addvillage" class="btn btn-primary">Add Village</a> </h4>
+
+        <form class="forms-sample" action="/society/managevillage" method="post">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="exampleInputName1"><span class="red">*</span>District</label>
+                  <select class="form-control" id="dist_code" name="dist_code" required>
+                    <option value=""  >Select District</option>
+                    <% if(districtlist.length > 0){
+                      var i = 1
+                      districtlist.forEach(dt => { %>
+                      <option value="<%= dt.dist_code %>" ><%= dt.dist_name %></option>
+                        <% }) } %>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-4" >
+                <div class="form-group">
+                  <label for="exampleInputName1">Block <span class="red">*</span></label>
+                  <select class="form-control select2" id="block_id" name="block_id">
+                    <option value="">Select Block </option>
+                    
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="exampleInputName1">Gram Panchayat <span class="red">*</span> </label>
+                  <select class="form-control select2" id="gp_id" name="gp_id" >
+                    <option value="">Select Panchayat </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          <button type="submit" class="btn btn-primary mr-2" id="submit">Search</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+ $(document).ready(function() {
+                '<% if (success_msg.length > 0) { %>'
+                    toastr.success('<%= success_msg %>');
+            '<% } %>'
+            });
+    // Handle change event for dynamic updates
+    $('#dist_code').change(function() {
+        var dist_code = $(this).val();
+        populateblock(dist_code);
+    });
+   ///    ****************     Change Data for Urban Local Body   ************    ///
+    function populateblock(dist_code) {
+    $.ajax({
+        url: '/society/blocklist',
+        method: 'GET',
+        data: { dist_code:dist_code },
+        beforeSend: function() {
+            // Show a loading indicator if needed
+            $('#block_id').html('<option value="0">Loading...</option>');
+        },
+        success: function(response) {
+            var datahlists = response.datahlist;
+            var $select = $('#block_id');
+            // Clear existing options
+            $select.empty();
+            // Add a default "Select" option
+            $select.append('<option value="0">Select Block</option>');
+            // Append new options from the response data
+            datahlists.forEach(function(item) {
+                $select.append(`<option value="${item.block_id}" >${item.block_name}</option>`);
+            });
+        },
+        error: function(err) {
+            // Handle any errors
+            $('#block_id').html('<option value="0">Error fetching data. Please try again.</option>');
+            console.error('AJAX Error:', err); // Log error for debugging
+        }
+    });
+  }
+      // On change event, call the function to populate select
+   
+
+
+    ////    *************     Pupulate GP , Village     *********** //
+    function populategp(block_id,gp_id) {
+    $.ajax({
+        url: '/society/gplist',
+        method: 'GET',
+        data: { block_id: block_id },
+        beforeSend: function() {
+            // Show a loading indicator if needed
+            $('#gp_id').html('<option value="0">Loading...</option>');
+        },
+        success: function(response) {
+            var datahlists = response.datahlist;
+            var $select = $('#gp_id');
+            // Clear existing options
+            $select.empty();
+            // Add a default "Select" option
+            $select.append('<option value="0">Select GramPanchyat</option>');
+            // Append new options from the response data
+            datahlists.forEach(function(item) {
+                $select.append(`<option value="${item.gp_id}"  >${item.gp_name}</option>`);
+            });
+        },
+        error: function(err) {
+            // Handle any errors
+            $('#gp_id').html('<option value="0">Error fetching data. Please try again.</option>');
+            console.error('AJAX Error:', err); // Log error for debugging
+        }
+    });
+  }
+      // On change event, call the function to populate select
+    
+     
+      
+      $(document).ready(function() {
+      //$('#block_id').select2(); // Initialize Select2
+      
+      $('#block_id').on('select2:select', function(e) {
+          var selectedValue = $(this).val();
+          populategp(selectedValue, 0);
+      });
+    });
+
+    ///    ****************     Change Data for Ward Local Body   ************    ///
+  //   function populatevillage(gp_id,block_id,vill_id) {
+  //   $.ajax({
+  //       url: '/society/villlist',
+  //       method: 'GET',
+  //       data: { block_id: block_id,gp_id:gp_id },
+  //       beforeSend: function() {
+  //           // Show a loading indicator if needed
+  //           $('#vill_id').html('<option value="0">Loading...</option>');
+  //       },
+  //       success: function(response) {
+  //           var datahlists = response.datahlist;
+  //           var $select = $('#vill_id');
+  //           // Clear existing options
+  //           $select.empty();
+  //           // Add a default "Select" option
+  //           $select.append('<option value="0">Select Village</option>');
+  //           // Append new options from the response data
+  //           datahlists.forEach(function(item) {
+  //               $select.append(`<option value="${item.vill_id}" ${(item.vill_id == vill_id) ? 'selected' : ''} >${item.vill_name}</option>`);
+  //           });
+  //       },
+  //       error: function(err) {
+  //           // Handle any errors
+  //           $('#vill_id').html('<option value="0">Error fetching data. Please try again.</option>');
+  //           console.error('AJAX Error:', err); // Log error for debugging
+  //       }
+  //   });
+  // }
+  //     // On change event, call the function to populate select
+  
+
+ 
+  </script>
+
+<script>
+  
+
+  function addRow() {
+    const tableBody = document.getElementById('board_dtl');
+    const newRow = document.createElement('tr');
+
+    newRow.innerHTML = `
+        <td style="padding: 10px;"><input type="text" name="board_memb_name[]" class="form-control"></td>
+        <td style="padding: 10px;"><input type="text" name="board_memb_desig[]" class="form-control"></td>
+        <td style="padding: 10px;"><input type="text" name="bm_contact_no[]" class="form-control"></td>
+        <td style="padding: 10px;"><button class="btn btn-danger" onclick="removeRow(this)">Remove</button></td>
+    `;
+
+    tableBody.appendChild(newRow);
+}
+
+function removeRow(button) {
+    const row = button.parentElement.parentElement;
+    row.remove();
+}
+$(document).ready(function() {
+    $('#last_elec_date').change(function() {
+        var selectedValue = new Date($(this).val());
+        selectedValue.setFullYear(selectedValue.getFullYear() + 5);
+        
+        // Format the date to YYYY-MM-DD
+        var dueDate = selectedValue.toISOString().split('T')[0];
+        var oneLessDay = new Date(selectedValue);
+        oneLessDay.setDate(oneLessDay.getDate() - 1);
+        // Format the oneLessDay to YYYY-MM-DD
+        var formattedOneLessDay = oneLessDay.toISOString().split('T')[0];
+        $('#tenure_ends_on').val(formattedOneLessDay);
+        $('#elec_due_date').val(dueDate);
+    });
+      //  Code for Reflecting Case Number
+    function changecasest(casetype){
+      if(casetype == 2)
+        {
+          $('#case_num').val('');
+          $('#case_num').attr('readonly', true);
+        }else{
+          $('#case_num').attr('readonly', false);
+        }
+    }
+    $('#case_id').change(function() {
+        var selectedValue = $(this).val();
+        changecasest(selectedValue);
+    });
+});
+$(document).ready(function() {
+  $('#designationInput').change(function() {
+    const value = $(this).val();
+    const regex = /^\d{4}-\d{2}$/;
+
+    if (!regex.test(value) && value !== '') {
+        alert('Please enter a valid format: YYYY-YY (e.g., 2023-24)');
+        
+    } else {
+     
+    }
+})
+
+  function get_type_error(num){
+    if(num != 31){
+          $('#submit').attr('disabled', false);
+          $('#soc_type_erro').hide();
+          
+        }else{
+          $('#submit').attr('disabled', true);
+          $('#soc_type_erro').show();
+        }
+  }
+  $('#soc_type').change(function() {
+    const num = $(this).val();
+    get_type_error(num);
+  })
+  ///   Code for Number for election Type
+  $('#num_of_memb').change(function() {
+    const num = $(this).val();
+        if(num >= 1000){
+          $('#election_type_name').html('<span class="blue">Delegates Election</span>');
+        }else{
+          $('#election_type_name').html('<span class="blue">Direct Election</span>');
+        }
+  })
+})
+
+</script>
+
+
+

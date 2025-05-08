@@ -94,6 +94,7 @@
           </div>
           <div class="threeBoxTxt" style="height: 280px; width: 100%;">
             <canvas id="pieChart_1"></canvas>
+            <h3 class="box_title__">Election Status</h3>
           </div>
         </div>
       </div>
@@ -286,7 +287,7 @@
           
           <div class="col-sm-4 float-left">
             <div class="threeBoxNewSmall">
-             
+              <!-- <div class="threeBoxImg lightBlue"><img src="/images/boxIcon_b.png" alt=""></div> -->
               <div class="threeBoxTxt" style="height: 280px; width: 100%;">
                 <canvas id="pieChart_2"></canvas>
               </div>
@@ -518,8 +519,8 @@
         labels: ["Unedited", "Edited", "Approved"],
         datasets: [{
           data: [unedited, edited, unapproved],
-          backgroundColor: ["#9190c1", "#FFC100", "#486e57"],
-          hoverBackgroundColor: ["#e1e0fd", "#fdd865", "#486e57"],
+          backgroundColor: ["#9190c1", "#FFC100", "#559d1d"],
+          hoverBackgroundColor: ["#e1e0fd", "#fdd865", "#5eb71a"],
           borderWidth: 3,
         }]
       },
@@ -574,8 +575,8 @@
       labels: ["Due " +'('+ due_num_+')', "Ongoing " +'('+ ongoing_num_+')', "Held " +'('+ held_num_+')'],
       datasets: [{
         data: [due_num_, ongoing_num_, held_num_],
-        backgroundColor: ["#aa8751", "#F2C617", "#486e57"],
-        hoverBackgroundColor: ["#aa8751", "#dfc14a", "#486e57"]
+        backgroundColor: ["#EF190D", "#F2C617", "#8FA63E"],
+        hoverBackgroundColor: ["#df554e", "#dfc14a", "#aec853"]
       }]
     },
     options: {
@@ -674,16 +675,33 @@ function pieChartId(cntr_auth_id,range_code,rangedist) {
            var completed_tot = response.election_result_data.done_tot ? response.election_result_data.done_tot : 0;
            var due_tot = response.election_result_data.due_tot ? response.election_result_data.due_tot : 0;
        
+          // var ctxP = document.getElementById("pieChart").getContext('2d');
            var ctxP_1 = document.getElementById("pieChart_1").getContext('2d');
        
+            // var myPieChart = new Chart(ctxP, {
+            //   // type: 'pie',
+            //   type: 'doughnut',
+            //   data: {
+            //     labels: ["Rural Mapping", "Urban Mapping", "Development Authority"],
+            //     datasets: [{
+            //       data: [rular_tot, urban_tot, devauth_tot],
+            //       backgroundColor: ["#4747a1", "#eb5437", "#43a8d9"],
+            //       hoverBackgroundColor: ["#4e4ec8", "#ce2a0b", "#23b3f9"]
+            //     }]
+            //   },
+            //   options: {
+            //     responsive: true
+            //   }
+            // });
            var myPieChart1 = new Chart(ctxP_1, {
+            // type: 'pie',
             type: 'doughnut',
             data: {
             labels: ["6 Months", "3 Months", "Ongoing Elections", "Completed Elections", "Need Action"],
             datasets: [{
               data: [six_month_data, three_month_data, ongoing_tot, completed_tot, due_tot],
-              backgroundColor: ["#f2c617", "#977a65", "#EDF1FC", "#486e57", "#aa8751"],
-              hoverBackgroundColor: ["#f2c617", "#977a65", "#EDF1FC", "#486e57", "#aa8751"],
+              backgroundColor: ["#f2c617", "#FB8A38", "#EDF1FC", "#8FA63E", "#eb5437"],
+              hoverBackgroundColor: ["#f2c617", "#FB8A38", "#EDF1FC", "#8FA63E", "#eb5437"],
               borderWidth: 3,
             }]
           },

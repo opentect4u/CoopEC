@@ -3,6 +3,7 @@ const moment = require("moment");
 const multer = require("multer");
 const path = require("path");
 const axios = require("axios");
+const pdfParse = require("pdf-parse");
 // mime = require("mime-types");
 
 //bcrypt = require("bcrypt");
@@ -198,8 +199,9 @@ WdtlsRouter.post("/approve_document", async (req, res) => {
     // Format it as YYYY-MM-DD HH:mm:ss
     var formattedDate = date_ob.format("YYYY-MM-DD HH:mm:ss");
     //   ********   Code For Getting Ip   *********   //
-    var ipresult = await fetchIpData();
-    var ip = ipresult.ipdata;
+    // var ipresult = await fetchIpData();
+    // var ip = ipresult.ipdata;
+    var ip = '';
     //   ********   Code For Getting Ip   *********  //
     var data = req.body;
     var table_name = "td_document_upload";
@@ -256,12 +258,9 @@ const storages = multer.memoryStorage();
 const upload_pdf = multer({ storage: storages });
 
 // Custom middleware to check for malicious content in the file buffer
-const checkForMaliciousContent = (req, res, next) => {
+const checkForMaliciousContent = async (req, res, next) => {
   const file = req.file;
-  console.log('hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh');
-  console.log(file.originalname); // Log original file name
-  console.log(file.mimetype); // Log MIME type
-  console.log('hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh');
+    
   if (!file) {
     return next();
   }
@@ -280,25 +279,35 @@ const checkForMaliciousContent = (req, res, next) => {
     if (pdfHeader !== '%PDF') {
       return res.status(400).send('Invalid PDF file');
     }
-
     // Check for forbidden patterns in file content (malicious content)
-    const forbiddenPatterns = [
-      /<\?php/i,        // PHP opening tag
-      /<script>/i,      // Script tags
-      /eval\(/i,        // eval() function
-      /base64_decode/i  // base64_decode function
-    ];
+    // const forbiddenPatterns = [
+    //   /<\?php/i,        // PHP opening tag
+    //   /<script>/i,      // Script tags
+    //   /eval\(/i,        // eval() function
+    //   /base64_decode/i  // base64_decode function
+    // ];
+    // console.log('File Buffer')
+    // console.log(file.buffer.toString('utf8'));
+    // console.log('File Buffer')
+    // for (const pattern of forbiddenPatterns) {
+    //   if (pattern.test(file.buffer.toString('utf8'))) {
+    //     return res.status(400).send('Malicious content detected');
+    //   }
+    // }
 
-    for (const pattern of forbiddenPatterns) {
-      if (pattern.test(file.buffer.toString('utf8'))) {
-        return res.status(400).send('Malicious content detected');
-      }
+    var content = await pdfParse(file.buffer)
+    const forbiddenPatterns = [/<\?php/i, /<script>/i, /eval\(/i, /base64_decode/i];
+    var chk_mal_content =  forbiddenPatterns.some(pattern => pattern.test(content.text.trim()));
+
+    if(chk_mal_content){
+      return res.status(400).send('Malicious content detected.');
     }
+    next()
   } else {
     return res.status(400).send('Only PDF files are allowed');
   }
 
-  next(); // Proceed to the next middleware (your upload route)
+  // next(); // Proceed to the next middleware (your upload route)
 };
 
 
@@ -317,8 +326,9 @@ WdtlsRouter.post("/uploaddoc", upload_pdf.single("document"), checkForMaliciousC
     const formattedDate = date_ob.format("YYYY-MM-DD HH:mm:ss");
 
     // Get client IP address
-    const ipresult = await fetchIpData();
-    const ip = ipresult.ipdata;
+    // const ipresult = await fetchIpData();
+    // const ip = ipresult.ipdata;
+    const ip = '';
     const rootDirectory = path.join(__dirname, '..');
       const typeId = req.body.doc_type;  // Assuming doc_type is coming from the body
       let uploadDir;
@@ -331,14 +341,13 @@ WdtlsRouter.post("/uploaddoc", upload_pdf.single("document"), checkForMaliciousC
       } else {
         uploadDir = path.join(rootDirectory, 'uploads/downloads/');
       }
-      console.log(rootDirectory);
       // Create the directory if it doesn't exist
       if (!fs.existsSync(uploadDir)) {
         fs.mkdirSync(uploadDir, { recursive: true });
       }
-      
     const newFilename = Date.now() + path.extname(req.file.originalname);
     const filePath = path.join(uploadDir, newFilename);
+
     console.log(filePath);
     fs.writeFile(filePath, req.file.buffer, (err) => {
       if (err) {
@@ -515,9 +524,9 @@ WdtlsRouter.post("/uploadgall", upload_gall, checkForMaliciousContentforimage, a
     }
     var date_ob = moment();
     var formattedDate = date_ob.format("YYYY-MM-DD HH:mm:ss");
-    var ipresult = await fetchIpData();
-    var ip = ipresult.ipdata;
-
+    // var ipresult = await fetchIpData();
+    // var ip = ipresult.ipdata;
+    var ip = '';
     const rootDirectory = path.join(__dirname, '..');
     const typeId = req.body.doc_type;  // Assuming doc_type is coming from the body
     let uploadDir;
@@ -542,8 +551,8 @@ WdtlsRouter.post("/uploadgall", upload_gall, checkForMaliciousContentforimage, a
     });
     var data = req.body;
     var table_name = "td_gallery";
-    var fields = `(title, gal_img,created_at,created_by,created_ip)`;
-    var values = `('${data.title.split("'").join("\\'")}','${newFilename}','${formattedDate}','${user.user_id}','${ip}')`;
+    var fields = `(title, gal_img,sl_no,created_at,created_by,created_ip)`;
+    var values = `('${data.title.split("'").join("\\'")}','${newFilename}',0,'${formattedDate}','${user.user_id}','${ip}')`;
     var save_data = await db_Insert(table_name, fields, values, null, 0);
     var range_id_ = req.session.user.range_id;
     var message = `Image  Uploaded by ${user.user_id}.`;
@@ -651,9 +660,9 @@ WdtlsRouter.post("/savefaq", async (req, res) => {
     var user = req.session.user;
     var date_ob = moment();
     var formattedDate = date_ob.format("YYYY-MM-DD HH:mm:ss");
-    var ipresult = await fetchIpData();
-    var ip = ipresult.ipdata;
-
+    // var ipresult = await fetchIpData();
+    // var ip = ipresult.ipdata;
+    var ip = '';
     //  var values = '(question,answer,created_at,created_by,created_ip)';
     var values = `('${data.question}','${data.answer}','${formattedDate}','${user.user_id}','${ip}')`;
 
@@ -736,9 +745,9 @@ WdtlsRouter.post("/saveqlinks", async (req, res) => {
     var user = req.session.user;
     var date_ob = moment();
     var formattedDate = date_ob.format("YYYY-MM-DD HH:mm:ss");
-    var ipresult = await fetchIpData();
-    var ip = ipresult.ipdata;
-    //  var values = '(question,answer,created_at,created_by,created_ip)';
+    // var ipresult = await fetchIpData();
+    // var ip = ipresult.ipdata;
+    var ip = '';
     var values = `('${data.title}','${data.links}','${formattedDate}','${user.user_id}','${ip}')`;
 
     var table_name = "td_qick_links";
@@ -837,14 +846,16 @@ WdtlsRouter.get("/adduser", async (req, res) => {
     console.error("Error during dashboard rendering:", error);
   }
 });
+
 WdtlsRouter.post("/saveuser", async (req, res) => {
   try {
     var data = req.body;
     var user = req.session.user;
     var date_ob = moment();
     var formattedDate = date_ob.format("YYYY-MM-DD HH:mm:ss");
-    var ipresult = await fetchIpData();
-    var ip = ipresult.ipdata;
+    // var ipresult = await fetchIpData();
+    // var ip = ipresult.ipdata;
+    var ip = '';
     var pass_string = "";
     if (data.id > 0) {
       if (data.password.length > 0) {
@@ -859,9 +870,7 @@ WdtlsRouter.post("/saveuser", async (req, res) => {
     var table_name = "md_user";
     var fields =
       data.id > 0
-        ? `user_name = '${data.user_name.split("'").join("\\'")}',user_email = '${data.user_email}',user_mobile = '${data.user_mobile ? data.user_mobile : 0}',designation = '${data.designation}',user_type = '${data.user_type}',
-                   ${pass_string} user_status='${data.user_status}',cntr_auth_type='${data.cntr_auth_type}',range_id='${data.range_id}',modified_by='${user.user_id}',modified_at='${formattedDate}',
-                  modified_ip = '${ip}' `
+        ? `user_name = '${data.user_name.split("'").join("\\'")}',user_email = '${data.user_email}',user_mobile = '${data.user_mobile ? data.user_mobile : 0}',designation = '${data.designation}',user_type = '${data.user_type}', ${pass_string} user_status='${data.user_status}',cntr_auth_type='${data.cntr_auth_type}',range_id='${data.range_id}',modified_by='${user.user_id}',modified_at='${formattedDate}',modified_ip = '${ip}' `
         : `(user_id,user_name,user_email,user_mobile,designation,user_type,password,user_status,cntr_auth_type,range_id,created_at,created_by,created_ip)`;
     var whr = `id = '${data.id}'`;
     var flag = data.id > 0 ? 1 : 0;
@@ -869,7 +878,8 @@ WdtlsRouter.post("/saveuser", async (req, res) => {
     res.redirect("/wdtls/userlist");
   } catch (error) {
     // Log the error and send an appropriate response
-    console.error("Error during dashboard rendering:", error);
+    res.redirect("/wdtls/userlist");
+    //console.error("Error during dashboard rendering:", error);
   }
 });
 WdtlsRouter.get("/edituser", async (req, res) => {
@@ -956,10 +966,12 @@ WdtlsRouter.post("/changepass", async (req, res) => {
       if (hasLowercase && hasUppercase && hasNumber && hasSpecialChar && hasMinLength) {
         if (await bcrypt.compare(data.old_pass, res_dt.msg[0].password)) {
           var pass = bcrypt.hashSync(data.pass, 10);
+
           var date_ob = moment();
           var formattedDate = date_ob.format("YYYY-MM-DD HH:mm:ss");
-          var ipresult = await fetchIpData();
-          var ip = ipresult.ipdata;
+          // var ipresult = await fetchIpData();
+          // var ip = ipresult.ipdata;
+          var ip = '';
           var values = null;
           var table_name = "md_user";
           var fields = `password = '${pass}',modified_at='${formattedDate}',modified_by='${user.user_id}',modified_ip='${ip}'`;

@@ -1,0 +1,122 @@
+<style>
+  #suggestions {
+      position: absolute;
+      z-index: 1000; /* Ensure it appears above other elements */
+    
+  }
+</style>
+
+<div class="row">
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title card_title_cus">List Modified Co-operative Societies in <%= range_name %> (<span id="filtot"><%= total %></span>) 
+            </h4>
+            <div class="col-md-12">
+                <form class="forms-sample" action="/society/modifiedlist" method="post" >
+                    <div class="row">
+                        <div class="col-md-1">
+                            <div class="form-group">
+                            <label for="exampleInputName1" style="margin-top: 10px;" >Name</label>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <input type="text" name="socname" class="form-control" value="<%= socname %>" id="socname">
+                                <ul id="suggestions" class="list-group" style="display: none;"></ul>
+                                <div id="loader" style="display: none; position: absolute; top: 100%; left: 0;"><img src="/images/loading.gif" alt="Loading..." /></div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                            <button class="btn btn-primary">Search</button>
+                            <a href="/society/modifiedlist" class="btn btn-danger">Reset</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="table-responsive pt-3 custome_table_res">
+              <table class="table_cus table-striped" style="width:100%">
+                <thead>
+                  <tr>
+                    <th class="society_th_1">SL No</th>
+                    <th class="society_th_2">Society Name</th>
+                    <th class="society_th_6">Registration Number</th>
+                    <th class="society_th_8">Society Type</th>
+                    <th class="society_th_9">Option</th>
+                    <th class="society_th_9">Delete</th>
+                  </tr>
+                </thead>
+                <tbody id="item-list">
+                  <% 
+                  var i =1; // Calculate starting index for page
+                  data.forEach(dt => { %>
+                      <tr>
+                          <td><%= i++ %></td>
+                          <td><%= dt.cop_soc_name %></br>
+                          <% if (dt.functional_status == 'Functional'){ %>
+                              <span class="green">Functional</span>
+                          <% } else { %>
+                              <span style="background-color: red;"><%= dt.functional_status %></span>
+                          <% } %>
+                          </td>
+                          <td><%= dt.reg_no %></td>
+                          <td><%= dt.soc_type_name %></td>
+                          <td>
+                            <a href="/society/approve?id=<%= dt.id %>" class="edit_dashboard">Validate</a>
+                          </td>
+                          <td>
+                            <a href="/society/socdelet?id=<%= dt.id %>" onclick="confirmDelete(event)" class="ti-trash" style="font-size: 1.5em;color:red">
+                            </a>
+                          
+                          </td>
+                      </tr>
+                  <% }) %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+       $('#socname').on('input', function() {
+           let query = $(this).val();
+           if (query.length > 3) {
+               $('#loader').show(); // Show loader
+   
+               $.ajax({
+                   url: '/society/getmodifiedsuggestions', // Your server endpoint
+                   method: 'GET',
+                   data: { name: query },
+                   success: function(data) {
+                       var datahlist = data.datahlist;
+                       $('#suggestions').empty().show();
+                       datahlist.forEach(function(item) {
+                           $('#suggestions').append(`<li class="list-group-item">${item.cop_soc_name}</li>`);
+                       });
+                   },
+                   error: function() {
+                       console.error('Error fetching suggestions.');
+                   },
+                   complete: function() {
+                       $('#loader').hide(); // Hide loader after the request is complete
+                   }
+               });
+           } else {
+               $('#suggestions').hide();
+               $('#loader').hide(); // Hide loader if query is too short
+           }
+       });
+   
+       $(document).on('click', '.list-group-item', function() {
+           $('#socname').val($(this).text());
+           $('#suggestions').hide();
+       });
+   });
+   
+   </script>
+

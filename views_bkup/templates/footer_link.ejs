@@ -1,0 +1,281 @@
+<!-- plugins:js -->
+<script src="/vendors/js/vendor.bundle.base.js"></script>
+<!-- endinject -->
+<!-- Plugin js for this page -->
+<script src="/vendors/chart.js/Chart.min.js"></script>
+
+<!-- <script src="/js/dataTables.select.min.js"></script> -->
+
+<!-- End plugin js for this page -->
+<!-- inject:js -->
+<script src="/js/off-canvas.js"></script>
+<script src="/js/hoverable-collapse.js"></script>
+<script src="/js/template.js"></script>
+<script src="/js/settings.js"></script>
+<script src="/js/todolist.js"></script>
+<!-- endinject -->
+<!-- Custom js for this page-->
+<script src="/js/dashboard.js"></script>
+<script src="/js/Chart.roundedBarCharts.js"></script>
+<script src="/jscustom/footer/jquery-3.7.1.js"></script>
+<script src="/js/javascript.js"></script>
+<script src="/jscustom/footer/select2.min.js"></script>
+<script src="/jscustom/footer/dataTables.js"></script>
+<script src="/jscustom/footer/socket.io.min.js"></script>
+
+<!-- End custom js for this page-->
+<script>
+ $('.select2').select2();    
+$('#example').DataTable();
+</script>
+<script>
+    // Connect to the server
+   // Ensure that socket.io connects after the page has loaded
+   window.onload = function() {
+            const socket = io(); 
+            var range_code = '<%=user.range_id %>'
+            var user_type = '<%=user.user_type %>' // Connect to the server
+            // Listen for the 'notification' event
+            socket.emit('notification-request', {range_code:range_code,user_type:user_type });
+            // Listen for the 'notification' event from the server
+            socket.on('notification', (data) => {
+                //$('#count').html(data.message.length > 0 ? data.message.length : 0);
+                if(data.message.length > 0 ){
+                    let html = '';  // Start with an empty string to accumulate the HTML
+                    var tot_view_count = 0;
+                    data.message.forEach((msg) => {
+                            if(msg.type == 'S' || msg.type == 'D' || msg.type == 'V'){
+                                var slug =msg.slug+msg.wrk_releated_id
+                            }else{
+                                var slug =msg.slug
+                            }
+                            if(msg.view_status == 1){
+                                tot_view_count +=1;
+                            }
+                        // For each message, create a dropdown item
+                        html += `
+                            <button class="myButton myButton_cus dropdown-item preview-item ${msg.view_status ==1 ? 'unreadmessage' : 'readmessage'}" value="${slug}"  data-id="${msg.id}" >
+                                <div class="preview-item-content">
+                                    <h6 class="preview-subject font-weight-normal">${msg.message || 'No subject'}</h6>
+                                    <p class="date_cus font-weight-light small-text mb-0 text-muted">${new Date(msg.created_at).toLocaleDateString('en-IN', { year: 'numeric' , month: 'short' ,day: 'numeric' }) || 'Just now'}</p>
+                                </div>
+                            </button>
+                        `;
+                    });
+                    // Append the generated HTML to the dropdown container
+                    $('#notification_list').html(html) ;
+                    if(tot_view_count == 0){
+                        var spanElement = document.getElementById('count_lid');
+                       // spanElement.classList.remove('count');
+                        spanElement.classList.add('uncount');
+                    }else{
+                        var spanElement = document.getElementById('count_lid');
+                        spanElement.classList.add('count');
+                    }
+                }
+            });
+        };
+         $('#markasread').on('click', function() {
+                const socket = io(); 
+                var range_code = '<%=user.range_id %>'
+                var user_type = '<%=user.user_type %>' // Connect to the server
+                // Listen for the 'notification' event
+                socket.emit('markassread', {range_code:range_code,user_type:user_type });
+                var spanElement = document.getElementById('count_lid');
+                        spanElement.classList.remove('count');
+                        spanElement.classList.add('uncount');
+                socket.on('notification', (data) => {
+                 //   alert('test');
+                $('#notification_list').html('') ;
+                var tot_view_count = 0;
+               // $('#count').html(data.message.length > 0 ? data.message.length : 0);
+                if(data.message.length > 0 ){
+                    let html = '';  // Start with an empty string to accumulate the HTML
+                    data.message.forEach((msg) => {
+                            if(msg.type == 'S' || msg.type == 'D' || msg.type == 'V'){
+                                var slug =msg.slug+msg.wrk_releated_id
+                            }else{
+                                var slug =msg.slug
+                            }
+                            if(msg.view_status ==1){
+                                tot_view_count +=1;
+                            }
+                        // For each message, create a dropdown item
+                        html += `
+                            <button class="myButton dropdown-item preview-item ${msg.view_status ==1 ? 'unreadmessage' : ''}" value="${slug}"  data-id="${msg.id}" >
+                                <div class="preview-item-content">
+                                    <h6 class="preview-subject font-weight-normal">${msg.message || 'No subject'}</h6>
+                                    <p class="font-weight-light small-text mb-0 text-muted">${new Date(msg.created_at).toLocaleDateString('en-IN', { year: 'numeric' , month: 'short' ,day: 'numeric' }) || 'Just now'}</p>
+                                </div>
+                            </button>
+                        `;
+                    });
+                    // Append the generated HTML to the dropdown container
+                    $('#notification_list').html(html) ;
+                    if(tot_view_count == 0){
+                        var spanElement = document.getElementById('count_lid');
+                       // spanElement.classList.remove('count');
+                        spanElement.classList.add('uncount');
+                    }else{
+                        var spanElement = document.getElementById('count_lid');
+                        spanElement.classList.add('count');
+                    }
+                }
+            });
+    
+          });
+          $(document).ready(function() {
+        // Use event delegation to attach the click event handler to the parent container
+        $('#notification_list').on('click', '.myButton', function() {
+            // Extract the 'value' attribute for the URL redirection
+            const redirectUrl = $(this).val();
+            // Extract the 'data-id' attribute for the AJAX request
+            const dataId = $(this).data('id');
+            // Fire the AJAX request
+            $.ajax({
+                url: '/society/updatenotiasread',  // Replace with the actual endpoint
+                type: 'POST',
+                data: { id: dataId },  // Send the 'data-id' value as part of the request
+                success: function(response) {
+                    console.log('AJAX success:', response);
+                    // After successful AJAX request, redirect the user
+                    window.location.href = redirectUrl;  // Redirect to the URL specified in 'value'
+                },
+                error: function(error) {
+                    console.error('AJAX error:', error);  // Handle errors
+                }
+            });
+        });
+    });
+    
+    $(document).ready(function() {
+    $('#topsoc_search').on('input', function() {
+        let query = $(this).val();
+        if (query.length > 3) {
+            $('#loaderh').show(); // Show loader
+            $.ajax({
+                url: '/society/getsuggestions', // Your server endpoint
+                method: 'GET',
+                data: { name: query },
+                success: function(data) {
+                    var datahlist = data.datahlist;
+                    $('#suggestionsh').empty().show();
+                    datahlist.forEach(function(item) {
+                        $('#suggestionsh').append(`<li class="list-group-item top_list">${item.cop_soc_name}</li>`);
+                    });
+                },
+                error: function() {
+                    console.error('Error fetching suggestions.');
+                },
+                complete: function() {
+                    $('#loaderh').hide(); // Hide loader after the request is complete
+                }
+            });
+        } else {
+            $('#suggestionsh').hide();
+            $('#loaderh').hide(); // Hide loader if query is too short
+        }
+    });
+
+    $(document).on('click', '.top_list', function() {
+        $('#topsoc_search').val($(this).text());
+        $('#suggestionsh').hide();
+    });
+});
+
+
+</script>
+
+<script>
+    $(document).ready(function() {
+        var sub_btn = false;
+      const passwordInput = $('#newPass') || '';      
+      const popoverTemplate = `
+        <div class="popover" role="tooltip" id="password-popover">
+          <div class="popover-body"><b>Password</b></div>
+        </div>
+      `;
+
+      passwordInput.popover({
+        trigger: 'manual',
+        placement: 'right',
+        html: true,
+        content: '',
+        template: popoverTemplate
+      });
+
+      passwordInput.on('focus', function() {
+        const password = $(this).val() || '';
+        let strength = 'Password must contain:\n';
+        strength += `<ul>
+              <li id="lowercase" class="cross">At least one lowercase letter</li>
+              <li id="uppercase" class="cross">At least one uppercase letter</li>
+              <li id="number" class="cross">At least one number</li>
+              <li id="special" class="cross">At least one special character</li>
+              <li id="length" class="cross">Minimum length of 8 characters</li>
+            </ul>`
+          passwordInput.attr('data-bs-content', strength);
+          passwordInput.popover('show');
+
+          if(password != ''){
+            updatePopoverItem(password, /[a-z]/, '#lowercase');
+            updatePopoverItem(password, /[A-Z]/, '#uppercase');
+            updatePopoverItem(password, /[0-9]/, '#number');
+            updatePopoverItem(password, /[!@#$%^&*(),.?":{}|<>]/, '#special');
+            updatePopoverItem(password, /.{8,}/, '#length');
+          }
+      });
+
+      passwordInput.on('input', function() {
+        const password = $(this).val();
+        // Validate password and update list items
+        updatePopoverItem(password, /[a-z]/, '#lowercase');
+        updatePopoverItem(password, /[A-Z]/, '#uppercase');
+        updatePopoverItem(password, /[0-9]/, '#number');
+        updatePopoverItem(password, /[!@#$%^&*(),.?":{}|<>]/, '#special');
+        updatePopoverItem(password, /.{8,}/, '#length');
+
+        if(/[a-z]/.test(password) && /[A-Z]/.test(password) && /[0-9]/.test(password) && /[!@#$%^&*(),.?":{}|<>]/.test(password) && /.{8,}/.test(password)){
+            sub_btn = true
+        }else{
+            sub_btn = false
+        }
+      })
+
+      passwordInput.on('blur', function() {
+        passwordInput.popover('hide');
+        if(sub_btn){
+            $('#subBtnFrPass').removeAttr('disabled')
+        }else{
+            $('#subBtnFrPass').attr('disabled', true)
+        }
+      });
+
+      function updatePopoverItem(password, regex, elementId) {
+        if (regex.test(password)) {
+          $(elementId).removeClass('cross').addClass('tick');
+        } else {
+          $(elementId).removeClass('tick').addClass('cross');
+        }
+      }
+    });
+
+    
+</script>
+<script>
+    // Check if the user is offline
+    function checkConnectivity() {
+      if (!navigator.onLine) {
+        // Redirect to login page if offline
+        window.location.href = '/logout'; // Replace with your login page route
+      }
+    }
+    // Listen for online and offline events
+    window.addEventListener('offline', checkConnectivity);
+    window.addEventListener('online', checkConnectivity);
+  
+    // Run on page load to check initial connectivity
+    checkConnectivity();
+</script>
+
+

@@ -192,8 +192,9 @@ SocietyRouter.post("/socedit", async (req, res) => {
     var formattedDate = date_ob.format("YYYY-MM-DD HH:mm:ss");
 
     //   ********   Code For Getting Ip   *********   //
-    var ipresult = await fetchIpData();
-    var ip = ipresult.ipdata;
+    // var ipresult = await fetchIpData();
+    // var ip = ipresult.ipdata;
+       var ip = '';
     //   ********   Code For Getting Ip   *********  //
 
     var data = req.body;
@@ -209,6 +210,7 @@ SocietyRouter.post("/socedit", async (req, res) => {
     var last_elec_date = data.last_elec_date != "" ? `'${data.last_elec_date}'` : "NULL";
     var elec_due_date = data.elec_due_date != "" ? `'${data.elec_due_date}'` : "NULL";
     var tenure_ends_on = data.tenure_ends_on != "" ? `'${data.tenure_ends_on}'` : "NULL";
+    const rangeCode = data.range_code ? data.range_code : 0;
     var fields = `cop_soc_name = '${data.cop_soc_name
       .split("'")
       .join("\\'")}',new_flag='${data.new_flag}',reg_no = '${
@@ -219,7 +221,7 @@ SocietyRouter.post("/socedit", async (req, res) => {
       }',cntr_auth='${data.cntr_auth}',dist_code='${data.dist_code}',
       ulb_catg = '${ulb_catg}',ulb_id = '${ulb_id}',ward_no = '${
         data.ward_no
-      }',pin_no = '${data.pin_no}',range_code = '${data.range_code}',
+      }',pin_no = '${data.pin_no}',range_code = '${rangeCode}',
       urban_rural_flag ='${data.urban_rural_flag}',dev_auth_id =${
         dev_auth_id
       },
@@ -449,8 +451,9 @@ SocietyRouter.post("/socadddata", async (req, res) => {
     var datetime = moment().format("YYYY-MM-DD HH:mm:ss");
 
     //   ********   Code For Getting Ip   *********   //
-    var ipresult = await fetchIpData();
-    var ip = ipresult.ipdata;
+    // var ipresult = await fetchIpData();
+    // var ip = ipresult.ipdata;
+     var ip = '';
     //   ********   Code For Getting Ip   *********  //
     var data = req.body;
     var table_name = "md_society";
@@ -576,8 +579,9 @@ SocietyRouter.get("/socdelet", async (req, res) => {
     var user_id = req.session.user.user_id;
     var date_ob = moment();
     var datetime = date_ob.format("YYYY-MM-DD HH:mm:ss");
-    var ipresult = await fetchIpData();
-    var ip = ipresult.ipdata;
+    // var ipresult = await fetchIpData();
+    // var ip = ipresult.ipdata;
+    var ip = '';
 
   //   *** Code for Insert and Delete Option  //
     var soc_id = req.query.id;
@@ -1220,8 +1224,9 @@ SocietyRouter.post("/approve", async (req, res) => {
     // Format it as YYYY-MM-DD HH:mm:ss
     var formattedDate = date_ob.format("YYYY-MM-DD HH:mm:ss");
     //   ********   Code For Getting Ip   *********   //
-    var ipresult = await fetchIpData();
-    var ip = ipresult.ipdata;
+    // var ipresult = await fetchIpData();
+    // var ip = ipresult.ipdata;
+    var ip = '';
     
     //   ********   Code For Getting Ip   *********  //
 
@@ -1339,8 +1344,9 @@ SocietyRouter.post("/editvillage", async (req, res) => {
     // Format it as YYYY-MM-DD HH:mm:ss
     var formattedDate = date_ob.format("YYYY-MM-DD HH:mm:ss");
     //   ********   Code For Getting Ip   *********   //
-    var ipresult = await fetchIpData();
-    var ip = ipresult.ipdata;
+    // var ipresult = await fetchIpData();
+    // var ip = ipresult.ipdata;
+     var ip = '';
     //   ********   Code For Getting Ip   *********  //
     var data = req.body;
     var table_name = "md_village";
@@ -1370,8 +1376,9 @@ SocietyRouter.post("/villageadddata", async (req, res) => {
     // Format it as YYYY-MM-DD HH:mm:ss
     var formattedDate = date_ob.format("YYYY-MM-DD HH:mm:ss");
     //   ********   Code For Getting Ip   *********   //
-    var ipresult = await fetchIpData();
-    var ip = ipresult.ipdata;
+    // var ipresult = await fetchIpData();
+    // var ip = ipresult.ipdata;
+     var ip = '';
     //   ********   Code For Getting Ip   *********  //
     var data = req.body;
     var table_name = "md_village";
@@ -1397,7 +1404,7 @@ SocietyRouter.post("/villageadddata", async (req, res) => {
         range_id_,
         req.session.user.user_type,
       );
-      req.io.emit("notification", { message: notification_dtls.msg });
+    //  req.io.emit("notification", { message: notification_dtls.msg });
     }
     req.flash("success_msg", "Village Added successful!");
     res.redirect("/dash/dashboard");

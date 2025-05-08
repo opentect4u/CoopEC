@@ -1,0 +1,787 @@
+<!-- <style>
+  input {
+      width: 30px; /* Set width for each input */
+      text-align: center; /* Center the text */
+      margin: 5px; /* Space between inputs */
+  }
+  input:invalid {
+      border-color: red;
+  }
+</style> -->
+<div class="row">
+  <div class="col-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title card_title_cus">Edit form</h4>
+        <form class="forms-sample" action="/society/socedit" method="post">
+          <input type="hidden" name="id" value="<%= soc.id %>">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label for="exampleInputName1">Society Name <span class="red">*</span></label>
+                  <input type="text" class="form-control"  name="cop_soc_name" value="<%= soc.cop_soc_name %>" required>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputName1">Registration Number <span class="red">*</span></label>
+                  <input type="text" class="form-control"  name="reg_no" value="<%= soc.reg_no %>" required>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputName1">Date of Registration <span class="red">*</span> </label>
+                  <input type="date" class="form-control"  name="reg_date" value="<%= moment(soc.reg_date).format('yyyy-MM-DD')  %>" required>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputName1">Type of the Society <span class="red">*</span> </label>
+                  <select class="form-control select2" id="soc_type" name="soc_type" required>
+                    <% if(soctypelist.length > 0){
+                      var i = 1
+                      soctypelist.forEach(dt => { %>
+                      <option value="<%= dt.soc_type_id %>" <%= soc.soc_type == dt.soc_type_id ? 'selected' : '' %> ><%= dt.soc_type_name %></option>
+                        <% }) } %>
+                  </select>
+                  <span class="red" id="soc_type_erro">Please Select valid Society Type</span> 
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputName1">Tier of the Society <span class="red">*</span></label>
+                  <select class="form-control" id="soc_tier" name="soc_tier" required>
+                    <option value=""  >Select Tier</option>
+                    <% if(soctierlist.length > 0){
+                      var i = 1
+                      soctierlist.forEach(dt => { %>
+                      <option value="<%= dt.soc_tier_id %>" <%= soc.soc_tier == dt.soc_tier_id ? 'selected' : '' %> ><%= dt.soc_tier_name %></option>
+                        <% }) } %>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputName1">Registration & Controlling Authority <span class="red">*</span></label>
+                  <select class="form-control" id="cntr_auth_type" name="cntr_auth_type" required>
+                    <option value="" >Select Registration & Controlling Authority</option>
+                    <% if(regauthtypelist.length > 0){
+                      var i = 1
+                      regauthtypelist.forEach(dt => { %>
+                      <option value="<%= dt.controlling_authority_type_id %>" <%= soc.cntr_auth_type == dt.controlling_authority_type_id ? 'selected' : '' %> ><%= dt.controlling_authority_type_name %></option>
+                        <% }) } %>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputName1">Returning Officer of Society <span class="red">*</span> </label>
+                  <select class="form-control select2" id="cntr_auth" name="cntr_auth" required>
+                     <!-- <option value="0"  >Select Returning Officer of Society</option>
+                   <% if(regauthlist.length > 0){
+                      var i = 1
+                      regauthlist.forEach(dt => { %>
+                      <option value="<%= dt.controlling_authority_id %>" <%= soc.cntr_auth == dt.controlling_authority_id ? 'selected' : '' %> ><%= dt.controlling_authority_name %></option>
+                        <% }) } %> -->
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputName1">State</label>
+                  <input type="text" class="form-control"  value="West Bengal" readonly>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputName1">District<span class="red">*</span></label>
+                  <select class="form-control" id="dist_code" name="dist_code" required>
+                    <option value="0"  >Select District</option>
+                    <% if(districtlist.length > 0){
+                      var i = 1
+                      districtlist.forEach(dt => { %>
+                      <option value="<%= dt.dist_code %>" <%= soc.dist_code == dt.dist_code ? 'selected' : '' %> ><%= dt.dist_name %></option>
+                        <% }) } %>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputName1">Zone</label>
+                  <select class="form-control" id="zone_code" name="zone_code" required >
+                    <option value="0"  >Select Zone Type</option>
+                    <% if(zonelist.length > 0){
+                      var i = 1
+                      zonelist.forEach(dt => { %>
+                      <option value="<%= dt.zone_id %>" <%= soc.zone_code == dt.zone_id ? 'selected' : '' %> ><%= dt.zone_name %></option>
+                        <% }) } %>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputName1">Range <span class="red">*</span></label>
+                  <select class="form-control" id="range_code" name="range_code" required>
+                    <option value="">Select Range </option>
+                    <% if(ranzelist.length > 0){
+                      var i = 1
+                      ranzelist.forEach(dt => { %>
+                      <option value="<%= dt.range_id %>" <%= soc.range_code == dt.range_id ? 'selected' : '' %> ><%= dt.range_name %></option>
+                        <% }) } %>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6 subtitle_Form_cus">
+                <h3>Please Select Maping
+                <div class="radioBtn_right">
+
+                  <div class="radioBtn_Cus"><input type="radio" id="U" name="urban_rural_flag" value="U"  <%= soc.urban_rural_flag == 'U' ? 'checked' : '' %> ><label><b>Urban Maping</b></label></div>
+                 <div class="radioBtn_Cus"><input type="radio" id="R" name="urban_rural_flag" value="R" <%= soc.urban_rural_flag == 'R' ? 'checked' : '' %> ><label><b>Rural Maping</b></label></div>
+                </div>
+
+                </h3>
+              </div>
+              <div class="col-md-6" ></div>
+              
+              <!-- <div class="col-md-3" >
+              </div>
+              <div class="col-md-3 radioBtn_Cus"><input type="radio" id="U" name="urban_rural_flag" value="U"  <%= soc.urban_rural_flag == 'U' ? 'checked' : '' %> ><label><b>Urban Maping</b></label></div>
+              <div class="col-md-3 radioBtn_Cus"><input type="radio" id="R" name="urban_rural_flag" value="R" <%= soc.urban_rural_flag == 'R' ? 'checked' : '' %> ><label><b>Rural Maping</b></label></div>
+               -->
+              <div class="col-md-6 urlby" >
+                <div class="form-group">
+                  <label for="exampleInputName1">Category of Urban Local Body <span class="red">*</span></label>
+                  <select class="form-control" id="ulb_catg" name="ulb_catg" >
+                    <option value="">Select Urban Local Body </option>
+                    <% if(ulbcatglist.length > 0){
+                      var i = 1
+                      ulbcatglist.forEach(dt => { %>
+                      <option value="<%= dt.ulb_catg_id %>" <%= soc.ulb_catg == dt.ulb_catg_id ? 'selected' : '' %> ><%= dt.ulb_catg_name %></option>
+                        <% }) } %>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6 urlby" >
+                <div class="form-group">
+                  <label for="exampleInputName1">Urban Local Body <span class="red">*</span></label>
+                  <select class="form-control select2" id="ulb_id" name="ulb_id" >
+                    <option value="">Select Range </option>
+                    <% if(ulblist.length > 0){
+                      var i = 1
+                      ulblist.forEach(dt => { %>
+                      <option value="<%= dt.ulb_id %>" <%= soc.ulb_id == dt.ulb_id ? 'selected' : '' %> ><%= dt.ulb_name %></option>
+                        <% }) } %>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6 urlby" >
+                <div class="form-group">
+                  <label for="exampleInputName1">Locality or Ward</label>
+                  <select class="form-control select2" id="ward_no" name="ward_no" >
+                    <option value="0">Select Ward </option>
+                    <% if(wardlist.length > 0){
+                      var i = 1
+                      wardlist.forEach(dt => { %>
+                      <option value="<%= dt.ward_id %>" <%= soc.ward_no == dt.ward_id ? 'selected' : '' %> ><%= dt.ward_name %></option>
+                        <% }) } %>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6 rulby" >
+                <div class="form-group">
+                  <label for="exampleInputName1">Block <span class="red">*</span></label>
+                  <select class="form-control select2" id="block_id" name="block_id">
+                    <option value="">Select Block </option>
+                    <% if(blocklist.length > 0){
+                      var i = 1
+                      blocklist.forEach(dt => { %>
+                      <option value="<%= dt.block_id %>" <%= soc.block_id == dt.block_id ? 'selected' : '' %> ><%= dt.block_name %></option>
+                        <% }) } %>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6 rulby"  >
+                <div class="form-group">
+                  <label for="exampleInputName1">Gram Panchayat <span class="red">*</span> </label>
+                  <select class="form-control select2" id="gp_id" name="gp_id" >
+                    <option value="">Select Panchayat </option>
+                    <% if(gplist.length > 0){
+                      var i = 1
+                      gplist.forEach(dt => { %>
+                      <option value="<%= dt.gp_id %>" <%= soc.gp_id == dt.gp_id ? 'selected' : '' %> ><%= dt.gp_name %></option>
+                        <% }) } %>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6 rulby">
+                <div class="form-group">
+                  <label for="exampleInputName1">Village</label>
+                  <select class="form-control select2" id="vill_id" name="vill_id" >
+                    <option value="0">Select Village </option>
+                    <% if(villlist.length > 0){
+                      var i = 1
+                      villlist.forEach(dt => { %>
+                      <option value="<%= dt.vill_id %>" <%= soc.vill_id == dt.vill_id ? 'selected' : '' %> ><%= dt.vill_name %></option>
+                        <% }) } %>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputName1">Pin Code <span class="red">*</span></label>
+                  <input type="number" class="form-control" name="pin_no" value="<%= soc.pin_no %>" required>
+                </div>
+              </div>
+              <div class="col-md-6">
+               
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label for="exampleInputName1">Address <span class="red">*</span></label>
+                  <textarea name="address" class="form-control" required><%= soc.address %></textarea>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputName1">Management Status  <span class="red">*</span></label>
+                  <select class="form-control" id="mgmt_status" name="mgmt_status" required>
+                    <option value="">Select mgmt status </option>
+                    <% if(managementlist.length > 0){
+                      var i = 1
+                      managementlist.forEach(dt => { %>
+                      <option value="<%= dt.manage_status_id %>" <%= soc.mgmt_status == dt.manage_status_id ? 'selected' : '' %> ><%= dt.manage_status_name %></option>
+                        <% }) } %>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputName1">Type of Special Officer </label>
+                  <select class="form-control" id="officer_type" name="officer_type" >
+                    <option value="0">Select Special Officer </option>
+                    <% if(officertypelist.length > 0){
+                      var i = 1
+                      officertypelist.forEach(dt => { %>
+                      <option value="<%= dt.officer_type_id %>" <%= soc.officer_type == dt.officer_type_id ? 'selected' : '' %> ><%= dt.officer_type_name %></option>
+                        <% }) } %>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputName1">Number Of Member <span class="red">*</span> </label>
+                  <input type="number" class="form-control"  name="num_of_memb" id="num_of_memb" value="<%= soc.num_of_memb  %>" >
+                  <label id="election_type_name"> </label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputName1">Audit Completed upto <span class="red">*</span> </label>
+                  <!-- <input type="date" class="form-control"  name="audit_upto" value="<%= moment(soc.audit_upto).format('yyyy-MM-DD')  %>" required> -->
+                  <!-- <input type="text" maxlength="1" pattern="[0-9]" required>
+                  <input type="text" maxlength="1" pattern="[0-9]" required>
+                  <input type="text" maxlength="1" pattern="[0-9]" required>
+                  <input type="text" maxlength="1" pattern="[0-9]" required>
+                  <input type="text" maxlength="1" pattern="[0-9]" required>
+                  <input type="text" maxlength="1" pattern="[0-9]" required>
+                  <input type="text" maxlength="1" pattern="[0-9]" required> -->
+                  <!-- <input type="text" class="form-control" name="audit_upto" value="" placeholder="YYYY-YY" id="designationInput" maxlength="7" required> -->
+                  <input 
+    type="text" 
+    class="form-control" 
+    name="audit_upto" 
+    placeholder="YYYY-YY" 
+    id="designationInput" 
+    maxlength="7" value="<%= soc.audit_upto %>"
+    required 
+    pattern="^\d{4}-\d{2}$" 
+    title="Format: YYYY-YY (e.g., 2023-24)">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputName1">Last election of BoD held on <span class="red">*</span> </label>
+                  <input type="date" class="form-control"  name="last_elec_date" id="last_elec_date" value="<%= moment(soc.last_elec_date).format('yyyy-MM-DD')  %>" required>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputName1">Tenure Ends On <span class="red">*</span> </label>
+                  <input type="date" class="form-control"  name="tenure_ends_on" id="tenure_ends_on" value="<%= moment(soc.tenure_ends_on).format('yyyy-MM-DD')  %>" required>
+                </div>
+              </div>
+              <div class="col-md-6" style="display: none;">
+                <div class="form-group">
+                  <label for="exampleInputName1">Election Due Date <span class="red">*</span> </label>
+                  <input type="date" class="form-control"  name="elec_due_date" id="elec_due_date" value="<%= moment(soc.elec_due_date).format('yyyy-MM-DD')  %>" >
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputName1">Name of the Key Person of the Society</label>
+                  <input type="text" class="form-control"  name="contact_name" value="<%= soc.contact_name %>">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputName1">Designation of the Key Person</label>
+                  <input type="text" class="form-control"  name="contact_designation" value="<%= soc.contact_designation %>">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputName1">Contact Number of the Key Person</label>
+                  <input type="text" class="form-control"  name="contact_number" value="<%= soc.contact_number %>">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputName1">Email</label>
+                  <input type="email" class="form-control"  name="email" value="<%= soc.email %>">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputName1">Any Case Involved regarding election matter ( At CEC/HHC/HSC etc.)
+                    </label>
+                  <select class="form-control" id="case_id" name="case_id" required>
+                    <option value="0">Select Case </option>
+                    <% if(caseflaglist.length > 0){
+                      var i = 1
+                      caseflaglist.forEach(dt => { %>
+                      <option value="<%= dt.case_id %>" <%= soc.case_id == dt.case_id ? 'selected' : '' %> ><%= dt.case_flag_name %></option>
+                        <% }) } %>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputName1">Case Number</label>
+                    <input type="text" class="form-control"  name="case_num" value="<%= soc.case_num %>" id="case_num">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputName1">Functional Status</label>
+                  <select class="form-control" id="functional_status" name="functional_status" required>
+                    <option value="">Select Status </option>
+                      <option value="Functional" <%= soc.functional_status == "Functional" ? 'selected' : '' %> >Functional</option>
+                      <option value="Non-Functional / Dormant" <%= soc.functional_status == "Non-Functional / Dormant" ? 'selected' : '' %> >Non-Functional / Dormant</option>
+                      <option value="Under Liquidation" <%= soc.functional_status == "Under Liquidation" ? 'selected' : '' %> >Under Liquidation</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                <b>Board Member Detail</b>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                <table style="width:100%">
+                   <thead>
+                      <tr><td> Name</td><td>Designation</td><td>Contact No</td><td></td></tr>
+                   </thead>
+                   <tbody id="board_dtl">
+                    <tr>
+                      <input type="hidden" name="board_memb_id[]" value="0" >
+                        <td style="padding: 10px;"><input type="hidden" name="board_memb_name[]" value="" class="form-control"></td>
+                        <td style="padding: 10px;"><input type="hidden" name="board_memb_desig[]" value="" class="form-control"></td>
+                        <td style="padding: 10px;"><input type="hidden" name="bm_contact_no[]" value="" class="form-control"></td>
+                    </tr>
+                    <% if(boardmembdlist.length > 0){ 
+                      boardmembdlist.forEach(dt => {
+                      %>
+                      
+                    <tr>
+                      <input type="hidden" name="board_memb_id[]" value="<%= dt.board_memb_id %>" >
+                        <td style="padding: 10px;"><input type="text" name="board_memb_name[]" value="<%= dt.board_memb_name %>" class="form-control"></td>
+                        <td style="padding: 10px;"><input type="text" name="board_memb_desig[]" value="<%= dt.board_memb_desig %>" class="form-control"></td>
+                        <td style="padding: 10px;"><input type="text" name="bm_contact_no[]" value="<%= dt.bm_contact_no %>" class="form-control"></td>
+                        <td style="padding: 10px;"></td>
+                    </tr>
+                    <% }) } %>
+                    <tr>
+                      <input type="hidden" name="board_memb_id[]" value="0" >
+                        <td style="padding: 10px;"><input type="text" name="board_memb_name[]" class="form-control"></td>
+                        <td style="padding: 10px;"><input type="text" name="board_memb_desig[]" class="form-control"></td>
+                        <td style="padding: 10px;"><input type="text" name="bm_contact_no[]"  class="form-control"></td>
+                        <td style="padding: 10px;"><span class="btn btn-primary" onclick="addRow()">Add</span></td>
+                    </tr>
+                </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          <button type="submit" id="submit" class="btn btn-primary mr-2" <%= soc.soc_type == "31" ? 'disabled' : '' %> >Submit</button>
+          <!-- <button class="btn btn-light">Cancel</button> -->
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  
+  function populateros(selectedValue,controlling_authority_id) {
+    $.ajax({
+        url: '/society/regauth',
+        method: 'GET',
+        data: { contr_auth_type_id: selectedValue },
+        beforeSend: function() {
+            // Show a loading indicator if needed
+            $('#cntr_auth').html('<option value="0">Loading...</option>');
+        },
+        success: function(response) {
+            var contauthList = response.contauthlist;
+            var $select = $('#cntr_auth');
+            // Clear existing options
+            $select.empty();
+            // Add a default "Select" option
+            $select.append('<option value="0">Select Returning Officer of Society</option>');
+            // Append new options from the response data
+            contauthList.forEach(function(item) {
+                $select.append(`<option value="${item.controlling_authority_id}" ${(item.controlling_authority_id == controlling_authority_id) ? 'selected' : ''} >${item.controlling_authority_name}</option>`);
+            });
+            $('.select2').select2();    
+        },
+        error: function(err) {
+            // Handle any errors
+            $('#cntr_auth').html('<option value="0">Error fetching data. Please try again.</option>');
+            console.error('AJAX Error:', err); // Log error for debugging
+        }
+    });
+  }
+      // On change event, call the function to populate select
+    var initialSelectedValue = '<%= soc.cntr_auth_type %>';
+    var controlling_authority_id = '<%= soc.cntr_auth %>'; // Server-side value embedded in the script
+    populateros(initialSelectedValue,controlling_authority_id);
+    // Handle change event for dynamic updates
+    $('#cntr_auth_type').change(function() {
+        var selectedValue = $(this).val();
+        populateros(selectedValue,0);
+    });
+   ///    ****************     Change Data for Urban Local Body   ************    ///
+    function populateulb(ulb_catg,ulb_id,dist_code) {
+    $.ajax({
+        url: '/society/ulblist',
+        method: 'GET',
+        data: { ulb_catg: ulb_catg,dist_code:dist_code },
+        beforeSend: function() {
+            // Show a loading indicator if needed
+            $('#ulb_id').html('<option value="0">Loading...</option>');
+        },
+        success: function(response) {
+            var datahlists = response.datahlist;
+            var $select = $('#ulb_id');
+            // Clear existing options
+            $select.empty();
+            // Add a default "Select" option
+            $select.append('<option value="0">Select Urban Local Body</option>');
+            // Append new options from the response data
+            datahlists.forEach(function(item) {
+                $select.append(`<option value="${item.ulb_id}" ${(item.ulb_id == ulb_id) ? 'selected' : ''} >${item.ulb_name}</option>`);
+            });
+        },
+        error: function(err) {
+            // Handle any errors
+            $('#ulb_id').html('<option value="0">Error fetching data. Please try again.</option>');
+            console.error('AJAX Error:', err); // Log error for debugging
+        }
+    });
+  }
+      // On change event, call the function to populate select
+    var ulb_catg = '<%= soc.ulb_catg %>';
+    var ulb_id = '<%= soc.ulb_id %>';
+    var ward_id = '<%= soc.ward_no %>'; // Server-side value embedded in the script
+    var dist_code = '<%= soc.dist_code %>';
+    populateulb(ulb_catg,ulb_id,dist_code);
+    // Handle change event for dynamic updates
+    $(document).ready(function() {
+      $('#ulb_catg').change(function() {
+          var selectedValue = $(this).val();
+          var dist_code = $('#dist_code').val();
+          populateulb(selectedValue,0,dist_code);
+      });
+    })
+    ///    ****************     Change Data for Ward Local Body   ************    ///
+    function populateward(ulb_id,ulb_catg,ward_id) {
+    $.ajax({
+        url: '/society/wardlist',
+        method: 'GET',
+        data: { ulb_catg: ulb_catg,ulb_id:ulb_id },
+        beforeSend: function() {
+            // Show a loading indicator if needed
+            $('#ward_no').html('<option value="0">Loading...</option>');
+        },
+        success: function(response) {
+            var datahlists = response.datahlist;
+            var $select = $('#ward_no');
+            // Clear existing options
+            $select.empty();
+            // Add a default "Select" option
+            $select.append('<option value="0">Select Ward</option>');
+            // Append new options from the response data
+            datahlists.forEach(function(item) {
+                $select.append(`<option value="${item.ward_id}" ${(item.ward_id == ward_id) ? 'selected' : ''} >${item.ward_name}</option>`);
+            });
+        },
+        error: function(err) {
+            // Handle any errors
+            $('#ward_no').html('<option value="0">Error fetching data. Please try again.</option>');
+            console.error('AJAX Error:', err); // Log error for debugging
+        }
+    });
+  }
+      // On change event, call the function to populate select
+  
+    populateward(ulb_id,ulb_catg,ward_id);
+    // Handle change event for dynamic updates
+    $(document).ready(function() {
+      $('#ulb_id').select2(); 
+      $('#ulb_id').change(function() {
+          var selectedValue = $(this).val();
+          var ulb_catg = $('#ulb_catg').val();
+          populateward(selectedValue,ulb_catg,0);
+      });
+    })
+
+
+    ////    *************     Pupulate GP , Village     *********** //
+    function populategp(block_id,gp_id) {
+    $.ajax({
+        url: '/society/gplist',
+        method: 'GET',
+        data: { block_id: block_id },
+        beforeSend: function() {
+            // Show a loading indicator if needed
+            $('#gp_id').html('<option value="0">Loading...</option>');
+        },
+        success: function(response) {
+            var datahlists = response.datahlist;
+            var $select = $('#gp_id');
+            // Clear existing options
+            $select.empty();
+            // Add a default "Select" option
+            $select.append('<option value="0">Select GramPanchyat</option>');
+            // Append new options from the response data
+            datahlists.forEach(function(item) {
+                $select.append(`<option value="${item.gp_id}" ${(item.gp_id == gp_id) ? 'selected' : ''} >${item.gp_name}</option>`);
+            });
+        },
+        error: function(err) {
+            // Handle any errors
+            $('#gp_id').html('<option value="0">Error fetching data. Please try again.</option>');
+            console.error('AJAX Error:', err); // Log error for debugging
+        }
+    });
+  }
+      // On change event, call the function to populate select
+    var block_id = '<%= soc.block_id %>';
+    var gp_id = '<%= soc.gp_id %>';
+    var vill_id = '<%= soc.vill_id %>'; // Server-side value embedded in the script
+    populategp(block_id,gp_id);
+    // Handle change event for dynamic updates
+    // $('#block_id').change(function() {
+    //     alert('Test Alert');
+    //     var selectedValue = $(this).val();
+    //     populategp(selectedValue,0);
+    // });
+    $(document).ready(function() {
+    //$('#block_id').select2(); // Initialize Select2
+    
+    $('#block_id').on('select2:select', function(e) {
+        var selectedValue = $(this).val();
+        populategp(selectedValue, 0);
+    });
+   });
+
+    ///    ****************     Change Data for Ward Local Body   ************    ///
+    function populatevillage(gp_id,block_id,vill_id) {
+    $.ajax({
+        url: '/society/villlist',
+        method: 'GET',
+        data: { block_id: block_id,gp_id:gp_id },
+        beforeSend: function() {
+            // Show a loading indicator if needed
+            $('#vill_id').html('<option value="0">Loading...</option>');
+        },
+        success: function(response) {
+            var datahlists = response.datahlist;
+            var $select = $('#vill_id');
+            // Clear existing options
+            $select.empty();
+            // Add a default "Select" option
+            $select.append('<option value="0">Select Village</option>');
+            // Append new options from the response data
+            datahlists.forEach(function(item) {
+                $select.append(`<option value="${item.vill_id}" ${(item.vill_id == vill_id) ? 'selected' : ''} >${item.vill_name}</option>`);
+            });
+        },
+        error: function(err) {
+            // Handle any errors
+            $('#vill_id').html('<option value="0">Error fetching data. Please try again.</option>');
+            console.error('AJAX Error:', err); // Log error for debugging
+        }
+    });
+  }
+      // On change event, call the function to populate select
+  
+    populatevillage(gp_id,block_id,vill_id);
+    // Handle change event for dynamic updates
+  
+    $(document).ready(function() {
+      $('#gp_id').select2(); // Initialize Select2
+      $('#gp_id').change(function() {
+        var selectedValue = $(this).val();
+        var block_id = $('#block_id').val();
+        populatevillage(selectedValue,block_id,0);
+    });
+    })
+ 
+  </script>
+
+<script>
+  $(document).ready(function() {
+    
+    var urban_rural_flag = '<%= soc.urban_rural_flag %>'
+   if(urban_rural_flag == 'U'){
+    $('.rulby').hide();
+    $('#ulb_catg').attr('required',true);
+    $('#ulb_id').attr('required',true);
+    $('#block_id').attr('required',false);
+    $('#gp_id').attr('required',false);
+   }else if(urban_rural_flag == 'R'){
+    $('#block_id').attr('required',true);
+    $('#gp_id').attr('required',true);
+    $('#ulb_catg').attr('required',false);
+    $('#ulb_id').attr('required',false);
+    $('.urlby').hide();
+   }else{
+    $('.urlby').hide();
+    $('.rulby').hide();
+   }
+   
+    
+      // Show or hide sections based on radio button selection
+      $('input[name="urban_rural_flag"]').change(function() {
+          if ($(this).val() == 'U') {
+             $('#ulb_catg').attr('required',true);
+             $('#ulb_id').attr('required',true);
+             $('#block_id').attr('required',false);
+             $('#gp_id').attr('required',false);
+            $('.urlby').show();
+            $('.rulby').hide();
+          } else if ($(this).val() == 'R') {
+          //  $('#block_id').addClass('form-control');
+         //    $('#block_id').select2(); 
+             $('#block_id').attr('required',true);
+             $('#gp_id').attr('required',true);
+             $('#ulb_catg').attr('required',false);
+             $('#ulb_id').attr('required',false);
+              $('.rulby').show();
+              $('.urlby').hide();
+              
+          }
+      });
+
+      // Optionally, trigger change event on page load to set initial visibility
+     // $('input[name="urban_rural_flag"]:checked').change();
+  });
+
+  function addRow() {
+    const tableBody = document.getElementById('board_dtl');
+    const newRow = document.createElement('tr');
+
+    newRow.innerHTML = `
+        <td style="padding: 10px;"><input type="text" name="board_memb_name[]" class="form-control"></td>
+        <td style="padding: 10px;"><input type="text" name="board_memb_desig[]" class="form-control"></td>
+        <td style="padding: 10px;"><input type="text" name="bm_contact_no[]" class="form-control"></td>
+        <td style="padding: 10px;"><button class="btn btn-danger" onclick="removeRow(this)">Remove</button></td>
+    `;
+
+    tableBody.appendChild(newRow);
+}
+
+function removeRow(button) {
+    const row = button.parentElement.parentElement;
+    row.remove();
+}
+$(document).ready(function() {
+    $('#last_elec_date').change(function() {
+        var selectedValue = new Date($(this).val());
+        selectedValue.setFullYear(selectedValue.getFullYear() + 5);
+        
+        // Format the date to YYYY-MM-DD
+        var dueDate = selectedValue.toISOString().split('T')[0];
+        var oneLessDay = new Date(selectedValue);
+        oneLessDay.setDate(oneLessDay.getDate() - 1);
+        // Format the oneLessDay to YYYY-MM-DD
+        var formattedOneLessDay = oneLessDay.toISOString().split('T')[0];
+        $('#tenure_ends_on').val(formattedOneLessDay);
+        $('#elec_due_date').val(dueDate);
+    });
+ 
+    changecasest('<%= soc.case_id %>');
+    $('#case_id').change(function() {
+        var selectedValue = $(this).val();
+        changecasest(selectedValue);
+    });
+});
+function changecasest(casetype){
+      
+      if(casetype == 2)
+        {
+          $('#case_num').val('');
+          $('#case_num').attr('readonly', true);
+        }else{
+          $('#case_num').attr('readonly', false);
+        }
+    }
+$(document).ready(function() {
+  $('#designationInput').change(function() {
+    const value = $(this).val();
+    const regex = /^\d{4}-\d{2}$/;
+
+    if (!regex.test(value) && value !== '') {
+        alert('Please enter a valid format: YYYY-YY (e.g., 2023-24)');
+        
+    } else {
+     
+    }
+  })
+  $('#num_of_memb').change(function() {
+    const num = $(this).val();
+        if(num >= 1000){
+          $('#election_type_name').html('<span class="blue">Delegates Election</span>');
+        }else{
+          $('#election_type_name').html('<span class="blue">Direct Election</span>');
+        }
+  })
+  get_type_error('<%= soc.soc_type %>');
+  function get_type_error(num){
+    if(num != 31){
+          $('#submit').attr('disabled', false);
+          $('#soc_type_erro').hide();
+          
+        }else{
+          $('#submit').attr('disabled', true);
+          $('#soc_type_erro').show();
+        }
+  }
+  $('#soc_type').change(function() {
+    const num = $(this).val();
+    get_type_error(num);
+  })
+})
+
+</script>
+
+
+

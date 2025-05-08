@@ -568,7 +568,7 @@ WapiRouter.post("/gallimglist", async (req, res) => {
   var select = "id as gallery_id,title,gal_img",
     table_name = "td_gallery",
     where = null,
-    order = null;
+    order = 'order by gallery_id desc';
   var title = "Gallery";
   var res_dt = await db_Select(select, table_name, where, order);
   if (res_dt.suc > 0) {

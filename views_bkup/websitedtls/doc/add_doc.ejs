@@ -1,0 +1,44 @@
+<div class="row">
+  <div class="col-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title card_title_cus">Add Dcoument</h4>
+        <form class="forms-sample" action="/wdtls/uploaddoc" method="post" enctype="multipart/form-data">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label for="exampleInputName1">Title<span class="red">*</span></label>
+                  <input type="text" class="form-control"  name="doc_title" value="" required>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputName1">Type <span class="red">*</span></label>
+                  <select class="form-control" id="doc_type" name="doc_type" required>
+                    <option value="0">Select Document Type </option>
+                    <% if(doctypelist.length > 0){
+                      var i = 1
+                      doctypelist.forEach(dt => { %>
+                      <option value="<%= dt.doc_type_id %>" ><%= dt.doc_type %></option>
+                        <% }) } %>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputName1">Upload <span class="red">*</span> </label><br>
+                  <input type="file" name="document" accept=".pdf,.jpg,.jpeg,.png" id="document_id" required>
+                </div>
+              </div>
+            </div>
+          <button type="submit" class="btn btn-primary mr-2" id="submit">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

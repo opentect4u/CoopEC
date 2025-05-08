@@ -1,0 +1,74 @@
+<div class="row">
+  <div class="col-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title card_title_cus">Election Upcoming Input</h4>
+        <form class="forms-sample" action="/report/election_upcoming" method="post" >
+          <input type="hidden" class="form-control"  name="id" value="" required>
+          <input type="hidden" value="RANGE" name="dist_range_name" class="dist_range_name">
+            <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="exampleInputName1">Controlling Authority<span class="red">*</span></label>
+                    <select name="" class="form-control" disabled> 
+                      <option value="">Please Select</option>
+                      <% 
+                      controllingauth.forEach(dt => { %>
+                      <option value="<%= dt.controlling_authority_type_id %>"  <%= dt.controlling_authority_type_id == 1 ? 'selected' : '' %>><%= dt.controlling_authority_type_name %></option>
+                      <% }) %>
+                    </select>
+                  </div>
+                </div>
+                <input type="hidden" name="controlling_authority_type" value="1">
+                
+              <% if(user.range_id== 0) { %>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="exampleInputName1">Range<span class="red">*</span></label>
+                  <select name="range_id" class="form-control" required> 
+                    <option value="">Please Select</option>
+                    <option value="0">ALL Range</option>
+                    <% 
+                    range_list.forEach(dt => { %>
+                    <option value="<%= dt.range_id %>"><%= dt.range_name %></option>
+                    <% }) %>
+                  </select>
+                </div>
+              </div>
+              <% }else{ %>
+                <input type="hidden" name="range_id" value="<%=user.range_id%>">
+                 <% } %>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="exampleInputName1">Society Type<span class="red">*</span></label>
+                  <select name="soc_type" class="form-control" required> 
+                    <option value="">Please Select</option>
+                    <option value="0">ALL Type</option>
+                    <%  socty_list.forEach(dt => { %>
+                    <option value="<%= dt.soc_type_id %>"><%= dt.soc_type_name %></option>
+                    <% }) %>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="exampleInputName1">Month Tenure<span class="red">*</span></label>
+                  <select name="month_tenure" class="form-control" required> 
+                    <option value="">Please Select</option>
+                    <option value="6">6 Month</option>
+                    <option value="3">3 Month</option>
+                    <option value="1">1 Month</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            
+          <button type="submit" class="btn btn-primary mr-2" id="submit">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

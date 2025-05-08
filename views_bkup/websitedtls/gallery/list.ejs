@@ -1,0 +1,58 @@
+<style>
+  #suggestions {
+      position: absolute;
+      z-index: 1000; /* Ensure it appears above other elements */
+    
+  }
+</style>
+
+
+<div class="row">
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title card_title_cus"><a href="/wdtls/addgallery" class="btn btn-primary">Upload</a> 
+            </h4>
+            <div class="row">
+              <% var i=1
+                  data.forEach(dt => { %>
+              <div class="col-md-3" style="margin-top: 10px">
+                <img src="/gallery/<%= dt.gal_img %>" height="100" class="imagePreview" data-bs-toggle="modal" data-bs-target="#imageModal"><br><br>
+                <a href="/wdtls/delgallery?id=<%= dt.id %>" class="" onclick="confirmDelete(event)" ><span class="ti-trash"  style="font-size:36px"></span></a>
+                </div>
+                <% }) %>
+            </div>
+        
+          </div>
+        </div>
+      </div>
+</div>
+
+ <!-- Bootstrap Modal -->
+ <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="imageModalLabel">Image Preview</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>
+          </div>
+          <div class="modal-body">
+              <!-- Image preview will go here -->
+              <img id="modalImage" class="img-fluid" alt="Preview Image">
+          </div>
+      </div>
+  </div>
+</div>
+
+<script>
+  // Get all images with the class "imagePreview"
+  var images = document.querySelectorAll('.imagePreview');
+  var modalImg = document.getElementById("modalImage");
+
+  // Loop through each image and add the onclick event
+  images.forEach(function(img) {
+      img.onclick = function() {
+          modalImg.src = this.src; // Set the modal image source to the clicked image's source
+      }
+  });
+</script>

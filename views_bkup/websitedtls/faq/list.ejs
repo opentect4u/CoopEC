@@ -1,0 +1,52 @@
+<style>
+  #suggestions {
+      position: absolute;
+      z-index: 1000; /* Ensure it appears above other elements */
+    
+  }
+</style>
+
+
+<div class="row">
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title card_title_cus"><a href="/wdtls/addfaq" class="btn btn-primary">add</a> 
+            </h4>
+            
+            <div class="table-responsive pt-3 custome_table_res">
+            
+              <table class="table_cus table-striped" style="width:100%">
+              <!-- <table class="table table-striped"  id=""  style="width:100%"> -->
+                <thead>
+                  <tr>
+                    <th class="society_th_1">SL No</th>
+                    <th class="society_th_6">Question</th>
+                    <th class="society_th_8">Answer</th>
+                    <th class="society_th_9">Option</th>
+                  </tr>
+                </thead>
+                <tbody id="item-list">
+                  <% var i=1
+                  data.forEach(dt => { %>
+                      <tr>
+                          <td><%= i++ %></td>
+                          <!-- <td><%= dt.doc_type %></td> -->
+                          <td><%= dt.question %></td>
+                          <td><%= dt.answer %></td>
+                          <td><a href="/wdtls/delfaq?id=<%= dt.id %>" class="btn btn-primary btn-sm" onclick="confirmDelete(event)" >Delete</a></td>
+                          
+                      </tr>
+                  <% }) %>
+                </tbody>
+              </table>
+        
+            </div>
+
+          
+        
+          </div>
+        </div>
+      </div>
+</div>
+
