@@ -1,0 +1,32 @@
+<div class="row">
+  <div class="col-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title card_title_cus">Society Election Held Status </h4>
+        <form class="forms-sample" action="/report/society_ele_held_resultRange" method="post" >
+          <input type="hidden" class="form-control"  name="id" value="" required>
+            <div class="row">
+              <input type="hidden" name="controlling_authority_type" value="<%=user.cntr_auth_type%>">
+              <input type="hidden" name="election_status" value="DONE">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="exampleInputName1">From date<span class="red">*</span></label>
+                  <input type="date" class="form-control" id="from_date" name="from_date" value="" required>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="exampleInputName1">To date<span class="red">*</span></label>
+                  <input type="date" class="form-control" id="to_date" name="to_date" value="" required>
+                </div>
+              </div>
+            </div>
+          <button type="submit" class="btn btn-primary mr-2" id="submit">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

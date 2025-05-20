@@ -773,7 +773,7 @@ reportRouter.post("/society_ele_held_result", async (req, res) => {
    
     var cntr_auth = cntr_auth_id > 0 ? `AND a.cntr_auth_type = '${cntr_auth_id}'` : "";
     const select =
-      "a.id,a.cop_soc_name,b.soc_type_name,c.dist_name,g.controlling_authority_type_name,a.num_of_memb,a.last_elec_date,a.tenure_ends_on,a.elec_due_date,a.reg_no,a.reg_date,d.zone_name,e.range_name,f.soc_tier_name,g.controlling_authority_type_name";
+      "a.id,a.cop_soc_name,b.soc_type_name,c.dist_name,g.controlling_authority_type_name,a.num_of_memb,a.last_elec_date,a.tenure_ends_on,a.elec_due_date,a.reg_no,a.reg_date,d.zone_name,e.range_name,f.soc_tier_name";
    
       if(cntr_auth_id == 1){
       var select_range =
@@ -783,7 +783,7 @@ reportRouter.post("/society_ele_held_result", async (req, res) => {
         range_code > 0 ? `AND a.dist_code = '${range_code}'` : "";
       }
       var election_status = ` AND a.election_status = '${postdata.election_status}'`;
-      var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id LEFT JOIN md_controlling_authority_type g ON a.cntr_auth = g.controlling_authority_type_id WHERE a.functional_status='Functional' AND a.last_elec_date BETWEEN '${from_date}' AND '${to_date}' AND a.approve_status = 'A' ${cntr_auth + election_status} `;
+      var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id LEFT JOIN md_district c ON a.dist_code = c.dist_code LEFT JOIN md_zone d ON a.zone_code = d.zone_id LEFT JOIN md_range e ON a.range_code = e.range_id LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id LEFT JOIN md_controlling_authority_type g ON a.cntr_auth_type = g.controlling_authority_type_id WHERE a.functional_status='Functional' AND a.last_elec_date BETWEEN '${from_date}' AND '${to_date}' AND a.approve_status = 'A' ${cntr_auth + election_status} `;
     
 
     // Execute database query
@@ -851,8 +851,9 @@ reportRouter.post("/society_ele_held_result", async (req, res) => {
             LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id`;
       var con = `a.functional_status = 'Functional' AND a.approve_status = 'A'  `;
 
-      const where = `${con + date_range + range + election_status + ctr_auth_id }`; // Ensure these variables are properly defined
-      const res_dt = await db_Select(select, table_name, where, null);
+      const where = `${con + date_range + range + election_status + ctr_auth_id }`;
+      var order = "order by a.last_elec_date DESC"; // Ensure these variables are properly defined
+      const res_dt = await db_Select(select, table_name, where, order);
 
       // Create a new workbook and worksheet
       const workbook = new ExcelJS.Workbook();
@@ -911,6 +912,185 @@ reportRouter.post("/society_ele_held_result", async (req, res) => {
         .json({ error: "An error occurred while generating the report." });
     }
   });
+
+reportRouter.get("/society_ele_status_reqRange", async (req, res) => {
+    try {
+      // Extract range_id from session
+      const range_id = req.session.user.range_id;
+      var range_code = range_id;
+      var title = "Election Upcoming";
+      const ranzeres = await db_Select(
+        "*",
+        "md_range",
+        `range_id=${range_code}`,
+        null,
+      );
+      if (range_code > 0) {
+        range_name = ranzeres.msg[0].range_name;
+      } else {
+        range_name = "ALL Range";
+      }
+      const rangeres = await db_Select("*", "md_range", null, null);
+      // Prepare data for rendering
+      const res_dt = {
+        range_list: rangeres.suc > 0 ? rangeres.msg : "",
+        title: title
+      };
+      // Render the view with data
+      res.render("report/society_ele_status_inputRange", res_dt);
+    } catch (error) {
+      // Log the error and send an appropriate response
+      console.error("Error during dashboard rendering:", error);
+      res.render("report/society_ele_status_inputRange", res_dt);
+    }
+  });
+  reportRouter.post("/society_ele_held_resultRange", async (req, res) => {
+    try {
+      // Extract range_id from session
+      var postdata = req.body;
+      //var dist_range_name = postdata.dist_range_name;
+      var cntr_auth_id = postdata.controlling_authority_type;
+      var from_date = postdata.from_date;
+      var to_date = postdata.to_date;
+      var range_code = 0;
+      var title = "DONE";
+      var order = "order by a.last_elec_date DESC";
+     
+      var cntr_auth = `AND a.cntr_auth_type = '1'`;
+      const select =
+        "a.id,a.cop_soc_name,b.soc_type_name,c.dist_name,g.controlling_authority_type_name,a.num_of_memb,a.last_elec_date,a.tenure_ends_on,a.elec_due_date,a.reg_no,a.reg_date,d.zone_name,e.range_name,f.soc_tier_name";
+     
+        var table_name = `md_society a LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id 
+        LEFT JOIN md_district c ON a.dist_code = c.dist_code 
+        LEFT JOIN md_zone d ON a.zone_code = d.zone_id 
+        LEFT JOIN md_range e ON a.range_code = e.range_id 
+        LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id 
+        LEFT JOIN md_controlling_authority_type g ON a.cntr_auth_type = g.controlling_authority_type_id 
+        WHERE a.functional_status='Functional' AND a.last_elec_date BETWEEN '${from_date}' AND '${to_date}' 
+        AND a.approve_status = 'A' ${cntr_auth} `;
+      
+  
+      // Execute database query
+      const result = await db_Select(select, table_name, null, order);
+  
+      // Prepare data for rendering
+      const res_dt = {
+        data: result.suc > 0 ? result.msg : "",
+        data_count: result.suc > 0 ? result.msg.length : 0,
+        range_name: "",from_date:from_date,to_date:to_date,
+        range: 0,cntr_auth_id:cntr_auth_id,
+        ele_status: postdata.election_status,cntr_auth_name:'ALL',
+        socname: "",
+        title: title,
+        soc_data_status: "",
+      };
+      // Render the view with data
+      res.render("report/society_ele_held_resultRange", res_dt);
+    } catch (error) {
+      // Log the error and send an appropriate response
+      console.error("Error during dashboard rendering:", error);
+      //res.status(500).send('An error occurred while loading the dashboard.');
+      res.render("report/society_ele_held_resultRange", res_dt);
+    }
+  });
+    reportRouter.get("/society_ele_held_downloadRange", async (req, res) => {
+      try {
+      
+        var ctr_auth_id = req.query.ctr_auth_id > 0 ? ` AND a.cntr_auth_type='${req.query.ctr_auth_id}' ` : "";
+        if(req.query.ctr_auth_id == 1){
+          var range =
+          req.query.range_code > 0
+            ? `AND a.range_code=${req.query.range_code} `
+            : "";
+        }else{ 
+          var range =
+          req.query.range_code > 0
+            ? `AND a.dist_code=${req.query.range_code} `
+            : "";
+        }
+        var election_status = ` AND a.election_status='${req.query.election_status}' `;
+        var title = "DONE";
+        
+        var from_date = req.query.from_date;
+        var to_date = req.query.to_date;
+        var date_range = `AND a.last_elec_date BETWEEN '${from_date}' AND '${to_date}' `;
+        
+        const select =
+          "a.cop_soc_name, a.reg_no, a.reg_date,a.elec_due_date, b.soc_type_name, f.soc_tier_name, h.controlling_authority_type_name AS reg_cont_auth, g.controlling_authority_name AS returning_officer, st.state_name, c.dist_name, d.zone_name, e.range_name, a.urban_rural_flag, ulcat.ulb_catg_name, ulb.ulb_name,a.num_of_memb, a.last_elec_date, a.tenure_ends_on, a.contact_name AS key_person, a.contact_designation AS key_person_desig, a.contact_number, a.email, a.functional_status";
+        const table_name = `md_society a 
+              LEFT JOIN md_society_type b ON a.soc_type = b.soc_type_id 
+              LEFT JOIN md_district c ON a.dist_code = c.dist_code 
+              LEFT JOIN md_controlling_authority_type h ON a.cntr_auth_type = h.controlling_authority_type_id 
+              LEFT JOIN md_controlling_authority g ON a.cntr_auth = g.controlling_authority_id 
+              LEFT JOIN md_state st ON a.state_code = st.state_id 
+              LEFT JOIN md_ulb_catg ulcat ON a.ulb_catg = ulcat.ulb_catg_id 
+              LEFT JOIN md_ulb ulb ON a.ulb_id = ulb.ulb_id
+              LEFT JOIN md_zone d ON a.zone_code = d.zone_id 
+              LEFT JOIN md_range e ON a.range_code = e.range_id 
+              LEFT JOIN md_soc_tier f ON a.soc_tier = f.soc_tier_id`;
+        var con = `a.cntr_auth_type = '1' AND a.functional_status = 'Functional' AND a.approve_status = 'A'  `;
+  
+        const where = `${con + date_range + range }`;
+        var order = "order by a.last_elec_date DESC"; // Ensure these variables are properly defined
+        const res_dt = await db_Select(select, table_name, where, order);
+  
+        // Create a new workbook and worksheet
+        const workbook = new ExcelJS.Workbook();
+        const worksheet = workbook.addWorksheet("Report");
+  
+        // Define column headers
+        worksheet.columns = [
+          { header: "Society Name", key: "cop_soc_name" },
+          { header: "Society Type", key: "soc_type_name" },
+          { header: "Range", key: "range_name" },
+          { header: "Controlling Authority Type", key: "reg_cont_auth" },
+          { header: "Registration No", key: "reg_no" },
+          { header: "Registration Date", key: "reg_date" },
+          { header: "Number of Members", key: "num_of_memb" },
+          { header: "Last Election Date", key: "last_elec_date" },
+          { header: "Tenure Ends On", key: "tenure_ends_on" },
+          { header: "Election Due Date", key: "elec_due_date" }
+        ];
+        var result = res_dt.suc > 0 ? res_dt.msg : "";
+        // Add rows to the worksheet
+        // result.forEach((item) => {
+        //   worksheet.addRow(item);
+        // });
+        result.forEach((item) => {
+          worksheet.addRow({
+              cop_soc_name: item.cop_soc_name,
+              soc_type_name: item.soc_type_name,
+              range_name: item.range_name,
+              reg_cont_auth: item.reg_cont_auth,
+              reg_no: item.reg_no,
+              reg_date: item.reg_date ? moment(item.reg_date).format('YYYY-MM-DD') : "", // Fix for date shift
+              num_of_memb: item.num_of_memb,
+              last_elec_date: item.last_elec_date ? moment(item.last_elec_date).format('YYYY-MM-DD') : "",
+              tenure_ends_on: item.tenure_ends_on ? moment(item.tenure_ends_on).format('YYYY-MM-DD') : "",
+              elec_due_date: item.elec_due_date ? moment(item.elec_due_date).format('YYYY-MM-DD') : ""
+          });
+      });
+  
+        // Set response headers for the Excel file
+        res.setHeader(
+          "Content-Type",
+          "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        );
+        res.setHeader(
+          "Content-Disposition",
+          `attachment; filename=report_${title}.xlsx`,
+        );
+  
+        // Write the Excel file to the response
+        await workbook.xlsx.write(res);
+        res.end();
+      } catch (error) {
+        console.error("Error during Excel generation:", error);
+        res
+          .status(500)
+          .json({ error: "An error occurred while generating the report." });
+      }
+    });
 reportRouter.post("/society_ele_status_result", async (req, res) => {
   try {
     // Extract range_id from session
