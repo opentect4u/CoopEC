@@ -40,9 +40,13 @@
                             ADMIN
                        <% } else if (dt.user_type == 'M') { %>
                                RO
-                          <% } else { %>
+                          <% } else if (dt.user_type == 'U') { %>
                             ARO
-                        <% } %></td>
+                        <% } else { %>
+                          Election Inspection Cell
+                      <% } %>
+                      
+                      </td>
                           <td><%= dt.user_mobile %></td>
                           <td><%= dt.range_name %></td>
                           <td><a href="/wdtls/edituser?id=<%= dt.id %>" class="btn btn-primary btn-sm"  >Edit</a>
@@ -58,4 +62,3 @@
         </div>
       </div>
 </div>
-

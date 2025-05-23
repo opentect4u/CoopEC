@@ -1,6 +1,7 @@
 const SocietyRouter = require("express").Router();
 const axios = require("axios");
 const moment = require("moment");
+const logger = require('../logger'); 
 const {
   db_Select,
   db_Insert,
@@ -175,6 +176,7 @@ SocietyRouter.get("/edit", async (req, res) => {
     // Render the view with data
     res.render("society/edit", res_dt);
   } catch (error) {
+    logger.error(err); // log the error
     // Log the error and send an appropriate response
     console.error("Error during dashboard rendering:", error);
     //res.status(500).send('An error occurred while loading the dashboard.');
@@ -194,7 +196,7 @@ SocietyRouter.post("/socedit", async (req, res) => {
     //   ********   Code For Getting Ip   *********   //
     // var ipresult = await fetchIpData();
     // var ip = ipresult.ipdata;
-       var ip = '';
+       var ip = req.clientIp;
     //   ********   Code For Getting Ip   *********  //
 
     var data = req.body;
@@ -314,6 +316,7 @@ SocietyRouter.post("/socedit", async (req, res) => {
     req.flash("success_msg", "Update successful!");
     res.redirect("/dash/dashboard");
   } catch (error) {
+    logger.error(err); // log the error
     // Log the error and send an appropriate response
     req.flash("error_msg", "Some Thing went wrong !");
     res.render("/dash/dashboard");
@@ -582,7 +585,7 @@ SocietyRouter.get("/socdelet", async (req, res) => {
     // var ipresult = await fetchIpData();
     // var ip = ipresult.ipdata;
     var ip = '';
-
+     console.log('Test is going on');
   //   *** Code for Insert and Delete Option  //
     var soc_id = req.query.id;
     var where = `id = '${soc_id}' `;
@@ -604,8 +607,8 @@ SocietyRouter.get("/socdelet", async (req, res) => {
     }','${data.ulb_catg}','${data.ulb_id}','${data.ward_no}','${data.block_id}','${data.gp_id}','${
       data.vill_id
     }','${data.pin_no}','${data.address}','${data.mouza}','${
-      data.num_of_memb
-    }','${data.audit_upto}','${data.mgmt_status}','${data.officer_type}','${datetime}','${datetime}','${datetime}','${
+      0
+    }','${data.audit_upto}','${'0'}','${'0'}','${datetime}','${datetime}','${datetime}','${
       data.contact_name
     }','${data.contact_designation}','${data.contact_number}','${
       data.email

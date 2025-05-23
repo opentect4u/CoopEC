@@ -29,7 +29,7 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <label for="exampleInputName1">Mobile No(Must be 10 digit)</label>
-                  <input type="number" class="form-control"  name="user_mobile" value="<%= usersd.user_mobile %>" required  min="0">
+                  <input type="number" class="form-control"  name="user_mobile" value="<%= usersd.user_mobile %>" required  id="user_mobile">
                 </div>
               </div>
             </div>
@@ -50,6 +50,7 @@
                     <% } %>
                     <option value="M" <%= usersd.user_type == 'M' ? 'selected' : '' %> >RO</option>
                     <option value="U" <%= usersd.user_type == 'U' ? 'selected' : '' %>>ARO </option>
+                    <option value="E" <%= usersd.user_type == 'E' ? 'selected' : '' %>>Election Inspection Cell</option>
                   </select>
                 </div>
               </div>
@@ -174,5 +175,15 @@
   </div>
 </div>
 
-
-
+<script>
+  document.getElementById('user_mobile').addEventListener('change', function () {
+    const mobileInput = this.value.trim();
+    
+    // Check if it is exactly 10 digits and a valid number
+    if (!/^\d{10}$/.test(mobileInput)) {
+        alert('Mobile number must be exactly 10 digits.');
+        this.value = ''; // Clear the field
+        this.focus(); // Set focus back to the field
+    }
+});
+</script>

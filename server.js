@@ -8,6 +8,8 @@ const express = require("express"),
   cors = require("cors"),
   port = process.env.PORT || 3013;
 const flash = require("connect-flash");
+const requestIp = require('request-ip');
+const logger = require('./logger'); const bcrypt = require("bcrypt");
 //const svgCaptcha = require('svg-captcha');
 const socketIo = require("socket.io");
 const MemoryStore = require('express-session').MemoryStore;
@@ -27,7 +29,7 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
 app.use(expressLayouts);
-
+app.use(requestIp.mw());
 app.set("layout", "templates/layout");
 
 // SET ASSETS AS A STATIC PATH //
@@ -45,6 +47,22 @@ app.use(
      }
   }),
 );
+app.use((err, req, res, next) => {
+  logger.error(err); // log the error
+  res.status(500).send('Internal Server Error');
+});
+
+// Catch unhandled exceptions
+process.on('uncaughtException', (err) => {
+  logger.error('Uncaught Exception:', err);
+  // Don't call process.exit(1) if you want the app to stay running
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+  logger.error('Unhandled Rejection at:', promise, 'reason:', reason);
+  // Don't call process.exit(1)
+});
+
 var server = https.createServer(app);
 const {
   SendNotification,
@@ -83,7 +101,6 @@ const { rangeRouter } = require("./router/rangeRouter");
 
 const { validateSession } = require("./middleware/authMiddleware");
 const { checkUserInput } = require("./middleware/chekUserInputMiddleware");
-
 
 app.use("/login", LoginRouter);
 app.use("/dash", validateSession,checkUserInput, DashboardRouter);
@@ -166,56 +183,59 @@ app.get("*", function (req, res) {
 //   }
 //   next();
 // });
-io.on("connection", (socket) => {
-  console.log(`Connected socket ID: ${socket.id}`);
+// io.on("connection", (socket) => {
+//   console.log(`Connected socket ID: ${socket.id}`);
 
-  socket.on("notification-request", async (data) => {
-    const range_id = data.range_code;
-    const user_type = data.user_type;
-    try {
-      // Simulate getting some data asynchronously
-      const res_dt = await SendNotification(range_id, user_type);
-      console.log(`Sending notification to socket ID: ${socket.id}`);
-      socket.emit("notification", { message: res_dt.msg });
-    } catch (err) {
-      console.error("Error while sending notification:", err);
-    }
-  });
-  socket.on("markassread", async (data) => {
-    const range_id = data.range_code;
-    const user_type = data.user_type;
-    console.log(`Sending Mark As Red to socket ID: ${socket.id}`);
-    try {
-      // Simulate getting some data asynchronously
-      const dataupdate = await UpdateNotification(range_id, user_type);
-      const res_dt = await SendNotification(range_id, user_type);
-      // console.log(`Sending notification to socket ID: ${socket.id}`);
-      socket.emit("notification", { message: res_dt.msg });
-    } catch (err) {
-      console.error("Error while sending notification:", err);
-    }
-  });
+//   socket.on("notification-request", async (data) => {
+//     const range_id = data.range_code;
+//     const user_type = data.user_type;
+//     try {
+//       // Simulate getting some data asynchronously
+//       const res_dt = await SendNotification(range_id, user_type);
+//       console.log(`Sending notification to socket ID: ${socket.id}`);
+//       socket.emit("notification", { message: res_dt.msg });
+//     } catch (err) {
+//       console.error("Error while sending notification:", err);
+//     }
+//   });
+//   socket.on("markassread", async (data) => {
+//     const range_id = data.range_code;
+//     const user_type = data.user_type;
+//     console.log(`Sending Mark As Red to socket ID: ${socket.id}`);
+//     try {
+//       // Simulate getting some data asynchronously
+//       const dataupdate = await UpdateNotification(range_id, user_type);
+//       const res_dt = await SendNotification(range_id, user_type);
+//       // console.log(`Sending notification to socket ID: ${socket.id}`);
+//       socket.emit("notification", { message: res_dt.msg });
+//     } catch (err) {
+//       console.error("Error while sending notification:", err);
+//     }
+//   });
 
-  // socket.emit('notification-request', {});
-  // Handle client disconnecting
-  socket.on("disconnect", () => {
+//   // socket.emit('notification-request', {});
+//   // Handle client disconnecting
+//   socket.on("disconnect", () => {
 
-    console.log("A user disconnected");
-    if (socket.session) {
-      socket.session.destroy((err) => {
-        if (err) {
-          console.error("Error destroying session:", err);
-        } else {
-          console.log("Session destroyed");
-        }
-      });
-    } else {
-      console.log("Session not found");
-    }
-  });
-});
+//     console.log("A user disconnected");
+//     if (socket.session) {
+//       socket.session.destroy((err) => {
+//         if (err) {
+//           console.error("Error destroying session:", err);
+//         } else {
+//           console.log("Session destroyed");
+//         }
+//       });
+//     } else {
+//       console.log("Session not found");
+//     }
+//   });
+// });
 
 server.listen(port, (err) => {
+ var pass = bcrypt.hashSync('1234', 10);
   if (err) throw err;
   else console.log(`App is running at port ${port}`);
+   
+  console.log(pass);
 });

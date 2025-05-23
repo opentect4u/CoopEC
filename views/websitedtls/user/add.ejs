@@ -17,7 +17,7 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <label for="exampleInputName1">user ID<span class="red">*</span></label>
-                  <input type="number" class="form-control"  name="user_id" value="" required>
+                  <input type="text" class="form-control"  name="user_id" value="" required>
                 </div>
               </div>
               <div class="col-md-4">
@@ -29,7 +29,7 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <label for="exampleInputName1">Mobile No(Must be 10 digit)</label>
-                  <input type="number" class="form-control"  name="user_mobile" value="" required >
+                  <input type="number" class="form-control"  name="user_mobile" value="" id="user_mobile" required >
                 </div>
               </div>
             </div>
@@ -50,12 +50,15 @@
                     <option value="A">Admin</option>
                     <option value="M">RO</option>
                     <option value="U">ARO</option>
+                    <option value="E">Election Inspection Cell </option>
                     <% }else if(user.user_type == 'A') { %>
                       <option value="A">Admin(HO)</option>
                       <option value="M">RO</option>
                       <option value="U">ARO</option>
+                      <option value="E">Election Inspection Cell </option>
                       <% }else if(user.user_type == 'M'){ %>
                         <option value="U">ARO </option>
+                        <option value="E">Election Inspection Cell </option>
                         <% } %>
                   </select>
                 </div>
@@ -206,5 +209,16 @@ $(document).ready(function() {
 });
 
 
+});
+
+document.getElementById('user_mobile').addEventListener('change', function () {
+    const mobileInput = this.value.trim();
+    
+    // Check if it is exactly 10 digits and a valid number
+    if (!/^\d{10}$/.test(mobileInput)) {
+        alert('Mobile number must be exactly 10 digits.');
+        this.value = ''; // Clear the field
+        this.focus(); // Set focus back to the field
+    }
 });
 </script>

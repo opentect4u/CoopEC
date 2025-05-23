@@ -794,17 +794,17 @@ WdtlsRouter.get("/userlist", async (req, res) => {
       if(cntr_auth_type == 1){
         var select = `a.*,b.range_name,c.controlling_authority_type_name`;
         if (req.session.user.user_type == 'M') {
-          var table = `md_user a JOIN md_range b ON a.range_id = b.range_id JOIN md_controlling_authority_type c ON a.cntr_auth_type =c.controlling_authority_type_id WHERE a.range_id='${range_id}' AND a.cntr_auth_type='${cntr_auth_type}' AND user_type in('M','U')`;
+          var table = `md_user a JOIN md_range b ON a.range_id = b.range_id JOIN md_controlling_authority_type c ON a.cntr_auth_type =c.controlling_authority_type_id WHERE a.range_id='${range_id}' AND a.cntr_auth_type='${cntr_auth_type}' AND user_type in('M','U','E')`;
         } else {
-          var table = `md_user a LEFT JOIN md_range b ON a.range_id = b.range_id LEFT JOIN md_controlling_authority_type c ON a.cntr_auth_type =c.controlling_authority_type_id AND a.cntr_auth_type='${cntr_auth_type}' AND user_type in('M','U','A')`;
+          var table = `md_user a LEFT JOIN md_range b ON a.range_id = b.range_id LEFT JOIN md_controlling_authority_type c ON a.cntr_auth_type =c.controlling_authority_type_id AND a.cntr_auth_type='${cntr_auth_type}' AND user_type in('M','U','A','E')`;
         }
       }else{
         if(req.session.user.user_type == 'M'){
           var select = `a.*,b.dist_name as range_name,c.controlling_authority_type_name`;
-          var table = `md_user a JOIN md_district b ON a.range_id = b.dist_code JOIN md_controlling_authority_type c ON a.cntr_auth_type =c.controlling_authority_type_id AND a.range_id='${range_id}' AND a.cntr_auth_type='${cntr_auth_type}' AND user_type in('M','U') `;
+          var table = `md_user a JOIN md_district b ON a.range_id = b.dist_code JOIN md_controlling_authority_type c ON a.cntr_auth_type =c.controlling_authority_type_id AND a.range_id='${range_id}' AND a.cntr_auth_type='${cntr_auth_type}' AND user_type in('M','U','E') `;
         }else{
           var select = `a.*,b.dist_name as range_name,c.controlling_authority_type_name`;
-          var table = `md_user a JOIN md_district b ON a.range_id = b.dist_code JOIN md_controlling_authority_type c ON a.cntr_auth_type =c.controlling_authority_type_id AND a.cntr_auth_type='${cntr_auth_type}' AND user_type in('M','U','A') `;
+          var table = `md_user a JOIN md_district b ON a.range_id = b.dist_code JOIN md_controlling_authority_type c ON a.cntr_auth_type =c.controlling_authority_type_id AND a.cntr_auth_type='${cntr_auth_type}' AND user_type in('M','U','A','E') `;
         }
       }
     }
@@ -855,7 +855,8 @@ WdtlsRouter.post("/saveuser", async (req, res) => {
     var formattedDate = date_ob.format("YYYY-MM-DD HH:mm:ss");
     // var ipresult = await fetchIpData();
     // var ip = ipresult.ipdata;
-    var ip = '';
+    //const userIp = req.clientIp; // This will work
+    var ip = req.clientIp;
     var pass_string = "";
     if (data.id > 0) {
       if (data.password.length > 0) {
