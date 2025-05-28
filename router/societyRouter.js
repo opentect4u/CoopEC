@@ -55,7 +55,6 @@ SocietyRouter.get("/edit", async (req, res) => {
     const soc_id = req.query.id;
     var range_id = req.session.user.range_id;
     var cntr_auth_type = req.session.user.cntr_auth_type;
-  
     const select = "*";
     const table_name = "md_society";
     const whr = `id='${soc_id}' `;
@@ -194,7 +193,7 @@ SocietyRouter.post("/socedit", async (req, res) => {
     var formattedDate = date_ob.format("YYYY-MM-DD HH:mm:ss");
 
     //   ********   Code For Getting Ip   *********   //
-    // var ipresult = await fetchIpData();
+    
     // var ip = ipresult.ipdata;
        var ip = req.clientIp;
     //   ********   Code For Getting Ip   *********  //
@@ -454,9 +453,9 @@ SocietyRouter.post("/socadddata", async (req, res) => {
     var datetime = moment().format("YYYY-MM-DD HH:mm:ss");
 
     //   ********   Code For Getting Ip   *********   //
-    // var ipresult = await fetchIpData();
+   
     // var ip = ipresult.ipdata;
-     var ip = '';
+     var ip = req.clientIp;
     //   ********   Code For Getting Ip   *********  //
     var data = req.body;
     var table_name = "md_society";
@@ -582,9 +581,9 @@ SocietyRouter.get("/socdelet", async (req, res) => {
     var user_id = req.session.user.user_id;
     var date_ob = moment();
     var datetime = date_ob.format("YYYY-MM-DD HH:mm:ss");
-    // var ipresult = await fetchIpData();
+   
     // var ip = ipresult.ipdata;
-    var ip = '';
+    var ip = req.clientIp;
      console.log('Test is going on');
   //   *** Code for Insert and Delete Option  //
     var soc_id = req.query.id;
@@ -1227,9 +1226,9 @@ SocietyRouter.post("/approve", async (req, res) => {
     // Format it as YYYY-MM-DD HH:mm:ss
     var formattedDate = date_ob.format("YYYY-MM-DD HH:mm:ss");
     //   ********   Code For Getting Ip   *********   //
-    // var ipresult = await fetchIpData();
+   
     // var ip = ipresult.ipdata;
-    var ip = '';
+    var ip = req.clientIp;
     
     //   ********   Code For Getting Ip   *********  //
 
@@ -1347,9 +1346,9 @@ SocietyRouter.post("/editvillage", async (req, res) => {
     // Format it as YYYY-MM-DD HH:mm:ss
     var formattedDate = date_ob.format("YYYY-MM-DD HH:mm:ss");
     //   ********   Code For Getting Ip   *********   //
-    // var ipresult = await fetchIpData();
+   
     // var ip = ipresult.ipdata;
-     var ip = '';
+     var ip = req.clientIp;
     //   ********   Code For Getting Ip   *********  //
     var data = req.body;
     var table_name = "md_village";
@@ -1379,9 +1378,9 @@ SocietyRouter.post("/villageadddata", async (req, res) => {
     // Format it as YYYY-MM-DD HH:mm:ss
     var formattedDate = date_ob.format("YYYY-MM-DD HH:mm:ss");
     //   ********   Code For Getting Ip   *********   //
-    // var ipresult = await fetchIpData();
+   
     // var ip = ipresult.ipdata;
-     var ip = '';
+     var ip = req.clientIp;
     //   ********   Code For Getting Ip   *********  //
     var data = req.body;
     var table_name = "md_village";
