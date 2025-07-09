@@ -119,17 +119,6 @@ const exportToExcel = () => {
         { 'Label': 'Range', 'Value': getPageData.range_name || '--' },
         { 'Label': 'Mapping', 'Value': getPageData.urban_rural_flag == "U" ? 'Urban Mapping' : 'Rural Mapping' },
 
-
-        // { 'Label': 'Block', 'Value': getPageData.block_name || '--' },
-        // { 'Label': 'Gram Panchayat', 'Value': getPageData.gp_name || '--' },
-        // { 'Label': 'Village', 'Value': getPageData.vill_name || '--' },
-        // { 'Label': 'Pin Code', 'Value': getPageData.pin_no || '--' },
-
-        // { 'Label': 'Category of Urban Local Body', 'Value': getPageData.ulb_catg_name || '--' },
-        // { 'Label': 'Urban Local Body', 'Value': getPageData.ulb_name || '--' },
-        // { 'Label': 'Locality or Ward', 'Value': getPageData.ward_name || '--' },
-
-        // Conditionally show Urban or Rural fields
         ...(getPageData.urban_rural_flag === "R" ? [
             { 'Label': 'Block', 'Value': getPageData.block_name || '--' },
             { 'Label': 'Gram Panchayat', 'Value': getPageData.gp_name || '--' },

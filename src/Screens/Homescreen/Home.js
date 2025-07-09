@@ -9,6 +9,7 @@ import TabContentHome from '../../Components/TabContentHome';
 import FaqPage from '../../Components/FaqPage';
 import HomeThreeBox from '../../Components/HomeThreeBox';
 import scroll_top from "../../Assets/images/scroll_top.png";
+import election_key_persion from "../../Assets/images/election_key.jpg";
 import FooterCus from '../../Components/FooterCus';
 import WB_Map from '../../Components/WB_Map';
 import { Link } from 'react-router-dom';
@@ -207,7 +208,7 @@ function Home() {
 	return (
 		<>
 			<BannerSlider />
-
+			<div className='election_keyMember'><img src={`${election_key_persion}`} alt="" /></div>
 			{/* <div className="wrapper">
 				<div className="col-sm-12">
 					<Anouncement />

@@ -38,53 +38,41 @@ function GalleryPage() {
 
     const { GalleryData_Async } = useGalleryData()
 
+    // const [visibleImages, setVisibleImages] = useState([]); // For displayed images
+    // const [allImages, setAllImages] = useState([]);         // For all fetched images
+    // const [loadIndex, setLoadIndex] = useState(0);          // Tracks how many batches are loaded
+    // const batchSize = 16; 
+
+    const [visibleImages, setVisibleImages] = useState([]);
+    const [allImages, setAllImages] = useState([]);
+    const [loadIndex, setLoadIndex] = useState(0);
+
+    const INITIAL_LOAD = 16;
+    const LOAD_MORE_COUNT = 8;
+
+    
 
 
-    const fetchdata = ()=>{
-  
-      axios.post(`${BASE_URL}/wapi/gallimglist`,
-     {
-       auth_key:"xxxxx",
-     }
-     // ,
-     // {
-     //     headers: {
-     //         Authorization: loginData.token,
-     //     },
-     // }
-     ).then(res => {
- 
-       if(res.status == '200'){
-         
-         if(res.data.suc > 0){
-          setGalleryImage(res?.data?.msg);
-          setGalleryFolder(res?.data?.folder);
-          setPageTitle(res?.data?.title);
-          setLoading(false);
-             // setFolderLocation()
-             console.log(res , 'gggggggg', res?.data?.msg);
- 
-             // pageDataCheck = res.data.status;
-         } else {
-          setGalleryImage([])
-           // pageDataCheck = res.data.status;
-         }
-   
-         }
- 
-     }) 
- 
-    }
+
+
 
     // const galleryData_Call = async ()=>{
     //   await GalleryData_Async().then((res)=>{
-    //   setGalleryImage(res?.msg);
+      
+    //   if(res.suc > 0){
+    //   var array__ = res?.msg.reverse()
+    //   console.log(res?.msg, 'gallery______________');
+    //   setGalleryImage(array__);
     //   setGalleryFolder(res?.folder);
     //   setPageTitle(res?.title);
     //   setLoading(false);
+    //   } else {
+    //   setGalleryImage([])
+    
+    //   }
     
     //   }).catch((error)=>{
-    //   setGalleryImage([])
+      
     //   console.log(error);
     
     //   })
@@ -92,32 +80,31 @@ function GalleryPage() {
     
     //   } 
 
-    const galleryData_Call = async ()=>{
-      await GalleryData_Async().then((res)=>{
-      
-      if(res.suc > 0){
-      var array__ = res?.msg.reverse()
-      console.log(res?.msg, 'gallery______________');
-      setGalleryImage(array__);
-      setGalleryFolder(res?.folder);
-      setPageTitle(res?.title);
+
+  const galleryData_Call = async () => {
+  try {
+    const res = await GalleryData_Async();
+    if (res.suc > 0) {
+      const reversed = res.msg.reverse();
+      setAllImages(reversed);
+      setGalleryFolder(res.folder);
+      setPageTitle(res.title);
       setLoading(false);
-      } else {
-      setGalleryImage([])
-    
-      }
-    
-      }).catch((error)=>{
-      
-      console.log(error);
-    
-      })
-    
-    
-      } 
+
+      setLoadIndex(1); // 1 chunk means 10 initially
+      setVisibleImages(reversed.slice(0, INITIAL_LOAD));
+    } else {
+      setAllImages([]);
+      setVisibleImages([]);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
 
     const onDownload = () => {
-      // const url = getGalleryImage[current];
       const currentImageObj = getGalleryImage[current];
       const url = `${BASE_URL}/${getGalleryFolder}/${currentImageObj.gal_img}`;
       const suffix = url.slice(url.lastIndexOf('.'));
@@ -141,10 +128,18 @@ function GalleryPage() {
         });
     };
   
+
+  const handleLoadMore = () => {
+  const nextIndex = loadIndex + 1;
+  const newCount = INITIAL_LOAD + (nextIndex - 1) * LOAD_MORE_COUNT;
+  const newImages = allImages.slice(0, newCount);
+  setVisibleImages(newImages);
+  setLoadIndex(nextIndex);
+  };
+
     
   
      useEffect(()=>{
-      // fetchdata();
       galleryData_Call();
      },[])
 
@@ -181,8 +176,6 @@ function GalleryPage() {
           },
         ) => (
           <Space size={12} className="toolbar-wrapper">
-            {/* <LeftOutlined onClick={() => onActive?.(-1)} />
-            <RightOutlined onClick={() => onActive?.(1)} /> */}
             <DownloadOutlined onClick={onDownload} />
             <SwapOutlined rotate={90} onClick={onFlipY} />
             <SwapOutlined onClick={onFlipX} />
@@ -201,10 +194,10 @@ function GalleryPage() {
       }}
     >
       
-      {getGalleryImage.map((item) => (
+      {/* {getGalleryImage.map((item) => ( */}
+      {visibleImages.map((item) => (
         <div className='gal_thum'>
         <Image key={item.gal_img} src={`${BASE_URL}/${getGalleryFolder}/${item.gal_img}`} width={200} />
-        {/* <Image key={item} src={item} width={200} /> */}
         </div>
      
 
@@ -212,6 +205,11 @@ function GalleryPage() {
       ))}
     </Image.PreviewGroup>
 
+{visibleImages.length < allImages.length && (
+  <div className='loadMoreButton_wrap'>
+    <button className="btn btn-primary" onClick={handleLoadMore}>Load More</button>
+  </div>
+)}
     </div>
       </>
     )}

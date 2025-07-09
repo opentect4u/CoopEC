@@ -1623,5 +1623,31 @@ border-radius: 6px;}
 .member_list table.p-datatable-table tbody tr td{color: #000; font-size: 14px;}
 
 
+.loadMoreButton_wrap{width: 100%; display: inline-block; margin-top: 15px; text-align: center;}
 
-  
+.loadMoreButton_wrap button{color: #fff;
+  font-size: 15px;
+  background: #dda02c;
+  padding: 10px 18px;
+  font-weight: 600;
+  margin-top: 10px;
+  display: inline-block;
+  line-height: 18px;
+  border: none;}
+
+  .loadMoreButton_wrap button:hover{color: #fff;
+  font-size: 15px;
+  background: #ffc85f;
+  padding: 10px 18px;
+  font-weight: 600;
+  margin-top: 10px;
+  display: inline-block;
+  line-height: 18px;
+  border: none; box-shadow:none;}
+
+  .loadMoreButton_wrap button:active, .loadMoreButton_wrap button:focus{
+  background: #ffc85f !important;
+  border: none !important; box-shadow:none;}
+
+  .election_keyMember{width: 100%; text-align: center; padding-top: 40px; padding-bottom: 0;}
+  .election_keyMember img{max-width: 900px; width: 100%;}
