@@ -128,8 +128,15 @@ DashboardnRouter.get("/dash", async (req, res) => {
     };
 
     // Render the view with data
-    if(user_type == 'S' || user_type == 'A'){
+    // if(user_type == 'S' || user_type == 'A'){
+    //    res.render("dashboard/dashboard_hosuper", res_dt);
+    // }else{
+    //    res.render("dashboard/dashboard_roaro", res_dt);
+    // }
+    if(user_type == 'S'){
        res.render("dashboard/dashboard_hosuper", res_dt);
+    }else if(user_type == 'A'){
+       res.render("dashboard/dashboard_dept_admin", res_dt);
     }else{
        res.render("dashboard/dashboard_roaro", res_dt);
     }

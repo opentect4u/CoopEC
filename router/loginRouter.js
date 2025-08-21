@@ -1,6 +1,6 @@
 const LoginRouter = require("express").Router();
 const bcrypt = require("bcrypt");
-
+const moment = require("moment");
 const { db_Select,db_Insert,db_Select_using_param } = require("../modules/MasterModule");
 
 LoginRouter.get("/login", (req, res) => {
@@ -10,6 +10,9 @@ LoginRouter.get("/login", (req, res) => {
 LoginRouter.post("/logincheck", async (req, res) => {
   var data = req.body,
     result;
+  var ip = req.clientIp;
+  var date_ob = moment();
+  var formattedDate = date_ob.format("YYYY-MM-DD HH:mm:ss");
   var select = "*",
     table_name = "md_user",
     // Use a placeholder for `user_id` in the `whr` clause
@@ -45,6 +48,9 @@ LoginRouter.post("/logincheck", async (req, res) => {
               res_dt.msg[0]['session_version_id']= sessionId
               req.session.user = res_dt.msg[0];
               var save_data = await db_Insert("md_user", `session_version_id='${sessionId}'`, null, `user_id ='${data.user_id}'`, 1);
+             var logfields = `(operation_unique_id,operation_type,operation_module,operation,created_by,created_at,created_ip)`;
+             var logvalues = `('${sessionId}','L','U','Login','${data.user_id}','${formattedDate}','${ip}')`;
+             var save_log = await db_Insert("td_log", logfields, logvalues, null, 0);
               res.redirect("/dashn/dash");
             } else {
               result = {

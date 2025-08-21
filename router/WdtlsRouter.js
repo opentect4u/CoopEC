@@ -201,7 +201,7 @@ WdtlsRouter.post("/approve_document", async (req, res) => {
     //   ********   Code For Getting Ip   *********   //
     // var ipresult = await fetchIpData();
     // var ip = ipresult.ipdata;
-    var ip = '';
+    var ip = req.clientIp;
     //   ********   Code For Getting Ip   *********  //
     var data = req.body;
     var table_name = "td_document_upload";
@@ -223,34 +223,6 @@ WdtlsRouter.post("/approve_document", async (req, res) => {
   }
 });
 
-
-// const storages = multer.memoryStorage({
-//   destination: (req, file, cb) => {
-//     const typeId = req.body.doc_type; // Get typeId from the request body
-//     let uploadDir;
-//     // Based on doc_type, set the upload directory path
-//     if (typeId == 1) {
-//       uploadDir = path.join(__dirname, "..", "uploads/notifications/");
-//     } else if (typeId == 2) {
-//       uploadDir = path.join(__dirname, "..", "uploads/tenders/");
-//     } else if (typeId == 3) {
-//       uploadDir = path.join(__dirname, "..", "uploads/announcement/");
-//     } else {
-//       uploadDir = path.join(__dirname, "..", "uploads/downloads/");
-//     }
-
-//     // Create the directory if it doesn't exist
-//     cb(null, uploadDir);
-//   },
- 
-//   filename: (req, file, cb) => {
-//     const newFilename = Date.now() + path.extname(file.originalname);
-//     console.log('hhhhhhhhh Filename');
-//     console.log('Generated Filename:', newFilename); // Log generated filename
-//     console.log('hhhhhhhhh Filename');
-//     cb(null, newFilename);
-//   }
-// });
 
 const storages = multer.memoryStorage();
 
@@ -328,7 +300,7 @@ WdtlsRouter.post("/uploaddoc", upload_pdf.single("document"), checkForMaliciousC
     // Get client IP address
     // const ipresult = await fetchIpData();
     // const ip = ipresult.ipdata;
-    const ip = '';
+    const ip = req.clientIp;
     const rootDirectory = path.join(__dirname, '..');
       const typeId = req.body.doc_type;  // Assuming doc_type is coming from the body
       let uploadDir;
@@ -526,7 +498,7 @@ WdtlsRouter.post("/uploadgall", upload_gall, checkForMaliciousContentforimage, a
     var formattedDate = date_ob.format("YYYY-MM-DD HH:mm:ss");
     // var ipresult = await fetchIpData();
     // var ip = ipresult.ipdata;
-    var ip = '';
+    var ip = req.clientIp;
     const rootDirectory = path.join(__dirname, '..');
     const typeId = req.body.doc_type;  // Assuming doc_type is coming from the body
     let uploadDir;
@@ -615,7 +587,7 @@ WdtlsRouter.post("/update_statistic", async (req, res) => {
     // Format it as YYYY-MM-DD HH:mm:ss
     var formattedDate = date_ob.format("YYYY-MM-DD HH:mm:ss");
     var values = "";
-    const ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
+    const ip = req.clientIp;
     var table_name = "td_statistic";
     var fields = `title1 = '${data.title1.split("'").join("\\'")}',num1 = '${data.num1}',title2 = '${data.title2}',num2 = '${data.num2}',
                 title3 = '${data.title3}',num3='${data.num3}',modified_by='${user.user_id}',modified_dt='${formattedDate}',
@@ -662,7 +634,7 @@ WdtlsRouter.post("/savefaq", async (req, res) => {
     var formattedDate = date_ob.format("YYYY-MM-DD HH:mm:ss");
     // var ipresult = await fetchIpData();
     // var ip = ipresult.ipdata;
-    var ip = '';
+    var ip = req.clientIp;
     //  var values = '(question,answer,created_at,created_by,created_ip)';
     var values = `('${data.question}','${data.answer}','${formattedDate}','${user.user_id}','${ip}')`;
 
@@ -747,7 +719,7 @@ WdtlsRouter.post("/saveqlinks", async (req, res) => {
     var formattedDate = date_ob.format("YYYY-MM-DD HH:mm:ss");
     // var ipresult = await fetchIpData();
     // var ip = ipresult.ipdata;
-    var ip = '';
+    var ip = req.clientIp;
     var values = `('${data.title}','${data.links}','${formattedDate}','${user.user_id}','${ip}')`;
 
     var table_name = "td_qick_links";
@@ -972,7 +944,7 @@ WdtlsRouter.post("/changepass", async (req, res) => {
           var formattedDate = date_ob.format("YYYY-MM-DD HH:mm:ss");
           // var ipresult = await fetchIpData();
           // var ip = ipresult.ipdata;
-          var ip = '';
+          var ip = req.clientIp;
           var values = null;
           var table_name = "md_user";
           var fields = `password = '${pass}',modified_at='${formattedDate}',modified_by='${user.user_id}',modified_ip='${ip}'`;
