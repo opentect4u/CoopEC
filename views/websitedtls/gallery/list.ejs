@@ -13,7 +13,7 @@
           <div class="card-body">
             <h4 class="card-title card_title_cus"><a href="/wdtls/addgallery" class="btn btn-primary">Upload</a> 
             </h4>
-            <div class="row">
+            <!-- <div class="row">
               <% var i=1
                   data.forEach(dt => { %>
               <div class="col-md-3" style="margin-top: 10px">
@@ -21,12 +21,69 @@
                 <a href="/wdtls/delgallery?id=<%= dt.id %>" class="" onclick="confirmDelete(event)" ><span class="ti-trash"  style="font-size:36px"></span></a>
                 </div>
                 <% }) %>
-            </div>
+            </div> -->
+
+            <div class="row">
+  <% data.forEach(dt => { %>
+    <!-- <div class="col-md-3" style="margin-top: 10px">
+      <img src="/gallery/<%= dt.gal_img %>" height="100" class="imagePreview" 
+           data-bs-toggle="modal" data-bs-target="#imageModal"><br><br>
+      <a href="/wdtls/delgallery?id=<%= dt.id %>" onclick="confirmDelete(event)">
+        <span class="ti-trash" style="font-size:36px"></span>
+      </a>
+    </div> -->
+        <div class="col-md-3 mb-4">
+                    <div class="card shadow-sm border-0 h-100 position-relative">
+                      <!-- Delete Button (Top-Right Corner) -->
+                      <a href="/wdtls/delgallery?id=<%= dt.id %>" 
+                         onclick="confirmDelete(event)" 
+                         class="btn btn-sm btn-danger position-absolute top-0 end-0 m-2 rounded-circle">
+                        <i class="ti-trash"></i>
+                      </a>
+                  
+                      <!-- Image -->
+                      <img src="/gallery/<%= dt.gal_img %>" 
+                           class="card-img-top img-thumbnail imagePreview" 
+                           style="height: 200px; object-fit: cover; cursor: pointer;" 
+                           data-bs-toggle="modal" 
+                           data-bs-target="#imageModal">
+                  
+                      <!-- Optional Caption / Actions -->
+                      <div class="card-body text-center p-2">
+                        <small class="text-muted">Click on Image</small>
+                      </div>
+                    </div>
+                  </div>
+  <% }) %>
+</div>
         
           </div>
         </div>
       </div>
 </div>
+  <!-- Pagination -->
+  <div class="pagination mt-4">
+    <ul class="pagination">
+      <% if (currentPage > 1) { %>
+        <li class="page-item">
+          <a class="page-link" href="?page=<%= currentPage - 1 %>">Prev</a>
+        </li>
+      <% } %>
+
+      <% for(let i = 1; i <= totalPages; i++) { %>
+        <li class="page-item <%= currentPage === i ? 'active' : '' %>">
+          <a class="page-link" href="?page=<%= i %>"><%= i %></a>
+        </li>
+      <% } %>
+
+      <% if (currentPage < totalPages) { %>
+        <li class="page-item">
+          <a class="page-link" href="?page=<%= currentPage + 1 %>">Next</a>
+        </li>
+      <% } %>
+    </ul>
+  </div>
+
 
  <!-- Bootstrap Modal -->
  <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">

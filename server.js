@@ -9,6 +9,7 @@ const express = require("express"),
   port = process.env.PORT || 3013;
 const flash = require("connect-flash");
 const requestIp = require('request-ip');
+const moment = require("moment");
 const logger = require('./logger'); const bcrypt = require("bcrypt");
 //const svgCaptcha = require('svg-captcha');
 const socketIo = require("socket.io");
@@ -98,7 +99,6 @@ const { WdtlsRouter } = require("./router/WdtlsRouter");
 const { reportRouter } = require("./router/reportRouter");
 const { Cronjobrouter } = require("./router/cronjobrouter");
 const { rangeRouter } = require("./router/rangeRouter");
-
 const { validateSession } = require("./middleware/authMiddleware");
 const { checkUserInput } = require("./middleware/chekUserInputMiddleware");
 
@@ -159,10 +159,15 @@ app.get("/login", (req, res) => {
   res.render("login/login", { captcha: captchaNumber });
 });
 app.get("/logout", async (req, res) => {
-  
+  var ip = req.clientIp;
+  var date_ob = moment();
+  var formattedDate = date_ob.format("YYYY-MM-DD HH:mm:ss");
   if (req.session.user) {
   var user_id = req.session.user.user_id;
   var save_data = await db_Insert("md_user", `session_version_id='NULL'`, null, `user_id ='${user_id}'`, 1);
+     var logfields = `(operation_unique_id,operation_type,operation_module,operation,created_by,created_at,created_ip)`;
+             var logvalues = `('0','O','U','Login','${user_id}','${formattedDate}','${ip}')`;
+             var save_log = await db_Insert("td_log", logfields, logvalues, null, 0);
   }
   req.session.destroy();
   res.redirect("/login");

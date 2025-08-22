@@ -400,22 +400,56 @@ WdtlsRouter.get("/addannouncement", async (req, res) => {
   }
 });
 
+// WdtlsRouter.get("/gallerylist", async (req, res) => {
+//   try {
+//     // Extract range_id from session
+//     var whr = `doc_type = 3 `;
+//     const doclist = await db_Select("*", "td_gallery", null, null);
+//     // Prepare data for rendering
+//     const res_dt = {
+//       data: doclist.suc > 0 ? doclist.msg : "",
+//     };
+//     res.render("websitedtls/gallery/list", res_dt);
+//   } catch (error) {
+//     // Log the error and send an appropriate response
+//     console.error("Error during dashboard rendering:", error);
+//     //res.status(500).send('An error occurred while loading the dashboard.');
+//     res.render("websitedtls/gallerylist");
+//   }
+// });
+
 WdtlsRouter.get("/gallerylist", async (req, res) => {
-  try {
-    // Extract range_id from session
-    var whr = `doc_type = 3 `;
-    const doclist = await db_Select("*", "td_gallery", null, null);
-    // Prepare data for rendering
-    const res_dt = {
-      data: doclist.suc > 0 ? doclist.msg : "",
-    };
-    res.render("websitedtls/gallery/list", res_dt);
-  } catch (error) {
-    // Log the error and send an appropriate response
-    console.error("Error during dashboard rendering:", error);
-    //res.status(500).send('An error occurred while loading the dashboard.');
-    res.render("websitedtls/gallerylist");
-  }
+     try {
+      let page = parseInt(req.query.page) || 1;  // current page
+      let limit = 16;                            // items per page
+      let offset = (page - 1) * limit;
+      // fetch paginated data
+      const doclist = await db_Select(
+        "*", 
+        "td_gallery LIMIT ? OFFSET ?", 
+        null, 
+        null, 
+        [limit, offset]
+      );
+
+      // fetch total count
+      const countResult = await db_Select("COUNT(*) as count", "td_gallery", null, null);
+      let totalItems = countResult.msg[0].count;
+      let totalPages = Math.ceil(totalItems / limit);
+
+      // prepare response data
+      const res_dt = {
+        data: doclist.suc > 0 ? doclist.msg : [],
+        currentPage: page,
+        totalPages: totalPages
+      };
+
+      res.render("websitedtls/gallery/list", res_dt);
+
+      } catch (error) {
+        console.error("Error in /wdtls/gallery:", error);
+        res.status(500).send("Something went wrong while fetching gallery data.");
+      }
 });
 WdtlsRouter.get("/addgallery", async (req, res) => {
   try {
@@ -619,7 +653,16 @@ WdtlsRouter.get("/faqlist", async (req, res) => {
 });
 WdtlsRouter.get("/addfaq", async (req, res) => {
   try {
-    res.render("websitedtls/faq/add");
+    const id = req.query.id;
+    let faqData = {};
+    if (id) {
+       faqData = await db_Select("id,question,answer", "td_faq", `id = ?`, null, [id]);
+    }
+    const res_dt = {
+      data: faqData.suc > 0 ? faqData.msg[0] : "",
+    };
+    console.log(res_dt);
+    res.render("websitedtls/faq/add", res_dt);
   } catch (error) {
     // Log the error and send an appropriate response
     console.error("Error during dashboard rendering:", error);
@@ -641,8 +684,7 @@ WdtlsRouter.post("/savefaq", async (req, res) => {
     var table_name = "td_faq";
     var fields =
       data.id > 0
-        ? `title1 = '${data.title1.split("'").join("\\'")}',num1 = '${data.num1}',title2 = '${data.title2}',num2 = '${data.num2}',
-                  title3 = '${data.title3}',num3='${data.num3}',modified_by='${user.user_id}',modified_dt='${formattedDate}',
+        ? `question = '${data.question.split("'").join("\\'")}',answer = '${data.answer.split("'").join("\\'")}',modified_by='${user.user_id}',modified_at='${formattedDate}',
                   modified_ip = '${ip}' `
         : `(question,answer,created_at,created_by,created_ip)`;
     var whr = `id = '${data.id}'`;

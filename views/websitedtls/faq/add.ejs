@@ -4,12 +4,12 @@
       <div class="card-body">
         <h4 class="card-title card_title_cus">Add FAQ</h4>
         <form class="forms-sample" action="/wdtls/savefaq" method="post" >
-          <input type="hidden" class="form-control"  name="id" value="" required>
+          <input type="hidden" class="form-control"  name="id" value="<%= data.id %>" required>
             <div class="row">
               <div class="col-md-12">
                 <div class="form-group">
                   <label for="exampleInputName1">Question<span class="red">*</span></label>
-                  <input type="text" class="form-control"  name="question" value="" required>
+                  <input type="text" class="form-control"  name="question" value="<%= data.question %>" required>
                 </div>
               </div>
             </div>
@@ -17,7 +17,7 @@
               <div class="col-md-12">
                 <div class="form-group">
                   <label for="exampleInputName1">Answer<span class="red">*</span></label>
-                  <textarea class="form-control"  name="answer" required  rows="12"></textarea>
+                  <textarea class="form-control"  name="answer" required  rows="12"><%= data.answer %></textarea>
                 </div>
               </div>
             </div>
