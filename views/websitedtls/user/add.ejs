@@ -176,8 +176,8 @@ $(document).ready(function() {
  //  $('#district_data').hide();
  $('#cntr_auth_type').change(function() {
     // Ensure that rdata and ddata are populated properly
-    var rdata = <%- JSON.stringify(data) %>; // Array of range objects
-    var ddata = <%- JSON.stringify(distl) %>; // Array of district objects
+    var rdata = '<%- JSON.stringify(data) %>'; // Array of range objects
+    var ddata = '<%- JSON.stringify(distl) %>'; // Array of district objects
 
     // Clear existing options
     $('#range_id').empty();
