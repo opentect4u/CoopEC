@@ -25,9 +25,9 @@ function BannerSlider() {
 	</Slider>
 	</div>
 	
-	<div className="wrapper">
+	{/* <div className="wrapper">
 	<div className="col-sm-4 float-left left_search_sec">
-    <SearchBox/>
+    <SearchBox />
 	</div>
 			
 
@@ -35,8 +35,16 @@ function BannerSlider() {
 	<div className="col-sm-8 float-left slider_sec">
 	<div className="slider_sec_sub"> </div>
 	</div>
-	</div>
+	</div> */}
+
 </div>
+
+	<div className="wrapper">
+	<div className="col-sm-12 float-left left_search_sec">
+    <SearchBox />
+	</div>
+	</div>
+
     </>
   )
 }

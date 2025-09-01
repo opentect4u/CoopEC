@@ -185,20 +185,32 @@ width: 100%; padding:0;}
 
 
 .bannerSliderMain{width:100%; margin:0; 
-  position:relative; 
+  position:relative; min-height: 500px;
   /* background: #d9c8b8 url("../images/banner_main.png") no-repeat right top; display: inline-block; */
   /* background: #d9c8b8 url("../images/banner_img_2.jpg") no-repeat right top; background-size: cover;  */
   display: inline-block;
 }
 
 .left_search_sec{padding-top: 38px; padding-bottom: 38px !important;}
-.search_box{background: #01131f; padding:30px 15px 10px 15px; border-radius: 20px; width: 100%; border: #fff solid 3px; display: inline-block;}
+
+.search_icon{border: none;
+  border-radius: 3px;
+  background: #fff;
+  color: #000; display: none;}
+  .left_search_sec.active{background: none;}
+
+.search_box{background: #1F4B8A; padding:20px 0 20px 0; border-radius: 20px; width: 100%; border: #fff solid 3px; display: inline-block;
+  z-index: 999; position: relative;}
 
 .search_box h2 {font-size: 24px; color: #fff; font-weight: 100; padding-bottom: 8px; border-bottom: #17b0fd solid 1px; position: relative;
 	margin-bottom: 22px;}
 .search_box h2:after {content: ""; width: 33px; height: 3px; background: #17b0fd; position: absolute; right: 0; bottom: 0;}
 
-.search_box label{width: 100%; display: block; margin-bottom: 25px; position: relative;}
+.search_box label{width: 23%;
+  display: inline-block; float: left;
+  margin-bottom: 0;
+  position: relative;
+  padding: 0 15px;}
 .search_box label.range_dropdown_cu{width: 100%; display: block; margin-bottom: 25px; position: relative;}
 .search_box label.range_dropdown_cu > div.ant-flex{position: absolute;
   right: 26px;
@@ -213,10 +225,16 @@ width: 100%; padding:0;}
   top: -22px;
   font-weight: 700;}
 .search_box label.btn{width: 100%; display: block; margin-bottom: 0; padding: 0;}
-.search_box label select{background: #fff; font-size: 13px; color: #343535; border: none; padding:13px 12px; width: 100%;}
-.search_box label input[type="text"]{background: #fff; font-size: 13px; color: #343535; border: none; padding:13px 12px; width: 100%;}
-.search_box label.searchSec{width: 50%; float: left; padding-right: 10px;}
-.search_box label.resetSec{width: 50%; float: left; padding-left: 10px;}
+.search_box label select{background: #fff;
+  font-size: 13px;
+  color: #343535;
+  border: none;
+  padding: 10px 12px;
+  width: 100%;
+  border-radius: 5px;}
+.search_box label input[type="text"]{background: #fff; font-size: 13px; color: #343535; border: none; padding: 10px 12px; width: 100%; border-radius: 5px;}
+.search_box label.searchSec{width: 15%; float: left; padding-right: 10px; margin-bottom: 0;}
+.search_box label.resetSec{width: 15%; float: left; padding-left: 10px; margin-bottom: 0;}
 
 .right_sec .search_box label.searchSec {
   width: 50%;
@@ -251,11 +269,17 @@ width: 100%; padding:0;}
 }
 
 
-.search_box label.searchSec button[type="submit"]{font-size: 16px; color: #fff; background: #17b0fd; border: none; padding:10px 12px; width: 100%;
-	font-weight: 700;}
+.search_box label.searchSec button[type="submit"]{font-size: 16px;
+  color: #fff;
+  background: #17b0fd;
+  border: none;
+  padding: 8px 40px;
+  width: 100%;
+  font-weight: 700;
+  border-radius: 5px;}
 
-.search_box label.resetSec button[type="reset"]{font-size: 16px; color: #fff; background:#886a50; border: none; padding:10px 12px; width: 100%;
-    font-weight: 700;}
+.search_box label.resetSec button[type="reset"]{font-size: 16px; color: #fff; background:#cc962f; border: none; padding: 8px 40px; width: 100%;
+    font-weight: 700; border-radius: 5px;}
 
 .slider_sec{
   /* background: url("../images/dot_top.png") no-repeat left top; */
@@ -1535,8 +1559,8 @@ border-radius: 6px;}
   margin-bottom: 19px;
   box-shadow: 0px 0px 10px 2px #ccc;}
 
-  .radio_button_ranDis{display: flex; align-items: center; color: #fff;}
-  .radio_button_ranDis label{margin-bottom: 24px; display: flex;}
+  .radio_button_ranDis{display: flex; align-items: center; color: #fff; padding: 0 15px;}
+  .radio_button_ranDis label{margin-bottom: 14px; display: inline-block; width: auto; padding-right: 15px;}
   .radio_button_ranDis label input{margin-right: 6px; width: 30px;}
 
 
@@ -1655,4 +1679,4 @@ border-radius: 6px;}
   border: none !important; box-shadow:none;}
 
   .election_keyMember{width: 100%; text-align: center; padding-top: 40px; padding-bottom: 0;}
-  .election_keyMember img{max-width: 1205px; width: 100%;}
+  .election_keyMember img{max-width: 1000px; width: 100%;}

@@ -55,6 +55,11 @@
 .anouncement .title i {font-size: 11px;}
 .anouncement a.link_view {margin: 8px 10px 8px auto;}
 
+.left_search_sec{display: none;}
+.search_icon{display: block;}
+
+.left_search_sec.active{display: block; background: none;}
+
 .welcomeSecLeft {
   width: 100%;
   max-width: 100%;
