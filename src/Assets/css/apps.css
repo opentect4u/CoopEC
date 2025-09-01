@@ -184,12 +184,14 @@ width: 100%; padding:0;}
 	color: #828183; border: none; width: 100%; border-radius: 8px; height: 32px;}
 
 
-.bannerSliderMain{width:100%; margin:0; position:relative; 
+.bannerSliderMain{width:100%; margin:0; 
+  position:relative; 
   /* background: #d9c8b8 url("../images/banner_main.png") no-repeat right top; display: inline-block; */
-  background: #d9c8b8 url("../images/banner_img_2.jpg") no-repeat right top; background-size: cover; display: inline-block;
+  /* background: #d9c8b8 url("../images/banner_img_2.jpg") no-repeat right top; background-size: cover;  */
+  display: inline-block;
 }
 
-.left_search_sec{padding-top: 38px; padding-bottom: 38px;}
+.left_search_sec{padding-top: 38px; padding-bottom: 38px !important;}
 .search_box{background: #01131f; padding:30px 15px 10px 15px; border-radius: 20px; width: 100%; border: #fff solid 3px; display: inline-block;}
 
 .search_box h2 {font-size: 24px; color: #fff; font-weight: 100; padding-bottom: 8px; border-bottom: #17b0fd solid 1px; position: relative;
@@ -280,16 +282,19 @@ width: 100%; padding:0;}
 .slider_sec_sub h2 span{color: #382616; display: block;}
 .slider_sec_sub p{color: #565656; max-width: 605px;}
 
+.bannerSliderOverlay{position: absolute;
+  /* height: 461px; */
+  left: 0;
+  width: 100%;
+  top: -1px;}
+
+.bannerSliderMain .bannerSlide_Common{min-height: 510px; width: 100%;}
 .bannerSliderMain .bannerSlide{
-  /* background:url(../images/banner.png) no-repeat center center; */
-	min-height: 420px;
-	background-size: inherit;
+  background: #d9c8b8 url("../images/banner_img_1.jpg") no-repeat right top; background-size: cover;
 }
 
 .bannerSliderMain .bannerSlide2{
-  /* background:url(../images/banner_22.png) no-repeat center center; */
-	min-height: 420px;
-	background-size: inherit;
+  background: #d9c8b8 url("../images/banner_img_2.jpg") no-repeat right top; background-size: cover;
 }
 
 .bannerSliderMain .slick-prev.slick-arrow {
@@ -1650,4 +1655,4 @@ border-radius: 6px;}
   border: none !important; box-shadow:none;}
 
   .election_keyMember{width: 100%; text-align: center; padding-top: 40px; padding-bottom: 0;}
-  .election_keyMember img{max-width: 900px; width: 100%;}
+  .election_keyMember img{max-width: 1205px; width: 100%;}

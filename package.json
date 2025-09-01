@@ -24,7 +24,9 @@
     "react-highlight-words": "^0.20.0",
     "react-router-dom": "^6.26.1",
     "react-scripts": "5.0.1",
+    "react-slick": "^0.31.0",
     "react-to-print": "^3.0.1",
+    "slick-carousel": "^1.8.1",
     "web-vitals": "^2.1.4",
     "xlsx": "^0.18.5",
     "yup": "^1.4.0"
