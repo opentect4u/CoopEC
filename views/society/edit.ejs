@@ -1,3 +1,13 @@
+<!-- <style>
+  input {
+      width: 30px; /* Set width for each input */
+      text-align: center; /* Center the text */
+      margin: 5px; /* Space between inputs */
+  }
+  input:invalid {
+      border-color: red;
+  }
+</style> -->
 <div class="row">
   <div class="col-12 grid-margin stretch-card">
     <div class="card">
@@ -64,7 +74,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="exampleInputName1">Registration & Controlling Authority <span class="red">*</span></label>
-                  <select class="form-control" id="cntr_auth_type" name="cntr_auth_type" required>
+                  <select class="form-control" id="cntr_auth_type" name="cntr_auth_type" >
                     <option value="0" <%= soc.cntr_auth_type == 0 ? 'selected' : '' %>>Select Registration & Controlling Authority</option>
                     <% if(regauthtypelist.length > 0){
                       var i = 1
@@ -123,11 +133,11 @@
              <% }else { %>
                 <input type="hidden" value="1"  id="zone_code" name="zone_code" />
               <% } %>
-              <div class="col-md-6" id="range_id_to" <% if(soc.cntr_auth_type > 1){ %> 
-                style="display: none;"
-            <% } %> >
+              <div class="col-md-6" id="range_id_to" 
+              style="">
+              
                 <div class="form-group">
-                  <label for="exampleInputName1">Range <span class="red">*</span></label>
+                  <label for="exampleInputName1">Range </label>
                   <select class="form-control" id="range_code" name="range_code" >
                     <!-- <option value="">Select Range </option> -->
                     <% if(ranzelist.length > 0){
@@ -157,7 +167,7 @@
                -->
               <div class="col-md-6 urlby" >
                 <div class="form-group">
-                  <label for="exampleInputName1">Category of Urban Local Body <span class="red">*</span></label>
+                  <label for="exampleInputName1">Category of Urban Local Body </label>
                   <select class="form-control" id="ulb_catg" name="ulb_catg" >
                     <option value="">Select Urban Local Body </option>
                     <% if(ulbcatglist.length > 0){
@@ -170,7 +180,7 @@
               </div>
               <div class="col-md-6 urlby" >
                 <div class="form-group">
-                  <label for="exampleInputName1">Urban Local Body <span class="red">*</span></label>
+                  <label for="exampleInputName1">Urban Local Body </label>
                   <select class="form-control select2" id="ulb_id" name="ulb_id" >
                     <option value="">Select  </option>
                     <% if(ulblist.length > 0){
@@ -241,7 +251,7 @@
               </div>
               <div class="col-md-6 dv">
                 <div class="form-group">
-                  <label for="exampleInputName1">Development Authority Name <span class="red">*</span> </label>
+                  <label for="exampleInputName1">Development Authority Name  </label>
                   <select class="form-control select2" id="dev_auth_id" name="dev_auth_id" >
                     <option value="">Development Authority </option>
                     <% if(devauth_list.length > 0){
@@ -254,7 +264,7 @@
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                  <label for="exampleInputName1">Pin Code <span class="red">*</span></label>
+                  <label for="exampleInputName1">Pin Code </label>
                   <input type="number" class="form-control" name="pin_no" value="<%= soc.pin_no %>" >
                 </div>
               </div>
@@ -263,13 +273,13 @@
               </div>
               <div class="col-md-12">
                 <div class="form-group">
-                  <label for="exampleInputName1">Address <span class="red">*</span></label>
+                  <label for="exampleInputName1">Address </label>
                   <textarea name="address" class="form-control" ><%= soc.address %></textarea>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                  <label for="exampleInputName1">Management Status  <span class="red">*</span></label>
+                  <label for="exampleInputName1">Management Status  </label>
                   <select class="form-control" id="mgmt_status" name="mgmt_status">
                     <option value="0">Select mgmt status </option>
                     <% if(managementlist.length > 0){
@@ -295,7 +305,7 @@
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                  <label for="exampleInputName1">Number Of Member <span class="red">*</span> </label>
+                  <label for="exampleInputName1">Number Of Member </label>
                   <input type="number" class="form-control"  name="num_of_memb" id="num_of_memb" value="<%= soc.num_of_memb  %>" >
                   <label id="election_type_name"> </label>
                 </div>
@@ -319,7 +329,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="exampleInputName1">Last election of BoD held on  </label>
-                  <input type="date" class="form-control"  name="last_elec_date" id="last_elec_date" value="<%= moment(soc.last_elec_date).format('yyyy-MM-DD')  %>" required>
+                  <input type="date" class="form-control"  name="last_elec_date" id="last_elec_date" value="<%= moment(soc.last_elec_date).format('yyyy-MM-DD')  %>" >
                 </div>
               </div>
               <div class="col-md-6">
@@ -347,8 +357,8 @@
                 }
                 %>
                 <div class="form-group">
-                  <label for="exampleInputName1">Tenure Ends On <span class="red">*</span> </label>
-                  <input type="date" class="form-control"  style="<%= color_class %>" name="tenure_ends_on" id="tenure_ends_on" value="<%= moment(soc.tenure_ends_on).format('yyyy-MM-DD')  %>" required>
+                  <label for="exampleInputName1">Tenure Ends On  </label>
+                  <input type="date" class="form-control"  style="<%= color_class %>" name="tenure_ends_on" id="tenure_ends_on" value="<%= moment(soc.tenure_ends_on).format('yyyy-MM-DD')  %>" >
                 </div>
               </div>
               <div class="col-md-6" style="display: none;">
@@ -415,7 +425,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="exampleInputName1">Election Status</label>
-                  <select class="form-control" id="election_status" name="election_status" required>
+                  <select class="form-control" id="election_status" name="election_status" >
                     <option value="">Select Status </option>
                       <option value="DUE" <%= soc.election_status == "DUE" ? 'selected' : '' %> >DUE</option>
                       <option value="ONGOING" <%= soc.election_status == "ONGOING" ? 'selected' : '' %> >ONGOING</option>
@@ -525,7 +535,7 @@
       // On change event, call the function to populate select
     var initialSelectedValue = '<%= soc.cntr_auth_type %>';
     var controlling_authority_id = '<%= soc.cntr_auth %>'; // Server-side value embedded in the script
-    if(controlling_authority_id > 1){
+    if(initialSelectedValue > 1){
           $('#range_id_to').hide();
         }
     populateros(initialSelectedValue,controlling_authority_id);
@@ -714,7 +724,7 @@
         var selectedValue = $(this).val();
         var block_id = $('#block_id').val();
         populatevillage(selectedValue,block_id,0);
-      });
+    });
     })
  
   </script>
@@ -1061,6 +1071,3 @@ pc.onicecandidate = function(event) {
     });
 });
 </script>
-
-
-
