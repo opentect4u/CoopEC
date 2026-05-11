@@ -185,7 +185,8 @@ width: 100%; padding:0;}
 
 
 .bannerSliderMain{width:100%; margin:0; 
-  position:relative; min-height: 500px;
+  position:relative; 
+  /* min-height: 500px; */
   /* background: #d9c8b8 url("../images/banner_main.png") no-repeat right top; display: inline-block; */
   /* background: #d9c8b8 url("../images/banner_img_2.jpg") no-repeat right top; background-size: cover;  */
   display: inline-block;
@@ -199,19 +200,23 @@ width: 100%; padding:0;}
   color: #000; display: none;}
   .left_search_sec.active{background: none;}
 
-.search_box{background: #1F4B8A; padding:20px 0 20px 0; border-radius: 20px; width: 100%; border: #fff solid 3px; display: inline-block;
+.search_box{background: #3D73C1; padding:20px 0 20px 0; border-radius: 20px; width: 100%; border: #fff solid 3px; display: inline-block;
   z-index: 999; position: relative;}
 
-.search_box h2 {font-size: 24px; color: #fff; font-weight: 100; padding-bottom: 8px; border-bottom: #17b0fd solid 1px; position: relative;
+.search_box .search_title{padding: 0 15px; width: 100%;}
+
+.search_box .search_body_sec{padding:0; width: 100%;}
+
+.search_box h2 {font-size: 24px; color: #fff; font-weight: 100; padding-bottom: 8px; border-bottom: #fff solid 1px; position: relative;
 	margin-bottom: 22px;}
-.search_box h2:after {content: ""; width: 33px; height: 3px; background: #17b0fd; position: absolute; right: 0; bottom: 0;}
+.search_box h2:after {content: ""; width: 33px; height: 3px; background: #fff; position: absolute; right: 0; bottom: 0;}
 
 .search_box label{width: 23%;
   display: inline-block; float: left;
   margin-bottom: 0;
   position: relative;
   padding: 0 15px;}
-.search_box label.range_dropdown_cu{width: 100%; display: block; margin-bottom: 25px; position: relative;}
+.search_box label.range_dropdown_cu{width: 23%; display: inline-block; margin-bottom: 0; position: relative;}
 .search_box label.range_dropdown_cu > div.ant-flex{position: absolute;
   right: 26px;
   top: 15px;}
@@ -221,9 +226,10 @@ width: 100%; padding:0;}
 .search_box label .required{color: red;
   font-size: 11px;
   position: absolute;
-  left: 0;
-  top: -22px;
+  left: 15px;
+  top: -19px;
   font-weight: 700;}
+  
 .search_box label.btn{width: 100%; display: block; margin-bottom: 0; padding: 0;}
 .search_box label select{background: #fff;
   font-size: 13px;
@@ -232,20 +238,20 @@ width: 100%; padding:0;}
   padding: 10px 12px;
   width: 100%;
   border-radius: 5px;}
-.search_box label input[type="text"]{background: #fff; font-size: 13px; color: #343535; border: none; padding: 10px 12px; width: 100%; border-radius: 5px;}
+.search_box label input[type="text"]{background: #fff; font-size: 13px; color: #343535; border: none; padding: 9px 12px; width: 100%; border-radius: 5px;}
 .search_box label.searchSec{width: 15%; float: left; padding-right: 10px; margin-bottom: 0;}
-.search_box label.resetSec{width: 15%; float: left; padding-left: 10px; margin-bottom: 0;}
+.search_box label.resetSec{width: 15%; float: left; padding-left: 10px; margin-bottom: 0; padding-right: 0;}
 
 .right_sec .search_box label.searchSec {
-  width: 50%;
+  width: 50% !important;
   float: left;
-  padding-right: 10px; padding-bottom: 0 !important; margin-bottom: 0 !important;
+  padding: 0 15px; padding-bottom: 0 !important; margin-bottom: 0 !important;
 }
 
 .right_sec .search_box label.resetSec {
-  width: 50%;
+  width: 50% !important;
   float: left;
-  padding-left: 10px; padding-bottom: 0 !important; margin-bottom: 0 !important;
+  padding: 0 15px; padding-bottom: 0 !important; margin-bottom: 0 !important;
 }
 
 .right_sec .search_box label.searchSec button[type="submit"] {
@@ -278,7 +284,7 @@ width: 100%; padding:0;}
   font-weight: 700;
   border-radius: 5px;}
 
-.search_box label.resetSec button[type="reset"]{font-size: 16px; color: #fff; background:#cc962f; border: none; padding: 8px 40px; width: 100%;
+.search_box label.resetSec button[type="reset"]{font-size: 16px; color: #fff; background:#0a2746; border: none; padding: 8px 40px; width: 100%;
     font-weight: 700; border-radius: 5px;}
 
 .slider_sec{
@@ -306,19 +312,24 @@ width: 100%; padding:0;}
 .slider_sec_sub h2 span{color: #382616; display: block;}
 .slider_sec_sub p{color: #565656; max-width: 605px;}
 
-.bannerSliderOverlay{position: absolute;
+.bannerSliderOverlay{
+  /* position: absolute; */
   /* height: 461px; */
   left: 0;
   width: 100%;
   top: -1px;}
 
-.bannerSliderMain .bannerSlide_Common{min-height: 510px; width: 100%;}
+.bannerSliderMain .bannerSlide_Common{
+  /* min-height: 510px;  */
+  width: 100%;}
+.bannerSliderMain .bannerSlide_Common img{width: 100% !important;}
+
 .bannerSliderMain .bannerSlide{
-  background: #d9c8b8 url("../images/banner_img_1.jpg") no-repeat right top; background-size: cover;
+  /* background: #d9c8b8 url("../images/banner_img_1.jpg") no-repeat right top; background-size: cover; */
 }
 
 .bannerSliderMain .bannerSlide2{
-  background: #d9c8b8 url("../images/banner_img_2.jpg") no-repeat right top; background-size: cover;
+  /* background: #d9c8b8 url("../images/banner_img_2.jpg") no-repeat right top; background-size: cover; */
 }
 
 .bannerSliderMain .slick-prev.slick-arrow {
@@ -886,13 +897,17 @@ button.viewDetails:focus{outline: none; border: none;}
 
 
 
-.right_sec .search_box{background: #01131f; padding:20px 15px 30px 15px; border-radius: 0; width: 100%; border:none; margin-bottom:16px;}
+.right_sec .search_box{background: #01131f; padding:20px 0 30px 0; border-radius: 0; width: 100%; border:none; margin-bottom:16px;}
 
 .right_sec .search_box h2 {font-size: 24px; color: #fff; font-weight: 100; padding-bottom: 8px; border-bottom: #17b0fd solid 1px; position: relative;
 	margin-bottom: 22px;}
 .right_sec .search_box h2:after {content: ""; width: 33px; height: 3px; background: #17b0fd; position: absolute; right: 0; bottom: 0;}
 
-.right_sec .search_box label{width: 100%; display: block; margin-bottom: 22px;}
+.right_sec .search_box label{width: auto; display: block; margin-bottom: 22px;}
+
+.right_sec .search_box .search_body_sec label{width: 100%; display: block; margin-bottom: 22px;}
+
+
 .right_sec .search_box label.btn{width: 100%; display: block; margin-bottom: 0; padding: 0;}
 .right_sec .search_box label select{background: #fff; font-size: 13px; color: #343535; border: none; padding:13px 12px; width: 100%;}
 .right_sec .search_box label input[type="text"]{background: #fff; font-size: 13px; color: #343535; border: none; padding:13px 12px; width: 100%;}
@@ -1262,25 +1277,31 @@ border-radius: 6px;}
   padding-bottom: 5px;
   border-bottom: #17b0fd solid 1px;
   position: relative;
-  margin: 0 15px 18px 15px;
+  margin: 0 0 18px 0;
 }
 
-.searchPageTop .search_box form{display: flex;
+.searchPageTop .search_box form .search_body_sec{display: flex;
   align-items: center;
 }
 
-.searchPageTop .search_box label{width: 18%;
-  float: left;
-  margin: 0 1%;}
+.searchPageTop .search_box .search_body_sec label{width: 23%;
+  margin: 0;
+  padding: 0 15px;}
 
-.searchPageTop .search_box .radio_button_ranDis{width: 18%;
-  float: left;
-  margin: 0 1%; color: #000;}
-.searchPageTop .search_box .radio_button_ranDis label{width: 50%; display: flex;}
+.searchPageTop .search_box .radio_button_ranDis{
+  width:auto;
+  /* float: left; */
+  margin:0; color: #000;}
+.searchPageTop .search_box .radio_button_ranDis label{width: auto; display: flex;}
 
 
-.searchPageTop .search_box label.searchSec{margin:0 1% 0 0; padding: 0; width: 10%;}
-.searchPageTop .search_box label.resetSec{margin: 0 1% 0 0; padding: 0; width: 10%;}
+.searchPageTop .search_box label.searchSec{margin: 0;
+  padding-right: 10px;
+  width: 15%;}
+.searchPageTop .search_box label.resetSec{margin: 0;
+  padding-left: 10px;
+  width: 15%;
+  padding-right: 0;}
 
 .searchPageTop .search_box label.searchSec button[type="submit"]{font-size: 16px;
   color: #fff;
@@ -1559,9 +1580,10 @@ border-radius: 6px;}
   margin-bottom: 19px;
   box-shadow: 0px 0px 10px 2px #ccc;}
 
-  .radio_button_ranDis{display: flex; align-items: center; color: #fff; padding: 0 15px;}
+  .radio_button_ranDis{color: #fff; padding: 0 15px; float: right; padding-right: 0;}
   .radio_button_ranDis label{margin-bottom: 14px; display: inline-block; width: auto; padding-right: 15px;}
   .radio_button_ranDis label input{margin-right: 6px; width: 30px;}
+  .radio_button_ranDis label:last-child{padding-right: 0;}
 
 
   .radio_button_ranDis label {
@@ -1679,4 +1701,4 @@ border-radius: 6px;}
   border: none !important; box-shadow:none;}
 
   .election_keyMember{width: 100%; text-align: center; padding-top: 40px; padding-bottom: 0;}
-  .election_keyMember img{max-width: 1000px; width: 100%;}
+  .election_keyMember img{max-width: 750px; width: 100%;}

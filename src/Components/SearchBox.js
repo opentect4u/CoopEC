@@ -194,11 +194,13 @@ useEffect(()=>{
  
   return (
     <div className="search_box">
-      <h2>Search</h2>
+      
      {/* {district_def_Valu} */}
       <form onSubmit={formik.handleSubmit}>
         {/* Select District */}
-
+      <div className="search_title"> <h2>Search  
+        
+        
         <div className="radio_button_ranDis">
     <label>
       <input
@@ -206,7 +208,6 @@ useEffect(()=>{
         name="filterOption"
         value="district"
         checked={formik.values.filterOption === "district"}
-        // onChange={formik.handleChange}
         onChange={(e) => {
           setRadioValue(e.target.value)
           console.log(e.target.value, '///////////////////////////////');
@@ -214,7 +215,6 @@ useEffect(()=>{
         }}
   
       />
-      {/* <div className="required">{formik.values.filterOption}</div> */}
       <span class="checkmark"></span>
       District
     </label>
@@ -224,7 +224,6 @@ useEffect(()=>{
         name="filterOption"
         value="range"
         checked={formik.values.filterOption === "range"}
-        // onChange={formik.handleChange}
         onChange={(e) => {
           setRadioValue(e.target.value)
           console.log(e.target.value, 'rrrrrrrrrrrrrr///////////////////////////////');
@@ -236,6 +235,46 @@ useEffect(()=>{
       Range
     </label>
   </div>
+
+        </h2> </div>
+
+
+      {/* <div className="radio_button_ranDis">
+    <label>
+      <input
+        type="radio"
+        name="filterOption"
+        value="district"
+        checked={formik.values.filterOption === "district"}
+        onChange={(e) => {
+          setRadioValue(e.target.value)
+          console.log(e.target.value, '///////////////////////////////');
+          formik.setFieldValue("filterOption", e.target.value); // Update Formik state
+        }}
+  
+      />
+      <span class="checkmark"></span>
+      District
+    </label>
+    <label>
+      <input
+        type="radio"
+        name="filterOption"
+        value="range"
+        checked={formik.values.filterOption === "range"}
+        onChange={(e) => {
+          setRadioValue(e.target.value)
+          console.log(e.target.value, 'rrrrrrrrrrrrrr///////////////////////////////');
+          formik.setFieldValue("filterOption", e.target.value); // Update Formik state
+        }}
+  
+      />
+      <span class="checkmark"></span>
+      Range
+    </label>
+  </div> */}
+
+  <div className="search_body_sec">
 
     {/* Conditional Rendering for Select District */}
     {formik.values.filterOption === "district" && (
@@ -361,6 +400,7 @@ useEffect(()=>{
       setFormValues(initialValues); // Reset state too
     }}>Reset</button></label>
 
+</div>
         
       </form>
     </div>

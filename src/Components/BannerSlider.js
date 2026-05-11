@@ -1,6 +1,9 @@
 import React from 'react'
 import SearchBox from './SearchBox'
 import Slider from "react-slick";
+import banner_1 from "../Assets/images/banner_img_1.jpg";
+import banner_2 from "../Assets/images/banner_img_2.jpg";
+import banner_3 from "../Assets/images/banner_img_3.jpg";
 
 function BannerSlider() {
 
@@ -20,8 +23,9 @@ function BannerSlider() {
     <div className="bannerSliderMain">
 	<div className='bannerSliderOverlay'>
 	<Slider {...settings}>
-	<div className='bannerSlide bannerSlide_Common'></div>
-	<div className='bannerSlide2 bannerSlide_Common'></div>
+	<div className='bannerSlide bannerSlide_Common'><img src={`${banner_1}`} alt=""/></div>
+	<div className='bannerSlide2 bannerSlide_Common'><img src={`${banner_2}`} alt=""/></div>
+	<div className='bannerSlide2 bannerSlide_Common'><a href='/about'><img src={`${banner_3}`} alt=""/></a></div>
 	</Slider>
 	</div>
 	
