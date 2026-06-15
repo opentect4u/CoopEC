@@ -8,21 +8,23 @@ const express = require("express"),
   cors = require("cors"),
   port = process.env.PORT || 3013;
 const flash = require("connect-flash");
-const requestIp = require('request-ip');
+const requestIp = require("request-ip");
 const moment = require("moment");
-const logger = require('./logger'); const bcrypt = require("bcrypt");
+const logger = require("./logger");
+const bcrypt = require("bcrypt");
 //const svgCaptcha = require('svg-captcha');
 const socketIo = require("socket.io");
-const MemoryStore = require('express-session').MemoryStore;
-const { db_Select,db_Insert } = require("./modules/MasterModule");
+const MemoryStore = require("express-session").MemoryStore;
+const { db_Select, db_Insert } = require("./modules/MasterModule");
+const { generate_otp } = require("./router/cronjobrouter");
 // parse requests of content-type - application/json
 app.use(express.json());
 
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: false }));
 var corsOptions = {
-  origin: 'https://cecwb.opentech4u.co.in',
-}
+  origin: "https://cecwb.opentech4u.co.in",
+};
 app.use(cors());
 
 // SET VIEW ENGINE AND PATH //
@@ -43,24 +45,24 @@ app.use(
     secret: "WB_CB_ELE_COMM", // Change this to a secure random string
     resave: false,
     saveUninitialized: true,
-    cookie: { maxAge: 30 * 60 * 1000         // Only send over HTTPS
-   
-     }
+    cookie: {
+      maxAge: 30 * 60 * 1000, // Only send over HTTPS
+    },
   }),
 );
 app.use((err, req, res, next) => {
   logger.error(err); // log the error
-  res.status(500).send('Internal Server Error');
+  res.status(500).send("Internal Server Error");
 });
 
 // Catch unhandled exceptions
-process.on('uncaughtException', (err) => {
-  logger.error('Uncaught Exception:', err);
+process.on("uncaughtException", (err) => {
+  logger.error("Uncaught Exception:", err);
   // Don't call process.exit(1) if you want the app to stay running
 });
 
-process.on('unhandledRejection', (reason, promise) => {
-  logger.error('Unhandled Rejection at:', promise, 'reason:', reason);
+process.on("unhandledRejection", (reason, promise) => {
+  logger.error("Unhandled Rejection at:", promise, "reason:", reason);
   // Don't call process.exit(1)
 });
 
@@ -86,7 +88,7 @@ app.use((req, res, next) => {
   res.locals.error_msg = req.flash("error_msg");
   req.io = io;
   delete req.session.message;
-  res.set('Cache-Control', 'no-store');
+  res.set("Cache-Control", "no-store");
   next();
 });
 
@@ -103,15 +105,14 @@ const { validateSession } = require("./middleware/authMiddleware");
 const { checkUserInput } = require("./middleware/chekUserInputMiddleware");
 
 app.use("/login", LoginRouter);
-app.use("/dash", validateSession,checkUserInput, DashboardRouter);
-app.use("/dashn", validateSession,checkUserInput, DashboardnRouter);
-app.use("/society",validateSession,checkUserInput, SocietyRouter);
-app.use("/wdtls",validateSession,checkUserInput, WdtlsRouter);
-app.use("/report",validateSession,checkUserInput, reportRouter);
+app.use("/dash", validateSession, checkUserInput, DashboardRouter);
+app.use("/dashn", validateSession, checkUserInput, DashboardnRouter);
+app.use("/society", validateSession, checkUserInput, SocietyRouter);
+app.use("/wdtls", validateSession, checkUserInput, WdtlsRouter);
+app.use("/report", validateSession, checkUserInput, reportRouter);
 app.use("/crn", Cronjobrouter);
-app.use("/rangeR", validateSession,checkUserInput, rangeRouter);
-app.use("/wapi",cors(corsOptions) ,WapiRouter);
-
+app.use("/rangeR", validateSession, checkUserInput, rangeRouter);
+app.use("/wapi", cors(corsOptions), WapiRouter);
 
 app.get("/dashboard", async (req, res) => {
   var res_dt = {
@@ -127,17 +128,20 @@ app.get("/dashboard", async (req, res) => {
 });
 
 function generateCaptcha() {
-  const length = 4;  // Length of CAPTCHA
+  const length = 4; // Length of CAPTCHA
   //const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'; // Letters and Numbers
-  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-  let captcha = '';
+  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  let captcha = "";
   // Ensure that the CAPTCHA has at least one letter
   let hasLetter = false;
   // Generate the CAPTCHA
   for (let i = 0; i < length; i++) {
-    const randomChar = characters.charAt(Math.floor(Math.random() * characters.length));
+    const randomChar = characters.charAt(
+      Math.floor(Math.random() * characters.length),
+    );
     captcha += randomChar;
-    if (/[a-zA-Z]/.test(randomChar)) { // Check if the character is a letter
+    if (/[a-zA-Z]/.test(randomChar)) {
+      // Check if the character is a letter
       hasLetter = true;
     }
   }
@@ -158,22 +162,114 @@ app.get("/login", (req, res) => {
   // Render the login page and pass the CAPTCHA image data to the view
   res.render("login/login", { captcha: captchaNumber });
 });
+app.get("/forgot-password", (req, res) => {
+  res.render("login/forgot_password");
+});
+
 app.get("/logout", async (req, res) => {
   var ip = req.clientIp;
   var date_ob = moment();
   var formattedDate = date_ob.format("YYYY-MM-DD HH:mm:ss");
   if (req.session.user) {
-  var user_id = req.session.user.user_id;
-  var save_data = await db_Insert("md_user", `session_version_id='NULL'`, null, `user_id ='${user_id}'`, 1);
-     var logfields = `(operation_unique_id,operation_type,operation_module,operation,created_by,created_at,created_ip)`;
-             var logvalues = `('0','O','U','Login','${user_id}','${formattedDate}','${ip}')`;
-             var save_log = await db_Insert("td_log", logfields, logvalues, null, 0);
+    var user_id = req.session.user.user_id;
+    var save_data = await db_Insert(
+      "md_user",
+      `session_version_id='NULL'`,
+      null,
+      `user_id ='${user_id}'`,
+      1,
+    );
+    var logfields = `(operation_unique_id,operation_type,operation_module,operation,created_by,created_at,created_ip)`;
+    var logvalues = `('0','O','U','Login','${user_id}','${formattedDate}','${ip}')`;
+    var save_log = await db_Insert("td_log", logfields, logvalues, null, 0);
   }
   req.session.destroy();
   res.redirect("/login");
 });
 app.get("/", (req, res) => {
   res.redirect("/login");
+});
+
+app.post("/reset-password", async (req, res) => {
+  try {
+    const { user_id, otp, password } = req.body;
+
+    var select = "*";
+    var table_name = "md_user";
+    var whr = `
+      user_id='${user_id}'
+      AND reset_otp='${otp}'
+      AND otp_expiry > NOW()
+      AND user_status='A'
+    `;
+
+    var res_dt = await db_Select(select, table_name, whr, null);
+    console.log("User data for password reset:", res_dt.msg);
+    if (res_dt.msg.length === 0) {
+      return res.json({
+        success: false,
+        message: "Invalid or Expired OTP",
+      });
+    }
+
+    // Password validation
+
+    const hasLowercase = /[a-z]/.test(password);
+    const hasUppercase = /[A-Z]/.test(password);
+    const hasNumber = /[0-9]/.test(password);
+    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+    const hasMinLength = password.length >= 8;
+
+    if (
+      !hasLowercase ||
+      !hasUppercase ||
+      !hasNumber ||
+      !hasSpecialChar ||
+      !hasMinLength
+    ) {
+      return res.json({
+        success: false,
+        message: "Password does not meet requirements",
+      });
+    }
+
+    // Hash Password
+
+    const hashedPassword = bcrypt.hashSync(password, 10);
+
+    const date_ob = moment();
+    const formattedDate = date_ob.format("YYYY-MM-DD HH:mm:ss");
+
+    const ip = "";
+
+    const fields = `
+      password='${hashedPassword}',
+      reset_otp=NULL,
+      otp_expiry=NULL,
+      modified_at='${formattedDate}',
+      modified_by='${user_id}',
+      modified_ip='${ip}'
+    `;
+
+    const updateWhere = `
+      user_id='${user_id}'
+      AND user_status='A'
+    `;
+
+    await db_Insert(table_name, fields, null, updateWhere, 1);
+
+    return res.json({
+      success: true,
+      message: "Password Changed Successfully",
+    });
+  } catch (error) {
+    console.error(error);
+
+    return res.json({
+      success: false,
+      message: "Server Error",
+    });
+  }
 });
 
 app.get("*", function (req, res) {
@@ -238,9 +334,9 @@ app.get("*", function (req, res) {
 // });
 
 server.listen(port, (err) => {
- var pass = bcrypt.hashSync('1234', 10);
+  var pass = bcrypt.hashSync("1234", 10);
   if (err) throw err;
   else console.log(`App is running at port ${port}`);
-   
+
   console.log(pass);
 });
