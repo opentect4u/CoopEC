@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-<% if(path != '/login' && path != '/404'){ %>
+<% if(path != '/login' && path != '/404' && path != '/forgot-password'){ %>
     <%- include('header.ejs') %>
 <% }else{ %>
     <%- include('login_header.ejs') %>
 <% } %>
     <body>
         <div class="container-scroller">
-            <% if(path != '/login' && path != '/404'){ %> 
+            <% if(path != '/login' && path != '/404' && path != '/forgot-password'){  %> 
                 <%- include('topbar.ejs') %>
                 <div class="container-fluid page-body-wrapper">
                     <%- include('sidenav.ejs') %>
@@ -22,7 +22,7 @@
                 <%- body %>
             <% } %>
         </div>
-        <% if(path != '/login' && path != '/404'){ %>
+        <% if(path != '/login' && path != '/404' && path != '/forgot-password'){ %>
             <%- include('footer_link.ejs') %>
         <% }else{ %>
             <%- include('login_footer_link.ejs') %>
