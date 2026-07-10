@@ -208,14 +208,16 @@ function Home() {
 	return (
 		<>
 			<BannerSlider />
-			<div className='election_keyMember'><img src={`${election_key_persion}`} alt="" /></div>
+			
+			{/* <div className='election_keyMember'><img src={`${election_key_persion}`} alt="" /></div> */}
+
 			{/* <div className="wrapper">
 				<div className="col-sm-12">
 					<Anouncement />
 				</div>
 			</div> */}
 
-			<div className="body_custom" id="main_info_content">
+			<div className="body_custom body_custom_home" id="main_info_content">
 
 				<div className="wrapper map_sec_main">
 					<div className="col-sm-12">

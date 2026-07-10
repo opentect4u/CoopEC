@@ -192,7 +192,7 @@ width: 100%; padding:0;}
   display: inline-block;
 }
 
-.left_search_sec{padding-top: 38px; padding-bottom: 38px !important;}
+.left_search_sec{padding-top: 38px; padding-bottom: 20px !important;}
 
 .search_icon{border: none;
   border-radius: 3px;
@@ -1702,3 +1702,10 @@ border-radius: 6px;}
 
   .election_keyMember{width: 100%; text-align: center; padding-top: 40px; padding-bottom: 0;}
   .election_keyMember img{max-width: 750px; width: 100%;}
+
+
+.body_custom_home{display: inline-block; width: 100%;}
+
+
+
+
