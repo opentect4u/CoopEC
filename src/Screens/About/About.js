@@ -77,7 +77,7 @@ function About() {
 <h3>Our Vision</h3>
 <p>As a member of the WBCEC, we are proud to be playing a key role in preserving the spirit of democracy in cooperative societies. The main vision of the West Bengal Cooperative Election Commission (WBCEC) is to establish democratic governance in the cooperative sector by creating a robust electoral framework. We aim to make this election process as transparent and accessible as possible encouraging active participation from all cooperative members. In doing so, we strive to strengthen the cooperative movement, which has a rich legacy of contributing to economic and social development in West Bengal.</p>
 
-<div className='election_keyMember'><img src={`${election_key_persion}`} alt="" /></div>
+{/* <div className='election_keyMember'><img src={`${election_key_persion}`} alt="" /></div>*/}
 
     {/* {loading ?(
       <Loader align = {'center'} gap = {'middle'} size = {'large'} />

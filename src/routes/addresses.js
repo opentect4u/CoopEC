@@ -1,4 +1,7 @@
 import { BASE_URL } from "./config";
+import { createRequire } from 'module';
+
+const require = createRequire(import.meta.url);
 
 export const ADDRESSES = {
   // LOGIN: `${BASE_URL}/auth/login`,
